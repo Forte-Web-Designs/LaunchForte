@@ -40,7 +40,8 @@
         .case-study{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:2rem;margin-bottom:1.25rem}
         .cs-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
         .cs-top{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.3rem}
-        .cs-stage{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:4px;border:1px solid}
+        .cs-stage{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:4px;border:1px solid;text-decoration:none}
+        .cs-stage:hover{opacity:0.8;text-decoration:none}
         .cs-stage.stage-foundation{color:#8a8578;border-color:#8a8578;background:rgba(138,133,120,0.08)}
         .cs-stage.stage-launch{color:var(--accent);border-color:var(--accent);background:rgba(0,136,219,0.08)}
         .cs-stage.stage-growth{color:#5fb88a;border-color:#5fb88a;background:rgba(95,184,138,0.08)}
@@ -125,7 +126,7 @@
         <div class="case-study">
             <div class="cs-header">
                 <div>
-                    <div class="cs-top"><span class="cs-stage stage-growth">Growth</span></div>
+                    <div class="cs-top"><a href="/services.html#growth" class="cs-stage stage-growth">Growth</a></div>
                     <div class="cs-client">Revolut</div>
                     <div class="cs-meta">Fintech &middot; 2 weeks &middot; AI Data Pipeline</div>
                 </div>
@@ -143,7 +144,7 @@
         <div class="case-study">
             <div class="cs-header">
                 <div>
-                    <div class="cs-top"><span class="cs-stage stage-scale">Scale</span></div>
+                    <div class="cs-top"><a href="/services.html#scale" class="cs-stage stage-scale">Scale</a></div>
                     <div class="cs-client">CR Deals Cincinnati</div>
                     <div class="cs-meta">E-commerce &middot; 3 weeks &middot; AI Listing Automation</div>
                 </div>
@@ -161,25 +162,7 @@
         <div class="case-study">
             <div class="cs-header">
                 <div>
-                    <div class="cs-top"><span class="cs-stage stage-foundation">Foundation</span></div>
-                    <div class="cs-client">Hollow Bamboo</div>
-                    <div class="cs-meta">Film Production &middot; 4 weeks &middot; Custom Inventory System</div>
-                </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">20+ hrs</span>
-                    <span class="cs-metric-label">saved weekly</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Film Production</span><span class="cs-tag">Custom Software</span><span class="cs-tag">Inventory</span>
-            </div>
-            <p class="cs-body">Custom inventory system with QR code mobile access replaced paper lists and constant texting. Equipment tracked across 6 locations.</p>
-        </div>
-
-        <div class="case-study">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-growth">Growth</span></div>
+                    <div class="cs-top"><a href="/services.html#growth" class="cs-stage stage-growth">Growth</a></div>
                     <div class="cs-client">Modern Bungalow</div>
                     <div class="cs-meta">E-commerce &middot; 2 weeks &middot; Email Automation</div>
                 </div>
@@ -197,79 +180,25 @@
         <div class="case-study">
             <div class="cs-header">
                 <div>
-                    <div class="cs-top"><span class="cs-stage stage-growth">Growth</span></div>
-                    <div class="cs-client">Kingfisher Ads</div>
-                    <div class="cs-meta">Agency &middot; 1 week &middot; Reporting Dashboard</div>
+                    <div class="cs-top"><a href="/services.html#foundation" class="cs-stage stage-foundation">Foundation</a></div>
+                    <div class="cs-client">Hollow Bamboo</div>
+                    <div class="cs-meta">Film Production &middot; 4 weeks &middot; Custom Inventory System</div>
                 </div>
                 <div class="cs-metric">
-                    <span class="cs-metric-num">15 min</span>
-                    <span class="cs-metric-label">reports delivered</span>
+                    <span class="cs-metric-num">20+ hrs</span>
+                    <span class="cs-metric-label">saved weekly</span>
                 </div>
             </div>
             <div class="cs-tags">
-                <span class="cs-tag">Agency</span><span class="cs-tag">Reporting</span><span class="cs-tag">Google Ads</span><span class="cs-tag">Meta</span>
+                <span class="cs-tag">Film Production</span><span class="cs-tag">Custom Software</span><span class="cs-tag">Inventory</span>
             </div>
-            <p class="cs-body">Automated monthly ad spend reports pull from Google Ads and Meta, calculate metrics, and land in clients' inboxes automatically.</p>
+            <p class="cs-body">Custom inventory system with QR code mobile access replaced paper lists and constant texting. Equipment tracked across 6 locations.</p>
         </div>
 
         <div class="case-study">
             <div class="cs-header">
                 <div>
-                    <div class="cs-top"><span class="cs-stage stage-growth">Growth</span></div>
-                    <div class="cs-client">Prediction Market Trader</div>
-                    <div class="cs-meta">Finance &middot; Ongoing &middot; ML Pipeline</div>
-                </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">100s</span>
-                    <span class="cs-metric-label">markets analyzed daily</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Finance</span><span class="cs-tag">AI/ML</span><span class="cs-tag">Data Analysis</span>
-            </div>
-            <p class="cs-body">Machine learning pipeline that analyzes market data, identifies patterns, and generates probability forecasts. Hundreds of markets analyzed daily.</p>
-        </div>
-
-        <div class="case-study">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-foundation">Foundation</span></div>
-                    <div class="cs-client">KlnBros Agency</div>
-                    <div class="cs-meta">Agency &middot; Emergency &middot; Disaster Recovery</div>
-                </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">99.7%</span>
-                    <span class="cs-metric-label">data recovered</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Infrastructure</span><span class="cs-tag">Emergency</span><span class="cs-tag">Disaster Recovery</span>
-            </div>
-            <p class="cs-body">When their server crashed and database corrupted, we recovered 99.7% of data and restored 43 workflows. Back online in 2 hours with proper disaster prevention implemented.</p>
-        </div>
-
-        <div class="case-study">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-scale">Scale</span></div>
-                    <div class="cs-client">San Florida</div>
-                    <div class="cs-meta">Enterprise &middot; 6 weeks &middot; Security Infrastructure</div>
-                </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">1,040</span>
-                    <span class="cs-metric-label">users migrated</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Enterprise</span><span class="cs-tag">Security</span><span class="cs-tag">SSO</span><span class="cs-tag">MFA</span>
-            </div>
-            <p class="cs-body">Enterprise security implementation with zero downtime migration. One login for all applications, phishing-resistant authentication.</p>
-        </div>
-
-        <div class="case-study">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-scale">Scale</span></div>
+                    <div class="cs-top"><a href="/services.html#scale" class="cs-stage stage-scale">Scale</a></div>
                     <div class="cs-client">Eden Medical</div>
                     <div class="cs-meta">Healthcare &middot; 4 weeks &middot; AI Chatbot</div>
                 </div>
@@ -287,7 +216,61 @@
         <div class="case-study">
             <div class="cs-header">
                 <div>
-                    <div class="cs-top"><span class="cs-stage stage-growth">Growth</span></div>
+                    <div class="cs-top"><a href="/services.html#scale" class="cs-stage stage-scale">Scale</a></div>
+                    <div class="cs-client">San Florida</div>
+                    <div class="cs-meta">Enterprise &middot; 6 weeks &middot; Security Infrastructure</div>
+                </div>
+                <div class="cs-metric">
+                    <span class="cs-metric-num">1,040</span>
+                    <span class="cs-metric-label">users migrated</span>
+                </div>
+            </div>
+            <div class="cs-tags">
+                <span class="cs-tag">Enterprise</span><span class="cs-tag">Security</span><span class="cs-tag">SSO</span><span class="cs-tag">MFA</span>
+            </div>
+            <p class="cs-body">Enterprise security implementation with zero downtime migration. One login for all applications, phishing-resistant authentication.</p>
+        </div>
+
+        <div class="case-study">
+            <div class="cs-header">
+                <div>
+                    <div class="cs-top"><a href="/services.html#growth" class="cs-stage stage-growth">Growth</a></div>
+                    <div class="cs-client">Kingfisher Ads</div>
+                    <div class="cs-meta">Agency &middot; 1 week &middot; Reporting Dashboard</div>
+                </div>
+                <div class="cs-metric">
+                    <span class="cs-metric-num">15 min</span>
+                    <span class="cs-metric-label">reports delivered</span>
+                </div>
+            </div>
+            <div class="cs-tags">
+                <span class="cs-tag">Agency</span><span class="cs-tag">Reporting</span><span class="cs-tag">Google Ads</span><span class="cs-tag">Meta</span>
+            </div>
+            <p class="cs-body">Automated monthly ad spend reports pull from Google Ads and Meta, calculate metrics, and land in clients' inboxes automatically.</p>
+        </div>
+
+        <div class="case-study">
+            <div class="cs-header">
+                <div>
+                    <div class="cs-top"><a href="/services.html#foundation" class="cs-stage stage-foundation">Foundation</a></div>
+                    <div class="cs-client">KlnBros Agency</div>
+                    <div class="cs-meta">Agency &middot; Emergency &middot; Disaster Recovery</div>
+                </div>
+                <div class="cs-metric">
+                    <span class="cs-metric-num">99.7%</span>
+                    <span class="cs-metric-label">data recovered</span>
+                </div>
+            </div>
+            <div class="cs-tags">
+                <span class="cs-tag">Infrastructure</span><span class="cs-tag">Emergency</span><span class="cs-tag">Disaster Recovery</span>
+            </div>
+            <p class="cs-body">When their server crashed and database corrupted, we recovered 99.7% of data and restored 43 workflows. Back online in 2 hours with proper disaster prevention implemented.</p>
+        </div>
+
+        <div class="case-study">
+            <div class="cs-header">
+                <div>
+                    <div class="cs-top"><a href="/services.html#growth" class="cs-stage stage-growth">Growth</a></div>
                     <div class="cs-client">UDI Group</div>
                     <div class="cs-meta">Enterprise &middot; 3 weeks &middot; Knowledge Base Migration</div>
                 </div>
@@ -300,24 +283,6 @@
                 <span class="cs-tag">Enterprise</span><span class="cs-tag">Power Platform</span><span class="cs-tag">Documentation</span>
             </div>
             <p class="cs-body">SOP migration system from Trainual to SharePoint with Power Automate flows. Internal knowledge base used daily by the whole team.</p>
-        </div>
-
-        <div class="case-study">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-growth">Growth</span></div>
-                    <div class="cs-client">Emi Kirschner Coaching</div>
-                    <div class="cs-meta">Coaching &middot; 2 weeks &middot; CRM Setup</div>
-                </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">Full</span>
-                    <span class="cs-metric-label">CRM foundation</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Coaching</span><span class="cs-tag">CRM</span><span class="cs-tag">Email Automation</span>
-            </div>
-            <p class="cs-body">ActiveCampaign foundation build, contact cleanup, quiz funnel strategy, and onboarding automation design.</p>
         </div>
 
     </div>
