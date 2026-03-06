@@ -70,11 +70,10 @@
 
         /* Results list */
         .results-list{border-top:1px solid var(--border)}
-        .result-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:color 0.15s}
+        .result-row{display:flex;flex-direction:column;gap:0.3rem;padding:1.1rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:color 0.15s}
         .result-row:hover .result-client{color:var(--accent)}
-        .result-client{font-weight:600;color:var(--text-primary);flex:1;min-width:0}
-        .result-metric{font-size:0.9rem;font-weight:600;color:var(--text-secondary);flex-shrink:0}
-        .result-arrow{color:var(--border);margin-left:0.5rem;flex-shrink:0}
+        .result-client{font-weight:600;color:var(--text-primary)}
+        .result-metric{font-size:0.9rem;color:var(--text-secondary);line-height:1.6}
 
         /* Review cards */
         .review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
@@ -162,11 +161,36 @@
     <div style="margin-bottom:2.5rem;text-align:center;">
         <h1 class="rotating-tagline animate-fade-up animate-delay-1">Business Growth Isn't Luck. It's <span class="rotating-word">A System</span></h1>
         <p class="body-text animate-fade-up animate-delay-2" style="font-size:1.1rem;max-width:640px;margin-left:auto;margin-right:auto;">
-            We build the systems that turn traffic into leads, eliminate manual work, and make growth repeatable.
+            Automation infrastructure for growing businesses. We handle the build so your team can focus on what actually matters.
         </p>
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;" class="animate-fade-up animate-delay-3">
             <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call</a>
             <a href="/work.html" class="btn-secondary">See Our Work</a>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- CAPABILITIES -->
+    <div class="reveal">
+        <p class="section-title">What We Build</p>
+        <div class="stage-grid">
+            <div class="stage-card" style="border-left:none;">
+                <div class="stage-title">CRM and Business Infrastructure</div>
+                <p>The central system your team works in every day. Pipeline, payments, tracking, and integrations.</p>
+            </div>
+            <div class="stage-card" style="border-left:none;">
+                <div class="stage-title">Workflow Automation</div>
+                <p>Take a manual process that eats hours every week and make it run itself. Data entry, follow-ups, reporting, approvals.</p>
+            </div>
+            <div class="stage-card" style="border-left:none;">
+                <div class="stage-title">Lead Generation Systems</div>
+                <p>Ads, funnels, nurture sequences, outbound email, and inbound capture. Traffic in, customers out.</p>
+            </div>
+            <div class="stage-card" style="border-left:none;">
+                <div class="stage-title">AI-Powered Tools</div>
+                <p>Voice agents that answer calls 24/7, chatbots that route leads, and document search that finds answers in seconds.</p>
+            </div>
         </div>
     </div>
 
@@ -179,42 +203,53 @@
             <a href="/foundation.html" class="stage-card stage-foundation">
                 <div class="stage-number">1</div>
                 <div class="stage-title">Foundation</div>
-                <div class="stage-tagline">Get your system built and everything connected.</div>
-                <p>CRM, payment processing, email deliverability, booking forms, lead tracking.</p>
+                <div class="stage-tagline">Your tools don't talk to each other. We fix that.</div>
+                <p>CRM setup, payment processing, email authentication, booking, tracking, and the integrations that tie everything together. The operating system everything else plugs into.</p>
                 <span class="stage-link">Learn more &rarr;</span>
             </a>
             <a href="/launch.html" class="stage-card stage-launch">
                 <div class="stage-number">2</div>
                 <div class="stage-title">Launch</div>
-                <div class="stage-tagline">Get people into the system. Start generating revenue.</div>
-                <p>Ad strategy, sales funnels, nurture sequences, booking automation.</p>
+                <div class="stage-tagline">Infrastructure is ready. Now fill it.</div>
+                <p>Ad campaigns, sales funnels, email and SMS sequences, and booking automation. First leads in, first revenue generated.</p>
                 <span class="stage-link">Learn more &rarr;</span>
             </a>
             <a href="/growth.html" class="stage-card stage-growth">
                 <div class="stage-number">3</div>
                 <div class="stage-title">Growth</div>
-                <div class="stage-tagline">Add channels. Convert more. Handle the volume.</div>
-                <p>Multi-channel lead capture, outbound prospecting, after-hours agents, review automation.</p>
+                <div class="stage-tagline">One channel is working. We add more.</div>
+                <p>Outbound cold email, AI voice agents, inbound lead capture, chat routing, and review automation. Multiple sources so you're never dependent on one.</p>
                 <span class="stage-link">Learn more &rarr;</span>
             </a>
             <a href="/scale.html" class="stage-card stage-scale">
                 <div class="stage-number">4</div>
                 <div class="stage-title">Scale</div>
-                <div class="stage-tagline">Optimize what's working. Grow without adding headcount.</div>
-                <p>Reporting dashboards, outbound systems, 24/7 AI agents, content engines.</p>
+                <div class="stage-tagline">Everything is running. Make it visible and hands-off.</div>
+                <p>Ad reporting dashboards, content repurposing pipelines, support routing, and monthly management. Grow without adding staff.</p>
                 <span class="stage-link">Learn more &rarr;</span>
             </a>
         </div>
-        <p style="font-size:0.875rem;color:var(--text-muted);text-align:center;">Web design, landing pages, and conversion funnels available standalone or alongside any stage.</p>
+        <p style="font-size:0.875rem;color:var(--text-muted);text-align:center;">Not sure where you are? Start with a Foundation Review ($750) and we'll tell you exactly what to build and why.</p>
     </div>
 
     <hr class="section-divider">
 
     <!-- CREDIBILITY -->
     <div class="credibility-section reveal">
-        <p style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.12em;text-align:center;margin-bottom:0.85rem;">Trusted by teams at</p>
-        <div class="client-row">
-            Revolut<span class="divider">|</span>Modern Bungalow<span class="divider">|</span>Eden Medical<span class="divider">|</span>Kingfisher Ads<span class="divider">|</span>CR Deals Cincinnati<span class="divider">|</span>Hollow Bamboo<span class="divider">|</span>UDI Group
+        <p class="section-title" style="text-align:center;">By the Numbers</p>
+        <div class="credibility-bar" style="grid-template-columns:1fr 1fr 1fr;">
+            <div class="credibility-item">
+                <span class="stat">12+</span>
+                <span class="label">Industries Served</span>
+            </div>
+            <div class="credibility-item">
+                <span class="stat">60+</span>
+                <span class="label">Automations Delivered</span>
+            </div>
+            <div class="credibility-item">
+                <span class="stat">1,000+</span>
+                <span class="label">Hours Saved for Clients Annually</span>
+            </div>
         </div>
     </div>
 
@@ -225,20 +260,20 @@
         <p class="section-title">Results</p>
         <div class="results-list">
             <a href="/work.html" class="result-row">
-                <span class="result-client">San Florida</span>
-                <span class="result-metric">1,040 users migrated <span class="result-arrow">&rarr;</span></span>
+                <span class="result-client">1,040 users migrated</span>
+                <span class="result-metric">Rebuilt CRM infrastructure and migrated 1,040 contacts with full data cleanup for a cleaning company.</span>
             </a>
             <a href="/work.html" class="result-row">
-                <span class="result-client">UDI Group</span>
-                <span class="result-metric">Daily team-wide adoption <span class="result-arrow">&rarr;</span></span>
+                <span class="result-client">Daily team-wide adoption</span>
+                <span class="result-metric">Built a SharePoint approval system that replaced a manual SOP process across an entire organization.</span>
             </a>
             <a href="/work.html" class="result-row">
-                <span class="result-client">Modern Bungalow</span>
-                <span class="result-metric">60 hrs/month back <span class="result-arrow">&rarr;</span></span>
+                <span class="result-client">60 hrs/month back</span>
+                <span class="result-metric">Automated a Shopify-to-Xero product sync that eliminated 60 hours of monthly manual data entry for a furniture brand.</span>
             </a>
             <a href="/work.html" class="result-row">
-                <span class="result-client">CR Deals Cincinnati</span>
-                <span class="result-metric">$52K/year saved <span class="result-arrow">&rarr;</span></span>
+                <span class="result-client">$52K/year saved</span>
+                <span class="result-metric">Replaced a manual collections process with automated follow-up workflows, saving $52K in annual labor costs.</span>
             </a>
         </div>
         <p style="margin-top:1.5rem;"><a href="/work.html">See all case studies &rarr;</a></p>
@@ -253,13 +288,13 @@
             <div class="review-card">
                 <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                 <p class="review-quote">"Seth is my go-to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout."</p>
-                <div class="review-author">Shopify / Xero Client</div>
+                <div class="review-author">Danielle, Modern Bungalow</div>
                 <div class="review-project">Product Sync Automation</div>
             </div>
             <div class="review-card">
                 <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                 <p class="review-quote">"Extremely knowledgeable and patient. He thought outside the box to offer solutions we did not consider. Highly recommend and we will use him again."</p>
-                <div class="review-author">Power Apps Client</div>
+                <div class="review-author">Alex, UDI Group</div>
                 <div class="review-project">Review System Development</div>
             </div>
             <div class="review-card">
@@ -270,9 +305,9 @@
             </div>
             <div class="review-card">
                 <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="review-quote">"Fantastic work. Seth built exactly what we needed and walked us through how everything works so we can maintain it ourselves. Very clear communication, fast delivery, and the result exceeded our expectations."</p>
-                <div class="review-author">SaaS Client</div>
-                <div class="review-project">CRM Integration</div>
+                <p class="review-quote">"If you need an automation specialist, stop looking right now and hire Seth. He will blow your mind with his knowledge and his ability to take your idea and not only understand what you want to achieve but also build on it without ever overwhelming you with jargon. His communication is phenomenal, and you will always know the next steps for your project. I was absolutely blown away by the experience working with Seth, and I highly recommend him!"</p>
+                <div class="review-author">Andrew, Kingfisher Ads</div>
+                <div class="review-project">Automation</div>
             </div>
         </div>
         <p style="margin-top:1.5rem;"><a href="/reviews.html">See all reviews &rarr;</a></p>
@@ -287,7 +322,7 @@
             <img src="/images/about/headshot-6.jpg" alt="Seth Forte" style="width:72px;height:72px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--border);">
             <div>
                 <p style="font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">Seth Forte, Founder</p>
-                <p class="body-text" style="margin-bottom:1rem;">We solve a wide variety of problems for growing businesses: automation, integrations, custom software, and the infrastructure that holds it all together. We start every project by figuring out what the problem is actually costing you. If the math works, we build it. If it doesn't, we'll tell you.</p>
+                <p class="body-text" style="margin-bottom:1rem;">We build automation, integrations, and AI-powered tools for businesses that have outgrown manual processes. Every project starts with what the problem is actually costing you. If the math works, we build it. If it doesn't, we'll tell you.</p>
                 <a href="/about.html" class="btn-secondary" style="font-size:0.875rem;padding:0.55rem 1.25rem;">More about us &rarr;</a>
             </div>
         </div>
