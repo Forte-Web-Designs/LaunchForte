@@ -7,99 +7,175 @@
     <meta name="description" content="Four stages of growth infrastructure: Foundation, Launch, Growth, and Scale. We build the systems that eliminate manual work and make growth repeatable.">
     <link rel="canonical" href="https://launchforte.com/services.html">
     <link rel="icon" href="/images/home/profile-pic.jpg" type="image/jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        :root{--text-primary:#edf2f7;--text-secondary:#94a3b8;--text-muted:#64748b;--accent:#0088DB;--accent-warm:#38b2f5;--background:#0d1117;--background-alt:#121a28;--border:#1e2a3a;--card-bg:#172030}
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:17px;line-height:1.7;color:var(--text-primary);background:var(--background);background-image:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(56,178,245,0.04) 0%,transparent 50%);background-attachment:fixed}
-        a{color:var(--accent);text-decoration:none;transition:color 0.2s ease}
-        a:hover{text-decoration:underline}
-        .reveal{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease}
+        :root{
+            --text-primary:#f0f4f8;
+            --text-secondary:#94a3b8;
+            --text-muted:#64748b;
+            --accent:#0088DB;
+            --accent-hover:#0099f0;
+            --accent-warm:#38b2f5;
+            --accent-glow:rgba(0,136,219,0.15);
+            --background:#0a0e17;
+            --background-alt:#111827;
+            --border:#1e293b;
+            --border-light:#2a3a50;
+            --card-bg:rgba(17,24,39,0.7);
+            --card-bg-solid:#111827;
+            --card-hover:rgba(30,41,59,0.5);
+            --gradient-start:#0088DB;
+            --gradient-end:#38b2f5;
+            --success:#10b981;
+            --radius-sm:8px;
+            --radius-md:12px;
+            --radius-lg:16px;
+            --radius-xl:20px;
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.7;color:var(--text-primary);background:var(--background);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+        body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(56,178,245,0.05) 0%,transparent 50%),radial-gradient(circle at 50% 50%,rgba(0,136,219,0.02) 0%,transparent 70%);pointer-events:none;z-index:0}
+        a{color:var(--accent);text-decoration:none;transition:color 0.25s ease}
+        a:hover{color:var(--accent-hover)}
+
+        /* Animations */
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(0,136,219,0.1)}50%{box-shadow:0 0 40px rgba(0,136,219,0.2)}}
+        .animate-fade-in{animation:fadeIn 0.8s ease forwards}
+        .animate-fade-up{animation:fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
+        .animate-delay-1{animation-delay:0.15s;opacity:0}
+        .animate-delay-2{animation-delay:0.3s;opacity:0}
+        .animate-delay-3{animation-delay:0.45s;opacity:0}
+        .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1)}
         .reveal.revealed{opacity:1;transform:translateY(0)}
-        .site-header{position:sticky;top:0;z-index:100;background:var(--background);border-bottom:1px solid var(--border)}
-        .header-container{max-width:1000px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
-        .header-logo{text-decoration:none;display:flex;align-items:center}
-        .header-logo:hover{opacity:0.85;text-decoration:none}
-        .logo-img{height:90px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
+
+        /* Header */
+        .site-header{position:sticky;top:0;z-index:100;background:rgba(10,14,23,0.8);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);border-bottom:1px solid rgba(30,41,59,0.5)}
+        .header-container{max-width:1100px;margin:0 auto;padding:0.875rem 2rem;display:flex;align-items:center;justify-content:space-between}
+        .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
+        .header-logo:hover{opacity:0.85}
+        .logo-img{height:80px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
         .logo-img-light{display:none}
         [data-theme="light"] .logo-img-dark{display:none}
         [data-theme="light"] .logo-img-light{display:block}
-        .header-nav{display:flex;gap:1.5rem;align-items:center}
-        .header-nav a{color:var(--text-secondary);font-size:0.9rem;text-decoration:none;transition:color 0.2s ease}
-        .header-nav a:hover,.header-nav a.active{color:var(--text-primary)}
-        .main-content{max-width:860px;margin:0 auto;padding:5rem 2rem 6rem}
-        .section-divider{border:none;border-top:1px solid var(--border);margin:4rem 0}
-        .section-title{font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:2.5rem}
-        .body-text{color:var(--text-secondary);margin-bottom:1.75rem;line-height:1.8}
-        .page-title{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em}
-        .btn-primary{display:inline-block;background:var(--accent);color:#fff;padding:0.75rem 1.75rem;border-radius:6px;font-size:0.95rem;font-weight:500;transition:transform 0.2s ease,box-shadow 0.2s ease;text-decoration:none}
-        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,136,219,0.35);text-decoration:none}
-        .btn-secondary{display:inline-block;border:1px solid var(--border);color:var(--text-secondary);padding:0.75rem 1.75rem;border-radius:6px;font-size:0.95rem;font-weight:500;transition:all 0.2s ease;text-decoration:none}
-        .btn-secondary:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+        .header-nav{display:flex;gap:0.25rem;align-items:center}
+        .header-nav a{color:var(--text-secondary);font-size:0.875rem;font-weight:500;text-decoration:none;padding:0.5rem 0.875rem;border-radius:var(--radius-sm);transition:color 0.2s ease,background 0.2s ease}
+        .header-nav a:hover{color:var(--text-primary);background:rgba(255,255,255,0.05)}
+        .header-nav a.active{color:var(--text-primary);background:rgba(0,136,219,0.1)}
 
-        /* Stage cards */
-        .stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.5rem}
-        .stage-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1.75rem;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:border-color 0.2s ease,transform 0.15s ease}
-        .stage-card:hover{transform:translateY(-2px);text-decoration:none}
-        .stage-card.stage-foundation{border-left:4px solid #8a8578}
-        .stage-card.stage-launch{border-left:4px solid var(--accent)}
-        .stage-card.stage-growth{border-left:4px solid #5fb88a}
-        .stage-card.stage-scale{border-left:4px solid var(--accent-warm)}
-        .stage-number{width:28px;height:28px;border-radius:50%;font-size:0.8rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:0.85rem}
-        .stage-foundation .stage-number{background:#8a8578}
-        .stage-launch .stage-number{background:var(--accent)}
-        .stage-growth .stage-number{background:#5fb88a}
-        .stage-scale .stage-number{background:var(--accent-warm)}
-        .stage-title{font-size:1.1rem;font-weight:700;margin-bottom:0.2rem;color:var(--text-primary)}
-        .stage-tagline{font-size:0.875rem;color:var(--text-secondary);font-style:italic;margin-bottom:0.75rem}
-        .stage-card p{color:var(--text-secondary);font-size:0.9rem;line-height:1.6;flex:1}
-        .stage-link{font-size:0.85rem;color:var(--accent);margin-top:1rem;display:inline-block}
+        /* Main */
+        .main-content{max-width:960px;margin:0 auto;padding:0 2rem 6rem;position:relative;z-index:1}
+
+        /* Section spacing */
+        .section{padding:5rem 0}
+        .section + .section{border-top:1px solid var(--border)}
+        .section-label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1.5rem}
+        .section-label::before{content:'';width:20px;height:1px;background:var(--accent)}
+        .body-text{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8;font-size:0.9375rem}
+
+        /* Buttons */
+        .btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,var(--accent),var(--accent-hover));color:#fff;padding:0.8rem 1.75rem;border-radius:var(--radius-sm);font-size:0.9375rem;font-weight:600;font-family:inherit;transition:transform 0.2s ease,box-shadow 0.3s ease;text-decoration:none;border:none;cursor:pointer;position:relative;overflow:hidden}
+        .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,0.1));opacity:0;transition:opacity 0.3s ease}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,136,219,0.4);color:#fff}
+        .btn-primary:hover::after{opacity:1}
+        .btn-primary:active{transform:translateY(0)}
+        .btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--border-light);color:var(--text-secondary);padding:0.8rem 1.75rem;border-radius:var(--radius-sm);font-size:0.9375rem;font-weight:500;transition:all 0.25s ease;text-decoration:none;background:transparent}
+        .btn-secondary:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,136,219,0.05)}
+
+        /* Hero */
+        .hero{padding:6rem 0 5rem;text-align:center}
+        .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,136,219,0.08);border:1px solid rgba(0,136,219,0.2);border-radius:100px;padding:0.4rem 1rem;font-size:0.8rem;font-weight:500;color:var(--accent);margin-bottom:2rem;backdrop-filter:blur(10px)}
+        .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-glow 2s ease infinite}
+        .hero h1{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;color:var(--text-primary);margin-bottom:1.5rem;letter-spacing:-0.03em;line-height:1.15}
+        .hero-subtitle{font-size:clamp(1rem,2vw,1.15rem);color:var(--text-secondary);max-width:640px;margin:0 auto 2.5rem;line-height:1.8}
+        .hero-buttons{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center}
 
         /* Stage sections */
-        .stage-section{margin-bottom:4rem}
-        .stage-label{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem}
+        .stage-section-block{position:relative}
+        .stage-label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1.5rem}
+        .stage-label::before{content:'';width:20px;height:1px}
         .stage-label-foundation{color:#8a8578}
+        .stage-label-foundation::before{background:#8a8578}
         .stage-label-launch{color:var(--accent)}
-        .stage-label-growth{color:#5fb88a}
+        .stage-label-launch::before{background:var(--accent)}
+        .stage-label-growth{color:#10b981}
+        .stage-label-growth::before{background:#10b981}
         .stage-label-scale{color:var(--accent-warm)}
-        .stage-headline{font-size:1.4rem;font-weight:700;color:var(--text-primary);margin-bottom:1rem}
-        .cap-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}
-        .cap-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1.25rem}
-        .cap-card-title{font-size:0.95rem;font-weight:600;color:var(--text-primary);margin-bottom:0.4rem}
-        .cap-card p{font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0}
-        .stage-cta{font-size:0.875rem;color:var(--text-muted);margin-top:1.25rem;line-height:1.7}
+        .stage-label-scale::before{background:var(--accent-warm)}
+        .stage-headline{font-size:clamp(1.25rem,3vw,1.5rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em}
+
+        /* Capability cards */
+        .cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.5rem 0}
+        .cap-card{background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease}
+        .cap-card:hover{border-color:var(--border-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+        .cap-card-title{font-size:0.9375rem;font-weight:600;color:var(--text-primary);margin-bottom:0.4rem}
+        .cap-card p{font-size:0.875rem;color:var(--text-secondary);line-height:1.7;margin:0}
+        .cap-card-full{grid-column:1/-1}
+
+        /* Stage accent borders */
+        .stage-foundation .cap-card{border-top:2px solid rgba(138,133,120,0.3)}
+        .stage-foundation .cap-card:hover{border-color:#8a8578}
+        .stage-launch-section .cap-card{border-top:2px solid rgba(0,136,219,0.3)}
+        .stage-launch-section .cap-card:hover{border-color:var(--accent)}
+        .stage-growth-section .cap-card{border-top:2px solid rgba(16,185,129,0.3)}
+        .stage-growth-section .cap-card:hover{border-color:#10b981}
+        .stage-scale-section .cap-card{border-top:2px solid rgba(56,178,245,0.3)}
+        .stage-scale-section .cap-card:hover{border-color:var(--accent-warm)}
+
+        .stage-cta{font-size:0.875rem;color:var(--text-muted);margin-top:1.5rem;line-height:1.8}
+
+        /* How We Work */
+        .how-headline{font-size:clamp(1.25rem,3vw,1.5rem);font-weight:700;color:var(--text-primary);margin-bottom:1.5rem;letter-spacing:-0.02em}
 
         /* Calendly */
-        .calendly-wrap{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:1.5rem}
+        .calendly-wrap{background:var(--card-bg-solid);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-top:1.5rem}
         .calendly-wrap iframe{display:block;border:none;width:100%;min-height:630px}
 
         /* Footer */
         .footer-section{margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)}
-        .footer-email-main{color:var(--text-secondary);font-size:1rem;margin-bottom:2.5rem;display:block}
+        .footer-email-main{color:var(--text-secondary);font-size:1rem;margin-bottom:2.5rem;display:inline-block;transition:color 0.2s ease}
+        .footer-email-main:hover{color:var(--accent)}
         .footer-columns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-bottom:2.5rem}
-        .footer-col h4{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem}
+        .footer-col h4{font-size:0.7rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
         .footer-col ul{list-style:none}
         .footer-col li{margin-bottom:0.5rem}
-        .footer-col a{color:var(--text-secondary);font-size:0.9rem}
+        .footer-col a{color:var(--text-secondary);font-size:0.875rem;transition:color 0.2s ease}
         .footer-col a:hover{color:var(--accent)}
         .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border)}
-        .footer-location{color:var(--text-muted);font-size:0.85rem;margin-bottom:0.35rem}
-        .copyright{color:var(--text-muted);font-size:0.85rem}
+        .footer-location{color:var(--text-muted);font-size:0.8125rem;margin-bottom:0.35rem}
+        .copyright{color:var(--text-muted);font-size:0.8125rem}
 
+        /* Link arrow */
+        .link-arrow{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.875rem;font-weight:500;color:var(--accent);transition:gap 0.2s ease}
+        .link-arrow:hover{gap:0.7rem;color:var(--accent-hover)}
+
+        /* Responsive */
         @media(max-width:768px){
             .header-container{padding:0.75rem 1.25rem}
-            .header-nav{gap:0.85rem}
-            .header-nav a{font-size:0.82rem}
-            .main-content{padding:3rem 1.25rem 4rem}
-            .stage-grid{grid-template-columns:1fr}
+            .header-nav{gap:0.25rem}
+            .header-nav a{font-size:0.8rem;padding:0.4rem 0.6rem}
+            .main-content{padding:0 1.25rem 4rem}
+            .hero{padding:4rem 0 3.5rem}
+            .hero h1{font-size:clamp(1.75rem,6vw,2.5rem)}
             .cap-grid{grid-template-columns:1fr}
+            .cap-card-full{grid-column:auto}
             .footer-columns{grid-template-columns:1fr 1fr}
+            .section{padding:3.5rem 0}
         }
         @media(max-width:480px){
+            .hero{padding:3rem 0 2.5rem}
             .footer-columns{grid-template-columns:1fr}
+            .hero-buttons{flex-direction:column;align-items:center}
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary{width:100%;justify-content:center}
         }
-        .footer-tools-row{margin:0 0 2rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}.footer-tools-row h4{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.85rem}.footer-tool-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem}.footer-tool-tags span{background:var(--background-alt);border:1px solid var(--border);border-radius:4px;padding:0.2rem 0.55rem;font-size:0.75rem;color:var(--text-muted)}.footer-tools-note{font-size:0.8rem;color:var(--text-muted);font-style:italic}
     </style>
 </head>
 <body>
@@ -113,7 +189,7 @@
         </a>
         <nav class="header-nav">
             <a href="/index.html">Home</a>
-            <a href="/services.html">Services</a>
+            <a href="/services.html" class="active">Services</a>
             <a href="/work.html">Work</a>
             <a href="/reviews.html">Reviews</a>
             <a href="/writing.html">Writing</a>
@@ -126,21 +202,21 @@
 <main class="main-content">
 
     <!-- HERO -->
-    <div style="margin-bottom:4rem;text-align:center;">
-        <p class="section-title">Services</p>
-        <h1 class="page-title">Every business is at one of four stages.<br>The stage determines what to build.</h1>
-        <p class="body-text" style="font-size:1.1rem;max-width:640px;margin-left:auto;margin-right:auto">
+    <div class="hero">
+        <div class="hero-badge animate-fade-up"><span class="hero-badge-dot"></span> Growth Infrastructure</div>
+        <h1 class="animate-fade-up animate-delay-1">Every business is at one of four stages.<br>The stage determines what to build.</h1>
+        <p class="hero-subtitle animate-fade-up animate-delay-2">
             Most businesses don't have a growth problem. They have a systems problem. We build the infrastructure that fixes it.
         </p>
-        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;">
-            <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call</a>
+        <div class="hero-buttons animate-fade-up animate-delay-3">
+            <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call &rarr;</a>
             <a href="/work.html" class="btn-secondary">See Our Work</a>
         </div>
     </div>
 
     <!-- STAGE 1: FOUNDATION -->
-    <div id="foundation" class="stage-section reveal">
-        <p class="stage-label stage-label-foundation">Stage 1 - Foundation</p>
+    <div id="foundation" class="section stage-section-block stage-foundation reveal">
+        <span class="stage-label stage-label-foundation">Stage 1 - Foundation</span>
         <h2 class="stage-headline">Your tools don't talk to each other. We fix that.</h2>
         <p class="body-text">You have a CRM nobody configured, a Calendly that isn't connected to anything, payments running through Stripe with no automation on the other side, and emails landing in spam. Your team is doing everything manually because nobody built the system those tools were supposed to plug into. We build the operating system your business runs on.</p>
         <div class="cap-grid">
@@ -160,7 +236,7 @@
                 <div class="cap-card-title">Tracking and Attribution</div>
                 <p>Google Analytics, Meta Pixel, conversion events verified. Know where your leads come from.</p>
             </div>
-            <div class="cap-card" style="grid-column:1/-1;">
+            <div class="cap-card cap-card-full">
                 <div class="cap-card-title">Workflow Automation</div>
                 <p>Take a manual process that eats hours every week and make it run itself. Data entry, follow-ups, approvals, notifications.</p>
             </div>
@@ -168,11 +244,9 @@
         <p class="stage-cta">Not sure where to start? <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener">Book a Foundation Review</a>. We map your setup, identify the biggest wins, and give you a prioritized roadmap.</p>
     </div>
 
-    <hr class="section-divider">
-
     <!-- STAGE 2: LAUNCH -->
-    <div id="launch" class="stage-section reveal">
-        <p class="stage-label stage-label-launch">Stage 2 - Launch</p>
+    <div id="launch" class="section stage-section-block stage-launch-section reveal">
+        <span class="stage-label stage-label-launch">Stage 2 - Launch</span>
         <h2 class="stage-headline">Infrastructure is ready. Now fill it.</h2>
         <p class="body-text">Your CRM is built but there's nobody in it. No ads running, no funnel converting, no sequences following up. You have the system but zero leads entering it. We get your first campaigns live and your first revenue flowing through the infrastructure we just built.</p>
         <div class="cap-grid">
@@ -196,11 +270,9 @@
         <p class="stage-cta">Most clients move here right after a Foundation build. <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener">Book a call</a> and we'll scope what your launch looks like.</p>
     </div>
 
-    <hr class="section-divider">
-
     <!-- STAGE 3: GROWTH -->
-    <div id="growth" class="stage-section reveal">
-        <p class="stage-label stage-label-growth">Stage 3 - Growth</p>
+    <div id="growth" class="section stage-section-block stage-growth-section reveal">
+        <span class="stage-label stage-label-growth">Stage 3 - Growth</span>
         <h2 class="stage-headline">One channel is working. We add more.</h2>
         <p class="body-text">Leads are coming in from one source. That source goes down, your pipeline goes dry. We add channels so you're pulling leads from multiple directions at once. Inbound captures people already looking for you. Outbound goes and finds new ones. AI handles the volume around the clock.</p>
         <div class="cap-grid">
@@ -220,7 +292,7 @@
                 <div class="cap-card-title">Review and Reputation Automation</div>
                 <p>Automated review requests after service, sentiment routing (happy customers to Google, unhappy ones to a private form), follow-up reminders.</p>
             </div>
-            <div class="cap-card" style="grid-column:1/-1;">
+            <div class="cap-card cap-card-full">
                 <div class="cap-card-title">Dispatch and Assignment</div>
                 <p>Job comes in, system matches the best contractor or worker, sends outreach in priority order, confirms the assignment. For staffing, field services, and legal operations.</p>
             </div>
@@ -228,11 +300,9 @@
         <p class="stage-cta"><a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener">Book a call</a> and we'll identify which channels will move the needle fastest for your business.</p>
     </div>
 
-    <hr class="section-divider">
-
     <!-- STAGE 4: SCALE -->
-    <div id="scale" class="stage-section reveal">
-        <p class="stage-label stage-label-scale">Stage 4 - Scale</p>
+    <div id="scale" class="section stage-section-block stage-scale-section reveal">
+        <span class="stage-label stage-label-scale">Stage 4 - Scale</span>
         <h2 class="stage-headline">Everything is running. Make it visible and hands-off.</h2>
         <p class="body-text">Multiple channels running, leads converting, revenue growing. But you can't tell which channel has the best ROI, content takes 10 hours a week, and support tickets are piling up. We add the reporting, content engines, and support systems that let you grow without adding headcount.</p>
         <div class="cap-grid">
@@ -256,24 +326,19 @@
         <p class="stage-cta"><a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener">Book a call</a> to discuss what optimization and ongoing management looks like for your business.</p>
     </div>
 
-    <hr class="section-divider">
-
     <!-- HOW WE WORK -->
-    <div class="reveal">
-        <p class="section-title">How We Work</p>
-        <h2 style="font-size:1.4rem;font-weight:700;color:var(--text-primary);margin-bottom:1.5rem;">We start with the math, not the pitch.</h2>
+    <div class="section reveal">
+        <span class="section-label">How We Work</span>
+        <h2 class="how-headline">We start with the math, not the pitch.</h2>
         <p class="body-text">Every engagement starts with a discovery call where we map out exactly what the problem is costing you in time, revenue, and manual work. If the ROI is there, we build it. If it's not, we tell you.</p>
         <p class="body-text">We work in focused sprints with clear deliverables. You know what's being built, when it ships, and what it does. No disappearing for weeks.</p>
         <p class="body-text">When the system is live, we document everything, walk you through it on video, and hand it off. You own it. If you want ongoing management, we offer monthly retainers.</p>
-        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Schedule a Discovery Call</a>
+        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Schedule a Discovery Call &rarr;</a>
     </div>
 
-
-    <hr class="section-divider">
-
     <!-- BOOK A CALL -->
-    <div class="reveal">
-        <p class="section-title">Book a Call</p>
+    <div class="section reveal">
+        <span class="section-label">Book a Call</span>
         <p class="body-text" style="margin-bottom:1.5rem;">Prefer to skip the back and forth? Pick a time and let's talk.</p>
         <div class="calendly-wrap">
             <iframe src="https://calendly.com/seth-fortewebdesigns/30min" title="Book a call with Seth Forte"></iframe>

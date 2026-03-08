@@ -7,87 +7,152 @@
     <meta name="description" content="Get in touch with Launch Forte. Book a discovery call or send a message to discuss your automation and growth system needs.">
     <link rel="canonical" href="https://launchforte.com/contact.html">
     <link rel="icon" href="/images/home/profile-pic.jpg" type="image/jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        :root{--text-primary:#edf2f7;--text-secondary:#94a3b8;--text-muted:#64748b;--accent:#0088DB;--accent-warm:#38b2f5;--background:#0d1117;--background-alt:#121a28;--border:#1e2a3a;--card-bg:#172030}
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:17px;line-height:1.7;color:var(--text-primary);background:var(--background);background-image:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(56,178,245,0.04) 0%,transparent 50%);background-attachment:fixed}
-        a{color:var(--accent);text-decoration:none;transition:color 0.2s ease}
-        a:hover{text-decoration:underline}
-        .reveal{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease}
+        :root{
+            --text-primary:#f0f4f8;
+            --text-secondary:#94a3b8;
+            --text-muted:#64748b;
+            --accent:#0088DB;
+            --accent-hover:#0099f0;
+            --accent-warm:#38b2f5;
+            --accent-glow:rgba(0,136,219,0.15);
+            --background:#0a0e17;
+            --background-alt:#111827;
+            --border:#1e293b;
+            --border-light:#2a3a50;
+            --card-bg:rgba(17,24,39,0.7);
+            --card-bg-solid:#111827;
+            --card-hover:rgba(30,41,59,0.5);
+            --gradient-start:#0088DB;
+            --gradient-end:#38b2f5;
+            --success:#10b981;
+            --radius-sm:8px;
+            --radius-md:12px;
+            --radius-lg:16px;
+            --radius-xl:20px;
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.7;color:var(--text-primary);background:var(--background);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+        body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(56,178,245,0.05) 0%,transparent 50%),radial-gradient(circle at 50% 50%,rgba(0,136,219,0.02) 0%,transparent 70%);pointer-events:none;z-index:0}
+        a{color:var(--accent);text-decoration:none;transition:color 0.25s ease}
+        a:hover{color:var(--accent-hover)}
+
+        /* Animations */
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(0,136,219,0.1)}50%{box-shadow:0 0 40px rgba(0,136,219,0.2)}}
+        .animate-fade-in{animation:fadeIn 0.8s ease forwards}
+        .animate-fade-up{animation:fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
+        .animate-delay-1{animation-delay:0.15s;opacity:0}
+        .animate-delay-2{animation-delay:0.3s;opacity:0}
+        .animate-delay-3{animation-delay:0.45s;opacity:0}
+        .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1)}
         .reveal.revealed{opacity:1;transform:translateY(0)}
-        .site-header{position:sticky;top:0;z-index:100;background:var(--background);border-bottom:1px solid var(--border)}
-        .header-container{max-width:1000px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
-        .header-logo{text-decoration:none;display:flex;align-items:center}
-        .header-logo:hover{opacity:0.85;text-decoration:none}
-        .logo-img{height:90px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
+
+        /* Header */
+        .site-header{position:sticky;top:0;z-index:100;background:rgba(10,14,23,0.8);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);border-bottom:1px solid rgba(30,41,59,0.5)}
+        .header-container{max-width:1100px;margin:0 auto;padding:0.875rem 2rem;display:flex;align-items:center;justify-content:space-between}
+        .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
+        .header-logo:hover{opacity:0.85}
+        .logo-img{height:80px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
         .logo-img-light{display:none}
         [data-theme="light"] .logo-img-dark{display:none}
         [data-theme="light"] .logo-img-light{display:block}
-        .header-nav{display:flex;gap:1.5rem;align-items:center}
-        .header-nav a{color:var(--text-secondary);font-size:0.9rem;text-decoration:none;transition:color 0.2s ease}
-        .header-nav a:hover,.header-nav a.active{color:var(--text-primary)}
-        .main-content{max-width:860px;margin:0 auto;padding:5rem 2rem 6rem}
-        .section-divider{border:none;border-top:1px solid var(--border);margin:4rem 0}
-        .section-title{font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:2.5rem}
-        .body-text{color:var(--text-secondary);margin-bottom:1.75rem;line-height:1.8}
-        .page-title{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em}
-        .btn-primary{display:inline-block;background:var(--accent);color:#fff;padding:0.75rem 1.75rem;border-radius:6px;font-size:0.95rem;font-weight:500;transition:transform 0.2s ease,box-shadow 0.2s ease;text-decoration:none;border:none;cursor:pointer;width:100%}
-        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,136,219,0.35);text-decoration:none}
+        .header-nav{display:flex;gap:0.25rem;align-items:center}
+        .header-nav a{color:var(--text-secondary);font-size:0.875rem;font-weight:500;text-decoration:none;padding:0.5rem 0.875rem;border-radius:var(--radius-sm);transition:color 0.2s ease,background 0.2s ease}
+        .header-nav a:hover{color:var(--text-primary);background:rgba(255,255,255,0.05)}
+        .header-nav a.active{color:var(--text-primary);background:rgba(0,136,219,0.1)}
 
-        /* Contact form */
-        .contact-form-wrap{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:2rem;margin-bottom:1.5rem}
-        .form-group{margin-bottom:1.25rem}
-        .form-label{display:block;font-size:0.82rem;font-weight:600;color:var(--text-secondary);margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.06em}
-        .form-input,.form-textarea,.form-select{width:100%;background:var(--background);border:1px solid var(--border);border-radius:6px;padding:0.7rem 1rem;font-size:0.95rem;color:var(--text-primary);font-family:inherit;transition:border-color 0.2s ease;outline:none}
-        .form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent)}
-        .form-input::placeholder,.form-textarea::placeholder{color:var(--text-muted)}
-        .form-textarea{min-height:130px;resize:vertical;line-height:1.6}
-        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-        .form-success{background:rgba(95,184,138,0.1);border:1px solid #5fb88a;border-radius:8px;padding:1rem 1.25rem;font-size:0.9rem;color:#5fb88a;margin-top:1rem;display:none}
-        .form-error{background:rgba(232,115,74,0.1);border:1px solid var(--accent);border-radius:8px;padding:1rem 1.25rem;font-size:0.9rem;color:var(--accent);margin-top:1rem;display:none}
-        .honeypot{display:none}
+        /* Main */
+        .main-content{max-width:960px;margin:0 auto;padding:0 2rem 6rem;position:relative;z-index:1}
 
-        /* Contact info */
-        .contact-info-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
-        .contact-info-item{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;flex:1;min-width:180px}
-        .contact-info-label{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem}
-        .contact-info-value{font-size:0.9rem;color:var(--text-primary)}
-        .contact-info-value a{color:var(--text-secondary)}
+        /* Section spacing */
+        .section{padding:5rem 0}
+        .section + .section{border-top:1px solid var(--border)}
+        .section-label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1.5rem}
+        .section-label::before{content:'';width:20px;height:1px;background:var(--accent)}
+        .body-text{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8;font-size:0.9375rem}
+
+        /* Buttons */
+        .btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;background:linear-gradient(135deg,var(--accent),var(--accent-hover));color:#fff;padding:0.8rem 1.75rem;border-radius:var(--radius-sm);font-size:0.9375rem;font-weight:600;font-family:inherit;transition:transform 0.2s ease,box-shadow 0.3s ease;text-decoration:none;border:none;cursor:pointer;position:relative;overflow:hidden;width:100%}
+        .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,0.1));opacity:0;transition:opacity 0.3s ease}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,136,219,0.4);color:#fff}
+        .btn-primary:hover::after{opacity:1}
+        .btn-primary:active{transform:translateY(0)}
+
+        /* Hero */
+        .hero{padding:6rem 0 5rem;text-align:center}
+        .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,136,219,0.08);border:1px solid rgba(0,136,219,0.2);border-radius:100px;padding:0.4rem 1rem;font-size:0.8rem;font-weight:500;color:var(--accent);margin-bottom:2rem;backdrop-filter:blur(10px)}
+        .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-glow 2s ease infinite}
+        .page-title{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;color:var(--text-primary);margin-bottom:1.5rem;letter-spacing:-0.03em;line-height:1.15}
+
+        /* Contact info cards */
+        .contact-info-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem}
+        .contact-info-item{background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease}
+        .contact-info-item:hover{border-color:var(--border-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+        .contact-info-icon{width:40px;height:40px;border-radius:var(--radius-sm);background:rgba(0,136,219,0.1);border:1px solid rgba(0,136,219,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.1rem}
+        .contact-info-label{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.4rem}
+        .contact-info-value{font-size:0.9375rem;color:var(--text-primary);font-weight:500}
+        .contact-info-value a{color:var(--text-secondary);transition:color 0.25s ease}
         .contact-info-value a:hover{color:var(--accent)}
 
+        /* Contact form */
+        .contact-form-wrap{background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:2.25rem;transition:border-color 0.3s ease}
+        .form-group{margin-bottom:1.25rem}
+        .form-label{display:block;font-size:0.8125rem;font-weight:600;color:var(--text-secondary);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.08em}
+        .form-input,.form-textarea,.form-select{width:100%;background:rgba(10,14,23,0.5);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1rem;font-size:0.9375rem;color:var(--text-primary);font-family:inherit;transition:border-color 0.3s ease,box-shadow 0.3s ease,background 0.3s ease;outline:none;-webkit-appearance:none;appearance:none}
+        .form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,136,219,0.1);background:rgba(10,14,23,0.8)}
+        .form-input::placeholder,.form-textarea::placeholder{color:var(--text-muted)}
+        .form-textarea{min-height:140px;resize:vertical;line-height:1.7}
+        .form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;background-size:12px;padding-right:2.5rem;cursor:pointer}
+        .form-select option{background:var(--background-alt);color:var(--text-primary)}
+        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+        .form-success{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3);border-radius:var(--radius-sm);padding:1rem 1.25rem;font-size:0.875rem;color:var(--success);margin-top:1rem;display:none;backdrop-filter:blur(10px)}
+        .form-error{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius-sm);padding:1rem 1.25rem;font-size:0.875rem;color:#ef4444;margin-top:1rem;display:none;backdrop-filter:blur(10px)}
+        .honeypot{display:none}
+
         /* Calendly */
-        .calendly-wrap{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+        .calendly-wrap{background:var(--card-bg-solid);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-top:1.5rem}
         .calendly-wrap iframe{display:block;border:none;width:100%;min-height:700px}
 
         /* Footer */
         .footer-section{margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)}
-        .footer-email-main{color:var(--text-secondary);font-size:1rem;margin-bottom:2.5rem;display:block}
+        .footer-email-main{color:var(--text-secondary);font-size:1rem;margin-bottom:2.5rem;display:inline-block;transition:color 0.2s ease}
+        .footer-email-main:hover{color:var(--accent)}
         .footer-columns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-bottom:2.5rem}
-        .footer-col h4{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem}
+        .footer-col h4{font-size:0.7rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
         .footer-col ul{list-style:none}
         .footer-col li{margin-bottom:0.5rem}
-        .footer-col a{color:var(--text-secondary);font-size:0.9rem}
+        .footer-col a{color:var(--text-secondary);font-size:0.875rem;transition:color 0.2s ease}
         .footer-col a:hover{color:var(--accent)}
         .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border)}
-        .footer-location{color:var(--text-muted);font-size:0.85rem;margin-bottom:0.35rem}
-        .copyright{color:var(--text-muted);font-size:0.85rem}
+        .footer-location{color:var(--text-muted);font-size:0.8125rem;margin-bottom:0.35rem}
+        .copyright{color:var(--text-muted);font-size:0.8125rem}
 
+        /* Responsive */
         @media(max-width:768px){
             .header-container{padding:0.75rem 1.25rem}
-            .header-nav{gap:0.85rem}
-            .header-nav a{font-size:0.82rem}
-            .main-content{padding:3rem 1.25rem 4rem}
+            .header-nav{gap:0.25rem}
+            .header-nav a{font-size:0.8rem;padding:0.4rem 0.6rem}
+            .main-content{padding:0 1.25rem 4rem}
+            .hero{padding:4rem 0 3.5rem}
+            .contact-info-row{grid-template-columns:1fr}
             .form-row{grid-template-columns:1fr}
             .calendly-wrap iframe{min-height:600px}
             .footer-columns{grid-template-columns:1fr 1fr}
+            .section{padding:3.5rem 0}
         }
         @media(max-width:480px){
+            .hero{padding:3rem 0 2.5rem}
             .footer-columns{grid-template-columns:1fr}
-            .contact-info-row{flex-direction:column}
         }
-        .footer-tools-row{margin:0 0 2rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}.footer-tools-row h4{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.85rem}.footer-tool-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem}.footer-tool-tags span{background:var(--background-alt);border:1px solid var(--border);border-radius:4px;padding:0.2rem 0.55rem;font-size:0.75rem;color:var(--text-muted)}.footer-tools-note{font-size:0.8rem;color:var(--text-muted);font-style:italic}
     </style>
 </head>
 <body>
@@ -106,7 +171,7 @@
             <a href="/reviews.html">Reviews</a>
             <a href="/writing.html">Writing</a>
             <a href="/about.html">About</a>
-            <a href="/contact.html">Contact</a>
+            <a href="/contact.html" class="active">Contact</a>
         </nav>
     </div>
 </header>
@@ -114,33 +179,39 @@
 <main class="main-content">
 
     <!-- HERO -->
-    <div style="margin-bottom:3.5rem;text-align:center;">
-        <p class="section-title">Contact</p>
-        <h1 class="page-title">Let's talk.</h1>
-        <p class="body-text" style="max-width:560px;margin-left:auto;margin-right:auto">
+    <div class="hero">
+        <div class="hero-badge animate-fade-up"><span class="hero-badge-dot"></span> Get In Touch</div>
+        <h1 class="page-title animate-fade-up animate-delay-1">Let's talk.</h1>
+        <p class="body-text animate-fade-up animate-delay-2" style="max-width:600px;margin-left:auto;margin-right:auto;">
             Send a message below or book a call directly. A  30 minute discovery call is usually the fastest way to figure out if we're a fit and what it would take to solve your problem.
         </p>
     </div>
 
     <!-- CONTACT INFO -->
-    <div class="contact-info-row reveal">
-        <div class="contact-info-item">
-            <div class="contact-info-label">Email</div>
-            <div class="contact-info-value"><a href="mailto:seth@launchforte.com">seth@launchforte.com</a></div>
-        </div>
-        <div class="contact-info-item">
-            <div class="contact-info-label">Location</div>
-            <div class="contact-info-value">Grapevine, TX, Serving nationwide</div>
-        </div>
-        <div class="contact-info-item">
-            <div class="contact-info-label">Response Time</div>
-            <div class="contact-info-value">Within 1 business day</div>
+    <div class="section reveal" style="padding-top:0;">
+        <span class="section-label">Reach Us</span>
+        <div class="contact-info-row">
+            <div class="contact-info-item">
+                <div class="contact-info-icon">&#9993;</div>
+                <div class="contact-info-label">Email</div>
+                <div class="contact-info-value"><a href="mailto:seth@launchforte.com">seth@launchforte.com</a></div>
+            </div>
+            <div class="contact-info-item">
+                <div class="contact-info-icon">&#9906;</div>
+                <div class="contact-info-label">Location</div>
+                <div class="contact-info-value">Grapevine, TX, Serving nationwide</div>
+            </div>
+            <div class="contact-info-item">
+                <div class="contact-info-icon">&#9201;</div>
+                <div class="contact-info-label">Response Time</div>
+                <div class="contact-info-value">Within 1 business day</div>
+            </div>
         </div>
     </div>
 
     <!-- CONTACT FORM -->
-    <div class="reveal">
-        <p class="section-title">Send a Message</p>
+    <div class="section reveal">
+        <span class="section-label">Send a Message</span>
         <div class="contact-form-wrap">
             <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
                 <input type="hidden" name="form-name" value="contact">
@@ -175,7 +246,7 @@
                     <label class="form-label" for="message">Message</label>
                     <textarea class="form-textarea" id="message" name="message" placeholder="Tell me about your project or problem. The more context the better." required></textarea>
                 </div>
-                <button type="submit" class="btn-primary">Send Message</button>
+                <button type="submit" class="btn-primary">Send Message &rarr;</button>
                 <div class="form-success" id="form-success">
                     Message sent, I'll be in touch within 1 business day.
                 </div>
@@ -186,11 +257,9 @@
         </div>
     </div>
 
-    <hr class="section-divider">
-
     <!-- CALENDLY -->
-    <div class="reveal">
-        <p class="section-title">Or Book Directly</p>
+    <div class="section reveal">
+        <span class="section-label">Or Book Directly</span>
         <p class="body-text" style="margin-bottom:1.5rem;">Prefer to skip the back-and-forth? Pick a time that works for you.</p>
         <div class="calendly-wrap">
             <iframe src="https://calendly.com/seth-fortewebdesigns/30min" title="Book a call with Seth Forte"></iframe>

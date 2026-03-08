@@ -7,79 +7,153 @@
     <meta name="description" content="Client reviews and testimonials for Launch Forte. See what businesses say about working with us on automation, integrations, and growth systems.">
     <link rel="canonical" href="https://launchforte.com/reviews.html">
     <link rel="icon" href="/images/home/profile-pic.jpg" type="image/jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        :root{--text-primary:#edf2f7;--text-secondary:#94a3b8;--text-muted:#64748b;--accent:#0088DB;--accent-warm:#38b2f5;--background:#0d1117;--background-alt:#121a28;--border:#1e2a3a;--card-bg:#172030}
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:17px;line-height:1.7;color:var(--text-primary);background:var(--background);background-image:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(56,178,245,0.04) 0%,transparent 50%);background-attachment:fixed}
-        a{color:var(--accent);text-decoration:none;transition:color 0.2s ease}
-        a:hover{text-decoration:underline}
-        .reveal{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease}
+        :root{
+            --text-primary:#f0f4f8;
+            --text-secondary:#94a3b8;
+            --text-muted:#64748b;
+            --accent:#0088DB;
+            --accent-hover:#0099f0;
+            --accent-warm:#38b2f5;
+            --accent-glow:rgba(0,136,219,0.15);
+            --background:#0a0e17;
+            --background-alt:#111827;
+            --border:#1e293b;
+            --border-light:#2a3a50;
+            --card-bg:rgba(17,24,39,0.7);
+            --card-bg-solid:#111827;
+            --card-hover:rgba(30,41,59,0.5);
+            --gradient-start:#0088DB;
+            --gradient-end:#38b2f5;
+            --success:#10b981;
+            --radius-sm:8px;
+            --radius-md:12px;
+            --radius-lg:16px;
+            --radius-xl:20px;
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.7;color:var(--text-primary);background:var(--background);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+        body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(56,178,245,0.05) 0%,transparent 50%),radial-gradient(circle at 50% 50%,rgba(0,136,219,0.02) 0%,transparent 70%);pointer-events:none;z-index:0}
+        a{color:var(--accent);text-decoration:none;transition:color 0.25s ease}
+        a:hover{color:var(--accent-hover)}
+
+        /* Animations */
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(0,136,219,0.1)}50%{box-shadow:0 0 40px rgba(0,136,219,0.2)}}
+        .animate-fade-in{animation:fadeIn 0.8s ease forwards}
+        .animate-fade-up{animation:fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
+        .animate-delay-1{animation-delay:0.15s;opacity:0}
+        .animate-delay-2{animation-delay:0.3s;opacity:0}
+        .animate-delay-3{animation-delay:0.45s;opacity:0}
+        .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1)}
         .reveal.revealed{opacity:1;transform:translateY(0)}
-        .site-header{position:sticky;top:0;z-index:100;background:var(--background);border-bottom:1px solid var(--border)}
-        .header-container{max-width:1000px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
-        .header-logo{text-decoration:none;display:flex;align-items:center}
-        .header-logo:hover{opacity:0.85;text-decoration:none}
-        .logo-img{height:90px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
+
+        /* Header */
+        .site-header{position:sticky;top:0;z-index:100;background:rgba(10,14,23,0.8);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);border-bottom:1px solid rgba(30,41,59,0.5)}
+        .header-container{max-width:1100px;margin:0 auto;padding:0.875rem 2rem;display:flex;align-items:center;justify-content:space-between}
+        .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
+        .header-logo:hover{opacity:0.85}
+        .logo-img{height:80px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
         .logo-img-light{display:none}
         [data-theme="light"] .logo-img-dark{display:none}
         [data-theme="light"] .logo-img-light{display:block}
-        .header-nav{display:flex;gap:1.5rem;align-items:center}
-        .header-nav a{color:var(--text-secondary);font-size:0.9rem;text-decoration:none;transition:color 0.2s ease}
-        .header-nav a:hover,.header-nav a.active{color:var(--text-primary)}
-        .main-content{max-width:860px;margin:0 auto;padding:5rem 2rem 6rem}
-        .section-divider{border:none;border-top:1px solid var(--border);margin:4rem 0}
-        .section-title{font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:2.5rem}
-        .body-text{color:var(--text-secondary);margin-bottom:1.75rem;line-height:1.8}
-        .page-title{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em}
-        .btn-primary{display:inline-block;background:var(--accent);color:#fff;padding:0.75rem 1.75rem;border-radius:6px;font-size:0.95rem;font-weight:500;transition:transform 0.2s ease,box-shadow 0.2s ease;text-decoration:none}
-        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,136,219,0.35);text-decoration:none}
+        .header-nav{display:flex;gap:0.25rem;align-items:center}
+        .header-nav a{color:var(--text-secondary);font-size:0.875rem;font-weight:500;text-decoration:none;padding:0.5rem 0.875rem;border-radius:var(--radius-sm);transition:color 0.2s ease,background 0.2s ease}
+        .header-nav a:hover{color:var(--text-primary);background:rgba(255,255,255,0.05)}
+        .header-nav a.active{color:var(--text-primary);background:rgba(0,136,219,0.1)}
 
-        /* Review cards */
-        .review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
-        .review-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1.5rem}
-        .review-stars{color:var(--accent-warm);font-size:0.85rem;margin-bottom:0.6rem;letter-spacing:2px}
-        .review-quote{font-size:0.9rem;line-height:1.7;color:var(--text-secondary);margin-bottom:0.85rem;font-style:italic}
-        .review-author{font-size:0.8rem;font-weight:600;color:var(--text-primary)}
-        .review-project{font-size:0.75rem;color:var(--text-muted);margin-top:0.1rem}
+        /* Main */
+        .main-content{max-width:960px;margin:0 auto;padding:0 2rem 6rem;position:relative;z-index:1}
+
+        /* Section spacing */
+        .section{padding:5rem 0}
+        .section + .section{border-top:1px solid var(--border)}
+        .section-label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1.5rem}
+        .section-label::before{content:'';width:20px;height:1px;background:var(--accent)}
+        .body-text{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8;font-size:0.9375rem}
+
+        /* Buttons */
+        .btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,var(--accent),var(--accent-hover));color:#fff;padding:0.8rem 1.75rem;border-radius:var(--radius-sm);font-size:0.9375rem;font-weight:600;font-family:inherit;transition:transform 0.2s ease,box-shadow 0.3s ease;text-decoration:none;border:none;cursor:pointer;position:relative;overflow:hidden}
+        .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,0.1));opacity:0;transition:opacity 0.3s ease}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,136,219,0.4);color:#fff}
+        .btn-primary:hover::after{opacity:1}
+        .btn-primary:active{transform:translateY(0)}
+        .btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--border-light);color:var(--text-secondary);padding:0.8rem 1.75rem;border-radius:var(--radius-sm);font-size:0.9375rem;font-weight:500;transition:all 0.25s ease;text-decoration:none;background:transparent}
+        .btn-secondary:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,136,219,0.05)}
+
+        /* Hero */
+        .hero{padding:6rem 0 5rem;text-align:center}
+        .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,136,219,0.08);border:1px solid rgba(0,136,219,0.2);border-radius:100px;padding:0.4rem 1rem;font-size:0.8rem;font-weight:500;color:var(--accent);margin-bottom:2rem;backdrop-filter:blur(10px)}
+        .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-glow 2s ease infinite}
+        .hero h1{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;color:var(--text-primary);margin-bottom:1.5rem;letter-spacing:-0.03em;line-height:1.15}
+        .hero-subtitle{font-size:clamp(1rem,2vw,1.15rem);color:var(--text-secondary);max-width:600px;margin:0 auto 2.5rem;line-height:1.8}
 
         /* Rating summary */
-        .rating-summary{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:2rem;text-align:center;margin-bottom:3rem}
-        .rating-num{font-size:3rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.03em;display:block}
-        .rating-stars{color:var(--accent-warm);font-size:1.1rem;letter-spacing:3px;margin:0.35rem 0}
-        .rating-label{font-size:0.85rem;color:var(--text-muted)}
+        .rating-summary{background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:2.5rem;text-align:center;margin-bottom:2rem;transition:border-color 0.3s ease}
+        .rating-summary:hover{border-color:var(--border-light)}
+        .rating-num{font-size:3.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent-warm));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1;margin-bottom:0.5rem}
+        .rating-stars{color:#f59e0b;font-size:1.25rem;letter-spacing:3px;margin:0.5rem 0}
+        .rating-label{font-size:0.875rem;color:var(--text-muted)}
+
+        /* Review cards */
+        .review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        .review-card{background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.75rem;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease}
+        .review-card:hover{border-color:var(--border-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+        .review-stars{color:#f59e0b;font-size:0.9rem;margin-bottom:0.75rem;letter-spacing:2px}
+        .review-quote{font-size:0.875rem;line-height:1.8;color:var(--text-secondary);margin-bottom:1rem}
+        .review-quote::before{content:'\201C';font-size:1.5rem;color:var(--accent);font-weight:700;line-height:0;vertical-align:-0.3em;margin-right:0.1em}
+        .review-author{font-size:0.8125rem;font-weight:600;color:var(--text-primary)}
+        .review-project{font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem}
 
         /* Calendly */
-        .calendly-wrap{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:1.5rem}
+        .calendly-wrap{background:var(--card-bg-solid);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-top:1.5rem}
         .calendly-wrap iframe{display:block;border:none;width:100%;min-height:630px}
 
         /* Footer */
         .footer-section{margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)}
-        .footer-email-main{color:var(--text-secondary);font-size:1rem;margin-bottom:2.5rem;display:block}
+        .footer-email-main{color:var(--text-secondary);font-size:1rem;margin-bottom:2.5rem;display:inline-block;transition:color 0.2s ease}
+        .footer-email-main:hover{color:var(--accent)}
         .footer-columns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-bottom:2.5rem}
-        .footer-col h4{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem}
+        .footer-col h4{font-size:0.7rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
         .footer-col ul{list-style:none}
         .footer-col li{margin-bottom:0.5rem}
-        .footer-col a{color:var(--text-secondary);font-size:0.9rem}
+        .footer-col a{color:var(--text-secondary);font-size:0.875rem;transition:color 0.2s ease}
         .footer-col a:hover{color:var(--accent)}
         .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border)}
-        .footer-location{color:var(--text-muted);font-size:0.85rem;margin-bottom:0.35rem}
-        .copyright{color:var(--text-muted);font-size:0.85rem}
+        .footer-location{color:var(--text-muted);font-size:0.8125rem;margin-bottom:0.35rem}
+        .copyright{color:var(--text-muted);font-size:0.8125rem}
 
+        /* Voyage badge */
+        .voyage-badge{display:inline-flex;align-items:center;gap:0.55rem;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.6rem 1rem;text-decoration:none;transition:border-color 0.2s ease,transform 0.15s ease}
+        .voyage-badge:hover{border-color:var(--accent);transform:translateY(-1px)}
+        .voyage-badge-star{color:#f59e0b;font-size:1rem;line-height:1}
+        .voyage-badge-text{font-size:0.8125rem;color:var(--text-secondary);line-height:1.3}
+        .voyage-badge-text strong{color:var(--text-primary);font-weight:600}
+
+        /* Responsive */
         @media(max-width:768px){
             .header-container{padding:0.75rem 1.25rem}
-            .header-nav{gap:0.85rem}
-            .header-nav a{font-size:0.82rem}
-            .main-content{padding:3rem 1.25rem 4rem}
+            .header-nav{gap:0.25rem}
+            .header-nav a{font-size:0.8rem;padding:0.4rem 0.6rem}
+            .main-content{padding:0 1.25rem 4rem}
+            .hero{padding:4rem 0 3.5rem}
+            .hero h1{font-size:clamp(1.75rem,6vw,2.5rem)}
             .review-grid{grid-template-columns:1fr}
             .footer-columns{grid-template-columns:1fr 1fr}
+            .section{padding:3.5rem 0}
         }
         @media(max-width:480px){
+            .hero{padding:3rem 0 2.5rem}
             .footer-columns{grid-template-columns:1fr}
         }
-        .footer-tools-row{margin:0 0 2rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}.footer-tools-row h4{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.85rem}.footer-tool-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem}.footer-tool-tags span{background:var(--background-alt);border:1px solid var(--border);border-radius:4px;padding:0.2rem 0.55rem;font-size:0.75rem;color:var(--text-muted)}.footer-tools-note{font-size:0.8rem;color:var(--text-muted);font-style:italic}
-        .voyage-badge{display:inline-flex;align-items:center;gap:0.55rem;background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:0.6rem 1rem;text-decoration:none;transition:border-color 0.2s ease,transform 0.15s ease}.voyage-badge:hover{border-color:var(--accent);transform:translateY(-1px);text-decoration:none}.voyage-badge-text{font-size:0.82rem;color:var(--text-secondary);line-height:1.3}.voyage-badge-text strong{color:var(--text-primary);font-weight:600}
     </style>
 </head>
 <body>
@@ -95,7 +169,7 @@
             <a href="/index.html">Home</a>
             <a href="/services.html">Services</a>
             <a href="/work.html">Work</a>
-            <a href="/reviews.html">Reviews</a>
+            <a href="/reviews.html" class="active">Reviews</a>
             <a href="/writing.html">Writing</a>
             <a href="/about.html">About</a>
             <a href="/contact.html">Contact</a>
@@ -106,95 +180,96 @@
 <main class="main-content">
 
     <!-- HERO -->
-    <div style="margin-bottom:3rem;text-align:center;">
-        <p class="section-title">Client Reviews</p>
-        <h1 class="page-title">What clients say.</h1>
-        <p class="body-text" style="max-width:600px;margin-left:auto;margin-right:auto">
+    <div class="hero">
+        <div class="hero-badge animate-fade-up"><span class="hero-badge-dot"></span> Client Reviews</div>
+        <h1 class="animate-fade-up animate-delay-1">What clients say.</h1>
+        <p class="hero-subtitle animate-fade-up animate-delay-2">
             Every project starts with a clear scope and ends with a system that works. Here's what clients say about the process and the results.
         </p>
     </div>
 
     <!-- RATING SUMMARY -->
-    <div class="rating-summary reveal">
-        <span class="rating-num">5.0</span>
-        <div class="rating-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <div class="rating-label">Average across all platforms</div>
+    <div class="section reveal">
+        <div class="rating-summary">
+            <span class="rating-num">5.0</span>
+            <div class="rating-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="rating-label">Average across all platforms</div>
+        </div>
     </div>
 
     <!-- REVIEWS -->
-    <div class="review-grid reveal">
-        <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="review-quote">"Seth is my go-to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout. I've worked with many freelancers and Seth is one of the best."</p>
-            <div class="review-author">Danielle, Modern Bungalow</div>
-            <div class="review-project">Product Sync Automation</div>
-        </div>
-        <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="review-quote">"Extremely knowledgeable and patient. He thought outside the box to offer solutions we did not consider. Highly recommend and we will use him again. Communication was excellent throughout the entire project."</p>
-            <div class="review-author">Alex, UDI Group</div>
-            <div class="review-project">Review System Development</div>
-        </div>
-        <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="review-quote">"Delivered an exceptional automation that transformed a key aspect of our daily operations. Professional, incredibly responsive, and has tons of ideas. Would work with Seth again in a heartbeat."</p>
-            <div class="review-author">Mark, San Florida</div>
-            <div class="review-project">CRM Migration</div>
-        </div>
-        <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="review-quote">"Seth quickly understood the project and delivered a great solution. Communicated clearly throughout and the work was completed ahead of schedule. The automation works exactly as described."</p>
-            <div class="review-author">Tommy, Eden Medical</div>
-            <div class="review-project">AI Chatbot</div>
-        </div>
-        <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="review-quote">"Fantastic work. Seth built exactly what we needed and walked us through how everything works so we can maintain it ourselves. Very clear communication, fast delivery, and the result exceeded our expectations."</p>
-            <div class="review-author">Yves, KlnBros Agency</div>
-            <div class="review-project">Disaster Recovery</div>
-        </div>
-        <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="review-quote">"Seth helped us figure out a complex integration problem we'd been stuck on for months. He got it done in a few days, explained everything clearly, and was available whenever we had questions. Will definitely hire again."</p>
-            <div class="review-author">Client, Hollow Bamboo</div>
-            <div class="review-project">Custom Inventory System</div>
-        </div>
-        <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="review-quote">"The level of detail in Seth's scoping process was impressive. By the time we started, we both knew exactly what was being built and why. No surprises, no scope creep, just results. Exceptional work."</p>
-            <div class="review-author">Carmen, CR Deals Cincinnati</div>
-            <div class="review-project">AI Listing Automation</div>
-        </div>
-        <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="review-quote">"We hired Seth to build our reporting dashboard and he delivered something that would have cost us 10x from an agency. Clean, functional, and exactly what we asked for. Highly recommend for any data or automation project."</p>
-            <div class="review-author">Andrew, Kingfisher Ads</div>
-            <div class="review-project">Reporting Dashboard</div>
+    <div class="section reveal">
+        <span class="section-label">Reviews</span>
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Seth is my go-to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout. I've worked with many freelancers and Seth is one of the best.</p>
+                <div class="review-author">Danielle, Modern Bungalow</div>
+                <div class="review-project">Product Sync Automation</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Extremely knowledgeable and patient. He thought outside the box to offer solutions we did not consider. Highly recommend and we will use him again. Communication was excellent throughout the entire project.</p>
+                <div class="review-author">Alex, UDI Group</div>
+                <div class="review-project">Review System Development</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Delivered an exceptional automation that transformed a key aspect of our daily operations. Professional, incredibly responsive, and has tons of ideas. Would work with Seth again in a heartbeat.</p>
+                <div class="review-author">Mark, San Florida</div>
+                <div class="review-project">CRM Migration</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Seth quickly understood the project and delivered a great solution. Communicated clearly throughout and the work was completed ahead of schedule. The automation works exactly as described.</p>
+                <div class="review-author">Tommy, Eden Medical</div>
+                <div class="review-project">AI Chatbot</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Fantastic work. Seth built exactly what we needed and walked us through how everything works so we can maintain it ourselves. Very clear communication, fast delivery, and the result exceeded our expectations.</p>
+                <div class="review-author">Yves, KlnBros Agency</div>
+                <div class="review-project">Disaster Recovery</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Seth helped us figure out a complex integration problem we'd been stuck on for months. He got it done in a few days, explained everything clearly, and was available whenever we had questions. Will definitely hire again.</p>
+                <div class="review-author">Client, Hollow Bamboo</div>
+                <div class="review-project">Custom Inventory System</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">The level of detail in Seth's scoping process was impressive. By the time we started, we both knew exactly what was being built and why. No surprises, no scope creep, just results. Exceptional work.</p>
+                <div class="review-author">Carmen, CR Deals Cincinnati</div>
+                <div class="review-project">AI Listing Automation</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">We hired Seth to build our reporting dashboard and he delivered something that would have cost us 10x from an agency. Clean, functional, and exactly what we asked for. Highly recommend for any data or automation project.</p>
+                <div class="review-author">Andrew, Kingfisher Ads</div>
+                <div class="review-project">Reporting Dashboard</div>
+            </div>
         </div>
     </div>
-
-    <hr class="section-divider">
 
     <!-- CTA -->
-    <div class="reveal">
+    <div class="section reveal">
+        <span class="section-label">Get Started</span>
         <h2 style="font-size:1.4rem;font-weight:700;color:var(--text-primary);margin-bottom:1rem;">Want results like these?</h2>
         <p class="body-text">Book a 30-minute discovery call. We'll map out what your biggest problem is actually costing you, and whether building a solution makes sense.</p>
-        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call</a>
+        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call &rarr;</a>
     </div>
 
-
-    <hr class="section-divider">
-
     <!-- BOOK A CALL -->
-    <div class="reveal">
-        <p class="section-title">Book a Call</p>
+    <div class="section reveal">
+        <span class="section-label">Book a Call</span>
         <p class="body-text" style="margin-bottom:1.5rem;">Prefer to skip the back-and-forth? Pick a time and let's talk.</p>
         <div class="calendly-wrap">
             <iframe src="https://calendly.com/seth-fortewebdesigns/30min" title="Book a call with Seth Forte"></iframe>
         </div>
     </div>
 
-    <div class="reveal" style="margin-top:3rem;">
+    <div class="reveal" style="margin-top:1rem;">
         <a href="https://voyagedallas.com/interview/community-highlights-meet-seth-forte-of-forte-web-designs/" target="_blank" rel="noopener" class="voyage-badge">
             <span class="voyage-badge-text">As Featured in <strong>Voyage Dallas Magazine</strong></span>
         </a>

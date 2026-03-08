@@ -7,131 +7,220 @@
     <meta name="description" content="We build the systems that turn traffic into leads, eliminate manual work, and make growth repeatable.">
     <link rel="canonical" href="https://launchforte.com/">
     <link rel="icon" href="/images/home/profile-pic.jpg" type="image/jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        :root{--text-primary:#edf2f7;--text-secondary:#94a3b8;--text-muted:#64748b;--accent:#0088DB;--accent-warm:#38b2f5;--background:#0d1117;--background-alt:#121a28;--border:#1e2a3a;--card-bg:#172030}
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:17px;line-height:1.7;color:var(--text-primary);background:var(--background);background-image:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(56,178,245,0.04) 0%,transparent 50%);background-attachment:fixed}
-        a{color:var(--accent);text-decoration:none;transition:color 0.2s ease}
-        a:hover{text-decoration:underline}
-        @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        :root{
+            --text-primary:#f0f4f8;
+            --text-secondary:#94a3b8;
+            --text-muted:#64748b;
+            --accent:#0088DB;
+            --accent-hover:#0099f0;
+            --accent-warm:#38b2f5;
+            --accent-glow:rgba(0,136,219,0.15);
+            --background:#0a0e17;
+            --background-alt:#111827;
+            --border:#1e293b;
+            --border-light:#2a3a50;
+            --card-bg:rgba(17,24,39,0.7);
+            --card-bg-solid:#111827;
+            --card-hover:rgba(30,41,59,0.5);
+            --gradient-start:#0088DB;
+            --gradient-end:#38b2f5;
+            --success:#10b981;
+            --radius-sm:8px;
+            --radius-md:12px;
+            --radius-lg:16px;
+            --radius-xl:20px;
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.7;color:var(--text-primary);background:var(--background);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+        body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(56,178,245,0.05) 0%,transparent 50%),radial-gradient(circle at 50% 50%,rgba(0,136,219,0.02) 0%,transparent 70%);pointer-events:none;z-index:0}
+        a{color:var(--accent);text-decoration:none;transition:color 0.25s ease}
+        a:hover{color:var(--accent-hover)}
+
+        /* Animations */
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-        .animate-fade-in{animation:fadeIn 0.6s ease forwards}
-        .animate-fade-up{animation:fadeInUp 0.6s ease forwards}
-        .animate-delay-1{animation-delay:0.1s;opacity:0}
-        .animate-delay-2{animation-delay:0.2s;opacity:0}
-        .animate-delay-3{animation-delay:0.3s;opacity:0}
-        .reveal{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease}
+        @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(0,136,219,0.1)}50%{box-shadow:0 0 40px rgba(0,136,219,0.2)}}
+        .animate-fade-in{animation:fadeIn 0.8s ease forwards}
+        .animate-fade-up{animation:fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
+        .animate-delay-1{animation-delay:0.15s;opacity:0}
+        .animate-delay-2{animation-delay:0.3s;opacity:0}
+        .animate-delay-3{animation-delay:0.45s;opacity:0}
+        .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1)}
         .reveal.revealed{opacity:1;transform:translateY(0)}
-        .site-header{position:sticky;top:0;z-index:100;background:var(--background);border-bottom:1px solid var(--border)}
-        .header-container{max-width:1000px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
-        .header-logo{text-decoration:none;display:flex;align-items:center}
-        .header-logo:hover{opacity:0.85;text-decoration:none}
-        .logo-img{height:90px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
+
+        /* Header */
+        .site-header{position:sticky;top:0;z-index:100;background:rgba(10,14,23,0.8);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);border-bottom:1px solid rgba(30,41,59,0.5)}
+        .header-container{max-width:1100px;margin:0 auto;padding:0.875rem 2rem;display:flex;align-items:center;justify-content:space-between}
+        .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
+        .header-logo:hover{opacity:0.85}
+        .logo-img{height:80px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
         .logo-img-light{display:none}
         [data-theme="light"] .logo-img-dark{display:none}
         [data-theme="light"] .logo-img-light{display:block}
-        .header-nav{display:flex;gap:1.5rem;align-items:center}
-        .header-nav a{color:var(--text-secondary);font-size:0.9rem;text-decoration:none;transition:color 0.2s ease}
-        .header-nav a:hover,.header-nav a.active{color:var(--text-primary)}
-        .main-content{max-width:860px;margin:0 auto;padding:5rem 2rem 6rem}
-        .section-divider{border:none;border-top:1px solid var(--border);margin:4rem 0}
-        .section-title{font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:2.5rem}
-        .body-text{color:var(--text-secondary);margin-bottom:1.75rem;line-height:1.8}
-        .btn-primary{display:inline-block;background:var(--accent);color:#fff;padding:0.75rem 1.75rem;border-radius:6px;font-size:0.95rem;font-weight:500;transition:transform 0.2s ease,box-shadow 0.2s ease;text-decoration:none}
-        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,136,219,0.35);text-decoration:none}
-        .btn-secondary{display:inline-block;border:1px solid var(--border);color:var(--text-secondary);padding:0.75rem 1.75rem;border-radius:6px;font-size:0.95rem;font-weight:500;transition:all 0.2s ease;text-decoration:none}
-        .btn-secondary:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+        .header-nav{display:flex;gap:0.25rem;align-items:center}
+        .header-nav a{color:var(--text-secondary);font-size:0.875rem;font-weight:500;text-decoration:none;padding:0.5rem 0.875rem;border-radius:var(--radius-sm);transition:color 0.2s ease,background 0.2s ease}
+        .header-nav a:hover{color:var(--text-primary);background:rgba(255,255,255,0.05)}
+        .header-nav a.active{color:var(--text-primary);background:rgba(0,136,219,0.1)}
+
+        /* Main */
+        .main-content{max-width:960px;margin:0 auto;padding:0 2rem 6rem;position:relative;z-index:1}
+
+        /* Section spacing */
+        .section{padding:5rem 0}
+        .section + .section{border-top:1px solid var(--border)}
+        .section-label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1.5rem}
+        .section-label::before{content:'';width:20px;height:1px;background:var(--accent)}
+        .body-text{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8;font-size:0.9375rem}
+
+        /* Buttons */
+        .btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,var(--accent),var(--accent-hover));color:#fff;padding:0.8rem 1.75rem;border-radius:var(--radius-sm);font-size:0.9375rem;font-weight:600;font-family:inherit;transition:transform 0.2s ease,box-shadow 0.3s ease;text-decoration:none;border:none;cursor:pointer;position:relative;overflow:hidden}
+        .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,0.1));opacity:0;transition:opacity 0.3s ease}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,136,219,0.4);color:#fff}
+        .btn-primary:hover::after{opacity:1}
+        .btn-primary:active{transform:translateY(0)}
+        .btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--border-light);color:var(--text-secondary);padding:0.8rem 1.75rem;border-radius:var(--radius-sm);font-size:0.9375rem;font-weight:500;transition:all 0.25s ease;text-decoration:none;background:transparent}
+        .btn-secondary:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,136,219,0.05)}
 
         /* Hero */
-        .rotating-tagline{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:700;color:var(--text-primary);margin-bottom:1.25rem;letter-spacing:-0.02em;line-height:1.3}
-        .rotating-word{display:inline-block;font-weight:700;background:linear-gradient(135deg,#0088DB,#38b2f5,#0088DB,#38b2f5);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientShift 6s ease infinite;transition:opacity 0.4s ease}
-        @media(max-width:600px){.rotating-tagline{font-size:1.5rem}}
+        .hero{padding:6rem 0 5rem;text-align:center}
+        .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,136,219,0.08);border:1px solid rgba(0,136,219,0.2);border-radius:100px;padding:0.4rem 1rem;font-size:0.8rem;font-weight:500;color:var(--accent);margin-bottom:2rem;backdrop-filter:blur(10px)}
+        .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-glow 2s ease infinite}
+        .hero h1{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;color:var(--text-primary);margin-bottom:1.5rem;letter-spacing:-0.03em;line-height:1.15}
+        .rotating-word{display:inline-block;font-weight:800;background:linear-gradient(135deg,#0088DB,#38b2f5,#60cdff,#0088DB);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientShift 6s ease infinite;transition:opacity 0.4s ease}
+        .hero-subtitle{font-size:clamp(1rem,2vw,1.15rem);color:var(--text-secondary);max-width:600px;margin:0 auto 2.5rem;line-height:1.8}
+        .hero-buttons{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center}
+
+        /* Capability cards */
+        .capability-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        .capability-card{background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.75rem;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease}
+        .capability-card:hover{border-color:var(--border-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+        .capability-icon{width:40px;height:40px;border-radius:var(--radius-sm);background:rgba(0,136,219,0.1);border:1px solid rgba(0,136,219,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.1rem}
+        .capability-card h3{font-size:1rem;font-weight:600;margin-bottom:0.5rem;color:var(--text-primary)}
+        .capability-card p{font-size:0.875rem;color:var(--text-secondary);line-height:1.7}
 
         /* Stage cards */
-        .stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.5rem}
-        .stage-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1.75rem;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:border-color 0.2s ease,transform 0.15s ease}
-        .stage-card:hover{transform:translateY(-2px);text-decoration:none}
-        .stage-card.stage-foundation{border-left:4px solid #8a8578}
-        .stage-card.stage-launch{border-left:4px solid var(--accent)}
-        .stage-card.stage-growth{border-left:4px solid #5fb88a}
-        .stage-card.stage-scale{border-left:4px solid var(--accent-warm)}
-        .stage-number{width:28px;height:28px;border-radius:50%;font-size:0.8rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:0.85rem}
+        .stage-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        .stage-card{background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.75rem;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease;position:relative;overflow:hidden}
+        .stage-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius-md) var(--radius-md) 0 0}
+        .stage-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.25);color:inherit}
+        .stage-foundation::before{background:linear-gradient(90deg,#8a8578,#a89f91)}
+        .stage-foundation:hover{border-color:#8a8578}
+        .stage-launch::before{background:linear-gradient(90deg,#0088DB,#38b2f5)}
+        .stage-launch:hover{border-color:var(--accent)}
+        .stage-growth::before{background:linear-gradient(90deg,#10b981,#34d399)}
+        .stage-growth:hover{border-color:#10b981}
+        .stage-scale::before{background:linear-gradient(90deg,#38b2f5,#60cdff)}
+        .stage-scale:hover{border-color:var(--accent-warm)}
+        .stage-number{width:30px;height:30px;border-radius:50%;font-size:0.8rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
         .stage-foundation .stage-number{background:#8a8578}
         .stage-launch .stage-number{background:var(--accent)}
-        .stage-growth .stage-number{background:#5fb88a}
+        .stage-growth .stage-number{background:#10b981}
         .stage-scale .stage-number{background:var(--accent-warm)}
-        .stage-title{font-size:1.1rem;font-weight:700;margin-bottom:0.2rem;color:var(--text-primary)}
-        .stage-tagline{font-size:0.875rem;color:var(--text-secondary);font-style:italic;margin-bottom:0.75rem}
-        .stage-card p{color:var(--text-secondary);font-size:0.9rem;line-height:1.6;flex:1}
-        .stage-link{font-size:0.85rem;color:var(--accent);margin-top:1rem;display:inline-block}
+        .stage-title{font-size:1.05rem;font-weight:700;margin-bottom:0.25rem;color:var(--text-primary)}
+        .stage-tagline{font-size:0.8125rem;color:var(--text-muted);font-style:italic;margin-bottom:0.75rem}
+        .stage-card p{color:var(--text-secondary);font-size:0.875rem;line-height:1.7;flex:1}
+        .stage-link{font-size:0.8125rem;color:var(--accent);margin-top:1rem;display:inline-flex;align-items:center;gap:0.35rem;font-weight:500;transition:gap 0.2s ease}
+        .stage-card:hover .stage-link{gap:0.6rem}
+        .stage-footer-note{font-size:0.8125rem;color:var(--text-muted);text-align:center;margin-top:1.5rem}
 
-        /* Results list */
-        .results-list{border-top:1px solid var(--border)}
-        .result-row{display:flex;flex-direction:column;gap:0.3rem;padding:1.1rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:color 0.15s}
-        .result-row:hover .result-client{color:var(--accent)}
-        .result-client{font-weight:600;color:var(--text-primary)}
-        .result-metric{font-size:0.9rem;color:var(--text-secondary);line-height:1.6}
+        /* Credibility */
+        .credibility-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+        .credibility-card{text-align:center;padding:2rem 1rem;background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);transition:border-color 0.3s ease}
+        .credibility-card:hover{border-color:var(--border-light)}
+        .credibility-stat{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent-warm));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:0.5rem;line-height:1}
+        .credibility-label{font-size:0.75rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.06em;line-height:1.5}
+
+        /* Results */
+        .results-list{display:flex;flex-direction:column;gap:0.5rem}
+        .result-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.25rem 1.5rem;background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);text-decoration:none;color:inherit;transition:border-color 0.3s ease,transform 0.2s ease}
+        .result-row:hover{border-color:var(--border-light);transform:translateX(4px);color:inherit}
+        .result-content{flex:1}
+        .result-client{font-weight:600;color:var(--text-primary);font-size:0.9375rem;margin-bottom:0.2rem;display:block}
+        .result-metric{font-size:0.8125rem;color:var(--text-secondary);line-height:1.6}
+        .result-arrow{color:var(--text-muted);font-size:1.1rem;transition:color 0.2s ease,transform 0.2s ease;flex-shrink:0}
+        .result-row:hover .result-arrow{color:var(--accent);transform:translateX(4px)}
 
         /* Review cards */
-        .review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
-        .review-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1.5rem}
-        .review-stars{color:var(--accent-warm);font-size:0.85rem;margin-bottom:0.6rem;letter-spacing:2px}
-        .review-quote{font-size:0.9rem;line-height:1.7;color:var(--text-secondary);margin-bottom:0.85rem;font-style:italic}
-        .review-author{font-size:0.8rem;font-weight:600;color:var(--text-primary)}
-        .review-project{font-size:0.75rem;color:var(--text-muted);margin-top:0.1rem}
+        .review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        .review-card{background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.75rem;transition:border-color 0.3s ease,transform 0.2s ease}
+        .review-card:hover{border-color:var(--border-light);transform:translateY(-2px)}
+        .review-stars{color:#f59e0b;font-size:0.9rem;margin-bottom:0.75rem;letter-spacing:2px}
+        .review-quote{font-size:0.875rem;line-height:1.8;color:var(--text-secondary);margin-bottom:1rem}
+        .review-quote::before{content:'\201C';font-size:1.5rem;color:var(--accent);font-weight:700;line-height:0;vertical-align:-0.3em;margin-right:0.1em}
+        .review-author{font-size:0.8125rem;font-weight:600;color:var(--text-primary)}
+        .review-project{font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem}
 
-        /* 5-star badge */
-        .stars-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--card-bg);border:1px solid var(--border);border-radius:20px;padding:0.35rem 0.9rem;font-size:0.8rem;text-decoration:none;color:var(--text-secondary);margin-bottom:1.5rem;transition:border-color 0.2s ease}
-        .stars-badge:hover{border-color:var(--accent);text-decoration:none}
-        .stars-badge-stars{color:#f4c542;letter-spacing:0.05em}
-
-        /* Credibility block */
-        .credibility-section{text-align:center;margin-bottom:0}
-        .credibility-bar{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1rem;padding:1.5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:1.5rem}
-        .credibility-item{text-align:center;padding:0.5rem 0.25rem}
-        .credibility-item .stat{font-size:1.15rem;font-weight:700;color:var(--accent);display:block;margin-bottom:0.3rem;text-shadow:0 0 20px rgba(0,136,219,0.3)}
-        .credibility-item .label{font-size:0.7rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.06em;line-height:1.4}
-        .client-row{text-align:center;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.03em;line-height:2}
-        .client-row .divider{margin:0 0.4rem;opacity:0.35}
-        @media(max-width:600px){.credibility-bar{grid-template-columns:1fr 1fr}}
+        /* About block */
+        .about-block{display:flex;gap:2rem;align-items:flex-start}
+        .about-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;flex-shrink:0;border:3px solid var(--border);box-shadow:0 0 20px rgba(0,136,219,0.15)}
+        .about-name{font-weight:700;color:var(--text-primary);margin-bottom:0.5rem;font-size:1rem}
 
         /* Video */
-        .site-video{width:100%;border-radius:10px;border:1px solid var(--border);display:block}
+        .site-video{width:100%;border-radius:var(--radius-md);border:1px solid var(--border);display:block;box-shadow:0 8px 30px rgba(0,0,0,0.3)}
 
         /* Calendly */
-        .calendly-wrap{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:1.5rem}
+        .calendly-wrap{background:var(--card-bg-solid);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-top:1.5rem}
         .calendly-wrap iframe{display:block;border:none;width:100%;min-height:630px}
 
         /* Footer */
         .footer-section{margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)}
-        .footer-email-main{color:var(--text-secondary);font-size:1rem;margin-bottom:2.5rem;display:block}
+        .footer-email-main{color:var(--text-secondary);font-size:1rem;margin-bottom:2.5rem;display:inline-block;transition:color 0.2s ease}
+        .footer-email-main:hover{color:var(--accent)}
         .footer-columns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-bottom:2.5rem}
-        .footer-col h4{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem}
+        .footer-col h4{font-size:0.7rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
         .footer-col ul{list-style:none}
         .footer-col li{margin-bottom:0.5rem}
-        .footer-col a{color:var(--text-secondary);font-size:0.9rem}
+        .footer-col a{color:var(--text-secondary);font-size:0.875rem;transition:color 0.2s ease}
         .footer-col a:hover{color:var(--accent)}
         .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border)}
-        .footer-location{color:var(--text-muted);font-size:0.85rem;margin-bottom:0.35rem}
-        .copyright{color:var(--text-muted);font-size:0.85rem}
+        .footer-location{color:var(--text-muted);font-size:0.8125rem;margin-bottom:0.35rem}
+        .copyright{color:var(--text-muted);font-size:0.8125rem}
 
+        /* Link arrow */
+        .link-arrow{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.875rem;font-weight:500;color:var(--accent);transition:gap 0.2s ease}
+        .link-arrow:hover{gap:0.7rem;color:var(--accent-hover)}
+
+        /* Voyage badge */
+        .voyage-badge{display:inline-flex;align-items:center;gap:0.55rem;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.6rem 1rem;text-decoration:none;transition:border-color 0.2s ease,transform 0.15s ease}
+        .voyage-badge:hover{border-color:var(--accent);transform:translateY(-1px)}
+        .voyage-badge-star{color:#f59e0b;font-size:1rem;line-height:1}
+        .voyage-badge-text{font-size:0.8125rem;color:var(--text-secondary);line-height:1.3}
+        .voyage-badge-text strong{color:var(--text-primary);font-weight:600}
+
+        /* Responsive */
         @media(max-width:768px){
             .header-container{padding:0.75rem 1.25rem}
-            .header-nav{gap:0.85rem}
-            .header-nav a{font-size:0.82rem}
-            .main-content{padding:3rem 1.25rem 4rem}
+            .header-nav{gap:0.25rem}
+            .header-nav a{font-size:0.8rem;padding:0.4rem 0.6rem}
+            .main-content{padding:0 1.25rem 4rem}
+            .hero{padding:4rem 0 3.5rem}
+            .hero h1{font-size:clamp(1.75rem,6vw,2.5rem)}
+            .capability-grid{grid-template-columns:1fr}
             .stage-grid{grid-template-columns:1fr}
+            .credibility-grid{grid-template-columns:1fr 1fr 1fr}
             .review-grid{grid-template-columns:1fr}
+            .about-block{flex-direction:column;align-items:center;text-align:center}
             .footer-columns{grid-template-columns:1fr 1fr}
+            .section{padding:3.5rem 0}
         }
         @media(max-width:480px){
+            .hero{padding:3rem 0 2.5rem}
+            .credibility-grid{grid-template-columns:1fr}
+            .credibility-card{padding:1.5rem 1rem}
             .footer-columns{grid-template-columns:1fr}
+            .hero-buttons{flex-direction:column;align-items:center}
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary{width:100%;justify-content:center}
+            .result-row{flex-direction:column;align-items:flex-start}
         }
-        .footer-tools-row{margin:0 0 2rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}.footer-tools-row h4{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.85rem}.footer-tool-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem}.footer-tool-tags span{background:var(--background-alt);border:1px solid var(--border);border-radius:4px;padding:0.2rem 0.55rem;font-size:0.75rem;color:var(--text-muted)}.footer-tools-note{font-size:0.8rem;color:var(--text-muted);font-style:italic}
-        .voyage-badge{display:inline-flex;align-items:center;gap:0.55rem;background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:0.6rem 1rem;text-decoration:none;transition:border-color 0.2s ease,transform 0.15s ease}.voyage-badge:hover{border-color:var(--accent);transform:translateY(-1px);text-decoration:none}.voyage-badge-star{color:#f4c542;font-size:1rem;line-height:1}.voyage-badge-text{font-size:0.82rem;color:var(--text-secondary);line-height:1.3}.voyage-badge-text strong{color:var(--text-primary);font-weight:600}
     </style>
 </head>
 <body>
@@ -158,53 +247,54 @@
 <main class="main-content">
 
     <!-- HERO -->
-    <div style="margin-bottom:2.5rem;text-align:center;">
-        <h1 class="rotating-tagline animate-fade-up animate-delay-1">Business Growth Isn't Luck. It's <span class="rotating-word">A System</span></h1>
-        <p class="body-text animate-fade-up animate-delay-2" style="font-size:1.1rem;max-width:640px;margin-left:auto;margin-right:auto;">
-            Automation infrastructure for growing businesses. We build the systems that turn traffic into leads, eliminate manual work, and make growth repeatable so your team can focus on what matters.
+    <div class="hero">
+        <div class="hero-badge animate-fade-up"><span class="hero-badge-dot"></span> Automation & Growth Systems</div>
+        <h1 class="animate-fade-up animate-delay-1">Business Growth Isn't Luck.<br>It's <span class="rotating-word">A System</span></h1>
+        <p class="hero-subtitle animate-fade-up animate-delay-2">
+            We build the automation infrastructure that turns traffic into leads, eliminates manual work, and makes growth repeatable.
         </p>
-        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;" class="animate-fade-up animate-delay-3">
-            <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call</a>
+        <div class="hero-buttons animate-fade-up animate-delay-3">
+            <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call &rarr;</a>
             <a href="/work.html" class="btn-secondary">See Our Work</a>
         </div>
     </div>
 
-    <hr class="section-divider">
-
     <!-- CAPABILITIES -->
-    <div class="reveal">
-        <p class="section-title">What We Build</p>
-        <div class="stage-grid">
-            <div class="stage-card" style="border-left:none;">
-                <div class="stage-title">CRM and Business Infrastructure</div>
+    <div class="section reveal">
+        <span class="section-label">What We Build</span>
+        <div class="capability-grid">
+            <div class="capability-card">
+                <div class="capability-icon">&#9881;</div>
+                <h3>CRM & Business Infrastructure</h3>
                 <p>The central system your team works in every day. Pipeline, payments, tracking, and integrations.</p>
             </div>
-            <div class="stage-card" style="border-left:none;">
-                <div class="stage-title">Workflow Automation</div>
+            <div class="capability-card">
+                <div class="capability-icon">&#9889;</div>
+                <h3>Workflow Automation</h3>
                 <p>Take a manual process that eats hours every week and make it run itself. Data entry, follow-ups, reporting, approvals.</p>
             </div>
-            <div class="stage-card" style="border-left:none;">
-                <div class="stage-title">Lead Generation Systems</div>
+            <div class="capability-card">
+                <div class="capability-icon">&#9758;</div>
+                <h3>Lead Generation Systems</h3>
                 <p>Ads, funnels, nurture sequences, outbound email, and inbound capture. Traffic in, customers out.</p>
             </div>
-            <div class="stage-card" style="border-left:none;">
-                <div class="stage-title">AI-Powered Tools</div>
+            <div class="capability-card">
+                <div class="capability-icon">&#10024;</div>
+                <h3>AI-Powered Tools</h3>
                 <p>Voice agents that answer calls 24/7, chatbots that route leads, and document search that finds answers in seconds.</p>
             </div>
         </div>
     </div>
 
-    <hr class="section-divider">
-
     <!-- SERVICES -->
-    <div class="reveal">
-        <p class="section-title">Services</p>
+    <div class="section reveal">
+        <span class="section-label">Services</span>
         <div class="stage-grid">
             <a href="/foundation.html" class="stage-card stage-foundation">
                 <div class="stage-number">1</div>
                 <div class="stage-title">Foundation</div>
                 <div class="stage-tagline">Your tools don't talk to each other. We fix that.</div>
-                <p>CRM setup, payment processing, email authentication, booking, tracking, and the integrations that tie everything together. The operating system everything else plugs into.</p>
+                <p>CRM setup, payment processing, email authentication, booking, tracking, and the integrations that tie everything together.</p>
                 <span class="stage-link">Learn more &rarr;</span>
             </a>
             <a href="/launch.html" class="stage-card stage-launch">
@@ -218,138 +308,136 @@
                 <div class="stage-number">3</div>
                 <div class="stage-title">Growth</div>
                 <div class="stage-tagline">One channel is working. We add more.</div>
-                <p>Outbound cold email, AI voice agents, inbound lead capture, chat routing, and review automation. Multiple sources so you're never dependent on one.</p>
+                <p>Outbound cold email, AI voice agents, inbound lead capture, chat routing, and review automation.</p>
                 <span class="stage-link">Learn more &rarr;</span>
             </a>
             <a href="/scale.html" class="stage-card stage-scale">
                 <div class="stage-number">4</div>
                 <div class="stage-title">Scale</div>
                 <div class="stage-tagline">Everything is running. Make it visible and hands-off.</div>
-                <p>Ad reporting dashboards, content repurposing pipelines, support routing, and monthly management. Grow without adding staff.</p>
+                <p>Ad reporting dashboards, content repurposing pipelines, support routing, and monthly management.</p>
                 <span class="stage-link">Learn more &rarr;</span>
             </a>
         </div>
-        <p style="font-size:0.875rem;color:var(--text-muted);text-align:center;">Not sure where you are? Start with a Foundation Review and we'll tell you exactly what to build and why.</p>
+        <p class="stage-footer-note">Not sure where you are? Start with a Foundation Review and we'll tell you exactly what to build and why.</p>
     </div>
-
-    <hr class="section-divider">
 
     <!-- CREDIBILITY -->
-    <div class="credibility-section reveal">
-        <p class="section-title" style="text-align:center;">By the Numbers</p>
-        <div class="credibility-bar" style="grid-template-columns:1fr 1fr 1fr;">
-            <div class="credibility-item">
-                <span class="stat">12+</span>
-                <span class="label">Industries Served</span>
+    <div class="section reveal">
+        <span class="section-label">By the Numbers</span>
+        <div class="credibility-grid">
+            <div class="credibility-card">
+                <span class="credibility-stat">12+</span>
+                <span class="credibility-label">Industries Served</span>
             </div>
-            <div class="credibility-item">
-                <span class="stat">60+</span>
-                <span class="label">Automations Delivered</span>
+            <div class="credibility-card">
+                <span class="credibility-stat">60+</span>
+                <span class="credibility-label">Automations Delivered</span>
             </div>
-            <div class="credibility-item">
-                <span class="stat">1,000+</span>
-                <span class="label">Hours Saved for Clients Annually</span>
+            <div class="credibility-card">
+                <span class="credibility-stat">1,000+</span>
+                <span class="credibility-label">Hours Saved Annually</span>
             </div>
         </div>
     </div>
-
-    <hr class="section-divider">
 
     <!-- RESULTS -->
-    <div class="reveal">
-        <p class="section-title">Results</p>
+    <div class="section reveal">
+        <span class="section-label">Results</span>
         <div class="results-list">
             <a href="/work.html" class="result-row">
-                <span class="result-client">1,040 users migrated</span>
-                <span class="result-metric">Rebuilt CRM infrastructure and migrated 1,040 contacts with full data cleanup for a cleaning company.</span>
+                <div class="result-content">
+                    <span class="result-client">1,040 users migrated</span>
+                    <span class="result-metric">Rebuilt CRM infrastructure and migrated 1,040 contacts with full data cleanup for a cleaning company.</span>
+                </div>
+                <span class="result-arrow">&rarr;</span>
             </a>
             <a href="/work.html" class="result-row">
-                <span class="result-client">Daily team-wide adoption</span>
-                <span class="result-metric">Built a SharePoint approval system that replaced a manual SOP process across an entire organization.</span>
+                <div class="result-content">
+                    <span class="result-client">Daily team-wide adoption</span>
+                    <span class="result-metric">Built a SharePoint approval system that replaced a manual SOP process across an entire organization.</span>
+                </div>
+                <span class="result-arrow">&rarr;</span>
             </a>
             <a href="/work.html" class="result-row">
-                <span class="result-client">60 hrs/month back</span>
-                <span class="result-metric">Automated a Shopify-to-Xero product sync that eliminated 60 hours of monthly manual data entry for a furniture brand.</span>
+                <div class="result-content">
+                    <span class="result-client">60 hrs/month back</span>
+                    <span class="result-metric">Automated a Shopify-to-Xero product sync that eliminated 60 hours of monthly manual data entry.</span>
+                </div>
+                <span class="result-arrow">&rarr;</span>
             </a>
             <a href="/work.html" class="result-row">
-                <span class="result-client">$52K/year saved</span>
-                <span class="result-metric">Replaced a manual collections process with automated follow-up workflows, saving $52K in annual labor costs.</span>
+                <div class="result-content">
+                    <span class="result-client">$52K/year saved</span>
+                    <span class="result-metric">Replaced a manual collections process with automated follow-up workflows, saving $52K in annual labor costs.</span>
+                </div>
+                <span class="result-arrow">&rarr;</span>
             </a>
         </div>
-        <p style="margin-top:1.5rem;"><a href="/work.html">See all case studies &rarr;</a></p>
+        <p style="margin-top:1.5rem;"><a href="/work.html" class="link-arrow">See all case studies &rarr;</a></p>
     </div>
 
-    <hr class="section-divider">
-
     <!-- REVIEWS -->
-    <div class="reveal">
-        <p class="section-title">What clients say</p>
+    <div class="section reveal">
+        <span class="section-label">What Clients Say</span>
         <div class="review-grid">
             <div class="review-card">
                 <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="review-quote">"Seth is my go-to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout."</p>
+                <p class="review-quote">Seth is my go-to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout.</p>
                 <div class="review-author">Danielle, Modern Bungalow</div>
                 <div class="review-project">Product Sync Automation</div>
             </div>
             <div class="review-card">
                 <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="review-quote">"Extremely knowledgeable and patient. He thought outside the box to offer solutions we did not consider. Highly recommend and we will use him again."</p>
+                <p class="review-quote">Extremely knowledgeable and patient. He thought outside the box to offer solutions we did not consider. Highly recommend and we will use him again.</p>
                 <div class="review-author">Alex, UDI Group</div>
                 <div class="review-project">Review System Development</div>
             </div>
             <div class="review-card">
                 <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="review-quote">"Seth is an amazing rare breed. He is not just focused on what is asked of him, he actually scopes the need to make sure the work meets your need to the maximum level. Brilliant Developer and the kind of man you wished was your neighbor."</p>
+                <p class="review-quote">Seth is an amazing rare breed. He is not just focused on what is asked of him, he actually scopes the need to make sure the work meets your need to the maximum level. Brilliant Developer and the kind of man you wished was your neighbor.</p>
                 <div class="review-author">Mark, San Florida</div>
                 <div class="review-project">Web Development</div>
             </div>
             <div class="review-card">
                 <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="review-quote">"If you need an automation specialist, stop looking right now and hire Seth. He will blow your mind with his knowledge and his ability to take your idea and not only understand what you want to achieve but also build on it without ever overwhelming you with jargon. His communication is phenomenal, and you will always know the next steps for your project. I was absolutely blown away by the experience working with Seth, and I highly recommend him!"</p>
+                <p class="review-quote">If you need an automation specialist, stop looking right now and hire Seth. He will blow your mind with his knowledge and his ability to take your idea and not only understand what you want to achieve but also build on it.</p>
                 <div class="review-author">Andrew, Kingfisher Ads</div>
                 <div class="review-project">Automation</div>
             </div>
         </div>
-        <p style="margin-top:1.5rem;"><a href="/reviews.html">See all reviews &rarr;</a></p>
+        <p style="margin-top:1.5rem;"><a href="/reviews.html" class="link-arrow">See all reviews &rarr;</a></p>
     </div>
 
-    <hr class="section-divider">
-
-    <!-- ABOUT BLURB -->
-    <div class="reveal">
-        <p class="section-title">About</p>
-        <div style="display:flex;gap:1.5rem;align-items:flex-start;">
-            <img src="/images/about/headshot-6.jpg" alt="Seth Forte" style="width:72px;height:72px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--border);">
+    <!-- ABOUT -->
+    <div class="section reveal">
+        <span class="section-label">About</span>
+        <div class="about-block">
+            <img src="/images/about/headshot-6.jpg" alt="Seth Forte" class="about-avatar">
             <div>
-                <p style="font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">Seth Forte, Founder</p>
-                <p class="body-text" style="margin-bottom:1rem;">We build automation, integrations, and AI-powered tools for businesses that have outgrown manual processes. Every project starts with what the problem is actually costing you. If the math works, we build it. If it doesn't, we'll tell you.</p>
-                <a href="/about.html" class="btn-secondary" style="font-size:0.875rem;padding:0.55rem 1.25rem;">More about us &rarr;</a>
+                <p class="about-name">Seth Forte, Founder</p>
+                <p class="body-text" style="margin-bottom:1.25rem;">We build automation, integrations, and AI-powered tools for businesses that have outgrown manual processes. Every project starts with what the problem is actually costing you. If the math works, we build it. If it doesn't, we'll tell you.</p>
+                <a href="/about.html" class="btn-secondary" style="font-size:0.8125rem;padding:0.55rem 1.25rem;">More about us &rarr;</a>
             </div>
         </div>
     </div>
 
-    <hr class="section-divider">
-
     <!-- VIDEO -->
-    <div class="reveal">
-        <p class="section-title">See How We Work</p>
+    <div class="section reveal">
+        <span class="section-label">See How We Work</span>
         <video class="site-video" controls preload="none" poster="/images/video-thumbnail.png">
             <source src="/video-walkthroughs/Business%20Growth%20Systems%20%26%20AI%20Automation%20%7C%20Forte%20(DFW)%20-%2026%20October%202025.mp4" type="video/mp4">
         </video>
     </div>
 
-
-    <hr class="section-divider">
-
     <!-- BOOK A CALL -->
-    <div class="reveal">
-        <p class="section-title">Book a Call</p>
+    <div class="section reveal">
+        <span class="section-label">Book a Call</span>
         <p class="body-text" style="margin-bottom:1.5rem;">Prefer to skip the back and forth? Pick a time and let's talk.</p>
         <div class="calendly-wrap">
             <iframe src="https://calendly.com/seth-fortewebdesigns/30min" title="Book a call with Seth Forte"></iframe>
         </div>
     </div>
-
 
     <!-- FOOTER -->
     <div class="footer-section">
