@@ -78,7 +78,6 @@
         .section{padding:6rem 0}
         .section-label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem}
         .section-label::before{content:'';width:20px;height:1px;background:var(--accent)}
-        .section-heading{font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:1.5rem;line-height:1.25}
         .body-text{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8;font-size:0.9375rem}
 
         /* Buttons */
@@ -97,7 +96,7 @@
         .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,136,219,0.08);border:1px solid rgba(0,136,219,0.2);border-radius:100px;padding:0.4rem 1rem;font-size:0.8rem;font-weight:500;color:var(--accent);margin-bottom:2rem;backdrop-filter:blur(10px)}
         .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-glow 2s ease infinite}
         .hero h1{font-size:clamp(2.25rem,5.5vw,3.75rem);font-weight:800;color:var(--text-primary);margin-bottom:1.5rem;letter-spacing:-0.03em;line-height:1.1}
-        .gradient-text{font-weight:800;background:linear-gradient(135deg,#0088DB,#38b2f5,#60cdff,#0088DB);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientShift 6s ease infinite}
+        .rotating-word{display:inline-block;font-weight:800;background:linear-gradient(135deg,#0088DB,#38b2f5,#60cdff,#0088DB);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientShift 6s ease infinite;transition:opacity 0.4s ease}
         .hero-subtitle{font-size:clamp(1rem,2vw,1.15rem);color:var(--text-secondary);max-width:580px;margin:0 auto 2.5rem;line-height:1.7}
         .hero-buttons{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center}
         .hero-proof{font-size:0.8rem;color:var(--text-muted);margin-top:1.75rem;letter-spacing:0.02em}
@@ -123,21 +122,12 @@
         .capability-card h3{font-size:1rem;font-weight:600;margin-bottom:0.5rem;color:var(--text-primary)}
         .capability-card p{font-size:0.875rem;color:var(--text-secondary);line-height:1.7}
 
-        /* Featured review */
-        .featured-review{text-align:center;padding:2rem 2rem;max-width:660px;margin:0 auto}
-        .featured-review blockquote{font-size:1.125rem;line-height:1.8;color:var(--text-secondary);font-style:italic;margin-bottom:1.25rem}
-        .featured-review blockquote::before{content:'\201C';font-size:2rem;color:var(--accent);font-weight:700;line-height:0;vertical-align:-0.4em;margin-right:0.1em}
-        .featured-review blockquote::after{content:'\201D';font-size:2rem;color:var(--accent);font-weight:700;line-height:0;vertical-align:-0.4em;margin-left:0.1em}
-        .featured-review cite{font-size:0.8125rem;color:var(--text-muted);font-style:normal;font-weight:500}
-
         /* Review cards */
         .review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
         .review-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.75rem;transition:border-color 0.3s ease,transform 0.2s ease}
         .review-card:hover{border-color:var(--border-light);transform:translateY(-2px)}
         .review-stars{color:#f59e0b;font-size:0.9rem;margin-bottom:0.75rem;letter-spacing:2px}
         .review-quote{font-size:0.875rem;line-height:1.8;color:var(--text-secondary);margin-bottom:1rem}
-        .review-quote::before{content:'\201C';font-size:1.5rem;color:var(--accent);font-weight:700;line-height:0;vertical-align:-0.3em;margin-right:0.1em}
-        .review-quote::after{content:'\201D';font-size:1.5rem;color:var(--accent);font-weight:700;line-height:0;vertical-align:-0.3em;margin-left:0.1em}
         .review-author{font-size:0.8125rem;font-weight:600;color:var(--text-primary)}
         .review-project{font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem}
 
@@ -219,7 +209,6 @@
             .section{padding:4rem 0}
             .client-logos{gap:1.5rem}
             .client-logos span{font-size:0.7rem}
-            .featured-review blockquote{font-size:1rem}
         }
         @media(max-width:480px){
             .hero{padding:3rem 0 2.5rem}
@@ -258,7 +247,7 @@
     <!-- HERO -->
     <div class="hero">
         <div class="hero-badge animate-fade-up"><span class="hero-badge-dot"></span> Automation & Growth Systems</div>
-        <h1 class="animate-fade-up animate-delay-1">Business Growth Isn't Luck.<br>It's <span class="gradient-text">A System</span></h1>
+        <h1 class="animate-fade-up animate-delay-1">Business Growth Isn't Luck.<br>It's <span class="rotating-word">A System</span></h1>
         <p class="hero-subtitle animate-fade-up animate-delay-2">
             We build the automation infrastructure that turns traffic into leads, eliminates manual work, and makes growth repeatable.
         </p>
@@ -272,47 +261,9 @@
         </div>
     </div>
 
-    <!-- RESULTS -->
-    <div class="section reveal">
-        <span class="section-label">Results</span>
-        <h2 class="section-heading">What happens when we build the fix.</h2>
-        <div class="results-list">
-            <a href="/work.html" class="result-row">
-                <div class="result-content">
-                    <span class="result-client">$52K/year saved</span>
-                    <span class="result-metric">Replaced a manual collections process with automated follow-up workflows, saving $52K in annual labor costs.</span>
-                </div>
-                <span class="result-arrow">&rarr;</span>
-            </a>
-            <a href="/work.html" class="result-row">
-                <div class="result-content">
-                    <span class="result-client">60 hrs/month back</span>
-                    <span class="result-metric">Automated a Shopify-to-Xero product sync that eliminated 60 hours of monthly manual data entry.</span>
-                </div>
-                <span class="result-arrow">&rarr;</span>
-            </a>
-            <a href="/work.html" class="result-row">
-                <div class="result-content">
-                    <span class="result-client">1,040 users migrated</span>
-                    <span class="result-metric">Rebuilt CRM infrastructure and migrated 1,040 contacts with full data cleanup for a cleaning company.</span>
-                </div>
-                <span class="result-arrow">&rarr;</span>
-            </a>
-            <a href="/work.html" class="result-row">
-                <div class="result-content">
-                    <span class="result-client">Daily team-wide adoption</span>
-                    <span class="result-metric">Built a SharePoint approval system that replaced a manual SOP process across an entire organization.</span>
-                </div>
-                <span class="result-arrow">&rarr;</span>
-            </a>
-        </div>
-        <p style="margin-top:1.5rem;"><a href="/work.html" class="link-arrow">See all case studies &rarr;</a></p>
-    </div>
-
     <!-- CAPABILITIES -->
     <div class="section reveal">
         <span class="section-label">What We Build</span>
-        <h2 class="section-heading">The systems behind the results.</h2>
         <div class="capability-grid">
             <div class="capability-card">
                 <h3>CRM & Business Infrastructure</h3>
@@ -333,44 +284,9 @@
         </div>
     </div>
 
-    <!-- FEATURED REVIEW -->
-    <div class="section reveal">
-        <div class="featured-review">
-            <blockquote>If you need an automation specialist, stop looking right now and hire Seth. He will blow your mind with his knowledge and his ability to take your idea and not only understand what you want to achieve but also build on it.</blockquote>
-            <cite>Andrew, Kingfisher Ads</cite>
-        </div>
-    </div>
-
-    <!-- REVIEWS -->
-    <div class="section reveal">
-        <span class="section-label">What Clients Say</span>
-        <div class="review-grid">
-            <div class="review-card">
-                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="review-quote">Seth is my go-to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout.</p>
-                <div class="review-author">Danielle, Modern Bungalow</div>
-                <div class="review-project">Product Sync Automation</div>
-            </div>
-            <div class="review-card">
-                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="review-quote">Extremely knowledgeable and patient. He thought outside the box to offer solutions we did not consider. Highly recommend and we will use him again.</p>
-                <div class="review-author">Alex, UDI Group</div>
-                <div class="review-project">Review System Development</div>
-            </div>
-            <div class="review-card">
-                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="review-quote">Seth is an amazing rare breed. He is not just focused on what is asked of him, he actually scopes the need to make sure the work meets your need to the maximum level. Brilliant Developer and the kind of man you wished was your neighbor.</p>
-                <div class="review-author">Mark, San Florida</div>
-                <div class="review-project">Web Development</div>
-            </div>
-        </div>
-        <p style="margin-top:1.5rem;"><a href="/reviews.html" class="link-arrow">See all reviews &rarr;</a></p>
-    </div>
-
     <!-- SERVICES -->
     <div class="section reveal">
         <span class="section-label">Services</span>
-        <h2 class="section-heading">A clear path from broken to built.</h2>
         <div class="stage-grid">
             <a href="/foundation.html" class="stage-card stage-foundation">
                 <div class="stage-number">1</div>
@@ -404,6 +320,74 @@
         <p class="stage-footer-note">Not sure where you are? Start with a Foundation Review and we'll tell you exactly what to build and why.</p>
     </div>
 
+    <!-- RESULTS -->
+    <div class="section reveal">
+        <span class="section-label">Results</span>
+        <div class="results-list">
+            <a href="/work.html" class="result-row">
+                <div class="result-content">
+                    <span class="result-client">$52K/year saved</span>
+                    <span class="result-metric">Replaced a manual collections process with automated follow-up workflows, saving $52K in annual labor costs.</span>
+                </div>
+                <span class="result-arrow">&rarr;</span>
+            </a>
+            <a href="/work.html" class="result-row">
+                <div class="result-content">
+                    <span class="result-client">60 hrs/month back</span>
+                    <span class="result-metric">Automated a Shopify-to-Xero product sync that eliminated 60 hours of monthly manual data entry.</span>
+                </div>
+                <span class="result-arrow">&rarr;</span>
+            </a>
+            <a href="/work.html" class="result-row">
+                <div class="result-content">
+                    <span class="result-client">1,040 users migrated</span>
+                    <span class="result-metric">Rebuilt CRM infrastructure and migrated 1,040 contacts with full data cleanup for a cleaning company.</span>
+                </div>
+                <span class="result-arrow">&rarr;</span>
+            </a>
+            <a href="/work.html" class="result-row">
+                <div class="result-content">
+                    <span class="result-client">Daily team-wide adoption</span>
+                    <span class="result-metric">Built a SharePoint approval system that replaced a manual SOP process across an entire organization.</span>
+                </div>
+                <span class="result-arrow">&rarr;</span>
+            </a>
+        </div>
+        <p style="margin-top:1.5rem;"><a href="/work.html" class="link-arrow">See all case studies &rarr;</a></p>
+    </div>
+
+    <!-- REVIEWS -->
+    <div class="section reveal">
+        <span class="section-label">What Clients Say</span>
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Seth is my go-to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout.</p>
+                <div class="review-author">Danielle, Modern Bungalow</div>
+                <div class="review-project">Product Sync Automation</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Extremely knowledgeable and patient. He thought outside the box to offer solutions we did not consider. Highly recommend and we will use him again.</p>
+                <div class="review-author">Alex, UDI Group</div>
+                <div class="review-project">Review System Development</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Seth is an amazing rare breed. He is not just focused on what is asked of him, he actually scopes the need to make sure the work meets your need to the maximum level. Brilliant Developer and the kind of man you wished was your neighbor.</p>
+                <div class="review-author">Mark, San Florida</div>
+                <div class="review-project">Web Development</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">If you need an automation specialist, stop looking right now and hire Seth. He will blow your mind with his knowledge and his ability to take your idea and not only understand what you want to achieve but also build on it.</p>
+                <div class="review-author">Andrew, Kingfisher Ads</div>
+                <div class="review-project">Automation</div>
+            </div>
+        </div>
+        <p style="margin-top:1.5rem;"><a href="/reviews.html" class="link-arrow">See all reviews &rarr;</a></p>
+    </div>
+
     <!-- ABOUT -->
     <div class="section reveal">
         <span class="section-label">About</span>
@@ -428,7 +412,7 @@
     <!-- BOOK A CALL -->
     <div class="section reveal">
         <span class="section-label">Book a Call</span>
-        <p class="body-text" style="margin-bottom:1.5rem;">30 minutes. We'll map what's broken, what it's costing you, and whether we can fix it.</p>
+        <p class="body-text" style="margin-bottom:1.5rem;">Prefer to skip the back and forth? Pick a time and let's talk.</p>
         <div class="calendly-wrap">
             <iframe src="https://calendly.com/seth-fortewebdesigns/30min" title="Book a call with Seth Forte"></iframe>
         </div>
@@ -472,6 +456,22 @@
 
 </main>
 
+<script>
+(function(){
+    var words = ['A System','Using The Right Data','A Framework','A Process','Execution'];
+    var index = 0;
+    var el = document.querySelector('.rotating-word');
+    if (!el) return;
+    setInterval(function(){
+        el.style.opacity = '0';
+        setTimeout(function(){
+            index = (index + 1) % words.length;
+            el.textContent = words[index];
+            el.style.opacity = '1';
+        }, 400);
+    }, 3000);
+})();
+</script>
 <script src="/scroll-reveal.js"></script>
 <script src="/theme-toggle.js"></script>
 <script src="/scroll-top.js"></script>
