@@ -9,7 +9,6 @@
         '[data-theme="light"] .header-nav a:hover{background:rgba(0,0,0,0.04)}' +
         '[data-theme="light"] .header-nav a.active{background:rgba(0,112,184,0.08)}' +
         '[data-theme="light"] .hero-badge{background:rgba(0,112,184,0.06);border-color:rgba(0,112,184,0.15)}' +
-        '[data-theme="light"] .capability-icon{background:rgba(0,112,184,0.08);border-color:rgba(0,112,184,0.15)}' +
         '[data-theme="light"] .btn-primary{background:linear-gradient(135deg,#0070b8,#005a96)}' +
         '[data-theme="light"] .btn-primary:hover{box-shadow:0 8px 30px rgba(0,112,184,0.3)}' +
         '[data-theme="light"] #scroll-top-btn{background:#fff;border-color:var(--border);color:#718096;box-shadow:0 2px 12px rgba(0,0,0,0.08)}' +
