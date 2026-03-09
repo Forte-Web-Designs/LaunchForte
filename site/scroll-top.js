@@ -20,7 +20,7 @@
         '#sticky-cta-link{display:inline-block;background:linear-gradient(135deg,#0088DB,#0099f0);color:#fff;padding:0.65rem 2rem;border-radius:8px;font-size:0.875rem;font-weight:600;font-family:"Inter",system-ui,sans-serif;text-decoration:none;transition:transform 0.2s ease,box-shadow 0.2s ease}' +
         '#sticky-cta-link:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(0,136,219,0.35)}' +
         'body{padding-bottom:3.5rem}' +
-        '@media(max-width:480px){#scroll-top-btn{bottom:4.5rem;right:1.25rem;width:38px;height:38px;font-size:0.9rem}#sticky-cta-bar{padding:0.6rem 1.25rem}#sticky-cta-link{padding:0.6rem 1.5rem;font-size:0.8125rem;width:100%;display:block}}';
+        '@media(max-width:480px){#scroll-top-btn{bottom:4.5rem;right:1.25rem;width:38px;height:38px;font-size:0.9rem}#sticky-cta-bar{padding:0.5rem 1rem}#sticky-cta-link{padding:0.5rem 1.25rem;font-size:0.75rem;width:auto;display:inline-block}}';
     document.head.appendChild(style);
 
     window.addEventListener('scroll', function() {
