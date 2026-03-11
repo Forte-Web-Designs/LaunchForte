@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How We Automated $52,000 Worth of Annual Work for a Real Estate Wholesaler | Launch Forte</title>
-    <meta name="description" content="A full walkthrough of the CR Deals Cincinnati project — the problem, the system we built, and what we'd do differently if we started today.">
-    <link rel="canonical" href="https://launchforte.com/posts/cr-deals-case-study.html">
+    <title>Voice-to-Email Drafting and Drive Organization for a Real Estate Team | Launch Forte</title>
+    <meta name="description" content="How we built a voice-to-email drafting system and automated Google Drive organization for Compass Real Estate, returning 5-10 hours per week to the team.">
+    <link rel="canonical" href="https://launchforte.com/work/compass-real-estate.html">
     <link rel="icon" href="/images/home/profile-pic.jpg" type="image/jpeg">
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
     <style>
@@ -30,6 +30,7 @@
         .post-title{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.25}
         .post-meta{font-size:0.82rem;color:var(--text-muted);margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
         .post-body h2{font-size:1.25rem;font-weight:700;color:var(--text-primary);margin:2.5rem 0 1rem}
+        .post-body h3{font-size:1.05rem;font-weight:600;color:var(--text-primary);margin:2rem 0 0.75rem}
         .post-body p{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8}
         .post-body ul,.post-body ol{color:var(--text-secondary);margin:0 0 1.5rem 1.5rem;line-height:1.8}
         .post-body li{margin-bottom:0.5rem}
@@ -42,6 +43,8 @@
         .stat-label{font-size:0.8rem;color:var(--text-muted)}
         .back-link{display:inline-block;font-size:0.85rem;color:var(--text-muted);margin-bottom:2.5rem}
         .back-link:hover{color:var(--accent)}
+        .tech-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin:1.5rem 0}
+        .tech-tag{background:var(--card-bg);border:1px solid var(--border);border-radius:100px;padding:0.3rem 0.85rem;font-size:0.8rem;color:var(--text-muted)}
         .cta-block{margin-top:4rem;padding:2rem;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;text-align:center}
         .cta-block p{color:var(--text-secondary);margin-bottom:1.25rem}
         .btn-primary{display:inline-block;background:var(--accent);color:#fff;padding:0.75rem 1.75rem;border-radius:6px;font-size:0.95rem;font-weight:500;transition:transform 0.2s ease,box-shadow 0.2s ease;text-decoration:none}
@@ -65,9 +68,9 @@
             <a href="/index.html">Home</a>
             <a href="/services.html">Services</a>
             <a href="/ai-front-desk.html">AI Front Desk</a>
-            <a href="/work.html">Work</a>
+            <a href="/work.html" class="active">Work</a>
             <a href="/reviews.html">Reviews</a>
-            <a href="/writing.html" class="active">Writing</a>
+            <a href="/writing.html">Writing</a>
             <a href="/about.html">About</a>
             <a href="/contact.html">Contact</a>
         </nav>
@@ -75,68 +78,76 @@
 </header>
 
 <main class="main-content">
-    <a href="/writing.html" class="back-link">&larr; Back to Writing</a>
+    <a href="/work.html" class="back-link">&larr; Back to Work</a>
 
-    <span class="post-tag">Automation</span>
-    <h1 class="post-title">How We Automated $52,000 Worth of Annual Work for a Real Estate Wholesaler</h1>
-    <div class="post-meta">October 2025 &middot; 7 min read &middot; Case Study</div>
+    <span class="post-tag">Case Study</span>
+    <h1 class="post-title">Voice-to-Email Drafting and Drive Organization for a Real Estate Team</h1>
+    <div class="post-meta">Josh Steck, Compass Real Estate (Denver, CO) &middot; 7 days &middot; Case Study</div>
 
     <div class="stat-row">
-        <div class="stat-item"><span class="stat-num">$52K</span><span class="stat-label">Annual labor cost eliminated</span></div>
-        <div class="stat-item"><span class="stat-num">3 wks</span><span class="stat-label">Build timeline</span></div>
-        <div class="stat-item"><span class="stat-num">6 wks</span><span class="stat-label">To full payback</span></div>
+        <div class="stat-item"><span class="stat-num">5-10 hrs</span><span class="stat-label">Returned weekly</span></div>
+        <div class="stat-item"><span class="stat-num">60 sec</span><span class="stat-label">Email drafting time</span></div>
+        <div class="stat-item"><span class="stat-num">7 days</span><span class="stat-label">Build timeline</span></div>
     </div>
 
     <div class="post-body">
-        <p>CR Deals Cincinnati is a real estate wholesaling operation — they find distressed properties, put them under contract, and sell the contracts to cash buyers. The business runs on lead volume and speed. The problem was that their back-office was almost entirely manual, and it was costing them more than they realized.</p>
+        <h2>The Situation</h2>
 
-        <h2>The Problem</h2>
+        <p>Josh Steck is a broker with Compass Real Estate in Denver. He spends most of his day in the car, showing properties, meeting clients, and running between appointments. His assistant Gracie handles coordination, but a huge chunk of both their time was going to two things that should have been faster: drafting client emails and finding documents in Google Drive.</p>
 
-        <p>When we audited the operation, we found four separate manual processes that were consuming significant time every week:</p>
+        <p>Josh's process for sending a client email looked like this: call Gracie, dictate what he wanted to say, Gracie types it up, sends it back for review, Josh approves, Gracie sends it. For a 3-sentence follow-up after a showing, that's a 15-minute round trip involving two people.</p>
 
-        <ul>
-            <li><strong>Lead intake:</strong> Inbound seller leads from the website, direct mail, and driving-for-dollars apps were being manually copied into a spreadsheet. One person spent about 2 hours a day just transferring contact information.</li>
-            <li><strong>Follow-up:</strong> After initial contact, follow-ups were tracked in the same spreadsheet with color coding. Leads regularly fell through the cracks when the spreadsheet got messy or the person managing it was busy.</li>
-            <li><strong>Buyer list management:</strong> Their cash buyer list was in a separate spreadsheet. Matching new deals to relevant buyers required manually scrolling through hundreds of rows.</li>
-            <li><strong>Contract and document routing:</strong> When a deal was accepted, documents were sent manually by email. Tracking who signed what required checking email threads.</li>
-        </ul>
+        <p>Their Google Drive was years of accumulated real estate files with no organization system. Contracts mixed with property photos mixed with inspection reports. Gracie would spend 10-20 minutes hunting for a document she knew existed but couldn't find. During a negotiation, that kind of delay costs deals.</p>
 
-        <p>We added up the time and costed it at the loaded rate of the two people handling these tasks. The total came to approximately $52,000 per year in labor allocated to work that shouldn't require a human at all.</p>
+        <p>They had tried connecting ChatGPT to Zapier themselves, expecting ChatGPT to act like a virtual assistant that could draft emails and organize files on command. It didn't work. ChatGPT kept telling them it couldn't perform certain actions. They didn't realize the integration works in one direction... Zapier can send data to ChatGPT, but ChatGPT can't trigger actions in Zapier.</p>
+
+        <p>That's when they reached out.</p>
 
         <h2>What We Built</h2>
 
-        <p><strong>Automated lead intake:</strong> Every lead source — the website form, the direct mail landing page, and the driving-for-dollars app via Zapier — now feeds directly into GoHighLevel. No manual entry. Each lead is automatically tagged with its source, assigned a pipeline stage, and triggers a follow-up sequence.</p>
+        <h3>Voice-to-Email Drafting</h3>
 
-        <p><strong>Follow-up sequences by lead status:</strong> We built four automated sequences: initial contact (immediate text + email), no response follow-up (days 2, 5, 10, 21), appointment confirmation, and deal-in-progress. The right sequence fires based on what stage the lead is in. The team's job is now to respond to interested leads — not to remember to follow up.</p>
+        <p>A web form with voice input that Josh can open on his phone while driving. He taps a button, speaks naturally about what the email should say (who it's to, the context, what he wants to communicate), and the system handles the rest.</p>
 
-        <p><strong>Buyer matching automation:</strong> When a new deal is added to the system, it automatically identifies buyers on the list whose criteria match the property (geography, price range, property type) and sends a deal alert to that subset. No more manual matching.</p>
+        <p>Behind the scenes: the Web Speech API transcribes his voice input, the form sends it to a Zapier webhook, Zapier passes the transcription to the ChatGPT API with context about Josh's business and communication style, ChatGPT drafts a professional email, and the Gmail API creates it as a draft in Josh's inbox. He gets a notification that his draft is ready, reviews it on his phone, and hits send.</p>
 
-        <p><strong>Document automation:</strong> Accepted deals now trigger an automatic document workflow via PandaDoc — the contract is generated with the property details pre-filled and sent for signature automatically. Signed documents trigger a notification to the relevant team members.</p>
+        <p>End-to-end time from speaking to draft appearing: about 30-60 seconds.</p>
+
+        <p>The system is trained on Josh's voice and tone. Real estate follow-ups, showing confirmations, offer updates, vendor communication... each type of email gets appropriate formatting and language without Josh having to specify.</p>
+
+        <h3>Google Drive Auto-Organization</h3>
+
+        <p>An automated file organization system with rules built around how a real estate team actually works.</p>
+
+        <p>Files dropped into a designated intake folder get automatically sorted based on type and content. Contracts and agreements go to /Contracts/[Year]. Property photos go to /Property Photos/[Year]/[Month]. Inspection reports go to /Inspections/[Year]. Files with property addresses in the name get routed to /Properties/[Address].</p>
+
+        <p>A separate duplicate detection workflow runs weekly, scanning for files with identical names and sizes. Potential duplicates get moved to a review folder with a report. Nothing gets auto-deleted. Every file move is logged so there's always an audit trail and a 30-day undo window.</p>
+
+        <h2>Results</h2>
 
         <div class="callout">
-            <p><strong>The result:</strong> The two employees who were spending the majority of their time on manual data work now spend that time on outreach, relationship management, and deal negotiation. The operation handles 40% more leads with the same headcount.</p>
+            <p><strong>5-10 hours per week returned to the team.</strong> Email drafting went from a 15-minute two-person process to a 60-second one-person process. Document retrieval during negotiations went from 10-20 minutes of searching to knowing exactly where everything lives. No new software subscriptions required. Built and delivered in 7 days.</p>
         </div>
 
-        <h2>What We'd Do Differently</h2>
+        <h2>Tech Stack</h2>
 
-        <p>A few things we'd change if we started this project today:</p>
+        <div class="tech-tags">
+            <span class="tech-tag">Web Speech API</span>
+            <span class="tech-tag">Zapier</span>
+            <span class="tech-tag">ChatGPT API (OpenAI)</span>
+            <span class="tech-tag">Gmail API</span>
+            <span class="tech-tag">Google Drive API</span>
+            <span class="tech-tag">Google Sheets</span>
+        </div>
 
-        <p><strong>Start with the follow-up sequences, not the intake.</strong> We built intake first because it felt like the logical starting point, but the follow-up system generated more immediate ROI. Leads were already in the system — they just weren't being followed up consistently. We'd sequence the build differently next time.</p>
+        <h2>What Made This Work</h2>
 
-        <p><strong>Build the reporting dashboard earlier.</strong> We added a reporting layer — lead source performance, conversion rates by stage, average time-to-close — in week three. Having that data from week one would have let us optimize the sequences faster.</p>
-
-        <p><strong>Invest more in the buyer side.</strong> The seller-side automation was the primary focus, but the buyer matching system could go further — personalized deal alerts based on past purchases, automated relationship nurture for high-value buyers. There's more to build there.</p>
-
-        <h2>The Takeaway</h2>
-
-        <p>This project cost $4,200 to build and paid for itself in about six weeks. The ongoing cost is roughly $180/month in software. The annual return, conservatively, is over $50,000 in reclaimed labor — not counting the revenue impact of higher lead conversion from consistent follow-up.</p>
-
-        <p>The best automation projects aren't technically impressive. They're just solving a clearly defined, expensive problem with a reliable system. This was one of those.</p>
+        <p>The real value wasn't connecting two tools together. It was understanding that their original approach (ChatGPT directly controlling Zapier) was never going to work, diagnosing why, and redesigning the architecture so the outcome they wanted was actually achievable. They didn't need a different tool. They needed someone who understood how the tools actually work and could build the right system around their workflow.</p>
     </div>
 
     <div class="cta-block">
-        <p>Have a similar manual process costing you time and money? Let's run the math together.</p>
-        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Call</a>
+        <p>Have a workflow that's eating up hours every week? Let's figure out if automation can fix it.</p>
+        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call</a>
     </div>
 
     <div class="footer-section">

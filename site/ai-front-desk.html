@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Front Desk | Launch Forte</title>
+    <meta name="description" content="Never lose a lead to a missed call again. AI Front Desk answers every inbound call 24/7, captures caller info, answers FAQs, routes urgent calls, and logs everything to your CRM automatically.">
+    <link rel="canonical" href="https://launchforte.com/ai-front-desk.html">
+    <link rel="icon" href="/images/home/profile-pic.jpg" type="image/jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- GTM -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --text-primary:#f0f4f8;
+            --text-secondary:#94a3b8;
+            --text-muted:#64748b;
+            --accent:#0088DB;
+            --accent-hover:#0099f0;
+            --accent-warm:#38b2f5;
+            --accent-glow:rgba(0,136,219,0.15);
+            --background:#0a0e17;
+            --background-alt:#111827;
+            --border:#1e293b;
+            --border-light:#2a3a50;
+            --card-bg:rgba(17,24,39,0.7);
+            --card-bg-solid:#111827;
+            --card-hover:rgba(30,41,59,0.5);
+            --gradient-start:#0088DB;
+            --gradient-end:#38b2f5;
+            --success:#10b981;
+            --radius-sm:8px;
+            --radius-md:12px;
+            --radius-lg:16px;
+            --radius-xl:20px;
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.7;color:var(--text-primary);background:var(--background);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+        body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(56,178,245,0.05) 0%,transparent 50%),radial-gradient(circle at 50% 50%,rgba(0,136,219,0.02) 0%,transparent 70%);pointer-events:none;z-index:0}
+        a{color:var(--accent);text-decoration:none;transition:color 0.25s ease}
+        a:hover{color:var(--accent-hover)}
+
+        /* Animations */
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(0,136,219,0.1)}50%{box-shadow:0 0 40px rgba(0,136,219,0.2)}}
+        .animate-fade-in{animation:fadeIn 0.8s ease forwards}
+        .animate-fade-up{animation:fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
+        .animate-delay-1{animation-delay:0.15s;opacity:0}
+        .animate-delay-2{animation-delay:0.3s;opacity:0}
+        .animate-delay-3{animation-delay:0.45s;opacity:0}
+        .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1)}
+        .reveal.revealed{opacity:1;transform:translateY(0)}
+
+        /* Header */
+        .site-header{position:sticky;top:0;z-index:100;background:rgba(10,14,23,0.8);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);border-bottom:1px solid rgba(30,41,59,0.5)}
+        .header-container{max-width:1100px;margin:0 auto;padding:0.875rem 2rem;display:flex;align-items:center;justify-content:space-between}
+        .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
+        .header-logo:hover{opacity:0.85}
+        .logo-img{height:60px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
+        .logo-img-light{display:none}
+        [data-theme="light"] .logo-img-dark{display:none}
+        [data-theme="light"] .logo-img-light{display:block}
+        .header-nav{display:flex;gap:0.25rem;align-items:center}
+        .header-nav a{color:var(--text-secondary);font-size:0.875rem;font-weight:500;text-decoration:none;padding:0.5rem 0.875rem;border-radius:var(--radius-sm);transition:color 0.2s ease,background 0.2s ease}
+        .header-nav a:hover{color:var(--text-primary);background:rgba(255,255,255,0.05)}
+        .header-nav a.active{color:var(--text-primary);background:rgba(0,136,219,0.1)}
+
+        /* Main */
+        .main-content{max-width:1000px;margin:0 auto;padding:0 2rem 6rem;position:relative;z-index:1}
+
+        /* Section spacing */
+        .section{padding:6rem 0}
+
+        .section-label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1.5rem}
+        .section-label::before{content:'';width:20px;height:1px;background:var(--accent)}
+        .body-text{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8;font-size:0.9375rem}
+
+        /* Buttons */
+        .btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,var(--accent),var(--accent-hover));color:#fff;padding:0.8rem 1.75rem;border-radius:var(--radius-sm);font-size:0.9375rem;font-weight:600;font-family:inherit;transition:transform 0.2s ease,box-shadow 0.3s ease;text-decoration:none;border:none;cursor:pointer;position:relative;overflow:hidden}
+        .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,0.1));opacity:0;transition:opacity 0.3s ease}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,136,219,0.4);color:#fff}
+        .btn-primary:hover::after{opacity:1}
+        .btn-primary:active{transform:translateY(0)}
+        .btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--border-light);color:var(--text-secondary);padding:0.8rem 1.75rem;border-radius:var(--radius-sm);font-size:0.9375rem;font-weight:500;transition:all 0.25s ease;text-decoration:none;background:transparent}
+        .btn-secondary:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,136,219,0.05)}
+
+        /* Hero */
+        .hero{padding:6rem 0 5rem;text-align:center}
+        .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,136,219,0.08);border:1px solid rgba(0,136,219,0.2);border-radius:100px;padding:0.4rem 1rem;font-size:0.8rem;font-weight:500;color:var(--accent);margin-bottom:2rem;backdrop-filter:blur(10px)}
+        .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-glow 2s ease infinite}
+        .page-title{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.03em;line-height:1.15}
+        .hero-subtitle{font-size:clamp(1rem,2vw,1.15rem);color:var(--text-secondary);max-width:640px;margin:0 auto 2.5rem;line-height:1.8;font-style:italic}
+        .hero-buttons{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center}
+
+        /* Section headlines */
+        .section-headline{font-size:clamp(1.25rem,3vw,1.5rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em}
+
+        /* Feature list */
+        .feature-list{list-style:none;margin:1.5rem 0}
+        .feature-list li{color:var(--text-secondary);font-size:0.9375rem;line-height:1.8;padding:0.4rem 0 0.4rem 1.75rem;position:relative}
+        .feature-list li::before{content:'';position:absolute;left:0;top:0.9rem;width:8px;height:8px;border-radius:50%;background:var(--accent);opacity:0.6}
+
+        /* How it works layers */
+        .layer-grid{display:flex;flex-direction:column;gap:0.75rem;margin:1.5rem 0}
+        .layer-item{background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;display:flex;align-items:flex-start;gap:1.25rem;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease}
+        .layer-item:hover{border-color:var(--border-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+        .layer-icon{width:40px;height:40px;border-radius:var(--radius-sm);background:var(--accent-glow);border:1px solid rgba(0,136,219,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;color:var(--accent);margin-top:0.1rem}
+        .layer-title{font-weight:600;color:var(--text-primary);font-size:1rem;margin-bottom:0.35rem}
+        .layer-desc{color:var(--text-secondary);font-size:0.875rem;line-height:1.7}
+
+        /* Pricing tiers */
+        .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+        .tier-card{background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.75rem;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease;display:flex;flex-direction:column}
+        .tier-card:hover{border-color:var(--border-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+        .tier-card.featured{border-color:rgba(0,136,219,0.4);border-top:2px solid var(--accent)}
+        .tier-name{font-size:1.125rem;font-weight:700;color:var(--text-primary);margin-bottom:0.5rem}
+        .tier-price{font-size:0.9375rem;color:var(--accent);font-weight:600;margin-bottom:1.25rem}
+        .tier-list{list-style:none;margin-bottom:1.25rem;flex:1}
+        .tier-list li{color:var(--text-secondary);font-size:0.8125rem;line-height:1.7;padding:0.25rem 0 0.25rem 1.25rem;position:relative}
+        .tier-list li::before{content:'';position:absolute;left:0;top:0.7rem;width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:0.5}
+        .tier-best{font-size:0.8125rem;color:var(--text-muted);font-style:italic;margin-bottom:0.75rem;line-height:1.6}
+        .tier-infra{font-size:0.75rem;color:var(--text-muted);line-height:1.6}
+
+        /* Industry cards */
+        .industry-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.5rem 0}
+        .industry-card{background:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;transition:border-color 0.3s ease,transform 0.2s ease}
+        .industry-card:hover{border-color:var(--border-light);transform:translateY(-2px)}
+        .industry-card h3{font-size:0.9375rem;font-weight:600;color:var(--text-primary);margin-bottom:0.35rem}
+        .industry-card p{font-size:0.875rem;color:var(--text-secondary);line-height:1.7;margin:0}
+
+        /* Timeline list */
+        .timeline-list{list-style:none;margin:1.5rem 0}
+        .timeline-list li{color:var(--text-secondary);font-size:0.9375rem;line-height:1.8;padding:0.5rem 0;border-bottom:1px solid var(--border)}
+        .timeline-list li:last-child{border-bottom:none}
+        .timeline-list strong{color:var(--text-primary)}
+
+        /* Not included list */
+        .excluded-list{list-style:none;margin:1.5rem 0}
+        .excluded-list li{color:var(--text-secondary);font-size:0.9375rem;line-height:1.8;padding:0.3rem 0 0.3rem 1.75rem;position:relative}
+        .excluded-list li::before{content:'\2013';position:absolute;left:0;color:var(--text-muted)}
+
+        /* Steps list */
+        .steps-list{list-style:none;counter-reset:steps;margin:1.5rem 0}
+        .steps-list li{color:var(--text-secondary);font-size:0.9375rem;line-height:1.8;padding:0.5rem 0 0.5rem 2.5rem;position:relative;counter-increment:steps}
+        .steps-list li::before{content:counter(steps);position:absolute;left:0;top:0.45rem;width:28px;height:28px;border-radius:50%;background:var(--accent-glow);border:1px solid rgba(0,136,219,0.3);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;color:var(--accent)}
+
+        /* Next steps */
+        .next-list{list-style:none;margin:1rem 0}
+        .next-list li{color:var(--text-secondary);font-size:0.9375rem;line-height:1.8;padding:0.25rem 0 0.25rem 1.75rem;position:relative}
+        .next-list li::before{content:'\2192';position:absolute;left:0;color:var(--accent)}
+
+        /* CTA block */
+        .cta-block h2{font-size:clamp(1.25rem,3vw,1.5rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem}
+
+        /* Calendly */
+        .calendly-wrap{background:var(--card-bg-solid);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-top:1.5rem}
+        .calendly-wrap iframe{display:block;border:none;width:100%;min-height:630px}
+
+        /* Footer */
+        .footer-section{margin-top:6rem;padding-top:3rem;border-top:1px solid var(--border)}
+        .footer-email-main{color:var(--text-secondary);font-size:1rem;margin-bottom:2.5rem;display:inline-block;transition:color 0.2s ease}
+        .footer-email-main:hover{color:var(--accent)}
+        .footer-columns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-bottom:2.5rem}
+        .footer-col h4{font-size:0.7rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.5rem}
+        .footer-col a{color:var(--text-secondary);font-size:0.875rem;transition:color 0.2s ease}
+        .footer-col a:hover{color:var(--accent)}
+        .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border)}
+        .footer-location{color:var(--text-muted);font-size:0.8125rem;margin-bottom:0.35rem}
+        .copyright{color:var(--text-muted);font-size:0.8125rem}
+
+        /* Responsive */
+        @media(max-width:768px){
+            .header-container{padding:0.75rem 1.25rem}
+            .header-nav{gap:0.25rem}
+            .header-nav a{font-size:0.8rem;padding:0.4rem 0.6rem}
+            .main-content{padding:0 1.25rem 4rem}
+            .hero{padding:4rem 0 3.5rem}
+            .hero .page-title{font-size:clamp(1.75rem,6vw,2.5rem)}
+            .tier-grid{grid-template-columns:1fr}
+            .industry-grid{grid-template-columns:1fr}
+            .footer-columns{grid-template-columns:1fr 1fr}
+            .section{padding:3.5rem 0}
+        }
+        @media(max-width:480px){
+            .hero{padding:3rem 0 2.5rem}
+            .footer-columns{grid-template-columns:1fr}
+            .hero-buttons{flex-direction:column;align-items:center}
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary{width:100%;justify-content:center}
+        }
+    </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTP7GMJ3" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="site-header">
+    <div class="header-container">
+        <a href="/" class="header-logo">
+            <img src="/images/home/launch-forte.svg" class="logo-img logo-img-dark" alt="Launch Forte">
+            <img src="/images/home/launch-forte.svg" class="logo-img logo-img-light" alt="Launch Forte">
+        </a>
+        <nav class="header-nav">
+            <a href="/index.html">Home</a>
+            <a href="/services.html">Services</a>
+            <a href="/ai-front-desk.html" class="active">AI Front Desk</a>
+            <a href="/work.html">Work</a>
+            <a href="/reviews.html">Reviews</a>
+            <a href="/writing.html">Writing</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-badge animate-fade-up"><span class="hero-badge-dot"></span> AI-Powered Phone System</div>
+        <h1 class="page-title animate-fade-up animate-delay-1">AI Front Desk</h1>
+        <p class="hero-subtitle animate-fade-up animate-delay-2">Never Lose a Lead to a Missed Call Again</p>
+        <div class="hero-buttons animate-fade-up animate-delay-3">
+            <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call &rarr;</a>
+            <a href="/services.html" class="btn-secondary">All Services</a>
+        </div>
+    </div>
+
+    <!-- THE PROBLEM -->
+    <div class="section reveal">
+        <span class="section-label">The Problem</span>
+        <p class="body-text">Most service businesses miss more calls than they answer. The ones that come in after hours, during lunch, when the team is with another customer... those calls don't leave voicemails. They call the next company on the list.</p>
+        <p class="body-text">Industry data puts the number somewhere around 60% of inbound calls going unanswered for small businesses. Each one of those is a potential customer who found you, picked up the phone, and got nothing. For home services companies, legal firms, medical offices, and real estate teams, a single missed call can represent thousands of dollars in lost revenue.</p>
+        <p class="body-text">Hiring a receptionist solves part of it. But a full-time receptionist costs $35,000-$55,000 per year before benefits, doesn't work nights or weekends, and still only handles one call at a time.</p>
+    </div>
+
+    <!-- WHAT IT DOES -->
+    <div class="section reveal">
+        <span class="section-label">What AI Front Desk Does</span>
+        <p class="body-text">AI Front Desk is a fully configured AI phone system that answers every inbound call to your business, 24 hours a day, 7 days a week. It sounds natural. It understands context. It captures the caller's information, answers common questions, and routes urgent calls to the right person.</p>
+        <h2 class="section-headline">When a call comes in:</h2>
+        <ul class="feature-list">
+            <li>The AI answers within 2 rings using a voice trained on your business</li>
+            <li>It greets the caller by your business name and asks how it can help</li>
+            <li>It handles common questions (hours, services, pricing, location, availability)</li>
+            <li>It captures the caller's name, phone number, reason for calling, and urgency level</li>
+            <li>It logs everything to your CRM automatically</li>
+            <li>If the caller needs a human, it routes to the right team member or takes a message</li>
+            <li>After the call, it triggers follow-up workflows (text confirmation, email notification to your team, CRM pipeline update)</li>
+        </ul>
+        <p class="body-text">Your team gets notified in real time. The caller gets a professional experience. Nothing gets lost.</p>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="section reveal">
+        <span class="section-label">How It Works</span>
+        <p class="body-text">The system runs on four layers:</p>
+        <div class="layer-grid">
+            <div class="layer-item">
+                <div class="layer-icon">&#9742;</div>
+                <div>
+                    <div class="layer-title">Voice Layer</div>
+                    <div class="layer-desc">Retell AI handles the actual phone conversation. Natural-sounding voice, real-time responses, handles interruptions and multi-turn conversations. Not a phone tree. Not "press 1 for sales." An actual conversational AI.</div>
+                </div>
+            </div>
+            <div class="layer-item">
+                <div class="layer-icon">&#9881;</div>
+                <div>
+                    <div class="layer-title">Conversation Design</div>
+                    <div class="layer-desc">Voiceflow manages the conversation logic. What questions to ask, how to handle different scenarios, what to say when someone asks something unexpected, when to escalate to a human. This is custom-built around your specific business.</div>
+                </div>
+            </div>
+            <div class="layer-item">
+                <div class="layer-icon">&#9993;</div>
+                <div>
+                    <div class="layer-title">Communication Layer</div>
+                    <div class="layer-desc">Twilio handles the phone infrastructure. Dedicated business phone number (or port your existing number), call routing, SMS confirmation messages to callers, voicemail fallback if needed.</div>
+                </div>
+            </div>
+            <div class="layer-item">
+                <div class="layer-icon">&#9889;</div>
+                <div>
+                    <div class="layer-title">Automation Layer</div>
+                    <div class="layer-desc">n8n connects everything to your existing tools. CRM updates, email notifications, SMS follow-ups, calendar bookings, Slack alerts... whatever your workflow needs. This is the piece that makes it operational instead of just a gimmick.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PACKAGES -->
+    <div class="section reveal">
+        <span class="section-label">Packages</span>
+        <div class="tier-grid">
+            <div class="tier-card">
+                <div class="tier-name">Core AI Receptionist</div>
+                <div class="tier-price">$5,000 setup + $800/mo</div>
+                <ul class="tier-list">
+                    <li>AI voice agent configured for your business (hours, services, FAQs, tone)</li>
+                    <li>Dedicated business phone number via Twilio</li>
+                    <li>Inbound call handling 24/7</li>
+                    <li>Caller information capture (name, phone, reason, urgency)</li>
+                    <li>CRM integration (new contact created, tagged, logged)</li>
+                    <li>Real-time email or SMS notification to your team when a call comes in</li>
+                    <li>Post-call SMS confirmation to the caller</li>
+                    <li>Up to 15 FAQ responses programmed</li>
+                    <li>Call recording and transcription logging</li>
+                    <li>Loom walkthrough of the entire system</li>
+                    <li>Written documentation</li>
+                    <li>7-day support window after launch</li>
+                </ul>
+                <p class="tier-best">Best for: Businesses that miss calls after hours and want every lead captured and logged without hiring staff.</p>
+                <p class="tier-infra">Infrastructure cost (client pays): ~$100-200/mo for Retell AI + Twilio based on call volume.</p>
+            </div>
+            <div class="tier-card featured">
+                <div class="tier-name">Full AI Front Desk</div>
+                <div class="tier-price">$8,000 setup + $1,200/mo</div>
+                <ul class="tier-list">
+                    <li>Everything in Core AI Receptionist, plus:</li>
+                    <li>Up to 30 FAQ responses programmed</li>
+                    <li>Call routing logic (urgent calls to owner, routine calls to voicemail with transcript)</li>
+                    <li>Appointment booking integration (Calendly, GHL, Acuity, or custom)</li>
+                    <li>Automated follow-up sequence triggered after each call (SMS + email, 3-touch)</li>
+                    <li>After-hours vs business-hours call handling (different scripts, different routing)</li>
+                    <li>Weekly call summary report (total calls, leads captured, common questions)</li>
+                    <li>Dashboard in Google Sheets or Airtable for call tracking and lead status</li>
+                    <li>14-day support window after launch</li>
+                    <li>2 rounds of script revisions based on real call data after launch</li>
+                </ul>
+                <p class="tier-best">Best for: Businesses that want the AI handling the full front desk experience including booking, follow-up, and reporting.</p>
+                <p class="tier-infra">Infrastructure cost (client pays): ~$150-300/mo for Retell AI + Twilio based on call volume.</p>
+            </div>
+            <div class="tier-card">
+                <div class="tier-name">AI Front Desk + Outbound</div>
+                <div class="tier-price">$8,000 setup + $1,500-2,000/mo managed</div>
+                <ul class="tier-list">
+                    <li>Everything in Full AI Front Desk, plus:</li>
+                    <li>Outbound call automation (appointment reminders, no-show follow-ups, review requests)</li>
+                    <li>Multi-location support (different scripts and routing per location)</li>
+                    <li>CRM pipeline automation (lead scoring, stage progression based on call outcomes)</li>
+                    <li>Monthly optimization (script updates based on call data, new FAQ additions, conversion tracking)</li>
+                    <li>Priority support</li>
+                </ul>
+                <p class="tier-best">Best for: Multi-location businesses or high-volume operations that want a fully managed AI phone system with ongoing optimization.</p>
+                <p class="tier-infra">Infrastructure cost (client pays): ~$200-400/mo for Retell AI + Twilio based on call volume.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHAT'S NOT INCLUDED -->
+    <div class="section reveal">
+        <span class="section-label">What's Not Included</span>
+        <ul class="excluded-list">
+            <li>Outbound cold calling or sales dialing (this is inbound capture and follow-up, not a sales floor)</li>
+            <li>Custom mobile app development</li>
+            <li>Hardware (desk phones, headsets, etc.)</li>
+            <li>The monthly software subscriptions (Retell AI, Twilio, CRM). I build the system, you own the tools.</li>
+        </ul>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="section reveal">
+        <span class="section-label">Timeline</span>
+        <ul class="timeline-list">
+            <li><strong>Core AI Receptionist:</strong> 7-10 business days from kickoff to live</li>
+            <li><strong>Full AI Front Desk:</strong> 10-14 business days from kickoff to live</li>
+            <li><strong>AI Front Desk + Outbound:</strong> 14-21 business days from kickoff to live</li>
+        </ul>
+        <p class="body-text" style="margin-top:1rem;">Kickoff starts after the first milestone payment and receipt of all access credentials.</p>
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="section reveal">
+        <span class="section-label">Payment</span>
+        <p class="body-text">50% to start, 50% on delivery and handoff. Monthly fees begin after the system is live and confirmed working.</p>
+    </div>
+
+    <!-- INDUSTRIES -->
+    <div class="section reveal">
+        <span class="section-label">Industries This Works Best For</span>
+        <div class="industry-grid">
+            <div class="industry-card">
+                <h3>Home Services</h3>
+                <p>Plumbing, HVAC, roofing, cleaning, landscaping. High call volume, after-hours emergencies, missed calls cost $500-$2,000+ per lead.</p>
+            </div>
+            <div class="industry-card">
+                <h3>Legal Firms</h3>
+                <p>Personal injury, family law, criminal defense. 72% of clients hire the first lawyer who responds. Cases are worth $10,000-$50,000+. One captured call per week pays for the entire system.</p>
+            </div>
+            <div class="industry-card">
+                <h3>Medical and Dental Practices</h3>
+                <p>Patient calls after hours, appointment scheduling, insurance questions, HIPAA-compliant call handling.</p>
+            </div>
+            <div class="industry-card">
+                <h3>Real Estate Teams</h3>
+                <p>Buyer inquiries, showing requests, listing questions. Speed to response determines who gets the client.</p>
+            </div>
+            <div class="industry-card">
+                <h3>Insurance Agencies</h3>
+                <p>Quote requests, claims intake, policy questions. High call volume with repeatable Q&amp;A patterns.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- AFTER LAUNCH -->
+    <div class="section reveal">
+        <span class="section-label">What Happens After Launch</span>
+        <p class="body-text">Most clients see patterns in the first 2-4 weeks of call data. Common questions that aren't programmed yet, routing rules that need adjusting, follow-up sequences that could be tighter. Tier 2 includes 2 rounds of revisions. After that, ongoing optimization is available through a monthly retainer or project-based updates.</p>
+        <p class="body-text">The natural next steps after AI Front Desk are usually:</p>
+        <ul class="next-list">
+            <li>Lead nurture sequences (automated email + SMS follow-up for captured leads)</li>
+            <li>CRM pipeline automation (stage progression, task assignment, reporting)</li>
+            <li>Review collection automation (post-service review requests)</li>
+            <li>Reporting dashboards (call volume, lead conversion, ROI tracking)</li>
+        </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="section reveal">
+        <div class="cta-block">
+            <h2>How to Get Started</h2>
+            <ol class="steps-list">
+                <li>We do a short discovery call (15-20 minutes) to understand your business, call volume, and what callers typically ask.</li>
+                <li>I recommend a tier based on what you need.</li>
+                <li>You send access to your CRM, phone system, and any tools the AI needs to connect to.</li>
+                <li>I build, test, and launch the system.</li>
+                <li>You start answering every call, 24/7, without hiring anyone.</li>
+            </ol>
+            <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call &rarr;</a>
+        </div>
+    </div>
+
+    <!-- BOOK A CALL -->
+    <div class="section reveal">
+        <span class="section-label">Book a Call</span>
+        <p class="body-text" style="margin-bottom:1.5rem;">Pick a time that works for you. No prep needed.</p>
+        <div class="calendly-wrap">
+            <iframe src="https://calendly.com/seth-fortewebdesigns/30min" title="Book a call with Seth Forte"></iframe>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-section">
+        <a href="mailto:seth@launchforte.com" class="footer-email-main">seth@launchforte.com</a>
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="/foundation.html">Foundation</a></li>
+                    <li><a href="/launch.html">Launch</a></li>
+                    <li><a href="/growth.html">Growth</a></li>
+                    <li><a href="/scale.html">Scale</a></li>
+                    <li><a href="/ai-front-desk.html">AI Front Desk</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/work.html">Work</a></li>
+                    <li><a href="/reviews.html">Reviews</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="mailto:seth@launchforte.com">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-location">Based in Grapevine, Texas. Serving clients nationwide.</p>
+            <p class="copyright">&copy; 2026 Launch Forte. All rights reserved.</p>
+        </div>
+    </div>
+
+</main>
+
+<script src="/scroll-reveal.js"></script>
+<script src="/theme-toggle.js"></script>
+<script src="/scroll-top.js"></script>
+<script src="/hamburger.js"></script>
+</body>
+</html>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How We Automated $52,000 Worth of Annual Work for a Real Estate Wholesaler | Launch Forte</title>
-    <meta name="description" content="A full walkthrough of the CR Deals Cincinnati project — the problem, the system we built, and what we'd do differently if we started today.">
-    <link rel="canonical" href="https://launchforte.com/posts/cr-deals-case-study.html">
+    <title>Unified SSO and MFA for 1,040 Insurance Agency Users | Launch Forte</title>
+    <meta name="description" content="How we built a unified SSO and MFA system using AWS Cognito and FusionAuth for 1,040 insurance agency users across Smartsheet and InsuredMine.">
+    <link rel="canonical" href="https://launchforte.com/work/san-of-florida.html">
     <link rel="icon" href="/images/home/profile-pic.jpg" type="image/jpeg">
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
     <style>
@@ -30,6 +30,7 @@
         .post-title{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.25}
         .post-meta{font-size:0.82rem;color:var(--text-muted);margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
         .post-body h2{font-size:1.25rem;font-weight:700;color:var(--text-primary);margin:2.5rem 0 1rem}
+        .post-body h3{font-size:1.05rem;font-weight:600;color:var(--text-primary);margin:2rem 0 0.75rem}
         .post-body p{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8}
         .post-body ul,.post-body ol{color:var(--text-secondary);margin:0 0 1.5rem 1.5rem;line-height:1.8}
         .post-body li{margin-bottom:0.5rem}
@@ -42,6 +43,8 @@
         .stat-label{font-size:0.8rem;color:var(--text-muted)}
         .back-link{display:inline-block;font-size:0.85rem;color:var(--text-muted);margin-bottom:2.5rem}
         .back-link:hover{color:var(--accent)}
+        .tech-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin:1.5rem 0}
+        .tech-tag{background:var(--card-bg);border:1px solid var(--border);border-radius:100px;padding:0.3rem 0.85rem;font-size:0.8rem;color:var(--text-muted)}
         .cta-block{margin-top:4rem;padding:2rem;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;text-align:center}
         .cta-block p{color:var(--text-secondary);margin-bottom:1.25rem}
         .btn-primary{display:inline-block;background:var(--accent);color:#fff;padding:0.75rem 1.75rem;border-radius:6px;font-size:0.95rem;font-weight:500;transition:transform 0.2s ease,box-shadow 0.2s ease;text-decoration:none}
@@ -65,9 +68,9 @@
             <a href="/index.html">Home</a>
             <a href="/services.html">Services</a>
             <a href="/ai-front-desk.html">AI Front Desk</a>
-            <a href="/work.html">Work</a>
+            <a href="/work.html" class="active">Work</a>
             <a href="/reviews.html">Reviews</a>
-            <a href="/writing.html" class="active">Writing</a>
+            <a href="/writing.html">Writing</a>
             <a href="/about.html">About</a>
             <a href="/contact.html">Contact</a>
         </nav>
@@ -75,68 +78,64 @@
 </header>
 
 <main class="main-content">
-    <a href="/writing.html" class="back-link">&larr; Back to Writing</a>
+    <a href="/work.html" class="back-link">&larr; Back to Work</a>
 
-    <span class="post-tag">Automation</span>
-    <h1 class="post-title">How We Automated $52,000 Worth of Annual Work for a Real Estate Wholesaler</h1>
-    <div class="post-meta">October 2025 &middot; 7 min read &middot; Case Study</div>
+    <span class="post-tag">Case Study</span>
+    <h1 class="post-title">Unified SSO and MFA for 1,040 Insurance Agency Users</h1>
+    <div class="post-meta">Mark Sierra, SAN of Florida (Tampa Bay, FL) &middot; Case Study</div>
 
     <div class="stat-row">
-        <div class="stat-item"><span class="stat-num">$52K</span><span class="stat-label">Annual labor cost eliminated</span></div>
-        <div class="stat-item"><span class="stat-num">3 wks</span><span class="stat-label">Build timeline</span></div>
-        <div class="stat-item"><span class="stat-num">6 wks</span><span class="stat-label">To full payback</span></div>
+        <div class="stat-item"><span class="stat-num">1,040</span><span class="stat-label">Users consolidated</span></div>
+        <div class="stat-item"><span class="stat-num">2</span><span class="stat-label">Platforms unified</span></div>
+        <div class="stat-item"><span class="stat-num">$0</span><span class="stat-label">Per-user licensing cost</span></div>
     </div>
 
     <div class="post-body">
-        <p>CR Deals Cincinnati is a real estate wholesaling operation — they find distressed properties, put them under contract, and sell the contracts to cash buyers. The business runs on lead volume and speed. The problem was that their back-office was almost entirely manual, and it was costing them more than they realized.</p>
+        <h2>The Situation</h2>
 
-        <h2>The Problem</h2>
+        <p>SAN of Florida is an insurance network managing over 1,000 external agency users across two platforms: Smartsheet (operations and reporting) and InsuredMine (CRM and marketing automation). Each user had separate login credentials for each platform. No multi-factor authentication. No centralized identity management.</p>
 
-        <p>When we audited the operation, we found four separate manual processes that were consuming significant time every week:</p>
+        <p>New cybersecurity regulations hitting the insurance industry in 2026 forced the issue. SAN needed MFA across all systems, but with 1,040 external users spread across hundreds of different agency domains, the standard solutions didn't work. Okta and similar identity providers charge per user, which at this scale would have cost more than the platforms themselves. Mark had already tried multiple approaches on his own... Smartsheet's native MFA (not sufficient for compliance), Azure SSO (couldn't make it work without per-user licensing), and direct configuration with platform support teams that led nowhere.</p>
 
-        <ul>
-            <li><strong>Lead intake:</strong> Inbound seller leads from the website, direct mail, and driving-for-dollars apps were being manually copied into a spreadsheet. One person spent about 2 hours a day just transferring contact information.</li>
-            <li><strong>Follow-up:</strong> After initial contact, follow-ups were tracked in the same spreadsheet with color coding. Leads regularly fell through the cracks when the spreadsheet got messy or the person managing it was busy.</li>
-            <li><strong>Buyer list management:</strong> Their cash buyer list was in a separate spreadsheet. Matching new deals to relevant buyers required manually scrolling through hundreds of rows.</li>
-            <li><strong>Contract and document routing:</strong> When a deal was accepted, documents were sent manually by email. Tracking who signed what required checking email threads.</li>
-        </ul>
-
-        <p>We added up the time and costed it at the loaded rate of the two people handling these tasks. The total came to approximately $52,000 per year in labor allocated to work that shouldn't require a human at all.</p>
+        <p>He needed a single sign-on system that would handle 1,040 users across two platforms, enforce MFA, and not cost a fortune in per-seat licensing.</p>
 
         <h2>What We Built</h2>
 
-        <p><strong>Automated lead intake:</strong> Every lead source — the website form, the direct mail landing page, and the driving-for-dollars app via Zapier — now feeds directly into GoHighLevel. No manual entry. Each lead is automatically tagged with its source, assigned a pipeline stage, and triggers a follow-up sequence.</p>
+        <p>A unified SSO and MFA system using AWS Cognito as the identity provider and FusionAuth as the SAML broker, connecting both Smartsheet and InsuredMine under one authentication layer.</p>
 
-        <p><strong>Follow-up sequences by lead status:</strong> We built four automated sequences: initial contact (immediate text + email), no response follow-up (days 2, 5, 10, 21), appointment confirmation, and deal-in-progress. The right sequence fires based on what stage the lead is in. The team's job is now to respond to interested leads — not to remember to follow up.</p>
+        <p>When any of the 1,040 users log into either Smartsheet or InsuredMine, they hit a centralized login page hosted at auth.sanflorida.com. FusionAuth handles the SAML exchange with each platform, and AWS Cognito manages the user pool, MFA enforcement, and session management behind it. One login, one MFA challenge, access to both platforms.</p>
 
-        <p><strong>Buyer matching automation:</strong> When a new deal is added to the system, it automatically identifies buyers on the list whose criteria match the property (geography, price range, property type) and sends a deal alert to that subset. No more manual matching.</p>
+        <p>The discovery phase involved verifying SAML support on both platforms (Smartsheet had it in their admin panel, InsuredMine required backend coordination with their dev team), analyzing the user list (1,040 users across 900+ agency domains with only 15 internal accounts), and mapping the full authentication flow including domain verification, DNS configuration, SSL certificates, and SAML metadata exchange.</p>
 
-        <p><strong>Document automation:</strong> Accepted deals now trigger an automatic document workflow via PandaDoc — the contract is generated with the property details pre-filled and sent for signature automatically. Signed documents trigger a notification to the relevant team members.</p>
+        <p>The build included standing up the AWS infrastructure (Cognito user pool, FusionAuth instance on EC2 behind an application load balancer), configuring SAML applications for both platforms with their specific entity IDs and ACS URLs, provisioning all 1,040 users into the Cognito pool from a clean user export, setting up MFA enforcement, and coordinating DNS changes with the client's hosting provider.</p>
+
+        <h2>Results</h2>
 
         <div class="callout">
-            <p><strong>The result:</strong> The two employees who were spending the majority of their time on manual data work now spend that time on outreach, relationship management, and deal negotiation. The operation handles 40% more leads with the same headcount.</p>
+            <p><strong>1,040 users consolidated under a single identity provider.</strong> MFA enforced across both platforms from one login. No per-user licensing cost (AWS Cognito free tier covers up to 50,000 MAUs). Cybersecurity compliance requirements met ahead of 2026 deadline. Ongoing retainer for user management and monitoring.</p>
         </div>
 
-        <h2>What We'd Do Differently</h2>
+        <h2>Tech Stack</h2>
 
-        <p>A few things we'd change if we started this project today:</p>
+        <div class="tech-tags">
+            <span class="tech-tag">AWS Cognito</span>
+            <span class="tech-tag">FusionAuth</span>
+            <span class="tech-tag">AWS EC2 / ALB / ACM</span>
+            <span class="tech-tag">Smartsheet Admin Center</span>
+            <span class="tech-tag">InsuredMine (SAML)</span>
+            <span class="tech-tag">Route 53 / DNS</span>
+        </div>
 
-        <p><strong>Start with the follow-up sequences, not the intake.</strong> We built intake first because it felt like the logical starting point, but the follow-up system generated more immediate ROI. Leads were already in the system — they just weren't being followed up consistently. We'd sequence the build differently next time.</p>
+        <h2>What Made This Work</h2>
 
-        <p><strong>Build the reporting dashboard earlier.</strong> We added a reporting layer — lead source performance, conversion rates by stage, average time-to-close — in week three. Having that data from week one would have let us optimize the sequences faster.</p>
+        <p>The previous attempts failed because they were trying to solve a per-platform problem with per-platform tools. Smartsheet's native MFA doesn't extend to InsuredMine. Azure SSO has per-user costs that don't make sense at 1,040 seats. The fix was stepping back and building an identity layer that sits above both platforms.</p>
 
-        <p><strong>Invest more in the buyer side.</strong> The seller-side automation was the primary focus, but the buyer matching system could go further — personalized deal alerts based on past purchases, automated relationship nurture for high-value buyers. There's more to build there.</p>
-
-        <h2>The Takeaway</h2>
-
-        <p>This project cost $4,200 to build and paid for itself in about six weeks. The ongoing cost is roughly $180/month in software. The annual return, conservatively, is over $50,000 in reclaimed labor — not counting the revenue impact of higher lead conversion from consistent follow-up.</p>
-
-        <p>The best automation projects aren't technically impressive. They're just solving a clearly defined, expensive problem with a reliable system. This was one of those.</p>
+        <p>The other piece was coordination. InsuredMine doesn't expose SSO settings in their admin UI. Getting SAML configured required direct communication with their engineering team, providing the correct metadata, certificates, and redirect URLs in a format their backend could consume. That's not something a business owner can figure out from a support article.</p>
     </div>
 
     <div class="cta-block">
-        <p>Have a similar manual process costing you time and money? Let's run the math together.</p>
-        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Call</a>
+        <p>Need to unify authentication across multiple platforms? Let's talk through your setup.</p>
+        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call</a>
     </div>
 
     <div class="footer-section">
