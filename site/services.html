@@ -152,6 +152,15 @@
         .footer-location{color:var(--text-muted);font-size:0.8125rem;margin-bottom:0.35rem}
         .copyright{color:var(--text-muted);font-size:0.8125rem}
 
+        /* Product callout */
+        .product-callout{background:linear-gradient(135deg,rgba(0,136,219,0.08),rgba(56,178,245,0.04));border:1px solid rgba(0,136,219,0.25);border-radius:var(--radius-lg);padding:2.5rem;margin:1rem 0 2rem;position:relative;overflow:hidden}
+        .product-callout::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-warm))}
+        .product-callout-label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);margin-bottom:1rem}
+        .product-callout-label::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse-glow 2s ease infinite}
+        .product-callout h3{font-size:clamp(1.15rem,2.5vw,1.35rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em}
+        .product-callout p{color:var(--text-secondary);font-size:0.9375rem;line-height:1.8;margin-bottom:1rem}
+        .product-callout .product-price{color:var(--text-muted);font-size:0.875rem;font-weight:500;margin-bottom:1.25rem}
+
         /* Link arrow */
         .link-arrow{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.875rem;font-weight:500;color:var(--accent);transition:gap 0.2s ease}
         .link-arrow:hover{gap:0.7rem;color:var(--accent-hover)}
@@ -190,7 +199,6 @@
         <nav class="header-nav">
             <a href="/index.html">Home</a>
             <a href="/services.html" class="active">Services</a>
-            <a href="/ai-front-desk.html">AI Front Desk</a>
             <a href="/work.html">Work</a>
             <a href="/reviews.html">Reviews</a>
             <a href="/writing.html">Writing</a>
@@ -315,6 +323,15 @@
             </div>
         </div>
         <p class="stage-cta"><a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener">Book a call</a> and we'll identify which channels will move the needle fastest for your business.</p>
+
+        <!-- AI FRONT DESK CALLOUT -->
+        <div class="product-callout reveal">
+            <span class="product-callout-label">Featured Product</span>
+            <h3>AI Front Desk — Never Lose a Lead to a Missed Call Again</h3>
+            <p>Most service businesses miss over half their inbound calls. Every one of those is a potential customer calling your competitor instead. AI Front Desk answers every call 24/7, captures caller information, answers common questions, and routes urgent calls to your team. Fully configured with your business voice, connected to your CRM, with automated follow-up built in.</p>
+            <p class="product-price">Starting at $5,000 setup + $800/month.</p>
+            <a href="/ai-front-desk.html" class="link-arrow">Learn more &rarr;</a>
+        </div>
     </div>
 
     <!-- STAGE 4: SCALE -->
