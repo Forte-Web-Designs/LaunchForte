@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Systems Assessment and Automation Roadmap for a Restoration Company | Launch Forte</title>
+    <meta name="description" content="How we audited 24 Zapier automations, built commission tracking, and delivered a 14-page systems assessment with a five-phase automation roadmap for Daleen Restoration.">
+    <link rel="canonical" href="https://launchforte.com/work/daleen-restoration.html">
+    <link rel="icon" href="/images/home/profile-pic.jpg" type="image/jpeg">
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--text-primary:#edf2f7;--text-secondary:#94a3b8;--text-muted:#64748b;--accent:#0088DB;--accent-warm:#38b2f5;--background:#0d1117;--background-alt:#121a28;--border:#1e2a3a;--card-bg:#172030}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:17px;line-height:1.7;color:var(--text-primary);background:var(--background);background-image:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(56,178,245,0.04) 0%,transparent 50%);background-attachment:fixed}
+        a{color:var(--accent);text-decoration:none;transition:color 0.2s ease}
+        a:hover{text-decoration:underline}
+        .site-header{position:sticky;top:0;z-index:100;background:var(--background);border-bottom:1px solid var(--border)}
+        .header-container{max-width:1000px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
+        .header-logo{text-decoration:none;display:flex;align-items:center}
+        .header-logo:hover{opacity:0.85;text-decoration:none}
+        .logo-img{height:90px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
+        .logo-img-light{display:none}
+        [data-theme="light"] .logo-img-dark{display:none}
+        [data-theme="light"] .logo-img-light{display:block}
+        .header-nav{display:flex;gap:1.5rem;align-items:center}
+        .header-nav a{color:var(--text-secondary);font-size:0.9rem;text-decoration:none;transition:color 0.2s ease}
+        .header-nav a:hover,.header-nav a.active{color:var(--text-primary)}
+        .main-content{max-width:720px;margin:0 auto;padding:5rem 2rem 6rem}
+        .post-tag{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:1rem;display:block}
+        .post-title{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.25}
+        .post-meta{font-size:0.82rem;color:var(--text-muted);margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+        .post-body h2{font-size:1.25rem;font-weight:700;color:var(--text-primary);margin:2.5rem 0 1rem}
+        .post-body h3{font-size:1.05rem;font-weight:600;color:var(--text-primary);margin:2rem 0 0.75rem}
+        .post-body p{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8}
+        .post-body ul,.post-body ol{color:var(--text-secondary);margin:0 0 1.5rem 1.5rem;line-height:1.8}
+        .post-body li{margin-bottom:0.5rem}
+        .post-body strong{color:var(--text-primary);font-weight:600}
+        .callout{background:var(--card-bg);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:1.25rem 1.5rem;margin:2rem 0}
+        .callout p{margin:0;color:var(--text-secondary)}
+        .stat-row{display:flex;gap:2rem;margin:2rem 0;flex-wrap:wrap}
+        .stat-item{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;flex:1;min-width:140px}
+        .stat-num{font-size:1.5rem;font-weight:700;color:var(--text-primary);display:block}
+        .stat-label{font-size:0.8rem;color:var(--text-muted)}
+        .back-link{display:inline-block;font-size:0.85rem;color:var(--text-muted);margin-bottom:2.5rem}
+        .back-link:hover{color:var(--accent)}
+        .tech-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin:1.5rem 0}
+        .tech-tag{background:var(--card-bg);border:1px solid var(--border);border-radius:100px;padding:0.3rem 0.85rem;font-size:0.8rem;color:var(--text-muted)}
+        .cta-block{margin-top:4rem;padding:2rem;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;text-align:center}
+        .cta-block p{color:var(--text-secondary);margin-bottom:1.25rem}
+        .btn-primary{display:inline-block;background:var(--accent);color:#fff;padding:0.75rem 1.75rem;border-radius:6px;font-size:0.95rem;font-weight:500;transition:transform 0.2s ease,box-shadow 0.2s ease;text-decoration:none}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,136,219,0.35);text-decoration:none}
+        .footer-section{margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)}
+        .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border)}
+        .footer-location{color:var(--text-muted);font-size:0.85rem;margin-bottom:0.35rem}
+        .copyright{color:var(--text-muted);font-size:0.85rem}
+        @media(max-width:768px){.header-container{padding:0.75rem 1.25rem}.header-nav{gap:0.85rem}.header-nav a{font-size:0.82rem}.main-content{padding:3rem 1.25rem 4rem}.stat-row{gap:1rem}}
+    </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTP7GMJ3" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+    <div class="header-container">
+        <a href="/" class="header-logo">
+            <img src="/images/home/launch-forte.svg" class="logo-img logo-img-dark" alt="Launch Forte">
+            <img src="/images/home/launch-forte.svg" class="logo-img logo-img-light" alt="Launch Forte">
+        </a>
+        <nav class="header-nav">
+            <a href="/index.html">Home</a>
+            <a href="/services.html">Services</a>
+            <a href="/ai-front-desk.html">AI Front Desk</a>
+            <a href="/work.html" class="active">Work</a>
+            <a href="/reviews.html">Reviews</a>
+            <a href="/writing.html">Writing</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+    <a href="/work.html" class="back-link">&larr; Back to Work</a>
+
+    <span class="post-tag">Case Study</span>
+    <h1 class="post-title">Systems Assessment and Automation Roadmap for a Restoration Company</h1>
+    <div class="post-meta">Kevin Daleen, Daleen Restoration (Wisconsin) &middot; Case Study</div>
+
+    <div class="stat-row">
+        <div class="stat-item"><span class="stat-num">24→10</span><span class="stat-label">Zapier cleanup</span></div>
+        <div class="stat-item"><span class="stat-num">14-page</span><span class="stat-label">Systems assessment delivered</span></div>
+        <div class="stat-item"><span class="stat-num">$10,700+</span><span class="stat-label">Additional work identified</span></div>
+    </div>
+
+    <div class="post-body">
+        <h2>The Situation</h2>
+
+        <p>Kevin Daleen runs Daleen Restoration, a property restoration company handling water damage, mold, fire, and insurance claims work in Wisconsin. The business was growing through referrals from insurance agents, plumbers, BNI networking, and word of mouth. They had a solid tool stack: Albiware for project management, QuickBooks for accounting, RepMove for sales routing, Google Drive for files, CompanyCam for photos, Mailchimp for email, and Zapier tying some of it together.</p>
+
+        <p>The problem wasn't the tools. It was that none of them were connected as a system.</p>
+
+        <p>Kevin's Zapier account had 24 Zaps, most of them untitled. 14 were incomplete drafts. Several were broken, including Monday.com integrations with filters that compared a field to itself and a status sync Zap hardcoded to a single test project. The commission tracker was throttling because it looped through 500+ projects on every run, triggering Zapier's rate limits with 233 held runs piling up.</p>
+
+        <p>Beyond the immediate cleanup, Kevin had zero automated customer communication. No "we're starting tomorrow" text. No "work is in progress" update. No "your project is complete" email. Every update to a stressed homeowner whose house just flooded was either manual or didn't happen. He had 427+ projects worth of customer data and a Mailchimp list that was connected but unused. No review requests when jobs closed. No thank-you to the referrers who sent work. No reporting on which referral sources produced the highest-value jobs.</p>
+
+        <h2>What We Built</h2>
+
+        <p>The engagement started with a commission tracking system and a Zapier audit, then expanded into a comprehensive systems assessment with a five-phase automation roadmap.</p>
+
+        <p><strong>Commission Tracker:</strong> A Zapier workflow that syncs all Albiware projects to Google Sheets weekly, calculates commissions owed per pay period based on a tiered rate structure (15% for first job from an account, scaling down to 2% lifetime rate after 24 months), and filters by the assigned sales rep. Built as a dashboard with pay period filtering so Kevin can see at a glance what's owed without hunting through project records.</p>
+
+        <p><strong>Zapier Audit:</strong> Reviewed all 24 Zaps, documented findings, deleted 14 drafts and 6 broken automations, fixed the commission tracker throttling by adding a 7-day filter (reducing loop iterations from 500+ to about 20-50), and delivered a clean audit document with the remaining 10 Zaps fully documented.</p>
+
+        <p><strong>Customer Communication Automation:</strong> Status-triggered messaging from Albiware. When a project status changes, the customer automatically gets an SMS and email. Five message templates covering the full project lifecycle: welcome message on project creation, scheduled notification, daily work-in-progress updates (SMS only after day 1 to avoid inbox fatigue), work complete notification, and internal team alerts. Every message includes the project manager's contact info and a Calendly link for scheduling.</p>
+
+        <p><strong>Systems Assessment:</strong> A 14-page diagnostic document mapping Kevin's entire operation across six business stages (Get Found, Capture It, Work the Lead, Serve the Customer, Keep and Grow, See Everything), identifying where each stage was strong, partially covered, or had gaps. The assessment produced five prioritized automation recommendations with fixed pricing: customer communication automation, post-job reviews and referrer thank-you sequences, an AI phone agent for 24/7 call handling, past customer nurture sequences, and an Albiware analytics dashboard. Each recommendation included exact deliverables, timeline, and how it connects to the next phase.</p>
+
+        <h2>Results</h2>
+
+        <div class="callout">
+            <p><strong>Commission tracking automated across tiered rate structure.</strong> Zapier account cleaned from 24 Zaps to 10. Throttling issue resolved (233 held runs eliminated). Customer communication templates built for full project lifecycle. 14-page systems assessment delivered with prioritized roadmap. $10,700+ in additional project work identified and scoped. Foundation built for AI phone agent, review automation, and analytics.</p>
+        </div>
+
+        <h2>Tech Stack</h2>
+
+        <div class="tech-tags">
+            <span class="tech-tag">Albiware</span>
+            <span class="tech-tag">Zapier</span>
+            <span class="tech-tag">Google Sheets</span>
+            <span class="tech-tag">QuickBooks</span>
+            <span class="tech-tag">RepMove</span>
+            <span class="tech-tag">Twilio</span>
+            <span class="tech-tag">Mailchimp</span>
+            <span class="tech-tag">CompanyCam</span>
+        </div>
+
+        <h2>What Made This Work</h2>
+
+        <p>The systems assessment changed the relationship from project-to-project freelancing to long-term infrastructure partnership. Instead of waiting for Kevin to describe his next problem, we mapped his entire operation, diagnosed every gap, and presented a prioritized roadmap with fixed pricing. Kevin can see exactly what to build, in what order, and what each phase costs before committing to anything.</p>
+
+        <p>For a restoration company where the first responder usually wins the job and Google reviews determine who gets the call at 2am, automated customer communication and review requests aren't nice-to-haves. They're revenue infrastructure.</p>
+    </div>
+
+    <div class="cta-block">
+        <p>Need a systems assessment that turns into a roadmap? Let's map your operation and find what to build first.</p>
+        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call</a>
+    </div>
+
+    <div class="footer-section">
+        <div class="footer-bottom">
+            <p class="footer-location">Based in Grapevine, Texas. Serving clients nationwide.</p>
+            <p class="copyright">&copy; 2026 Launch Forte. All rights reserved.</p>
+        </div>
+    </div>
+</main>
+
+<script src="/scroll-reveal.js"></script>
+<script src="/theme-toggle.js"></script>
+<script src="/scroll-top.js"></script>
+<script src="/hamburger.js"></script>
+</body>
+</html>
