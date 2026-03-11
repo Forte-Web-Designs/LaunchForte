@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operations Control Plane for a Cleaning Services Company | Launch Forte</title>
+    <meta name="description" content="How we built a full operations control plane in Airtable with automated data sync from BookingKoala for Corevantage Cleaning, automating 5-tier cleaner payouts and job margin tracking.">
+    <link rel="canonical" href="https://launchforte.com/work/corevantage-cleaning.html">
+    <link rel="icon" href="/images/home/profile-pic.jpg" type="image/jpeg">
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--text-primary:#edf2f7;--text-secondary:#94a3b8;--text-muted:#64748b;--accent:#0088DB;--accent-warm:#38b2f5;--background:#0d1117;--background-alt:#121a28;--border:#1e2a3a;--card-bg:#172030}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:17px;line-height:1.7;color:var(--text-primary);background:var(--background);background-image:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(56,178,245,0.04) 0%,transparent 50%);background-attachment:fixed}
+        a{color:var(--accent);text-decoration:none;transition:color 0.2s ease}
+        a:hover{text-decoration:underline}
+        .site-header{position:sticky;top:0;z-index:100;background:var(--background);border-bottom:1px solid var(--border)}
+        .header-container{max-width:1000px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
+        .header-logo{text-decoration:none;display:flex;align-items:center}
+        .header-logo:hover{opacity:0.85;text-decoration:none}
+        .logo-img{height:90px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
+        .logo-img-light{display:none}
+        [data-theme="light"] .logo-img-dark{display:none}
+        [data-theme="light"] .logo-img-light{display:block}
+        .header-nav{display:flex;gap:1.5rem;align-items:center}
+        .header-nav a{color:var(--text-secondary);font-size:0.9rem;text-decoration:none;transition:color 0.2s ease}
+        .header-nav a:hover,.header-nav a.active{color:var(--text-primary)}
+        .main-content{max-width:720px;margin:0 auto;padding:5rem 2rem 6rem}
+        .post-tag{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:1rem;display:block}
+        .post-title{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.25}
+        .post-meta{font-size:0.82rem;color:var(--text-muted);margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+        .post-body h2{font-size:1.25rem;font-weight:700;color:var(--text-primary);margin:2.5rem 0 1rem}
+        .post-body h3{font-size:1.05rem;font-weight:600;color:var(--text-primary);margin:2rem 0 0.75rem}
+        .post-body p{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8}
+        .post-body ul,.post-body ol{color:var(--text-secondary);margin:0 0 1.5rem 1.5rem;line-height:1.8}
+        .post-body li{margin-bottom:0.5rem}
+        .post-body strong{color:var(--text-primary);font-weight:600}
+        .callout{background:var(--card-bg);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:1.25rem 1.5rem;margin:2rem 0}
+        .callout p{margin:0;color:var(--text-secondary)}
+        .stat-row{display:flex;gap:2rem;margin:2rem 0;flex-wrap:wrap}
+        .stat-item{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;flex:1;min-width:140px}
+        .stat-num{font-size:1.5rem;font-weight:700;color:var(--text-primary);display:block}
+        .stat-label{font-size:0.8rem;color:var(--text-muted)}
+        .back-link{display:inline-block;font-size:0.85rem;color:var(--text-muted);margin-bottom:2.5rem}
+        .back-link:hover{color:var(--accent)}
+        .tech-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin:1.5rem 0}
+        .tech-tag{background:var(--card-bg);border:1px solid var(--border);border-radius:100px;padding:0.3rem 0.85rem;font-size:0.8rem;color:var(--text-muted)}
+        .cta-block{margin-top:4rem;padding:2rem;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;text-align:center}
+        .cta-block p{color:var(--text-secondary);margin-bottom:1.25rem}
+        .btn-primary{display:inline-block;background:var(--accent);color:#fff;padding:0.75rem 1.75rem;border-radius:6px;font-size:0.95rem;font-weight:500;transition:transform 0.2s ease,box-shadow 0.2s ease;text-decoration:none}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,136,219,0.35);text-decoration:none}
+        .footer-section{margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)}
+        .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border)}
+        .footer-location{color:var(--text-muted);font-size:0.85rem;margin-bottom:0.35rem}
+        .copyright{color:var(--text-muted);font-size:0.85rem}
+        @media(max-width:768px){.header-container{padding:0.75rem 1.25rem}.header-nav{gap:0.85rem}.header-nav a{font-size:0.82rem}.main-content{padding:3rem 1.25rem 4rem}.stat-row{gap:1rem}}
+    </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTP7GMJ3" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+    <div class="header-container">
+        <a href="/" class="header-logo">
+            <img src="/images/home/launch-forte.svg" class="logo-img logo-img-dark" alt="Launch Forte">
+            <img src="/images/home/launch-forte.svg" class="logo-img logo-img-light" alt="Launch Forte">
+        </a>
+        <nav class="header-nav">
+            <a href="/index.html">Home</a>
+            <a href="/services.html">Services</a>
+            <a href="/ai-front-desk.html">AI Front Desk</a>
+            <a href="/work.html" class="active">Work</a>
+            <a href="/reviews.html">Reviews</a>
+            <a href="/writing.html">Writing</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+    <a href="/work.html" class="back-link">&larr; Back to Work</a>
+
+    <span class="post-tag">Case Study</span>
+    <h1 class="post-title">Operations Control Plane for a Cleaning Services Company</h1>
+    <div class="post-meta">Sean Flanagan, Corevantage Cleaning LLC (Grand Rapids, MI) &middot; Case Study</div>
+
+    <div class="stat-row">
+        <div class="stat-item"><span class="stat-num">5 tiers</span><span class="stat-label">Payout levels automated</span></div>
+        <div class="stat-item"><span class="stat-num">Real-time</span><span class="stat-label">Booking sync to Airtable</span></div>
+        <div class="stat-item"><span class="stat-num">Full</span><span class="stat-label">Audit trail on every event</span></div>
+    </div>
+
+    <div class="post-body">
+        <h2>The Situation</h2>
+
+        <p>Sean Flanagan runs Corevantage Cleaning, a residential cleaning company in Grand Rapids with a growing roster of independent cleaners. His business runs on BookingKoala for scheduling, Stripe for payments, and QuickBooks for accounting. But none of those systems talked to each other in a way that gave him operational visibility.</p>
+
+        <p>When a customer booked a cleaning, the data lived in BookingKoala. When they paid, that lived in Stripe. When Sean needed to pay his cleaners, he was manually looking up which jobs were completed, calculating each cleaner's payout based on their tier (cleaners earn between 40-52% depending on experience level), factoring in Stripe processing fees, and figuring out the actual margin on each job. All of this was happening in his head or in spreadsheets.</p>
+
+        <p>With a 5-tier payout structure where every cleaner earns a different percentage, manually tracking who was owed what and what the actual profit margin looked like on each job became unsustainable as the team grew.</p>
+
+        <h2>What We Built</h2>
+
+        <p>A full operations control plane in Airtable with automated data sync from BookingKoala via Make.com.</p>
+
+        <p>The Airtable base has seven interconnected tables: Customers, Cleaners, Jobs, Payments, Automation Runs, Exceptions &amp; Overrides, and Payout Batches. Every table links to the others through relationship fields, so a single customer record shows all their jobs, every job shows its payment and assigned cleaner, and every cleaner shows their complete job history with calculated payouts.</p>
+
+        <p>The automation layer runs on Make.com with six scenarios that keep Airtable in sync with BookingKoala in real time. When a new booking is created, the system checks if the customer already exists, creates or updates the record, and creates the job. When a booking is updated, completed, or canceled, the corresponding records update automatically.</p>
+
+        <p>Every automation event is logged with the scenario name, trigger, affected record, status, and timestamp. If something fails, the error and retry count are captured.</p>
+
+        <p>The payout system calculates automatically. When a cleaner is assigned to a job, the system applies the correct split percentage, subtracts Stripe processing fees, and shows the cleaner payout and net margin on every job. Weekly payout batches group eligible jobs by cleaner, and Sean reviews and approves each batch before paying out.</p>
+
+        <h2>Results</h2>
+
+        <div class="callout">
+            <p><strong>Every booking and status change syncs to Airtable in real time.</strong> Cleaner payouts auto-calculated across 5 tier levels. Full audit trail on every automation event. Margin visibility on every job (gross, fees, payout, net). Weekly payout batches with approval workflow. Foundation supports ongoing phases ($5,000-$6,000+ total engagement).</p>
+        </div>
+
+        <h2>Tech Stack</h2>
+
+        <div class="tech-tags">
+            <span class="tech-tag">Airtable</span>
+            <span class="tech-tag">Make.com</span>
+            <span class="tech-tag">BookingKoala API</span>
+            <span class="tech-tag">Stripe</span>
+            <span class="tech-tag">QuickBooks</span>
+        </div>
+
+        <h2>What Made This Work</h2>
+
+        <p>Sean didn't need a new booking platform or a new payment processor. He needed the missing layer between them... the operational brain that takes data from multiple sources, applies his specific business logic, and gives him a single view of the entire business.</p>
+
+        <p>The deduplication strategy was critical. Every sync scenario searches by the BookingKoala source ID before creating a record. If it finds a match, it updates. If not, it creates. This prevents the duplicate record mess that ruins most CRM-to-automation setups.</p>
+
+        <p>The phased approach also mattered. Rather than building everything at once and delivering months later, we shipped the core sync first so Sean could see data flowing immediately. Payment sync and payout automation are layered on top of a foundation that's already proven and running.</p>
+    </div>
+
+    <div class="cta-block">
+        <p>Running your operations across disconnected tools? Let's build the layer that ties them together.</p>
+        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call</a>
+    </div>
+
+    <div class="footer-section">
+        <div class="footer-bottom">
+            <p class="footer-location">Based in Grapevine, Texas. Serving clients nationwide.</p>
+            <p class="copyright">&copy; 2026 Launch Forte. All rights reserved.</p>
+        </div>
+    </div>
+</main>
+
+<script src="/scroll-reveal.js"></script>
+<script src="/theme-toggle.js"></script>
+<script src="/scroll-top.js"></script>
+<script src="/hamburger.js"></script>
+</body>
+</html>
