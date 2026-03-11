@@ -47,7 +47,16 @@
         '[data-theme="light"] .stage-foundation .cap-card{border-top-color:rgba(138,133,120,0.2)}' +
         '[data-theme="light"] .stage-launch-section .cap-card{border-top-color:rgba(79,70,229,0.2)}' +
         '[data-theme="light"] .stage-growth-section .cap-card{border-top-color:rgba(16,185,129,0.2)}' +
-        '[data-theme="light"] .stage-scale-section .cap-card{border-top-color:rgba(8,145,178,0.2)}';
+        '[data-theme="light"] .stage-scale-section .cap-card{border-top-color:rgba(8,145,178,0.2)}' +
+        '[data-theme="light"] .contact-form-wrap{background:#ffffff;border-color:rgba(0,0,0,0.06)}' +
+        '[data-theme="light"] .contact-info-item{background:#ffffff;border-color:rgba(0,0,0,0.06)}' +
+        '[data-theme="light"] .form-input,[data-theme="light"] .form-textarea,[data-theme="light"] .form-select{background:rgba(0,0,0,0.02);border-color:rgba(0,0,0,0.1);color:#0f172a}' +
+        '[data-theme="light"] .form-input:focus,[data-theme="light"] .form-textarea:focus,[data-theme="light"] .form-select:focus{background:#ffffff;border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,0.08)}' +
+        '[data-theme="light"] .form-input::placeholder,[data-theme="light"] .form-textarea::placeholder{color:#94a3b8}' +
+        '[data-theme="light"] .form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'%3E%3Cpath fill=\'%2394a3b8\' d=\'M6 8L1 3h10z\'/%3E%3C/svg%3E")}' +
+        '[data-theme="light"] .form-select option{background:#ffffff;color:#0f172a}' +
+        '[data-theme="light"] .form-success{background:rgba(16,185,129,0.06);border-color:rgba(16,185,129,0.2)}' +
+        '[data-theme="light"] .form-error{background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.2)}';
 
     var toggleCSS = '#theme-toggle{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);font-size:0.95rem;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center;transition:all 0.25s ease;box-shadow:0 2px 8px rgba(0,0,0,0.15);line-height:1;flex-shrink:0;margin-left:0.75rem;backdrop-filter:blur(10px)}' +
         '#theme-toggle.scrolled{position:fixed;top:auto;bottom:8.5rem;right:2rem;margin-left:0}' +
