@@ -8,6 +8,6 @@
                 observer.unobserve(e.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.02 });
     els.forEach(function(el) { observer.observe(el); });
 })();
