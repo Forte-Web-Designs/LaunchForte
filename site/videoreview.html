@@ -12,14 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
-    <!-- Senja Collector -->
-    <script type="text/javascript" async src="https://widget.senja.io/js/collector.js"></script>
-    <script type="text/javascript">
-        window.SenjaCollectorConfig = {
-            url: "https://review.launchforte.com/r/qknnEe",
-            trigger: {"type":"none"}
-        }
-    </script>
+    <script type="text/javascript" src="https://widget.senja.io/js/iframeResizer.min.js"></script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         :root{--text-primary:#f0f4f8;--text-secondary:#94a3b8;--text-muted:#64748b;--accent:#6366f1;--accent-hover:#818cf8;--accent-subtle:rgba(99,102,241,0.08);--accent-glow:rgba(99,102,241,0.25);--accent-2:#06b6d4;--accent-3:#a78bfa;--background:#09090b;--background-alt:#0f0f13;--surface:#141418;--surface-hover:#1a1a20;--border:rgba(255,255,255,0.06);--border-light:rgba(255,255,255,0.1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-pill:980px}
@@ -137,15 +130,12 @@
         <p class="hero-subtitle animate-fade-up animate-delay-2">
             Your review helps other business owners understand what it's like to work with us. Text or video, whatever you're comfortable with.
         </p>
+        <a href="https://senja.io/p/launch-forte/r/qknnEe" target="_blank" rel="noopener" class="btn-primary" style="margin-top:0.5rem;">Open Review Form &rarr;</a>
     </div>
 
     <div class="review-form-section">
-        <iframe src="https://review.launchforte.com/r/qknnEe" title="Leave a review for Launch Forte"></iframe>
-
-        <div class="fallback-link">
-            <p>If the form above doesn't load, use the direct link below:</p>
-            <a href="https://review.launchforte.com/r/qknnEe" target="_blank" rel="noopener" class="btn-primary">Open Review Form &rarr;</a>
-        </div>
+        <iframe id="senja-collector-iframe" src="https://review.launchforte.com/r/qknnEe?mode=embed" allow="camera;microphone" title="Leave a review for Launch Forte" frameborder="0" scrolling="no" width="100%" height="700"></iframe>
+        <script type="text/javascript">iFrameResize({log: false, checkOrigin: false}, "#senja-collector-iframe");</script>
     </div>
 
     <!-- FOOTER -->
