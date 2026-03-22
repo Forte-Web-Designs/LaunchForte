@@ -65,8 +65,10 @@
         '[data-theme="light"] #theme-toggle:hover{background:#4f46e5;color:#fff;border-color:#4f46e5}' +
         '@media(max-width:768px){#theme-toggle{width:38px;height:38px;font-size:1rem}#theme-toggle.scrolled{right:1.25rem;bottom:8rem}}';
 
+    var transitionCSS = 'html.theme-transition,html.theme-transition *,html.theme-transition *::before,html.theme-transition *::after{transition:background-color 0.4s ease,color 0.3s ease,border-color 0.3s ease,box-shadow 0.3s ease!important}';
+
     var style = document.createElement('style');
-    style.textContent = lightCSS + toggleCSS;
+    style.textContent = lightCSS + toggleCSS + transitionCSS;
     document.head.appendChild(style);
 
     var toggle = document.createElement('button');
@@ -89,8 +91,12 @@
     }
 
     toggle.addEventListener('click', function() {
+        document.documentElement.classList.add('theme-transition');
         var current = document.documentElement.getAttribute('data-theme');
         applyTheme(current === 'dark' ? 'light' : 'dark');
+        setTimeout(function() {
+            document.documentElement.classList.remove('theme-transition');
+        }, 500);
     });
 
     var isScrolled = false;
