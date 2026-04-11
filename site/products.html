@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | Launch Forte</title>
+    <meta name="description" content="Fixed scope, fixed price automation products for growing businesses. CRM setup, lead generation, AI phone agents, sales funnels, and more. See the full catalog with pricing.">
+    <link rel="canonical" href="https://launchforte.com/products.html">
+    <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- GTM -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
+    <!-- Schema: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://launchforte.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Products", "item": "https://launchforte.com/products.html"}
+      ]
+    }
+    </script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--text-primary:#f0f4f8;--text-secondary:#94a3b8;--text-muted:#64748b;--accent:#0088DB;--accent-hover:#38b2f5;--accent-subtle:rgba(0,136,219,0.08);--accent-glow:rgba(0,136,219,0.25);--accent-2:#06b6d4;--accent-3:#5ab8f5;--background:#09090b;--background-alt:#0f0f13;--surface:#141418;--surface-hover:#1a1a20;--border:rgba(255,255,255,0.06);--border-light:rgba(255,255,255,0.1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-pill:980px}
+        html,body{overflow-x:clip;overscroll-behavior-x:none}html{scroll-behavior:smooth}
+        body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.6;color:var(--text-primary);background:var(--background);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+        body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(6,182,212,0.05) 0%,transparent 50%),radial-gradient(circle at 50% 50%,rgba(0,136,219,0.02) 0%,transparent 70%);pointer-events:none;z-index:0}
+        a{color:var(--accent-hover);text-decoration:none;transition:color 0.2s ease}
+        a:hover{color:var(--accent-hover)}
+
+        /* Animations */
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(0,136,219,0.1)}50%{box-shadow:0 0 40px rgba(0,136,219,0.2)}}
+        .animate-fade-up{animation:fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
+        .animate-delay-1{animation-delay:0.15s;opacity:0}
+        .animate-delay-2{animation-delay:0.3s;opacity:0}
+        .animate-delay-3{animation-delay:0.45s;opacity:0}
+        .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)}
+        .reveal.revealed{opacity:1;transform:translateY(0)}
+
+        /* Header */
+        .site-header{position:sticky;top:0;z-index:100;background:rgba(9,9,11,0.7);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5)}
+        .site-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent-2),var(--accent),transparent);opacity:0.4}
+        .header-container{max-width:1100px;margin:0 auto;height:52px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}
+        .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
+        .header-logo:hover{opacity:0.85}
+        .logo-img{height:28px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
+        .logo-img-light{display:none}
+        [data-theme="light"] .logo-img-dark{display:none}
+        [data-theme="light"] .logo-img-light{display:block}
+        .header-nav{display:flex;gap:0.25rem;align-items:center}
+        .header-nav a{color:var(--text-secondary);font-size:0.875rem;font-weight:500;text-decoration:none;padding:0.5rem 0.875rem;border-radius:var(--radius-sm);transition:color 0.2s ease,background 0.2s ease}
+        .header-nav a:hover{color:var(--text-primary);background:rgba(255,255,255,0.05)}
+        .header-nav a.active{color:var(--text-primary);background:var(--accent-subtle)}
+
+        /* Main */
+        .main-content{max-width:1100px;margin:0 auto;padding:0 2rem 6rem;position:relative;z-index:1}
+
+        /* Section spacing */
+        .section{padding:4rem 0}
+        .section-label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem}
+        .section-label::before{content:'';width:20px;height:1px;background:var(--accent)}
+        .section-headline{font-size:clamp(1.35rem,3vw,1.65rem);font-weight:700;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.02em}
+        .section-sub{color:var(--text-secondary);font-size:0.9375rem;margin-bottom:1.75rem;line-height:1.7;max-width:680px}
+        .body-text{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8;font-size:0.9375rem}
+
+        /* Buttons */
+        .btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.75rem;background:var(--accent);color:#ffffff;border:none;border-radius:var(--radius-pill);font-size:0.875rem;font-weight:500;cursor:pointer;transition:all 0.2s ease;text-decoration:none;font-family:inherit}
+        .btn-primary:hover{background:var(--accent-hover);color:#ffffff;transform:translateY(-1px);box-shadow:0 8px 30px var(--accent-glow)}
+        .btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--border-light);color:var(--text-secondary);padding:0.8rem 1.75rem;border-radius:var(--radius-sm);font-size:0.9375rem;font-weight:500;transition:all 0.25s ease;text-decoration:none;background:transparent}
+        .btn-secondary:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-subtle)}
+
+        /* Hero */
+        .hero{padding:5rem 0 3rem;text-align:center}
+        .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--accent-subtle);border:1px solid rgba(0,136,219,0.2);border-radius:100px;padding:0.4rem 1rem;font-size:0.8rem;font-weight:500;color:var(--accent);margin-bottom:2rem;backdrop-filter:blur(10px)}
+        .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-glow 2s ease infinite}
+        .page-title{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.03em;line-height:1.15}
+        .hero-subtitle{font-size:clamp(1rem,2vw,1.15rem);color:var(--text-secondary);max-width:680px;margin:0 auto 1.75rem;line-height:1.75}
+
+        /* Section nav */
+        .section-nav{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-top:1rem;max-width:780px;margin-left:auto;margin-right:auto}
+        .section-nav a{font-size:0.8125rem;color:var(--text-secondary);padding:0.4rem 0.85rem;border:1px solid var(--border);border-radius:var(--radius-pill);transition:all 0.2s ease}
+        .section-nav a:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-subtle)}
+
+        /* Product grid */
+        .product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        .product-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease;display:flex;flex-direction:column}
+        .product-card:hover{border-color:var(--border-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+        .product-card-title{font-size:1rem;font-weight:600;margin-bottom:0.5rem;line-height:1.3}
+        .product-card-title a{color:var(--text-primary);transition:color 0.2s ease}
+        .product-card-title a:hover{color:var(--accent)}
+        .product-card-desc{font-size:0.875rem;color:var(--text-secondary);line-height:1.65;margin-bottom:1rem;flex-grow:1}
+        .product-card-meta{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-top:0.85rem;border-top:1px solid var(--border)}
+        .product-card-price{font-size:0.9375rem;font-weight:600;color:var(--accent);letter-spacing:-0.01em}
+        .product-card-time{font-size:0.8125rem;color:var(--text-muted)}
+
+        /* Featured (Launch Packages) */
+        .featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+        .featured-card{background:linear-gradient(180deg,var(--surface) 0%,var(--background-alt) 100%);border:1px solid rgba(0,136,219,0.18);border-radius:var(--radius-lg);padding:1.75rem;transition:all 0.3s ease;display:flex;flex-direction:column;position:relative;overflow:hidden}
+        .featured-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+        .featured-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,136,219,0.15)}
+        .featured-card-title{font-size:1.15rem;font-weight:700;margin-bottom:0.6rem;letter-spacing:-0.01em;line-height:1.25}
+        .featured-card-title a{color:var(--text-primary)}
+        .featured-card-title a:hover{color:var(--accent)}
+        .featured-card-desc{font-size:0.875rem;color:var(--text-secondary);line-height:1.7;margin-bottom:1.25rem;flex-grow:1}
+        .featured-card-meta{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border)}
+        .featured-card-price{font-size:1.05rem;font-weight:700;color:var(--accent)}
+        .featured-card-time{font-size:0.8125rem;color:var(--text-muted)}
+
+        /* Retainer table */
+        .retainer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+        .retainer-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;text-align:center;transition:all 0.2s ease}
+        .retainer-card:hover{border-color:var(--border-light)}
+        .retainer-name{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.6rem}
+        .retainer-price{font-size:1.5rem;font-weight:700;color:var(--accent);margin-bottom:0.4rem;letter-spacing:-0.02em}
+        .retainer-price span{font-size:0.875rem;color:var(--text-muted);font-weight:500}
+
+        /* Footnote */
+        .footnote{margin-top:3rem;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);font-size:0.8125rem;color:var(--text-muted);line-height:1.7}
+
+        /* Footer */
+        .footer-section{margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)}
+        .footer-email-main{color:var(--text-secondary);font-size:1rem;margin-bottom:2.5rem;display:inline-block;transition:color 0.2s ease}
+        .footer-email-main:hover{color:var(--accent)}
+        .footer-columns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-bottom:2.5rem}
+        .footer-col h4{font-size:0.7rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.5rem}
+        .footer-col a{color:var(--text-secondary);font-size:0.875rem;transition:color 0.2s ease}
+        .footer-col a:hover{color:var(--accent)}
+        .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+        .footer-location{color:var(--text-muted);font-size:0.8125rem;margin-bottom:0.35rem}
+        .copyright{color:var(--text-muted);font-size:0.8125rem}
+        .footer-status{display:flex;align-items:center;gap:0.4rem;font-size:0.6875rem;color:var(--text-muted);font-weight:400}
+        .footer-status .dot{width:6px;height:6px;background:#22c55e;border-radius:50%}
+        .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+
+        /* Responsive */
+        @media(max-width:900px){
+            .featured-grid{grid-template-columns:1fr}
+            .retainer-grid{grid-template-columns:1fr}
+        }
+        @media(max-width:768px){
+            .header-container{padding:0.75rem 1.25rem}
+            .header-nav{gap:0.25rem}
+            .header-nav a{font-size:0.8rem;padding:0.4rem 0.6rem}
+            .main-content{padding:0 1.25rem 4rem}
+            .hero{padding:3rem 0 2rem}
+            .product-grid{grid-template-columns:1fr}
+            .footer-columns{grid-template-columns:1fr 1fr}
+            .section{padding:3rem 0}
+            .footer-bottom{flex-direction:column;gap:0.5rem;align-items:flex-start}
+        }
+        @media(max-width:480px){
+            .footer-columns{grid-template-columns:1fr}
+        }
+    </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTP7GMJ3" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="grid-bg"></div>
+
+<header class="site-header">
+    <div class="header-container">
+        <a href="/" class="header-logo">
+            <img src="/images/home/launch-forte.png" class="logo-img logo-img-dark" alt="Launch Forte">
+            <img src="/images/home/launch-forte.png" class="logo-img logo-img-light" alt="Launch Forte">
+        </a>
+        <nav class="header-nav">
+            <a href="/index.html">Home</a>
+            <a href="/services.html">Services</a>
+            <a href="/products.html" class="active">Products</a>
+            <a href="/work.html">Work</a>
+            <a href="/reviews.html">Reviews</a>
+            <a href="/writing.html">Writing</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-badge animate-fade-up"><span class="hero-badge-dot"></span> Product Catalog</div>
+        <h1 class="page-title animate-fade-up animate-delay-1">Products</h1>
+        <p class="hero-subtitle animate-fade-up animate-delay-2">Fixed scope, fixed price automation products. CRM setup, lead generation, AI phone agents, sales funnels, and more. Pick what you need or start with a package.</p>
+        <div class="section-nav animate-fade-up animate-delay-3">
+            <a href="#launch-packages">Launch Packages</a>
+            <a href="#foundation">Foundation</a>
+            <a href="#launch">Launch</a>
+            <a href="#growth">Growth</a>
+            <a href="#scale">Scale</a>
+            <a href="#managed">Managed</a>
+            <a href="#specialty">Specialty</a>
+            <a href="#bundles">Bundles</a>
+            <a href="#retainers">Retainers</a>
+        </div>
+    </div>
+
+    <!-- LAUNCH PACKAGES -->
+    <section class="section reveal" id="launch-packages">
+        <span class="section-label">Start Here</span>
+        <h2 class="section-headline">Launch Packages</h2>
+        <p class="section-sub">Complete builds that bundle every piece you need to start capturing and converting leads. Pick the package that matches where you are right now.</p>
+        <div class="featured-grid">
+            <div class="featured-card">
+                <h3 class="featured-card-title"><a href="/products/growth-package.html">Done For You Growth Package</a></h3>
+                <p class="featured-card-desc">Customer research, ad campaigns, funnels, sequences, CRM, booking, tracking, dashboard. Full build, you own everything.</p>
+                <div class="featured-card-meta">
+                    <span class="featured-card-price">$10,000</span>
+                    <span class="featured-card-time">21 days</span>
+                </div>
+            </div>
+            <div class="featured-card">
+                <h3 class="featured-card-title"><a href="/products/growth-engine.html">Growth Engine System</a></h3>
+                <p class="featured-card-desc">Lead capture, response, routing, follow up, tracking, dashboard. No ads.</p>
+                <div class="featured-card-meta">
+                    <span class="featured-card-price">$7,500</span>
+                    <span class="featured-card-time">14 days</span>
+                </div>
+            </div>
+            <div class="featured-card">
+                <h3 class="featured-card-title"><a href="/products/stop-losing-leads.html">Stop Losing Leads</a></h3>
+                <p class="featured-card-desc">Instant response, missed call text back, booking tracking, routing.</p>
+                <div class="featured-card-meta">
+                    <span class="featured-card-price">$4,500</span>
+                    <span class="featured-card-time">7 days</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOUNDATION -->
+    <section class="section reveal" id="foundation">
+        <span class="section-label">Stage 1</span>
+        <h2 class="section-headline">Foundation</h2>
+        <p class="section-sub">The core systems every business needs before automation can do real work. CRM, payments, deliverability, onboarding.</p>
+        <div class="product-grid">
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/crm-and-pipeline-setup.html">CRM and Pipeline Setup</a></h3>
+                <p class="product-card-desc">Full CRM configuration, pipeline stages, tags, contact import.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,500</span><span class="product-card-time">7 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/payment-automation.html">Payment Automation</a></h3>
+                <p class="product-card-desc">Payments trigger confirmations, invoices, onboarding, team alerts.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,000</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/email-authentication.html">Email Authentication</a></h3>
+                <p class="product-card-desc">SPF, DKIM, DMARC so your emails land in inboxes.</p>
+                <div class="product-card-meta"><span class="product-card-price">$1,000</span><span class="product-card-time">2 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/client-onboarding.html">Client Onboarding</a></h3>
+                <p class="product-card-desc">Welcome email, intake form, scheduling, team notification. Automatic.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,000</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/automation-audit.html">Automation Audit</a></h3>
+                <p class="product-card-desc">Document, clean up, and fix your existing Zapier or Make account.</p>
+                <div class="product-card-meta"><span class="product-card-price">$750</span><span class="product-card-time">3 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/appointment-reminders.html">Appointment Reminders</a></h3>
+                <p class="product-card-desc">Automated SMS and email reminders. Reduce no shows.</p>
+                <div class="product-card-meta"><span class="product-card-price">$1,500</span><span class="product-card-time">3 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/messaging-compliance.html">Messaging Compliance</a></h3>
+                <p class="product-card-desc">A2P 10DLC registration, opt in and opt out, SMS cost control.</p>
+                <div class="product-card-meta"><span class="product-card-price">$1,500</span><span class="product-card-time">5 days</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LAUNCH PRODUCTS -->
+    <section class="section reveal" id="launch">
+        <span class="section-label">Stage 2</span>
+        <h2 class="section-headline">Launch Products</h2>
+        <p class="section-sub">Get leads in the door and convert them. Customer research, campaigns, funnels, response, follow up, tracking.</p>
+        <div class="product-grid">
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/customer-research.html">Customer Research</a></h3>
+                <p class="product-card-desc">Ideal customer profile, pain points, purchase behavior, search intent, competitive positioning.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,500</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/ad-campaign-setup.html">Ad Campaign Setup</a></h3>
+                <p class="product-card-desc">Meta and Google Ads: audience targeting, ad creative, copy, budget allocation, tracking pixels.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,500</span><span class="product-card-time">7 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/speed-to-lead-response.html">Speed to Lead Response</a></h3>
+                <p class="product-card-desc">Instant SMS and email on every form submission. CRM record creation, internal alert, source tagging.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,000</span><span class="product-card-time">3 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/missed-call-text-back.html">Missed Call Text Back</a></h3>
+                <p class="product-card-desc">Missed call detection, instant text to caller, CRM logging, team notification.</p>
+                <div class="product-card-meta"><span class="product-card-price">$1,500</span><span class="product-card-time">3 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/booking-and-tracking.html">Booking and Tracking</a></h3>
+                <p class="product-card-desc">Calendar connected to CRM with source attribution, confirmations, reminders.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,000</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/sales-funnel-build.html">Sales Funnel Build</a></h3>
+                <p class="product-card-desc">Landing page, opt in, lead magnet, 5 email sequence, CRM integration.</p>
+                <div class="product-card-meta"><span class="product-card-price">$4,000</span><span class="product-card-time">7 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/funnel-activation.html">Funnel Activation</a></h3>
+                <p class="product-card-desc">You have the funnel. We wire the backend: CRM, instant response, follow up sequences, booking, tracking.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,500</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/content-clip-and-distribute.html">Content Clip and Distribute</a></h3>
+                <p class="product-card-desc">Long form video or podcast turned into 5 to 10 short clips with captions, sized for Reels, TikTok, Shorts, scheduled across platforms.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,500</span><span class="product-card-time">7 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/nurture-sequences.html">Nurture Sequences</a></h3>
+                <p class="product-card-desc">3 automated email and SMS sequences, 12 messages, behavior triggered.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,000</span><span class="product-card-time">7 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/lead-reactivation.html">Lead Reactivation</a></h3>
+                <p class="product-card-desc">AI scans your CRM for dead leads, segments by drop off point, sends personalized follow up, handles replies, books calls.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,500</span><span class="product-card-time">7 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/conversion-dashboard.html">Conversion Dashboard</a></h3>
+                <p class="product-card-desc">Leads by source, response times, booking rates, pipeline status. Auto refreshing.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,000</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/lead-routing.html">Lead Routing</a></h3>
+                <p class="product-card-desc">Rules based lead assignment to the right person with full context. Hot lead alerts.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,000</span><span class="product-card-time">3 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/platform-migration.html">Platform Migration</a></h3>
+                <p class="product-card-desc">Move from ClickFunnels, Kajabi, HubSpot, or similar to GoHighLevel or your target platform.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,500</span><span class="product-card-time">10 days</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GROWTH -->
+    <section class="section reveal" id="growth">
+        <span class="section-label">Stage 3</span>
+        <h2 class="section-headline">Growth</h2>
+        <p class="section-sub">Scale what's working. AI agents, outbound, automated review collection, dispatch, signal monitoring.</p>
+        <div class="product-grid">
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/ai-front-desk.html">AI Front Desk</a></h3>
+                <p class="product-card-desc">AI phone agent. Answers 24/7, qualifies, captures, notifies.</p>
+                <div class="product-card-meta"><span class="product-card-price">$5,000 + $800/mo</span><span class="product-card-time">7 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/ai-website-chatbot.html">AI Website Chatbot</a></h3>
+                <p class="product-card-desc">AI chatbot on your site. Captures leads, books appointments 24/7.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,000 + $300/mo</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/ringless-voicemail-drops.html">Ringless Voicemail Drops</a></h3>
+                <p class="product-card-desc">Pre recorded voicemail lands in their inbox. Phone never rings. Triggered by CRM events.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,000</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/review-automation.html">Review Automation</a></h3>
+                <p class="product-card-desc">Automated review requests on job completion. Sentiment gate.</p>
+                <div class="product-card-meta"><span class="product-card-price">$1,500</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/project-updates.html">Project Updates</a></h3>
+                <p class="product-card-desc">Status triggered SMS and email to customers at every project stage.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,000</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/dispatch-system.html">Dispatch System</a></h3>
+                <p class="product-card-desc">Automated job assignment, priority routing, GPS verification.</p>
+                <div class="product-card-meta"><span class="product-card-price">$5,000</span><span class="product-card-time">10 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/cold-email-outbound.html">Cold Email Outbound</a></h3>
+                <p class="product-card-desc">Sending domain, warmup, sequences, reply detection, CRM integration.</p>
+                <div class="product-card-meta"><span class="product-card-price">$5,000</span><span class="product-card-time">14 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/lead-scoring.html">Lead Scoring</a></h3>
+                <p class="product-card-desc">Score leads by behavior and profile. Prioritize who to call first.</p>
+                <div class="product-card-meta"><span class="product-card-price">$1,500</span><span class="product-card-time">3 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/signal-monitoring.html">Signal Monitoring</a></h3>
+                <p class="product-card-desc">Automated monitoring of external sources with change detection and alerts.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,500</span><span class="product-card-time">7 days</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCALE -->
+    <section class="section reveal" id="scale">
+        <span class="section-label">Stage 4</span>
+        <h2 class="section-headline">Scale</h2>
+        <p class="section-sub">Reporting, ops infrastructure, file workflows, collections, e commerce, reliability. Built for businesses past the early stage.</p>
+        <div class="product-grid">
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/reporting-dashboard.html">Reporting Dashboard</a></h3>
+                <p class="product-card-desc">Automated ad spend reports. Google Ads and Meta. Auto refreshing.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,500</span><span class="product-card-time">7 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/operations-hub.html">Operations Hub</a></h3>
+                <p class="product-card-desc">Central ops database. Payouts, commissions, approvals, audit trail.</p>
+                <div class="product-card-meta"><span class="product-card-price">$7,500</span><span class="product-card-time">14 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/social-media-cross-posting.html">Social Media Cross Posting</a></h3>
+                <p class="product-card-desc">Post once, publish everywhere. Scheduled cross posting to all platforms.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,000</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/file-delivery-and-approval.html">File Delivery and Approval</a></h3>
+                <p class="product-card-desc">Client uploads, review links, revision tracking, approval workflow, auto invoice on sign off.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,500</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/collections-follow-up.html">Collections Follow Up</a></h3>
+                <p class="product-card-desc">Automated invoice reminders at 3, 7, 14, 30 days. Escalation alerts.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,000</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/e-commerce-automation.html">E Commerce Automation</a></h3>
+                <p class="product-card-desc">Cart recovery, post purchase follow up, inventory alerts, win back.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,500</span><span class="product-card-time">7 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/reliability-setup.html">Reliability Setup</a></h3>
+                <p class="product-card-desc">Error logging, failure alerts, monitoring for your existing automations.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,000</span><span class="product-card-time">5 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/systems-assessment.html">Systems Assessment</a></h3>
+                <p class="product-card-desc">Full audit, 6 stage diagnostic, prioritized roadmap with pricing. Fee credits toward first build over $2,000.</p>
+                <div class="product-card-meta"><span class="product-card-price">$750</span><span class="product-card-time">3 days</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MANAGED -->
+    <section class="section reveal" id="managed">
+        <span class="section-label">Ongoing</span>
+        <h2 class="section-headline">Managed Services</h2>
+        <p class="section-sub">We run the system for you. Month to month, cancel anytime with 30 days notice.</p>
+        <div class="product-grid">
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/managed-growth-system.html">Managed Growth System</a></h3>
+                <p class="product-card-desc">We run your entire lead gen operation. System build included in first month.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,000/mo</span><span class="product-card-time">Ongoing</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/managed-ads-and-funnels.html">Managed Ads and Funnels</a></h3>
+                <p class="product-card-desc">Campaign optimization, A/B testing, funnel tweaks, budget reallocation, conversion reporting.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,500/mo</span><span class="product-card-time">Ongoing</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/managed-cold-outbound.html">Managed Cold Outbound</a></h3>
+                <p class="product-card-desc">List building, sequence writing, deliverability monitoring, reply handling, CRM updates. Infrastructure build included.</p>
+                <div class="product-card-meta"><span class="product-card-price">$2,000/mo</span><span class="product-card-time">Ongoing</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/managed-lead-reactivation.html">Managed Lead Reactivation</a></h3>
+                <p class="product-card-desc">Quarterly reactivation campaigns. New segments, new messaging, reply handling, booking.</p>
+                <div class="product-card-meta"><span class="product-card-price">$1,500/mo</span><span class="product-card-time">Ongoing</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/managed-ai-front-desk.html">Managed AI Front Desk</a></h3>
+                <p class="product-card-desc">AI phone agent fully managed. Call monitoring, FAQ updates, routing changes, performance reporting.</p>
+                <div class="product-card-meta"><span class="product-card-price">$800/mo</span><span class="product-card-time">Ongoing</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECIALTY -->
+    <section class="section reveal" id="specialty">
+        <span class="section-label">Specialty</span>
+        <h2 class="section-headline">Specialty Builds</h2>
+        <p class="section-sub">Lead delivery operating systems and signal driven outbound. For specific business models.</p>
+        <div class="product-grid">
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/lead-delivery-os-tier-1.html">Lead Delivery OS Tier 1</a></h3>
+                <p class="product-card-desc">Call tracking, form capture, lead routing, proof artifacts, billing log.</p>
+                <div class="product-card-meta"><span class="product-card-price">$5,000</span><span class="product-card-time">10 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/lead-delivery-os-tier-2.html">Lead Delivery OS Tier 2</a></h3>
+                <p class="product-card-desc">Tier 1 plus Stripe invoicing, reporting dashboard, 3 markets.</p>
+                <div class="product-card-meta"><span class="product-card-price">$7,500</span><span class="product-card-time">14 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/additional-market-add-on.html">Additional Market Add On</a></h3>
+                <p class="product-card-desc">New site or market with tracking numbers, routing, contractor setup.</p>
+                <div class="product-card-meta"><span class="product-card-price">$1,500</span><span class="product-card-time">3 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/signal-outbound-tier-1.html">Signal Outbound Tier 1</a></h3>
+                <p class="product-card-desc">Monitor 20 sources, signal scoring, contact matching, CRM, outreach, intent detection.</p>
+                <div class="product-card-meta"><span class="product-card-price">$10,000</span><span class="product-card-time">6 weeks</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/signal-outbound-tier-2.html">Signal Outbound Tier 2</a></h3>
+                <p class="product-card-desc">100 sources, enrichment, advanced matching, reporting dashboard, multi ATS.</p>
+                <div class="product-card-meta"><span class="product-card-price">$18,000</span><span class="product-card-time">10 weeks</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/source-template-add-on.html">Source Template Add On</a></h3>
+                <p class="product-card-desc">New monitoring template for a different source type or ATS platform.</p>
+                <div class="product-card-meta"><span class="product-card-price">$1,500</span><span class="product-card-time">3 days</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUNDLES -->
+    <section class="section reveal" id="bundles">
+        <span class="section-label">Bundles</span>
+        <h2 class="section-headline">System Bundles</h2>
+        <p class="section-sub">Common combinations packaged together at a single price. Less choice, more clarity.</p>
+        <div class="product-grid">
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/lead-intake-system.html">Lead Intake System</a></h3>
+                <p class="product-card-desc">Speed to lead, missed call, booking, reminders, CRM pipeline.</p>
+                <div class="product-card-meta"><span class="product-card-price">$7,500</span><span class="product-card-time">10 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/customer-lifecycle-system.html">Customer Lifecycle System</a></h3>
+                <p class="product-card-desc">Onboarding, project updates, review requests, nurture sequence.</p>
+                <div class="product-card-meta"><span class="product-card-price">$8,000</span><span class="product-card-time">14 days</span></div>
+            </div>
+            <div class="product-card">
+                <h3 class="product-card-title"><a href="/products/cash-collection-system.html">Cash Collection System</a></h3>
+                <p class="product-card-desc">Payment automation, invoice follow up, alerts, aging reports.</p>
+                <div class="product-card-meta"><span class="product-card-price">$3,500</span><span class="product-card-time">7 days</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RETAINERS -->
+    <section class="section reveal" id="retainers">
+        <span class="section-label">Retainers</span>
+        <h2 class="section-headline">Ongoing Support Tiers</h2>
+        <p class="section-sub">After your build, pick the level of ongoing support that matches how much you want us in the system.</p>
+        <div class="retainer-grid">
+            <div class="retainer-card">
+                <div class="retainer-name">Maintenance</div>
+                <div class="retainer-price">$500<span>/mo</span></div>
+            </div>
+            <div class="retainer-card">
+                <div class="retainer-name">Growth</div>
+                <div class="retainer-price">$1,500<span>/mo</span></div>
+            </div>
+            <div class="retainer-card">
+                <div class="retainer-name">Managed</div>
+                <div class="retainer-price">$3,000<span>/mo</span></div>
+            </div>
+        </div>
+        <div class="footnote">
+            Systems Assessment fee credits toward your first build over $2,000. All one time products include a 30 day delivery guarantee. Platform and usage costs (Twilio, CRM subscriptions, etc.) are pass through and paid by you directly. Managed services are month to month. Cancel anytime with 30 days notice.
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section reveal" style="text-align:center;padding-top:2rem">
+        <h2 class="section-headline" style="margin-bottom:1rem">Not sure where to start?</h2>
+        <p class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center">Book a call and we'll help you pick the right product or build a custom plan for where your business is right now.</p>
+        <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+            <a href="https://calendly.com/seth-fortewebdesigns/30min" class="btn-primary">Book a Call</a>
+            <a href="/services.html" class="btn-secondary">See Our Services</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer-section">
+        <a href="mailto:seth@launchforte.com" class="footer-email-main">seth@launchforte.com</a>
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="/foundation.html">Foundation</a></li>
+                    <li><a href="/launch.html">Launch</a></li>
+                    <li><a href="/growth.html">Growth</a></li>
+                    <li><a href="/scale.html">Scale</a></li>
+                    <li><a href="/products.html">Products</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/work.html">Work</a></li>
+                    <li><a href="/reviews.html">Reviews</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="mailto:seth@launchforte.com">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>
+                <p class="footer-location">Based in Grapevine, Texas. Serving clients nationwide.</p>
+                <p class="copyright">&copy; 2026 Launch Forte. All rights reserved.</p>
+            </div>
+            <div class="footer-status">
+                <span class="dot"></span>
+                All systems operational
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="/scroll-reveal.js"></script>
+<script src="/theme-toggle.js"></script>
+<script src="/scroll-top.js"></script>
+<script src="/hamburger.js"></script>
+</body>
+</html>
