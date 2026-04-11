@@ -98,6 +98,13 @@
         .btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--border-light);color:var(--text-secondary);padding:0.8rem 1.75rem;border-radius:var(--radius-sm);font-size:0.9375rem;font-weight:500;transition:all 0.25s ease;text-decoration:none;background:transparent}
         .btn-secondary:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-subtle)}
 
+        .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.85rem;margin-top:1rem}
+        .related-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.25rem;display:flex;flex-direction:column;justify-content:space-between;gap:0.75rem;text-decoration:none;transition:border-color 0.2s ease,transform 0.2s ease}
+        .related-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+        .related-card-title{font-size:0.9375rem;font-weight:600;color:var(--text-primary);line-height:1.35}
+        .related-card:hover .related-card-title{color:var(--accent)}
+        .related-card-link{font-size:0.8125rem;font-weight:500;color:var(--accent)}
+        @media(max-width:768px){.related-grid{grid-template-columns:1fr}}
         .cta-block{margin-top:2rem;padding:2rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);text-align:center}
         .cta-block h2{font-size:clamp(1.15rem,3vw,1.4rem);font-weight:700;color:var(--text-primary);margin-bottom:0.75rem}
         .cta-block p{color:var(--text-secondary);font-size:0.9375rem;margin-bottom:1.5rem}
@@ -135,6 +142,15 @@
             .cta-buttons{flex-direction:column;align-items:stretch}
         }
     </style>
+    <meta property="og:title" content="Client Onboarding | Launch Forte">
+    <meta property="og:description" content="Automated client onboarding: welcome, intake form, scheduling, team handoff. 5 day delivery.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://launchforte.com/products/client-onboarding.html">
+    <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Client Onboarding | Launch Forte">
+    <meta name="twitter:description" content="Automated client onboarding: welcome, intake form, scheduling, team handoff. 5 day delivery.">
+    <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTP7GMJ3" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -197,6 +213,26 @@
             <li>CRM record creation and tagging</li>
             <li>Client portal setup if applicable</li>
         </ul>
+    </section>
+
+
+    <section class="section reveal">
+        <span class="section-label">Related Products</span>
+        <h2 class="section-headline">Other Foundation products</h2>
+        <div class="related-grid">
+            <a href="/products/crm-and-pipeline-setup.html" class="related-card">
+                <h3 class="related-card-title">CRM and Pipeline Setup</h3>
+                <span class="related-card-link">View product &rsaquo;</span>
+            </a>
+            <a href="/products/payment-automation.html" class="related-card">
+                <h3 class="related-card-title">Payment Automation</h3>
+                <span class="related-card-link">View product &rsaquo;</span>
+            </a>
+            <a href="/products/email-authentication.html" class="related-card">
+                <h3 class="related-card-title">Email Authentication</h3>
+                <span class="related-card-link">View product &rsaquo;</span>
+            </a>
+        </div>
     </section>
 
     <section class="section reveal">
