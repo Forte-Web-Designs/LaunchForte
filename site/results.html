@@ -3,15 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work | Launch Forte</title>
-    <meta name="description" content="Case studies and client results. Real outcomes from automation, integrations, and growth systems built for businesses across the US.">
-    <link rel="canonical" href="https://launchforte.com/work.html">
+    <title>Results | Launch Forte</title>
+    <meta name="description" content="Case studies and client reviews from automation, CRM, and lead generation projects. Real systems, measurable results.">
+    <link rel="canonical" href="https://launchforte.com/results.html">
     <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
+    <!-- JSON-LD BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://launchforte.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Results",
+                "item": "https://launchforte.com/results.html"
+            }
+        ]
+    }
+    </script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         :root{--text-primary:#f0f4f8;--text-secondary:#94a3b8;--text-muted:#64748b;--accent:#0088DB;--accent-hover:#38b2f5;--accent-subtle:rgba(0,136,219,0.08);--accent-glow:rgba(0,136,219,0.25);--accent-2:#06b6d4;--accent-3:#5ab8f5;--background:#09090b;--background-alt:#0f0f13;--surface:#141418;--surface-hover:#1a1a20;--border:rgba(255,255,255,0.06);--border-light:rgba(255,255,255,0.1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-pill:980px}
@@ -70,6 +91,7 @@
         .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--accent-subtle);border:1px solid rgba(0,136,219,0.2);border-radius:100px;padding:0.4rem 1rem;font-size:0.8rem;font-weight:500;color:var(--accent);margin-bottom:2rem;backdrop-filter:blur(10px)}
         .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-glow 2s ease infinite}
         .page-title{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;color:var(--text-primary);margin-bottom:1.5rem;letter-spacing:-0.03em;line-height:1.15}
+        .hero-subtitle{font-size:clamp(1rem,2vw,1.15rem);color:var(--text-secondary);max-width:600px;margin:0 auto 2.5rem;line-height:1.8}
 
         /* Case study cards */
         .case-study{background:var(--surface);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:2rem;margin-bottom:1rem;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease}
@@ -91,6 +113,22 @@
         .cs-tag{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:100px;padding:0.2rem 0.7rem;font-size:0.75rem;color:var(--text-muted);transition:border-color 0.2s ease,color 0.2s ease}
         .case-study:hover .cs-tag{border-color:var(--border-light);color:var(--text-secondary)}
         .cs-body{color:var(--text-secondary);font-size:0.9rem;line-height:1.8}
+
+        /* Rating summary */
+        .rating-summary{background:var(--surface);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:2.5rem;text-align:center;margin-bottom:2rem;transition:border-color 0.3s ease}
+        .rating-summary:hover{border-color:var(--border-light)}
+        .rating-num{font-size:3.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1;margin-bottom:0.5rem}
+        .rating-stars{color:#f59e0b;font-size:1.25rem;letter-spacing:3px;margin:0.5rem 0}
+        .rating-label{font-size:0.875rem;color:var(--text-muted)}
+
+        /* Review cards */
+        .review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        .review-card{background:var(--surface);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.75rem;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease}
+        .review-card:hover{border-color:var(--border-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+        .review-stars{color:#f59e0b;font-size:0.9rem;margin-bottom:0.75rem;letter-spacing:2px}
+        .review-quote{font-size:0.875rem;line-height:1.8;color:var(--text-secondary);margin-bottom:1rem}
+        .review-author{font-size:0.8125rem;font-weight:600;color:var(--text-primary)}
+        .review-project{font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem}
 
         /* Calendly */
         .calendly-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-top:1.5rem}
@@ -154,6 +192,7 @@
             .page-title{font-size:clamp(1.75rem,6vw,2.5rem)}
             .cs-header{flex-direction:column;gap:0.5rem}
             .cs-metric{text-align:left}
+            .review-grid{grid-template-columns:1fr}
             .footer-columns{grid-template-columns:1fr 1fr}
             .section{padding:3.5rem 0}
             .footer-bottom{flex-direction:column;gap:0.5rem;align-items:flex-start}
@@ -163,14 +202,14 @@
             .footer-columns{grid-template-columns:1fr}
         }
     </style>
-    <meta property="og:title" content="Work | Launch Forte">
-    <meta property="og:description" content="Case studies and client results. Real outcomes from automation, integrations, and growth systems built for businesses across the US.">
+    <meta property="og:title" content="Results | Launch Forte">
+    <meta property="og:description" content="Case studies and client reviews from automation, CRM, and lead generation projects. Real systems, measurable results.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://launchforte.com/work.html">
+    <meta property="og:url" content="https://launchforte.com/results.html">
     <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Work | Launch Forte">
-    <meta name="twitter:description" content="Case studies and client results. Real outcomes from automation, integrations, and growth systems built for businesses across the US.">
+    <meta name="twitter:title" content="Results | Launch Forte">
+    <meta name="twitter:description" content="Case studies and client reviews from automation, CRM, and lead generation projects. Real systems, measurable results.">
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 </head>
 <body>
@@ -187,7 +226,7 @@
             <a href="/index.html">Home</a>
             <a href="/services.html">Services</a>
             <a href="/products.html">Products</a>
-            <a href="/results.html">Results</a>
+            <a href="/results.html" class="active">Results</a>
             <a href="/about.html">About</a>
             <a href="/contact.html">Contact</a>
         </nav>
@@ -196,16 +235,12 @@
 
 <main class="main-content">
 
-    <div style="background:var(--accent-subtle);border:1px solid rgba(0,136,219,0.2);border-radius:var(--radius-md);padding:1rem 1.5rem;margin-top:2rem;font-size:0.875rem;color:var(--text-secondary)">
-        This page has moved. <a href="/results.html" style="color:var(--accent);font-weight:600">View all results &rarr;</a>
-    </div>
-
     <!-- HERO -->
     <div class="hero">
-        <div class="hero-badge animate-fade-up"><span class="hero-badge-dot"></span> Case Studies</div>
-        <h1 class="page-title animate-fade-up animate-delay-1">Real systems.<br>Measurable results.</h1>
+        <div class="hero-badge animate-fade-up"><span class="hero-badge-dot"></span> Case Studies &amp; Reviews</div>
+        <h1 class="page-title animate-fade-up animate-delay-1">Results</h1>
         <p class="body-text animate-fade-up animate-delay-2" style="max-width:640px;margin-left:auto;margin-right:auto;text-align:center">
-            Every project starts with understanding exactly what the problem is costing the business. Here's what happens when we build the fix.
+            Real systems, measurable outcomes. Case studies from automation projects and reviews from the clients behind them.
         </p>
     </div>
 
@@ -580,6 +615,101 @@
 
     </div>
 
+    <!-- REVIEWS: WHAT CLIENTS SAY -->
+    <div class="section reveal">
+        <span class="section-label">What Clients Say</span>
+        <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
+        <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="false" style="display: block; max-width: 500px; margin: 0 auto;"></div>
+        <div style="max-width:500px;margin:1.5rem auto 0;text-align:center">
+            <p class="review-quote" style="font-style:italic;font-size:1rem;margin-bottom:0.75rem">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
+            <div class="review-author">Matt, 6 Months to Speech</div>
+            <div class="review-project">CRM build and automation for an online coaching program</div>
+        </div>
+    </div>
+
+    <!-- SENJA VIDEO TESTIMONIAL -->
+    <div class="section reveal">
+        <span class="section-label">Video Testimonials</span>
+        <script src="https://widget.senja.io/widget/f9608693-095f-4192-a41c-53d2c30b0fcd/platform.js" type="text/javascript" async></script>
+        <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="false" style="display: block; max-width: 500px; margin: 0 auto;"></div>
+        <div style="max-width:500px;margin:1.5rem auto 0;text-align:center">
+            <p class="review-quote" style="font-style:italic;font-size:1rem;margin-bottom:0.75rem">"10 out of 10 experience. Absolutely recommend."</p>
+            <div class="review-author">Chelsea, 6 Months to Speech</div>
+            <div class="review-project">Full platform migration from Kajabi to GoHighLevel</div>
+        </div>
+        <div style="max-width:500px;margin:2.5rem auto 0;text-align:center">
+            <p class="review-quote" style="font-style:italic;font-size:1rem;margin-bottom:0.75rem">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
+            <div class="review-author">Matt, 6 Months to Speech</div>
+            <div class="review-project">CRM build and automation for an online coaching program</div>
+        </div>
+    </div>
+
+    <!-- RATING SUMMARY -->
+    <div class="section reveal">
+        <div class="rating-summary">
+            <span class="rating-num">5.0</span>
+            <div class="rating-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="rating-label">Average across all platforms</div>
+        </div>
+    </div>
+
+    <!-- REVIEWS -->
+    <div class="section reveal">
+        <span class="section-label">Reviews</span>
+        <script src="https://widget.senja.io/widget/1b55f502-890f-4882-a9af-657a89795140/platform.js" type="text/javascript" async></script>
+        <div class="senja-embed" data-id="1b55f502-890f-4882-a9af-657a89795140" data-mode="shadow" data-lazyload="false" style="display: block; max-width: 500px; margin: 0 auto;"></div>
+        <div class="review-grid" style="margin-top:2rem">
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Seth is my go-to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout. I've worked with many freelancers and Seth is one of the best.</p>
+                <div class="review-author">Danielle, Modern Bungalow</div>
+                <div class="review-project">Product Sync Automation</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Extremely knowledgeable and patient. He thought outside the box to offer solutions we did not consider. Highly recommend and we will use him again. Communication was excellent throughout the entire project.</p>
+                <div class="review-author">Alex, UDI Group</div>
+                <div class="review-project">Review System Development</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Delivered an exceptional automation that transformed a key aspect of our daily operations. Professional, incredibly responsive, and has tons of ideas. Would work with Seth again in a heartbeat.</p>
+                <div class="review-author">Mark, San Florida</div>
+                <div class="review-project">CRM Migration</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Seth quickly understood the project and delivered a great solution. Communicated clearly throughout and the work was completed ahead of schedule. The automation works exactly as described.</p>
+                <div class="review-author">Tommy, Eden Medical</div>
+                <div class="review-project">AI Chatbot</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Fantastic work. Seth built exactly what we needed and walked us through how everything works so we can maintain it ourselves. Very clear communication, fast delivery, and the result exceeded our expectations.</p>
+                <div class="review-author">Yves, KlnBros Agency</div>
+                <div class="review-project">Disaster Recovery</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">Seth helped us figure out a complex integration problem we'd been stuck on for months. He got it done in a few days, explained everything clearly, and was available whenever we had questions. Will definitely hire again.</p>
+                <div class="review-author">Dustin, Hollow Bamboo</div>
+                <div class="review-project">Custom Inventory System</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">The level of detail in Seth's scoping process was impressive. By the time we started, we both knew exactly what was being built and why. No surprises, no scope creep, just results. Exceptional work.</p>
+                <div class="review-author">Carmen, CR Deals Cincinnati</div>
+                <div class="review-project">AI Listing Automation</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-quote">We hired Seth to build our reporting dashboard and he delivered something that would have cost us 10x from an agency. Clean, functional, and exactly what we asked for. Highly recommend for any data or automation project.</p>
+                <div class="review-author">Andrew, Kingfisher Ads</div>
+                <div class="review-project">Reporting Dashboard</div>
+            </div>
+        </div>
+    </div>
+
     <!-- CTA -->
     <div class="section reveal">
         <span class="section-label">Get Started</span>
@@ -595,6 +725,12 @@
         <div class="calendly-wrap">
             <iframe src="https://calendly.com/seth-fortewebdesigns/30min" title="Book a call with Seth Forte"></iframe>
         </div>
+    </div>
+
+    <div class="reveal" style="margin-top:1rem;">
+        <a href="https://voyagedallas.com/interview/community-highlights-meet-seth-forte-of-forte-web-designs/" target="_blank" rel="noopener" class="voyage-badge">
+            <span class="voyage-badge-text">As Featured in <strong>Voyage Dallas Magazine</strong></span>
+        </a>
     </div>
 
     <!-- FOOTER -->
