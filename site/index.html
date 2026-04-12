@@ -157,14 +157,14 @@
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
         @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(0,136,219,0.1)}50%{box-shadow:0 0 40px rgba(0,136,219,0.2)}}
-        .animate-fade-in{animation:fadeIn 0.8s ease forwards}
-        .animate-fade-up{animation:fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
-        .animate-delay-1{animation-delay:0.15s;opacity:0}
-        .animate-delay-2{animation-delay:0.3s;opacity:0}
-        .animate-delay-3{animation-delay:0.45s;opacity:0}
-        .animate-delay-4{animation-delay:0.6s;opacity:0}
-        .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)}
-        .reveal.revealed{opacity:1;transform:translateY(0)}
+        .animate-fade-in{opacity:1}
+        .animate-fade-up{opacity:1}
+        .animate-delay-1{opacity:1}
+        .animate-delay-2{opacity:1}
+        .animate-delay-3{opacity:1}
+        .animate-delay-4{opacity:1}
+        .reveal{opacity:1;transform:none}
+        .reveal.revealed{opacity:1;transform:none}
 
         /* Header */
         .site-header{position:sticky;top:0;z-index:100;background:rgba(9,9,11,0.7);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5)}
@@ -495,33 +495,6 @@
             </div>
         </div>
 
-    <!-- MANAGED SERVICES -->
-    <div class="section reveal">
-        <h2 class="section-label">Managed Services</h2>
-        <p class="body-text" style="color:var(--text-secondary);font-size:0.9375rem;margin-bottom:1.5rem;max-width:680px">We build the system and run it for you. Month to month, cancel anytime.</p>
-        <div class="product-grid">
-            <div class="product-card">
-                <h3>Managed Growth System</h3>
-                <p>We run your entire lead gen operation. Campaigns, sequences, optimization, weekly reporting. System build included in month 1.</p>
-                <p style="color:var(--accent);font-weight:600;font-size:0.875rem;margin-bottom:1rem">$3,000/mo</p>
-                <a href="/products/managed-growth-system.html" class="btn-primary">Learn More</a>
-            </div>
-            <div class="product-card">
-                <h3>Managed Cold Outbound</h3>
-                <p>We build and run your outbound pipeline. List building, sequences, deliverability, reply handling. Infrastructure built in month 1.</p>
-                <p style="color:var(--accent);font-weight:600;font-size:0.875rem;margin-bottom:1rem">$2,000/mo</p>
-                <a href="/products/managed-cold-outbound.html" class="btn-primary">Learn More</a>
-            </div>
-            <div class="product-card">
-                <h3>Managed Ads and Funnels</h3>
-                <p>Campaign optimization, A/B testing, funnel tweaks, budget reallocation, conversion reporting. We manage the system we built.</p>
-                <p style="color:var(--accent);font-weight:600;font-size:0.875rem;margin-bottom:1rem">$2,500/mo</p>
-                <a href="/products/managed-ads-and-funnels.html" class="btn-primary">Learn More</a>
-            </div>
-        </div>
-        <p style="margin-top:1.5rem;text-align:center"><a href="/products.html#managed" style="color:var(--accent);font-size:0.875rem">See all managed services &rsaquo;</a></p>
-    </div>
-
     </div>
 
     <!-- HOW IT WORKS -->
@@ -659,7 +632,6 @@
                     <li><a href="/foundation.html">Email Authentication</a></li>
                     <li><a href="/foundation.html">Client Onboarding</a></li>
                     <li><a href="/foundation.html">Automation Audit</a></li>
-                    <li><a href="/foundation.html">Appointment Reminders</a></li>
                     <li><a href="/foundation.html">Messaging Compliance</a></li>
                 </ul>
             </div>
