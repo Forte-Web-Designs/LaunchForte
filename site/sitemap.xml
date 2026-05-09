@@ -289,10 +289,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://launchforte.com/services.html</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://launchforte.com/videoreview.html</loc>
     <priority>0.5</priority>
   </url>

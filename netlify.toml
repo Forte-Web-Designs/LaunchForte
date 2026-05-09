@@ -5,6 +5,19 @@
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
+# Services page retired 2026-05-09. Old stage-based framing collapsed into /what-we-build.
+[[redirects]]
+  from = "/services.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
 # Products catalog retired 2026-05-09. Replaced by /what-we-build with deeper category content.
 [[redirects]]
   from = "/products.html"
