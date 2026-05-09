@@ -5,6 +5,19 @@
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
+# Products catalog retired 2026-05-09. Replaced by /what-we-build with deeper category content.
+[[redirects]]
+  from = "/products.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
 # Tier pages retired 2026-05-09. Each redirects to its capability anchor on the homepage.
 [[redirects]]
   from = "/foundation.html"
