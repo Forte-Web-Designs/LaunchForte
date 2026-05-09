@@ -13,14 +13,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://launchforte.com/foundation.html</loc>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/growth.html</loc>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://launchforte.com/</loc>
     <priority>1.0</priority>
   </url>
@@ -39,10 +31,6 @@
   <url>
     <loc>https://launchforte.com/industries.html</loc>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/launch.html</loc>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://launchforte.com/posts/ai-agents.html</loc>
@@ -298,10 +286,6 @@
   </url>
   <url>
     <loc>https://launchforte.com/reviews.html</loc>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/scale.html</loc>
     <priority>0.5</priority>
   </url>
   <url>

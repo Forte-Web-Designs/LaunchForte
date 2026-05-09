@@ -231,10 +231,9 @@
         .product-price{font-size:1.25rem;font-weight:700;color:var(--text-primary);margin-bottom:1rem;display:block}
         .product-price span{font-size:0.8125rem;font-weight:500;color:var(--text-muted)}
         .product-card .btn-primary{align-self:flex-start;font-size:0.8125rem;padding:0.6rem 1.25rem}
-        .managed-link{display:block;text-align:center;margin-top:1.5rem}
 
         /* How it works */
-        .steps-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.75rem}
+        .steps-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.75rem}
         .step-card{text-align:center;padding:2rem 1.5rem}
         .step-number{width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;font-size:1rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
         .step-card h3{font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.5rem}
@@ -248,29 +247,13 @@
         .results-headline{font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:0.5rem}
         .results-desc{font-size:0.8125rem;color:var(--text-secondary);line-height:1.7}
 
-        /* Stage cards */
-        .stage-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
-        .stage-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.75rem;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease;position:relative;overflow:hidden}
-        .stage-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius-md) var(--radius-md) 0 0}
-        .stage-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.25);color:inherit}
-        .stage-foundation::before{background:linear-gradient(90deg,#8a8578,#a89f91)}
-        .stage-foundation:hover{border-color:#8a8578}
-        .stage-launch::before{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
-        .stage-launch:hover{border-color:var(--accent)}
-        .stage-growth::before{background:linear-gradient(90deg,#10b981,#34d399)}
-        .stage-growth:hover{border-color:#10b981}
-        .stage-scale::before{background:linear-gradient(90deg,var(--accent-2),#60cdff)}
-        .stage-scale:hover{border-color:var(--accent-2)}
-        .stage-number{width:30px;height:30px;border-radius:50%;font-size:0.8rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
-        .stage-foundation .stage-number{background:#8a8578}
-        .stage-launch .stage-number{background:var(--accent)}
-        .stage-growth .stage-number{background:#10b981}
-        .stage-scale .stage-number{background:var(--accent-2)}
-        .stage-title{font-size:1.05rem;font-weight:700;margin-bottom:0.25rem;color:var(--text-primary)}
-        .stage-tagline{font-size:0.8125rem;color:var(--text-muted);font-style:italic;margin-bottom:0.75rem}
-        .stage-card p{color:var(--text-secondary);font-size:0.875rem;line-height:1.7;flex:1}
-        .stage-link{font-size:0.8125rem;color:var(--accent);margin-top:1rem;display:inline-flex;align-items:center;gap:0.35rem;font-weight:500;transition:gap 0.2s ease}
-        .stage-card:hover .stage-link{gap:0.6rem}
+        /* Capability cards */
+        .capability-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+        .capability-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.75rem;display:flex;flex-direction:column;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease;position:relative;overflow:hidden;scroll-margin-top:80px}
+        .capability-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:var(--radius-md) var(--radius-md) 0 0}
+        .capability-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.25);border-color:var(--border-light)}
+        .capability-card h3{font-size:1.05rem;font-weight:700;margin-bottom:0.75rem;color:var(--text-primary)}
+        .capability-card p{color:var(--text-secondary);font-size:0.875rem;line-height:1.7;flex:1;margin-bottom:0}
 
         /* CTA banner */
         .cta-banner{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:2.5rem;text-align:center}
@@ -344,7 +327,7 @@
             .hero h1{font-size:clamp(1.75rem,6vw,2.5rem)}
             .product-grid{grid-template-columns:1fr}
             .steps-grid{grid-template-columns:1fr}
-            .stage-grid{grid-template-columns:1fr}
+            .capability-grid{grid-template-columns:1fr}
             .results-grid{grid-template-columns:1fr 1fr}
             .review-grid{grid-template-columns:1fr}
             .offer-grid{grid-template-columns:1fr 1fr}
@@ -437,7 +420,7 @@
     <div class="hero">
         <h1 class="animate-fade-up">Business Growth Isn't Luck.<br>It's <span class="rotating-word">A System</span>.</h1>
         <p class="hero-subtitle animate-fade-up animate-delay-2">
-            We diagnose where revenue and operations are leaking, then build the systems that turn growth from chaotic to repeatable.
+            We build the systems your strategy depends on.
         </p>
         <div class="hero-buttons animate-fade-up animate-delay-3">
             <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary btn-primary-lg">Book a Growth Systems Audit</a>
@@ -466,9 +449,9 @@
         <div class="section reveal" style="padding:3rem 0 0">
             <h2 class="section-label">The Problem</h2>
             <h3 style="font-size:clamp(1.35rem,3vw,1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.3">Growth Breaks When The System Behind It Can't Keep Up</h3>
-            <p class="body-text">Most growing businesses don't have a lead problem first. They have a system problem.</p>
-            <p class="body-text">Leads come in but follow up is inconsistent. Sales happen but attribution is unclear. Teams stay busy but no one trusts the reporting. Tools exist but they don't work together. The founder sees the revenue leak but can't always see where it starts.</p>
-            <p class="body-text">That's where Launch Forte comes in.</p>
+            <p class="body-text">Most growing businesses don't have a strategy problem. They have an execution problem.</p>
+            <p class="body-text">The marketing plan exists. The product is real. The team is moving. But the systems underneath are leaking revenue. Leads sit in inboxes. Pixels misfire. Attribution is unclear. Reports nobody trusts. Tools that don't talk to each other.</p>
+            <p class="body-text">The strategy is sound. The infrastructure that runs it is held together with tape. That's where we come in.</p>
         </div>
 
         <!-- TRUSTED BY -->
@@ -499,53 +482,26 @@
     <div class="section reveal">
         <h2 class="section-label">Where Most Engagements Start</h2>
         <div class="product-grid">
-            <div class="product-card">
+            <div class="product-card" id="audit">
                 <h3>Growth Systems Audit</h3>
-                <p>We map your current revenue process, identify where it's leaking, and give you a written roadmap with prioritized recommendations and pricing for each. The fastest way to know exactly what's broken and what to fix first.</p>
+                <p>We map your revenue and operations infrastructure end to end. Where leads enter, where data flows, where it breaks, where it leaks. You get a written diagnostic with prioritized recommendations and fixed pricing for the highest impact builds.</p>
                 <span class="product-price" style="font-size:0.9375rem;line-height:1.5;">$1,500. 3 days. Credits toward your first build over $3,000.</span>
                 <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book an Audit</a>
             </div>
-            <div class="product-card">
+            <div class="product-card" id="core-systems-build">
                 <h3>Core Systems Build</h3>
-                <p>We build one critical system end to end. CRM setup, lead capture and routing, payment automation, attribution, reporting, or operational workflow. Fixed scope. Fixed price. You own everything.</p>
-                <span class="product-price" style="font-size:0.9375rem;line-height:1.5;">From $4,500. 7 to 14 days.</span>
-                <a href="/products.html" class="btn-primary">See What We Build</a>
+                <p>We build the system your strategy needs to actually work. CRM infrastructure, lead routing and attribution, payment and conversion tracking, AI agents, reporting dashboards, custom applications, or whatever the audit identifies as highest leverage. Fixed scope. Fixed price. Engineered to survive volume.</p>
+                <span class="product-price" style="font-size:0.9375rem;line-height:1.5;">Builds typically $4,500 to $25,000. Fixed price after audit. Most timelines 7 to 21 days.</span>
+                <a href="#what-we-build" class="btn-primary">See What We Build</a>
             </div>
-            <div class="product-card">
-                <h3>Fractional RevOps Partnership</h3>
-                <p>Ongoing strategy plus systems support after a successful build. Monthly working sessions, included optimization, async access, and continuous improvement. The version where we're embedded with your business going forward.</p>
-                <span class="product-price" style="font-size:0.9375rem;line-height:1.5;">From $3,500/month. 12 month engagement.</span>
+            <div class="product-card" id="partnership">
+                <h3>Embedded Growth Systems Partner</h3>
+                <p>We become the engineering brain behind your growth motion. Strategic monthly reviews, ongoing system optimization, async access for tactical questions, priority on new builds, and the integrations and automations that keep your strategy executable. The version where we're embedded with your business going forward.</p>
+                <span class="product-price" style="font-size:0.9375rem;line-height:1.5;">From $3,500/month. 6 month minimum.</span>
                 <a href="/contact.html" class="btn-primary">Learn About the Partnership</a>
             </div>
         </div>
 
-    </div>
-
-    <!-- MANAGED SERVICES -->
-    <div class="section reveal">
-        <h2 class="section-label">Managed Services</h2>
-        <p class="body-text" style="margin-top:-0.5rem;margin-bottom:1.5rem;">We build the system and run it for you. Specialized monthly engagements for specific outcomes.</p>
-        <div class="product-grid">
-            <div class="product-card">
-                <h3>Managed Growth System</h3>
-                <p>We run your entire lead gen operation. Campaigns, sequences, optimization, weekly reporting. System build included in month 1.</p>
-                <span class="product-price">$3,000<span>/mo</span></span>
-                <a href="/products/managed-growth-system.html" class="btn-primary">Learn More</a>
-            </div>
-            <div class="product-card">
-                <h3>Managed Cold Outbound</h3>
-                <p>We build and run your outbound pipeline. List building, sequences, deliverability, reply handling. Infrastructure built in month 1.</p>
-                <span class="product-price">$2,000<span>/mo</span></span>
-                <a href="/products/managed-cold-outbound.html" class="btn-primary">Learn More</a>
-            </div>
-            <div class="product-card">
-                <h3>Managed Ads and Funnels</h3>
-                <p>Campaign optimization, A/B testing, funnel tweaks, budget reallocation, conversion reporting. We manage the system we built.</p>
-                <span class="product-price">$2,500<span>/mo</span></span>
-                <a href="/products/managed-ads-and-funnels.html" class="btn-primary">Learn More</a>
-            </div>
-        </div>
-        <a href="/products.html#managed" class="link-arrow managed-link">See all managed services</a>
     </div>
 
     <!-- HOW IT WORKS -->
@@ -555,71 +511,60 @@
             <div class="step-card">
                 <div class="step-number">1</div>
                 <h3>Diagnose</h3>
-                <p>We map the real business process and identify where revenue and operations are leaking.</p>
+                <p>We map the actual revenue and operations process end to end. Where data flows, where it breaks, where revenue is leaking. The output is a written diagnostic with the highest leverage builds prioritized.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">2</div>
-                <h3>Design</h3>
-                <p>We create the system architecture, data flow, and implementation plan before any building starts.</p>
+                <h3>Architect</h3>
+                <p>Before any code gets written, we design the system. Data flow, integration points, failure handling, what gets automated, what stays human. The architecture decides whether the build survives volume.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">3</div>
                 <h3>Build</h3>
-                <p>We implement the CRM, automations, integrations, reporting, and workflows. Fixed scope. Fixed timeline.</p>
+                <p>We implement the CRM, automations, integrations, AI agents, reporting, and workflows. Fixed scope. Fixed timeline. Tested with real data before handoff.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">4</div>
-                <h3>Harden</h3>
-                <p>Documentation, error handling, testing, alerts, and team handoff. Built so it doesn't break when volume increases.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-number">5</div>
-                <h3>Improve</h3>
-                <p>We use real data to refine the system over time. The system gets better every month.</p>
+                <h3>Operate</h3>
+                <p>Documentation, error handling, monitoring, alerts, and team handoff. Built so it stops being held together by one person who knows how it works. Optional partnership picks up here.</p>
             </div>
         </div>
     </div>
 
-    <!-- SERVICES -->
-    <div class="section reveal">
+    <!-- WHAT WE BUILD -->
+    <div class="section reveal" id="what-we-build">
         <h2 class="section-label">Services</h2>
-        <div class="stage-grid">
-            <a href="/foundation.html" class="stage-card stage-foundation">
-                <div class="stage-number">1</div>
-                <div class="stage-title">Foundation</div>
-                <div class="stage-tagline">The systems your business runs on. Built right the first time.</div>
-                <p>Your tools aren't connected. Leads leak. Nothing is tracked. Follow up is manual or missing. We build the operational backbone: CRM configured for how you actually work, payment infrastructure, email authentication, booking, onboarding, and the integrations that connect it all.</p>
-                <span class="stage-link">Learn more</span>
-            </a>
-            <a href="/launch.html" class="stage-card stage-launch">
-                <div class="stage-number">2</div>
-                <div class="stage-title">Launch</div>
-                <div class="stage-tagline">Turn traffic into customers.</div>
-                <p>The pipeline is empty. Nothing's converting. We build the engine that turns leads into booked appointments: customer research, ad campaign setup, sales funnels, lead capture, instant response, booking, nurture sequences, and the tracking that shows you what's working.</p>
-                <span class="stage-link">Learn more</span>
-            </a>
-            <a href="/growth.html" class="stage-card stage-growth">
-                <div class="stage-number">3</div>
-                <div class="stage-title">Growth</div>
-                <div class="stage-tagline">Capture demand you're missing. Protect revenue you've already earned.</div>
-                <p>Revenue depends on one channel. If it goes down, pipeline goes dry. We add inbound and outbound channels: AI phone agents, outbound email infrastructure, review automation, voicemail drops, dispatch systems, and the infrastructure that protects what you've already built.</p>
-                <span class="stage-link">Learn more</span>
-            </a>
-            <a href="/scale.html" class="stage-card stage-scale">
-                <div class="stage-number">4</div>
-                <div class="stage-title">Scale</div>
-                <div class="stage-tagline">See what's working. Stop guessing.</div>
-                <p>Everything is running but you can't see what's working. We build the visibility layer: automated reporting, operations systems, invoice follow up, reliability monitoring, and the dashboards that let you make decisions from real numbers instead of guesses.</p>
-                <span class="stage-link">Learn more</span>
-            </a>
+        <h3 style="font-size:clamp(1.35rem,3vw,1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:0.75rem;letter-spacing:-0.02em;line-height:1.3">What We Build</h3>
+        <p class="body-text" style="margin-bottom:2rem">Five categories. Built end to end by an engineer who codes, not a freelancer who configures.</p>
+        <div class="capability-grid">
+            <div class="capability-card" id="revenue-infrastructure">
+                <h3>Revenue Infrastructure</h3>
+                <p>CRM configured for how your business actually sells. Pipeline stages mapped to your sales process, automations that fire on intent signals, payment integration with attribution back to source, and the data architecture that makes reporting trustworthy. The foundation that everything else runs on.</p>
+            </div>
+            <div class="capability-card" id="lead-systems">
+                <h3>Lead and Customer Systems</h3>
+                <p>Lead capture, instant response, routing, nurture sequences, AI personalized follow up, missed call recovery, review automation, and reactivation campaigns. The systems that capture demand you've already paid for and convert it into revenue.</p>
+            </div>
+            <div class="capability-card" id="ai-orchestration">
+                <h3>AI Agents and Orchestration</h3>
+                <p>Custom AI voice agents, AI website chatbots, AI workflow tools (GPTs, Gems, Claude skill files), AI personalization in nurture sequences, and AI configured into platforms you already run. AI deployed where it earns its place, not where it sounds impressive.</p>
+            </div>
+            <div class="capability-card" id="reporting">
+                <h3>Reporting and Dashboards</h3>
+                <p>Real time pipeline visibility, ad spend attribution, conversion tracking, KPI frameworks, and operational dashboards built on top of clean data. The visibility layer that lets you make decisions from numbers, not gut feel.</p>
+            </div>
+            <div class="capability-card" id="custom-builds">
+                <h3>Custom Builds and Integrations</h3>
+                <p>Standalone applications, financial data pipelines, dispatch systems, operations hubs, and the API integrations that connect platforms that don't talk by default. The builds that don't fit a template because your business doesn't fit a template.</p>
+            </div>
         </div>
     </div>
 
     <!-- NOT SURE WHERE TO START -->
     <div class="section reveal" style="padding-top:0;">
         <div class="cta-banner">
-            <h2 style="font-size:1.25rem;font-weight:700;color:var(--text-primary);margin-bottom:0.75rem">Not sure where to start?</h2>
-            <p>Most engagements start with a Growth Systems Audit. 3 days. We map your current process, identify where revenue is leaking, and give you a written roadmap with prioritized recommendations and fixed pricing for each. $1,500, credits toward your first build over $3,000.</p>
+            <h2 style="font-size:1.25rem;font-weight:700;color:var(--text-primary);margin-bottom:0.75rem">Not sure which of these is highest leverage for your business?</h2>
+            <p>Most engagements start with a Growth Systems Audit. 3 days. We map your current revenue and operations infrastructure, identify where it's leaking, and give you a written roadmap with prioritized recommendations and fixed pricing for each. $1,500, credits toward your first build over $3,000.</p>
             <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
         </div>
     </div>
@@ -627,10 +572,11 @@
     <!-- DIFFERENTIATOR -->
     <div class="section reveal">
         <h2 class="section-label">Why Launch Forte</h2>
-        <h3 style="font-size:clamp(1.35rem,3vw,1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.3">Not A Tools Guy. Not A Slide Deck Consultant.</h3>
-        <p class="body-text">Launch Forte sits between strategy and implementation.</p>
-        <p class="body-text">A strategist tells you what should happen. A developer builds what you ask for. We do both: diagnose what's broken, design the right system, and build the infrastructure that makes it work in the real world.</p>
-        <p class="body-text">Founder Seth Forte brings software engineering and SRE experience from financial services, where reliability, audit trails, and failure handling matter. That mindset shows up in every build. Cleaner architecture, better documentation, stronger handoff, fewer duct tape automations that break the moment volume increases.</p>
+        <h3 style="font-size:clamp(1.35rem,3vw,1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.3">Software Engineer Who Speaks Revenue.</h3>
+        <p class="body-text">Most consultants tell you what should happen. Most developers build what you ask for. Most automation freelancers wire two tools together and disappear.</p>
+        <p class="body-text">We do something different. We sit between strategy and implementation as the engineering brain that makes the strategy executable. A fractional CMO needs someone like us. A fractional CFO needs someone like us. A founder running a growing business that has outgrown its tools needs someone like us.</p>
+        <p class="body-text">Founder Seth Forte brings software engineering and SRE experience from financial services. The kind of work where reliability, audit trails, and production failure handling decide whether the business survives the next traffic spike. That mindset shows up in every build. Cleaner architecture. Real documentation. Stronger handoff. Systems that survive growth instead of breaking under it.</p>
+        <p class="body-text">We're the engineer your fractional CMO wishes they could clone.</p>
     </div>
 
     <!-- FEATURED CASE STUDY -->
@@ -677,13 +623,6 @@
         <p style="margin-top:1.5rem;"><a href="/results.html" class="link-arrow">See all reviews</a></p>
     </div>
 
-    <!-- PRODUCTS CTA -->
-    <div class="section reveal" style="text-align:center;padding:3rem 0">
-        <h2 style="font-size:clamp(1.25rem,3vw,1.5rem);font-weight:700;color:var(--text-primary);margin-bottom:0.75rem">See the Full Product Catalog</h2>
-        <p style="color:var(--text-secondary);font-size:0.9375rem;margin-bottom:1.5rem">Every product has a fixed scope, fixed pricing, and a 30 day delivery guarantee. Buy any piece individually or bundle into a complete system.</p>
-        <a href="/products.html" class="btn-primary">View All Products</a>
-    </div>
-
     <!-- ABOUT -->
     <div class="section reveal">
         <h2 class="section-label">About</h2>
@@ -691,8 +630,8 @@
             <img src="/images/about/headshot-6.jpg" alt="Seth Forte, founder of Launch Forte, automation consultant in Grapevine Texas" class="about-avatar" loading="lazy">
             <div>
                 <p class="about-name">Seth Forte, Founder</p>
-                <p class="body-text" style="margin-bottom:1.25rem;">Launch Forte builds the revenue and operations infrastructure growing businesses need to turn leads, sales, and manual processes into a repeatable growth system.</p>
-                <p class="body-text" style="margin-bottom:1.25rem;">Founded by Seth Forte. Solo practice. Engineering background from financial services where downtime costs six figures per hour. Every engagement starts with diagnosing what the problem is actually costing you. If the math works, we build it. If it doesn't, we'll tell you. Even when it costs us the project.</p>
+                <p class="body-text" style="margin-bottom:1.25rem;">Launch Forte builds the revenue and operations infrastructure growing businesses need to turn strategy into execution.</p>
+                <p class="body-text" style="margin-bottom:1.25rem;">Founded by Seth Forte. Solo practice. Software engineer with five years in financial services where downtime costs six figures per hour. Every engagement starts with diagnosing what the problem is actually costing you. If the math works, we build it. If it doesn't, we'll tell you. Even when it costs us the project.</p>
                 <a href="/about.html" class="btn-secondary" style="font-size:0.8125rem;padding:0.55rem 1.25rem;">More about us</a>
             </div>
         </div>
@@ -701,8 +640,8 @@
     <!-- FINAL CTA -->
     <div class="section reveal">
         <div class="cta-banner">
-            <h2 style="font-size:clamp(1.35rem,3vw,1.65rem);font-weight:700;color:var(--text-primary);margin-bottom:0.75rem;letter-spacing:-0.02em;line-height:1.3">If Growth Feels Messy, The System Is Usually Why.</h2>
-            <p>Launch Forte helps you turn scattered tools, manual follow up, and unclear reporting into a growth system your team can actually run. Start with an audit. We'll tell you exactly where to start and what it's worth.</p>
+            <h2 style="font-size:clamp(1.35rem,3vw,1.65rem);font-weight:700;color:var(--text-primary);margin-bottom:0.75rem;letter-spacing:-0.02em;line-height:1.3">If Growth Feels Messy, The System Underneath Is Usually Why.</h2>
+            <p>Strategy doesn't fail at the strategy level. It fails at the execution level. Tools that don't talk. Data nobody trusts. Automations held together with tape. Reports built in five tabs. Start with an audit. We'll tell you exactly what's broken, what to fix first, and what it's worth.</p>
             <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
         </div>
     </div>
@@ -723,11 +662,10 @@
             <div class="footer-col">
                 <h4>Services</h4>
                 <ul>
-                    <li><a href="/foundation.html">Foundation</a></li>
-                    <li><a href="/launch.html">Launch</a></li>
-                    <li><a href="/growth.html">Growth</a></li>
-                    <li><a href="/scale.html">Scale</a></li>
-                    <li><a href="/products.html">Products</a></li>
+                    <li><a href="/#audit">Audit</a></li>
+                    <li><a href="/#core-systems-build">Build</a></li>
+                    <li><a href="/#partnership">Partnership</a></li>
+                    <li><a href="/what-we-build.html">What We Build</a></li>
                     <li><a href="/industries.html">Industries</a></li>
                 </ul>
             </div>

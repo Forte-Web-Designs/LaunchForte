@@ -5,6 +5,55 @@
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
+# Tier pages retired 2026-05-09. Each redirects to its capability anchor on the homepage.
+[[redirects]]
+  from = "/foundation.html"
+  to = "/#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/foundation"
+  to = "/#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/launch.html"
+  to = "/#lead-systems"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/launch"
+  to = "/#lead-systems"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/growth.html"
+  to = "/#ai-orchestration"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/growth"
+  to = "/#ai-orchestration"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/scale.html"
+  to = "/#reporting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/scale"
+  to = "/#reporting"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
