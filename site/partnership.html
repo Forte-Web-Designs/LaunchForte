@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Embedded Growth Systems Partner | Launch Forte</title>
     <meta name="description" content="We become the engineering brain behind your growth motion. Strategic monthly reviews, ongoing optimization, async access, priority on new builds. From $3,500/month.">
-    <link rel="canonical" href="https://launchforte.com/partnership.html">
+    <link rel="canonical" href="https://launchforte.com/partnership">
     <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
     <meta property="og:title" content="Embedded Growth Systems Partner | Launch Forte">
     <meta property="og:description" content="We become the engineering brain behind your growth motion. Strategic monthly reviews, ongoing optimization, async access, priority on new builds. From $3,500/month.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://launchforte.com/partnership.html">
+    <meta property="og:url" content="https://launchforte.com/partnership">
     <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Embedded Growth Systems Partner | Launch Forte">
@@ -27,7 +27,7 @@
       "@type": "WebPage",
       "name": "Embedded Growth Systems Partner",
       "description": "We become the engineering brain behind your growth motion. Strategic monthly reviews, ongoing optimization, async access, priority on new builds.",
-      "url": "https://launchforte.com/partnership.html",
+      "url": "https://launchforte.com/partnership",
       "publisher": {
         "@type": "ProfessionalService",
         "name": "Launch Forte",
@@ -42,7 +42,7 @@
       "@type": "BreadcrumbList",
       "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://launchforte.com/"},
-        {"@type": "ListItem", "position": 2, "name": "Partnership", "item": "https://launchforte.com/partnership.html"}
+        {"@type": "ListItem", "position": 2, "name": "Partnership", "item": "https://launchforte.com/partnership"}
       ]
     }
     </script>
@@ -78,13 +78,17 @@
         .header-nav a.active{color:var(--text-primary);background:var(--accent-subtle)}
 
         /* Main */
-        .main-content{max-width:880px;margin:0 auto;padding:0 2rem 6rem;position:relative;z-index:1}
+        .main-content{max-width:1000px;margin:0 auto;padding:0 2rem 6rem;position:relative;z-index:1}
 
-        /* Section spacing */
-        .section{padding:3rem 0}
+        /* Section base */
         .section-label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem}
         .section-label::before{content:'';width:20px;height:1px;background:var(--accent)}
         .body-text{color:var(--text-secondary);margin-bottom:1.25rem;line-height:1.8;font-size:0.9375rem}
+
+        /* Page section */
+        .page-section{padding:5rem 0;border-top:1px solid var(--border);scroll-margin-top:80px}
+        .page-section:first-of-type{border-top:none}
+        .page-section h2{font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:800;color:var(--text-primary);margin-bottom:1.25rem;letter-spacing:-0.02em;line-height:1.2}
 
         /* Buttons */
         .btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.75rem;background:var(--accent);color:#ffffff;border:none;border-radius:var(--radius-pill);font-size:0.875rem;font-weight:500;cursor:pointer;transition:all 0.2s ease;text-decoration:none;font-family:inherit}
@@ -93,24 +97,35 @@
         /* Hero */
         .hero{padding:5rem 0 2.5rem;text-align:center;position:relative}
         .hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(0,136,219,0.08) 0%,transparent 70%);pointer-events:none;z-index:-1}
-        .hero h1{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.03em;line-height:1.15}
-        .hero-subtitle{font-size:clamp(1rem,2vw,1.15rem);color:var(--text-secondary);max-width:640px;margin:0 auto;line-height:1.7}
+        .hero h1{font-size:clamp(2.25rem,5.5vw,3.75rem);font-weight:800;color:var(--text-primary);margin-bottom:1.25rem;letter-spacing:-0.03em;line-height:1.1}
+        .hero-subtitle{font-size:clamp(1rem,2vw,1.15rem);color:var(--text-secondary);max-width:700px;margin:0 auto;line-height:1.7}
 
-        /* Section title */
-        .section h2{font-size:clamp(1.35rem,3vw,1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:1.5rem;letter-spacing:-0.02em;line-height:1.3}
+        /* Intro */
+        .intro-block{max-width:780px;margin:0 auto;padding:0.5rem 0 2rem;text-align:center}
+        .intro-block p{font-size:1rem;line-height:1.85;color:var(--text-secondary);margin:0}
+
+        /* Anchor pills */
+        .anchor-pills{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;padding:1rem 0 3rem}
+        .anchor-pill{display:inline-flex;align-items:center;padding:0.55rem 1.1rem;border:1px solid var(--border-light);border-radius:var(--radius-pill);font-size:0.8125rem;font-weight:500;color:var(--text-secondary);background:var(--surface);transition:all 0.2s ease;text-decoration:none}
+        .anchor-pill:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-subtle)}
 
         /* Content blocks */
-        .content-block{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
-        .content-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+        .content-block{margin-top:1.75rem;padding-top:1.75rem;border-top:1px solid var(--border)}
+        .content-block:first-of-type{margin-top:1.5rem;padding-top:0;border-top:none}
         .content-block h3{font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.01em}
         .content-block p{color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin:0}
 
-        /* Engagement structure block */
-        .engagement-block{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius-md);padding:1.75rem 2rem;color:var(--text-secondary);font-size:0.9375rem;line-height:1.8}
+        /* Process grid */
+        .process-grid{display:flex;flex-direction:column;margin-top:1rem}
+        .process-item{display:grid;grid-template-columns:90px 1fr;gap:1.5rem;align-items:start;padding:1.5rem 0;border-bottom:1px solid var(--border)}
+        .process-item:last-child{border-bottom:none}
+        .process-num{font-size:1.875rem;font-weight:800;color:var(--accent);letter-spacing:-0.03em;line-height:1}
+        .process-content h3{font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.01em}
+        .process-content p{color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin:0}
 
         /* CTA banner */
-        .cta-banner{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:2.5rem;text-align:center}
-        .cta-banner h2{font-size:clamp(1.35rem,3vw,1.65rem);font-weight:700;color:var(--text-primary);margin-bottom:0.75rem;letter-spacing:-0.02em;line-height:1.3}
+        .cta-banner{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:2.5rem;text-align:center;margin-top:1rem}
+        .cta-banner h2{margin-bottom:0.75rem}
         .cta-banner p{color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;max-width:640px;margin:0 auto 1.5rem}
 
         /* Footer */
@@ -137,15 +152,17 @@
             .header-nav a{font-size:0.8rem;padding:0.4rem 0.6rem}
             .main-content{padding:0 1.25rem 4rem}
             .hero{padding:3.5rem 0 2rem}
-            .hero h1{font-size:clamp(1.75rem,6vw,2.25rem)}
+            .hero h1{font-size:clamp(1.75rem,6vw,2.5rem)}
+            .page-section{padding:3.5rem 0}
+            .process-item{grid-template-columns:auto 1fr;gap:1rem}
+            .process-num{font-size:1.5rem}
             .footer-columns{grid-template-columns:1fr 1fr}
-            .section{padding:2.25rem 0}
             .footer-bottom{flex-direction:column;gap:0.5rem;align-items:flex-start}
+            .anchor-pill{font-size:0.75rem;padding:0.45rem 0.9rem}
         }
         @media(max-width:480px){
             .footer-columns{grid-template-columns:1fr}
             .cta-banner{padding:1.75rem 1.25rem}
-            .engagement-block{padding:1.5rem 1.25rem}
         }
     </style>
 </head>
@@ -178,74 +195,133 @@
     </div>
 
     <!-- INTRO -->
-    <div class="section reveal" style="padding-top:0">
-        <p class="body-text">Most engagements end at handoff. The build is delivered, the documentation is written, and we step away. Some clients want the opposite. They want us in the business, not at the door. The Embedded Growth Systems Partner is for those clients.</p>
+    <div class="intro-block reveal">
+        <p>Most engagements end at handoff. The system goes live, the documentation is written, and we step away. The Partnership is for clients who want the opposite. They want us in the business, not at the door, engineering the systems their growth strategy keeps depending on.</p>
     </div>
 
-    <!-- WHAT'S INCLUDED -->
-    <div class="section reveal">
-        <p class="section-label">What's included</p>
-        <h2>What's included</h2>
-        <div class="content-block">
-            <h3>Monthly Strategy Review</h3>
-            <p>60 minutes every month. We look at what's working, what's not, and what's next. The data, the bottlenecks, the next system to build, the next risk to manage.</p>
-        </div>
-        <div class="content-block">
-            <h3>Async Access</h3>
-            <p>Loom videos, voice memos, and written answers to tactical questions between sessions. If a 10 minute response saves you a week of figuring it out, that's the win.</p>
-        </div>
-        <div class="content-block">
-            <h3>Ongoing Optimization</h3>
-            <p>Up to 4 hours per month of small fixes, tweaks, and adjustments. Not new builds. The little things that come up when systems run in the real world.</p>
-        </div>
-        <div class="content-block">
-            <h3>Priority on New Builds</h3>
-            <p>When you scope a new project with us, you get retainer client pricing and front of the line scheduling.</p>
-        </div>
+    <!-- ANCHOR PILLS -->
+    <div class="anchor-pills">
+        <a href="#why" class="anchor-pill">Why this exists</a>
+        <a href="#what-you-get" class="anchor-pill">What you get</a>
+        <a href="#what-it-looks-like" class="anchor-pill">What it looks like</a>
+        <a href="#who" class="anchor-pill">Who this is for</a>
+        <a href="#structure" class="anchor-pill">Engagement structure</a>
     </div>
 
-    <!-- WHAT THIS IS NOT -->
-    <div class="section reveal">
-        <p class="section-label">What this is not</p>
-        <h2>What this is not</h2>
-        <div class="content-block">
-            <h3>Not a managed service</h3>
-            <p>If you want us to run your day to day operations, that's a different engagement. The Partnership is for businesses with their own team running the system who need a strategic engineering partner above the execution.</p>
-        </div>
-        <div class="content-block">
-            <h3>Not a build retainer</h3>
-            <p>If you need 20 hours of new development this month, that's a project. Scope it separately. The Partnership covers small adjustments and strategic input, not new builds at retainer rates.</p>
-        </div>
-        <div class="content-block">
-            <h3>Not a consulting engagement</h3>
-            <p>Consultants come in, deliver a recommendation, and leave. We stay. We're in the business with you for the engagement length.</p>
-        </div>
-    </div>
+    <!-- SECTION 01: Why this exists -->
+    <section class="page-section reveal" id="why">
+        <p class="section-label">01 / Why this exists</p>
+        <h2>Most businesses don't need another builder. They need an engineer at the table.</h2>
+        <p class="body-text">After a Phase 1 build, most clients don't need another contractor. They need an engineering brain that already knows the system, the team, and the business. Someone who can look at a quarterly roadmap and tell them which builds are worth doing, which ones aren't, and which ones are quietly breaking the foundation that's already in place. That's what the Partnership is. Not a managed service. Not a build retainer. A strategic engineering partner embedded in the business.</p>
+    </section>
 
-    <!-- WHO THIS IS FOR -->
-    <div class="section reveal">
-        <p class="section-label">Who this is for</p>
-        <h2>Who this is for</h2>
-        <p class="body-text">Owners who built a system with us in Phase 1 and are scaling. Teams that don't need another builder, they need a strategic engineering partner at the table. Businesses where the next mistake will cost more than a year of this retainer.</p>
-    </div>
+    <!-- SECTION 02: What you get -->
+    <section class="page-section reveal" id="what-you-get">
+        <p class="section-label">02 / What you get</p>
+        <h2>Four things every month. Engineered to compound.</h2>
+        <p class="body-text">The Partnership has four components, each designed so the relationship gets more valuable the longer it runs.</p>
 
-    <!-- ENGAGEMENT STRUCTURE -->
-    <div class="section reveal">
-        <p class="section-label">Engagement structure</p>
-        <h2>Engagement structure</h2>
-        <div class="engagement-block">
-            From $3,500 per month. Six month minimum. Auto renewing month to month after that, cancel with 30 days notice. Most retainer clients start with a Growth Systems Audit or Core Systems Build before moving into the Partnership. The Partnership picks up where the build ends.
+        <div class="process-grid">
+            <div class="process-item">
+                <div class="process-num">01</div>
+                <div class="process-content">
+                    <h3>Monthly Strategy Review</h3>
+                    <p>60 minutes every month. We look at what's working, what's not, and what's next. The data, the bottlenecks, the next system to build, the next risk to manage. Recorded and documented.</p>
+                </div>
+            </div>
+            <div class="process-item">
+                <div class="process-num">02</div>
+                <div class="process-content">
+                    <h3>Async Access</h3>
+                    <p>Loom videos, voice memos, and written answers to tactical questions between sessions. If a 10 minute response saves you a week of figuring it out, that's the win.</p>
+                </div>
+            </div>
+            <div class="process-item">
+                <div class="process-num">03</div>
+                <div class="process-content">
+                    <h3>Ongoing Optimization</h3>
+                    <p>Up to 4 hours per month of small fixes, tweaks, and adjustments. Not new builds. The little things that surface when systems run in the real world.</p>
+                </div>
+            </div>
+            <div class="process-item">
+                <div class="process-num">04</div>
+                <div class="process-content">
+                    <h3>Priority on New Builds</h3>
+                    <p>When you scope a new project with us, you get retainer client pricing and front of the line scheduling. The Partnership absorbs strategic time. New scope absorbs build time. They stay separate.</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- CLOSING CTA -->
-    <div class="section reveal">
+    <!-- SECTION 03: What it looks like -->
+    <section class="page-section reveal" id="what-it-looks-like">
+        <p class="section-label">03 / What it looks like</p>
+        <h2>What an embedded engagement looks like in practice.</h2>
+        <p class="body-text">The Partnership compounds. The first months are about settling into the rhythm. The middle months are where the strategic value shows up. The later months are where the engineering decisions you made together start producing returns nobody else would have caught.</p>
+
+        <div class="content-block">
+            <h3>Months 1 to 2: settling in.</h3>
+            <p>We onboard into your stack, document what's running, and start the monthly rhythm. The first strategy review usually surfaces three or four things nobody on the team had visibility into. Most of the early optimization hours go toward fixing what was already broken before we showed up.</p>
+        </div>
+        <div class="content-block">
+            <h3>Months 3 to 4: the partnership pays off.</h3>
+            <p>By month three, the strategic conversation shifts from reactive to proactive. We're not fixing things anymore. We're proposing the next builds before the team realizes they need them. The async access starts replacing meetings. The monthly review becomes the most valuable hour of the team's month.</p>
+        </div>
+        <div class="content-block">
+            <h3>Months 5 to 6 and beyond: compounding.</h3>
+            <p>The system is stable. The team trusts the dashboards. Decisions get faster because the data is trustworthy. New builds scope themselves because we've been thinking about them for months. Most clients renew here. The ones who don't usually do because the business outgrew the engagement, which is the right reason to part.</p>
+        </div>
+    </section>
+
+    <!-- SECTION 04: Who this is for -->
+    <section class="page-section reveal" id="who">
+        <p class="section-label">04 / Who this is for</p>
+        <h2>Operators who need an engineer at the table.</h2>
+        <p class="body-text">The Partnership is for clients who already have a build in production and need engineering judgment alongside the team running it. The shape of the conversation is consistent.</p>
+
+        <div class="content-block">
+            <h3>You built a system with us and it's compounding.</h3>
+            <p>Phase 1 went well. The system is producing. You don't need another builder. You need someone in the business who already knows how the foundation was built and can guide what comes next.</p>
+        </div>
+        <div class="content-block">
+            <h3>You're scaling and decisions are getting expensive.</h3>
+            <p>Every quarter, the cost of the wrong call goes up. Picking the wrong tool, scoping the wrong build, missing the wrong integration. The Partnership makes sure those calls get made with engineering judgment, not gut feel.</p>
+        </div>
+        <div class="content-block">
+            <h3>You're working with a strategist who needs an engineer.</h3>
+            <p>Maybe a fractional CMO. Maybe a consultant. Maybe an operator running marketing inside the business. They own the strategy. We engineer the systems the strategy depends on, month over month.</p>
+        </div>
+    </section>
+
+    <!-- SECTION 05: Engagement structure -->
+    <section class="page-section reveal" id="structure">
+        <p class="section-label">05 / Engagement structure</p>
+        <h2>From $3,500 per month. Six month minimum.</h2>
+        <p class="body-text">The Partnership runs on a six month minimum engagement, auto renewing month to month after that with 30 days notice on either side. Most clients start with a Growth Systems Audit or a Core Systems Build before moving into the Partnership. The Partnership picks up where the build ends and keeps the strategic engineering at the table.</p>
+
+        <div class="content-block">
+            <h3>How it's priced.</h3>
+            <p>$3,500 per month base. Higher tiers available depending on the intensity of strategic involvement and the number of stakeholders. Pricing is locked at the start of the engagement and doesn't change mid term.</p>
+        </div>
+        <div class="content-block">
+            <h3>How it's scoped.</h3>
+            <p>Written engagement letter before kickoff. The four components are guaranteed. New builds get scoped separately at retainer client pricing. Nothing happens off the books.</p>
+        </div>
+        <div class="content-block">
+            <h3>How it ends.</h3>
+            <p>Six month minimum. After that, month to month with 30 days notice. If we outgrow each other, we say so. Most engagements renew. Some clients move to lighter quarterly retainers after the first year. Some part on good terms. All of it is in writing.</p>
+        </div>
+    </section>
+
+    <!-- SECTION 06: Closing CTA -->
+    <section class="page-section reveal" id="next-step">
+        <p class="section-label">06 / Next step</p>
         <div class="cta-banner">
-            <h2>Start With An Audit</h2>
-            <p>Most Partnerships start with a Growth Systems Audit. We map your infrastructure end to end and identify what to build first. The audit is how we both know whether the Partnership is the right next step.</p>
+            <h2>Most Partnerships start with an audit.</h2>
+            <p>The audit is how we both know whether the Partnership is the right next step. Three days. A written diagnostic of your current infrastructure, prioritized recommendations, and fixed pricing on what gets built next. The fee credits toward your first build over $3,000.</p>
             <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
         </div>
-    </div>
+    </section>
 
     <!-- FOOTER -->
     <div class="footer-section">
