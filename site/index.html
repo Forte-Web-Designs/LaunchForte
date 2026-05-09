@@ -247,13 +247,13 @@
         .results-headline{font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:0.5rem}
         .results-desc{font-size:0.8125rem;color:var(--text-secondary);line-height:1.7}
 
-        /* Capability cards */
-        .capability-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-        .capability-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.75rem;display:flex;flex-direction:column;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease;position:relative;overflow:hidden;scroll-margin-top:80px}
-        .capability-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:var(--radius-md) var(--radius-md) 0 0}
-        .capability-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.25);border-color:var(--border-light)}
-        .capability-card h3{font-size:1.05rem;font-weight:700;margin-bottom:0.75rem;color:var(--text-primary)}
-        .capability-card p{color:var(--text-secondary);font-size:0.875rem;line-height:1.7;flex:1;margin-bottom:0}
+        /* Capability list */
+        .capability-list{display:flex;flex-direction:column;border-top:1px solid var(--border);margin-top:0.5rem}
+        .capability-row{display:grid;grid-template-columns:60px minmax(220px,1fr) 2fr;gap:1.5rem;align-items:center;padding:1.25rem 0.75rem;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:background 0.2s ease,padding 0.2s ease}
+        .capability-row:hover{background:var(--accent-subtle);padding-left:1.25rem}
+        .capability-num{font-size:0.8125rem;font-weight:700;color:var(--accent);letter-spacing:0.08em}
+        .capability-name{font-size:1.05rem;font-weight:700;color:var(--text-primary);margin:0;letter-spacing:-0.01em}
+        .capability-desc{color:var(--text-secondary);font-size:0.9375rem;line-height:1.6;margin:0}
 
         /* CTA banner */
         .cta-banner{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:2.5rem;text-align:center}
@@ -327,7 +327,11 @@
             .hero h1{font-size:clamp(1.75rem,6vw,2.5rem)}
             .product-grid{grid-template-columns:1fr}
             .steps-grid{grid-template-columns:1fr}
-            .capability-grid{grid-template-columns:1fr 1fr}
+            .capability-row{grid-template-columns:auto 1fr;gap:0.5rem 1rem;padding:1rem 0.5rem;align-items:start}
+            .capability-row:hover{padding-left:0.75rem}
+            .capability-num{grid-column:1;grid-row:1;align-self:center}
+            .capability-name{grid-column:2;grid-row:1;align-self:center;font-size:1rem}
+            .capability-desc{grid-column:1 / -1;grid-row:2;font-size:0.875rem;line-height:1.55;margin-top:0.25rem}
             .results-grid{grid-template-columns:1fr 1fr}
             .review-grid{grid-template-columns:1fr}
             .offer-grid{grid-template-columns:1fr 1fr}
@@ -345,7 +349,6 @@
             .hero-buttons .btn-secondary{width:auto;max-width:100%;justify-content:center;text-align:center}
             .hero-buttons .btn-primary-lg{padding:0.7rem 1.5rem;font-size:0.9rem}
             .credibility-grid{grid-template-columns:1fr}
-            .capability-grid{grid-template-columns:1fr}
             .results-grid{grid-template-columns:1fr}
             .offer-grid{grid-template-columns:1fr 1fr}
             .featured-case{flex-direction:column;align-items:flex-start}
@@ -419,9 +422,6 @@
     <!-- HERO -->
     <div class="hero">
         <h1 class="animate-fade-up">Business Growth Isn't Luck.<br>It's <span class="rotating-word">A System</span>.</h1>
-        <p class="hero-subtitle animate-fade-up animate-delay-2">
-            We build the systems your strategy depends on.
-        </p>
         <div class="hero-buttons animate-fade-up animate-delay-3">
             <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary btn-primary-lg">Book a Growth Systems Audit</a>
             <a href="#how-it-works" class="btn-secondary">See How It Works</a>
@@ -486,7 +486,7 @@
                 <h3>Embedded Growth Systems Partner</h3>
                 <p>We become the engineering brain behind your growth motion. Monthly strategic reviews, ongoing optimization, async access, priority on new builds.</p>
                 <span class="product-price" style="font-size:0.9375rem;line-height:1.5;">From $3,500/month. 6 month minimum.</span>
-                <a href="/contact.html" class="btn-primary">Learn About the Partnership</a>
+                <a href="/partnership.html" class="btn-primary">Learn About the Partnership</a>
             </div>
         </div>
 
@@ -499,22 +499,22 @@
             <div class="step-card">
                 <div class="step-number">1</div>
                 <h3>Diagnose</h3>
-                <p>We map your revenue and operations process end to end. Where data flows, where it breaks, where revenue is leaking. The output is a written diagnostic with the highest impact builds prioritized.</p>
+                <p>We map your revenue and operations process end to end and identify where it's leaking. Output: a written diagnostic with prioritized builds.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">2</div>
                 <h3>Architect</h3>
-                <p>Before any code gets written, we design the system. Data flow, integration points, failure handling, what gets automated, what stays human. The architecture decides whether the build survives volume.</p>
+                <p>We design the system before writing code. Data flow, integration points, failure handling. The architecture decides whether the build survives volume.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">3</div>
                 <h3>Build</h3>
-                <p>We implement the CRM, automations, integrations, AI agents, reporting, and workflows. Fixed scope. Fixed timeline. Tested with real data before handoff.</p>
+                <p>We implement the CRM, automations, integrations, AI agents, and reporting. Fixed scope, fixed timeline, tested with real data before handoff.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">4</div>
                 <h3>Operate</h3>
-                <p>Documentation, error handling, monitoring, alerts, and team handoff. Built so it stops being held together by one person who knows how it works. Optional partnership picks up here.</p>
+                <p>Documentation, monitoring, alerts, and team handoff. Built to run without us. Optional partnership picks up here.</p>
             </div>
         </div>
     </div>
@@ -522,41 +522,46 @@
     <!-- WHAT WE BUILD -->
     <div class="section reveal" id="what-we-build">
         <p class="section-label">Services</p>
-        <h2 style="font-size:clamp(1.35rem,3vw,1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:0.75rem;letter-spacing:-0.02em;line-height:1.3">What We Build</h2>
-        <p class="body-text" style="margin-bottom:2rem">Six categories. Built by engineers.</p>
-        <div class="capability-grid">
-            <div class="capability-card" id="revenue-infrastructure">
-                <h3>Revenue Infrastructure</h3>
-                <p>CRM configured for how your business sells. Pipeline stages, automations, payment integration, and the data architecture everything else runs on.</p>
-            </div>
-            <div class="capability-card" id="lead-systems">
-                <h3>Lead and Customer Systems</h3>
-                <p>Lead capture, instant response, routing, nurture sequences, missed call recovery, review automation, and reactivation. The systems that convert demand you've already paid for.</p>
-            </div>
-            <div class="capability-card" id="ai-orchestration">
-                <h3>AI Agents and Orchestration</h3>
-                <p>AI voice agents, AI chatbots, custom AI workflow tools, and AI configured into platforms you already run. Deployed where it earns its place.</p>
-            </div>
-            <div class="capability-card" id="reporting">
-                <h3>Reporting and Dashboards</h3>
-                <p>Real time pipeline visibility, ad spend attribution, conversion tracking, and operational dashboards. Decisions from numbers, not gut feel.</p>
-            </div>
-            <div class="capability-card" id="custom-builds">
-                <h3>Custom Builds and Integrations</h3>
-                <p>Standalone applications, financial data pipelines, dispatch systems, and integrations between platforms that don't talk by default. The builds that don't fit a template.</p>
-            </div>
-            <div class="capability-card" id="engineering-reliability">
-                <h3>Engineering and Reliability</h3>
-                <p>Monitoring, alerting, error handling, documentation, and the infrastructure discipline that keeps systems running when volume increases. The difference between a build that works and a build that survives.</p>
-            </div>
+        <h2 style="font-size:clamp(1.35rem,3vw,1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:1.5rem;letter-spacing:-0.02em;line-height:1.3">What We Build</h2>
+        <div class="capability-list">
+            <a href="/what-we-build.html#revenue-infrastructure" class="capability-row">
+                <span class="capability-num">01</span>
+                <h3 class="capability-name">Revenue Infrastructure</h3>
+                <p class="capability-desc">CRM, pipelines, payment integration, and the data architecture everything else runs on.</p>
+            </a>
+            <a href="/what-we-build.html#lead-systems" class="capability-row">
+                <span class="capability-num">02</span>
+                <h3 class="capability-name">Lead and Customer Systems</h3>
+                <p class="capability-desc">Lead capture, instant response, nurture, missed call recovery, review automation, and reactivation.</p>
+            </a>
+            <a href="/what-we-build.html#ai-orchestration" class="capability-row">
+                <span class="capability-num">03</span>
+                <h3 class="capability-name">AI Agents and Orchestration</h3>
+                <p class="capability-desc">Voice agents, chatbots, custom AI workflow tools, and AI configured into platforms you already run.</p>
+            </a>
+            <a href="/what-we-build.html#reporting" class="capability-row">
+                <span class="capability-num">04</span>
+                <h3 class="capability-name">Reporting and Dashboards</h3>
+                <p class="capability-desc">Real time pipeline visibility, ad spend attribution, and operational dashboards from clean data.</p>
+            </a>
+            <a href="/what-we-build.html#custom-builds" class="capability-row">
+                <span class="capability-num">05</span>
+                <h3 class="capability-name">Custom Builds and Integrations</h3>
+                <p class="capability-desc">Standalone apps, financial data pipelines, dispatch systems, and integrations between platforms that don't talk.</p>
+            </a>
+            <a href="/what-we-build.html#engineering-reliability" class="capability-row">
+                <span class="capability-num">06</span>
+                <h3 class="capability-name">Engineering and Reliability</h3>
+                <p class="capability-desc">Monitoring, alerting, error handling, and the discipline that keeps systems running at volume.</p>
+            </a>
         </div>
     </div>
 
     <!-- NOT SURE WHERE TO START -->
     <div class="section reveal" style="padding-top:0;">
         <div class="cta-banner">
-            <h2 style="font-size:1.25rem;font-weight:700;color:var(--text-primary);margin-bottom:0.75rem">Not sure which of these matters most for your business?</h2>
-            <p>Most engagements start with a Growth Systems Audit. 3 days. We map your current revenue and operations infrastructure, identify where it's leaking, and give you a written roadmap with prioritized recommendations and fixed pricing for each. $1,500, credits toward your first build over $3,000.</p>
+            <h2 style="font-size:1.25rem;font-weight:700;color:var(--text-primary);margin-bottom:0.75rem">Not sure where to start?</h2>
+            <p>Most engagements start with an audit. $1,500. 3 days. Credits toward your first build over $3,000.</p>
             <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
         </div>
     </div>
@@ -564,7 +569,7 @@
     <!-- DIFFERENTIATOR -->
     <div class="section reveal">
         <p class="section-label">Why Launch Forte</p>
-        <h2 style="font-size:clamp(1.35rem,3vw,1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.3">Engineer Who Speaks Revenue.</h2>
+        <h2 style="font-size:clamp(1.35rem,3vw,1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.3">Engineers that speak revenue.</h2>
         <p class="body-text">Most consultants tell you what should happen. Most developers build what you ask for. We sit between strategy and implementation as the engineering brain that makes the strategy executable.</p>
         <p class="body-text">A fractional CMO needs us. A fractional CFO needs us. A founder running a business that has outgrown its tools needs us.</p>
         <p class="body-text">Engineering and SRE experience from financial services, where reliability and failure handling decide whether the business survives the next spike.</p>
