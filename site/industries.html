@@ -41,7 +41,7 @@
         .reveal.revealed{opacity:1;transform:translateY(0)}
 
         .site-header{position:sticky;top:0;z-index:100;background:rgba(9,9,11,0.7);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5)}
-        .site-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent-2),var(--accent),transparent);opacity:0.4}
+        .site-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent-hover),var(--accent),transparent);opacity:0.4}
         .header-container{max-width:1100px;margin:0 auto;height:52px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}
         .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
         .header-logo:hover{opacity:0.85}
@@ -76,7 +76,7 @@
 
         .industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
         .industry-card{background:linear-gradient(180deg,var(--surface) 0%,var(--background-alt) 100%);border:1px solid rgba(0,136,219,0.18);border-radius:var(--radius-lg);padding:1.75rem;transition:all 0.3s ease;display:flex;flex-direction:column;position:relative;overflow:hidden;text-decoration:none}
-        .industry-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+        .industry-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-hover))}
         .industry-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,136,219,0.15)}
         .industry-card-title{font-size:1.15rem;font-weight:700;margin-bottom:0.75rem;letter-spacing:-0.01em;line-height:1.25;color:var(--text-primary)}
         .industry-card:hover .industry-card-title{color:var(--accent)}
