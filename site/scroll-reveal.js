@@ -1,13 +1,9 @@
 (function() {
+    var s = document.createElement('style');
+    s.textContent = '.reveal,.animate-fade-up,.animate-fade-in,.animate-delay-1,.animate-delay-2,.animate-delay-3,.animate-delay-4{opacity:1!important;transform:none!important;animation:none!important}';
+    (document.head || document.documentElement).appendChild(s);
     var els = document.querySelectorAll('.reveal');
-    if (!els.length) return;
-    var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-            if (e.isIntersecting) {
-                e.target.classList.add('revealed');
-                observer.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.02 });
-    els.forEach(function(el) { observer.observe(el); });
+    for (var i = 0; i < els.length; i++) {
+        els[i].classList.add('revealed');
+    }
 })();

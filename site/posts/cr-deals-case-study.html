@@ -54,7 +54,7 @@
         .copyright{color:var(--text-muted);font-size:0.85rem}
         .footer-status{display:flex;align-items:center;gap:0.4rem;font-size:0.6875rem;color:var(--text-muted);font-weight:400}
         .footer-status .dot{width:6px;height:6px;background:#22c55e;border-radius:50%}
-        .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)}
+        .reveal{opacity:1;transform:none}
         .reveal.revealed{opacity:1;transform:translateY(0)}
         @media(max-width:768px){.header-container{padding:0.75rem 1.25rem}.header-nav{gap:0.85rem}.header-nav a{font-size:0.82rem}.main-content{padding:3rem 1.25rem 4rem}.stat-row{gap:1rem}.footer-bottom{flex-direction:column;gap:0.5rem;align-items:flex-start}}
     </style>
@@ -74,8 +74,8 @@
 <header class="site-header">
     <div class="header-container">
         <a href="/" class="header-logo">
-            <img src="/images/home/launch-forte.png" class="logo-img logo-img-dark" alt="Launch Forte">
-            <img src="/images/home/launch-forte.png" class="logo-img logo-img-light" alt="Launch Forte">
+            <img src="/images/home/launch-forte.png" class="logo-img logo-img-dark" alt="Launch Forte" decoding="async">
+            <img src="/images/home/launch-forte.png" class="logo-img logo-img-light" alt="Launch Forte" decoding="async">
         </a>
         <nav class="header-nav">
             <a href="/index.html">Home</a>

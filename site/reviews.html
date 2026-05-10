@@ -27,12 +27,12 @@
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
         @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px var(--accent-subtle)}50%{box-shadow:0 0 40px var(--accent-glow)}}
-        .animate-fade-in{animation:fadeIn 0.8s ease forwards}
-        .animate-fade-up{animation:fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
-        .animate-delay-1{animation-delay:0.15s;opacity:0}
-        .animate-delay-2{animation-delay:0.3s;opacity:0}
-        .animate-delay-3{animation-delay:0.45s;opacity:0}
-        .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)}
+        .animate-fade-in{}
+        .animate-fade-up{}
+        .animate-delay-1{animation-delay:0.15s}
+        .animate-delay-2{animation-delay:0.3s}
+        .animate-delay-3{animation-delay:0.45s}
+        .reveal{opacity:1;transform:none}
         .reveal.revealed{opacity:1;transform:translateY(0)}
 
         /* Header */
@@ -151,8 +151,8 @@
 <header class="site-header">
     <div class="header-container">
         <a href="/" class="header-logo">
-            <img src="/images/home/launch-forte.png" class="logo-img logo-img-dark" alt="Launch Forte">
-            <img src="/images/home/launch-forte.png" class="logo-img logo-img-light" alt="Launch Forte">
+            <img src="/images/home/launch-forte.png" class="logo-img logo-img-dark" alt="Launch Forte" decoding="async">
+            <img src="/images/home/launch-forte.png" class="logo-img logo-img-light" alt="Launch Forte" decoding="async">
         </a>
         <nav class="header-nav">
             <a href="/index.html">Home</a>
@@ -183,7 +183,7 @@
     <div class="section reveal">
         <span class="section-label">Featured</span>
         <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
-        <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="false" style="display: block; max-width: 500px; margin: 0 auto;"></div>
+        <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true" style="display: block; max-width: 500px; margin: 0 auto;"></div>
         <div style="max-width:500px;margin:1.5rem auto 0;text-align:center">
             <p class="review-quote" style="font-style:italic;font-size:1rem;margin-bottom:0.75rem">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
             <div class="review-author">Matt, 6 Months to Speech</div>
@@ -195,7 +195,7 @@
     <div class="section reveal">
         <span class="section-label">Video Testimonials</span>
         <script src="https://widget.senja.io/widget/f9608693-095f-4192-a41c-53d2c30b0fcd/platform.js" type="text/javascript" async></script>
-        <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="false" style="display: block; max-width: 500px; margin: 0 auto;"></div>
+        <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="true" style="display: block; max-width: 500px; margin: 0 auto;"></div>
         <div style="max-width:500px;margin:1.5rem auto 0;text-align:center">
             <p class="review-quote" style="font-style:italic;font-size:1rem;margin-bottom:0.75rem">"10 out of 10 experience. Absolutely recommend."</p>
             <div class="review-author">Chelsea, 6 Months to Speech</div>
@@ -221,7 +221,7 @@
     <div class="section reveal">
         <span class="section-label">Reviews</span>
         <script src="https://widget.senja.io/widget/1b55f502-890f-4882-a9af-657a89795140/platform.js" type="text/javascript" async></script>
-        <div class="senja-embed" data-id="1b55f502-890f-4882-a9af-657a89795140" data-mode="shadow" data-lazyload="false" style="display: block; max-width: 500px; margin: 0 auto;"></div>
+        <div class="senja-embed" data-id="1b55f502-890f-4882-a9af-657a89795140" data-mode="shadow" data-lazyload="true" style="display: block; max-width: 500px; margin: 0 auto;"></div>
         <div class="review-grid" style="margin-top:2rem">
             <div class="review-card">
                 <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -287,7 +287,7 @@
         <span class="section-label">Book a Call</span>
         <p class="body-text" style="margin-bottom:1.5rem;">Prefer to skip the back-and-forth? Pick a time and let's talk.</p>
         <div class="calendly-wrap">
-            <iframe src="https://calendly.com/seth-fortewebdesigns/30min" title="Book a call with Seth Forte"></iframe>
+            <iframe src="https://calendly.com/seth-fortewebdesigns/30min" title="Book a call with Seth Forte" loading="lazy"></iframe>
         </div>
     </div>
 
