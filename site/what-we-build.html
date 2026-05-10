@@ -46,6 +46,47 @@
       ]
     }
     </script>
+    <!-- Schema: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do you have a fixed list of products, or is everything custom?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both. Some builds are catalog scope: CRM setup, payment automation, instant response systems. Those are productized because the requirements repeat. Other builds are custom: a dispatch system for a tire shop, an audit trail for an investment firm, a multi market lead delivery OS. The audit decides which path fits your business. We don't force buyers into the catalog when the catalog isn't the right answer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What platforms and tools do you build on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We're tool agnostic. We build on GoHighLevel, HubSpot, Salesforce, n8n, Make, Zapier, Airtable, Supabase, Power Automate, custom code, and whatever else the architecture calls for. The platform is a decision the audit makes, not a starting point we drag every client into. Where existing infrastructure works, we build on top of it. Where it's broken, we say so."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does engineered to survive volume mean?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It means the build doesn't break the first time something changes. APIs that handle errors instead of failing silently. Workflows that log what they do so problems are diagnosable. Documentation written for whoever inherits the system, not for the engineer who built it. Monitoring that surfaces failures before customers notice. Most automation work skips these because they're invisible. We don't."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long do builds take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Foundation builds run 5 to 7 days. Mid scope launch builds run 10 to 14 days. Larger builds and full system architectures run 3 to 6 weeks. The audit produces fixed timelines for each recommendation so you know what you're signing up for before work starts."
+          }
+        }
+      ]
+    }
+    </script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         :root{--text-primary:#f0f4f8;--text-secondary:#94a3b8;--text-muted:#64748b;--accent:#0088DB;--accent-hover:#38b2f5;--accent-subtle:rgba(0,136,219,0.08);--accent-glow:rgba(0,136,219,0.25);--accent-2:#06b6d4;--accent-3:#5ab8f5;--background:#09090b;--background-alt:#0f0f13;--surface:#141418;--surface-hover:#1a1a20;--border:rgba(255,255,255,0.06);--border-light:rgba(255,255,255,0.1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-pill:980px}
@@ -241,6 +282,7 @@
         <a href="#what-we-build-categories" class="anchor-pill">What we build</a>
         <a href="#engagement" class="anchor-pill">Engagement model</a>
         <a href="#recent-builds" class="anchor-pill">Recent builds</a>
+        <a href="#faq" class="anchor-pill">Frequently asked</a>
     </div>
 
     <!-- SECTION 01: Who this is for -->
@@ -463,9 +505,33 @@
         </div>
     </section>
 
-    <!-- SECTION 07: Closing CTA -->
+    <!-- SECTION 07: Common questions -->
+    <section class="page-section reveal" id="faq">
+        <p class="section-label">07 / Common questions</p>
+        <h2>What buyers ask before scoping a build.</h2>
+        <div class="faq-list" style="margin-top:1.5rem">
+            <div class="faq-item">
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">Do you have a fixed list of products, or is everything custom?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Both. Some builds are catalog scope: CRM setup, payment automation, instant response systems. Those are productized because the requirements repeat. Other builds are custom: a dispatch system for a tire shop, an audit trail for an investment firm, a multi market lead delivery OS. The audit decides which path fits your business. We don't force buyers into the catalog when the catalog isn't the right answer.</p>
+            </div>
+            <div class="faq-item">
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">What platforms and tools do you build on?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">We're tool agnostic. We build on GoHighLevel, HubSpot, Salesforce, n8n, Make, Zapier, Airtable, Supabase, Power Automate, custom code, and whatever else the architecture calls for. The platform is a decision the audit makes, not a starting point we drag every client into. Where existing infrastructure works, we build on top of it. Where it's broken, we say so.</p>
+            </div>
+            <div class="faq-item">
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">What does engineered to survive volume mean?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">It means the build doesn't break the first time something changes. APIs that handle errors instead of failing silently. Workflows that log what they do so problems are diagnosable. Documentation written for whoever inherits the system, not for the engineer who built it. Monitoring that surfaces failures before customers notice. Most automation work skips these because they're invisible. We don't.</p>
+            </div>
+            <div class="faq-item">
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">How long do builds take?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:0;font-size:0.9375rem">Foundation builds run 5 to 7 days. Mid scope launch builds run 10 to 14 days. Larger builds and full system architectures run 3 to 6 weeks. The audit produces fixed timelines for each recommendation so you know what you're signing up for before work starts.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 08: Closing CTA -->
     <section class="page-section reveal" id="next-step">
-        <p class="section-label">07 / Next step</p>
+        <p class="section-label">08 / Next step</p>
         <div class="cta-banner">
             <h2>Start with an audit.</h2>
             <p>The audit is how we both know whether the work is worth doing. Three days. A written diagnostic. Prioritized recommendations. Fixed pricing on what gets built next. The fee credits toward your first build over $3,000.</p>

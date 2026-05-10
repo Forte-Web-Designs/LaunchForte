@@ -20,41 +20,146 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
-    <!-- Schema: Organization -->
+    <!-- Schema: LocalBusiness -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
+      "@type": "LocalBusiness",
+      "@id": "https://launchforte.com/#business",
       "name": "Launch Forte",
-      "description": "Automation consulting, lead generation systems, CRM implementation, and AI powered business tools for growing companies.",
+      "description": "The engineering layer between your strategy and your revenue. Revenue infrastructure, lead and customer systems, AI agents, reporting, and custom builds for growing businesses.",
       "url": "https://launchforte.com",
-      "founder": {
-        "@type": "Person",
-        "name": "Seth Forte"
-      },
+      "logo": "https://launchforte.com/images/home/launch-forte.png",
+      "image": "https://launchforte.com/images/home/launch-forte.png",
+      "email": "seth@launchforte.com",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Grapevine",
         "addressRegion": "TX",
+        "postalCode": "76051",
         "addressCountry": "US"
       },
-      "areaServed": "US",
-      "serviceType": [
-        "Business Automation",
-        "CRM Implementation",
-        "Lead Generation Systems",
-        "AI Voice Agent Setup",
-        "Marketing Funnel Development",
-        "Workflow Automation",
-        "Ad Campaign Setup"
+      "geo": {"@type": "GeoCoordinates", "latitude": 32.9343, "longitude": -97.0781},
+      "areaServed": [
+        {"@type": "City", "name": "Dallas"},
+        {"@type": "City", "name": "Fort Worth"},
+        {"@type": "City", "name": "Grapevine"},
+        {"@type": "AdministrativeArea", "name": "Dallas-Fort Worth Metroplex"},
+        {"@type": "Country", "name": "United States"}
       ],
-      "priceRange": "$$",
+      "founder": {"@type": "Person", "name": "Seth Forte"},
+      "sameAs": ["https://www.linkedin.com/company/forte-web-designs"],
+      "priceRange": "$$$",
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "5.0",
         "bestRating": "5",
         "worstRating": "1",
         "ratingCount": "4"
+      }
+    }
+    </script>
+    <!-- Schema: Service - Growth Systems Audit -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Growth Systems Audit",
+      "name": "Growth Systems Audit",
+      "provider": {"@id": "https://launchforte.com/#business"},
+      "description": "Three day diagnostic of your revenue and operations infrastructure. Written diagnostic with prioritized recommendations and fixed pricing on what gets built next. Audit fee credits toward your first build over $3,000.",
+      "areaServed": "US",
+      "offers": {
+        "@type": "Offer",
+        "price": "1500",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+    </script>
+    <!-- Schema: Service - Core Systems Build -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Core Systems Build",
+      "name": "Core Systems Build",
+      "provider": {"@id": "https://launchforte.com/#business"},
+      "description": "Engineering build of revenue and operations infrastructure. Fixed scope, fixed price, fixed timeline. Most builds 7 to 21 days. Pricing scoped after the Growth Systems Audit.",
+      "areaServed": "US"
+    }
+    </script>
+    <!-- Schema: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What's the difference between Launch Forte and a typical automation agency?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most automation agencies are tool implementers. They install Zapier, configure GoHighLevel, connect things together, and hand you a working integration. We start before that. We diagnose where revenue and operations are leaking, design the system architecture, and engineer it to survive volume. The deliverable isn't an automation. It's infrastructure that runs your business when traffic doubles."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do most engagements start with an audit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because most quotes are guesses. A builder who skips diagnosis is pricing what they hope is wrong, not what is wrong. The audit is three days, $1,500, and produces a written diagnostic with prioritized recommendations and fixed pricing for each. It also credits toward your first build over $3,000, so the buyers who move forward pay for diagnosis once."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is pricing structured?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Three engagement tiers. The Growth Systems Audit is $1,500. Core Systems Builds are scoped and priced after the audit, fixed price per scope. The Embedded Growth Systems Partner starts at $3,500 per month with a six month minimum. Pricing for builds and partnership is shaped by what the audit surfaces, which is why we don't quote without diagnosis first."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you work with fractional CMOs and operators, or directly with founders?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both. About half our engagements come through fractional CMOs and operators who need an engineer at the table for the strategy they've already designed. The other half come from founders directly. The work is the same in both cases. The engagement just routes differently."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where are you located and who do you serve?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Based in Grapevine, Texas, in the Dallas Fort Worth metro. We work with growing businesses across the United States and serve clients remotely. Local DFW operators occasionally meet in person."
+          }
+        }
+      ]
+    }
+    </script>
+    <!-- Schema: Service - Embedded Growth Systems Partner -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Embedded Growth Systems Partner",
+      "name": "Embedded Growth Systems Partner",
+      "provider": {"@id": "https://launchforte.com/#business"},
+      "description": "Monthly engineering partnership. Strategic monthly review, async access, ongoing optimization, priority on new builds. Six month minimum engagement.",
+      "areaServed": "US",
+      "offers": {
+        "@type": "Offer",
+        "price": "3500",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "3500",
+          "priceCurrency": "USD",
+          "unitText": "MONTH",
+          "valueAddedTaxIncluded": false,
+          "description": "Starting from $3,500 per month, six month minimum"
+        }
       }
     }
     </script>
@@ -354,48 +459,6 @@
             .featured-case{flex-direction:column;align-items:flex-start}
         }
     </style>
-    <!-- Schema: Organization -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Launch Forte",
-      "url": "https://launchforte.com",
-      "logo": "https://launchforte.com/images/home/launch-forte.png",
-      "founder": {"@type": "Person", "name": "Seth Forte"},
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Grapevine",
-        "addressRegion": "TX",
-        "postalCode": "76051",
-        "addressCountry": "US"
-      },
-      "email": "seth@launchforte.com",
-      "sameAs": ["https://www.linkedin.com/company/forte-web-designs"]
-    }
-    </script>
-    <!-- Schema: LocalBusiness -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Launch Forte",
-      "image": "https://launchforte.com/images/home/launch-forte.png",
-      "url": "https://launchforte.com",
-      "email": "seth@launchforte.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Grapevine",
-        "addressLocality": "Grapevine",
-        "addressRegion": "TX",
-        "postalCode": "76051",
-        "addressCountry": "US"
-      },
-      "geo": {"@type": "GeoCoordinates", "latitude": 32.9343, "longitude": -97.0781},
-      "areaServed": "US",
-      "priceRange": "$$$$"
-    }
-    </script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTP7GMJ3" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -637,6 +700,34 @@
             <h2 style="font-size:clamp(1.35rem,3vw,1.65rem);font-weight:700;color:var(--text-primary);margin-bottom:0.75rem;letter-spacing:-0.02em;line-height:1.3">If Growth Feels Messy, The System Underneath Is Usually Why.</h2>
             <p>Strategy fails at the execution level, not the strategy level. Start with an audit. We'll tell you what's broken, what to fix first, and what it's worth.</p>
             <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="section reveal" id="faq">
+        <p class="section-label">Common Questions</p>
+        <h2 style="font-size:clamp(1.35rem,3vw,1.65rem);font-weight:700;color:var(--text-primary);margin-bottom:2rem;letter-spacing:-0.02em;line-height:1.3">What buyers usually ask before booking an audit.</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">What's the difference between Launch Forte and a typical automation agency?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Most automation agencies are tool implementers. They install Zapier, configure GoHighLevel, connect things together, and hand you a working integration. We start before that. We diagnose where revenue and operations are leaking, design the system architecture, and engineer it to survive volume. The deliverable isn't an automation. It's infrastructure that runs your business when traffic doubles.</p>
+            </div>
+            <div class="faq-item">
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">Why do most engagements start with an audit?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Because most quotes are guesses. A builder who skips diagnosis is pricing what they hope is wrong, not what is wrong. The audit is three days, $1,500, and produces a written diagnostic with prioritized recommendations and fixed pricing for each. It also credits toward your first build over $3,000, so the buyers who move forward pay for diagnosis once.</p>
+            </div>
+            <div class="faq-item">
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">How is pricing structured?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Three engagement tiers. The Growth Systems Audit is $1,500. Core Systems Builds are scoped and priced after the audit, fixed price per scope. The Embedded Growth Systems Partner starts at $3,500 per month with a six month minimum. Pricing for builds and partnership is shaped by what the audit surfaces, which is why we don't quote without diagnosis first.</p>
+            </div>
+            <div class="faq-item">
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">Do you work with fractional CMOs and operators, or directly with founders?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Both. About half our engagements come through fractional CMOs and operators who need an engineer at the table for the strategy they've already designed. The other half come from founders directly. The work is the same in both cases. The engagement just routes differently.</p>
+            </div>
+            <div class="faq-item">
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">Where are you located and who do you serve?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:0;font-size:0.9375rem">Based in Grapevine, Texas, in the Dallas Fort Worth metro. We work with growing businesses across the United States and serve clients remotely. Local DFW operators occasionally meet in person.</p>
+            </div>
         </div>
     </div>
 
