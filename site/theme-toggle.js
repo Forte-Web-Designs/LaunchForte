@@ -143,7 +143,7 @@
             if (!isScrolled) {
                 isScrolled = true;
                 toggle.classList.add('scrolled');
-                if (!isMobile && headerContainer && toggle.parentNode === headerContainer) {
+                if (headerContainer && toggle.parentNode === headerContainer) {
                     document.body.appendChild(toggle);
                 }
             }
@@ -151,11 +151,11 @@
             if (isScrolled) {
                 isScrolled = false;
                 toggle.classList.remove('scrolled');
-                if (!isMobile && headerContainer) {
+                if (headerContainer) {
                     toggle.style.position = '';
                     toggle.style.top = '';
                     toggle.style.right = '';
-                    headerContainer.appendChild(toggle);
+                    placeToggle();
                 }
             }
         }
