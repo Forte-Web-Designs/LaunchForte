@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Results | Launch Forte</title>
-    <meta name="description" content="Case studies and client reviews from automation, CRM, and lead generation projects. Real systems, measurable results.">
+    <meta name="description" content="Engineering work that moved real businesses. Featured case studies, additional engagements, and client reviews from Launch Forte's practice.">
     <link rel="canonical" href="https://launchforte.com/results.html">
     <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,36 +97,39 @@
         .page-title{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;color:var(--text-primary);margin-bottom:1.5rem;letter-spacing:-0.03em;line-height:1.15}
         .hero-subtitle{font-size:clamp(1rem,2vw,1.15rem);color:var(--text-secondary);max-width:600px;margin:0 auto 2.5rem;line-height:1.8}
 
-        /* Case study cards */
-        .case-study{background:var(--surface);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:2rem;margin-bottom:1rem;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease}
-        .case-study:hover{border-color:var(--border-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.2)}
-        .cs-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
-        .cs-top{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.4rem}
-        .cs-stage{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:0.2rem 0.6rem;border-radius:100px;border:1px solid;text-decoration:none;transition:opacity 0.2s ease}
-        .cs-stage:hover{opacity:0.8}
-        .cs-stage.stage-foundation{color:#8a8578;border-color:#8a8578;background:rgba(138,133,120,0.1)}
-        .cs-stage.stage-launch{color:var(--accent);border-color:var(--accent);background:var(--accent-subtle)}
-        .cs-stage.stage-growth{color:#10b981;border-color:#10b981;background:rgba(16,185,129,0.1)}
-        .cs-stage.stage-scale{color:var(--accent-2);border-color:var(--accent-2);background:rgba(6,182,212,0.1)}
-        .cs-client{font-size:1.15rem;font-weight:700;color:var(--text-primary);margin-bottom:0.2rem}
-        .cs-meta{font-size:0.8125rem;color:var(--text-muted);letter-spacing:0.03em}
-        .cs-metric{text-align:right;flex-shrink:0}
-        .cs-metric-num{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent-hover));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.02em;display:block;line-height:1.2}
-        .cs-metric-label{font-size:0.75rem;color:var(--text-muted)}
-        .cs-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem}
-        .cs-tag{background:rgba(0,0,0,0.03);border:1px solid var(--border);border-radius:100px;padding:0.2rem 0.7rem;font-size:0.75rem;color:var(--text-muted);transition:border-color 0.2s ease,color 0.2s ease}
-        .case-study:hover .cs-tag{border-color:var(--border-light);color:var(--text-secondary)}
-        .cs-body{color:var(--text-secondary);font-size:0.9rem;line-height:1.8}
+        /* Anchor pills */
+        .anchor-pills{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;padding:1rem 0 3rem}
+        .anchor-pill{display:inline-flex;align-items:center;padding:0.55rem 1.1rem;border:1px solid var(--border-light);border-radius:var(--radius-pill);font-size:0.8125rem;font-weight:500;color:var(--text-secondary);background:var(--surface);transition:all 0.2s ease;text-decoration:none}
+        .anchor-pill:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-subtle)}
+
+        /* Featured case study cards (Section 1) */
+        .featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+        .featured-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:2rem 2.25rem;display:flex;flex-direction:column;transition:border-color 0.3s ease;text-decoration:none;color:inherit}
+        .featured-card:hover{border-color:var(--border-light)}
+        .featured-cap{font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.75rem}
+        .featured-client{font-size:1.25rem;font-weight:700;color:var(--text-primary);margin-bottom:0.25rem;letter-spacing:-0.015em;line-height:1.3}
+        .featured-context{font-size:0.875rem;color:var(--text-muted);margin-bottom:1.25rem}
+        .featured-stat{margin-bottom:1.25rem;padding:1rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+        .featured-stat-num{font-size:1.5rem;font-weight:700;color:var(--accent);letter-spacing:-0.02em;display:block;line-height:1.2;margin-bottom:0.25rem}
+        .featured-stat-label{font-size:0.875rem;color:var(--text-secondary);line-height:1.5}
+        .featured-desc{color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1.5rem;flex:1}
+        .featured-link{font-size:0.875rem;font-weight:500;color:var(--accent);display:inline-flex;align-items:center;gap:0.35rem;transition:gap 0.2s ease;align-self:flex-start}
+        .featured-link:hover{gap:0.6rem;color:var(--accent-hover)}
+
+        /* Additional engagements list (Section 2) */
+        .additional-list{display:flex;flex-direction:column;margin-top:1.5rem;border-top:1px solid var(--border)}
+        .additional-item{display:grid;grid-template-columns:240px 1fr;gap:2rem;align-items:start;padding:1.25rem 0;border-bottom:1px solid var(--border)}
+        .additional-client{font-size:0.9375rem;font-weight:600;color:var(--text-primary);line-height:1.4}
+        .additional-context{font-size:0.8125rem;color:var(--text-muted);margin-top:0.2rem;line-height:1.4}
+        .additional-desc{color:var(--text-secondary);font-size:0.9375rem;line-height:1.7}
 
         /* Rating summary */
-        .rating-summary{background:var(--surface);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:2.5rem;text-align:center;margin-bottom:2rem;transition:border-color 0.3s ease}
-        .rating-summary:hover{border-color:var(--border-light)}
-        .rating-num{font-size:3.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent-hover));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1;margin-bottom:0.5rem}
-        .rating-stars{color:#f59e0b;font-size:1.25rem;letter-spacing:3px;margin:0.5rem 0}
-        .rating-label{font-size:0.875rem;color:var(--text-muted)}
+        .rating-line{display:flex;align-items:center;justify-content:center;gap:0.75rem;margin:2rem 0 2.5rem;color:var(--text-secondary);font-size:0.9375rem}
+        .rating-line strong{color:var(--text-primary);font-weight:700;font-size:1.0625rem}
+        .rating-stars-inline{color:#f59e0b;letter-spacing:2px;font-size:1rem}
 
         /* Review cards */
-        .review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        .review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1.5rem}
         .review-card{background:var(--surface);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.75rem;transition:border-color 0.3s ease,transform 0.2s ease,box-shadow 0.3s ease}
         .review-card:hover{border-color:var(--border-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.2)}
         .review-stars{color:#f59e0b;font-size:0.9rem;margin-bottom:0.75rem;letter-spacing:2px}
@@ -134,9 +137,16 @@
         .review-author{font-size:0.8125rem;font-weight:600;color:var(--text-primary)}
         .review-project{font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem}
 
-        /* Calendly */
-        .calendly-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-top:1.5rem}
-        .calendly-wrap iframe{display:block;border:none;width:100%;min-height:630px}
+        /* Video block */
+        .video-block{max-width:500px;margin:0 auto}
+        .video-quote{max-width:500px;margin:1.5rem auto 0;text-align:center}
+        .video-quote p{font-style:italic;font-size:1rem;margin-bottom:0.75rem;color:var(--text-secondary);line-height:1.7}
+
+        /* CTA banner */
+        .cta-banner{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:2.5rem;text-align:center;margin-top:1rem}
+        .cta-banner h2{margin-bottom:0.75rem}
+        .cta-banner p{color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;max-width:640px;margin:0 auto 1.5rem}
+        .cta-actions{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap}
 
         /* Footer */
         .footer-section{margin-top:6rem;padding-top:3rem;border-top:1px solid var(--border)}
@@ -148,23 +158,19 @@
         .footer-col li{margin-bottom:0.5rem}
         .footer-col a{color:var(--text-secondary);font-size:0.875rem;transition:color 0.2s ease}
         .footer-col a:hover{color:var(--accent)}
-        .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+        .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
         .footer-location{color:var(--text-muted);font-size:0.8125rem;margin-bottom:0.35rem}
         .copyright{color:var(--text-muted);font-size:0.8125rem}
         .footer-status{display:flex;align-items:center;gap:0.4rem;font-size:0.6875rem;color:var(--text-muted);font-weight:400}
         .footer-status .dot{width:6px;height:6px;background:#22c55e;border-radius:50%}
+        .footer-featured-in{font-size:0.75rem;color:var(--text-muted);text-align:center;width:100%;padding-top:1rem;margin-top:0.5rem;border-top:1px solid rgba(255,255,255,0.05)}
+        .footer-featured-in a{color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,0.2);text-underline-offset:3px}
+        .footer-featured-in a:hover{color:#ffffff}
         .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
 
         /* Link arrow */
         .link-arrow{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.875rem;font-weight:500;color:var(--accent);transition:gap 0.2s ease}
         .link-arrow:hover{gap:0.7rem;color:var(--accent-hover)}
-
-        /* Voyage badge */
-        .voyage-badge{display:inline-flex;align-items:center;gap:0.55rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.6rem 1rem;text-decoration:none;transition:border-color 0.2s ease,transform 0.15s ease}
-        .voyage-badge:hover{border-color:var(--accent);transform:translateY(-1px)}
-        .voyage-badge-star{color:#f59e0b;font-size:1rem;line-height:1}
-        .voyage-badge-text{font-size:0.8125rem;color:var(--text-secondary);line-height:1.3}
-        .voyage-badge-text strong{color:var(--text-primary);font-weight:600}
 
         /* Light mode overrides */
         [data-theme="light"] .site-header{background:rgba(248,250,252,0.85)}
@@ -173,16 +179,9 @@
         [data-theme="light"] .grid-bg{background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px)}
         [data-theme="light"] .header-nav a:hover{background:rgba(0,0,0,0.04)}
         [data-theme="light"] .header-nav a.active{background:rgba(0,136,219,0.08)}
-        [data-theme="light"] .case-study{background:#ffffff;border-color:rgba(0,0,0,0.06);box-shadow:0 1px 3px rgba(0,0,0,0.04)}
-        [data-theme="light"] .case-study:hover{background:#f8fafc;border-color:rgba(0,136,219,0.2);box-shadow:0 8px 30px rgba(0,0,0,0.08)}
-        [data-theme="light"] .cs-tag{background:#f5f5f7;border-color:rgba(0,0,0,0.06);color:#6e6e73}
-        [data-theme="light"] .cs-metric-num{background:linear-gradient(135deg,#0088DB,#06b6d4);-webkit-background-clip:text;background-clip:text}
         [data-theme="light"] .hero-badge{background:rgba(0,136,219,0.06);border-color:rgba(0,136,219,0.15)}
         [data-theme="light"] .btn-primary{background:#0088DB}
         [data-theme="light"] .btn-primary:hover{background:#38b2f5;box-shadow:0 8px 30px rgba(0,136,219,0.2)}
-        [data-theme="light"] .calendly-wrap{background:#ffffff;border-color:rgba(0,0,0,0.06)}
-        [data-theme="light"] .voyage-badge{background:#ffffff;border-color:rgba(0,0,0,0.06)}
-        [data-theme="light"] .voyage-badge:hover{border-color:rgba(0,136,219,0.3)}
         [data-theme="light"] .footer-section{border-top-color:rgba(0,0,0,0.06)}
         [data-theme="light"] .footer-bottom{border-top-color:rgba(0,0,0,0.06)}
 
@@ -194,18 +193,21 @@
             .main-content{padding:0 1.25rem 4rem}
             .hero{padding:4rem 0 3.5rem}
             .page-title{font-size:clamp(1.75rem,6vw,2.5rem)}
-            .cs-header{flex-direction:column;gap:0.5rem}
-            .cs-metric{text-align:left}
+            .featured-grid{grid-template-columns:1fr}
+            .featured-card{padding:1.75rem 1.5rem}
+            .additional-item{grid-template-columns:1fr;gap:0.5rem}
             .review-grid{grid-template-columns:1fr}
             .footer-columns{grid-template-columns:1fr 1fr}
             .section{padding:3.5rem 0}
-            .footer-bottom{flex-direction:column;gap:0.5rem;align-items:flex-start}
+            .footer-bottom{flex-direction:column;gap:0.75rem;align-items:flex-start}
+            .anchor-pill{font-size:0.75rem;padding:0.45rem 0.9rem}
+            .cta-banner{padding:1.75rem 1.25rem}
         }
         @media(max-width:480px){
             .hero{padding:3rem 0 2.5rem}
             .footer-columns{grid-template-columns:1fr}
         }
-    
+
         /* === Apple-style overrides === */
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
@@ -282,7 +284,7 @@
         .stat-card, .stat-item, .metric-item, .cta-block, .cta-section, .next-step,
         .engagement-block, .product-card, .credibility-card, .cap-card,
         .pricing-card, .results-card, .about-block, .industry-card,
-        .calendly-wrap, .faq-item-card {
+        .calendly-wrap, .faq-item-card, .cta-banner {
             background: var(--card-bg, #ffffff);
             border-radius: 18px;
             border: 1px solid var(--border);
@@ -290,7 +292,7 @@
         }
         .stage-card:hover, .result-card:hover, .review-card:hover,
         .capability-card:hover, .step-card:hover, .case-study-card:hover,
-        .case-study:hover, .featured-card:hover, .video-quote-card:hover,
+        .featured-card:hover, .video-quote-card:hover,
         .product-card:hover, .credibility-card:hover, .results-card:hover {
             transform: none !important;
             box-shadow: none !important;
@@ -347,15 +349,9 @@
         .header-nav a:hover, .nav-link:hover { color: var(--text-primary); opacity: 1; }
         .header-nav a.active, .nav-link.active { color: var(--text-primary); opacity: 1; font-weight: 500; }
 
-        .tech-tag, .case-study-tags span, .review-tag, .cs-tag {
-            background: var(--accent-tint, rgba(0,136,219,0.10));
-            color: var(--accent);
-            border: none;
-        }
-
         .result-stat, .case-study-stat, .featured-stat, .stat-card .stat,
         .feature-block .stat, .metric-value, .stat, .credibility-stat,
-        .stat-item .stat, .cs-metric-num, .results-big-number, .rotating-word {
+        .stat-item .stat, .results-big-number, .rotating-word {
             color: var(--accent) !important;
             -webkit-text-fill-color: var(--accent) !important;
             background: none !important;
@@ -372,13 +368,13 @@
 
     </style>
     <meta property="og:title" content="Results | Launch Forte">
-    <meta property="og:description" content="Case studies and client reviews from automation, CRM, and lead generation projects. Real systems, measurable results.">
+    <meta property="og:description" content="Engineering work that moved real businesses. Featured case studies, additional engagements, and client reviews from Launch Forte's practice.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://launchforte.com/results.html">
     <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Results | Launch Forte">
-    <meta name="twitter:description" content="Case studies and client reviews from automation, CRM, and lead generation projects. Real systems, measurable results.">
+    <meta name="twitter:description" content="Engineering work that moved real businesses. Featured case studies, additional engagements, and client reviews from Launch Forte's practice.">
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
     <script src="/theme-toggle.js"></script>
 </head>
@@ -406,428 +402,243 @@
 
     <!-- HERO -->
     <div class="hero">
-        <div class="hero-badge animate-fade-up"><span class="hero-badge-dot"></span> Case Studies &amp; Reviews</div>
         <h1 class="page-title animate-fade-up animate-delay-1">Results</h1>
-        <p class="body-text animate-fade-up animate-delay-2" style="max-width:640px;margin-left:auto;margin-right:auto;text-align:center">
-            Real systems, measurable outcomes. Case studies from automation projects and reviews from the clients behind them.
+        <p class="hero-subtitle animate-fade-up animate-delay-2">Engineering work that moved real businesses.</p>
+        <p class="body-text animate-fade-up animate-delay-2" style="max-width:640px;margin:1.5rem auto 0;text-align:center">
+            Every engagement on this page started with a problem a real business was paying for. Names omitted where requested. Outcomes are real.
         </p>
     </div>
 
-    <!-- FEATURED CASE STUDY -->
-    <div class="section reveal">
+    <!-- ANCHOR PILLS -->
+    <div class="anchor-pills reveal">
+        <a href="#featured" class="anchor-pill">Featured case studies</a>
+        <a href="#additional" class="anchor-pill">Additional engagements</a>
+        <a href="#reviews" class="anchor-pill">Client reviews</a>
+        <a href="#next-step" class="anchor-pill">Next step</a>
+    </div>
+
+    <!-- SECTION 1: FEATURED CASE STUDIES -->
+    <section class="section reveal" id="featured" style="scroll-margin-top:80px">
         <span class="section-label">Featured</span>
+        <h2 style="font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:700;color:var(--text-primary);margin-bottom:1.25rem;letter-spacing:-0.02em;line-height:1.2">Six engagements worth a deeper look.</h2>
+        <p class="body-text" style="max-width:780px">Each one started with the same shape: a strategy that was working, an infrastructure that couldn't carry it. We engineered the layer underneath.</p>
 
-        <a href="/work/between-generations-care.html" class="case-study" style="display:block;text-decoration:none;color:inherit;border-color:rgba(0,136,219,0.3);box-shadow:0 0 30px rgba(0,136,219,0.08)">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-launch">Launch</span></div>
-                    <div class="cs-client">Between Generations Care</div>
-                    <div class="cs-meta">Caregiving &middot; Full Platform Build &middot; GoHighLevel</div>
-                </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">Full CRM</span>
-                    <span class="cs-metric-label">complete customer journey, zero manual steps</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Caregiving</span><span class="cs-tag">GoHighLevel</span><span class="cs-tag">CRM</span><span class="cs-tag">Booking</span><span class="cs-tag">Email Automation</span>
-            </div>
-            <p class="cs-body">Built the entire business platform from scratch inside GoHighLevel — CRM, booking calendars, email sequences, and a full customer journey from Instagram follower to repeat client. Zero manual steps. Read the full case study &rarr;</p>
-        </a>
-    </div>
+        <div class="featured-grid">
 
-    <!-- CASE STUDIES -->
-    <div class="section reveal">
-        <span class="section-label">Client Work</span>
+            <a href="/work/between-generations-care.html" class="featured-card">
+                <span class="featured-cap">Revenue Infrastructure</span>
+                <div class="featured-client">Between Generations Care</div>
+                <div class="featured-context">Caregiving</div>
+                <div class="featured-stat">
+                    <span class="featured-stat-num">Full platform</span>
+                    <span class="featured-stat-label">Customer journey, zero manual steps</span>
+                </div>
+                <p class="featured-desc">Built the entire business platform from scratch. Customer journey from Instagram follower to repeat client, fully engineered to run without manual steps. The brand needed the operational foundation to match the audience they were already attracting. We built it.</p>
+                <span class="featured-link">Read the full case study &rarr;</span>
+            </a>
 
-        <a href="/work/compass-real-estate.html" class="case-study" style="display:block;text-decoration:none;color:inherit">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-foundation">Foundation</span></div>
-                    <div class="cs-client">Compass Real Estate</div>
-                    <div class="cs-meta">Real Estate &middot; 1 week &middot; Voice-to-Email + Drive Automation</div>
+            <a href="/what-we-build.html#recent-builds" class="featured-card">
+                <span class="featured-cap">Revenue Infrastructure</span>
+                <div class="featured-client">Education brand</div>
+                <div class="featured-context">Online education</div>
+                <div class="featured-stat">
+                    <span class="featured-stat-num">$40K to $160K monthly</span>
+                    <span class="featured-stat-label">In three months after the foundation was in place</span>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">5-10 hrs</span>
-                    <span class="cs-metric-label">returned weekly</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Real Estate</span><span class="cs-tag">AI</span><span class="cs-tag">Voice Input</span><span class="cs-tag">Google Drive</span>
-            </div>
-            <p class="cs-body">Voice-to-email drafting system and automated Google Drive organization for a Denver real estate team. Email drafting went from 15 minutes to 60 seconds. Read the full case study &rarr;</p>
-        </a>
+                <p class="featured-desc">Built the revenue infrastructure an online education brand was missing. The marketing strategy was working. The infrastructure couldn't carry it. We engineered the layer that let the strategy land.</p>
+                <span class="featured-link">Read the full case study &rarr;</span>
+            </a>
 
-        <a href="/work/san-of-florida.html" class="case-study" style="display:block;text-decoration:none;color:inherit">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-scale">Scale</span></div>
-                    <div class="cs-client">SAN of Florida</div>
-                    <div class="cs-meta">Insurance &middot; Enterprise &middot; SSO + MFA Infrastructure</div>
+            <a href="/what-we-build.html#recent-builds" class="featured-card">
+                <span class="featured-cap">Lead and Customer Systems</span>
+                <div class="featured-client">Real estate education</div>
+                <div class="featured-context">Paid webinar program</div>
+                <div class="featured-stat">
+                    <span class="featured-stat-num">$27 to $7,000</span>
+                    <span class="featured-stat-label">Paid webinar funnel running unattended</span>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">1,040</span>
-                    <span class="cs-metric-label">users, 2 platforms, one login</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Insurance</span><span class="cs-tag">SSO</span><span class="cs-tag">MFA</span><span class="cs-tag">AWS Cognito</span>
-            </div>
-            <p class="cs-body">Unified SSO and MFA for 1,040 insurance agency users across Smartsheet and InsuredMine. No per-user licensing. Compliance met ahead of deadline. Read the full case study &rarr;</p>
-        </a>
+                <p class="featured-desc">Built the lead capture and conversion infrastructure behind a paid webinar program. The strategist owned the marketing. We engineered the systems underneath. Runs unattended at volume through every stage of the funnel.</p>
+                <span class="featured-link">Read the full case study &rarr;</span>
+            </a>
 
-        <a href="/work/kingfisher-ads.html" class="case-study" style="display:block;text-decoration:none;color:inherit">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-growth">Growth</span></div>
-                    <div class="cs-client">Kingfisher Ads</div>
-                    <div class="cs-meta">Agency &middot; Ireland &middot; Automated Ad Spend Reporting</div>
+            <a href="/work/the-11r-shop.html" class="featured-card">
+                <span class="featured-cap">Custom Builds and Integrations</span>
+                <div class="featured-client">THE 11R SHOP</div>
+                <div class="featured-context">Mobile tire service</div>
+                <div class="featured-stat">
+                    <span class="featured-stat-num">GPS gated</span>
+                    <span class="featured-stat-label">Dispatch with enforced audit trail</span>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">3-4 hrs</span>
-                    <span class="cs-metric-label">monthly reporting eliminated</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Agency</span><span class="cs-tag">Reporting</span><span class="cs-tag">Google Ads</span><span class="cs-tag">Meta</span><span class="cs-tag">n8n</span>
-            </div>
-            <p class="cs-body">Automated monthly ad spend reporting and billing calculations across Google Ads and Meta for multiple clients with different fee structures. Read the full case study &rarr;</p>
-        </a>
+                <p class="featured-desc">Engineered the four phase dispatch and operations capability a mobile commercial tire service was running by phone. Dynamic pricing, GPS arrival verification, proof gate with DOT compliance, automated invoicing. Replaced manual dispatch with a system that runs at volume.</p>
+                <span class="featured-link">Read the full case study &rarr;</span>
+            </a>
 
-        <a href="/work/corevantage-cleaning.html" class="case-study" style="display:block;text-decoration:none;color:inherit">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-foundation">Foundation</span></div>
-                    <div class="cs-client">Corevantage Cleaning</div>
-                    <div class="cs-meta">Cleaning Services &middot; Grand Rapids, MI &middot; Operations Control Plane</div>
+            <a href="/what-we-build.html#recent-builds" class="featured-card">
+                <span class="featured-cap">Custom Builds and Integrations</span>
+                <div class="featured-client">Modern Bungalow</div>
+                <div class="featured-context">Furniture retail</div>
+                <div class="featured-stat">
+                    <span class="featured-stat-num">60 hours/month</span>
+                    <span class="featured-stat-label">Of manual data entry eliminated</span>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">5-tier</span>
-                    <span class="cs-metric-label">payout system, fully automated</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Home Services</span><span class="cs-tag">Airtable</span><span class="cs-tag">Make.com</span><span class="cs-tag">BookingKoala</span>
-            </div>
-            <p class="cs-body">Operations control plane connecting BookingKoala, Stripe, and QuickBooks with automated 5-tier cleaner payouts and real-time job sync. Read the full case study &rarr;</p>
-        </a>
+                <p class="featured-desc">Engineered a Shopify to Xero product sync that replaced the discontinued Cin7 integration. Bulk fetch reduced 157 API calls to 2. Batched POSTs handled Xero rate limits. Has not required intervention since launch.</p>
+                <span class="featured-link">Read the full case study &rarr;</span>
+            </a>
 
-        <a href="/work/universal-data-inc.html" class="case-study" style="display:block;text-decoration:none;color:inherit">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-growth">Growth</span></div>
-                    <div class="cs-client">Universal Data Inc.</div>
-                    <div class="cs-meta">IT Services &middot; New Orleans, LA &middot; SharePoint SOP System</div>
+            <a href="/what-we-build.html#recent-builds" class="featured-card">
+                <span class="featured-cap">Reporting and Dashboards</span>
+                <div class="featured-client">CR Deals Cincinnati</div>
+                <div class="featured-context">E-commerce</div>
+                <div class="featured-stat">
+                    <span class="featured-stat-num">$52K annual savings</span>
+                    <span class="featured-stat-label">130+ hours per month recovered</span>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">60</span>
-                    <span class="cs-metric-label">SOPs migrated, template-enforced workflow</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Enterprise</span><span class="cs-tag">SharePoint</span><span class="cs-tag">Power Automate</span><span class="cs-tag">Documentation</span>
-            </div>
-            <p class="cs-body">Migrated 60 SOPs from Trainual to SharePoint with locked templates, two-person approval workflow, and full version history. No new subscriptions. Read the full case study &rarr;</p>
-        </a>
+                <p class="featured-desc">Replaced manual court records pulls with one engineered pipeline. Built for an e-commerce operation that needed to operate at scale without scaling the headcount. The system runs without human intervention.</p>
+                <span class="featured-link">Read the full case study &rarr;</span>
+            </a>
 
-        <a href="/work/the-11r-shop.html" class="case-study" style="display:block;text-decoration:none;color:inherit">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-foundation">Foundation</span></div>
-                    <div class="cs-client">THE 11R SHOP</div>
-                    <div class="cs-meta">Mobile Tire Service &middot; Field Operations Dispatch</div>
-                </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">GPS</span>
-                    <span class="cs-metric-label">gated workflow with enforced audit trail</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Field Services</span><span class="cs-tag">Jotform</span><span class="cs-tag">Make.com</span><span class="cs-tag">Stripe</span><span class="cs-tag">GPS</span>
-            </div>
-            <p class="cs-body">GPS-gated dispatch system with dynamic pricing, enforced proof collection, and automatic payment processing. Full audit trail on every job. Read the full case study &rarr;</p>
-        </a>
-
-        <a href="/work/little-cup-marketing.html" class="case-study" style="display:block;text-decoration:none;color:inherit">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-foundation">Foundation</span></div>
-                    <div class="cs-client">Little Cup Marketing / ALG Financial</div>
-                    <div class="cs-meta">Financial Media &middot; Multi-Brand Newsletter Infrastructure</div>
-                </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">4</span>
-                    <span class="cs-metric-label">brands audited, misrouted pipeline fixed</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Media</span><span class="cs-tag">Make.com</span><span class="cs-tag">beehiiv</span><span class="cs-tag">Infrastructure Audit</span>
-            </div>
-            <p class="cs-body">Full audit and rebuild of subscriber routing across four newsletter brands. Found and fixed misrouted pipelines, deployed source tracking, verified all scenarios. Read the full case study &rarr;</p>
-        </a>
-
-        <a href="/work/family-office.html" class="case-study" style="display:block;text-decoration:none;color:inherit">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-growth">Growth</span></div>
-                    <div class="cs-client">Private Family Office</div>
-                    <div class="cs-meta">Finance &middot; NDA Client &middot; Investment Audit Workflow</div>
-                </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">$15-25K</span>
-                    <span class="cs-metric-label">debug turned multi-phase partnership</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Finance</span><span class="cs-tag">n8n</span><span class="cs-tag">API Authentication</span><span class="cs-tag">Portfolio Automation</span>
-            </div>
-            <p class="cs-body">Diagnosed HMAC-SHA256 auth and data processing issues in an investment audit system. Initial debug expanded into a multi-phase portfolio operations build. Read the full case study &rarr;</p>
-        </a>
-
-        <a href="/work/legal-intake-automation.html" class="case-study" style="display:block;text-decoration:none;color:inherit">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-foundation">Foundation</span></div>
-                    <div class="cs-client">Legal Tech Startup</div>
-                    <div class="cs-meta">Legal Tech &middot; Demo Workflows &middot; Sales Enablement</div>
-                </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">4</span>
-                    <span class="cs-metric-label">legal document templates</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Legal Tech</span><span class="cs-tag">n8n</span><span class="cs-tag">PDF Generation</span><span class="cs-tag">Google Drive</span>
-            </div>
-            <p class="cs-body">Built two n8n demo workflows with four legal document templates for sales calls and prospect outreach. Sales-ready demos delivered within days. Read the full case study &rarr;</p>
-        </a>
-
-        <a href="/work/daleen-restoration.html" class="case-study" style="display:block;text-decoration:none;color:inherit">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><span class="cs-stage stage-launch">Launch</span></div>
-                    <div class="cs-client">Daleen Restoration</div>
-                    <div class="cs-meta">Restoration &middot; Wisconsin &middot; Systems Assessment</div>
-                </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">$10,700+</span>
-                    <span class="cs-metric-label">roadmap from a $1,000 first project</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Restoration</span><span class="cs-tag">Albiware</span><span class="cs-tag">Zapier</span><span class="cs-tag">Twilio</span><span class="cs-tag">Systems Assessment</span>
-            </div>
-            <p class="cs-body">Audited 24 Zapier automations, built commission tracking, and delivered a 14-page systems assessment with a five-phase automation roadmap. $10,700+ in additional work scoped. Read the full case study &rarr;</p>
-        </a>
-
-        <div class="case-study">
-            <div class="cs-header">
-                <div>
-                    <div class="cs-top"><a href="/services.html#growth" class="cs-stage stage-growth">Growth</a></div>
-                    <div class="cs-client">Revolut</div>
-                    <div class="cs-meta">Fintech &middot; 2 weeks &middot; AI Data Pipeline</div>
-                </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">$4M</span>
-                    <span class="cs-metric-label">growth opportunity identified</span>
-                </div>
-            </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Fintech</span><span class="cs-tag">AI Analysis</span><span class="cs-tag">Data Pipeline</span>
-            </div>
-            <p class="cs-body">AI-powered analysis of 200K+ transactions revealed profitability drivers that manual analysis would have taken weeks to find.</p>
         </div>
+    </section>
 
-        <div class="case-study">
-            <div class="cs-header">
+    <!-- SECTION 2: ADDITIONAL ENGAGEMENTS -->
+    <section class="section reveal" id="additional" style="scroll-margin-top:80px">
+        <span class="section-label">Additional Engagements</span>
+        <h2 style="font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:700;color:var(--text-primary);margin-bottom:1.25rem;letter-spacing:-0.02em;line-height:1.2">More engineering work.</h2>
+        <p class="body-text" style="max-width:780px">A selection of additional builds across different industries and engagement types. Each one is a real engagement with a real outcome.</p>
+
+        <div class="additional-list">
+            <div class="additional-item">
                 <div>
-                    <div class="cs-top"><a href="/services.html#scale" class="cs-stage stage-scale">Scale</a></div>
-                    <div class="cs-client">CR Deals Cincinnati</div>
-                    <div class="cs-meta">E-commerce &middot; 3 weeks &middot; AI Listing Automation</div>
+                    <div class="additional-client">Compass Real Estate</div>
+                    <div class="additional-context">Real estate, Denver</div>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">$52K</span>
-                    <span class="cs-metric-label">annual savings</span>
-                </div>
+                <p class="additional-desc">Voice-to-email drafting system and automated Google Drive organization. Email drafting from 15 minutes to 60 seconds.</p>
             </div>
-            <div class="cs-tags">
-                <span class="cs-tag">E-commerce</span><span class="cs-tag">AI</span><span class="cs-tag">Automation</span><span class="cs-tag">Multi-channel</span>
-            </div>
-            <p class="cs-body">AI system that analyzes product photos, generates descriptions, and posts to all sales channels. 50-100 products daily, no human needed.</p>
-        </div>
-
-        <div class="case-study">
-            <div class="cs-header">
+            <div class="additional-item">
                 <div>
-                    <div class="cs-top"><a href="/services.html#growth" class="cs-stage stage-growth">Growth</a></div>
-                    <div class="cs-client">Modern Bungalow</div>
-                    <div class="cs-meta">E-commerce &middot; 2 weeks &middot; Email Automation</div>
+                    <div class="additional-client">SAN of Florida</div>
+                    <div class="additional-context">Insurance, Enterprise</div>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">60 hrs</span>
-                    <span class="cs-metric-label">saved monthly</span>
-                </div>
+                <p class="additional-desc">Unified SSO and MFA across two platforms for 1,040 users. No per-user licensing. Compliance ahead of deadline.</p>
             </div>
-            <div class="cs-tags">
-                <span class="cs-tag">E-commerce</span><span class="cs-tag">Shopify</span><span class="cs-tag">Email Automation</span>
-            </div>
-            <p class="cs-body">Automated Shopify email workflows across 9 customer scenarios. Customer communication that runs itself.</p>
-        </div>
-
-        <div class="case-study">
-            <div class="cs-header">
+            <div class="additional-item">
                 <div>
-                    <div class="cs-top"><a href="/services.html#foundation" class="cs-stage stage-foundation">Foundation</a></div>
-                    <div class="cs-client">Hollow Bamboo</div>
-                    <div class="cs-meta">Film Production &middot; 4 weeks &middot; Custom Inventory System</div>
+                    <div class="additional-client">Kingfisher Ads</div>
+                    <div class="additional-context">Agency, Ireland</div>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">20+ hrs</span>
-                    <span class="cs-metric-label">saved weekly</span>
-                </div>
+                <p class="additional-desc">Automated monthly ad spend reporting and billing calculations across Google Ads and Meta. 3 to 4 hours of monthly reporting eliminated.</p>
             </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Film Production</span><span class="cs-tag">Custom Software</span><span class="cs-tag">Inventory</span>
-            </div>
-            <p class="cs-body">Custom inventory system with QR code mobile access replaced paper lists and constant texting. Equipment tracked across 6 locations.</p>
-        </div>
-
-        <div class="case-study">
-            <div class="cs-header">
+            <div class="additional-item">
                 <div>
-                    <div class="cs-top"><a href="/services.html#scale" class="cs-stage stage-scale">Scale</a></div>
-                    <div class="cs-client">Eden Medical</div>
-                    <div class="cs-meta">Healthcare &middot; 4 weeks &middot; AI Chatbot</div>
+                    <div class="additional-client">Corevantage Cleaning</div>
+                    <div class="additional-context">Home services, Grand Rapids</div>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">24/7</span>
-                    <span class="cs-metric-label">automated scheduling</span>
-                </div>
+                <p class="additional-desc">Operations control plane with automated 5-tier cleaner payouts. Real-time job sync across booking, payment, and accounting.</p>
             </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Healthcare</span><span class="cs-tag">AI Chatbot</span><span class="cs-tag">Booking</span>
-            </div>
-            <p class="cs-body">AI booking chatbot handling appointments, cancellations, and rescheduling across 10+ clinic locations. 24/7 automated scheduling.</p>
-        </div>
-
-        <div class="case-study">
-            <div class="cs-header">
+            <div class="additional-item">
                 <div>
-                    <div class="cs-top"><a href="/services.html#scale" class="cs-stage stage-scale">Scale</a></div>
-                    <div class="cs-client">San Florida</div>
-                    <div class="cs-meta">Enterprise &middot; 6 weeks &middot; Security Infrastructure</div>
+                    <div class="additional-client">Universal Data Inc</div>
+                    <div class="additional-context">IT services, New Orleans</div>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">1,040</span>
-                    <span class="cs-metric-label">users migrated</span>
-                </div>
+                <p class="additional-desc">Migrated 60 SOPs to SharePoint with locked templates, two-person approval workflow, and full version history.</p>
             </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Enterprise</span><span class="cs-tag">Security</span><span class="cs-tag">SSO</span><span class="cs-tag">MFA</span>
-            </div>
-            <p class="cs-body">Enterprise security implementation with zero downtime migration. One login for all applications, phishing-resistant authentication.</p>
-        </div>
-
-        <div class="case-study">
-            <div class="cs-header">
+            <div class="additional-item">
                 <div>
-                    <div class="cs-top"><a href="/services.html#growth" class="cs-stage stage-growth">Growth</a></div>
-                    <div class="cs-client">Kingfisher Ads</div>
-                    <div class="cs-meta">Agency &middot; 1 week &middot; Reporting Dashboard</div>
+                    <div class="additional-client">Little Cup Marketing / ALG Financial</div>
+                    <div class="additional-context">Financial media</div>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">15 min</span>
-                    <span class="cs-metric-label">reports delivered</span>
-                </div>
+                <p class="additional-desc">Multi-brand newsletter infrastructure audit and rebuild across four brands. Misrouted pipelines fixed.</p>
             </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Agency</span><span class="cs-tag">Reporting</span><span class="cs-tag">Google Ads</span><span class="cs-tag">Meta</span>
-            </div>
-            <p class="cs-body">Automated monthly ad spend reports pull from Google Ads and Meta, calculate metrics, and land in clients' inboxes automatically.</p>
-        </div>
-
-        <div class="case-study">
-            <div class="cs-header">
+            <div class="additional-item">
                 <div>
-                    <div class="cs-top"><a href="/services.html#foundation" class="cs-stage stage-foundation">Foundation</a></div>
-                    <div class="cs-client">KlnBros Agency</div>
-                    <div class="cs-meta">Agency &middot; Emergency &middot; Disaster Recovery</div>
+                    <div class="additional-client">Private Family Office</div>
+                    <div class="additional-context">Finance, NDA client</div>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">99.7%</span>
-                    <span class="cs-metric-label">data recovered</span>
-                </div>
+                <p class="additional-desc">Investment audit workflow with HMAC-SHA256 auth. Multi-phase portfolio operations build.</p>
             </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Infrastructure</span><span class="cs-tag">Emergency</span><span class="cs-tag">Disaster Recovery</span>
-            </div>
-            <p class="cs-body">When their server crashed and database corrupted, we recovered 99.7% of data and restored 43 workflows. Back online in 2 hours with proper disaster prevention implemented.</p>
-        </div>
-
-        <div class="case-study">
-            <div class="cs-header">
+            <div class="additional-item">
                 <div>
-                    <div class="cs-top"><a href="/services.html#growth" class="cs-stage stage-growth">Growth</a></div>
-                    <div class="cs-client">UDI Group</div>
-                    <div class="cs-meta">Enterprise &middot; 3 weeks &middot; Knowledge Base Migration</div>
+                    <div class="additional-client">Legal Tech Startup</div>
+                    <div class="additional-context">Legal tech</div>
                 </div>
-                <div class="cs-metric">
-                    <span class="cs-metric-num">Daily</span>
-                    <span class="cs-metric-label">team-wide usage</span>
+                <p class="additional-desc">Sales enablement demo workflows with four legal document templates. Delivered within days.</p>
+            </div>
+            <div class="additional-item">
+                <div>
+                    <div class="additional-client">Daleen Restoration</div>
+                    <div class="additional-context">Restoration, Wisconsin</div>
                 </div>
+                <p class="additional-desc">Systems assessment with 14-page roadmap. $10,700+ in prioritized builds identified from a $1,000 first project.</p>
             </div>
-            <div class="cs-tags">
-                <span class="cs-tag">Enterprise</span><span class="cs-tag">Power Platform</span><span class="cs-tag">Documentation</span>
+            <div class="additional-item">
+                <div>
+                    <div class="additional-client">Revolut</div>
+                    <div class="additional-context">Fintech</div>
+                </div>
+                <p class="additional-desc">AI-powered analysis of 200K+ transactions. $4M growth opportunity identified.</p>
             </div>
-            <p class="cs-body">SOP migration system from Trainual to SharePoint with Power Automate flows. Internal knowledge base used daily by the whole team.</p>
+            <div class="additional-item">
+                <div>
+                    <div class="additional-client">Hollow Bamboo</div>
+                    <div class="additional-context">Film production</div>
+                </div>
+                <p class="additional-desc">Custom inventory system with QR code mobile access. 20+ hours saved weekly. Equipment tracked across 6 locations.</p>
+            </div>
+            <div class="additional-item">
+                <div>
+                    <div class="additional-client">Eden Medical</div>
+                    <div class="additional-context">Healthcare</div>
+                </div>
+                <p class="additional-desc">AI booking chatbot handling appointments across 10+ clinic locations. 24/7 automated scheduling.</p>
+            </div>
+            <div class="additional-item">
+                <div>
+                    <div class="additional-client">KlnBros Agency</div>
+                    <div class="additional-context">Infrastructure, emergency</div>
+                </div>
+                <p class="additional-desc">Disaster recovery. 99.7% data recovered, 43 workflows restored. Back online in 2 hours with prevention implemented.</p>
+            </div>
+            <div class="additional-item">
+                <div>
+                    <div class="additional-client">UDI Group</div>
+                    <div class="additional-context">Enterprise</div>
+                </div>
+                <p class="additional-desc">Knowledge base migration from Trainual to SharePoint with Power Platform flows. Daily team-wide usage.</p>
+            </div>
         </div>
+    </section>
 
-    </div>
-
-    <!-- REVIEWS: WHAT CLIENTS SAY -->
-    <div class="section reveal">
-        <span class="section-label">What Clients Say</span>
-        <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
-        <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true" style="display: block; max-width: 500px; margin: 0 auto;"></div>
-        <div style="max-width:500px;margin:1.5rem auto 0;text-align:center">
-            <p class="review-quote" style="font-style:italic;font-size:1rem;margin-bottom:0.75rem">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
-            <div class="review-author">Matt, 6 Months to Speech</div>
-            <div class="review-project">CRM build and automation for an online coaching program</div>
-        </div>
-    </div>
-
-    <!-- SENJA VIDEO TESTIMONIAL -->
-    <div class="section reveal">
-        <span class="section-label">Video Testimonials</span>
-        <script src="https://widget.senja.io/widget/f9608693-095f-4192-a41c-53d2c30b0fcd/platform.js" type="text/javascript" async></script>
-        <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="true" style="display: block; max-width: 500px; margin: 0 auto;"></div>
-        <div style="max-width:500px;margin:1.5rem auto 0;text-align:center">
-            <p class="review-quote" style="font-style:italic;font-size:1rem;margin-bottom:0.75rem">"10 out of 10 experience. Absolutely recommend."</p>
-            <div class="review-author">Chelsea, 6 Months to Speech</div>
-            <div class="review-project">Full platform migration from Kajabi to GoHighLevel</div>
-        </div>
-        <div style="max-width:500px;margin:2.5rem auto 0;text-align:center">
-            <p class="review-quote" style="font-style:italic;font-size:1rem;margin-bottom:0.75rem">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
-            <div class="review-author">Matt, 6 Months to Speech</div>
-            <div class="review-project">CRM build and automation for an online coaching program</div>
-        </div>
-    </div>
-
-    <!-- RATING SUMMARY -->
-    <div class="section reveal">
-        <div class="rating-summary">
-            <span class="rating-num">5.0</span>
-            <div class="rating-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="rating-label">Average across all platforms</div>
-        </div>
-    </div>
-
-    <!-- REVIEWS -->
-    <div class="section reveal">
+    <!-- SECTION 3: CLIENT REVIEWS -->
+    <section class="section reveal" id="reviews" style="scroll-margin-top:80px">
         <span class="section-label">Reviews</span>
-        <script src="https://widget.senja.io/widget/1b55f502-890f-4882-a9af-657a89795140/platform.js" type="text/javascript" async></script>
-        <div class="senja-embed" data-id="1b55f502-890f-4882-a9af-657a89795140" data-mode="shadow" data-lazyload="true" style="display: block; max-width: 500px; margin: 0 auto;"></div>
-        <div class="review-grid" style="margin-top:2rem">
+        <h2 style="font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:700;color:var(--text-primary);margin-bottom:1.25rem;letter-spacing:-0.02em;line-height:1.2">What clients say.</h2>
+        <p class="body-text" style="max-width:780px">Two video testimonials. Eight written reviews. Five stars across every platform.</p>
+
+        <!-- Video testimonials -->
+        <div class="video-block">
+            <script src="https://widget.senja.io/widget/f9608693-095f-4192-a41c-53d2c30b0fcd/platform.js" type="text/javascript" async></script>
+            <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="true" style="display: block; max-width: 500px; margin: 0 auto;"></div>
+            <div class="video-quote">
+                <p>"10 out of 10 experience. Absolutely recommend."</p>
+                <div class="review-author">Chelsea, 6 Months to Speech</div>
+                <div class="review-project">Full platform migration</div>
+            </div>
+            <div class="video-quote" style="margin-top:2rem">
+                <p>"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
+                <div class="review-author">Matt, 6 Months to Speech</div>
+                <div class="review-project">CRM build and automation for an online coaching program</div>
+            </div>
+        </div>
+
+        <!-- Rating line -->
+        <div class="rating-line">
+            <strong>5.0</strong>
+            <span class="rating-stars-inline">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span>across all platforms</span>
+        </div>
+
+        <!-- Written reviews -->
+        <div class="review-grid">
             <div class="review-card">
                 <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                 <p class="review-quote">Seth is my go-to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout. I've worked with many freelancers and Seth is one of the best.</p>
@@ -877,30 +688,20 @@
                 <div class="review-project">Reporting Dashboard</div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- CTA -->
-    <div class="section reveal">
-        <span class="section-label">Get Started</span>
-        <h2 style="font-size:clamp(1.25rem,3vw,1.5rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;">See what we can build for you.</h2>
-        <p class="body-text">Every engagement starts with a discovery call where we map out what the problem is costing you. If the math works, we build it.</p>
-        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call &rarr;</a>
-    </div>
-
-    <!-- BOOK A CALL -->
-    <div class="section reveal">
-        <span class="section-label">Book a Call</span>
-        <p class="body-text" style="margin-bottom:1.5rem;">Prefer to skip the back and forth? Pick a time and let's talk.</p>
-        <div class="calendly-wrap">
-            <iframe src="https://calendly.com/seth-fortewebdesigns/30min" title="Book a call with Seth Forte" loading="lazy"></iframe>
+    <!-- SECTION 4: CLOSING CTA -->
+    <section class="section reveal" id="next-step" style="scroll-margin-top:80px">
+        <span class="section-label">Next Step</span>
+        <div class="cta-banner">
+            <h2 style="font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.2">Start with <span style="color:var(--accent)">an audit</span>.</h2>
+            <p>Every engagement starts with a Growth Systems Audit. We map your infrastructure end to end, identify what's leaking, and write a roadmap with fixed pricing on what gets built next. Three days. $1,500. Credits toward your first build over $3,000.</p>
+            <div class="cta-actions">
+                <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
+                <a href="/#how-to-engage" class="btn-secondary">See the full engagement model &rarr;</a>
+            </div>
         </div>
-    </div>
-
-    <div class="reveal" style="margin-top:1rem;">
-        <a href="https://voyagedallas.com/interview/community-highlights-meet-seth-forte-of-forte-web-designs/" target="_blank" rel="noopener" class="voyage-badge">
-            <span class="voyage-badge-text">As Featured in <strong>Voyage Dallas Magazine</strong></span>
-        </a>
-    </div>
+    </section>
 
     <!-- FOOTER -->
     <div class="footer-section">
@@ -941,6 +742,9 @@
                 <span class="dot"></span>
                 All systems operational
             </div>
+        </div>
+        <div class="footer-featured-in">
+            Featured in <a href="https://voyagedallas.com/interview/community-highlights-meet-seth-forte-of-forte-web-designs/" target="_blank" rel="noopener">Voyage Dallas Magazine</a>
         </div>
     </div>
 
