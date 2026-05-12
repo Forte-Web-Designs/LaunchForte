@@ -1,4 +1,16 @@
 (function() {
+    // Apply saved theme synchronously BEFORE any paint to prevent FOUC.
+    // This runs the moment the script loads (it's in <head>), so the
+    // <html> element gets data-theme set before the body even parses.
+    var THEME_KEY = 'theme_v2';
+    var savedEarly = null;
+    try {
+        savedEarly = localStorage.getItem(THEME_KEY);
+        localStorage.removeItem('theme');
+    } catch (e) {}
+    var earlyTheme = savedEarly === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', earlyTheme);
+
     var darkCSS = ':root[data-theme="dark"]{' +
         '--text-primary:#f5f5f7;' +
         '--text-secondary:#a1a1a6;' +
@@ -81,83 +93,81 @@
         '[data-theme="dark"] #theme-toggle:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.30);color:#ffffff}' +
         '@media(max-width:768px){#theme-toggle{width:34px;height:34px;font-size:0.95rem;margin-left:0;margin-right:0.5rem;background:transparent}[data-theme="dark"] #theme-toggle{background:rgba(255,255,255,0.08)}#theme-toggle.scrolled{position:fixed;top:auto;bottom:8rem;right:1.25rem;margin:0;background:var(--background);border:1px solid var(--border-light)}}';
 
+    // Inject styles synchronously into <head>. Script is loaded in <head>, so
+    // document.head exists by the time this line runs, and the styles are in
+    // place before the body renders.
     var style = document.createElement('style');
     style.textContent = darkCSS + toggleCSS;
     document.head.appendChild(style);
 
-    var toggle = document.createElement('button');
-    toggle.id = 'theme-toggle';
-    toggle.setAttribute('aria-label', 'Toggle light/dark mode');
+    // Everything below touches the DOM. Defer until the body exists.
+    function initToggle() {
+        var toggle = document.createElement('button');
+        toggle.id = 'theme-toggle';
+        toggle.setAttribute('aria-label', 'Toggle light/dark mode');
+        toggle.innerHTML = earlyTheme === 'dark' ? '☼' : '☽';
 
-    var isMobile = window.innerWidth <= 768;
-    var headerContainer = document.querySelector('.header-container');
+        var isMobile = window.innerWidth <= 768;
+        var headerContainer = document.querySelector('.header-container');
 
-    function placeToggle() {
-        if (!headerContainer) {
-            document.body.appendChild(toggle);
-            return;
+        function placeToggle() {
+            if (!headerContainer) {
+                document.body.appendChild(toggle);
+                return;
+            }
+            var hamburger = document.getElementById('hamburger');
+            if (hamburger && hamburger.parentNode === headerContainer) {
+                headerContainer.insertBefore(toggle, hamburger);
+            } else {
+                headerContainer.appendChild(toggle);
+            }
         }
-        var hamburger = document.getElementById('hamburger');
-        if (hamburger && hamburger.parentNode === headerContainer) {
-            // Insert toggle before the hamburger so it doesn't overlap
-            headerContainer.insertBefore(toggle, hamburger);
+
+        if (document.getElementById('hamburger')) {
+            placeToggle();
         } else {
-            headerContainer.appendChild(toggle);
+            setTimeout(placeToggle, 0);
         }
+
+        function applyTheme(t) {
+            document.documentElement.setAttribute('data-theme', t);
+            toggle.innerHTML = t === 'dark' ? '☼' : '☽';
+            try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
+        }
+
+        toggle.addEventListener('click', function() {
+            var current = document.documentElement.getAttribute('data-theme');
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        });
+
+        var isScrolled = false;
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                if (!isScrolled) {
+                    isScrolled = true;
+                    toggle.classList.add('scrolled');
+                    if (headerContainer && toggle.parentNode === headerContainer) {
+                        document.body.appendChild(toggle);
+                    }
+                }
+            } else {
+                if (isScrolled) {
+                    isScrolled = false;
+                    toggle.classList.remove('scrolled');
+                    if (headerContainer) {
+                        toggle.style.position = '';
+                        toggle.style.top = '';
+                        toggle.style.right = '';
+                        placeToggle();
+                    }
+                }
+            }
+        });
     }
 
-    // The hamburger script also runs on load — wait a tick so it's in the DOM
-    if (document.getElementById('hamburger')) {
-        placeToggle();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initToggle);
     } else {
-        setTimeout(placeToggle, 0);
+        initToggle();
     }
-
-    // Versioned theme key. Bumping the version invalidates any previously saved
-    // preference and forces all visitors back to the light default. Bump when
-    // the default theme intent changes.
-    var THEME_KEY = 'theme_v2';
-    var saved = null;
-    try {
-        saved = localStorage.getItem(THEME_KEY);
-        // Clear the legacy key so it doesn't leak back in.
-        localStorage.removeItem('theme');
-    } catch (e) {}
-    var theme = saved === 'dark' ? 'dark' : 'light';
-    applyTheme(theme);
-
-    function applyTheme(t) {
-        document.documentElement.setAttribute('data-theme', t);
-        toggle.innerHTML = t === 'dark' ? '☼' : '☽';
-        try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
-    }
-
-    toggle.addEventListener('click', function() {
-        var current = document.documentElement.getAttribute('data-theme');
-        applyTheme(current === 'dark' ? 'light' : 'dark');
-    });
-
-    var isScrolled = false;
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 300) {
-            if (!isScrolled) {
-                isScrolled = true;
-                toggle.classList.add('scrolled');
-                if (headerContainer && toggle.parentNode === headerContainer) {
-                    document.body.appendChild(toggle);
-                }
-            }
-        } else {
-            if (isScrolled) {
-                isScrolled = false;
-                toggle.classList.remove('scrolled');
-                if (headerContainer) {
-                    toggle.style.position = '';
-                    toggle.style.top = '';
-                    toggle.style.right = '';
-                    placeToggle();
-                }
-            }
-        }
-    });
 })();
