@@ -75,59 +75,14 @@
     <priority>0.6</priority>
   </url>
 
-  <!-- Case studies -->
+  <!-- Case studies (featured four only; orphans are noindexed) -->
   <url>
     <loc>https://launchforte.com/work/between-generations-care.html</loc>
     <lastmod>2026-05-12</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://launchforte.com/work/compass-real-estate.html</loc>
-    <lastmod>2026-05-12</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/work/corevantage-cleaning.html</loc>
-    <lastmod>2026-05-12</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/work/daleen-restoration.html</loc>
-    <lastmod>2026-05-12</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/work/family-office.html</loc>
-    <lastmod>2026-05-12</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/work/kingfisher-ads.html</loc>
-    <lastmod>2026-05-12</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/work/legal-intake-automation.html</loc>
-    <lastmod>2026-05-12</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/work/little-cup-marketing.html</loc>
-    <lastmod>2026-05-12</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/work/san-of-florida.html</loc>
-    <lastmod>2026-05-12</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://launchforte.com/work/the-11r-shop.html</loc>
-    <lastmod>2026-05-12</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/work/universal-data-inc.html</loc>
     <lastmod>2026-05-12</lastmod>
     <priority>0.6</priority>
   </url>

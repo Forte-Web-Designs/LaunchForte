@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Platform Build for a Caregiving Brand | Launch Forte</title>
-    <meta name="description" content="How we built a complete business platform inside GoHighLevel for Between Generations Care — CRM, booking, email sequences, and a full customer journey from first touch to post-session follow-up.">
+    <title>Built the Revenue Infrastructure for a Caregiving Brand | Launch Forte</title>
+    <meta name="description" content="How we engineered the revenue infrastructure a caregiving brand needed before it could compound. From audience to business in 14 days inside GoHighLevel.">
     <link rel="canonical" href="https://launchforte.com/work/between-generations-care.html">
     <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
@@ -18,18 +18,22 @@
         body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;line-height:1.6;color:var(--text-primary);background:var(--background);background-image:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(6,182,212,0.04) 0%,transparent 50%);background-attachment:fixed}
         a{color:var(--accent-hover);text-decoration:none;transition:0.2s}
         a:hover{text-decoration:underline}
-        .site-header{position:sticky;top:0;z-index:100;background:rgba(245,245,247,0.85);backdrop-filter:blur(20px) saturate(1.5)}
-        .site-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent-hover),var(--accent),transparent);opacity:0.4}
-        .header-container{max-width:1100px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;height:52px}
-        .header-logo{text-decoration:none;display:flex;align-items:center}
-        .header-logo:hover{opacity:0.85;text-decoration:none}
-        .logo-img{height:28px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
-        .logo-img-light{display:none}
-        [data-theme="light"] .logo-img-dark{display:none}
-        [data-theme="light"] .logo-img-light{display:block}
+        .site-header{background:rgba(245,245,247,0.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:0.5px solid var(--border);padding:0 2rem;height:64px;position:sticky;top:0;z-index:100;display:flex;align-items:center}
+        .header-container{max-width:1100px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+        .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
+        .header-logo:hover{opacity:0.85}
+        .logo-img{height:28px;width:auto;display:block}
+        .logo-img-light{display:block}
+        .logo-img-dark{display:none;filter:brightness(0) invert(1)}
+        [data-theme="dark"] .logo-img-light{display:none}
+        [data-theme="dark"] .logo-img-dark{display:block}
         .header-nav{display:flex;gap:1.5rem;align-items:center}
-        .header-nav a{color:var(--text-secondary);font-size:0.9rem;text-decoration:none;transition:color 0.2s ease}
-        .header-nav a:hover,.header-nav a.active{color:var(--text-primary)}
+        .header-nav a{font-size:0.8125rem;color:var(--text-primary);opacity:0.85;text-decoration:none;font-weight:400}
+        .header-nav a:hover{opacity:1;text-decoration:none}
+        .header-nav a.active{opacity:1;font-weight:500}
+        [data-theme="dark"] .site-header{background:rgba(29,29,31,0.85);border-bottom-color:rgba(255,255,255,0.10)}
+        [data-theme="dark"] .header-nav a{color:#f5f5f7}
+        [data-theme="dark"] .header-nav a.active{color:#f5f5f7;font-weight:500}
         .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
         .main-content{max-width:720px;margin:0 auto;padding:5rem 2rem 6rem;position:relative;z-index:1}
         .post-tag{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:1rem;display:block}
@@ -229,15 +233,29 @@
             animation: none !important;
         }
 
+        /* Case study six-section structure */
+        .section-eye{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin:3.5rem 0 0.5rem;display:block}
+        .post-body .section-eye:first-of-type{margin-top:0}
+        .post-body h2{margin-top:0.5rem}
+        .hero-cap{display:inline-block;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-right:0.6rem}
+        .hero-context{color:var(--text-secondary)}
+        .audit-cta{text-align:center;margin-top:4rem;padding:2.5rem 2rem}
+        .audit-cta .section-eye{margin:0 0 0.5rem;display:block}
+        .audit-cta h2{font-size:clamp(1.5rem,3.5vw,2rem);font-weight:700;margin:0 0 0.85rem;letter-spacing:-0.02em}
+        .audit-cta > p{max-width:560px;margin:0 auto 1.5rem;line-height:1.7;color:var(--text-secondary)}
+        .audit-cta .cta-actions{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap}
+        .audit-cta .btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--border-light);color:var(--accent);padding:0.8rem 1.75rem;border-radius:var(--radius-pill);font-size:0.875rem;font-weight:500;text-decoration:none;background:transparent;transition:all 0.2s ease}
+        .audit-cta .btn-secondary:hover{background:var(--accent-tint);text-decoration:none}
+
     </style>
-    <meta property="og:title" content="Full Platform Build for a Caregiving Brand | Launch Forte">
-    <meta property="og:description" content="How we built a complete business platform inside GoHighLevel for Between Generations Care — CRM, booking, email sequences, and a full customer journey from first touch to post-session follow-up.">
+    <meta property="og:title" content="Built the Revenue Infrastructure for a Caregiving Brand | Launch Forte">
+    <meta property="og:description" content="How we engineered the revenue infrastructure a caregiving brand needed before it could compound. From audience to business in 14 days inside GoHighLevel.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://launchforte.com/work/between-generations-care.html">
     <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Full Platform Build for a Caregiving Brand | Launch Forte">
-    <meta name="twitter:description" content="How we built a complete business platform inside GoHighLevel for Between Generations Care — CRM, booking, email sequences, and a full customer journey from first touch to post-session follow-up.">
+    <meta name="twitter:title" content="Built the Revenue Infrastructure for a Caregiving Brand | Launch Forte">
+    <meta name="twitter:description" content="How we engineered the revenue infrastructure a caregiving brand needed before it could compound. From audience to business in 14 days inside GoHighLevel.">
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
     <script src="/theme-toggle.js"></script>
 </head>
@@ -264,66 +282,45 @@
     <a href="/results.html" class="back-link">&larr; Back to Results</a>
 
     <span class="post-tag">Case Study</span>
-    <h1 class="post-title">Full Platform Build for a Caregiving Brand</h1>
-    <div class="post-meta">Danielle Frazier, Between Generations Care &middot; Full Build &middot; Case Study</div>
+    <h1 class="post-title">Built the operational foundation for a caregiving brand running on Instagram audience and no infrastructure.</h1>
+    <div class="post-meta"><span class="hero-cap">Revenue Infrastructure</span><span class="hero-context">Danielle Frazier, Between Generations Care &middot; Caregiving &middot; Coaching &middot; Online business</span></div>
 
     <div class="stat-row">
-        <div class="stat-item"><span class="stat-num">Full CRM</span><span class="stat-label">Live from day one</span></div>
-        <div class="stat-item"><span class="stat-num">0</span><span class="stat-label">Manual steps for booking</span></div>
-        <div class="stat-item"><span class="stat-num">$1,800/yr</span><span class="stat-label">Per client on quarterly plan</span></div>
+        <div class="stat-item"><span class="stat-num">0 manual touchpoints</span><span class="stat-label">Between Instagram follower and booked session</span></div>
+        <div class="stat-item"><span class="stat-num">Recurring revenue model</span><span class="stat-label">Replaced one off session sales</span></div>
+        <div class="stat-item"><span class="stat-num">Live in 14 days</span><span class="stat-label">From kickoff to revenue infrastructure operational</span></div>
     </div>
 
     <div class="post-body">
-        <h2>The Situation</h2>
+        <span class="section-eye">01 / Situation</span>
+        <h2>Audience without a business behind it.</h2>
+        <p>Danielle Frazier started Between Generations Care to support caregivers. The audience was real. The content was working. The business behind it wasn't. She had digital products, session offerings, and a growing social audience with no operational layer connecting any of it.</p>
 
-        <p>Danielle Frazier started Between Generations Care to support caregivers. She had digital products, session offerings, content ideas, and a growing social media audience. What she didn't have was a system that connected any of it.</p>
+        <span class="section-eye">02 / The Problem</span>
+        <h2>Discovery without conversion. Conversion without retention.</h2>
+        <p>Someone could find Danielle on Instagram, click through to her site, and find nothing that captured them. No opt in. No CRM. No follow up after a digital product purchase. Sessions were one off transactions with no path to recurring revenue. The audience was producing exactly the leak premium consultants warn about: attention without architecture.</p>
 
-        <p>Her tools were everywhere. A website that didn't capture leads. Social accounts with engagement but no way to turn followers into subscribers. Digital products with no follow-up after purchase. No email list. No CRM. No booking system connected to anything. Someone could find her on Instagram, visit her site, and then nothing. No opt-in, no sequence, no nurture path.</p>
+        <span class="section-eye">03 / The Engineering</span>
+        <h2>The revenue infrastructure the brand needed before it could compound.</h2>
+        <p>We architected the customer journey first, not the tools. Discovery, opt in, nurture, session booking, fulfillment, post session, retention. Each phase needed to fire automatically with no manual handoff between them. We built the operational backbone inside GoHighLevel as the central system: CRM with pipeline stages mapped to her actual sales process, behavior triggered nurture sequences, booking infrastructure for two session types, and the email authentication that decided whether any of it would reach inboxes. The pricing model got redesigned alongside the build. One off sessions became monthly and quarterly packages, which changed the unit economics from transactional to recurring. The architecture decision that mattered most: every touchpoint in the journey fires from a single source of truth in the CRM, which means the system can grow without rebuilding the foundation.</p>
 
-        <h2>What We Built</h2>
+        <span class="section-eye">04 / Outcome</span>
+        <h2>From audience to business in 14 days.</h2>
+        <p>Before the build, every interaction required Danielle to manually follow up, schedule, and send. After, one link in her Instagram bio fed a system that ran the entire customer journey without her touching it. The recurring revenue model produced predictable income per client where one off sessions hadn't. The infrastructure also opened revenue paths that weren't possible before: email sequences, Pinterest automation, and additional product integrations are all scoped for future phases. The brand stopped being a collection of ideas and started being a business that runs.</p>
 
-        <p>Everything. From the ground up. Inside GoHighLevel as the central platform.</p>
-
-        <p><strong>CRM and pipeline</strong> with contact records, tags, and stages matching how the business works. <strong>Newsletter opt-in page</strong> connected to the CRM with automatic tagging and nurture sequence triggers. <strong>Two booking calendars</strong> (45-min single session and 60-min deep dive) with intake forms, confirmations, and reminders. <strong>Session pricing</strong> structured with monthly and quarterly packages that encourage recurring commitments. <strong>Email domain authentication</strong> (SPF, DKIM, DMARC) so everything sends from her professional domain and lands in inboxes. Content migrated from the existing site and rebuilt with proper conversion paths.</p>
-
-        <p>The full customer journey: someone finds her on Instagram, clicks the bio link, subscribes, gets a welcome sequence, sees session offerings, books, gets confirmation and reminders, and receives follow-up after the session. Every touchpoint connected and automated. Before this build, none of that existed.</p>
-
-        <h2>Results</h2>
-
-        <div class="callout">
-            <p><strong>Complete customer journey with zero manual steps.</strong> Full CRM with pipeline live from day one. Newsletter opt-in collecting subscribers immediately. Two booking calendars with automated intake and reminders. Email domain authenticated across all sending. Every step from first touch to post-session follow-up runs automatically.</p>
-        </div>
-
-        <h2>The Outcome</h2>
-
-        <p>Before this build, Danielle had a collection of ideas and tools that didn't talk to each other. Every interaction required her to manually follow up, manually schedule, manually send.</p>
-
-        <p>Now she has one link in her Instagram bio that feeds into a system that handles everything. A follower becomes a subscriber becomes a booked session becomes a repeat client, and she doesn't touch any of the steps in between. She went from having a brand to having a business that runs.</p>
-
-        <p>The pricing structure changed the economics. Instead of one-off sessions with no retention path, she now has monthly and quarterly packages that create predictable recurring revenue. A single client on the quarterly plan is worth $1,800 per year without having to resell them every time.</p>
-
-        <p>The infrastructure also opened up revenue paths that didn't exist before. Email sequences, Pinterest automation, and Stan Store integration are all scoped for future phases... none of which were possible when everything was disconnected.</p>
-
-        <h2>Tech Stack</h2>
-
-        <div class="tech-tags">
-            <span class="tech-tag">GoHighLevel</span>
-            <span class="tech-tag">Namecheap</span>
-            <span class="tech-tag">Stan Store</span>
-            <span class="tech-tag">Instagram</span>
-            <span class="tech-tag">Facebook</span>
-        </div>
-
-        <h2>What Made This Work</h2>
-
-        <p>Danielle didn't need someone to build pages. She needed someone to understand how her business is supposed to flow and then build the system that makes it flow that way.</p>
-
-        <p>The opt-in page is just a page. The CRM is just a database. The booking calendar is just a scheduling tool. None of those matter on their own. What matters is that when someone discovers the brand for the first time, there's a clear path from discovery to engagement and every step along that path happens automatically.</p>
+        <span class="section-eye">05 / The Pattern</span>
+        <h2>Audience leakage is an engineering problem.</h2>
+        <p>Most growing brands hit this wall the same way. The audience comes from content. The content compounds. The infrastructure underneath was built for a smaller business and quietly leaks every percentage of that audience that should have converted. The fix isn't more content or more tools. It's the operational foundation that decides whether attention turns into a business or stays as attention.</p>
     </div>
 
-    <div class="cta-block">
-        <p>Need a system that turns your audience into paying clients? Let's talk about what that looks like for your business.</p>
-        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call</a>
+    <div class="cta-block audit-cta">
+        <span class="section-eye">06 / Next Step</span>
+        <h2>Start with an audit.</h2>
+        <p>Every engagement starts with a Growth Systems Audit. We map your infrastructure, identify what's leaking, and write a roadmap with fixed pricing on what gets built next. Three days. $1,500. Credits toward your first build over $3,000.</p>
+        <div class="cta-actions">
+            <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
+            <a href="/results.html" class="btn-secondary">See more case studies &rarr;</a>
+        </div>
     </div>
 
     <div class="footer-section">
