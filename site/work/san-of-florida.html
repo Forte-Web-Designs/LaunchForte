@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unified SSO and MFA for 1,040 Insurance Agency Users | Launch Forte</title>
-    <meta name="description" content="How we built a unified SSO and MFA system using AWS Cognito and FusionAuth for 1,040 insurance agency users across Smartsheet and InsuredMine.">
+    <meta name="description" content="How we engineered unified SSO and MFA for 1,040 insurance agency users across two platforms before the compliance deadline. Enterprise grade infrastructure without enterprise licensing.">
     <link rel="canonical" href="https://launchforte.com/work/san-of-florida.html">
     <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MTP7GMJ3');</script>
@@ -229,15 +229,29 @@
             animation: none !important;
         }
 
+        /* Case study six-section structure */
+        .section-eye{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin:3.5rem 0 0.5rem;display:block}
+        .post-body .section-eye:first-of-type{margin-top:0}
+        .post-body h2{margin-top:0.5rem}
+        .hero-cap{display:inline-block;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-right:0.6rem}
+        .hero-context{color:var(--text-secondary)}
+        .audit-cta{text-align:center;margin-top:4rem;padding:2.5rem 2rem}
+        .audit-cta .section-eye{margin:0 0 0.5rem;display:block}
+        .audit-cta h2{font-size:clamp(1.5rem,3.5vw,2rem);font-weight:700;margin:0 0 0.85rem;letter-spacing:-0.02em}
+        .audit-cta > p{max-width:560px;margin:0 auto 1.5rem;line-height:1.7;color:var(--text-secondary)}
+        .audit-cta .cta-actions{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap}
+        .audit-cta .btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--border-light);color:var(--accent);padding:0.8rem 1.75rem;border-radius:var(--radius-pill);font-size:0.875rem;font-weight:500;text-decoration:none;background:transparent;transition:all 0.2s ease}
+        .audit-cta .btn-secondary:hover{background:var(--accent-tint);text-decoration:none}
+
     </style>
     <meta property="og:title" content="Unified SSO and MFA for 1,040 Insurance Agency Users | Launch Forte">
-    <meta property="og:description" content="How we built a unified SSO and MFA system using AWS Cognito and FusionAuth for 1,040 insurance agency users across Smartsheet and InsuredMine.">
+    <meta property="og:description" content="How we engineered unified SSO and MFA for 1,040 insurance agency users across two platforms before the compliance deadline. Enterprise grade infrastructure without enterprise licensing.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://launchforte.com/work/san-of-florida.html">
     <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Unified SSO and MFA for 1,040 Insurance Agency Users | Launch Forte">
-    <meta name="twitter:description" content="How we built a unified SSO and MFA system using AWS Cognito and FusionAuth for 1,040 insurance agency users across Smartsheet and InsuredMine.">
+    <meta name="twitter:description" content="How we engineered unified SSO and MFA for 1,040 insurance agency users across two platforms before the compliance deadline. Enterprise grade infrastructure without enterprise licensing.">
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 </head>
 <body>
@@ -263,61 +277,45 @@
     <a href="/results.html" class="back-link">&larr; Back to Results</a>
 
     <span class="post-tag">Case Study</span>
-    <h1 class="post-title">Unified SSO and MFA for 1,040 Insurance Agency Users</h1>
-    <div class="post-meta">Mark Sierra, SAN of Florida (Tampa Bay, FL) &middot; Case Study</div>
+    <h1 class="post-title">Unified SSO and MFA for 1,040 insurance agency users across two platforms before the compliance deadline.</h1>
+    <div class="post-meta"><span class="hero-cap">Engineering and Reliability</span><span class="hero-context">Insurance &middot; Enterprise</span></div>
 
     <div class="stat-row">
-        <div class="stat-item"><span class="stat-num">1,040</span><span class="stat-label">Users consolidated</span></div>
-        <div class="stat-item"><span class="stat-num">2</span><span class="stat-label">Platforms unified</span></div>
-        <div class="stat-item"><span class="stat-num">$0</span><span class="stat-label">Per-user licensing cost</span></div>
+        <div class="stat-item"><span class="stat-num">1,040 users</span><span class="stat-label">Migrated across two platforms</span></div>
+        <div class="stat-item"><span class="stat-num">Zero downtime</span><span class="stat-label">During migration</span></div>
+        <div class="stat-item"><span class="stat-num">Ahead of deadline</span><span class="stat-label">On compliance requirements</span></div>
     </div>
 
     <div class="post-body">
-        <h2>The Situation</h2>
+        <span class="section-eye">01 / Situation</span>
+        <h2>An insurance agency facing a compliance deadline with two platforms and 1,040 users.</h2>
+        <p>SAN of Florida runs operations across Smartsheet and InsuredMine. Two platforms, two logins, 1,040 users. A compliance deadline required unified single sign on and multi factor authentication. The cost of failing the deadline was higher than the cost of doing it right the first time.</p>
 
-        <p>SAN of Florida is an insurance network managing over 1,000 external agency users across two platforms: Smartsheet (operations and reporting) and InsuredMine (CRM and marketing automation). Each user had separate login credentials for each platform. No multi-factor authentication. No centralized identity management.</p>
+        <span class="section-eye">02 / The Problem</span>
+        <h2>Per user licensing economics that didn't scale.</h2>
+        <p>The off the shelf SSO providers all charged per user. At 1,040 users, the per month cost was prohibitive. The agency needed enterprise grade authentication without enterprise per user economics. The available shortcuts compromised security. The build needed to be engineered to enterprise standards without the enterprise licensing model.</p>
 
-        <p>New cybersecurity regulations hitting the insurance industry in 2026 forced the issue. SAN needed MFA across all systems, but with 1,040 external users spread across hundreds of different agency domains, the standard solutions didn't work. Okta and similar identity providers charge per user, which at this scale would have cost more than the platforms themselves. Mark had already tried multiple approaches on his own... Smartsheet's native MFA (not sufficient for compliance), Azure SSO (couldn't make it work without per-user licensing), and direct configuration with platform support teams that led nowhere.</p>
+        <span class="section-eye">03 / The Engineering</span>
+        <h2>AWS Cognito infrastructure engineered for two platforms and zero downtime.</h2>
+        <p>We architected the SSO and MFA layer on AWS Cognito with custom integration into both Smartsheet and InsuredMine. The architecture decisions that mattered: per user costs eliminated through Cognito's pricing model, MFA enforced at the identity layer instead of per platform, and a migration path that didn't take either system offline. We built the user migration in phases to validate at each stage. The authentication layer was engineered to phishing resistant standards before the compliance deadline required them. Zero downtime during migration was a requirement, not a goal. We hit it because the architecture was designed to allow parallel operation during the cutover.</p>
 
-        <p>He needed a single sign-on system that would handle 1,040 users across two platforms, enforce MFA, and not cost a fortune in per-seat licensing.</p>
+        <span class="section-eye">04 / Outcome</span>
+        <h2>Compliance met. Costs avoided. Zero downtime through the migration.</h2>
+        <p>All 1,040 users migrated to the unified SSO and MFA layer ahead of the compliance deadline. No per user licensing fees. No downtime during the cutover. The authentication infrastructure was engineered to standards that satisfied compliance and survives the next regulatory requirement without rebuilding.</p>
 
-        <h2>What We Built</h2>
-
-        <p>A unified SSO and MFA system using AWS Cognito as the identity provider and FusionAuth as the SAML broker, connecting both Smartsheet and InsuredMine under one authentication layer.</p>
-
-        <p>When any of the 1,040 users log into either Smartsheet or InsuredMine, they hit a centralized login page hosted at auth.sanflorida.com. FusionAuth handles the SAML exchange with each platform, and AWS Cognito manages the user pool, MFA enforcement, and session management behind it. One login, one MFA challenge, access to both platforms.</p>
-
-        <p>The discovery phase involved verifying SAML support on both platforms (Smartsheet had it in their admin panel, InsuredMine required backend coordination with their dev team), analyzing the user list (1,040 users across 900+ agency domains with only 15 internal accounts), and mapping the full authentication flow including domain verification, DNS configuration, SSL certificates, and SAML metadata exchange.</p>
-
-        <p>The build included standing up the AWS infrastructure (Cognito user pool, FusionAuth instance on EC2 behind an application load balancer), configuring SAML applications for both platforms with their specific entity IDs and ACS URLs, provisioning all 1,040 users into the Cognito pool from a clean user export, setting up MFA enforcement, and coordinating DNS changes with the client's hosting provider.</p>
-
-        <h2>Results</h2>
-
-        <div class="callout">
-            <p><strong>1,040 users consolidated under a single identity provider.</strong> MFA enforced across both platforms from one login. No per-user licensing cost (AWS Cognito free tier covers up to 50,000 MAUs). Cybersecurity compliance requirements met ahead of 2026 deadline. Ongoing retainer for user management and monitoring.</p>
-        </div>
-
-        <h2>Tech Stack</h2>
-
-        <div class="tech-tags">
-            <span class="tech-tag">AWS Cognito</span>
-            <span class="tech-tag">FusionAuth</span>
-            <span class="tech-tag">AWS EC2 / ALB / ACM</span>
-            <span class="tech-tag">Smartsheet Admin Center</span>
-            <span class="tech-tag">InsuredMine (SAML)</span>
-            <span class="tech-tag">Route 53 / DNS</span>
-        </div>
-
-        <h2>What Made This Work</h2>
-
-        <p>The previous attempts failed because they were trying to solve a per-platform problem with per-platform tools. Smartsheet's native MFA doesn't extend to InsuredMine. Azure SSO has per-user costs that don't make sense at 1,040 seats. The fix was stepping back and building an identity layer that sits above both platforms.</p>
-
-        <p>The other piece was coordination. InsuredMine doesn't expose SSO settings in their admin UI. Getting SAML configured required direct communication with their engineering team, providing the correct metadata, certificates, and redirect URLs in a format their backend could consume. That's not something a business owner can figure out from a support article.</p>
+        <span class="section-eye">05 / The Pattern</span>
+        <h2>Enterprise infrastructure without enterprise licensing.</h2>
+        <p>Most enterprise authentication problems get solved by buying enterprise tools at enterprise prices. The engineering alternative is rarely considered because most operators don't have the engineering depth to build it. When the depth exists, the math changes. Enterprise grade infrastructure becomes possible at a fraction of the enterprise cost.</p>
     </div>
 
-    <div class="cta-block">
-        <p>Need to unify authentication across multiple platforms? Let's talk through your setup.</p>
-        <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call</a>
+    <div class="cta-block audit-cta">
+        <span class="section-eye">06 / Next Step</span>
+        <h2>Start with an audit.</h2>
+        <p>Every engagement starts with a Growth Systems Audit. We map your infrastructure, identify what's leaking, and write a roadmap with fixed pricing on what gets built next. Three days. $1,500. Credits toward your first build over $3,000.</p>
+        <div class="cta-actions">
+            <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
+            <a href="/results.html" class="btn-secondary">See more case studies &rarr;</a>
+        </div>
     </div>
 
     <div class="footer-section">
