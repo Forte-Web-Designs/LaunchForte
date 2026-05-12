@@ -40,19 +40,22 @@
         .reveal.revealed{opacity:1;transform:translateY(0)}
 
         /* Header */
-        .site-header{position:sticky;top:0;z-index:100;background:rgba(245,245,247,0.85);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5)}
-        .site-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent-hover),var(--accent),transparent);opacity:0.4}
-        .header-container{max-width:1100px;margin:0 auto;padding:0.875rem 2rem;display:flex;align-items:center;justify-content:space-between;height:52px}
+        .site-header{background:rgba(245,245,247,0.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:0.5px solid var(--border);padding:0 2rem;height:64px;position:sticky;top:0;z-index:100;display:flex;align-items:center}
+        .header-container{max-width:1100px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
         .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
         .header-logo:hover{opacity:0.85}
-        .logo-img{height:28px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
-        .logo-img-light{display:none}
-        [data-theme="light"] .logo-img-dark{display:none}
-        [data-theme="light"] .logo-img-light{display:block}
-        .header-nav{display:flex;gap:0.25rem;align-items:center}
-        .header-nav a{color:var(--text-secondary);font-size:0.875rem;font-weight:500;text-decoration:none;padding:0.5rem 0.875rem;border-radius:var(--radius-sm);transition:color 0.2s ease,background 0.2s ease}
-        .header-nav a:hover{color:var(--text-primary);background:rgba(0,0,0,0.04)}
-        .header-nav a.active{color:var(--text-primary);background:var(--accent-subtle)}
+        .logo-img{height:28px;width:auto;display:block}
+        .logo-img-light{display:block}
+        .logo-img-dark{display:none;filter:brightness(0) invert(1)}
+        [data-theme="dark"] .logo-img-light{display:none}
+        [data-theme="dark"] .logo-img-dark{display:block}
+        .header-nav{display:flex;gap:1.5rem;align-items:center}
+        .header-nav a{font-size:0.8125rem;color:var(--text-primary);opacity:0.85;text-decoration:none;font-weight:400}
+        .header-nav a:hover{opacity:1;text-decoration:none}
+        .header-nav a.active{opacity:1;font-weight:500}
+        [data-theme="dark"] .site-header{background:rgba(29,29,31,0.85);border-bottom-color:rgba(255,255,255,0.10)}
+        [data-theme="dark"] .header-nav a{color:#f5f5f7}
+        [data-theme="dark"] .header-nav a.active{color:#f5f5f7;font-weight:500}
 
         /* Main */
         .main-content{max-width:1100px;margin:0 auto;padding:0 2rem 6rem;position:relative;z-index:1}
@@ -88,12 +91,18 @@
         .contact-form-wrap{background:var(--surface);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius-md);padding:2.25rem;transition:border-color 0.3s ease}
         .form-group{margin-bottom:1.25rem}
         .form-label{display:block;font-size:0.8125rem;font-weight:600;color:var(--text-secondary);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.08em}
-        .form-input,.form-textarea,.form-select{width:100%;background:rgba(10,14,23,0.5);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1rem;font-size:0.9375rem;color:var(--text-primary);font-family:inherit;transition:border-color 0.3s ease,box-shadow 0.3s ease,background 0.3s ease;outline:none;-webkit-appearance:none;appearance:none}
-        .form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-subtle);background:rgba(10,14,23,0.8)}
+        .form-input,.form-textarea,.form-select{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1rem;font-size:0.9375rem;color:var(--text-primary);font-family:inherit;transition:border-color 0.2s ease,box-shadow 0.2s ease,background 0.2s ease;outline:none;-webkit-appearance:none;appearance:none}
+        .form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-subtle);background:var(--surface)}
         .form-input::placeholder,.form-textarea::placeholder{color:var(--text-muted)}
         .form-textarea{min-height:140px;resize:vertical;line-height:1.7}
-        .form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;background-size:12px;padding-right:2.5rem;cursor:pointer}
-        .form-select option{background:var(--background-alt);color:var(--text-primary)}
+        .form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2386868b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;background-size:12px;padding-right:2.5rem;cursor:pointer}
+        .form-select option{background:var(--surface);color:var(--text-primary)}
+        [data-theme="dark"] .form-input,[data-theme="dark"] .form-textarea,[data-theme="dark"] .form-select{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:#f5f5f7}
+        [data-theme="dark"] .form-input::placeholder,[data-theme="dark"] .form-textarea::placeholder{color:rgba(255,255,255,0.4)}
+        [data-theme="dark"] .form-input:focus,[data-theme="dark"] .form-textarea:focus,[data-theme="dark"] .form-select:focus{background:rgba(255,255,255,0.09);border-color:var(--accent)}
+        [data-theme="dark"] .form-select option{background:#1d1d1f;color:#f5f5f7}
+        [data-theme="dark"] .contact-form-wrap,[data-theme="dark"] .contact-info-item,[data-theme="dark"] .calendly-wrap{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.10)}
+        [data-theme="dark"] .contact-info-value,[data-theme="dark"] .form-label{color:#f5f5f7}
         .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
         .form-success{display:none;text-align:center;padding:3rem 2rem}
         .form-success-icon{font-size:3rem;margin-bottom:1rem;display:block}
@@ -401,23 +410,26 @@
                     <label class="form-label" for="subject">What do you need help with?</label>
                     <select class="form-select" id="subject" name="subject">
                         <option value="">Select one...</option>
-                        <option value="foundation">Foundation, CRM, payments, email setup</option>
-                        <option value="launch">Launch, Funnels, ads, nurture sequences</option>
-                        <option value="growth">Growth, Multi-channel, AI agents, outbound</option>
-                        <option value="scale">Scale, Dashboards, advanced automation</option>
-                        <option value="web">Web design / landing page</option>
+                        <option value="audit">Growth Systems Audit</option>
+                        <option value="revenue-infrastructure">Revenue Infrastructure</option>
+                        <option value="lead-systems">Lead and Customer Systems</option>
+                        <option value="ai-orchestration">AI Agents and Orchestration</option>
+                        <option value="reporting">Reporting and Dashboards</option>
+                        <option value="custom-builds">Custom Builds and Integrations</option>
+                        <option value="engineering-reliability">Engineering and Reliability</option>
+                        <option value="partnership">Embedded Partnership engagement</option>
                         <option value="other">Something else</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="message">Message</label>
-                    <textarea class="form-textarea" id="message" name="message" placeholder="Tell me about your project or problem. The more context the better." required></textarea>
+                    <textarea class="form-textarea" id="message" name="message" placeholder="Tell us about your project or problem. The more context the better." required></textarea>
                 </div>
                 <button type="submit" class="btn-primary">Send Message &rarr;</button>
                 <div class="form-success" id="form-success">
                     <span class="form-success-icon">&#10003;</span>
                     <div class="form-success-heading">Message sent</div>
-                    <p class="form-success-text">I'll be in touch within 1 business day.<br>In the meantime, feel free to book a call below.</p>
+                    <p class="form-success-text">We'll be in touch within 1 business day.<br>In the meantime, feel free to book a call below.</p>
                 </div>
                 <div class="form-error" id="form-error">
                     Something went wrong. Please try again or email seth@launchforte.com directly.
