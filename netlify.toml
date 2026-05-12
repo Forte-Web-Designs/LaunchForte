@@ -31,6 +31,19 @@
   status = 301
   force = true
 
+# Industries page retired 2026-05-11. Premium consultancies don't segment by industry.
+[[redirects]]
+  from = "/industries.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/industries"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
 # Tier pages retired 2026-05-09. Each redirects to its capability anchor on the homepage.
 [[redirects]]
   from = "/foundation.html"
