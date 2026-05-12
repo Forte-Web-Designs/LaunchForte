@@ -57,7 +57,7 @@
           "name": "Do you have a fixed list of products, or is everything custom?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Both. Some builds are catalog scope: CRM setup, payment automation, instant response systems. Those are productized because the requirements repeat. Other builds are custom: a dispatch system for a tire shop, an audit trail for an investment firm, a multi market lead delivery OS. The audit decides which path fits your business. We don't force buyers into the catalog when the catalog isn't the right answer."
+            "text": "Both. Some builds are productized: CRM setup, payment automation, instant response. The requirements repeat. Other builds are custom: tire shop dispatch, investment audit trails, multi market lead delivery. The audit decides which path fits. We don't force buyers into the catalog."
           }
         },
         {
@@ -65,7 +65,7 @@
           "name": "What platforms and tools do you build on?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "We're tool agnostic. We build on GoHighLevel, HubSpot, Salesforce, n8n, Make, Zapier, Airtable, Supabase, Power Automate, custom code, and whatever else the architecture calls for. The platform is a decision the audit makes, not a starting point we drag every client into. Where existing infrastructure works, we build on top of it. Where it's broken, we say so."
+            "text": "Tool agnostic. GoHighLevel, HubSpot, Salesforce, n8n, Make, Zapier, Airtable, Supabase, Power Automate, custom code. The platform is a decision the audit makes, not a starting point. Where existing infrastructure works, we build on top of it. Where it's broken, we say so."
           }
         },
         {
@@ -73,7 +73,7 @@
           "name": "What does engineered to survive volume mean?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It means the build doesn't break the first time something changes. APIs that handle errors instead of failing silently. Workflows that log what they do so problems are diagnosable. Documentation written for whoever inherits the system, not for the engineer who built it. Monitoring that surfaces failures before customers notice. Most automation work skips these because they're invisible. We don't."
+            "text": "The build doesn't break the first time something changes. APIs that handle errors. Workflows that log. Documentation for whoever inherits the system. Monitoring that surfaces failures before customers notice. Most automation work skips these. We don't."
           }
         },
         {
@@ -81,7 +81,7 @@
           "name": "How long do builds take?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Foundation builds run 5 to 7 days. Mid scope launch builds run 10 to 14 days. Larger builds and full system architectures run 3 to 6 weeks. The audit produces fixed timelines for each recommendation so you know what you're signing up for before work starts."
+            "text": "Foundation builds: 5 to 7 days. Mid scope launch builds: 10 to 14 days. Full system architectures: 3 to 6 weeks. The audit produces fixed timelines before work starts."
           }
         }
       ]
@@ -440,7 +440,7 @@
 
     <!-- INTRO -->
     <div class="intro-block reveal">
-        <p>Most growing businesses don't fail at the strategy level. They fail at the execution level. The systems underneath leak revenue, contradict each other, and get rebuilt every six months by someone new. We build the infrastructure that turns strategy into something a team can run.</p>
+        <p>Most growing businesses fail at the execution level, not the strategy level. The systems underneath leak revenue. We build the infrastructure that turns strategy into something a team can run.</p>
     </div>
 
     <!-- ANCHOR PILLS -->
@@ -457,20 +457,20 @@
     <!-- SECTION 01: Who this is for -->
     <section class="page-section reveal" id="who">
         <p class="section-label">01 / Who this is for</p>
-        <h2>Founders and operators who built the strategy. The execution is where it's stuck.</h2>
-        <p class="body-text">We build for founders and operators running businesses that have outgrown the tools that got them here. The shape of the conversation is consistent. The strategy is sound. The product is real. The team is moving. The systems underneath aren't keeping up. CRMs configured by someone who left two years ago. Pipelines held together by a single Zapier account nobody documented. Reports built by hand every Monday because nobody trusts the dashboards. Pixels that fire on the form but never make it back to the CRM. AI tools turned on for the demo and abandoned by month three.</p>
+        <h2>Built the strategy. Stuck on execution.</h2>
+        <p class="body-text">We build for founders and operators whose businesses have outgrown the tools that got them here. CRMs nobody configured. Pipelines held together by undocumented Zaps. Dashboards no one trusts. Pixels that never make it back. The pattern is consistent.</p>
 
         <div class="content-block">
             <h3>You're scaling a business that outgrew its setup.</h3>
-            <p>The build that got you to $1M doesn't run at $5M. The systems that worked when one person handled everything fall apart the moment a team is involved. We rebuild the infrastructure for the business you run now.</p>
+            <p>The build that worked at $1M doesn't run at $5M. We rebuild the infrastructure for the business you run now.</p>
         </div>
         <div class="content-block">
             <h3>You inherited operations that weren't built to last.</h3>
-            <p>Someone before you built the systems and left. Or never built them at all. We map what's there, identify what's worth keeping, and engineer what isn't.</p>
+            <p>Someone before you built the systems and left. We map what's there, keep what works, engineer what doesn't.</p>
         </div>
         <div class="content-block">
             <h3>You're working with a strategist who needs an engineer.</h3>
-            <p>Maybe a fractional CMO. Maybe a consultant. Maybe an operator running a marketing function inside the business. They own the strategy. We engineer the systems the strategy depends on.</p>
+            <p>A fractional CMO, a consultant, an operator running marketing. They own the strategy. We engineer the systems underneath.</p>
         </div>
     </section>
 
@@ -478,15 +478,15 @@
     <section class="page-section reveal" id="why-systems-break">
         <p class="section-label">02 / Why systems break</p>
         <h2>The strategy is sound. The plumbing is the problem.</h2>
-        <p class="body-text">Most operators we talk to don't have a marketing problem or a sales problem. They have a systems problem disguised as one. The campaigns work, but leads sit in inboxes. The product converts, but attribution doesn't survive the handoff between platforms. The team is moving, but every Monday morning is spent reconciling reports nobody trusts. The work below is what we do about it.</p>
+        <p class="body-text">Most operators don't have a marketing problem. They have a systems problem disguised as one. Campaigns work, leads sit in inboxes. Product converts, attribution dies between platforms. Team moves, Monday reports get reconciled by hand.</p>
 
         <div class="content-block">
             <h3>The systems were never engineered.</h3>
-            <p>Most operational stacks aren't built. They accumulate. A tool here, a Zap there, a workaround for something that broke six months ago. When something fails, nobody knows why. When volume increases, the whole thing slows down. The fix isn't another tool. It's an architecture that survives the next 3x.</p>
+            <p>Most operational stacks aren't built. They accumulate. A tool here, a Zap there, a workaround for what broke six months ago. The fix isn't another tool. It's architecture that survives the next 3x.</p>
         </div>
         <div class="content-block">
             <h3>The handoff between strategy and execution is broken.</h3>
-            <p>Strategy lives in a deck. Execution lives in five tools that don't talk to each other. The fractional CMO designs the campaign, the team launches it, and the CRM never reflects what happened. We engineer the layer that connects what was planned to what was delivered.</p>
+            <p>Strategy lives in a deck. Execution lives in five tools that don't talk. We engineer the layer that connects what was planned to what was delivered.</p>
         </div>
     </section>
 
@@ -494,35 +494,35 @@
     <section class="page-section reveal" id="how-we-work">
         <p class="section-label">03 / How we work</p>
         <h2>Diagnose. Architect. Build. Operate.</h2>
-        <p class="body-text">Every engagement runs the same four step process regardless of what's being built. The work that makes a system survive volume isn't the build itself. It's everything that surrounds it.</p>
+        <p class="body-text">Same four step process on every engagement. What makes a system survive volume isn't the build. It's everything around it.</p>
 
         <div class="process-grid">
             <div class="process-item">
                 <div class="process-num">01</div>
                 <div class="process-content">
                     <h3>Diagnose</h3>
-                    <p>We map the revenue and operations infrastructure end to end and identify where it's leaking. Output: a written diagnostic with prioritized builds.</p>
+                    <p>We map your infrastructure end to end. Output: written diagnostic with priorities.</p>
                 </div>
             </div>
             <div class="process-item">
                 <div class="process-num">02</div>
                 <div class="process-content">
                     <h3>Architect</h3>
-                    <p>We design the system before writing code. Data flow, integration points, failure handling. The architecture decides whether the build survives volume.</p>
+                    <p>We design before we write code. The architecture decides whether the build survives.</p>
                 </div>
             </div>
             <div class="process-item">
                 <div class="process-num">03</div>
                 <div class="process-content">
                     <h3>Build</h3>
-                    <p>We implement the CRM, automations, integrations, AI agents, and reporting. Fixed scope, fixed timeline, tested with real data before handoff.</p>
+                    <p>CRM, automations, AI agents, reporting. Fixed scope. Tested with real data.</p>
                 </div>
             </div>
             <div class="process-item">
                 <div class="process-num">04</div>
                 <div class="process-content">
                     <h3>Operate</h3>
-                    <p>Documentation, monitoring, alerts, and team handoff. Built to run without us. Optional partnership picks up here.</p>
+                    <p>Documentation, monitoring, alerts, handoff. Built to run without us.</p>
                 </div>
             </div>
         </div>
@@ -532,13 +532,13 @@
     <section class="page-section reveal" id="what-we-build-categories">
         <p class="section-label">04 / What we build</p>
         <h2>Five categories of engineering work.</h2>
-        <p class="body-text">The audit decides which category matters most for your business. The five below are how we organize the work, but most engagements touch two or three at the same time. A CRM rebuild surfaces a reporting problem. A reporting build reveals a lead capture problem. The categories aren't separate products. They're how we describe the work after the diagnostic.</p>
+        <p class="body-text">The audit decides which category matters most. Most engagements touch two or three at the same time. A CRM rebuild surfaces a reporting problem. A reporting build reveals a lead capture problem. The categories aren't separate products. They're how we describe the work.</p>
 
         <div class="category-block" id="revenue-infrastructure">
             <span class="category-eyebrow">01 / Revenue Infrastructure</span>
             <h3>Revenue Infrastructure</h3>
             <p class="category-subtitle">The foundation everything else runs on.</p>
-            <p class="body-text">CRMs that nobody configured. Pipeline stages that don't match how the team sells. Payment integration that stops at Stripe. Data architecture so fragmented that reporting requires a spreadsheet. We rebuild the operational backbone.</p>
+            <p class="body-text">CRMs nobody configured. Pipeline stages that don't match how the team sells. Payment integration that stops at Stripe. We rebuild the operational backbone.</p>
             <h4 class="build-list-header">What we build</h4>
             <ul class="build-list">
                 <li>Full CRM configuration with pipeline stages, tags, source attribution, and data hygiene</li>
@@ -554,7 +554,7 @@
             <span class="category-eyebrow">02 / Lead and Customer Systems</span>
             <h3>Lead and Customer Systems</h3>
             <p class="category-subtitle">Capture demand. Convert it. Don't let it leak.</p>
-            <p class="body-text">Forms that sit unanswered. Missed calls that go to voicemail. Booked appointments with no reminder so half the calendar evaporates. Dead leads in the CRM nobody has the bandwidth to wake up. We engineer the systems that capture demand you've already paid for.</p>
+            <p class="body-text">Forms that sit unanswered. Missed calls that go to voicemail. Half the calendar evaporates from missing reminders. We engineer the systems that capture demand you've already paid for.</p>
             <h4 class="build-list-header">What we build</h4>
             <ul class="build-list">
                 <li>Instant response systems with under 60 second SMS, email, and CRM logging on every form submission and missed call</li>
@@ -571,7 +571,7 @@
             <span class="category-eyebrow">03 / AI Agents and Orchestration</span>
             <h3>AI Agents and Orchestration</h3>
             <p class="category-subtitle">AI deployed where it earns its place.</p>
-            <p class="body-text">Most AI implementations are decoration. The work that survives is the AI that earns its place. Voice agents that qualify callers. Chatbots configured with the real sales process. Custom AI workflow tools built around how the team operates. We build AI where the math works.</p>
+            <p class="body-text">Most AI implementations are decoration. The work that survives earns its place. Voice agents that qualify callers. Chatbots configured with the real sales process. We build AI where the math works.</p>
             <h4 class="build-list-header">What we build</h4>
             <ul class="build-list">
                 <li>Custom AI voice agents on Retell, Voiceflow, or platform native (GoHighLevel, ElevenLabs)</li>
@@ -587,7 +587,7 @@
             <span class="category-eyebrow">04 / Reporting and Dashboards</span>
             <h3>Reporting and Dashboards</h3>
             <p class="category-subtitle">Decisions from real numbers, not gut feel.</p>
-            <p class="body-text">The data exists in five tools and doesn't agree across them. The team builds Monday reports by hand because nobody trusts the dashboards. We build automated reporting that pulls from the source, normalizes the data, and surfaces metrics that drive decisions.</p>
+            <p class="body-text">Data exists in five tools and doesn't agree. Monday reports get built by hand. We build automated reporting that surfaces metrics that drive decisions.</p>
             <h4 class="build-list-header">What we build</h4>
             <ul class="build-list">
                 <li>Real time pipeline dashboards with leads by source, response times, booking rates, and conversion stage</li>
@@ -603,7 +603,7 @@
             <span class="category-eyebrow">05 / Custom Builds and Integrations</span>
             <h3>Custom Builds and Integrations</h3>
             <p class="category-subtitle">When the off the shelf answer doesn't fit.</p>
-            <p class="body-text">Some of the most valuable engineering doesn't fit a template. Field service businesses that need offline capable apps. Family offices that need financial data pipelines with complex authentication. Operations that need agentic systems no platform builds. We work in React, Vite, n8n, Python, and the broader stack you'd expect from an engineer.</p>
+            <p class="body-text">Some of the most valuable engineering doesn't fit a template. Offline capable apps. Financial data pipelines. Agentic systems no platform builds. We work in React, Vite, n8n, Python, and the broader engineering stack.</p>
             <h4 class="build-list-header">What we build</h4>
             <ul class="build-list">
                 <li>Standalone web applications (React, Vite, PWA with offline support)</li>
@@ -620,24 +620,24 @@
     <section class="page-section reveal" id="engagement">
         <p class="section-label">05 / Engagement model</p>
         <h2>Three engagement models. Audit, build, partner.</h2>
-        <p class="body-text">Most engagements start with an audit. The audit decides what we build and what it's worth. Some engagements stop at the build. Others continue as a Partnership where we stay embedded with the business. All three are scoped in writing before any work begins. Fixed scope. Fixed price. Engineered to survive the handoff.</p>
+        <p class="body-text">Most engagements start with an audit. The audit decides what we build and what it's worth. All three are scoped in writing. Fixed scope, fixed price, engineered to survive the handoff.</p>
 
         <div class="product-grid">
             <div class="product-card">
                 <h3>Growth Systems Audit</h3>
-                <p>We map your infrastructure end to end, identify where revenue is leaking, and write a diagnostic with prioritized recommendations and fixed pricing.</p>
+                <p>Diagnostic of your infrastructure. Prioritized recommendations. Fixed pricing on each.</p>
                 <span class="product-price">$1,500. 3 days. Credits toward your first build over $3,000.</span>
                 <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book an Audit</a>
             </div>
             <div class="product-card">
                 <h3>Core Systems Build</h3>
-                <p>We build the system your strategy needs to run. Fixed scope, fixed price, engineered to survive volume.</p>
+                <p>The build your strategy needs. Engineered to survive volume.</p>
                 <span class="product-price">Fixed price after audit. Most builds 7 to 21 days.</span>
                 <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Start With An Audit</a>
             </div>
             <div class="product-card">
                 <h3>Embedded Growth Systems Partner</h3>
-                <p>We become the engineering brain behind your growth motion. Monthly strategic reviews, ongoing optimization, async access, priority on new builds.</p>
+                <p>The engineering brain at the table. Monthly review. Async access. Priority on builds.</p>
                 <span class="product-price">From $3,500/month. 6 month minimum.</span>
                 <a href="/partnership.html" class="btn-primary">Learn About the Partnership</a>
             </div>
@@ -648,28 +648,28 @@
     <section class="page-section reveal" id="recent-builds">
         <p class="section-label">06 / Recent builds</p>
         <h2>Engineering work that moved real businesses.</h2>
-        <p class="body-text">Every engagement on this page started with a problem a real business was paying for in time, revenue, or both. Names omitted on request. Outcomes are real.</p>
+        <p class="body-text">Every engagement started with a problem a real business was paying for. Outcomes are real. Names omitted.</p>
 
         <div class="proof-grid">
             <div class="proof-card">
                 <span class="proof-tag">Revenue Infrastructure</span>
                 <h3>Education brand, Kajabi to GHL</h3>
-                <p>Built a complete GoHighLevel infrastructure for an online education brand running on Kajabi with no CRM. Pipeline stages mapped to their sales process, Stripe with three price points, calendar with Zoom integration, full email authentication, A2P registration, and SMS messaging compliance. The brand grew from $40K to $160K monthly in the three months after the foundation was in place. We didn't grow the brand. We built the infrastructure that let the strategy land.</p>
+                <p>Complete GoHighLevel infrastructure for an online education brand. Pipeline mapped to their sales process, Stripe with three price points, calendar with Zoom, email authentication, A2P registration, SMS compliance. The brand grew $40K to $160K monthly in three months. We didn't grow the brand. We built the infrastructure that let the strategy land.</p>
             </div>
             <div class="proof-card">
                 <span class="proof-tag">Lead and Customer Systems</span>
                 <h3>Real estate education, paid webinar funnel</h3>
-                <p>Built the full webinar funnel infrastructure for a real estate education company running paid live webinars. $27 entry, $7,000 product on the back end with a fast action $5,000 offer. Stripe with three price points wired into the pipeline, Zoom integration, attendance tracking, dual CTA post-webinar pages, and pipeline automation that moves contacts through stages without anyone touching it. The fractional CMO running the strategy needed the engineering to run. That's what we built.</p>
+                <p>Full webinar funnel infrastructure for a real estate education company. $27 entry, $7,000 product on the back end with a $5,000 fast action offer. Stripe with three price points, Zoom integration, attendance tracking, dual CTA post-webinar pages, full pipeline automation. The CMO needed the engineering to run. That's what we built.</p>
             </div>
             <div class="proof-card">
                 <span class="proof-tag">Custom Builds and Integrations</span>
                 <h3>Mobile tire service, GPS gated dispatch</h3>
-                <p>Built a four phase dispatch and operations system for a mobile commercial tire service. Customer intake with dynamic pricing across three time of day tiers, Stripe deposit at submission, owner approval gate, GPS arrival verification using haversine distance calculations, proof gate with photos and DOT verification, automated balance invoicing, and PDF receipts routed to customer and admin. Status flows tracked across Make, Stripe, Twilio, Google Sheets, and Google Docs. Replaced a manual dispatch process the owner was running by phone.</p>
+                <p>Four phase dispatch and operations system for a mobile commercial tire service. Dynamic pricing, Stripe deposit at submission, owner approval gate, GPS arrival verification, proof gate with photos and DOT verification, automated balance invoicing. Status flows across Make, Stripe, Twilio, Google Sheets, and Google Docs. Replaced manual phone dispatch.</p>
             </div>
             <div class="proof-card">
                 <span class="proof-tag">Reporting and Dashboards</span>
                 <h3>Furniture retailer, Shopify to Xero product sync</h3>
-                <p>Engineered an n8n workflow syncing Shopify draft products into Xero as inventory items, replacing the discontinued Cin7 integration. Bulk fetch optimization reduced 157 individual API calls to 2. Batched POSTs of 10 items every 5 seconds resolved Xero rate limits. SKU deduplication, character limit handling, and webhook race condition fixes. The retailer needed product data flowing between commerce and accounting without a person in the middle. The system runs on its own and has not required intervention since launch.</p>
+                <p>n8n workflow syncing Shopify draft products into Xero as inventory items, replacing the discontinued Cin7 integration. Bulk fetch reduced 157 API calls to 2. Batched POSTs of 10 items every 5 seconds resolved Xero rate limits. Has not required intervention since launch.</p>
             </div>
         </div>
     </section>
@@ -681,19 +681,19 @@
         <div class="faq-list" style="margin-top:1.5rem">
             <div class="faq-item">
                 <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">Do you have a fixed list of products, or is everything custom?</h3>
-                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Both. Some builds are catalog scope: CRM setup, payment automation, instant response systems. Those are productized because the requirements repeat. Other builds are custom: a dispatch system for a tire shop, an audit trail for an investment firm, a multi market lead delivery OS. The audit decides which path fits your business. We don't force buyers into the catalog when the catalog isn't the right answer.</p>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Both. Some builds are productized: CRM setup, payment automation, instant response. The requirements repeat. Other builds are custom: tire shop dispatch, investment audit trails, multi market lead delivery. The audit decides which path fits. We don't force buyers into the catalog.</p>
             </div>
             <div class="faq-item">
                 <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">What platforms and tools do you build on?</h3>
-                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">We're tool agnostic. We build on GoHighLevel, HubSpot, Salesforce, n8n, Make, Zapier, Airtable, Supabase, Power Automate, custom code, and whatever else the architecture calls for. The platform is a decision the audit makes, not a starting point we drag every client into. Where existing infrastructure works, we build on top of it. Where it's broken, we say so.</p>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Tool agnostic. GoHighLevel, HubSpot, Salesforce, n8n, Make, Zapier, Airtable, Supabase, Power Automate, custom code. The platform is a decision the audit makes, not a starting point. Where existing infrastructure works, we build on top of it. Where it's broken, we say so.</p>
             </div>
             <div class="faq-item">
                 <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">What does engineered to survive volume mean?</h3>
-                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">It means the build doesn't break the first time something changes. APIs that handle errors instead of failing silently. Workflows that log what they do so problems are diagnosable. Documentation written for whoever inherits the system, not for the engineer who built it. Monitoring that surfaces failures before customers notice. Most automation work skips these because they're invisible. We don't.</p>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">The build doesn't break the first time something changes. APIs that handle errors. Workflows that log. Documentation for whoever inherits the system. Monitoring that surfaces failures before customers notice. Most automation work skips these. We don't.</p>
             </div>
             <div class="faq-item">
                 <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">How long do builds take?</h3>
-                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:0;font-size:0.9375rem">Foundation builds run 5 to 7 days. Mid scope launch builds run 10 to 14 days. Larger builds and full system architectures run 3 to 6 weeks. The audit produces fixed timelines for each recommendation so you know what you're signing up for before work starts.</p>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:0;font-size:0.9375rem">Foundation builds: 5 to 7 days. Mid scope launch builds: 10 to 14 days. Full system architectures: 3 to 6 weeks. The audit produces fixed timelines before work starts.</p>
             </div>
         </div>
     </section>
@@ -703,7 +703,7 @@
         <p class="section-label">08 / Next step</p>
         <div class="cta-banner">
             <h2>Start with an audit.</h2>
-            <p>The audit is how we both know whether the work is worth doing. Three days. A written diagnostic. Prioritized recommendations. Fixed pricing on what gets built next. The fee credits toward your first build over $3,000.</p>
+            <p>The audit is how we both know whether the work is worth doing. Three days. A written diagnostic. Fixed pricing on what gets built next.</p>
             <a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
         </div>
     </section>
