@@ -74,10 +74,12 @@
         '[data-theme="dark"] .capability-row:hover{background:rgba(255,255,255,0.04)}' +
         '[data-theme="dark"] .faq-item{border-bottom-color:rgba(255,255,255,0.10)}';
 
-    var toggleCSS = '#theme-toggle{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:1rem;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center;transition:color 0.3s ease,border-color 0.3s ease;line-height:1;flex-shrink:0;margin-left:0.75rem}' +
+    var toggleCSS = '#theme-toggle{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:1rem;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center;transition:color 0.3s ease,border-color 0.3s ease,background 0.3s ease;line-height:1;flex-shrink:0;margin-left:0.75rem}' +
         '#theme-toggle.scrolled{position:fixed;top:auto;bottom:8.5rem;right:2rem;margin-left:0;background:var(--background);border:1px solid var(--border-light)}' +
         '#theme-toggle:hover{color:var(--text-primary);border-color:var(--border-light)}' +
-        '@media(max-width:768px){#theme-toggle{width:34px;height:34px;font-size:0.95rem;margin-left:0;margin-right:0.5rem;background:transparent}#theme-toggle.scrolled{position:fixed;top:auto;bottom:8rem;right:1.25rem;margin:0;background:var(--background);border:1px solid var(--border-light)}}';
+        '[data-theme="dark"] #theme-toggle{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.20);color:#f5f5f7}' +
+        '[data-theme="dark"] #theme-toggle:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.30);color:#ffffff}' +
+        '@media(max-width:768px){#theme-toggle{width:34px;height:34px;font-size:0.95rem;margin-left:0;margin-right:0.5rem;background:transparent}[data-theme="dark"] #theme-toggle{background:rgba(255,255,255,0.08)}#theme-toggle.scrolled{position:fixed;top:auto;bottom:8rem;right:1.25rem;margin:0;background:var(--background);border:1px solid var(--border-light)}}';
 
     var style = document.createElement('style');
     style.textContent = darkCSS + toggleCSS;
@@ -111,15 +113,23 @@
         setTimeout(placeToggle, 0);
     }
 
+    // Versioned theme key. Bumping the version invalidates any previously saved
+    // preference and forces all visitors back to the light default. Bump when
+    // the default theme intent changes.
+    var THEME_KEY = 'theme_v2';
     var saved = null;
-    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    try {
+        saved = localStorage.getItem(THEME_KEY);
+        // Clear the legacy key so it doesn't leak back in.
+        localStorage.removeItem('theme');
+    } catch (e) {}
     var theme = saved === 'dark' ? 'dark' : 'light';
     applyTheme(theme);
 
     function applyTheme(t) {
         document.documentElement.setAttribute('data-theme', t);
         toggle.innerHTML = t === 'dark' ? '☼' : '☽';
-        try { localStorage.setItem('theme', t); } catch (e) {}
+        try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
     }
 
     toggle.addEventListener('click', function() {
