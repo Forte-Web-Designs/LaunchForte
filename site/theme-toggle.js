@@ -79,8 +79,7 @@
         '[data-theme="dark"] .section.dark{background:#000000}' +
         '[data-theme="dark"] .trusted-strip{background:#1d1d1f}' +
         '[data-theme="dark"] .marquee-track span{color:#a1a1a6}' +
-        '[data-theme="dark"] .logo-img-light{display:none}' +
-        '[data-theme="dark"] .logo-img-dark{display:block;filter:brightness(0) invert(1)}' +
+        '[data-theme="dark"] .logo-img{filter:brightness(0) invert(1)}' +
         '[data-theme="dark"] .capability-row{border-bottom-color:rgba(255,255,255,0.10)}' +
         '[data-theme="dark"] .capability-list{border-top-color:rgba(255,255,255,0.10)}' +
         '[data-theme="dark"] .capability-row:hover{background:rgba(255,255,255,0.04)}' +

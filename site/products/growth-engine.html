@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preload" as="image" href="/images/home/launch-forte.png" fetchpriority="high">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Growth Engine System | Launch Forte</title>
@@ -83,10 +84,7 @@
         .header-container{max-width:1100px;margin:0 auto;height:52px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}
         .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
         .header-logo:hover{opacity:0.85}
-        .logo-img{height:28px;width:auto;display:block}.logo-img-dark{filter:brightness(0) invert(1)}
-        .logo-img-light{display:none}
-        [data-theme="light"] .logo-img-dark{display:none}
-        [data-theme="light"] .logo-img-light{display:block}
+        .logo-img{height:28px;width:auto;display:block}[data-theme="dark"] .logo-img{filter:brightness(0) invert(1)}
         .header-nav{display:flex;gap:0.25rem;align-items:center}
         .header-nav a{color:var(--text-secondary);font-size:0.875rem;font-weight:500;text-decoration:none;padding:0.5rem 0.875rem;border-radius:var(--radius-sm);transition:color 0.2s ease,background 0.2s ease}
         .header-nav a:hover{color:var(--text-primary);background:rgba(0,0,0,0.04)}
@@ -377,8 +375,7 @@
 <header class="site-header">
     <div class="header-container">
         <a href="/" class="header-logo">
-            <img src="/images/home/launch-forte.png" class="logo-img logo-img-dark" alt="Launch Forte" decoding="async">
-            <img src="/images/home/launch-forte.png" class="logo-img logo-img-light" alt="Launch Forte" decoding="async">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte" width="160" height="28" fetchpriority="high">
         </a>
         <nav class="header-nav">
             <a href="/index.html">Home</a>
