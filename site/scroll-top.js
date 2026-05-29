@@ -7,7 +7,7 @@
 
     var bar = document.createElement('div');
     bar.id = 'sticky-cta-bar';
-    bar.innerHTML = '<a href="https://calendly.com/seth-fortewebdesigns/30min" target="_blank" rel="noopener" id="sticky-cta-link">Book a Call</a>';
+    bar.innerHTML = '<a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" id="sticky-cta-link">Book a Call</a>';
     document.body.appendChild(bar);
 
     var style = document.createElement('style');
