@@ -756,16 +756,41 @@
   status = 301
   force = true
 
-# Writing page retired 2026-06-03. Replaced by /resources.
+# Free Tools and Resources merged into Free Resources 2026-06-03.
+[[redirects]]
+  from = "/free-tools.html"
+  to = "/free-resources.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/free-tools"
+  to = "/free-resources.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/resources.html"
+  to = "/free-resources.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/resources"
+  to = "/free-resources.html"
+  status = 301
+  force = true
+
+# Writing page retired 2026-06-03. Now flows through Resources merge into Free Resources.
 [[redirects]]
   from = "/writing.html"
-  to = "/resources.html"
+  to = "/free-resources.html"
   status = 301
   force = true
 
 [[redirects]]
   from = "/writing"
-  to = "/resources.html"
+  to = "/free-resources.html"
   status = 301
   force = true
 
