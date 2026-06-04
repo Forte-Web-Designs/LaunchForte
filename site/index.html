@@ -269,7 +269,7 @@
         /* Hero */
         .hero{padding:7rem 1.5rem 3rem;text-align:center}
         .hero h1.display{margin:0 0 2.5rem}
-        .hero .rotating-word{display:inline-block;color:var(--accent);transition:opacity 0.4s ease;font-weight:500}
+        .hero .rotating-word{display:inline-block;color:var(--accent);transition:opacity 0.3s ease;font-weight:500}
 
         /* Stats row */
         .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:980px;margin:3rem auto 0}
@@ -846,12 +846,13 @@
     if (!el) return;
     setInterval(function(){
         el.style.opacity = '0';
+        el.style.transition = 'opacity 0.3s ease';
         setTimeout(function(){
             index = (index + 1) % words.length;
             el.textContent = words[index];
             el.style.opacity = '1';
-        }, 400);
-    }, 2500);
+        }, 300);
+    }, 2200);
 })();
 </script>
 <script src="/scroll-reveal.js"></script>

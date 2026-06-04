@@ -2,6 +2,13 @@
     var css = [
         '.site-header{z-index:200!important}',
 
+        /* Active nav indicator: strong accent color + underline beneath the active tab */
+        '.header-nav a{position:relative}',
+        '.header-nav a.active{color:var(--accent,#0088DB)!important;opacity:1!important;font-weight:600!important;background:transparent!important}',
+        '.header-nav a.active::after{content:"";position:absolute;left:0.75rem;right:0.75rem;bottom:-2px;height:2px;background:var(--accent,#0088DB);border-radius:2px}',
+        '[data-theme="dark"] .header-nav a.active{color:#4ab5ed!important}',
+        '[data-theme="dark"] .header-nav a.active::after{background:#4ab5ed}',
+
         '#hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:transparent;border:1px solid var(--border,#1e293b);border-radius:8px;cursor:pointer;padding:0;flex-shrink:0;transition:border-color 0.2s ease}',
         '#hamburger:hover{border-color:var(--accent,#0088DB)}',
         '#hamburger span{display:block;width:18px;height:2px;background:var(--text-primary,#f0f4f8);border-radius:2px;transition:transform 0.3s cubic-bezier(0.16,1,0.3,1),opacity 0.2s ease}',
@@ -12,7 +19,10 @@
         '#mobile-nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:199;background:var(--background,#0a0e17);padding:100px 2rem 2rem;overflow-y:auto;flex-direction:column;gap:0;opacity:0;transition:opacity 0.3s ease}',
         '#mobile-nav.open{display:flex;opacity:1}',
         '#mobile-nav a{display:block;color:var(--text-secondary,#94a3b8);font-size:1.15rem;font-weight:500;font-family:"Inter",system-ui,sans-serif;text-decoration:none;padding:1.1rem 0;border-bottom:1px solid var(--border,#1e293b);transition:color 0.2s ease,padding-left 0.2s ease}',
-        '#mobile-nav a:hover,#mobile-nav a.active{color:var(--text-primary,#f0f4f8);padding-left:0.5rem}',
+        '#mobile-nav a:hover{color:var(--text-primary,#f0f4f8);padding-left:0.5rem}',
+        /* Mobile active tab: brand blue + heavier weight, no underline since the overlay layout is different */
+        '#mobile-nav a.active{color:var(--accent,#0088DB)!important;opacity:1!important;font-weight:600!important}',
+        '[data-theme="dark"] #mobile-nav a.active{color:#4ab5ed!important}',
         '#mobile-nav a:last-child{border-bottom:none}',
 
         '@media(max-width:768px){',
