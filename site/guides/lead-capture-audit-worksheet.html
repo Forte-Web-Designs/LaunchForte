@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preload" as="image" href="../images/home/launch-forte.png" fetchpriority="high">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lead Capture Audit Worksheet | Launch Forte</title>
+    <meta name="description" content="A self assessment that surfaces the gaps in how you capture and route leads, before they cost you another deal.">
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="canonical" href="https://launchforte.com/guides/lead-capture-audit-worksheet.html">
+    <link rel="icon" href="../images/home/launch-forte-icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --text-primary:#1d1d1f;
+            --text-secondary:#515154;
+            --text-muted:#86868b;
+            --accent:#0088DB;
+            --accent-warm:#4ab5ed;
+            --accent-subtle:rgba(0,136,219,0.10);
+            --background:#f5f5f7;
+            --surface:#ffffff;
+            --border:rgba(0,0,0,0.08);
+            --border-light:rgba(0,0,0,0.12);
+            --radius-pill:980px;
+        }
+        html,body{overflow-x:clip}
+        html{scroll-behavior:smooth}
+        body{
+            font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter',sans-serif;
+            font-size:17px;
+            line-height:1.6;
+            color:var(--text-primary);
+            background:var(--background);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+        }
+        a{color:var(--accent);text-decoration:none;transition:color 0.2s ease}
+        a:hover{color:var(--accent-warm)}
+
+        .site-header{position:sticky;top:0;z-index:100;background:rgba(245,245,247,0.85);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);border-bottom:0.5px solid var(--border)}
+        .header-container{max-width:1100px;margin:0 auto;height:52px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}
+        .header-logo{display:flex;align-items:center;transition:opacity 0.2s ease}
+        .header-logo:hover{opacity:0.85}
+        .logo-img{height:28px;width:auto;display:block}
+        .header-nav{display:flex;gap:0.25rem;align-items:center}
+        .header-nav a{color:var(--text-secondary);font-size:0.875rem;font-weight:500;padding:0.5rem 0.875rem;border-radius:8px;transition:color 0.2s ease,background 0.2s ease}
+        .header-nav a:hover{color:var(--text-primary);background:rgba(0,0,0,0.04)}
+
+        main{max-width:780px;margin:0 auto;padding:4rem 2rem 6rem}
+
+        .breadcrumb{font-size:0.8125rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .breadcrumb a{color:var(--text-muted)}
+        .breadcrumb a:hover{color:var(--accent)}
+
+        .guide-eyebrow{font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem}
+        h1.guide-title{font-size:clamp(1.875rem,4.5vw,2.75rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.025em;line-height:1.15}
+        .guide-subtitle{font-size:1.125rem;color:var(--text-secondary);line-height:1.55;margin-bottom:2.5rem;font-weight:400}
+
+        .print-row{display:flex;gap:0.75rem;align-items:center;margin-bottom:3rem;padding-bottom:1.75rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
+        .btn-print{display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.1rem;background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-pill);font-size:0.8125rem;font-weight:500;color:var(--text-secondary);cursor:pointer;font-family:inherit;text-decoration:none;transition:all 0.2s ease}
+        .btn-print:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-subtle)}
+
+        .guide-cta{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:2rem 2.25rem;margin-top:3rem;text-align:center}
+        .guide-cta h3{font-size:1.25rem;font-weight:600;color:var(--text-primary);margin-bottom:0.75rem;letter-spacing:-0.015em}
+        .guide-cta p{font-size:0.9375rem;color:var(--text-secondary);line-height:1.6;margin-bottom:1.5rem;max-width:480px;margin-left:auto;margin-right:auto}
+        .guide-cta .btn-primary{display:inline-block;padding:0.8rem 1.75rem;background:var(--accent);color:#fff;border-radius:var(--radius-pill);font-size:0.9375rem;font-weight:500;transition:background 0.2s ease}
+        .guide-cta .btn-primary:hover{background:var(--accent-warm);color:#fff}
+
+        @media(max-width:768px){
+            .header-container{padding:0 1.25rem}
+            .header-nav a{font-size:0.75rem;padding:0.35rem 0.6rem}
+            main{padding:2.5rem 1.25rem 4rem}
+            h1.guide-title{font-size:1.75rem}
+        }
+
+        @media print{
+            .site-header,.print-row,.guide-cta{display:none}
+            body{background:#fff;font-size:11pt}
+            main{max-width:none;padding:0;margin:0}
+            h1.guide-title{font-size:18pt}
+            h2{font-size:14pt!important;page-break-after:avoid}
+            h3{font-size:12pt!important;page-break-after:avoid}
+            p,li{font-size:10pt!important}
+            .guide-eyebrow{color:#0088DB!important}
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-container">
+        <a href="/" class="header-logo">
+            <img src="../images/home/launch-forte.png" class="logo-img" alt="Launch Forte" width="160" height="28" fetchpriority="high">
+        </a>
+        <nav class="header-nav">
+            <a href="../index.html">Home</a>
+            <a href="../free-resources.html">Free Resources</a>
+            <a href="../contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="breadcrumb">
+        <a href="../free-resources.html">Free Resources</a> &nbsp;/&nbsp; Guides &nbsp;/&nbsp; The Lead Capture Audit Worksheet
+    </div>
+
+    <p class="guide-eyebrow">Launch Forte Guide</p>
+    <h1 class="guide-title">The Lead Capture Audit Worksheet</h1>
+    <p class="guide-subtitle">A self assessment that surfaces the gaps in how you capture and route leads, before they cost you another deal.</p>
+
+    <div class="print-row">
+        <button type="button" class="btn-print" onclick="window.print()">Save as PDF or print</button>
+        <a href="../free-resources.html" class="btn-print">More guides</a>
+    </div>
+
+    <article>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">Why most lead problems are not lead problems</h2>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">Most businesses believe they have a lead volume problem. The gap is usually upstream of that, in how leads get captured and routed, and it stays invisible because you never see the lead that filled out a form that emailed a dead inbox, or the one that called after hours and got voicemail, or the one that sat unassigned for three days until it went cold. You paid to generate every one of those, and then lost them before a human ever said hello. This worksheet walks the path a lead takes from the moment it arrives to the moment a person follows up, and surfaces every place it can be lost.</p>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">Answer each question for your own business as it works today. Mark a check for yes and leave it blank for no. The blanks are your gaps, and the scoring at the end tells you how much is slipping through.</p>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">Section 1, Capture coverage</h2>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">Does every entry point land in a system, or do some die where they arrive?</p>
+<ul style="list-style:none;padding:0;margin:1rem 0 1.5rem">
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>Every website form writes directly into your CRM or database, so the lead exists as a record.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>Inbound phone calls are logged as leads with the caller's number and the reason they called.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>Social and direct message inquiries are captured into the same system as everything else.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>Leads from referrals, events, and partners get entered the same day, by a process you can rely on.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>Paid ad leads flow straight into the system with the campaign that produced them attached.</span></li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">Section 2, Capture quality</h2>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">When a lead is captured, do you get enough to route and personalize it?</p>
+<ul style="list-style:none;padding:0;margin:1rem 0 1.5rem">
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>Every lead record includes the source, so you know which channel it came from.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>You capture enough context to know what the lead wants, alongside their name and contact.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>The data arrives clean and structured, ready to act on without anyone retyping it.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>A new record is complete enough that the right person could act on it without asking the lead to repeat themselves.</span></li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">Section 3, Speed to lead</h2>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">How fast does a new lead hear from you?</p>
+<ul style="list-style:none;padding:0;margin:1rem 0 1.5rem">
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>A new lead gets an automatic acknowledgement within minutes, day or night.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>A first human response reaches the lead in under an hour during business hours.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>Leads that arrive after hours or on weekends are handled, rather than parked until Monday.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>You know your average time to first response, as a number, right now.</span></li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">Section 4, Routing and assignment</h2>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">Once captured, does a lead reach the right person without someone sorting it by hand?</p>
+<ul style="list-style:none;padding:0;margin:1rem 0 1.5rem">
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>A captured lead is assigned to the right owner or pipeline automatically.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>There is a defined fallback if the assigned owner does not respond within a set time.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>Routing accounts for the lead's source, location, or type, so the right specialist gets it.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>No lead waits in a shared inbox for someone to notice it and decide where it goes.</span></li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">Section 5, One source of truth</h2>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">Can you see every lead in one place?</p>
+<ul style="list-style:none;padding:0;margin:1rem 0 1.5rem">
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>Every lead, from every channel, lives in one system you can open right now.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>You hold no separate spreadsheets or inboxes that contain leads the main system does not.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>A lead's status reads the same wherever you look, with no conflicting versions.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>You could pull a list of every lead from the last 30 days in under a minute.</span></li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">Section 6, Follow up and fallthrough</h2>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">What happens to a lead that does not reply the first time?</p>
+<ul style="list-style:none;padding:0;margin:1rem 0 1.5rem">
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>A lead that does not respond enters an automated multi touch follow up.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>Follow up runs on its own schedule and does not depend on someone remembering.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>Leads that go cold are re engaged later by design.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>You can see, for any lead, how many times you have reached out and when.</span></li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">Section 7, Measurement</h2>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">Do you know what your capture is doing?</p>
+<ul style="list-style:none;padding:0;margin:1rem 0 1.5rem">
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>You know your overall capture rate, the share of inquiries that become tracked leads.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>You can tell which sources produce leads that become revenue.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>You can see where leads drop off between arriving and the first conversation.</span></li>
+<li style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;color:var(--text-secondary);font-size:0.9375rem;line-height:1.6"><span style="display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--border-light);border-radius:4px;margin-top:2px;background:transparent"></span><span>Your numbers come from the system itself, with nobody tallying by hand.</span></li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">Score yourself</h2>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">Count your checks out of 30.</p>
+<ul style="padding:0 0 0 1.25rem;margin:1rem 0 1.5rem">
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">27 to 30. Solid. Your capture and routing hold together. Put your attention on speed and on which sources convert.</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">20 to 26. Gaps. A few clear ones are costing you leads every week. Close the lowest scoring sections first.</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">12 to 19. Bleeding. You are losing a meaningful share of what you generate before anyone works it. This is the highest return thing on your list.</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Under 12. Your capture is held together by people and memory, and it will not survive more volume. Start with one source of truth and automatic routing.</li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">The fixes that matter most, in order</h2>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">The order is deliberate, because each one is wasted without the one before it. First, get every lead into one system automatically, since you cannot route or measure what you did not capture. Second, route and acknowledge instantly, because speed to lead moves conversion more than anything else on this page. Third, automate the follow up, since most replies come after the first touch and that is where the abandoned leads sit. Fourth, put measurement on top, so you can watch the gaps close and find the next one.</p>
+<hr style="border:none;border-top:1px solid var(--border);margin:3rem 0">
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">This is the layer we build at Launch Forte. We connect every entry point to one system, route and acknowledge leads the second they arrive, and run the follow up automatically, on the tools you already use. If this worksheet surfaced gaps, those gaps are leads you already paid for, and closing them is exactly the work.</p>
+    </article>
+
+    <div class="guide-cta">
+        <h3>This is the work we do.</h3>
+        <p>If this guide surfaced gaps in your business, those gaps are the audit. Fixed scope, written diagnostic, fixed pricing on every fix.</p>
+        <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
+    </div>
+</main>
+
+</body>
+</html>

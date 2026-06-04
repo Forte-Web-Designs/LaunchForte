@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preload" as="image" href="../images/home/launch-forte.png" fetchpriority="high">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Reporting Source of Truth Checklist | Launch Forte</title>
+    <meta name="description" content="The questions to ask before you trust any dashboard, so you stop making decisions on numbers you cannot defend.">
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="canonical" href="https://launchforte.com/guides/reporting-source-of-truth-checklist.html">
+    <link rel="icon" href="../images/home/launch-forte-icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --text-primary:#1d1d1f;
+            --text-secondary:#515154;
+            --text-muted:#86868b;
+            --accent:#0088DB;
+            --accent-warm:#4ab5ed;
+            --accent-subtle:rgba(0,136,219,0.10);
+            --background:#f5f5f7;
+            --surface:#ffffff;
+            --border:rgba(0,0,0,0.08);
+            --border-light:rgba(0,0,0,0.12);
+            --radius-pill:980px;
+        }
+        html,body{overflow-x:clip}
+        html{scroll-behavior:smooth}
+        body{
+            font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter',sans-serif;
+            font-size:17px;
+            line-height:1.6;
+            color:var(--text-primary);
+            background:var(--background);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+        }
+        a{color:var(--accent);text-decoration:none;transition:color 0.2s ease}
+        a:hover{color:var(--accent-warm)}
+
+        .site-header{position:sticky;top:0;z-index:100;background:rgba(245,245,247,0.85);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);border-bottom:0.5px solid var(--border)}
+        .header-container{max-width:1100px;margin:0 auto;height:52px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}
+        .header-logo{display:flex;align-items:center;transition:opacity 0.2s ease}
+        .header-logo:hover{opacity:0.85}
+        .logo-img{height:28px;width:auto;display:block}
+        .header-nav{display:flex;gap:0.25rem;align-items:center}
+        .header-nav a{color:var(--text-secondary);font-size:0.875rem;font-weight:500;padding:0.5rem 0.875rem;border-radius:8px;transition:color 0.2s ease,background 0.2s ease}
+        .header-nav a:hover{color:var(--text-primary);background:rgba(0,0,0,0.04)}
+
+        main{max-width:780px;margin:0 auto;padding:4rem 2rem 6rem}
+
+        .breadcrumb{font-size:0.8125rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .breadcrumb a{color:var(--text-muted)}
+        .breadcrumb a:hover{color:var(--accent)}
+
+        .guide-eyebrow{font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem}
+        h1.guide-title{font-size:clamp(1.875rem,4.5vw,2.75rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.025em;line-height:1.15}
+        .guide-subtitle{font-size:1.125rem;color:var(--text-secondary);line-height:1.55;margin-bottom:2.5rem;font-weight:400}
+
+        .print-row{display:flex;gap:0.75rem;align-items:center;margin-bottom:3rem;padding-bottom:1.75rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
+        .btn-print{display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.1rem;background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-pill);font-size:0.8125rem;font-weight:500;color:var(--text-secondary);cursor:pointer;font-family:inherit;text-decoration:none;transition:all 0.2s ease}
+        .btn-print:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-subtle)}
+
+        .guide-cta{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:2rem 2.25rem;margin-top:3rem;text-align:center}
+        .guide-cta h3{font-size:1.25rem;font-weight:600;color:var(--text-primary);margin-bottom:0.75rem;letter-spacing:-0.015em}
+        .guide-cta p{font-size:0.9375rem;color:var(--text-secondary);line-height:1.6;margin-bottom:1.5rem;max-width:480px;margin-left:auto;margin-right:auto}
+        .guide-cta .btn-primary{display:inline-block;padding:0.8rem 1.75rem;background:var(--accent);color:#fff;border-radius:var(--radius-pill);font-size:0.9375rem;font-weight:500;transition:background 0.2s ease}
+        .guide-cta .btn-primary:hover{background:var(--accent-warm);color:#fff}
+
+        @media(max-width:768px){
+            .header-container{padding:0 1.25rem}
+            .header-nav a{font-size:0.75rem;padding:0.35rem 0.6rem}
+            main{padding:2.5rem 1.25rem 4rem}
+            h1.guide-title{font-size:1.75rem}
+        }
+
+        @media print{
+            .site-header,.print-row,.guide-cta{display:none}
+            body{background:#fff;font-size:11pt}
+            main{max-width:none;padding:0;margin:0}
+            h1.guide-title{font-size:18pt}
+            h2{font-size:14pt!important;page-break-after:avoid}
+            h3{font-size:12pt!important;page-break-after:avoid}
+            p,li{font-size:10pt!important}
+            .guide-eyebrow{color:#0088DB!important}
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-container">
+        <a href="/" class="header-logo">
+            <img src="../images/home/launch-forte.png" class="logo-img" alt="Launch Forte" width="160" height="28" fetchpriority="high">
+        </a>
+        <nav class="header-nav">
+            <a href="../index.html">Home</a>
+            <a href="../free-resources.html">Free Resources</a>
+            <a href="../contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="breadcrumb">
+        <a href="../free-resources.html">Free Resources</a> &nbsp;/&nbsp; Guides &nbsp;/&nbsp; The Reporting Source of Truth Checklist
+    </div>
+
+    <p class="guide-eyebrow">Launch Forte Guide</p>
+    <h1 class="guide-title">The Reporting Source of Truth Checklist</h1>
+    <p class="guide-subtitle">The questions to ask before you trust any dashboard, so you stop making decisions on numbers you cannot defend.</p>
+
+    <div class="print-row">
+        <button type="button" class="btn-print" onclick="window.print()">Save as PDF or print</button>
+        <a href="../free-resources.html" class="btn-print">More guides</a>
+    </div>
+
+    <article>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">Why a confident dashboard is dangerous</h2>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">A dashboard that looks authoritative and is wrong is worse than no dashboard, because you act on it. You make hiring, spending, and strategy calls on a number, and if that number sits on the wrong source, a fuzzy definition, or stale data, the decision is wrong before you start. Most dashboards do not fail on the chart. They fail underneath, in the data and the logic feeding the chart, where nobody looks. This checklist is what to verify before you trust a number enough to decide on it. Run any dashboard you rely on through these questions, and if you cannot answer one, you have found the reason to doubt it.</p>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">1, Source</h2>
+<ul style="padding:0 0 0 1.25rem;margin:1rem 0 1.5rem">
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Can you trace each number back to the one system it comes from?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Is there a single source of truth for each metric, so the same number is not pulled from two systems that disagree?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">When two reports show the same metric, do they always match?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Do you know which system wins when they do not?</li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">2, Definitions</h2>
+<ul style="padding:0 0 0 1.25rem;margin:1rem 0 1.5rem">
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Is every metric defined once, in writing, so two people reading it mean the same thing?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Do you know exactly what counts as a lead, a qualified lead, and a customer in this dashboard?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Is revenue defined clearly as booked or as collected, so the number is not mixing the two?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Would a new hire read each metric the same way you do?</li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">3, Freshness</h2>
+<ul style="padding:0 0 0 1.25rem;margin:1rem 0 1.5rem">
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Do you know the last time the data refreshed?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Is the refresh automatic, so the dashboard does not go stale without you knowing?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Does the dashboard show its own last updated time, somewhere you can see it?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">If a data source stopped feeding it today, would you find out, or would the chart just freeze at yesterday's number?</li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">4, Completeness</h2>
+<ul style="padding:0 0 0 1.25rem;margin:1rem 0 1.5rem">
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Are all of your channels and systems feeding this, or are some missing?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Do you know what is not captured here, ex: deals closed offline or a channel that was never connected?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Does the total reconcile with reality, so nothing is being dropped on the way in?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Could a whole segment of activity be missing without the dashboard looking any different?</li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">5, Reconciliation</h2>
+<ul style="padding:0 0 0 1.25rem;margin:1rem 0 1.5rem">
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Have you ever checked the dashboard's revenue against your bank or your accounting?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Do the lead and deal counts match the source systems when you spot check them?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Is there a routine that catches a number drifting away from its source?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">When the dashboard and a source system disagree, do you have a way to find out which is right?</li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">6, Logic and transformation</h2>
+<ul style="padding:0 0 0 1.25rem;margin:1rem 0 1.5rem">
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Do you know what happens to the data between the source and the chart?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Can someone explain every filter and calculation that shapes the number, in plain language?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">If the logic broke, would the number look obviously wrong, or only plausibly wrong?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Is the transformation written down somewhere other than in one person's head?</li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">7, Ownership</h2>
+<ul style="padding:0 0 0 1.25rem;margin:1rem 0 1.5rem">
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Does this dashboard have one named owner who is responsible for it?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Do you get an alert when a feed breaks or a number moves out of range?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Is there a defined process to fix it when it breaks, with a known turnaround?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">If the person who built it left tomorrow, could someone else maintain it?</li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">8, Decision fitness</h2>
+<ul style="padding:0 0 0 1.25rem;margin:1rem 0 1.5rem">
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Does each number here answer a question you make a decision on?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Is anything on the dashboard present only because it looks good, with no decision attached to it?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Can you tell, from the dashboard, what action a bad number should trigger?</li>
+<li style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:0.5rem">Does it surface the few numbers that matter, rather than burying them under vanity metrics?</li>
+</ul>
+<h2 style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:3rem 0 1rem;letter-spacing:-0.018em;line-height:1.25">How to use this</h2>
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">Take one dashboard you rely on and walk every question above against it. Count the ones you cannot answer with confidence. A handful of blanks is normal and fixable. More than that means the dashboard is decoration, and any decision you have made on it deserves a second look. The pattern is almost always the same. The visualization is fine, and the source, the definitions, the freshness, and the reconciliation underneath it were never nailed down.</p>
+<hr style="border:none;border-top:1px solid var(--border);margin:3rem 0">
+<p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin:0 0 1.25rem">This is what we build at Launch Forte. Reporting where every number traces to one source, every metric is defined once, the data refreshes itself, and the totals reconcile, so the dashboard is something you can defend a decision with. If you could not answer these questions about your own dashboards, that is exactly the work, and it is worth a conversation.</p>
+    </article>
+
+    <div class="guide-cta">
+        <h3>This is the work we do.</h3>
+        <p>If this guide surfaced gaps in your business, those gaps are the audit. Fixed scope, written diagnostic, fixed pricing on every fix.</p>
+        <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
+    </div>
+</main>
+
+</body>
+</html>
