@@ -9,6 +9,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://launchforte.com/lead-systems.html</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://launchforte.com/partnership.html</loc>
     <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -16,7 +22,7 @@
   </url>
   <url>
     <loc>https://launchforte.com/what-we-build.html</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
