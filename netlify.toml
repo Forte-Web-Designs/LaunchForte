@@ -93,6 +93,682 @@
   status = 301
   force = true
 
+
+# Product catalog retired 2026-06-03. Replaced by /what-we-build categories and /lead-systems.
+[[redirects]]
+  from = "/products/cash-collection-system.html"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/cash-collection-system"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/client-onboarding.html"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/client-onboarding"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/collections-follow-up.html"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/collections-follow-up"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/crm-and-pipeline-setup.html"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/crm-and-pipeline-setup"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/customer-lifecycle-system.html"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/customer-lifecycle-system"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/payment-automation.html"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/payment-automation"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/review-automation.html"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/review-automation"
+  to = "/what-we-build.html#revenue-infrastructure"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/ai-agent-setup.html"
+  to = "/what-we-build.html#ai-orchestration"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/ai-agent-setup"
+  to = "/what-we-build.html#ai-orchestration"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/ai-website-chatbot.html"
+  to = "/what-we-build.html#ai-orchestration"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/ai-website-chatbot"
+  to = "/what-we-build.html#ai-orchestration"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/managed-ai-front-desk.html"
+  to = "/what-we-build.html#ai-orchestration"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/managed-ai-front-desk"
+  to = "/what-we-build.html#ai-orchestration"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/customer-research.html"
+  to = "/what-we-build.html#reporting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/customer-research"
+  to = "/what-we-build.html#reporting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/lead-tracking-and-reporting.html"
+  to = "/what-we-build.html#reporting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/lead-tracking-and-reporting"
+  to = "/what-we-build.html#reporting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/reporting-dashboard.html"
+  to = "/what-we-build.html#reporting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/reporting-dashboard"
+  to = "/what-we-build.html#reporting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/signal-monitoring.html"
+  to = "/what-we-build.html#reporting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/signal-monitoring"
+  to = "/what-we-build.html#reporting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/additional-market-add-on.html"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/additional-market-add-on"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/content-clip-and-distribute.html"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/content-clip-and-distribute"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/dispatch-system.html"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/dispatch-system"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/e-commerce-automation.html"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/e-commerce-automation"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/file-delivery-and-approval.html"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/file-delivery-and-approval"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/operations-hub.html"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/operations-hub"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/project-updates.html"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/project-updates"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/social-media-cross-posting.html"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/social-media-cross-posting"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/source-template-add-on.html"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/source-template-add-on"
+  to = "/what-we-build.html#custom-builds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/automation-audit.html"
+  to = "/what-we-build.html#engineering-reliability"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/automation-audit"
+  to = "/what-we-build.html#engineering-reliability"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/automation-migration.html"
+  to = "/what-we-build.html#engineering-reliability"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/automation-migration"
+  to = "/what-we-build.html#engineering-reliability"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/platform-migration.html"
+  to = "/what-we-build.html#engineering-reliability"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/platform-migration"
+  to = "/what-we-build.html#engineering-reliability"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/reliability-setup.html"
+  to = "/what-we-build.html#engineering-reliability"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/reliability-setup"
+  to = "/what-we-build.html#engineering-reliability"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/systems-assessment.html"
+  to = "/what-we-build.html#engineering-reliability"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/systems-assessment"
+  to = "/what-we-build.html#engineering-reliability"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/ad-campaign-setup.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/ad-campaign-setup"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/cold-email-outbound.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/cold-email-outbound"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/database-reactivation-campaign.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/database-reactivation-campaign"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/email-authentication.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/email-authentication"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/funnel-activation.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/funnel-activation"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/growth-engine.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/growth-engine"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/growth-package.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/growth-package"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/instant-response-system.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/instant-response-system"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/lead-delivery-os-tier-1.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/lead-delivery-os-tier-1"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/lead-delivery-os-tier-2.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/lead-delivery-os-tier-2"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/lead-intake-system.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/lead-intake-system"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/lead-reactivation.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/lead-reactivation"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/lead-routing.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/lead-routing"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/managed-ads-and-funnels.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/managed-ads-and-funnels"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/managed-cold-outbound.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/managed-cold-outbound"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/managed-growth-system.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/managed-growth-system"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/managed-lead-reactivation.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/managed-lead-reactivation"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/messaging-compliance.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/messaging-compliance"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/nurture-sequences.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/nurture-sequences"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/ringless-voicemail-drops.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/ringless-voicemail-drops"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/sales-funnel-build.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/sales-funnel-build"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/signal-outbound-tier-1.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/signal-outbound-tier-1"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/signal-outbound-tier-2.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/signal-outbound-tier-2"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/stop-losing-leads.html"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/stop-losing-leads"
+  to = "/lead-systems.html"
+  status = 301
+  force = true
+
+# Industries subpages retired 2026-06-03.
+[[redirects]]
+  from = "/industries/agencies.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/industries/agencies"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/industries/coaches-and-course-creators.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/industries/coaches-and-course-creators"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/industries/home-services.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/industries/home-services"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+# Writing page retired 2026-06-03. Replaced by /resources.
+[[redirects]]
+  from = "/writing.html"
+  to = "/resources.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/writing"
+  to = "/resources.html"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
