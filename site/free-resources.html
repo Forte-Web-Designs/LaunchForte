@@ -4,18 +4,18 @@
     <link rel="preload" as="image" href="/images/home/launch-forte.png" fetchpriority="high">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Resources: Videos, Self Check Tool, Articles | Launch Forte</title>
-    <meta name="description" content="Videos, a working diagnostic tool, articles, and downloadable frameworks on the engineering behind growth systems. The trust layer for operators.">
+    <title>Free Resources: Videos, Guides, Articles | Launch Forte</title>
+    <meta name="description" content="Videos, downloadable frameworks, and articles on the engineering behind growth systems. The trust layer for operators.">
     <link rel="canonical" href="https://launchforte.com/free-resources.html">
     <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
-    <meta property="og:title" content="Free Resources: Videos, Self Check Tool, Articles | Launch Forte">
-    <meta property="og:description" content="Videos, a working diagnostic tool, articles, and downloadable frameworks on the engineering behind growth systems. The trust layer for operators.">
+    <meta property="og:title" content="Free Resources: Videos, Guides, Articles | Launch Forte">
+    <meta property="og:description" content="Videos, downloadable frameworks, and articles on the engineering behind growth systems. The trust layer for operators.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://launchforte.com/free-resources.html">
     <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Free Resources: Videos, Self Check Tool, Articles | Launch Forte">
-    <meta name="twitter:description" content="Videos, a working diagnostic tool, articles, and downloadable frameworks on the engineering behind growth systems. The trust layer for operators.">
+    <meta name="twitter:title" content="Free Resources: Videos, Guides, Articles | Launch Forte">
+    <meta name="twitter:description" content="Videos, downloadable frameworks, and articles on the engineering behind growth systems. The trust layer for operators.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
@@ -29,7 +29,7 @@
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Free Resources",
-      "description": "Videos, a working diagnostic tool, articles, and downloadable frameworks on the engineering behind growth systems.",
+      "description": "Videos, downloadable frameworks, and articles on the engineering behind growth systems.",
       "url": "https://launchforte.com/free-resources.html",
       "publisher": {
         "@type": "ProfessionalService",
@@ -368,7 +368,6 @@
     <!-- ANCHOR PILLS -->
     <div class="anchor-pills">
         <a href="#videos" class="anchor-pill">Videos</a>
-        <a href="#self-check" class="anchor-pill">Self check tool</a>
         <a href="#guides" class="anchor-pill">Guides</a>
         <a href="#articles" class="anchor-pill">Articles</a>
     </div>
@@ -407,59 +406,10 @@
         </div>
     </section>
 
-    <!-- SECTION 02: Self Check Tool -->
-    <section class="page-section reveal" id="self-check">
-        <p class="section-label">02 / Systems Audit Self Check</p>
-        <h2>Twelve questions. <span style="color:var(--accent)">A working diagnosis</span>.</h2>
-        <p class="body-text">Answer twelve yes or no questions about your current systems. The tool scores your setup and shows you the category most likely costing you money. Same framework we use inside the paid audit.</p>
 
-        <div id="self-check-tool" style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:2.5rem 2rem;margin-top:1.5rem">
-
-            <!-- Quiz container -->
-            <div id="sc-quiz">
-                <div id="sc-progress" style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.75rem">
-                    <span id="sc-step-label" style="font-size:0.8125rem;color:var(--text-muted);font-weight:500">Question 1 of 12</span>
-                    <div style="flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden">
-                        <div id="sc-progress-bar" style="height:100%;background:var(--accent);width:8.33%;transition:width 0.3s ease"></div>
-                    </div>
-                </div>
-                <h3 id="sc-question" style="font-size:1.25rem;font-weight:600;color:var(--text-primary);margin-bottom:1.5rem;line-height:1.35;letter-spacing:-0.015em"></h3>
-                <div style="display:flex;flex-direction:column;gap:0.75rem">
-                    <button id="sc-yes" type="button" style="width:100%;text-align:left;padding:1rem 1.25rem;background:#fff;border:1px solid var(--border);border-radius:12px;font-size:0.9375rem;font-weight:500;color:var(--text-primary);cursor:pointer;transition:all 0.15s ease;font-family:inherit">Yes</button>
-                    <button id="sc-no" type="button" style="width:100%;text-align:left;padding:1rem 1.25rem;background:#fff;border:1px solid var(--border);border-radius:12px;font-size:0.9375rem;font-weight:500;color:var(--text-primary);cursor:pointer;transition:all 0.15s ease;font-family:inherit">No</button>
-                </div>
-                <div style="margin-top:1.5rem;display:flex;justify-content:space-between;align-items:center">
-                    <button id="sc-back" type="button" style="background:none;border:none;color:var(--text-muted);font-size:0.8125rem;cursor:pointer;font-family:inherit;padding:0.4rem 0;visibility:hidden">Back</button>
-                    <span id="sc-skip-label" style="font-size:0.8125rem;color:var(--text-muted)">Takes about 90 seconds</span>
-                </div>
-            </div>
-
-            <!-- Result container -->
-            <div id="sc-result" style="display:none">
-                <div style="text-align:center;margin-bottom:1.75rem">
-                    <p class="section-label" style="justify-content:center;margin-bottom:0.5rem">Your result</p>
-                    <h3 id="sc-result-headline" style="font-size:1.5rem;font-weight:700;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.02em"></h3>
-                    <p id="sc-result-score" style="font-size:0.875rem;color:var(--text-muted)"></p>
-                </div>
-                <div id="sc-result-detail" style="background:var(--background);border-radius:14px;padding:1.5rem;margin-bottom:1.5rem">
-                    <p id="sc-result-detail-label" style="font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Where to look first</p>
-                    <h4 id="sc-result-category" style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.65rem;letter-spacing:-0.01em"></h4>
-                    <p id="sc-result-body" style="font-size:0.9375rem;line-height:1.7;color:var(--text-secondary);margin:0"></p>
-                </div>
-                <div style="text-align:center">
-                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary" style="display:inline-block">Book a Growth Systems Audit</a>
-                    <div style="margin-top:0.75rem">
-                        <button id="sc-restart" type="button" style="background:none;border:none;color:var(--text-muted);font-size:0.8125rem;cursor:pointer;font-family:inherit;text-decoration:underline">Run the check again</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- SECTION 03: Guides -->
+    <!-- SECTION 02: Guides -->
     <section class="page-section reveal" id="guides">
-        <p class="section-label">03 / Guides</p>
+        <p class="section-label">02 / Guides</p>
         <h2>Downloadable <span style="color:var(--accent)">frameworks</span>.</h2>
         <p class="body-text">Reference guides on the architectures we use most often. Each one is the same framework we apply inside a paid build. Drop your email and we'll send you straight to the guide.</p>
 
@@ -529,9 +479,9 @@
         </form>
     </section>
 
-    <!-- SECTION 04: Articles -->
+    <!-- SECTION 03: Articles -->
     <section class="page-section reveal" id="articles">
-        <p class="section-label">04 / Articles</p>
+        <p class="section-label">03 / Articles</p>
         <h2>What we think about the <span style="color:var(--accent)">engineering work</span>.</h2>
         <p class="body-text">Frameworks, breakdowns, and lessons from real engagements. The patterns that show up across most engagements and the ones that don't.</p>
 
@@ -582,12 +532,12 @@
         </div>
     </section>
 
-    <!-- SECTION 05: Closing CTA -->
+    <!-- SECTION 04: Closing CTA -->
     <section class="page-section reveal" id="next-step">
-        <p class="section-label">05 / Next step</p>
+        <p class="section-label">04 / Next step</p>
         <div class="cta-banner">
             <h2>Want the <span style="color:var(--accent)">full diagnosis</span>?</h2>
-            <p>The self check is the first pass. The Growth Systems Audit is the full diagnosis: written, prioritized, with fixed pricing on every fix. Credits toward your first build.</p>
+            <p>The guides cover the patterns. The Growth Systems Audit applies them to your business. Written diagnostic, prioritized, with fixed pricing on every fix. Credits toward your first build.</p>
             <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
         </div>
     </section>
@@ -632,167 +582,6 @@
     </div>
 
 </main>
-
-<script>
-// Systems Audit Self Check. Static, no backend, runs entirely in browser.
-(function(){
-    // Twelve questions, two per category. Yes always means healthy.
-    // Category gaps are computed from unhealthy answers. Tie breaks favor
-    // categories earlier in the canonical order below.
-    var CATEGORY_ORDER = ["outbound", "revenue", "ai", "reporting", "custom", "reliability"];
-
-    var questions = [
-        // Outbound and Lead Systems
-        { q: "Does every new lead from your highest spend channel get a response within 5 minutes?", category: "outbound" },
-        { q: "Do you have an automated way to reactivate leads that went cold 60 to 90 days ago?", category: "outbound" },
-        // Revenue Infrastructure
-        { q: "Does your CRM match how your team closes deals?", category: "revenue" },
-        { q: "When a deal closes, do payment, onboarding, and CRM updates fire without manual steps?", category: "revenue" },
-        // AI Agents and Orchestration
-        { q: "Are inbound calls or messages outside business hours handled by an agent that qualifies and routes them?", category: "ai" },
-        { q: "Is there at least one repetitive task your team would do if they had time, but a workflow or agent already handles for you?", category: "ai" },
-        // Reporting and Dashboards
-        { q: "Can you tell, today, the cost per qualified call your acquisition channels are producing?", category: "reporting" },
-        { q: "Are revenue metrics defined the same way across sales, marketing, and finance?", category: "reporting" },
-        // Custom Builds and Integrations
-        { q: "Do the two or three tools your team relies on most talk to each other automatically, without manual exports or copy-paste?", category: "custom" },
-        { q: "Where off the shelf platforms fall short for your business, do you have a custom system filling the gap?", category: "custom" },
-        // Engineering and Reliability
-        { q: "When something breaks in production, do you find out before your customers do?", category: "reliability" },
-        { q: "If the three people who built your systems left tomorrow, would the operation keep running?", category: "reliability" }
-    ];
-
-    var state = { idx: 0, answers: [] };
-    var qEl = document.getElementById("sc-question");
-    var yesBtn = document.getElementById("sc-yes");
-    var noBtn = document.getElementById("sc-no");
-    var backBtn = document.getElementById("sc-back");
-    var stepLabel = document.getElementById("sc-step-label");
-    var progressBar = document.getElementById("sc-progress-bar");
-    var quizEl = document.getElementById("sc-quiz");
-    var resultEl = document.getElementById("sc-result");
-    var restartBtn = document.getElementById("sc-restart");
-
-    function render() {
-        var item = questions[state.idx];
-        qEl.textContent = item.q;
-        stepLabel.textContent = "Question " + (state.idx + 1) + " of " + questions.length;
-        progressBar.style.width = ((state.idx + 1) / questions.length * 100) + "%";
-        backBtn.style.visibility = state.idx === 0 ? "hidden" : "visible";
-    }
-
-    function answer(val) {
-        state.answers[state.idx] = val;
-        if (state.idx < questions.length - 1) {
-            state.idx++;
-            render();
-        } else {
-            showResult();
-        }
-    }
-
-    function isHealthy(question, answer) {
-        // Default: yes means healthy. With invert flag: no means healthy.
-        return question.invert ? answer === false : answer === true;
-    }
-
-    function showResult() {
-        // Score one point per healthy answer.
-        var score = 0;
-        for (var i = 0; i < questions.length; i++) {
-            if (isHealthy(questions[i], state.answers[i])) score++;
-        }
-
-        // Count unhealthy answers per category.
-        var unhealthyByCategory = {};
-        for (var j = 0; j < questions.length; j++) {
-            if (!isHealthy(questions[j], state.answers[j])) {
-                var cat = questions[j].category;
-                unhealthyByCategory[cat] = (unhealthyByCategory[cat] || 0) + 1;
-            }
-        }
-
-        // Deterministic tie break: walk CATEGORY_ORDER and pick the first
-        // category that has the maximum unhealthy count. Same answers
-        // always produce the same result.
-        var topLeak = null, topLeakCount = 0;
-        for (var k = 0; k < CATEGORY_ORDER.length; k++) {
-            var c = CATEGORY_ORDER[k];
-            var count = unhealthyByCategory[c] || 0;
-            if (count > topLeakCount) {
-                topLeak = c;
-                topLeakCount = count;
-            }
-        }
-
-        // Score thresholds scaled to 12 questions (80% / 50%).
-        var headline, body;
-        if (score >= 10) {
-            headline = "Strong foundation.";
-            body = "Your systems are running. Most operators at this level move into the Partnership next so the engineering work keeps pace as the business grows.";
-        } else if (score >= 6) {
-            headline = "Working, with visible gaps.";
-            body = "Enough is running that you can grow. Enough is broken that growth costs more than it should. An audit pinpoints what to fix and what it would cost.";
-        } else {
-            headline = "Strategy is ahead of the systems.";
-            body = "The infrastructure is the bottleneck. Every dollar of new spend is partly wasted because the systems underneath can't carry it. Fix the foundation first.";
-        }
-
-        var categoryLabels = {
-            outbound: "Outbound and Lead Systems",
-            revenue: "Revenue Infrastructure",
-            ai: "AI Agents and Orchestration",
-            reporting: "Reporting and Dashboards",
-            custom: "Custom Builds and Integrations",
-            reliability: "Engineering and Reliability"
-        };
-        var categoryBodies = {
-            outbound: "The biggest gaps showed up in how leads enter and move through your pipeline. Slow response, no reactivation, deliverability. This is usually the fastest place to recover money.",
-            revenue: "The biggest gaps showed up in the infrastructure underneath the sale. CRM, payment, onboarding, attribution. The plumbing every dollar passes through.",
-            ai: "The biggest gaps showed up in work AI could handle. Inbound after hours, repeatable analysis, routing, qualification. Each one is a slot where revenue or time is left on the table.",
-            reporting: "The biggest gaps showed up in your ability to make decisions from the data. Metrics that disagree, dashboards nobody trusts, no single source of truth. Decisions get made on guess instead of math.",
-            custom: "The biggest gaps showed up where off the shelf can't reach. Tools that don't talk to each other, workflows the platform won't build, processes the SaaS roadmap will never prioritize. Engineering is the only path.",
-            reliability: "The biggest gaps showed up in operational resilience. Manual dependencies, no monitoring, failures the team finds out about from customers. The systems work until they don't."
-        };
-
-        document.getElementById("sc-result-headline").textContent = headline;
-        document.getElementById("sc-result-score").textContent = "Score: " + score + " of " + questions.length;
-        if (topLeak) {
-            document.getElementById("sc-result-detail-label").textContent = "Where to look first";
-            document.getElementById("sc-result-category").textContent = categoryLabels[topLeak];
-            document.getElementById("sc-result-body").textContent = categoryBodies[topLeak];
-        } else {
-            // Every answer healthy. Pivot the detail box to a Partnership cue.
-            document.getElementById("sc-result-detail-label").textContent = "What's next";
-            document.getElementById("sc-result-category").textContent = "Partnership and ongoing optimization";
-            document.getElementById("sc-result-body").textContent = body;
-        }
-
-        quizEl.style.display = "none";
-        resultEl.style.display = "block";
-    }
-
-    yesBtn.addEventListener("click", function(){ answer(true); });
-    noBtn.addEventListener("click", function(){ answer(false); });
-    backBtn.addEventListener("click", function(){
-        if (state.idx > 0) { state.idx--; render(); }
-    });
-    restartBtn.addEventListener("click", function(){
-        state = { idx: 0, answers: [] };
-        render();
-        quizEl.style.display = "block";
-        resultEl.style.display = "none";
-    });
-
-    // Hover state for answer buttons.
-    [yesBtn, noBtn].forEach(function(btn){
-        btn.addEventListener("mouseenter", function(){ btn.style.borderColor = "var(--accent)"; btn.style.background = "var(--accent-subtle)"; });
-        btn.addEventListener("mouseleave", function(){ btn.style.borderColor = "var(--border)"; btn.style.background = "#fff"; });
-    });
-
-    render();
-})();
-</script>
 
 <script>
 // Guide download email gate. Each card expands into an email form on click.
