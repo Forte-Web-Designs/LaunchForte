@@ -150,8 +150,11 @@
         .site-video{width:100%;border-radius:var(--radius-md);border:1px solid var(--border);display:block;box-shadow:0 8px 30px rgba(0,0,0,0.3)}
 
         /* CTA section */
-        .cta-block{text-align:center}
-        .cta-block h2{font-size:1.4rem;font-weight:700;color:var(--text-primary);margin-bottom:1rem}
+        .cta-block{text-align:center;padding:3.5rem 2rem}
+        .cta-block h2{font-size:1.4rem;font-weight:700;color:var(--text-primary);margin-bottom:1.25rem}
+        .cta-block .body-text{margin-bottom:2rem;max-width:640px;margin-left:auto;margin-right:auto}
+        .cta-block .cta-buttons{margin-top:0.5rem}
+        @media(max-width:768px){.cta-block{padding:2.5rem 1.5rem}}
         .cta-buttons{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center}
 
         /* Calendly */
@@ -422,6 +425,13 @@
         </div>
     </div>
 
+    <!-- VOYAGE BADGE -->
+    <div class="reveal" style="margin-top:1.5rem;text-align:center;">
+        <a href="https://voyagedallas.com/interview/community-highlights-meet-seth-forte-of-forte-web-designs/" target="_blank" rel="noopener" class="voyage-badge">
+            <span class="voyage-badge-text">As Featured in <strong>Voyage Dallas Magazine</strong></span>
+        </a>
+    </div>
+
     <!-- FOUNDER LINK -->
     <div class="section reveal">
         <span class="section-label">About the founder</span>
@@ -539,13 +549,6 @@
         <div class="calendly-wrap">
             <iframe src="https://calendly.com/seth-launchforte/30min" title="Book a call with Seth Forte" loading="lazy"></iframe>
         </div>
-    </div>
-
-    <!-- VOYAGE BADGE -->
-    <div class="reveal" style="margin-top:1rem;">
-        <a href="https://voyagedallas.com/interview/community-highlights-meet-seth-forte-of-forte-web-designs/" target="_blank" rel="noopener" class="voyage-badge">
-            <span class="voyage-badge-text">As Featured in <strong>Voyage Dallas Magazine</strong></span>
-        </a>
     </div>
 
     <!-- FOOTER -->
