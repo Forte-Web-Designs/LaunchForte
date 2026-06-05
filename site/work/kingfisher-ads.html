@@ -290,7 +290,7 @@
 
         <p>The workflow handles three different billing models: flat fee plus percentage with a minimum, flat fee plus percentage without a minimum, and percentage only with a maximum cap. Each client's fee structure is stored in the workflow configuration, so adding a new client means updating one JSON object, not rebuilding anything.</p>
 
-        <p>For multi-business clients, the system pulls spend from separate ad accounts, calculates billing for each business independently, then combines them into one invoice row with individual breakdowns visible for reference.</p>
+        <p>For multi business clients, the system pulls spend from separate ad accounts, calculates billing for each business independently, then combines them into one invoice row with individual breakdowns visible for reference.</p>
 
         <p>The output sheet has two tabs. The invoice-ready view shows one row per client per month with total spend, fee structure, amount due, and payment status. The detailed breakdown tab shows every ad account and platform with individual spend amounts for spot-checking.</p>
 
@@ -299,7 +299,7 @@
         <h2>Results</h2>
 
         <div class="callout">
-            <p><strong>3-4 hours of monthly manual work eliminated.</strong> Billing calculations automated across 3 fee structures. Multi-business invoicing handled automatically. Reports ready on the 1st of every month, untouched. Scales to new clients with a config change, no rebuild.</p>
+            <p><strong>3-4 hours of monthly manual work eliminated.</strong> Billing calculations automated across 3 fee structures. Multi business invoicing handled automatically. Reports ready on the 1st of every month, untouched. Scales to new clients with a config change, no rebuild.</p>
         </div>
 
         <h2>Tech Stack</h2>
@@ -314,7 +314,7 @@
 
         <h2>What Made This Work</h2>
 
-        <p>The tricky part wasn't pulling data from APIs. It was the billing logic. Three different fee structures, minimums, maximums, a multi-business client with a shared cap, and currency handling. Most automation tools can connect to an API. Building the calculation engine that handles every edge case correctly every month without human review is the part that actually saves time.</p>
+        <p>The tricky part wasn't pulling data from APIs. It was the billing logic. Three different fee structures, minimums, maximums, a multi business client with a shared cap, and currency handling. Most automation tools can connect to an API. Building the calculation engine that handles every edge case correctly every month without human review is the part that actually saves time.</p>
 
         <p>The other piece was ownership. Andrew's OAuth credentials live in his account. The workflow runs on his n8n instance. The output sheet is in his Google Drive. The automation doesn't depend on an external contractor staying available.</p>
     </div>

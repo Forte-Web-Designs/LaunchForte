@@ -278,7 +278,7 @@
     <div class="post-body">
         <h2>The Situation</h2>
 
-        <p>Universal Data Inc. is a managed service provider in New Orleans with about 30 employees. They had 60+ technical SOPs in Trainual, a SaaS documentation platform. Alex wanted to bring everything in-house to SharePoint, which they were already paying for but had never properly configured.</p>
+        <p>Universal Data Inc. is a managed service provider in New Orleans with about 30 employees. They had 60+ technical SOPs in Trainual, a SaaS documentation platform. Alex wanted to bring everything in house to SharePoint, which they were already paying for but had never properly configured.</p>
 
         <p>The real challenge wasn't the migration. It was building a system where employees could submit new SOPs using a standardized template, with screenshots and rich content intact, routed through an approval workflow before publishing. And it had to be enforceable... no way to bypass the template, no way to upload a random Word doc and call it an SOP.</p>
 
@@ -290,14 +290,14 @@
 
         <p>All 60 Technical SOPs were exported from Trainual, converted to a standardized Word template format, and migrated to a proper folder architecture organized by category (Security, Cloud, Network Infrastructure, and nine others).</p>
 
-        <p>The template enforcement was the hard part. SharePoint's rich text fields don't reliably save inline images, which killed two approaches before we found the solution. The final approach: a locked Word template with content controls copied by a Power Automate instant flow. Employees click a button, name their SOP, and get a pre-structured document to fill in. The template lock means they can fill in fields but can't alter the structure. There is no other way to submit an SOP.</p>
+        <p>The template enforcement was the hard part. SharePoint's rich text fields don't reliably save inline images, which killed two approaches before we found the solution. The final approach: a locked Word template with content controls copied by a Power Automate instant flow. Employees click a button, name their SOP, and get a pre structured document to fill in. The template lock means they can fill in fields but can't alter the structure. There is no other way to submit an SOP.</p>
 
         <p>The approval workflow watches for new documents, routes to two approvers, and moves approved SOPs to their published category folder. Versioning tracks every edit with full history. Permissions ensure all employees can read but only designated submitters can add new documents.</p>
 
         <h2>Results</h2>
 
         <div class="callout">
-            <p><strong>60 Technical SOPs migrated from Trainual to SharePoint.</strong> Standardized template enforced on every submission. Two-person approval workflow with automatic routing. Full version history on every document. No new software subscriptions (runs on existing Microsoft 365). Eliminated Trainual subscription cost. Delivered in 2 weeks.</p>
+            <p><strong>60 Technical SOPs migrated from Trainual to SharePoint.</strong> Standardized template enforced on every submission. Two person approval workflow with automatic routing. Full version history on every document. No new software subscriptions (runs on existing Microsoft 365). Eliminated Trainual subscription cost. Delivered in 2 weeks.</p>
         </div>
 
         <h2>Tech Stack</h2>
@@ -313,7 +313,7 @@
 
         <p>The project pivoted three times before landing on the right approach. Folder uploads had no enforcement. A SharePoint list form lost screenshots on save. A Power Apps form hit the same limitation and would have required premium licensing for 30 users.</p>
 
-        <p>The solution that worked was a locked Word document copied by a Power Automate flow. Templates are enforced because the flow is the only way to create one. Screenshots persist because Word handles rich content properly. No premium licensing required. And employees don't need to remember anything... they click a button and get a pre-structured document.</p>
+        <p>The solution that worked was a locked Word document copied by a Power Automate flow. Templates are enforced because the flow is the only way to create one. Screenshots persist because Word handles rich content properly. No premium licensing required. And employees don't need to remember anything... they click a button and get a pre structured document.</p>
 
         <p>Sometimes the best system is the one that survives contact with the platform's actual limitations.</p>
     </div>
