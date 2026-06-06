@@ -20,6 +20,9 @@
 .DS_Store
 *.pem
 
+# local source assets (uncompressed video masters, unused source PDFs) — not deployed
+/_source-assets
+
 # debug
 npm-debug.log*
 yarn-debug.log*
