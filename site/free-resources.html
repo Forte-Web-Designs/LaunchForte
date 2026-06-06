@@ -333,6 +333,79 @@
             animation: none !important;
         }
 
+        /* Video cards + lightbox */
+        .video-card .video-thumb {
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .video-card:hover .video-thumb,
+        .video-card:focus-visible .video-thumb {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+        }
+        .video-card:focus-visible {
+            outline: none;
+        }
+        .video-card .video-thumb img {
+            transition: transform 0.4s ease;
+        }
+        .video-card:hover .video-thumb img {
+            transform: scale(1.03);
+        }
+        .video-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.85);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+        }
+        .video-lightbox.is-open {
+            display: flex;
+        }
+        .video-lightbox__inner {
+            position: relative;
+            width: 100%;
+            max-width: 960px;
+        }
+        .video-lightbox__inner video {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 14px;
+            background: #000;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+        }
+        .video-lightbox__close {
+            position: absolute;
+            top: -2.75rem;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .video-lightbox__close:hover {
+            background: rgba(255,255,255,0.18);
+        }
+        @media (max-width: 600px) {
+            .video-lightbox__close {
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+        }
+
     </style>
     <script src="/theme-toggle.js"></script>
 </head>
@@ -378,31 +451,36 @@
         <h2>Watch the <span style="color:var(--accent)">engineering work</span>.</h2>
         <p class="body-text">Short walkthroughs of systems we've built, frameworks we use, and patterns we've seen. Videos go here as we record them.</p>
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1.75rem">
-            <div style="background:linear-gradient(135deg,#1d1d1f 0%,#2a2a2c 100%);border-radius:14px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)">
-                <div style="text-align:center;color:#a1a1a6">
-                    <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:2px"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                    </div>
-                    <p style="font-size:0.875rem;font-weight:500;color:#f5f5f7;margin:0">Walkthrough coming soon</p>
-                </div>
-            </div>
-            <div style="background:linear-gradient(135deg,#1d1d1f 0%,#2a2a2c 100%);border-radius:14px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)">
-                <div style="text-align:center;color:#a1a1a6">
-                    <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:2px"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                    </div>
-                    <p style="font-size:0.875rem;font-weight:500;color:#f5f5f7;margin:0">Walkthrough coming soon</p>
-                </div>
-            </div>
-            <div style="background:linear-gradient(135deg,#1d1d1f 0%,#2a2a2c 100%);border-radius:14px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)">
-                <div style="text-align:center;color:#a1a1a6">
-                    <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:2px"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                    </div>
-                    <p style="font-size:0.875rem;font-weight:500;color:#f5f5f7;margin:0">Walkthrough coming soon</p>
-                </div>
-            </div>
+        <div class="video-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-top:1.75rem">
+
+            <button type="button" class="video-card" data-video-src="/videos/Video1-7-Layers.mp4" data-video-title="The seven layers every revenue system is built on" style="display:flex;flex-direction:column;gap:0.75rem;padding:0;background:none;border:none;text-align:left;cursor:pointer;font:inherit;color:inherit">
+                <span class="video-thumb" style="display:block;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/9;background:#1d1d1f">
+                    <img src="/images/Video1-Thumbnail-7-Layers.png" alt="The seven layers every revenue system is built on" loading="lazy" width="1672" height="941" style="display:block;width:100%;height:100%;object-fit:cover">
+                </span>
+                <span style="font-size:0.875rem;font-weight:500;color:var(--text-primary);line-height:1.4">The seven layers every revenue system is built on</span>
+            </button>
+
+            <button type="button" class="video-card" data-video-src="/videos/Video2-Cant-Be-Skipped.mp4" data-video-title="How we engineer a process that can't be skipped" style="display:flex;flex-direction:column;gap:0.75rem;padding:0;background:none;border:none;text-align:left;cursor:pointer;font:inherit;color:inherit">
+                <span class="video-thumb" style="display:block;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/9;background:#1d1d1f">
+                    <img src="/images/Video2-Thumbnail-Cant-Be-Skipped.png" alt="How we engineer a process that can't be skipped" loading="lazy" width="1565" height="1005" style="display:block;width:100%;height:100%;object-fit:cover">
+                </span>
+                <span style="font-size:0.875rem;font-weight:500;color:var(--text-primary);line-height:1.4">How we engineer a process that can't be skipped</span>
+            </button>
+
+            <button type="button" class="video-card" data-video-src="/videos/Video3-Why-Most-AI-Fails.mp4" data-video-title="The four layers under every AI system that works in production" style="display:flex;flex-direction:column;gap:0.75rem;padding:0;background:none;border:none;text-align:left;cursor:pointer;font:inherit;color:inherit">
+                <span class="video-thumb" style="display:block;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/9;background:#1d1d1f">
+                    <img src="/images/Video3-Thumbnail-Why-Most-AI-Fails.png" alt="The four layers under every AI system that works in production" loading="lazy" width="1672" height="941" style="display:block;width:100%;height:100%;object-fit:cover">
+                </span>
+                <span style="font-size:0.875rem;font-weight:500;color:var(--text-primary);line-height:1.4">The four layers under every AI system that works in production</span>
+            </button>
+
+            <button type="button" class="video-card" data-video-src="/videos/Video4-It-Fixes-Itself.mp4" data-video-title="How we design automation to catch its own failures" style="display:flex;flex-direction:column;gap:0.75rem;padding:0;background:none;border:none;text-align:left;cursor:pointer;font:inherit;color:inherit">
+                <span class="video-thumb" style="display:block;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/9;background:#1d1d1f">
+                    <img src="/images/Video4-Thumbnail-It-Fixes-Itself.png" alt="How we design automation to catch its own failures" loading="lazy" width="1672" height="941" style="display:block;width:100%;height:100%;object-fit:cover">
+                </span>
+                <span style="font-size:0.875rem;font-weight:500;color:var(--text-primary);line-height:1.4">How we design automation to catch its own failures</span>
+            </button>
+
         </div>
     </section>
 
@@ -650,6 +728,64 @@
                 errorEl.style.display = "block";
             });
         });
+    });
+})();
+</script>
+
+<!-- Video lightbox -->
+<div class="video-lightbox" id="video-lightbox" role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="video-lightbox__inner">
+        <button type="button" class="video-lightbox__close" id="video-lightbox-close" aria-label="Close video">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <video id="video-lightbox-player" controls playsinline preload="none"></video>
+    </div>
+</div>
+
+<script>
+// Video lightbox. Each .video-card opens its mp4 in a modal player on click.
+// Videos are lazy: the <source> is only set when a card is clicked, so the
+// large files never download until the user asks to watch.
+(function(){
+    var lightbox = document.getElementById("video-lightbox");
+    var player = document.getElementById("video-lightbox-player");
+    var closeBtn = document.getElementById("video-lightbox-close");
+    if (!lightbox || !player) return;
+
+    var lastFocused = null;
+
+    function openVideo(src, title){
+        lastFocused = document.activeElement;
+        player.setAttribute("aria-label", title || "Video");
+        player.src = src;
+        lightbox.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        var play = player.play();
+        if (play && play.catch) { play.catch(function(){}); }
+        closeBtn.focus();
+    }
+
+    function closeVideo(){
+        player.pause();
+        lightbox.classList.remove("is-open");
+        document.body.style.overflow = "";
+        player.removeAttribute("src");
+        player.load();
+        if (lastFocused && lastFocused.focus) { lastFocused.focus(); }
+    }
+
+    document.querySelectorAll(".video-card").forEach(function(card){
+        card.addEventListener("click", function(){
+            openVideo(card.getAttribute("data-video-src"), card.getAttribute("data-video-title"));
+        });
+    });
+
+    closeBtn.addEventListener("click", closeVideo);
+    lightbox.addEventListener("click", function(e){
+        if (e.target === lightbox) closeVideo();
+    });
+    document.addEventListener("keydown", function(e){
+        if (e.key === "Escape" && lightbox.classList.contains("is-open")) closeVideo();
     });
 })();
 </script>
