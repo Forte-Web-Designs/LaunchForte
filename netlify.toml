@@ -794,6 +794,19 @@
   status = 301
   force = true
 
+# Reviews page retired 2026-06-08. Content absorbed into /results.
+[[redirects]]
+  from = "/reviews.html"
+  to = "/results.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/reviews"
+  to = "/results.html"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
