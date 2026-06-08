@@ -83,7 +83,29 @@
         '[data-theme="dark"] .capability-row{border-bottom-color:rgba(255,255,255,0.10)}' +
         '[data-theme="dark"] .capability-list{border-top-color:rgba(255,255,255,0.10)}' +
         '[data-theme="dark"] .capability-row:hover{background:rgba(255,255,255,0.04)}' +
-        '[data-theme="dark"] .faq-item{border-bottom-color:rgba(255,255,255,0.10)}';
+        '[data-theme="dark"] .faq-item{border-bottom-color:rgba(255,255,255,0.10)}' +
+        /* Smooth fade between light and dark across the whole document.
+           Targets the surfaces whose colors flip when data-theme changes.
+           Page load is not affected because data-theme is set
+           synchronously before paint, so the initial state has nothing
+           to transition from. */
+        'body,.site-header,.site-footer,.footer-section,' +
+        '.stage-card,.result-card,.review-card,.capability-card,.step-card,' +
+        '.case-study-card,.case-study,.featured-card,.video-quote-card,' +
+        '.feature-block,.service-card,.featured-case,.audit-section,' +
+        '.stat-card,.stat-item,.metric-item,.cta-block,.cta-section,.next-step,' +
+        '.engagement-block,.product-card,.credibility-card,.cap-card,' +
+        '.pricing-card,.results-card,.about-block,.industry-card,' +
+        '.calendly-wrap,.faq-item-card,.faq-item,.content-block,.cta-banner,' +
+        '.intro-block,.section.tinted,.section.white,.section.dark,' +
+        '.trusted-strip,.guide-card,.video-card .video-thumb,' +
+        '.category-block,.playbook-step,.process-item,' +
+        'h1,h2,h3,h4,p,a,span,li,hr,.section-divider,.capability-row,' +
+        '.featured-stat-num,.featured-stat-label,.featured-client,.featured-context,.featured-desc,' +
+        '.review-quote,.review-author,.review-project,.about-name,' +
+        '.profile-name,.profile-role,.body-text,.section-label,' +
+        '.btn-primary,.btn-secondary,.btn-ghost,.btn-link,' +
+        '#theme-toggle{transition:background-color 0.3s ease,color 0.3s ease,border-color 0.3s ease,fill 0.3s ease}';
 
     var toggleCSS = '#theme-toggle{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:1rem;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center;transition:color 0.3s ease,border-color 0.3s ease,background 0.3s ease;line-height:1;flex-shrink:0;margin-left:0.75rem}' +
         '#theme-toggle.scrolled{position:fixed;top:auto;bottom:8.5rem;right:2rem;margin-left:0;background:var(--background);border:1px solid var(--border-light)}' +
