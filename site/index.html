@@ -456,6 +456,14 @@
         [data-theme="dark"] .footer-email-main{color:#ffffff}
         [data-theme="dark"] .footer-bottom p,
         [data-theme="dark"] .footer-status{color:#86868b}
+
+        /* About Us video player */
+        .about-video-wrap{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;border:1px solid var(--border);background:#000}
+        .about-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+        .about-video-unmute{position:absolute;top:1rem;right:1rem;display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:980px;font-size:0.8125rem;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.35);transition:transform 0.15s ease,opacity 0.2s ease;z-index:2}
+        .about-video-unmute:hover{transform:translateY(-1px)}
+        .about-video-unmute.is-hidden{opacity:0;pointer-events:none}
+        @media(max-width:600px){.about-video-unmute{top:0.6rem;right:0.6rem;padding:0.55rem 0.7rem;font-size:0.75rem}.about-video-unmute span{display:none}}
     </style>
     <script src="/theme-toggle.js"></script>
 </head>
@@ -495,18 +503,16 @@
         </div>
     </section>
 
-    <!-- FOUNDER VIDEO PLACEHOLDER -->
+    <!-- ABOUT US VIDEO -->
     <section class="section tinted" style="padding-top:1rem;padding-bottom:3rem">
         <div class="section-inner">
             <div style="max-width:720px;margin:0 auto">
-                <div class="founder-video-slot" data-video-id="" style="position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1d1d1f 0%,#2a2a2c 100%);border-radius:18px;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)">
-                    <div style="text-align:center;color:#a1a1a6">
-                        <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:3px"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                        </div>
-                        <p style="font-size:0.95rem;font-weight:500;color:#f5f5f7;margin:0">A short note from the founder</p>
-                        <p style="font-size:0.8125rem;color:#86868b;margin-top:6px">Video coming soon</p>
-                    </div>
+                <div class="about-video-wrap">
+                    <div id="about-video-player"></div>
+                    <button type="button" class="about-video-unmute" aria-label="Unmute video">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                        <span>Tap to unmute</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -866,6 +872,41 @@
             el.style.opacity = '1';
         }, 300);
     }, 2200);
+})();
+
+// About Us video (YouTube IFrame API): autoplay muted, prominent unmute button
+(function(){
+    var slot = document.getElementById('about-video-player');
+    var btn = document.querySelector('.about-video-unmute');
+    if (!slot || !btn) return;
+
+    // Load the YouTube IFrame API once
+    if (!window.YT || !window.YT.Player) {
+        var tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(tag);
+    }
+
+    var player = null;
+    window.onYouTubeIframeAPIReady = function(){
+        player = new YT.Player('about-video-player', {
+            videoId: '7YxCIPU1Jd0',
+            playerVars: {
+                autoplay: 1, mute: 1, controls: 1, modestbranding: 1,
+                rel: 0, playsinline: 1, loop: 1, playlist: '7YxCIPU1Jd0'
+            },
+            events: {
+                onReady: function(e){ try { e.target.mute(); e.target.playVideo(); } catch(_){} }
+            }
+        });
+    };
+
+    btn.addEventListener('click', function(){
+        if (player && typeof player.unMute === 'function') {
+            try { player.unMute(); player.setVolume(100); player.playVideo(); } catch(_){}
+        }
+        btn.classList.add('is-hidden');
+    });
 })();
 </script>
 <script src="/scroll-reveal.js"></script>
