@@ -451,6 +451,12 @@
         }
 
         /* Med Spa landing page specific */
+        .medspa-platforms{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;align-items:center;margin-top:1.5rem;max-width:680px;margin-left:auto;margin-right:auto}
+        .medspa-platforms-label{font-size:0.8125rem;font-weight:500;color:var(--text-secondary);letter-spacing:0.01em;margin-right:0.25rem}
+        .medspa-platform-chip{display:inline-flex;align-items:center;padding:0.4rem 0.85rem;background:rgba(0,136,219,0.08);border:1px solid rgba(0,136,219,0.22);border-radius:980px;font-size:0.8125rem;font-weight:600;color:var(--accent);letter-spacing:-0.005em;line-height:1;white-space:nowrap}
+        .medspa-platform-chip-catchall{background:transparent;border-color:var(--border);color:var(--text-secondary);font-weight:500;font-style:normal}
+        @media(max-width:500px){.medspa-platforms{gap:0.4rem}.medspa-platform-chip{padding:0.35rem 0.7rem;font-size:0.75rem}}
+
         .medspa-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:0.85rem;margin-top:2rem;align-items:stretch}
         .medspa-stat{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.1rem;display:flex;flex-direction:column;justify-content:flex-start;min-height:190px}
         .medspa-stat-num{font-size:1.25rem;font-weight:700;color:var(--accent);letter-spacing:-0.025em;line-height:1.15;margin-bottom:0.65rem;white-space:nowrap}
@@ -548,7 +554,16 @@
             <a href="#calculator" class="btn-primary">Run the Numbers</a>
         </div>
         <p style="font-size:0.8125rem;color:var(--text-muted);margin-top:1rem">The Patient Reactivation Campaign. $1,500 flat, no new software, no retainer, no contract. Three recovered visits cover it.</p>
-        <p style="font-size:0.75rem;color:var(--text-muted);opacity:0.75;margin-top:0.45rem">Works inside Boulevard, Mangomint, Zenoti, Vagaro, AestheticsPro, PatientNow, or whatever runs your front desk.</p>
+        <div class="medspa-platforms" aria-label="Compatible platforms">
+            <span class="medspa-platforms-label">Works inside</span>
+            <span class="medspa-platform-chip">Boulevard</span>
+            <span class="medspa-platform-chip">Mangomint</span>
+            <span class="medspa-platform-chip">Zenoti</span>
+            <span class="medspa-platform-chip">Vagaro</span>
+            <span class="medspa-platform-chip">AestheticsPro</span>
+            <span class="medspa-platform-chip">PatientNow</span>
+            <span class="medspa-platform-chip medspa-platform-chip-catchall">or whatever runs your front desk</span>
+        </div>
     </div>
 
     <!-- FOUNDER VIDEO -->
