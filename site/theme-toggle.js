@@ -83,31 +83,37 @@
         '[data-theme="dark"] .capability-row{border-bottom-color:rgba(255,255,255,0.10)}' +
         '[data-theme="dark"] .capability-list{border-top-color:rgba(255,255,255,0.10)}' +
         '[data-theme="dark"] .capability-row:hover{background:rgba(255,255,255,0.04)}' +
-        '[data-theme="dark"] .faq-item{border-bottom-color:rgba(255,255,255,0.10)}' +
-        /* Smooth fade between light and dark across the whole document.
-           Targets the surfaces whose colors flip when data-theme changes.
-           Page load is not affected because data-theme is set
-           synchronously before paint, so the initial state has nothing
-           to transition from. */
-        'body,.site-header,.site-footer,.footer-section,' +
-        '.stage-card,.result-card,.review-card,.capability-card,.step-card,' +
-        '.case-study-card,.case-study,.featured-card,.video-quote-card,' +
-        '.feature-block,.service-card,.featured-case,.audit-section,' +
-        '.stat-card,.stat-item,.metric-item,.cta-block,.cta-section,.next-step,' +
-        '.engagement-block,.product-card,.credibility-card,.cap-card,' +
-        '.pricing-card,.results-card,.about-block,.industry-card,' +
-        '.calendly-wrap,.faq-item-card,.faq-item,.content-block,.cta-banner,' +
-        '.intro-block,.section.tinted,.section.white,.section.dark,' +
-        '.trusted-strip,.guide-card,.video-card .video-thumb,' +
-        '.category-block,.playbook-step,.process-item,' +
-        'h1,h2,h3,h4,p,a,span,li,hr,.section-divider,.capability-row,' +
-        '.featured-stat-num,.featured-stat-label,.featured-client,.featured-context,.featured-desc,' +
-        '.review-quote,.review-author,.review-project,.about-name,' +
-        '.profile-name,.profile-role,.body-text,.section-label,' +
-        '.btn-primary,.btn-secondary,.btn-ghost,.btn-link,' +
-        '#theme-toggle{transition:background-color 0.3s ease,color 0.3s ease,border-color 0.3s ease,fill 0.3s ease}';
+        '[data-theme="dark"] .faq-item{border-bottom-color:rgba(255,255,255,0.10)}';
 
-    var toggleCSS = '#theme-toggle{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:1rem;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center;transition:color 0.3s ease,border-color 0.3s ease,background 0.3s ease;line-height:1;flex-shrink:0;margin-left:0.75rem}' +
+    /* Smooth theme transition: applied only after first paint, only during
+       a flip. Targets the properties that actually change between themes.
+       Adding this as a temporary class on <html> (not a permanent rule)
+       means hover/focus interactions across the page stay snappy. */
+    var transitionCSS = 'html.theme-transition,' +
+        'html.theme-transition body,' +
+        'html.theme-transition *,' +
+        'html.theme-transition *::before,' +
+        'html.theme-transition *::after{' +
+            'transition:' +
+                'background-color 0.45s cubic-bezier(0.4,0,0.2,1),' +
+                'background 0.45s cubic-bezier(0.4,0,0.2,1),' +
+                'color 0.45s cubic-bezier(0.4,0,0.2,1),' +
+                'border-color 0.45s cubic-bezier(0.4,0,0.2,1),' +
+                'fill 0.45s cubic-bezier(0.4,0,0.2,1),' +
+                'stroke 0.45s cubic-bezier(0.4,0,0.2,1),' +
+                'box-shadow 0.45s cubic-bezier(0.4,0,0.2,1)' +
+                '!important' +
+        '}' +
+        'html.theme-transition *{' +
+            'transition-property:' +
+                'background-color,background,color,border-color,' +
+                'fill,stroke,box-shadow' +
+                '!important' +
+        '}' +
+        '#theme-toggle svg{width:18px;height:18px;display:block;transition:transform 0.45s cubic-bezier(0.4,0,0.2,1)}' +
+        '#theme-toggle.theme-switching svg{transform:rotate(180deg)}';
+
+    var toggleCSS = '#theme-toggle{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:1rem;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center;line-height:1;flex-shrink:0;margin-left:0.75rem}' +
         '#theme-toggle.scrolled{position:fixed;top:auto;bottom:8.5rem;right:2rem;margin-left:0;background:var(--background);border:1px solid var(--border-light)}' +
         '#theme-toggle:hover{color:var(--text-primary);border-color:var(--border-light)}' +
         '[data-theme="dark"] #theme-toggle{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.20);color:#f5f5f7}' +
@@ -118,7 +124,7 @@
     // document.head exists by the time this line runs, and the styles are in
     // place before the body renders.
     var style = document.createElement('style');
-    style.textContent = darkCSS + toggleCSS;
+    style.textContent = darkCSS + transitionCSS + toggleCSS;
     document.head.appendChild(style);
 
     // Feather-style icons. Sun is shown when the user is currently in dark
@@ -161,9 +167,28 @@
             try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
         }
 
+        var transitionTimer = null;
         toggle.addEventListener('click', function() {
-            var current = document.documentElement.getAttribute('data-theme');
+            var root = document.documentElement;
+
+            // Enable the smooth color transition just for this flip
+            root.classList.add('theme-transition');
+            toggle.classList.add('theme-switching');
+
+            // Flip the theme (CSS custom properties update instantly, the
+            // transition rule above is what makes the change fade)
+            var current = root.getAttribute('data-theme');
             applyTheme(current === 'dark' ? 'light' : 'dark');
+
+            // Remove the transition class after the animation runs so
+            // unrelated hover states across the page aren't slowed down.
+            // 500ms timeout vs 450ms animation gives a 50ms safety margin
+            // for the fade to fully complete before the rule disappears.
+            if (transitionTimer) clearTimeout(transitionTimer);
+            transitionTimer = setTimeout(function() {
+                root.classList.remove('theme-transition');
+                toggle.classList.remove('theme-switching');
+            }, 500);
         });
 
         var isScrolled = false;
