@@ -283,12 +283,20 @@
             box-shadow: none !important;
         }
         .btn-ghost, .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.75rem;
             background: transparent;
             color: var(--accent);
             border: 1px solid var(--border-light);
             border-radius: 980px;
+            font-size: 0.875rem;
             font-weight: 500;
-            transition: opacity 0.2s ease, background 0.2s ease;
+            font-family: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            transition: opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease;
         }
         .btn-ghost:hover, .btn-secondary:hover {
             opacity: 0.75;
@@ -395,12 +403,12 @@
         }
 
         /* Med Spa landing page specific */
-        .medspa-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2rem}
-        .medspa-stat{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.75rem 1.5rem}
-        .medspa-stat-num{font-size:1.875rem;font-weight:700;color:var(--accent);letter-spacing:-0.025em;line-height:1.1;margin-bottom:0.65rem}
+        .medspa-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem;align-items:stretch}
+        .medspa-stat{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.5rem 1.25rem;display:flex;flex-direction:column;justify-content:flex-start;min-height:180px}
+        .medspa-stat-num{font-size:1.5rem;font-weight:700;color:var(--accent);letter-spacing:-0.025em;line-height:1.15;margin-bottom:0.65rem;white-space:nowrap}
         .medspa-stat-cap{font-size:0.8125rem;line-height:1.55;color:var(--text-secondary)}
-        @media(max-width:900px){.medspa-stats{grid-template-columns:repeat(2,1fr)}}
-        @media(max-width:500px){.medspa-stats{grid-template-columns:1fr}}
+        @media(max-width:900px){.medspa-stats{grid-template-columns:repeat(2,1fr)}.medspa-stat-num{font-size:1.625rem}}
+        @media(max-width:500px){.medspa-stats{grid-template-columns:1fr}.medspa-stat{min-height:auto}}
 
         .medspa-marquee-wrap{mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
         .medspa-marquee-track{display:flex;gap:3rem;animation:marquee 30s linear infinite;width:max-content}
@@ -482,7 +490,7 @@
     <!-- HERO -->
     <div class="hero" id="top">
         <p class="section-label" style="justify-content:center;margin-bottom:1rem">For Med Spas and Aesthetic Practices</p>
-        <h1 class="animate-fade-up">Your patient list is hiding <span style="color:var(--accent)">$15,000 to $50,000</span>.</h1>
+        <h1 class="animate-fade-up">Your patient list is hiding<br><span style="color:var(--accent);white-space:nowrap">$15,000 to $50,000</span>.</h1>
         <p class="hero-subtitle animate-fade-up animate-delay-2">Patients who came twice and quietly stopped booking. We bring them back in 10 business days, from inside the software you already run, at one fixed price.</p>
         <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem">
             <a href="#" class="btn-primary calendly-cta" data-location="hero">Get Your Dormant Revenue Estimate</a>
@@ -490,6 +498,22 @@
         </div>
         <p style="font-size:0.8125rem;color:var(--text-muted);margin-top:1rem">The Patient Reactivation Sprint. $1,500 flat, no new software, no retainer, no contract.</p>
     </div>
+
+    <!-- FOUNDER VIDEO -->
+    <section class="page-section reveal" id="founder-video">
+        <p class="section-label" style="justify-content:center">From the founder</p>
+        <div style="max-width:720px;margin:1.5rem auto 0">
+            <div class="founder-video-slot" data-video-id="" style="position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1d1d1f 0%,#2a2a2c 100%);border-radius:18px;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)">
+                <div style="text-align:center;color:#a1a1a6">
+                    <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:3px"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                    <p style="font-size:0.95rem;font-weight:500;color:#f5f5f7;margin:0">A short note from the founder</p>
+                    <p style="font-size:0.8125rem;color:#86868b;margin-top:6px">Video coming soon</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- SECTION 01: The Leak -->
     <section class="page-section reveal" id="the-leak">
@@ -650,25 +674,9 @@
         -->
     </section>
 
-    <!-- SECTION 06: Founder Video -->
-    <section class="page-section reveal" id="founder-video">
-        <p class="section-label">06 / From the founder</p>
-        <div style="max-width:720px;margin:1.5rem auto 0">
-            <div class="founder-video-slot" data-video-id="" style="position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1d1d1f 0%,#2a2a2c 100%);border-radius:18px;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)">
-                <div style="text-align:center;color:#a1a1a6">
-                    <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:3px"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                    </div>
-                    <p style="font-size:0.95rem;font-weight:500;color:#f5f5f7;margin:0">A short note from the founder</p>
-                    <p style="font-size:0.8125rem;color:#86868b;margin-top:6px">Video coming soon</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 07: FAQ -->
+    <!-- SECTION 06: FAQ -->
     <section class="page-section reveal" id="faq">
-        <p class="section-label">07 / Common Questions</p>
+        <p class="section-label">06 / Common Questions</p>
         <h2>What owners ask before <span style="color:var(--accent)">booking</span>.</h2>
         <div class="faq-list" style="margin-top:1.5rem">
             <div class="faq-item">
@@ -694,7 +702,7 @@
         </div>
     </section>
 
-    <!-- SECTION 08: Footer CTA -->
+    <!-- SECTION 07: Footer CTA -->
     <section class="page-section reveal" id="next-step">
         <div class="cta-banner">
             <h2>Find out what your list is <span style="color:var(--accent)">worth</span>.</h2>
