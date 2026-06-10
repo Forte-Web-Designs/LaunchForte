@@ -451,11 +451,19 @@
         }
 
         /* Med Spa landing page specific */
-        .medspa-platforms{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;align-items:center;margin-top:1.5rem;max-width:680px;margin-left:auto;margin-right:auto}
-        .medspa-platforms-label{font-size:0.8125rem;font-weight:500;color:var(--text-secondary);letter-spacing:0.01em;margin-right:0.25rem}
-        .medspa-platform-chip{display:inline-flex;align-items:center;padding:0.4rem 0.85rem;background:rgba(0,136,219,0.08);border:1px solid rgba(0,136,219,0.22);border-radius:980px;font-size:0.8125rem;font-weight:600;color:var(--accent);letter-spacing:-0.005em;line-height:1;white-space:nowrap}
-        .medspa-platform-chip-catchall{background:transparent;border-color:var(--border);color:var(--text-secondary);font-weight:500;font-style:normal}
-        @media(max-width:500px){.medspa-platforms{gap:0.4rem}.medspa-platform-chip{padding:0.35rem 0.7rem;font-size:0.75rem}}
+        .medspa-platforms{margin-top:1.5rem;max-width:720px;margin-left:auto;margin-right:auto;text-align:center}
+        .medspa-platforms-label{font-size:0.6875rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.14em;margin:0 0 0.85rem}
+        .medspa-platforms-chips{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;align-items:center}
+        .medspa-platform-chip{display:inline-flex;align-items:center;padding:0.4rem 0.95rem;background:rgba(0,136,219,0.08);border:1px solid rgba(0,136,219,0.22);border-radius:980px;font-size:0.8125rem;font-weight:600;color:var(--accent);letter-spacing:-0.005em;line-height:1;white-space:nowrap}
+        .medspa-platforms-catchall{font-size:0.75rem;color:var(--text-muted);opacity:0.85;margin:0.85rem 0 0;font-style:italic}
+        @media(max-width:500px){.medspa-platforms-chips{gap:0.4rem}.medspa-platform-chip{padding:0.35rem 0.75rem;font-size:0.75rem}}
+
+        .medspa-deliverables{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.5rem 1.75rem;margin-top:2rem}
+        .medspa-deliverables-heading{font-size:0.8125rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 1.1rem}
+        .medspa-deliverables-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:0.65rem 1.5rem}
+        .medspa-deliverables-list li{position:relative;padding-left:1.5rem;font-size:0.9375rem;line-height:1.55;color:var(--text-secondary)}
+        .medspa-deliverables-list li::before{content:"";position:absolute;left:0;top:0.6rem;width:0.5rem;height:0.5rem;border-radius:50%;background:var(--accent);opacity:0.7}
+        @media(max-width:700px){.medspa-deliverables{padding:1.25rem 1.25rem}.medspa-deliverables-list{grid-template-columns:1fr;gap:0.55rem}}
 
         .medspa-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:0.85rem;margin-top:2rem;align-items:stretch}
         .medspa-stat{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.1rem;display:flex;flex-direction:column;justify-content:flex-start;min-height:190px}
@@ -553,14 +561,17 @@
         </div>
         <p style="font-size:0.8125rem;color:var(--text-muted);margin-top:1rem">The Patient Reactivation Campaign. $1,500 flat, no new software, no retainer, no contract. Three recovered visits cover it.</p>
         <div class="medspa-platforms" aria-label="Compatible platforms">
-            <span class="medspa-platforms-label">Works inside</span>
-            <span class="medspa-platform-chip">Boulevard</span>
-            <span class="medspa-platform-chip">Mangomint</span>
-            <span class="medspa-platform-chip">Zenoti</span>
-            <span class="medspa-platform-chip">Vagaro</span>
-            <span class="medspa-platform-chip">AestheticsPro</span>
-            <span class="medspa-platform-chip">PatientNow</span>
-            <span class="medspa-platform-chip medspa-platform-chip-catchall">or whatever runs your front desk</span>
+            <p class="medspa-platforms-label">Works inside</p>
+            <div class="medspa-platforms-chips">
+                <span class="medspa-platform-chip">Boulevard</span>
+                <span class="medspa-platform-chip">Mangomint</span>
+                <span class="medspa-platform-chip">Zenoti</span>
+                <span class="medspa-platform-chip">Vagaro</span>
+                <span class="medspa-platform-chip">AestheticsPro</span>
+                <span class="medspa-platform-chip">PatientNow</span>
+                <span class="medspa-platform-chip">Aesthetic Record</span>
+            </div>
+            <p class="medspa-platforms-catchall">or whatever runs your front desk</p>
         </div>
     </div>
 
@@ -649,6 +660,20 @@
         </div>
 
         <p class="body-text" style="margin-top:2rem">One list segment, one offer, one sequence, one report. Fixed price, fixed scope, and anything the campaign uncovers gets its own quote, never a surprise invoice.</p>
+
+        <div class="medspa-deliverables">
+            <p class="medspa-deliverables-heading">What the $1,500 buys.</p>
+            <ul class="medspa-deliverables-list">
+                <li>A consent and list audit, with a written memo you keep.</li>
+                <li>A signed BAA and the compliance pack for your state.</li>
+                <li>One offer engineered from your menu and your margins.</li>
+                <li>A 5 to 7 touch sequence loaded and sent from your system.</li>
+                <li>Replies routed to your front desk and your booking calendar.</li>
+                <li>The Recovered Revenue Report at day 30, in dollars.</li>
+            </ul>
+        </div>
+
+        <p class="body-text" style="margin-top:2rem">We build inside whichever platform you already run. If it bills for campaign messages, the cost is pennies per text, and we quote the exact number before kickoff.</p>
     </section>
 
     <!-- SECTION 03: Compliance -->
