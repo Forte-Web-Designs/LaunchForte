@@ -118,6 +118,14 @@
             "@type": "Answer",
             "text": "About an hour, total. A 15 minute estimate call, 30 minutes at kickoff, an email approving the offer, and 20 minutes on the report call. Your front desk handles replies the same way they already handle booking texts."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Couldn't my front desk just send a blast from Boulevard or Mangomint?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The send button is in your software, and most owners never press it, because the button is the easy part. What the Sprint adds is everything around it: which patients to message and which to leave alone, an offer that doesn't train your clients to wait for discounts, the consent audit and BAA, quiet hours and suppression handled state by state, and a report that ties bookings to dollars. If you'd rather run it yourself, take the playbook below. It's free, and it's the same system."
+          }
         }
       ]
     }
@@ -522,6 +530,7 @@
             <a href="#calculator" class="btn-primary">Run the Numbers</a>
         </div>
         <p style="font-size:0.8125rem;color:var(--text-muted);margin-top:1rem">The Patient Reactivation Sprint. $1,500 flat, no new software, no retainer, no contract. Three recovered visits cover it.</p>
+        <p style="font-size:0.75rem;color:var(--text-muted);opacity:0.75;margin-top:0.45rem">Works inside Boulevard, Mangomint, Zenoti, Vagaro, AestheticsPro, PatientNow, or whatever runs your front desk.</p>
     </div>
 
     <!-- FOUNDER VIDEO -->
@@ -544,7 +553,7 @@
     <section class="page-section reveal" id="the-leak">
         <p class="section-label">01 / What It Costs</p>
         <h2>The quietest leak in your <span style="color:var(--accent)">practice</span>.</h2>
-        <p class="body-text">Every practice carries a list of patients who used to book and stopped. The math on that list is bigger than most owners expect.</p>
+        <p class="body-text">Every practice carries them. The tox patient overdue since October, the filler client who never rebooked, the laser package that stalled at session three, the membership that lapsed last spring. The math on that list is bigger than most owners expect.</p>
 
         <div class="medspa-stats">
             <div class="medspa-stat">
@@ -596,7 +605,7 @@
                 <div class="process-num">03</div>
                 <div class="process-content">
                     <h3>Run.</h3>
-                    <p>A 5 to 7 touch text and email sequence, sent from your own system, your number, your brand. Replies route straight to your booking calendar.</p>
+                    <p>A 5 to 7 touch text and email sequence, sent from your own system, your number, your brand. Replies route straight to your front desk and your booking calendar.</p>
                 </div>
             </div>
             <div class="process-item">
@@ -677,6 +686,28 @@
         </div>
     </section>
 
+    <!--
+    PLAYBOOK CAPTURE BLOCK. Ship rule: uncomment this block (and the
+    accompanying script wiring at the bottom of the page) only after both
+    TODO 5 (WEBHOOK_URL_PLAYBOOK) and TODO 6 (the Playbook PDF) are
+    resolved. The block lives in source so the only change needed to go
+    live is removing the comment wrappers around it and the script block.
+
+    <section class="page-section reveal" id="playbook">
+        <p class="section-label">Free playbook</p>
+        <h2>Want to run it <span style="color:var(--accent)">yourself first</span>?</h2>
+        <p class="body-text">Download the Patient Reactivation Playbook. The same system we run, written out: the segment filters, the offer math, the send windows by state, and the compliance checklist. Free, no call required.</p>
+        <form class="medspa-email-form" id="medspa-playbook-form" style="margin-top:1.5rem;padding-top:0;border-top:none;max-width:480px">
+            <label for="medspa-playbook-email" class="medspa-email-label">Email</label>
+            <div class="medspa-email-row">
+                <input type="email" id="medspa-playbook-email" name="email" required placeholder="you@practice.com" autocomplete="email">
+                <button type="submit" class="btn-primary medspa-email-submit">Send Me the Playbook</button>
+            </div>
+            <p class="medspa-email-status" id="medspa-playbook-status" role="status" aria-live="polite"></p>
+        </form>
+    </section>
+    -->
+
     <!-- SECTION 05: Proof -->
     <section class="page-section reveal" id="proof">
         <p class="section-label">05 / Proof</p>
@@ -741,8 +772,12 @@
                 <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Included: the consent audit and BAA, one crafted offer, a 5 to 7 touch sequence loaded in your system, reply routing to your calendar, daily monitoring through day 12, and the revenue report at day 30. Not included: new software setup, website changes, ad campaigns, ongoing management, or custom integrations. If the campaign exposes a need for one of those, you get a fixed quote for it.</p>
             </div>
             <div class="faq-item">
-                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0;line-height:1.4">How much of my time does this take?</h3>
-                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:0;font-size:0.9375rem">About an hour, total. A 15 minute estimate call, 30 minutes at kickoff, an email approving the offer, and 20 minutes on the report call. Your front desk handles replies the same way they already handle booking texts.</p>
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">How much of my time does this take?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">About an hour, total. A 15 minute estimate call, 30 minutes at kickoff, an email approving the offer, and 20 minutes on the report call. Your front desk handles replies the same way they already handle booking texts.</p>
+            </div>
+            <div class="faq-item">
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0;line-height:1.4">Couldn't my front desk just send a blast from Boulevard or Mangomint?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:0;font-size:0.9375rem">The send button is in your software, and most owners never press it, because the button is the easy part. What the Sprint adds is everything around it: which patients to message and which to leave alone, an offer that doesn't train your clients to wait for discounts, the consent audit and BAA, quiet hours and suppression handled state by state, and a report that ties bookings to dollars. If you'd rather run it yourself, take the playbook below. It's free, and it's the same system.</p>
             </div>
         </div>
     </section>
@@ -818,6 +853,16 @@ var WEBHOOK_URL = "";
 
 // TODO 4: Attorney sign off on the fine print and the consent audit guarantee
 //         wording. Current text ships in place meanwhile.
+
+// TODO 5: WEBHOOK_URL_PLAYBOOK. n8n webhook that captures the email and sends
+//         the Playbook PDF. Required before the playbook capture block (see
+//         the commented PLAYBOOK CAPTURE BLOCK in the page body) can be
+//         uncommented and shipped to visitors.
+var WEBHOOK_URL_PLAYBOOK = "";
+
+// TODO 6: The Patient Reactivation Playbook PDF itself, produced to the same
+//         standard as the existing Free Resources guides. Until both TODO 5
+//         and TODO 6 exist, the capture block stays commented in source.
 // =============================================================================
 
 (function(){
@@ -998,6 +1043,45 @@ var WEBHOOK_URL = "";
     }
 
     recompute();
+
+    /*
+    PLAYBOOK CAPTURE WIRING. Ship rule: uncomment this block at the same time
+    you uncomment the PLAYBOOK CAPTURE BLOCK in the page body (after TODO 5
+    and TODO 6 are resolved).
+
+    var playbookForm = document.getElementById("medspa-playbook-form");
+    var playbookEmail = document.getElementById("medspa-playbook-email");
+    var playbookStatus = document.getElementById("medspa-playbook-status");
+    if (playbookForm) {
+        playbookForm.addEventListener("submit", function(e){
+            e.preventDefault();
+            playbookStatus.className = "medspa-email-status";
+            var email = (playbookEmail.value || "").trim();
+            if (!email || email.indexOf("@") === -1) {
+                playbookStatus.textContent = "Enter a valid email.";
+                playbookStatus.classList.add("is-error");
+                return;
+            }
+            var payload = { email: email, page: "medspa", asset: "playbook" };
+            fetch(WEBHOOK_URL_PLAYBOOK, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).then(function(r){
+                if (!r.ok) throw new Error("status " + r.status);
+                playbookForm.style.display = "none";
+                var done = document.createElement("p");
+                done.className = "medspa-email-status is-success";
+                done.textContent = "Sent. Check your inbox.";
+                playbookForm.parentNode.insertBefore(done, playbookForm.nextSibling);
+                pushDL("medspa_playbook_submit");
+            }).catch(function(){
+                playbookStatus.textContent = "Couldn't send. Email seth@launchforte.com and we'll send it directly.";
+                playbookStatus.classList.add("is-error");
+            });
+        });
+    }
+    */
 })();
 </script>
 
