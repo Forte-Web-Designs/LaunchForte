@@ -25,7 +25,7 @@
         '[data-theme="dark"] #mobile-nav a.active{color:#4ab5ed!important}',
         '#mobile-nav a:last-child{border-bottom:none}',
 
-        '@media(max-width:768px){',
+        '@media(max-width:1024px){',
         '#hamburger{display:flex!important}',
         '.header-nav{display:none!important}',
         '}'
