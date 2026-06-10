@@ -76,7 +76,15 @@
           "name": "What results should I expect?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Published winback ranges run 3 to 10 percent of a clean list booking within 30 days, and the calculator above uses the same math. We won't promise your number before the audit, because list size and consent quality decide it. What we do promise: if the audit says your list can't perform, we stop and refund before anything sends, and whatever happens after launch shows up in your day 30 report, bookings and dollars, with nothing hidden."
+            "text": "Published winback ranges run 3 to 10 percent of a clean list booking within 30 days, and the calculator above uses the same math. We won't promise your exact number before the audit, because list size and consent quality decide it. We do set a floor: at least 3 booked appointments, backed by a free offer rebuild and rerun, then a refund if it still falls short. Whatever happens shows up in your day 30 report, bookings and dollars, with nothing hidden."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if nobody books?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We'd see it long before you would. Campaigns are monitored daily, so a quiet response by touch three triggers a diagnosis on day five, delivery or offer, and the offer gets rebuilt mid flight rather than discovered dead at day 30. On an audited list of 300 plus patients, published floor rates make zero bookings a process failure rather than bad luck, which is exactly what the guarantee exists for: a free rebuild and rerun, then a refund if the floor still isn't met."
           }
         },
         {
@@ -465,6 +473,11 @@
         .medspa-deliverables-list li::before{content:"";position:absolute;left:0;top:0.6rem;width:0.5rem;height:0.5rem;border-radius:50%;background:var(--accent);opacity:0.7}
         @media(max-width:700px){.medspa-deliverables{padding:1.25rem 1.25rem}.medspa-deliverables-list{grid-template-columns:1fr;gap:0.55rem}}
 
+        .medspa-guarantee{margin-top:1.5rem;background:rgba(0,136,219,0.06);border:1px solid rgba(0,136,219,0.25);border-left:3px solid var(--accent);border-radius:14px;padding:1.4rem 1.6rem}
+        .medspa-guarantee-label{font-size:0.6875rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.14em;margin:0 0 0.6rem}
+        .medspa-guarantee-body{font-size:0.9375rem;line-height:1.65;color:var(--text-primary);margin:0}
+        @media(max-width:700px){.medspa-guarantee{padding:1.2rem 1.25rem}}
+
         .medspa-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:0.85rem;margin-top:2rem;align-items:stretch}
         .medspa-stat{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.1rem;display:flex;flex-direction:column;justify-content:flex-start;min-height:190px}
         .medspa-stat-num{font-size:1.25rem;font-weight:700;color:var(--accent);letter-spacing:-0.025em;line-height:1.15;margin-bottom:0.65rem;white-space:nowrap}
@@ -674,6 +687,11 @@
         </div>
 
         <p class="body-text" style="margin-top:2rem">We build inside whichever platform you already run. If it bills for campaign messages, the cost is pennies per text, and we quote the exact number before kickoff.</p>
+
+        <div class="medspa-guarantee">
+            <p class="medspa-guarantee-label">The Booking Floor Guarantee</p>
+            <p class="medspa-guarantee-body">The floor under all of it: at least 3 booked appointments from your campaign, or we rebuild the offer and rerun the sequence free, and if it still falls short we refund the fee. The conditions are simple: an audited list of 300 plus reachable patients, documented consent, an approved offer, and confirmed delivery.</p>
+        </div>
     </section>
 
     <!-- SECTION 03: Compliance -->
@@ -810,7 +828,11 @@
             </div>
             <div class="faq-item">
                 <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">What results should I expect?</h3>
-                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Published winback ranges run 3 to 10 percent of a clean list booking within 30 days, and the calculator above uses the same math. We won't promise your number before the audit, because list size and consent quality decide it. What we do promise: if the audit says your list can't perform, we stop and refund before anything sends, and whatever happens after launch shows up in your day 30 report, bookings and dollars, with nothing hidden.</p>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Published winback ranges run 3 to 10 percent of a clean list booking within 30 days, and the calculator above uses the same math. We won't promise your exact number before the audit, because list size and consent quality decide it. We do set a floor: at least 3 booked appointments, backed by a free offer rebuild and rerun, then a refund if it still falls short. Whatever happens shows up in your day 30 report, bookings and dollars, with nothing hidden.</p>
+            </div>
+            <div class="faq-item">
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">What if nobody books?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">We'd see it long before you would. Campaigns are monitored daily, so a quiet response by touch three triggers a diagnosis on day five, delivery or offer, and the offer gets rebuilt mid flight rather than discovered dead at day 30. On an audited list of 300 plus patients, published floor rates make zero bookings a process failure rather than bad luck, which is exactly what the guarantee exists for: a free rebuild and rerun, then a refund if the floor still isn't met.</p>
             </div>
             <div class="faq-item">
                 <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">How much of my time does this take?</h3>
@@ -853,7 +875,7 @@
             <h2>Find out what your list is <span style="color:var(--accent)">worth</span>.</h2>
             <p>A 15 minute call. We pull your numbers live and you leave with the estimate, whether or not we work together. We take a limited number of campaigns each month so every campaign gets watched daily.</p>
             <a href="#" class="btn-primary calendly-cta" data-location="footer">Get Your Dormant Revenue Estimate</a>
-            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:1.25rem;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.5">Every campaign includes a Business Associate Agreement. Refunds per the consent audit guarantee. Results vary with list size and consent quality.</p>
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:1.25rem;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.5">Every campaign includes a Business Associate Agreement. Refunds per the consent audit and booking floor guarantees, conditions in your Campaign agreement. Results vary with list size and consent quality.</p>
         </div>
     </section>
 
@@ -928,6 +950,15 @@ var WEBHOOK_URL_PLAYBOOK = "";
 // TODO 6: The Patient Reactivation Playbook PDF itself, produced to the same
 //         standard as the existing Free Resources guides. Until both TODO 5
 //         and TODO 6 exist, the capture block stays commented in source.
+
+// TODO 7: Attorney sign off on the Booking Floor Guarantee wording (the
+//         section 02 guarantee block, the results FAQ answer, the What if
+//         nobody books FAQ answer, and the footer fine print) and the
+//         matching remedy ladder language in the Campaign agreement: rebuild
+//         and rerun first, refund second, conditions as listed (an audited
+//         list of 300 plus reachable patients, documented consent, an
+//         approved offer, and confirmed delivery). Ships now, attorney
+//         sign off completes before paid traffic.
 // =============================================================================
 
 (function(){
