@@ -807,6 +807,13 @@
   status = 301
   force = true
 
+# Vanity short URL for cold email outreach. Carries UTM attribution to /medspa.
+[[redirects]]
+  from = "/ms"
+  to = "/medspa?utm_source=email&utm_medium=cold"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
