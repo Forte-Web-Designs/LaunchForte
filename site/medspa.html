@@ -89,6 +89,14 @@
         },
         {
           "@type": "Question",
+          "name": "What if my list is smaller than 300?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The campaign still runs, the guarantee just changes shape, because the refund leg needs 300 names of statistics behind it. Between roughly 150 and 300 patients you get the same system at the same price, backed by the rebuild and rerun remedy. Under 150, a winback usually isn't the best first $1,500 you can spend with us. We'll say that plainly on the call and point you at the build that fits, and most young lists grow into campaign range inside a year."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "How much of my time does this take?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -738,7 +746,8 @@
                 <p class="medspa-calc-result">Estimated recovered revenue: <span id="medspa-result">$16,128</span></p>
                 <p class="medspa-calc-multiple" style="margin-bottom:0.35rem">That's a <span id="medspa-multiple">11</span>x return on a $1,500 campaign.</p>
                 <p class="medspa-calc-multiple">Covers the fee at <span id="medspa-breakeven">3</span> booked visits.</p>
-                <p class="medspa-calc-micro">Estimates use published winback ranges. Your day 30 report shows actuals.</p>
+                <p class="medspa-calc-micro" id="medspa-smalllist-note" style="margin-top:0.85rem;display:none;color:var(--accent)">Under 300 patients, the booking floor converts to the rebuild remedy. Details on the call.</p>
+                <p class="medspa-calc-micro" style="margin-top:0.85rem">Estimates use published winback ranges. Your day 30 report shows actuals.</p>
             </div>
 
             <form class="medspa-email-form" id="medspa-email-form">
@@ -833,6 +842,10 @@
             <div class="faq-item">
                 <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">What if nobody books?</h3>
                 <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">We'd see it long before you would. Campaigns are monitored daily, so a quiet response by touch three triggers a diagnosis on day five, delivery or offer, and the offer gets rebuilt mid flight rather than discovered dead at day 30. On an audited list of 300 plus patients, published floor rates make zero bookings a process failure rather than bad luck, which is exactly what the guarantee exists for: a free rebuild and rerun, then a refund if the floor still isn't met.</p>
+            </div>
+            <div class="faq-item">
+                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">What if my list is smaller than 300?</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">The campaign still runs, the guarantee just changes shape, because the refund leg needs 300 names of statistics behind it. Between roughly 150 and 300 patients you get the same system at the same price, backed by the rebuild and rerun remedy. Under 150, a winback usually isn't the best first $1,500 you can spend with us. We'll say that plainly on the call and point you at the build that fits, and most young lists grow into campaign range inside a year.</p>
             </div>
             <div class="faq-item">
                 <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">How much of my time does this take?</h3>
@@ -1016,6 +1029,7 @@ var WEBHOOK_URL_PLAYBOOK = "";
     var resultEl = document.getElementById("medspa-result");
     var multipleEl = document.getElementById("medspa-multiple");
     var breakevenEl = document.getElementById("medspa-breakeven");
+    var smallListNoteEl = document.getElementById("medspa-smalllist-note");
 
     if (!slider || !listInput || !visitInput || !resultEl) return;
 
@@ -1044,6 +1058,9 @@ var WEBHOOK_URL_PLAYBOOK = "";
         multipleEl.textContent = multiple;
         if (breakevenEl) {
             breakevenEl.textContent = Math.ceil(1500 / visit);
+        }
+        if (smallListNoteEl) {
+            smallListNoteEl.style.display = (list < 300) ? "block" : "none";
         }
     }
 
