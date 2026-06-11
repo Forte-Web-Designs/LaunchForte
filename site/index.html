@@ -501,7 +501,7 @@
         </div>
     </section>
 
-    <!-- ABOUT US VIDEO -->
+    <!-- WELCOME TO LAUNCH FORTE VIDEO -->
     <section class="section tinted" style="padding-top:1rem;padding-bottom:3rem">
         <div class="section-inner">
             <div style="max-width:720px;margin:0 auto">
@@ -873,7 +873,7 @@
     }, 2200);
 })();
 
-// About Us video (YouTube IFrame API): autoplay muted, prominent unmute button
+// Welcome to Launch Forte video (YouTube IFrame API): autoplay muted, prominent unmute button
 (function(){
     var slot = document.getElementById('about-video-player');
     var btn = document.querySelector('.about-video-unmute');
@@ -889,10 +889,10 @@
     var player = null;
     window.onYouTubeIframeAPIReady = function(){
         player = new YT.Player('about-video-player', {
-            videoId: '7YxCIPU1Jd0',
+            videoId: 'CfBozOeiac8',
             playerVars: {
                 autoplay: 1, mute: 1, controls: 1, modestbranding: 1,
-                rel: 0, playsinline: 1, loop: 1, playlist: '7YxCIPU1Jd0'
+                rel: 0, playsinline: 1, loop: 1, playlist: 'CfBozOeiac8'
             },
             events: {
                 onReady: function(e){ try { e.target.mute(); e.target.playVideo(); } catch(_){} }
