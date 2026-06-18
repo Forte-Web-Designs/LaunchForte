@@ -943,10 +943,9 @@
 // =============================================================================
 // MED SPA PAGE TODOs FOR SETH (replace these constants before launch)
 // =============================================================================
-// TODO 1: CALENDLY_URL. Create the 15 minute "Dormant Revenue Estimate" event
-//         in Calendly and paste the URL here. Defaults to the standard 30 min
-//         booking link so the page is never broken if the new event is delayed.
-var CALENDLY_URL = "https://calendly.com/seth-launchforte/30min";
+// CALENDLY_URL. The "Dormant Revenue Estimate" event. Every booking CTA on this
+//         page reads this single constant, so any future change happens here only.
+var CALENDLY_URL = "https://calendly.com/seth-launchforte/dormant-revenue-estimate";
 
 // TODO 2: WEBHOOK_URL. The n8n webhook URL for the email-me-this-estimate
 //         capture. Leave empty to disable the email POST and just show the
@@ -981,14 +980,14 @@ var WEBHOOK_URL_PLAYBOOK = "";
 // =============================================================================
 
 (function(){
-    // UTM passthrough: capture utm_source, utm_medium, utm_campaign from this
-    // page's URL, and append them to the Calendly URL at click time so booked
-    // calls keep attribution.
+    // UTM passthrough: capture utm_source, utm_medium, utm_campaign, utm_content,
+    // utm_term from this page's URL, and append them to the Calendly URL at click
+    // time so booked calls keep attribution.
     function getUtms() {
         try {
             var params = new URLSearchParams(window.location.search);
             var out = {};
-            ["utm_source", "utm_medium", "utm_campaign"].forEach(function(k){
+            ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(function(k){
                 var v = params.get(k);
                 if (v) out[k] = v;
             });
