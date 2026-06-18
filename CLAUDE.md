@@ -7,7 +7,7 @@ LaunchForte is a web design and automation agency site. Static HTML/CSS/JS deplo
 - **Frontend:** Vanilla HTML, CSS (custom properties), vanilla JavaScript
 - **Styling:** Custom CSS with CSS custom properties (NO Tailwind, NO frameworks)
 - **Deployment:** Netlify (static hosting via `netlify.toml`)
-- **Analytics:** Google Tag Manager (GTM-MTP7GMJ3)
+- **Analytics:** Google Tag Manager (GTM-TT7NJCP7)
 - **No build step** — files in `/site/` are served directly
 
 ## Key Directories
