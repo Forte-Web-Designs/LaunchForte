@@ -31,21 +31,51 @@ LaunchForte is a web design and automation agency site. Static HTML/CSS/JS deplo
 - `writing.html` — Blog listing
 
 ## Design System — CSS Custom Properties
-All colors and design tokens are defined as CSS custom properties in `:root`:
+All colors and design tokens are defined as CSS custom properties. The site uses
+an Apple-style palette with **light as the default theme** (`:root`), and a dark
+override under `[data-theme="dark"]`.
 
 ```css
+/* Light theme — default */
 :root {
-  --text-primary: #edf2f7;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-primary: #1d1d1f;
+  --text-secondary: #515154;
+  --text-muted: #86868b;
   --accent: #0088DB;
-  --accent-warm: #38b2f5;
-  --background: #0d1117;
-  --background-alt: #121a28;
-  --border: #1e2a3a;
-  --card-bg: #172030;
+  --accent-warm: #4ab5ed;
+  --accent-hover: #4ab5ed;
+  --accent-tint: rgba(0,136,219,0.10);
+  --background: #f5f5f7;
+  --background-alt: #ffffff;
+  --card-bg: #ffffff;
+  --background-dark: #1d1d1f;
+  --border: rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.12);
+  --on-accent: #ffffff;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --text-muted: #86868b;
+  --accent: #4ab5ed;
+  --accent-hover: #0088DB;
+  --accent-warm: #0088DB;
+  --accent-tint: rgba(74,181,237,0.14);
+  --background: #1d1d1f;
+  --background-alt: #000000;
+  --card-bg: #2a2a2c;
+  --background-dark: #000000;
+  --border: rgba(255,255,255,0.10);
+  --border-strong: rgba(255,255,255,0.16);
+  --on-accent: #0b0b0c;
 }
 ```
+
+Note: the blue flips between modes — `#0088DB` is the primary accent in light and
+moves to hover in dark, where the lighter `#4ab5ed` becomes primary for contrast.
+`--on-accent` is the text color for content sitting on an `--accent` fill.
 
 ## Typography
 - **Font stack:** -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif
@@ -95,10 +125,10 @@ All colors and design tokens are defined as CSS custom properties in `:root`:
 8. **Accessibility:** Use semantic HTML, proper heading hierarchy (h1→h2→h3), descriptive link text
 
 ## Dark/Light Theme
-- Default is dark theme
-- Light theme via `[data-theme="light"]` attribute on HTML element
+- Default is light theme (`data-theme="light"` on the `<html>` element)
+- Dark theme via `[data-theme="dark"]` attribute on the HTML element
 - Theme toggle handled by `theme-toggle.js`
-- Logo swaps between `.logo-img-dark` and `.logo-img-light`
+- Logo inverts in dark mode via `filter: brightness(0) invert(1)`
 
 ## Important Notes
 - Do NOT introduce Tailwind CSS, React, or any framework
