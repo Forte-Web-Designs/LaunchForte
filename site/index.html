@@ -437,6 +437,9 @@
 
         /* FAQ accordion */
         .faq-shell{max-width:760px;margin:2rem auto 0;text-align:left}
+        .faq-cat{margin-top:2.5rem}
+        .faq-cat:first-child{margin-top:0}
+        .faq-cat-label{display:block;font-size:0.75rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-left:2px}
         .faq-group{background:var(--card-bg);border:1px solid var(--border-strong);border-radius:18px;overflow:hidden}
         .faq-qa{border-top:1px solid var(--border)}
         .faq-qa:first-child{border-top:none}
@@ -752,34 +755,105 @@
             <p class="eyebrow">Common Questions</p>
             <h2>What buyers usually ask before <span style="color:var(--accent)">booking an audit</span>.</h2>
             <div class="faq-shell">
-                <div class="faq-group">
-                    <div class="faq-qa">
-                        <button class="faq-q" aria-expanded="false"><span>What makes you different from a lead gen agency?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                        <div class="faq-panel"><div class="faq-panel-inner"><p>A lead gen agency sells you leads and gets judged on a number it cannot control, your close rate. We build the system that books the calls and hand you the playbook to close them. Then we build everything behind the call that turns a meeting into revenue. You own all of it.</p></div></div>
-                    </div>
-                    <div class="faq-qa">
-                        <button class="faq-q" aria-expanded="false"><span>Are you a lead gen agency or a systems company?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                        <div class="faq-panel"><div class="faq-panel-inner"><p>A systems company. Lead gen is one thing we build, because an empty calendar is one way a business loses money. But most of what costs you is not out front, it is the manual work, the number living in one person's head, the process that breaks the day volume doubles. We find the part of the business that is one mistake away from a bad day and engineer it so it cannot happen. Filling the calendar is where some engagements start. It is never the whole job.</p></div></div>
-                    </div>
-                    <div class="faq-qa">
-                        <button class="faq-q" aria-expanded="false"><span>How does working together start?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                        <div class="faq-panel"><div class="faq-panel-inner"><p>Almost always with a Growth Systems Audit. We map your systems end to end and hand you a written diagnostic of what is worth fixing, in priority order, with a fixed price on each fix. You decide what to build from there. It credits toward your first build, so it is not a sunk cost.</p></div></div>
-                    </div>
-                    <div class="faq-qa">
-                        <button class="faq-q" aria-expanded="false"><span>How is pricing structured?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                        <div class="faq-panel"><div class="faq-panel-inner"><p>Every build is fixed price, scoped from the audit, so you know the exact number and what you are getting before any work starts. The price does not move once it is set. No hourly meter, no surprise invoice.</p></div></div>
-                    </div>
-                    <div class="faq-qa">
-                        <button class="faq-q" aria-expanded="false"><span>Who do you work with?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                        <div class="faq-panel"><div class="faq-panel-inner"><p>Founders and operators whose business has outgrown what got it here. The systems underneath were built for a smaller company, and the cost of that mismatch climbs every quarter. Often there is a trigger, new volume, a growth push that stalled, a person who left and took a process with them. Sometimes we work alongside a marketing lead or a consultant, sometimes it is just us and the operator.</p></div></div>
-                    </div>
-                    <div class="faq-qa">
-                        <button class="faq-q" aria-expanded="false"><span>Who is this not for?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                        <div class="faq-panel"><div class="faq-panel-inner"><p>If you want leads bought by the batch and nothing else, we are not the fit. If you are before product market fit and still looking for your first customers, a system is not your problem yet. If you want the cheapest possible point fix and do not care whether it holds, someone else will be cheaper. The work pays off for businesses ready to fix how the operation runs, not just patch one thing.</p></div></div>
+
+                <div class="faq-cat">
+                    <span class="faq-cat-label">What we do</span>
+                    <div class="faq-group">
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>What does Launch Forte actually build?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>The operational system a business runs on, end to end. The system that books the calls, the workflows that run the fulfillment, the source of truth your numbers come from, and the reporting that tells you where the money is. Six areas in practice: lead systems, revenue infrastructure, AI agents, reporting, custom builds, and the reliability that keeps it all standing when volume doubles. Most engagements touch a few of these, not all at once. The audit decides which.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>What changes once the system is in?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>Two things move. You make more money, because leads get answered in seconds and worked without anyone chasing, and nothing that should close goes cold. And you keep more of what you earn, because the manual work runs on its own and the numbers come from one place you can trust. Your team stops holding the business together by hand and gets back to the work only people can do. Growth stops depending on heroics and becomes something the system repeats.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>Are you a lead gen agency or a systems company?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>A systems company. Lead gen is one thing we build, because an empty calendar is one way a business loses money. But most of what costs you is not out front, it is the manual work, the number living in one person's head, the process that breaks the day volume doubles. We find the part of the business that is one mistake away from a bad day and engineer it so it cannot happen. Filling the calendar is where some engagements start. It is never the whole job.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>What makes you different from a lead gen agency?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>A lead gen agency sells you leads and gets judged on a number it cannot control, your close rate. We build the system that books the calls and hand you the playbook to close them. Then we build everything behind the call that turns a meeting into revenue. You own all of it.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>What makes you different from a cheaper automation freelancer?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>Anyone can connect two tools. The work is knowing which part of your business breaks first, what that break costs you, and engineering it so it cannot happen. A cheap build skips that. It runs in the demo and falls over the first hard week, when a payment fails or a record comes through twice, and it fails quietly while it passes bad data downstream. We have watched businesses spend on a brittle build, then spend more again ripping it out. We build it once, to hold.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>Do you use AI, or is this just automation?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>We use AI where it earns its place, and a plain workflow everywhere else. If the steps can be written down, you do not need a model, you need a system that follows them, and it will be faster and more reliable. AI is for the work where the input is unpredictable and the steps change with context. When we do use it, we build the data, the process, and the exception handling under it first, and we set it to ask a human when it is not sure. That is the difference between AI you trust with live work and AI you babysit.</p></div></div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="faq-cat">
+                    <span class="faq-cat-label">How we work</span>
+                    <div class="faq-group">
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>How does working together start?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>Almost always with a Growth Systems Audit. We map your systems end to end and hand you a written diagnostic of what is worth fixing, in priority order, with a fixed price on each fix. You decide what to build from there. It credits toward your first build, so it is not a sunk cost.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>What does the build process look like?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>Four steps. We diagnose and map your systems. We architect the build before writing any code, because the architecture decides whether it survives. We build to that architecture, fixed scope, tested on real data before handoff. Then we operate it, documented and monitored, and hand it off clean. Nothing gets built before it is designed.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>How long does a build take?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>Most builds land in seven to twenty one days, scoped from the audit so the number and the timeline are set before any work starts. Larger systems run in phases, each one shipped and working before the next begins.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>What happens after the build goes live?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>Launch is not the finish line. The first weeks are when real data and real customers flow through it, and that is when the small friction points show up. We monitor, tune, and document, then hand it off so your team can run it. For systems that keep growing, the Embedded Partnership keeps an engineer at the table for ongoing review and new builds.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>Do I own what you build, or am I locked in?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>You own all of it. The accounts, the code, the documentation. If we stopped working together tomorrow, your team would have everything it needs to run and understand the system. We build so you are not dependent on us. The businesses that stay do it because the work is good, not because they are stuck.</p></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-cat">
+                    <span class="faq-cat-label">Pricing and commitment</span>
+                    <div class="faq-group">
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>How is pricing structured?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>Every build is fixed price, scoped from the audit, so you know the exact number and what you are getting before any work starts. The price does not move once it is set. No hourly meter, no surprise invoice.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>What does it cost to work with you?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>It depends on what the system is worth to the business, not on hours. The same build can be right at very different numbers depending on the volume it carries and the money it protects. The honest way to answer it is the audit, which puts a fixed price on each fix next to what that fix is costing you today, so you are deciding on payback, not on a guess.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>What if the math doesn't work?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>We will tell you. If a fix does not pay for itself, or a hire would serve you better than a system right now, that is in the diagnostic. We would rather lose the build than sell you one that does not earn its keep.</p></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-cat">
+                    <span class="faq-cat-label">Is this you?</span>
+                    <div class="faq-group">
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>Who do you work with?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>Founders and operators whose business has outgrown what got it here. The systems underneath were built for a smaller company, and the cost of that mismatch climbs every quarter. Often there is a trigger, new volume, a growth push that stalled, a person who left and took a process with them. Sometimes we work alongside a marketing lead or a consultant, sometimes it is just us and the operator.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>Who is this not for?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>If you want leads bought by the batch and nothing else, we are not the fit. If you are before product market fit and still looking for your first customers, a system is not your problem yet. If you want the cheapest possible point fix and do not care whether it holds, someone else will be cheaper. The work pays off for businesses ready to fix how the operation runs, not just patch one thing.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>How do I know if I actually need this?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>A few signs. Your team spends hours on work a system should handle. A number you depend on lives in one person's head. A process breaks every time volume jumps. Your calendar is empty or growth stalled and you cannot see why. When any of those is true, it usually traces back to the system underneath. The audit tells you which one is costing you the most.</p></div></div>
+                        </div>
+                        <div class="faq-qa">
+                            <button class="faq-q" aria-expanded="false"><span>Where are you located and who do you serve?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="faq-panel"><div class="faq-panel-inner"><p>Dallas-Fort Worth, Texas. We work with clients nationwide, mostly remote.</p></div></div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div style="margin-top:2.5rem"><a href="/faq.html" class="btn-secondary">See all questions</a></div>
+            <div style="margin-top:2.5rem"><a href="/faq.html" class="btn-secondary">Open the full FAQ page</a></div>
         </div>
     </section>
 
