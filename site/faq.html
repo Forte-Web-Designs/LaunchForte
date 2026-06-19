@@ -579,7 +579,7 @@
     });
 })();
 
-// FAQ accordion: toggle open, aria-expanded, first item open by default
+// FAQ accordion: toggle open, aria-expanded; all closed by default
 (function(){
     document.querySelectorAll('.faq-q').forEach(function(btn){
         btn.addEventListener('click', function(){
@@ -588,8 +588,6 @@
             btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
     });
-    var first = document.querySelector('.faq-qa');
-    if (first) { first.classList.add('open'); first.querySelector('.faq-q').setAttribute('aria-expanded','true'); }
 })();
 </script>
 <script src="/scroll-reveal.js"></script>
