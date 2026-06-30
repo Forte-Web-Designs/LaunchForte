@@ -88,4 +88,5 @@
     <rect x="709" y="354" width="16" height="2.4" rx="1.2" fill="#fff"/><rect x="709" y="360" width="16" height="2.4" rx="1.2" fill="#fff"/>
     <text class="nname" x="744" y="362">Send offer</text>
   </g>
+  <text x="932" y="422" text-anchor="end" font-size="11" font-weight="700" letter-spacing="1.3"><tspan fill="#aab3c0">THE </tspan><tspan fill="#2563eb">FORTE</tspan><tspan fill="#aab3c0"> METHOD</tspan></text>
 </svg>

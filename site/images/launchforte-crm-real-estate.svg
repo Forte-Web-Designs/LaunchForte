@@ -77,4 +77,5 @@
     <circle class="won" cx="898" cy="142" r="9" fill="#22c55e"/>
     <path class="won" d="M894 142 l3 3 l5 -6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
+  <text x="935" y="282" text-anchor="end" font-size="11" font-weight="700" letter-spacing="1.3"><tspan fill="#aab3c0">THE </tspan><tspan fill="#2563eb">FORTE</tspan><tspan fill="#aab3c0"> METHOD</tspan></text>
 </svg>

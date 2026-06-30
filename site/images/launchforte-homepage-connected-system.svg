@@ -1,0 +1,92 @@
+<svg viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">One connected system feeding your bottom line</title>
+  <desc id="desc">Six capabilities, lead systems, revenue infrastructure, AI agents, reporting, custom builds, and reliability, each with the outcome it produces, all connected to a central hub labeled your bottom line, makes you more money.</desc>
+  <defs>
+    <filter id="ns" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="1.5" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.08"/></filter>
+    <filter id="dg" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="10"/></filter>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
+      .cap{fill:#0f172a;font-size:20px;font-weight:700;letter-spacing:1px;}
+      .subcap{fill:#94a3b8;font-size:12.5px;font-weight:500;}
+      .box{fill:#ffffff;stroke:#e6e9ef;stroke-width:1.3;filter:url(#ns);}
+      .bname{fill:#1f2733;font-size:13px;font-weight:700;}
+      .bbenefit{fill:#94a3b8;font-size:10px;font-weight:500;}
+      .spoke{fill:none;stroke:#d3dae4;stroke-width:1.7;}
+      .hubLabel{fill:#1d4ed8;font-size:11px;font-weight:700;letter-spacing:.5px;}
+      .hubBig{fill:#0f172a;font-size:15px;font-weight:700;}
+      .badge{fill:#fff;font-size:13px;font-weight:800;}
+      .coreGlow{animation:breathe 3.6s ease-in-out infinite;}
+      @keyframes breathe{0%,100%{opacity:.06;}50%{opacity:.18;}}
+    </style>
+  </defs>
+
+  <text class="cap" x="480" y="42" text-anchor="middle">ONE CONNECTED SYSTEM</text>
+  <text class="subcap" x="480" y="66" text-anchor="middle">Every capability feeds the same number</text>
+
+  <!-- spokes -->
+  <path class="spoke" d="M234 127 L480 288"/>
+  <path class="spoke" d="M234 288 L480 288"/>
+  <path class="spoke" d="M234 449 L480 288"/>
+  <path class="spoke" d="M726 127 L480 288"/>
+  <path class="spoke" d="M726 288 L480 288"/>
+  <path class="spoke" d="M726 449 L480 288"/>
+
+  <!-- flowing dots converging inward -->
+  <circle r="3.6" fill="#2563eb" filter="url(#dg)"><animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" path="M234 127 L480 288"/></circle>
+  <circle r="3.6" fill="#16a34a" filter="url(#dg)"><animateMotion dur="2.6s" begin=".4s" repeatCount="indefinite" path="M234 288 L480 288"/></circle>
+  <circle r="3.6" fill="#8b5cf6" filter="url(#dg)"><animateMotion dur="2.6s" begin=".8s" repeatCount="indefinite" path="M234 449 L480 288"/></circle>
+  <circle r="3.6" fill="#0ea5e9" filter="url(#dg)"><animateMotion dur="2.6s" begin=".2s" repeatCount="indefinite" path="M726 127 L480 288"/></circle>
+  <circle r="3.6" fill="#f59e0b" filter="url(#dg)"><animateMotion dur="2.6s" begin=".6s" repeatCount="indefinite" path="M726 288 L480 288"/></circle>
+  <circle r="3.6" fill="#14b8a6" filter="url(#dg)"><animateMotion dur="2.6s" begin="1s" repeatCount="indefinite" path="M726 449 L480 288"/></circle>
+
+  <!-- left boxes -->
+  <g>
+    <rect class="box" x="14" y="96" width="220" height="62" rx="12"/>
+    <rect x="24" y="110" width="3.5" height="34" rx="2" fill="#2563eb"/>
+    <text class="bname" x="36" y="127">Lead Systems</text>
+    <text class="bbenefit" x="36" y="146">Responds to every lead in seconds</text>
+  </g>
+  <g>
+    <rect class="box" x="14" y="257" width="220" height="62" rx="12"/>
+    <rect x="24" y="271" width="3.5" height="34" rx="2" fill="#16a34a"/>
+    <text class="bname" x="36" y="288">Revenue Infrastructure</text>
+    <text class="bbenefit" x="36" y="307">Keeps more of what you earn</text>
+  </g>
+  <g>
+    <rect class="box" x="14" y="418" width="220" height="62" rx="12"/>
+    <rect x="24" y="432" width="3.5" height="34" rx="2" fill="#8b5cf6"/>
+    <text class="bname" x="36" y="449">AI Agents</text>
+    <text class="bbenefit" x="36" y="468">Works every lead without you chasing</text>
+  </g>
+
+  <!-- right boxes -->
+  <g>
+    <rect class="box" x="726" y="96" width="220" height="62" rx="12"/>
+    <rect x="932.5" y="110" width="3.5" height="34" rx="2" fill="#0ea5e9"/>
+    <text class="bname" x="924" y="127" text-anchor="end">Reporting</text>
+    <text class="bbenefit" x="924" y="146" text-anchor="end">One source of truth you can trust</text>
+  </g>
+  <g>
+    <rect class="box" x="726" y="257" width="220" height="62" rx="12"/>
+    <rect x="932.5" y="271" width="3.5" height="34" rx="2" fill="#f59e0b"/>
+    <text class="bname" x="924" y="288" text-anchor="end">Custom Builds</text>
+    <text class="bbenefit" x="924" y="307" text-anchor="end">Takes the manual work off your team</text>
+  </g>
+  <g>
+    <rect class="box" x="726" y="418" width="220" height="62" rx="12"/>
+    <rect x="932.5" y="432" width="3.5" height="34" rx="2" fill="#14b8a6"/>
+    <text class="bname" x="924" y="449" text-anchor="end">Reliability</text>
+    <text class="bbenefit" x="924" y="468" text-anchor="end">Nothing gets missed when you scale</text>
+  </g>
+
+  <!-- hub -->
+  <circle class="coreGlow" cx="480" cy="288" r="92" fill="#2563eb" filter="url(#soft)"/>
+  <circle cx="480" cy="288" r="84" fill="#ffffff" stroke="#c3d6fb" stroke-width="2" filter="url(#ns)"/>
+  <circle cx="480" cy="246" r="14" fill="#16a34a"/>
+  <text class="badge" x="480" y="251" text-anchor="middle">$</text>
+  <text class="hubLabel" x="480" y="278" text-anchor="middle">YOUR BOTTOM LINE</text>
+  <text class="hubBig" x="480" y="300" text-anchor="middle">Makes you</text>
+  <text class="hubBig" x="480" y="319" text-anchor="middle">more money</text>
+  <text x="480" y="520" text-anchor="middle" font-size="13.5" font-weight="700" letter-spacing="1.6"><tspan fill="#9aa4b2">THE </tspan><tspan fill="#2563eb">FORTE</tspan><tspan fill="#9aa4b2"> METHOD</tspan></text>
+</svg>
