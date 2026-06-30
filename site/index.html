@@ -474,6 +474,15 @@
             .homepage-engine svg{min-width:680px}
         }
         [data-theme="dark"] .homepage-engine .cap{fill:#f5f5f7}
+        /* Homepage connected system visual (inline so dark mode reaches its caption). */
+        .homepage-connected{max-width:820px;margin:0 auto;padding:0 1rem}
+        .homepage-connected svg{width:100%;height:auto;display:block}
+        @media(max-width:680px){
+            .homepage-connected{padding:0 0 0.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+            .homepage-connected svg{min-width:680px}
+        }
+        [data-theme="dark"] .homepage-connected .cap{fill:#f5f5f7}
+        [data-theme="dark"] .homepage-connected .subcap{fill:#a1a1a6}
     </style>
     <script src="/theme-toggle.js"></script>
 </head>
@@ -639,8 +648,100 @@
                 <p class="sub" style="margin-top:0.85rem">That system gets built and run the same way every time. We call it <a href="/#how-it-works" style="color:var(--accent);font-weight:600">The Forte Method</a>.</p>
             </div>
         </div>
-        <div style="max-width:1200px;margin:0 auto;width:100%">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 156 1280 506" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" fill="none" role="img" aria-label="The Launch Forte model: one connected system built from Lead Systems, Revenue Infrastructure, AI Agents, Reporting, Custom Builds and Reliability that either makes you more money or keeps more of what you earn." style="width:100%;height:auto;display:block"><rect x="290" y="176" width="700" height="76" rx="14" fill="var(--card-bg)" stroke="var(--border-strong)" stroke-width="1.2"/><text x="640.0" y="201" font-size="12.5" font-weight="700" fill="var(--text-primary)" text-anchor="middle" letter-spacing="2">ONE CONNECTED SYSTEM</text><rect x="299" y="215" width="107" height="26" rx="6" fill="var(--background)" stroke="var(--border)" stroke-width="1"/><text x="352.5" y="232" font-size="9" font-weight="600" fill="var(--text-primary)" text-anchor="middle">Lead Systems</text><rect x="414" y="215" width="107" height="26" rx="6" fill="var(--background)" stroke="var(--border)" stroke-width="1"/><text x="467.5" y="232" font-size="9" font-weight="600" fill="var(--text-primary)" text-anchor="middle">Revenue Infrastructure</text><rect x="529" y="215" width="107" height="26" rx="6" fill="var(--background)" stroke="var(--border)" stroke-width="1"/><text x="582.5" y="232" font-size="9" font-weight="600" fill="var(--text-primary)" text-anchor="middle">AI Agents</text><rect x="644" y="215" width="107" height="26" rx="6" fill="var(--background)" stroke="var(--border)" stroke-width="1"/><text x="697.5" y="232" font-size="9" font-weight="600" fill="var(--text-primary)" text-anchor="middle">Reporting</text><rect x="759" y="215" width="107" height="26" rx="6" fill="var(--background)" stroke="var(--border)" stroke-width="1"/><text x="812.5" y="232" font-size="9" font-weight="600" fill="var(--text-primary)" text-anchor="middle">Custom Builds</text><rect x="874" y="215" width="107" height="26" rx="6" fill="var(--background)" stroke="var(--border)" stroke-width="1"/><text x="927.5" y="232" font-size="9" font-weight="600" fill="var(--text-primary)" text-anchor="middle">Reliability</text><line x1="640.0" y1="252" x2="340" y2="326" stroke="var(--accent)" stroke-width="1.6"/><polygon points="340,326 344.62044488614566,322.17227364430397 345.8704756561804,327.2399659552556" fill="var(--accent)"/><line x1="640.0" y1="252" x2="940" y2="326" stroke="var(--accent)" stroke-width="1.6"/><polygon points="940,326 934.1295243438195,327.2399659552556 935.3795551138543,322.17227364430397" fill="var(--accent)"/><rect x="120" y="330" width="440" height="182" rx="14" fill="var(--card-bg)" stroke="var(--border-strong)" stroke-width="1.2"/><circle cx="152" cy="368" r="16" fill="none" stroke="var(--accent)" stroke-width="1.6"/><line x1="152" y1="375" x2="152" y2="361" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/><line x1="152" y1="361" x2="147" y2="366" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/><line x1="152" y1="361" x2="157" y2="366" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/><text x="182" y="374" font-size="17.5" font-weight="600" fill="var(--text-primary)" text-anchor="start">Makes you more money</text><circle cx="156" cy="410" r="3" fill="var(--accent)"/><text x="172" y="414" font-size="13.5" font-weight="400" fill="var(--text-secondary)" text-anchor="start">Fills your calendar with qualified calls</text><circle cx="156" cy="441" r="3" fill="var(--accent)"/><text x="172" y="445" font-size="13.5" font-weight="400" fill="var(--text-secondary)" text-anchor="start">Responds to every lead in seconds</text><circle cx="156" cy="472" r="3" fill="var(--accent)"/><text x="172" y="476" font-size="13.5" font-weight="400" fill="var(--text-secondary)" text-anchor="start">Works every lead without you chasing</text><rect x="720" y="330" width="440" height="182" rx="14" fill="var(--card-bg)" stroke="var(--border-strong)" stroke-width="1.2"/><circle cx="752" cy="368" r="16" fill="none" stroke="var(--accent)" stroke-width="1.6"/><line x1="746" y1="369" x2="751" y2="374" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/><line x1="751" y1="374" x2="759" y2="363" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/><text x="782" y="374" font-size="17.5" font-weight="600" fill="var(--text-primary)" text-anchor="start">Keeps more of what you earn</text><circle cx="756" cy="410" r="3" fill="var(--accent)"/><text x="772" y="414" font-size="13.5" font-weight="400" fill="var(--text-secondary)" text-anchor="start">Takes the manual work off your team</text><circle cx="756" cy="441" r="3" fill="var(--accent)"/><text x="772" y="445" font-size="13.5" font-weight="400" fill="var(--text-secondary)" text-anchor="start">One source of truth you can trust</text><circle cx="756" cy="472" r="3" fill="var(--accent)"/><text x="772" y="476" font-size="13.5" font-weight="400" fill="var(--text-secondary)" text-anchor="start">Nothing gets missed when you scale</text><line x1="340" y1="512" x2="585" y2="578" stroke="var(--accent)" stroke-width="1.6"/><polygon points="585,578 579.1044443120384,579.1146403591041 580.4621360280252,574.0747241406682" fill="var(--accent)"/><line x1="940" y1="512" x2="695" y2="578" stroke="var(--accent)" stroke-width="1.6"/><polygon points="695,578 699.5378639719748,574.0747241406682 700.8955556879616,579.1146403591041" fill="var(--accent)"/><rect x="470" y="562" width="340" height="66" rx="14" fill="var(--accent)"/><text x="640.0" y="604" font-size="19" font-weight="700" fill="var(--on-accent)" text-anchor="middle" letter-spacing="0.5">YOUR BOTTOM LINE</text></svg>
+        <!-- ONE CONNECTED SYSTEM VISUAL -->
+        <div class="homepage-connected">
+                <svg viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="cs-title cs-desc">
+                  <title id="cs-title">One connected system feeding your bottom line</title>
+                  <desc id="cs-desc">Six capabilities, lead systems, revenue infrastructure, AI agents, reporting, custom builds, and reliability, each with the outcome it produces, all connected to a central hub labeled your bottom line, makes you more money.</desc>
+                  <defs>
+                    <filter id="cs-ns" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="1.5" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.08"/></filter>
+                    <filter id="cs-dg" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <filter id="cs-soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="10"/></filter>
+                    <style>
+                      text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
+                      .cap{fill:#0f172a;font-size:20px;font-weight:700;letter-spacing:1px;}
+                      .subcap{fill:#94a3b8;font-size:12.5px;font-weight:500;}
+                      .box{fill:#ffffff;stroke:#e6e9ef;stroke-width:1.3;filter:url(#cs-ns);}
+                      .bname{fill:#1f2733;font-size:13px;font-weight:700;}
+                      .bbenefit{fill:#94a3b8;font-size:10px;font-weight:500;}
+                      .spoke{fill:none;stroke:#d3dae4;stroke-width:1.7;}
+                      .hubLabel{fill:#1d4ed8;font-size:11px;font-weight:700;letter-spacing:.5px;}
+                      .hubBig{fill:#0f172a;font-size:15px;font-weight:700;}
+                      .badge{fill:#fff;font-size:13px;font-weight:800;}
+                      .coreGlow{animation:breathe 3.6s ease-in-out infinite;}
+                      @keyframes breathe{0%,100%{opacity:.06;}50%{opacity:.18;}}
+                    </style>
+                  </defs>
+
+                  <text class="cap" x="480" y="42" text-anchor="middle">ONE CONNECTED SYSTEM</text>
+                  <text class="subcap" x="480" y="66" text-anchor="middle">Every capability feeds the same number</text>
+
+                  <!-- spokes -->
+                  <path class="spoke" d="M234 127 L480 288"/>
+                  <path class="spoke" d="M234 288 L480 288"/>
+                  <path class="spoke" d="M234 449 L480 288"/>
+                  <path class="spoke" d="M726 127 L480 288"/>
+                  <path class="spoke" d="M726 288 L480 288"/>
+                  <path class="spoke" d="M726 449 L480 288"/>
+
+                  <!-- flowing dots converging inward -->
+                  <circle r="3.6" fill="#2563eb" filter="url(#cs-dg)"><animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" path="M234 127 L480 288"/></circle>
+                  <circle r="3.6" fill="#16a34a" filter="url(#cs-dg)"><animateMotion dur="2.6s" begin=".4s" repeatCount="indefinite" path="M234 288 L480 288"/></circle>
+                  <circle r="3.6" fill="#8b5cf6" filter="url(#cs-dg)"><animateMotion dur="2.6s" begin=".8s" repeatCount="indefinite" path="M234 449 L480 288"/></circle>
+                  <circle r="3.6" fill="#0ea5e9" filter="url(#cs-dg)"><animateMotion dur="2.6s" begin=".2s" repeatCount="indefinite" path="M726 127 L480 288"/></circle>
+                  <circle r="3.6" fill="#f59e0b" filter="url(#cs-dg)"><animateMotion dur="2.6s" begin=".6s" repeatCount="indefinite" path="M726 288 L480 288"/></circle>
+                  <circle r="3.6" fill="#14b8a6" filter="url(#cs-dg)"><animateMotion dur="2.6s" begin="1s" repeatCount="indefinite" path="M726 449 L480 288"/></circle>
+
+                  <!-- left boxes -->
+                  <g>
+                    <rect class="box" x="14" y="96" width="220" height="62" rx="12"/>
+                    <rect x="24" y="110" width="3.5" height="34" rx="2" fill="#2563eb"/>
+                    <text class="bname" x="36" y="127">Lead Systems</text>
+                    <text class="bbenefit" x="36" y="146">Responds to every lead in seconds</text>
+                  </g>
+                  <g>
+                    <rect class="box" x="14" y="257" width="220" height="62" rx="12"/>
+                    <rect x="24" y="271" width="3.5" height="34" rx="2" fill="#16a34a"/>
+                    <text class="bname" x="36" y="288">Revenue Infrastructure</text>
+                    <text class="bbenefit" x="36" y="307">Keeps more of what you earn</text>
+                  </g>
+                  <g>
+                    <rect class="box" x="14" y="418" width="220" height="62" rx="12"/>
+                    <rect x="24" y="432" width="3.5" height="34" rx="2" fill="#8b5cf6"/>
+                    <text class="bname" x="36" y="449">AI Agents</text>
+                    <text class="bbenefit" x="36" y="468">Works every lead without you chasing</text>
+                  </g>
+
+                  <!-- right boxes -->
+                  <g>
+                    <rect class="box" x="726" y="96" width="220" height="62" rx="12"/>
+                    <rect x="932.5" y="110" width="3.5" height="34" rx="2" fill="#0ea5e9"/>
+                    <text class="bname" x="924" y="127" text-anchor="end">Reporting</text>
+                    <text class="bbenefit" x="924" y="146" text-anchor="end">One source of truth you can trust</text>
+                  </g>
+                  <g>
+                    <rect class="box" x="726" y="257" width="220" height="62" rx="12"/>
+                    <rect x="932.5" y="271" width="3.5" height="34" rx="2" fill="#f59e0b"/>
+                    <text class="bname" x="924" y="288" text-anchor="end">Custom Builds</text>
+                    <text class="bbenefit" x="924" y="307" text-anchor="end">Takes the manual work off your team</text>
+                  </g>
+                  <g>
+                    <rect class="box" x="726" y="418" width="220" height="62" rx="12"/>
+                    <rect x="932.5" y="432" width="3.5" height="34" rx="2" fill="#14b8a6"/>
+                    <text class="bname" x="924" y="449" text-anchor="end">Reliability</text>
+                    <text class="bbenefit" x="924" y="468" text-anchor="end">Nothing gets missed when you scale</text>
+                  </g>
+
+                  <!-- hub -->
+                  <circle class="coreGlow" cx="480" cy="288" r="92" fill="#2563eb" filter="url(#cs-soft)"/>
+                  <circle cx="480" cy="288" r="84" fill="#ffffff" stroke="#c3d6fb" stroke-width="2" filter="url(#cs-ns)"/>
+                  <circle cx="480" cy="246" r="14" fill="#16a34a"/>
+                  <text class="badge" x="480" y="251" text-anchor="middle">$</text>
+                  <text class="hubLabel" x="480" y="278" text-anchor="middle">YOUR BOTTOM LINE</text>
+                  <text class="hubBig" x="480" y="300" text-anchor="middle">Makes you</text>
+                  <text class="hubBig" x="480" y="319" text-anchor="middle">more money</text>
+                  <text x="480" y="520" text-anchor="middle" font-size="13.5" font-weight="700" letter-spacing="1.6"><tspan fill="#9aa4b2">THE </tspan><tspan fill="#2563eb">FORTE</tspan><tspan fill="#9aa4b2"> METHOD</tspan></text>
+                </svg>
         </div>
     </section>
 
@@ -688,9 +789,9 @@
     <!-- THE FORTE METHOD -->
     <section class="section white" id="how-it-works">
         <div class="section-inner">
-            <p class="eyebrow">The Forte Method</p>
-            <h2>How every build gets done</h2>
-            <p class="sub">One system, run in phases, applied to your business.</p>
+            <p class="eyebrow">How we work</p>
+            <h2>The Forte Method</h2>
+            <p class="sub">How every build gets done. One system, run in phases, applied to your business.</p>
             <p class="body-text" style="max-width:700px;margin:1rem auto 0">The Forte Method is how every Launch Forte build runs. It moves in phases, so what gets built is load bearing from day one and keeps working as you grow.</p>
             <div class="grid-3" style="margin-top:2.5rem">
                 <div class="step-card">
