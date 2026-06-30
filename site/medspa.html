@@ -553,6 +553,21 @@
         .founder-video-unmute.is-hidden{opacity:0;pointer-events:none}
         @media(max-width:600px){.founder-video-unmute{top:0.6rem;right:0.6rem;padding:0.55rem 0.7rem;font-size:0.75rem}.founder-video-unmute span{display:none}}
 
+        /* Side-by-side founder video + Matt Juels Senja testimonial */
+        .medspa-videos-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:1100px;margin:0 auto}
+        .medspa-video-slot{display:flex;flex-direction:column}
+        .medspa-senja-wrap{margin-top:1.5rem}
+        .medspa-senja-attrib{font-size:0.8125rem;color:var(--text-muted);font-weight:500;text-align:center;margin-top:0.85rem}
+        @media(max-width:900px){.medspa-videos-row{grid-template-columns:1fr;gap:2rem}}
+
+        /* Beyond the campaign ladder */
+        .medspa-ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.75rem}
+        .medspa-ladder-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.75rem 1.6rem;display:flex;flex-direction:column}
+        .medspa-ladder-eyebrow{font-size:0.6875rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.14em;margin:0 0 0.75rem}
+        .medspa-ladder-card h3{font-size:1.0625rem;font-weight:700;color:var(--text-primary);margin:0 0 0.85rem;letter-spacing:-0.01em}
+        .medspa-ladder-card p{font-size:0.9375rem;line-height:1.65;color:var(--text-secondary);margin:0}
+        @media(max-width:900px){.medspa-ladder{grid-template-columns:1fr;gap:0.85rem}.medspa-ladder-card{padding:1.4rem 1.4rem}}
+
 
         .medspa-testimonial-block{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.75rem;margin-top:2rem}
         .medspa-testimonial-block h3{font-size:1.0625rem;font-weight:700;color:var(--text-primary);margin:0 0 0.65rem;letter-spacing:-0.01em}
@@ -612,16 +627,26 @@
         </div>
     </div>
 
-    <!-- FOUNDER VIDEO -->
+    <!-- FOUNDER VIDEO + MATT JUELS TESTIMONIAL (side-by-side) -->
     <section class="page-section reveal" id="founder-video">
-        <p class="section-label" style="justify-content:center">From the founder</p>
-        <div style="max-width:720px;margin:1.5rem auto 0">
-            <div class="founder-video-wrap">
-                <div id="founder-video-player"></div>
-                <button type="button" class="founder-video-unmute" aria-label="Unmute video">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                    <span>Tap to unmute</span>
-                </button>
+        <div class="medspa-videos-row">
+            <div class="medspa-video-slot">
+                <p class="section-label" style="justify-content:center">From the founder</p>
+                <div class="founder-video-wrap">
+                    <div id="founder-video-player"></div>
+                    <button type="button" class="founder-video-unmute" aria-label="Unmute video">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                        <span>Tap to unmute</span>
+                    </button>
+                </div>
+            </div>
+            <div class="medspa-video-slot">
+                <p class="section-label" style="justify-content:center">From a client</p>
+                <div class="medspa-senja-wrap">
+                    <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
+                    <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true" style="display:block;max-width:560px;margin:0 auto"></div>
+                </div>
+                <p class="medspa-senja-attrib">Matt Juels, COO, Six Months to Speech</p>
             </div>
         </div>
     </section>
@@ -835,20 +860,39 @@
         CAMPAIGN CASE STUDIES, populate after campaigns one through three.
         -->
 
-        <div class="medspa-testimonial-block">
-            <h3>Hear it from a client (different industry, same standard).</h3>
-            <p>This one's from a coaching client. We included it because what they're describing, work that's scoped tight and built to hold, is the standard we bring to a med spa campaign that's moving real money on real patient lists.</p>
-            <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
-            <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true" style="display:block;max-width:560px;margin:1.25rem auto 1rem"></div>
-            <blockquote class="medspa-testimonial-quote">"He stood out from the pack real quickly. We'll use him for any job we ever have."</blockquote>
-            <p class="medspa-testimonial-attrib">Matt Juels, COO, Six Months to Speech</p>
-        </div>
 
         </section>
 
-    <!-- SECTION 06: FAQ -->
+    <!-- SECTION 06: Beyond the campaign -->
+    <section class="page-section reveal" id="beyond-the-campaign">
+        <p class="section-label">06 / Beyond the campaign</p>
+        <h2>The reactivation campaign is the <span style="color:var(--accent)">front door</span>.</h2>
+        <p class="body-text">Most owners start there because it pays for itself in a few booked visits. When you want more than a winback, this is the system we build around it, all on the software you already run.</p>
+
+        <div class="medspa-ladder">
+            <div class="medspa-ladder-card">
+                <p class="medspa-ladder-eyebrow">Start here</p>
+                <h3>Patient Reactivation Campaign</h3>
+                <p>The $1,500 flat campaign above. We bring back the lapsed patients already in your list, compliant, from inside your software. It's the fastest way to see how we work, and the day 30 report is what tells you what to fix next.</p>
+            </div>
+            <div class="medspa-ladder-card">
+                <p class="medspa-ladder-eyebrow">Next rung</p>
+                <h3>Core Systems Build</h3>
+                <p>The full patient engine, wired end to end. New patient capture from your forms and ads, missed call text back and speed to lead so no inquiry goes cold, online booking into your calendar, and the retention loop that rebooks patients and nurtures memberships before anyone lapses. Built on the software you already run, with compliance handled throughout, and one dashboard showing your revenue, your rebooking rate, your no show rate, and your recovered revenue.</p>
+            </div>
+            <div class="medspa-ladder-card">
+                <p class="medspa-ladder-eyebrow">Ongoing</p>
+                <h3>Embedded Growth Systems Partner</h3>
+                <p>The engineering brain at the table once it's live. We run the system, keep it tuned, build what's next, and report the result in dollars every month, new patient revenue and recovered revenue, against what you're paying.</p>
+            </div>
+        </div>
+
+        <p class="body-text" style="margin-top:1.75rem">Fixed price, fixed scope at every rung. The campaign proves it on a small bet, and the build and the partnership are where the calendar stays full. Anything a build uncovers gets its own quote, never a surprise invoice.</p>
+    </section>
+
+    <!-- SECTION 07: FAQ -->
     <section class="page-section reveal" id="faq">
-        <p class="section-label">06 / Common Questions</p>
+        <p class="section-label">07 / Common Questions</p>
         <h2>What owners ask before <span style="color:var(--accent)">booking</span>.</h2>
         <div class="faq-list" style="margin-top:1.5rem">
             <div class="faq-item">
@@ -906,7 +950,7 @@
         </div>
     </section>
 
-    <!-- SECTION 07: Footer CTA -->
+    <!-- SECTION 08: Footer CTA -->
     <section class="page-section reveal" id="next-step">
         <div class="cta-banner">
             <h2>Find out what your list is <span style="color:var(--accent)">worth</span>.</h2>
