@@ -1,0 +1,75 @@
+<svg viewBox="0 0 960 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Med spa reactivation pipeline</title>
+  <desc id="desc">A pipeline board with four stages, lapsed, texted, booked, and rebooked, holding patient cards, a live indicator, and a new lapsed patient arriving into the first stage.</desc>
+  <defs>
+    <filter id="ps" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/></filter>
+    <filter id="cs" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.06"/></filter>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
+      .title{fill:#0f172a;font-size:15px;font-weight:700;}
+      .live{fill:#16a34a;font-size:12px;font-weight:600;}
+      .colname{fill:#0f172a;font-size:13px;font-weight:700;}
+      .colsub{fill:#94a3b8;font-size:11.5px;font-weight:500;}
+      .card{fill:#ffffff;stroke:#e6e9ef;stroke-width:1.3;filter:url(#cs);}
+      .cname{fill:#1f2733;font-size:13px;font-weight:600;}
+      .csub{fill:#94a3b8;font-size:11.5px;}
+      .av{font-size:12px;font-weight:700;fill:#fff;}
+      .newtag{fill:#2563eb;font-size:9px;font-weight:800;letter-spacing:.5px;}
+      .livedot{animation:lp 1.8s ease-in-out infinite;}
+      @keyframes lp{0%,100%{opacity:.35;}50%{opacity:1;}}
+      .newcard{animation:drop 6s ease-in-out infinite;}
+      @keyframes drop{0%{opacity:0;transform:translateY(-12px);}7%{opacity:1;transform:translateY(0);}90%{opacity:1;transform:translateY(0);}97%,100%{opacity:0;transform:translateY(-12px);}}
+      .won{animation:wp 2.4s ease-in-out infinite;}
+      @keyframes wp{0%,100%{opacity:.45;}50%{opacity:1;}}
+    </style>
+  </defs>
+
+  <rect x="8" y="8" width="944" height="284" rx="16" fill="#ffffff" stroke="#e6e9ef" stroke-width="1.5" filter="url(#ps)"/>
+  <path d="M8 24 Q8 8 24 8 H936 Q952 8 952 24 V52 H8 Z" fill="#f8fafc"/>
+  <line x1="8" y1="52" x2="952" y2="52" stroke="#eceff4" stroke-width="1.5"/>
+  <text class="title" x="28" y="36">Reactivation pipeline</text>
+  <circle class="livedot" cx="888" cy="30" r="4" fill="#22c55e"/>
+  <text class="live" x="900" y="34">Live</text>
+
+  <text class="colname" x="28" y="80">Lapsed</text><text class="colsub" x="28" y="97">2 · overdue</text><rect x="28" y="106" width="40" height="3" rx="1.5" fill="#ec4899"/>
+  <text class="colname" x="254" y="80">Texted</text><text class="colsub" x="254" y="97">2 · sent</text><rect x="254" y="106" width="40" height="3" rx="1.5" fill="#2563eb"/>
+  <text class="colname" x="480" y="80">Booked</text><text class="colsub" x="480" y="97">1 · Fri</text><rect x="480" y="106" width="40" height="3" rx="1.5" fill="#f59e0b"/>
+  <text class="colname" x="706" y="80">Rebooked</text><text class="colsub" x="706" y="97">1 · won</text><rect x="706" y="106" width="40" height="3" rx="1.5" fill="#22c55e"/>
+
+  <g class="newcard">
+    <rect class="card" x="28" y="124" width="210" height="60" rx="10"/>
+    <circle cx="54" cy="154" r="14" fill="#ec4899"/><text class="av" x="54" y="158" text-anchor="middle">M</text>
+    <text class="cname" x="76" y="151">M. Chen</text><text class="csub" x="76" y="168">Tox · 7mo</text>
+    <text class="newtag" x="214" y="142" text-anchor="end">NEW</text>
+  </g>
+  <g>
+    <rect class="card" x="28" y="198" width="210" height="60" rx="10"/>
+    <circle cx="54" cy="228" r="14" fill="#8b5cf6"/><text class="av" x="54" y="232" text-anchor="middle">R</text>
+    <text class="cname" x="76" y="225">R. Patel</text><text class="csub" x="76" y="242">Filler · 9mo</text>
+  </g>
+
+  <g>
+    <rect class="card" x="254" y="124" width="210" height="60" rx="10"/>
+    <circle cx="280" cy="154" r="14" fill="#2563eb"/><text class="av" x="280" y="158" text-anchor="middle">J</text>
+    <text class="cname" x="302" y="151">J. Adams</text><text class="csub" x="302" y="168">replied</text>
+  </g>
+  <g>
+    <rect class="card" x="254" y="198" width="210" height="60" rx="10"/>
+    <circle cx="280" cy="228" r="14" fill="#0d9488"/><text class="av" x="280" y="232" text-anchor="middle">S</text>
+    <text class="cname" x="302" y="225">S. Kim</text><text class="csub" x="302" y="242">Member</text>
+  </g>
+
+  <g>
+    <rect class="card" x="480" y="124" width="210" height="60" rx="10"/>
+    <circle cx="506" cy="154" r="14" fill="#f59e0b"/><text class="av" x="506" y="158" text-anchor="middle">L</text>
+    <text class="cname" x="528" y="151">L. Ortiz</text><text class="csub" x="528" y="168">Fri 2pm</text>
+  </g>
+
+  <g>
+    <rect class="card" x="706" y="124" width="210" height="60" rx="10"/>
+    <circle cx="732" cy="154" r="14" fill="#16a34a"/><text class="av" x="732" y="158" text-anchor="middle">A</text>
+    <text class="cname" x="754" y="151">A. Diaz</text><text class="csub" x="754" y="168">rebooked</text>
+    <circle class="won" cx="898" cy="142" r="9" fill="#22c55e"/>
+    <path class="won" d="M894 142 l3 3 l5 -6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

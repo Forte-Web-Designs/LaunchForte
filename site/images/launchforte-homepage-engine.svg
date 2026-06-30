@@ -1,0 +1,73 @@
+<svg viewBox="0 0 960 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">The engine your business runs on</title>
+  <desc id="desc">Lead sources, ads and search, social and DMs, and referrals, flow into a central system made of capture, CRM, follow up, and reporting, then out to booked appointments, revenue, and repeat clients, with a retention loop feeding back to the start.</desc>
+  <defs>
+    <filter id="ns" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="dg" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="9"/></filter>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
+      .cap{fill:#0f172a;font-size:20px;font-weight:600;}
+      .io{fill:#ffffff;stroke:#d8dce4;stroke-width:1.5;filter:url(#ns);}
+      .iolabel{fill:#1f2733;font-size:13px;font-weight:500;}
+      .core{fill:#ffffff;stroke:#bcd0fb;stroke-width:2;filter:url(#ns);}
+      .coreTitle{fill:#1d4ed8;font-size:13px;font-weight:700;letter-spacing:.3px;}
+      .pill{fill:#eff5ff;stroke:#dbe7fe;stroke-width:1;}
+      .plabel{fill:#1f2937;font-size:12.5px;font-weight:500;}
+      .wire{fill:none;stroke:#cfd6e1;stroke-width:1.8;}
+      .loop{fill:none;stroke:#e0d8f5;stroke-width:1.8;stroke-dasharray:5 6;}
+      .looplabel{fill:#a78bd4;font-size:12px;font-weight:600;}
+      .coreGlow{animation:breathe 3.6s ease-in-out infinite;}
+      @keyframes breathe{0%,100%{opacity:.07;}50%{opacity:.2;}}
+    </style>
+  </defs>
+
+  <text class="cap" x="480" y="36" text-anchor="middle">The engine your business runs on</text>
+
+  <!-- wires in -->
+  <path class="wire" d="M174 119 C280 119 300 152 380 152"/>
+  <path class="wire" d="M174 209 C300 209 300 210 380 210"/>
+  <path class="wire" d="M174 299 C280 299 300 268 380 268"/>
+  <!-- wires out -->
+  <path class="wire" d="M580 152 C680 152 700 119 786 119"/>
+  <path class="wire" d="M580 210 C700 210 700 209 786 209"/>
+  <path class="wire" d="M580 268 C680 268 700 299 786 299"/>
+  <!-- retention loop -->
+  <path class="loop" d="M820 324 C760 398 540 398 480 398 C420 398 240 398 150 324"/>
+
+  <!-- flowing dots in (blue) -->
+  <circle r="3.6" fill="#2563eb" filter="url(#dg)"><animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" path="M174 119 C280 119 300 152 380 152"/></circle>
+  <circle r="3.6" fill="#2563eb" filter="url(#dg)"><animateMotion dur="2.6s" begin=".5s" repeatCount="indefinite" path="M174 209 C300 209 300 210 380 210"/></circle>
+  <circle r="3.6" fill="#2563eb" filter="url(#dg)"><animateMotion dur="2.6s" begin="1s" repeatCount="indefinite" path="M174 299 C280 299 300 268 380 268"/></circle>
+  <!-- flowing dots out (green) -->
+  <circle r="3.6" fill="#22c55e" filter="url(#dg)"><animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite" path="M580 152 C680 152 700 119 786 119"/></circle>
+  <circle r="3.6" fill="#22c55e" filter="url(#dg)"><animateMotion dur="2.6s" begin="1.8s" repeatCount="indefinite" path="M580 210 C700 210 700 209 786 209"/></circle>
+  <circle r="3.6" fill="#22c55e" filter="url(#dg)"><animateMotion dur="2.6s" begin="2.3s" repeatCount="indefinite" path="M580 268 C680 268 700 299 786 299"/></circle>
+  <!-- retention dot (purple) -->
+  <circle r="3.6" fill="#8b5cf6" filter="url(#dg)"><animateMotion dur="4.2s" begin="0s" repeatCount="indefinite" path="M820 324 C760 398 540 398 480 398 C420 398 240 398 150 324"/></circle>
+
+  <!-- inputs -->
+  <g><rect class="io" x="24" y="96" width="150" height="46" rx="12"/><rect x="32" y="108" width="4" height="22" rx="2" fill="#2563eb"/><text class="iolabel" x="99" y="124" text-anchor="middle">Ads and search</text></g>
+  <g><rect class="io" x="24" y="186" width="150" height="46" rx="12"/><rect x="32" y="198" width="4" height="22" rx="2" fill="#2563eb"/><text class="iolabel" x="99" y="214" text-anchor="middle">Social and DMs</text></g>
+  <g><rect class="io" x="24" y="276" width="150" height="46" rx="12"/><rect x="32" y="288" width="4" height="22" rx="2" fill="#2563eb"/><text class="iolabel" x="99" y="304" text-anchor="middle">Referrals</text></g>
+
+  <!-- core -->
+  <rect class="coreGlow" x="380" y="96" width="200" height="228" rx="20" fill="#2563eb" filter="url(#soft)"/>
+  <rect class="core" x="380" y="96" width="200" height="228" rx="18"/>
+  <text class="coreTitle" x="480" y="126" text-anchor="middle">YOUR SYSTEM</text>
+  <g><rect class="pill" x="405" y="142" width="150" height="30" rx="8"/><text class="plabel" x="480" y="162" text-anchor="middle">Capture</text></g>
+  <g><rect class="pill" x="405" y="180" width="150" height="30" rx="8"/><text class="plabel" x="480" y="200" text-anchor="middle">CRM</text></g>
+  <g><rect class="pill" x="405" y="218" width="150" height="30" rx="8"/><text class="plabel" x="480" y="238" text-anchor="middle">Follow up</text></g>
+  <g><rect class="pill" x="405" y="256" width="150" height="30" rx="8"/><text class="plabel" x="480" y="276" text-anchor="middle">Reporting</text></g>
+
+  <!-- outputs -->
+  <g><rect class="io" x="786" y="96" width="150" height="46" rx="12"/><rect x="794" y="108" width="4" height="22" rx="2" fill="#22c55e"/><text class="iolabel" x="861" y="124" text-anchor="middle">Booked</text></g>
+  <g><rect class="io" x="786" y="186" width="150" height="46" rx="12"/><rect x="794" y="198" width="4" height="22" rx="2" fill="#22c55e"/><text class="iolabel" x="861" y="214" text-anchor="middle">Revenue</text></g>
+  <g><rect class="io" x="786" y="276" width="150" height="46" rx="12"/><rect x="794" y="288" width="4" height="22" rx="2" fill="#22c55e"/><text class="iolabel" x="861" y="304" text-anchor="middle">Repeat clients</text></g>
+
+  <text class="looplabel" x="480" y="416" text-anchor="middle">Retention and referrals</text>
+</svg>

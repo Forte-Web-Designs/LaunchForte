@@ -564,6 +564,13 @@
         [data-theme="dark"] .vertical-diagram .cap{fill:#f5f5f7}
         [data-theme="dark"] .vertical-diagram .sub{fill:#a1a1a6}
         [data-theme="dark"] .vertical-diagram .accent{fill:#4ab5ed}
+        /* Richer second visual (workflow canvas or CRM board), further down the page. */
+        .vertical-visual{max-width:900px;margin:3.5rem auto 0;padding:0 1rem}
+        .vertical-visual img{width:100%;height:auto;display:block}
+        @media(max-width:680px){
+            .vertical-visual{padding:0 0 0.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+            .vertical-visual img{min-width:680px}
+        }
 
     </style>
     <script src="/theme-toggle.js"></script>
@@ -827,6 +834,11 @@
     </section>
 
     <!-- SECTION 05: Proof -->
+    <!-- PRODUCT VISUAL -->
+    <figure class="vertical-visual">
+        <img src="/images/launchforte-crm-home-services.svg" alt="A home services job pipeline board with stages for new lead, quoted, scheduled, and paid, with a new job arriving into the first stage." width="960" height="300" loading="lazy">
+    </figure>
+
     <section class="page-section reveal" id="proof">
         <p class="section-label">05 / Service businesses we've built</p>
         <h2>Same system, real <span style="color:var(--accent)">operations</span>.</h2>
