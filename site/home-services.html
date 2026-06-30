@@ -554,7 +554,12 @@
         /* Vertical system diagram */
         .vertical-diagram{max-width:840px;margin:1.5rem auto;padding:0 1rem}
         .vertical-diagram img{width:100%;height:auto;display:block}
-        @media(max-width:560px){.vertical-diagram{display:none}}
+        /* On small screens, keep it visible and legible by scrolling it
+           horizontally at a readable min width, matching the left to right flow. */
+        @media(max-width:680px){
+            .vertical-diagram{padding:0 0 0.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+            .vertical-diagram img{min-width:680px}
+        }
 
     </style>
     <script src="/theme-toggle.js"></script>
