@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preload" as="image" href="/images/home/launch-forte.png" fetchpriority="high">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Connect ManyChat to Your CRM and Stop Losing Leads in the DMs | Launch Forte</title>
+    <meta name="description" content="Your ManyChat DMs and your CRM probably don't talk, so leads get stuck in the inbox. Here's how to connect them so every DM lead lands in your CRM and gets followed up.">
+    <link rel="canonical" href="https://launchforte.com/posts/connect-manychat-to-crm.html">
+    <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
+    <meta property="og:title" content="How to Connect ManyChat to Your CRM and Stop Losing Leads in the DMs | Launch Forte">
+    <meta property="og:description" content="Your ManyChat DMs and your CRM probably don't talk, so leads get stuck in the inbox. Here's how to connect them so every DM lead lands in your CRM and gets followed up.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://launchforte.com/posts/connect-manychat-to-crm.html">
+    <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Connect ManyChat to Your CRM and Stop Losing Leads in the DMs | Launch Forte">
+    <meta name="twitter:description" content="Your ManyChat DMs and your CRM probably don't talk, so leads get stuck in the inbox. Here's how to connect them so every DM lead lands in your CRM and gets followed up.">
+    <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
+    <!-- Schema: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does ManyChat integrate with GoHighLevel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, usually through a webhook from ManyChat into GoHighLevel, which lets you pass the contact and a tag so your automations can pick it up."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I keep using ManyChat for my DMs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. ManyChat stays the front door for the conversation. The CRM becomes the place every lead lands and gets followed up."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I pass into the CRM?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "At minimum, the contact info and a tag for what they're interested in, plus the source so you know where it came from. That's enough for the follow up to speak to what they asked about."
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}html,body{overflow-x:clip;overscroll-behavior-x:none}
+        :root{--text-primary: #1d1d1f;--text-secondary: #515154;--text-muted: #86868b;--accent:#0088DB;--accent-hover: #4ab5ed;--accent-subtle: rgba(0,136,219,0.10);--accent-glow: rgba(0,136,219,0.10);--accent-2: #4ab5ed;--accent-3: #0088DB;--background: #f5f5f7;--background-alt: #ffffff;--surface: #ffffff;--surface-hover: #f5f5f7;--border: rgba(0,0,0,0.08);--border-light: rgba(0,0,0,0.12);
+            --background-dark: #1d1d1f;
+            --card-bg: #ffffff;
+            --accent-warm: #4ab5ed;
+            --accent-tint: rgba(0,136,219,0.10);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-pill:980px}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;line-height:1.6;color:var(--text-primary);background:var(--background);background-image:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(6,182,212,0.04) 0%,transparent 50%);background-attachment:fixed}
+        a{color:var(--accent-hover);text-decoration:none;transition:0.2s}
+        a:hover{text-decoration:underline}
+        .site-header{position:sticky;top:0;z-index:100;background:rgba(245,245,247,0.85);backdrop-filter:blur(20px) saturate(1.5)}
+        .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+        .site-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent-hover),var(--accent),transparent);opacity:0.4}
+        .header-container{max-width:1100px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;height:52px}
+        .header-logo{text-decoration:none;display:flex;align-items:center}
+        .header-logo:hover{opacity:0.85;text-decoration:none}
+        .logo-img{height:28px;width:auto;display:block}[data-theme="dark"] .logo-img{filter:brightness(0) invert(1)}
+        .header-nav{display:flex;gap:1.5rem;align-items:center}
+        .header-nav a{color:var(--text-secondary);font-size:0.9rem;text-decoration:none;transition:color 0.2s ease}
+        .header-nav a:hover,.header-nav a.active{color:var(--text-primary)}
+        .main-content{max-width:720px;margin:0 auto;padding:5rem 2rem 6rem;position:relative;z-index:1}
+        .post-tag{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:1rem;display:block}
+        .post-title{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.25}
+        .post-meta{font-size:0.82rem;color:var(--text-muted);margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+        .post-body h2{font-size:1.25rem;font-weight:700;color:var(--text-primary);margin:2.5rem 0 1rem}
+        .post-body p{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8}
+        .post-body ul,.post-body ol{color:var(--text-secondary);margin:0 0 1.5rem 1.5rem;line-height:1.8}
+        .post-body li{margin-bottom:0.5rem}
+        .post-body strong{color:var(--text-primary);font-weight:600}
+        .callout{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:1.25rem 1.5rem;margin:2rem 0}
+        .callout p{margin:0;color:var(--text-secondary)}
+        .back-link{display:inline-block;font-size:0.85rem;color:var(--text-muted);margin-bottom:2.5rem}
+        .back-link:hover{color:var(--accent)}
+        .cta-block{margin-top:4rem;padding:2rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:center}
+        .cta-block p{color:var(--text-secondary);margin-bottom:1.25rem}
+        .btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.75rem;background:var(--accent);color:#ffffff;border:none;border-radius:var(--radius-pill);font-size:0.875rem;font-weight:500;cursor:pointer;transition:all 0.2s ease;text-decoration:none;font-family:inherit}
+        .btn-primary:hover{background:var(--accent-hover);color:#ffffff;transform:translateY(-1px);box-shadow:0 8px 30px var(--accent-glow)}
+        .footer-section{margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)}
+        .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+        .footer-location{font-size:0.8rem;color:var(--text-muted);margin-bottom:0.25rem}
+        .copyright{font-size:0.75rem;color:var(--text-muted)}
+    </style>
+    <script src="/theme-toggle.js"></script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="grid-bg"></div>
+<header class="site-header">
+    <div class="header-container">
+        <a href="/" class="header-logo">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte" width="160" height="28" fetchpriority="high">
+        </a>
+                                        <nav class="header-nav">
+            <a href="/index.html">Home</a>
+            <a href="/lead-systems.html">Lead Systems</a>
+            <a href="/what-we-build.html">What We Build</a>
+            <a href="/#who-we-build-for">Who We Build For</a>
+            <a href="/results.html">Results</a>
+            <a href="/free-resources.html" class="active">Free Resources</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+    <a href="/free-resources.html" class="back-link">Back to Resources</a>
+
+    <span class="post-tag">CRM</span>
+    <h1 class="post-title">How to Connect ManyChat to Your CRM (and Stop Losing Leads in the DMs)</h1>
+    <div class="post-meta">June 2026 &middot; 5 min read</div>
+
+    <div class="post-body">
+        <p>ManyChat connects to your CRM a few ways. The simplest is a native integration, if your CRM offers one. Past that, a webhook or a tool like Make or n8n in between will do it. The right method depends on your CRM, but the bigger question is what happens once they're connected, because the connection alone doesn't fix the leak.</p>
+
+        <h2>Why this matters</h2>
+
+        <p>For a lot of coaches, the DMs are where leads start and the CRM is where they're supposed to live. When the two don't talk, every conversation sits inside ManyChat and never makes it into your follow up. You can't see a person end to end, from the comment that kicked things off to the program they bought, so you're guessing at what's working and leads slip while you're busy.</p>
+
+        <h2>The ways to connect ManyChat to your CRM</h2>
+
+        <p><strong>A native integration.</strong> ManyChat has built in connections to some email tools and CRMs. If yours is on the list, that's the cleanest path, so check there first.</p>
+
+        <p><strong>A webhook.</strong> ManyChat can fire a webhook when someone reaches a step in a flow, and your CRM catches it. This works with most CRMs, GoHighLevel included, and it's flexible.</p>
+
+        <p><strong>Make or n8n in the middle.</strong> When the handoff needs to be smart, mapping fields, adding tags, branching on what the person said, and routing them to the right sequence, a tool in between does that cleanly. This is what I reach for when a simple handoff isn't enough.</p>
+
+        <h2>What to pass across</h2>
+
+        <p>Send enough that the CRM knows who the person is and what they came in for. The contact details, the source that triggered the flow, a tag for what they asked about, and any answer they gave along the way. With that in place, the follow up can be specific instead of generic.</p>
+
+        <h2>The part people miss</h2>
+
+        <p>Connecting the two is step one. The value is what fires after. Once a DM lead lands in the CRM tagged by what they wanted, your sequences take over, the follow up, the booking link, the nurture, and the reminders, and the conversation keeps moving without you back in the inbox.</p>
+
+        <p>That's the difference between a connection and a system. One moves data. The other moves the lead toward a sale.</p>
+
+        <h2>How we set this up</h2>
+
+        <p>This is part of what I build for coaches, the DMs feeding one CRM, the funnel wired end to end so nothing stalls in an inbox. You can see the whole thing on the <a href="/coaches">systems for coaches and creators page</a>.</p>
+
+        <p>If your DMs and your CRM aren't talking, start with an audit. We'll find where leads are slipping and put a number on it.</p>
+
+        <h2>Common questions</h2>
+
+        <p><strong>Does ManyChat integrate with GoHighLevel?</strong><br>Yes, usually through a webhook from ManyChat into GoHighLevel, which lets you pass the contact and a tag so your automations can pick it up.</p>
+
+        <p><strong>Can I keep using ManyChat for my DMs?</strong><br>Yes. ManyChat stays the front door for the conversation. The CRM becomes the place every lead lands and gets followed up.</p>
+
+        <p><strong>What should I pass into the CRM?</strong><br>At minimum, the contact info and a tag for what they're interested in, plus the source so you know where it came from. That's enough for the follow up to speak to what they asked about.</p>
+
+    </div>
+
+    <div class="cta-block">
+        <p>If your DMs and your CRM aren't talking, start with an audit. We'll find where leads are slipping.</p>
+        <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
+    </div>
+
+    <div class="footer-section">
+        <div class="footer-bottom">
+            <div>
+                <p class="footer-location">Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
+                <p class="copyright">&copy; 2026 Launch Forte. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="/scroll-reveal.js"></script>
+<script src="/scroll-top.js"></script>
+<script src="/hamburger.js"></script>
+</body>
+</html>
