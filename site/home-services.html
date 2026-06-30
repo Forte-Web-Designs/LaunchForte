@@ -575,7 +575,7 @@
         <p class="hero-subtitle animate-fade-up animate-delay-2">We connect your field tool, your CRM, your books, and your lead sources into one system, so the office stops re-entering everything and no call slips while your crews are on a job. Then we run it as you add trucks.</p>
         <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem">
             <a href="#" class="btn-primary calendly-cta" data-location="hero">Book a Growth Systems Audit</a>
-            <a href="#how-it-works" class="btn-primary" style="background:var(--surface);color:var(--text-primary);border:1px solid var(--border-light)">See how it works</a>
+            <a href="#how-it-works" class="btn-secondary">See how it works</a>
         </div>
     </div>
 
@@ -762,9 +762,8 @@
             <div class="proof-video-block">
                 <h3>Hear it from a client (different industry, same standard).</h3>
                 <p style="margin-bottom:1rem">This one's from a coaching client. We included it because what they're describing, work that's scoped tight and built to hold, is the same thing we bring to a service business.</p>
-                <div class="proof-video-wrap">
-                    <div id="proof-video-player"></div>
-                </div>
+                <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
+                <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true" style="display:block;max-width:560px;margin:0 auto"></div>
                 <blockquote class="coaches-proof-quote" style="margin-top:1.25rem">"He stood out from the pack real quickly. We'll use him for any job we ever have."</blockquote>
                 <p class="coaches-proof-attrib">Matt Juels, COO, Six Months to Speech</p>
             </div>
@@ -935,24 +934,6 @@ var CALENDLY_URL = "https://calendly.com/seth-launchforte/30min";
 })();
 
 
-    // Proof section video (Six Months to Speech)
-    (function(){
-        var slot = document.getElementById('proof-video-player');
-        if (!slot) return;
-        if (!window.YT || !window.YT.Player) {
-            var tag = document.createElement('script');
-            tag.src = 'https://www.youtube.com/iframe_api';
-            document.head.appendChild(tag);
-        }
-        var existingReady = window.onYouTubeIframeAPIReady;
-        window.onYouTubeIframeAPIReady = function(){
-            if (typeof existingReady === 'function') existingReady();
-            new YT.Player('proof-video-player', {
-                videoId: '7YxCIPU1Jd0',
-                playerVars: { controls: 1, modestbranding: 1, rel: 0, playsinline: 1 }
-            });
-        };
-    })();
 </script>
 
 <script src="/scroll-reveal.js"></script>
