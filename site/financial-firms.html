@@ -515,6 +515,32 @@
         .coaches-proof-attrib{font-size:0.8125rem!important;color:var(--text-muted)!important;font-weight:500}
         @media(max-width:700px){.coaches-proof-card{padding:1.4rem 1.3rem}}
 
+
+        /* Tools grid (Section 02B Your stack) */
+        .tools-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1.5rem}
+        .tools-group{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.4rem}
+        .tools-group h3{font-size:0.875rem;font-weight:700;color:var(--accent);margin:0 0 0.45rem;letter-spacing:-0.005em;text-transform:uppercase;letter-spacing:0.04em;font-size:0.75rem}
+        .tools-group p{font-size:0.9375rem;line-height:1.55;color:var(--text-secondary);margin:0}
+        @media(max-width:700px){.tools-grid{grid-template-columns:1fr;gap:0.75rem}}
+
+        /* Proof video block + Six Months to Speech YouTube iframe */
+        .proof-video-block{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.75rem;margin-top:1.5rem}
+        .proof-video-block h3{font-size:1.0625rem;font-weight:700;color:var(--text-primary);margin:0 0 0.65rem;letter-spacing:-0.01em}
+        .proof-video-block p{font-size:0.9375rem;line-height:1.7;color:var(--text-secondary);margin:0}
+        .proof-video-wrap{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#000;margin-top:0.5rem}
+        .proof-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+        /* More from clients (4-review strip) */
+        .more-from-clients{margin-top:1.5rem}
+        .more-from-clients h3{font-size:1.0625rem;font-weight:700;color:var(--text-primary);margin:0 0 1rem;letter-spacing:-0.01em}
+        .more-reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        .more-review-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.5rem 1.6rem;display:flex;flex-direction:column}
+        .more-review-stars{color:#0088DB;font-size:0.875rem;letter-spacing:0.15em;margin-bottom:0.65rem}
+        .more-review-quote{font-size:0.9375rem;line-height:1.55;color:var(--text-primary);margin:0 0 1rem;font-weight:400;flex:1}
+        .more-review-author{font-size:0.875rem;font-weight:600;color:var(--text-primary);margin:0 0 4px;letter-spacing:-0.01em}
+        .more-review-project{font-size:0.75rem;color:var(--text-muted);margin:0}
+        @media(max-width:768px){.more-reviews-grid{grid-template-columns:1fr;gap:0.75rem}}
+
     </style>
     <script src="/theme-toggle.js"></script>
 </head>
@@ -531,6 +557,7 @@
             <a href="/index.html">Home</a>
             <a href="/lead-systems.html">Lead Systems</a>
             <a href="/what-we-build.html">What We Build</a>
+            <a href="/#who-we-build-for">Who We Build For</a>
             <a href="/results.html">Results</a>
             <a href="/free-resources.html">Free Resources</a>
             <a href="/about.html">About</a>
@@ -613,7 +640,55 @@
         </div>
     </section>
 
-    <!-- SECTION 03: How to engage -->
+    <!-- SECTION 02B: Your stack (tools we work with) -->
+    <section class="page-section reveal" id="your-stack">
+        <p class="section-label">02B / Your stack</p>
+        <h2>We work with the tools you <span style="color:var(--accent)">already run</span>.</h2>
+        <p class="body-text">Your books, your bill pay, your client portal, and your data, connected with the controls money work demands. Here is what we plug into.</p>
+
+        <div class="tools-grid">
+            <div class="tools-group">
+                <h3>Accounting and ledger</h3>
+                <p>QuickBooks Online, Xero, Sage Intacct</p>
+            </div>
+            <div class="tools-group">
+                <h3>Bill pay and spend</h3>
+                <p>Bill.com, Ramp, Expensify, Dext</p>
+            </div>
+            <div class="tools-group">
+                <h3>Practice management and client portals</h3>
+                <p>TaxDome, Canopy, Karbon, Financial Cents, Client Hub</p>
+            </div>
+            <div class="tools-group">
+                <h3>Funds and cap tables</h3>
+                <p>Carta, Juniper Square, AngelList</p>
+            </div>
+            <div class="tools-group">
+                <h3>Data and operations</h3>
+                <p>Airtable, Google Sheets</p>
+            </div>
+            <div class="tools-group">
+                <h3>CRM</h3>
+                <p>HubSpot</p>
+            </div>
+            <div class="tools-group">
+                <h3>Payments and banking data</h3>
+                <p>Stripe, Plaid</p>
+            </div>
+            <div class="tools-group">
+                <h3>E-signature and forms</h3>
+                <p>DocuSign, Jotform</p>
+            </div>
+            <div class="tools-group">
+                <h3>Automation</h3>
+                <p>Make, n8n, Zapier</p>
+            </div>
+        </div>
+
+        <p class="body-text" style="margin-top:2rem">Don't see yours? If it has an API, we can connect it, with the access locked down and a record of everything that runs.</p>
+    </section>
+
+        <!-- SECTION 03: How to engage -->
     <section class="page-section reveal" id="how-to-engage">
         <p class="section-label">03 / Where most firms start</p>
         <h2>How to <span style="color:var(--accent)">engage</span>.</h2>
@@ -694,6 +769,45 @@
             <div class="coaches-proof-card">
                 <h3>A financial media company (kept private).</h3>
                 <p>We audited their entire infrastructure, documented it as one source of truth, fixed the tracking that was misreporting, and put monitoring on the systems their paid campaigns run through.</p>
+            </div>
+
+            <div class="proof-video-block">
+                <h3>Hear it from a client (different industry, same standard).</h3>
+                <p style="margin-bottom:1rem">This one's from a coaching client, in a different field entirely. We included it because what they're describing, work that's scoped tight and built to hold, is the standard we bring to systems that touch money.</p>
+                <div class="proof-video-wrap">
+                    <div id="proof-video-player"></div>
+                </div>
+                <blockquote class="coaches-proof-quote" style="margin-top:1.25rem">"He stood out from the pack real quickly. We'll use him for any job we ever have."</blockquote>
+                <p class="coaches-proof-attrib">Matt Juels, COO, Six Months to Speech</p>
+            </div>
+            <div class="more-from-clients">
+                <h3>More from clients.</h3>
+                <div class="more-reviews-grid">
+                    <div class="more-review-card">
+                        <div class="more-review-stars">&starf;&starf;&starf;&starf;&starf;</div>
+                        <p class="more-review-quote">"Seth is my go to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout."</p>
+                        <p class="more-review-author">Danielle, Modern Bungalow</p>
+                        <p class="more-review-project">Product sync automation</p>
+                    </div>
+                    <div class="more-review-card">
+                        <div class="more-review-stars">&starf;&starf;&starf;&starf;&starf;</div>
+                        <p class="more-review-quote">"Extremely knowledgeable and patient. He thought outside the box to offer solutions we did not consider. Highly recommend and we will use him again."</p>
+                        <p class="more-review-author">Alex, UDI Group</p>
+                        <p class="more-review-project">Review system development</p>
+                    </div>
+                    <div class="more-review-card">
+                        <div class="more-review-stars">&starf;&starf;&starf;&starf;&starf;</div>
+                        <p class="more-review-quote">"Seth is an amazing rare breed. He is not just focused on what is asked of him, he scopes the need to make sure the work meets your need to the maximum level. Brilliant Developer and the kind of man you wished was your neighbor."</p>
+                        <p class="more-review-author">Mark, San Florida</p>
+                        <p class="more-review-project">Web development</p>
+                    </div>
+                    <div class="more-review-card">
+                        <div class="more-review-stars">&starf;&starf;&starf;&starf;&starf;</div>
+                        <p class="more-review-quote">"If you need an automation specialist, stop looking right now and hire Seth. He will blow your mind with his knowledge and his ability to take your idea and not only understand what you want to achieve but also build on it."</p>
+                        <p class="more-review-author">Andrew, Kingfisher Ads</p>
+                        <p class="more-review-project">Automation</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -831,6 +945,26 @@ var CALENDLY_URL = "https://calendly.com/seth-launchforte/30min";
         });
     });
 })();
+
+
+    // Proof section video (Six Months to Speech)
+    (function(){
+        var slot = document.getElementById('proof-video-player');
+        if (!slot) return;
+        if (!window.YT || !window.YT.Player) {
+            var tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            document.head.appendChild(tag);
+        }
+        var existingReady = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = function(){
+            if (typeof existingReady === 'function') existingReady();
+            new YT.Player('proof-video-player', {
+                videoId: '7YxCIPU1Jd0',
+                playerVars: { controls: 1, modestbranding: 1, rel: 0, playsinline: 1 }
+            });
+        };
+    })();
 </script>
 
 <script src="/scroll-reveal.js"></script>
