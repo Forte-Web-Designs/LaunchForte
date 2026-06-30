@@ -1,0 +1,58 @@
+<svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Financial operations flow</title>
+  <desc id="desc">A trigger fires, the system prepares the work automatically, a person approves anything that moves money, it is sent, reconciled, and reported with a full audit trail.</desc>
+  <defs>
+    <filter id="nodeShadow" x="-20%" y="-20%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="tokenGlow" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="3.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
+      .cap{fill:#0f172a;font-size:20px;font-weight:600;}
+      .node{fill:#ffffff;stroke:#d4d4d8;stroke-width:2;filter:url(#nodeShadow);}
+      .nlabel{fill:#0f172a;font-size:14px;font-weight:500;}
+      .sub{fill:#94a3b8;font-size:12.5px;font-weight:500;}
+      .accent{fill:#2563eb;font-size:12px;font-weight:600;}
+      .rail{fill:none;stroke:#e2e8f0;stroke-width:2.5;}
+      .loop{fill:none;stroke:#e2e8f0;stroke-width:2.5;stroke-dasharray:5 6;}
+      .n1{animation:glow 7s linear infinite;animation-delay:.05s;}
+      .n2{animation:glow 7s linear infinite;animation-delay:.7s;}
+      .n3{animation:glow 7s linear infinite;animation-delay:1.4s;}
+      .n4{animation:glow 7s linear infinite;animation-delay:2.1s;}
+      .n5{animation:glow 7s linear infinite;animation-delay:2.75s;}
+      @keyframes glow{0%{stroke:#2563eb;fill:#eff6ff;}12%{stroke:#2563eb;fill:#eff6ff;}22%{stroke:#d4d4d8;fill:#ffffff;}100%{stroke:#d4d4d8;fill:#ffffff;}}
+      .pulseTxt{animation:fade 2.4s ease-in-out infinite;}
+      @keyframes fade{0%{opacity:.4;}50%{opacity:1;}100%{opacity:.4;}}
+    </style>
+  </defs>
+
+  <text class="cap" x="440" y="38" text-anchor="middle">How your operations run</text>
+
+  <path class="loop" d="M785 120 C860 120 860 240 440 240 C20 240 20 120 95 120"/>
+  <path class="rail" d="M95 120 H785"/>
+
+  <g filter="url(#tokenGlow)">
+    <circle r="6" fill="#2563eb">
+      <animateMotion dur="7s" repeatCount="indefinite" path="M95 120 H785 C860 120 860 240 440 240 C20 240 20 120 95 120 Z"/>
+    </circle>
+  </g>
+
+  <rect class="node n1" x="40" y="90" width="110" height="60" rx="14"/>
+  <rect class="node n2" x="212.5" y="90" width="110" height="60" rx="14"/>
+  <rect class="node n3" x="385" y="90" width="110" height="60" rx="14"/>
+  <rect class="node n4" x="557.5" y="90" width="110" height="60" rx="14"/>
+  <rect class="node n5" x="730" y="90" width="110" height="60" rx="14"/>
+
+  <text class="nlabel" x="95" y="124" text-anchor="middle">Trigger</text>
+  <text class="nlabel" x="267.5" y="124" text-anchor="middle">Automated</text>
+  <text class="nlabel" x="440" y="124" text-anchor="middle">You approve</text>
+  <text class="nlabel" x="612.5" y="124" text-anchor="middle">Sent</text>
+  <text class="nlabel" x="785" y="124" text-anchor="middle">Reconciled</text>
+
+  <text class="accent pulseTxt" x="440" y="74" text-anchor="middle">human in control</text>
+
+  <text class="sub" x="440" y="266" text-anchor="middle">Reporting and audit trail</text>
+</svg>

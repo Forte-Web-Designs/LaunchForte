@@ -567,6 +567,11 @@
         .offer-card .btn-secondary{margin-top:1.25rem;align-self:flex-start}
         @media(max-width:900px){.offer-grid{grid-template-columns:1fr;gap:0.85rem}}
 
+        /* Vertical system diagram */
+        .vertical-diagram{max-width:840px;margin:1.5rem auto;padding:0 1rem}
+        .vertical-diagram img{width:100%;height:auto;display:block}
+        @media(max-width:560px){.vertical-diagram{display:none}}
+
     </style>
     <script src="/theme-toggle.js"></script>
 </head>
@@ -645,6 +650,11 @@
     </section>
 
     <!-- SECTION 02: The Stack -->
+    <!-- SYSTEM DIAGRAM -->
+    <figure class="vertical-diagram">
+        <img src="/images/launchforte-diagram-medspa.svg" alt="Diagram of a med spa patient moving from new patient to compliant follow up to booked visit to repeat visit, with lapsed patients looping back through reactivation." width="880" height="320" loading="lazy">
+    </figure>
+
     <section class="page-section reveal" id="the-stack">
         <p class="section-label">02 / The stack</p>
         <h2>One connected patient <span style="color:var(--accent)">engine</span>.</h2>
