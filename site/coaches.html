@@ -104,7 +104,7 @@
       "@context": "https://schema.org",
       "@type": "Service",
       "serviceType": "Systems and CRM for Coaches and Course Creators",
-      "provider": { "@type": "LocalBusiness", "name": "Launch Forte", "url": "https://launchforte.com" },
+      "provider": { "@type": "ProfessionalService", "@id": "https://launchforte.com/#business", "name": "Launch Forte", "url": "https://launchforte.com/" },
       "areaServed": { "@type": "Country", "name": "United States" },
       "description": "Systems engineering for coaches and course creators: CRM, funnel, automation, and reporting, built end to end and run as a partnership."
     }
@@ -541,6 +541,16 @@
         .more-review-project{font-size:0.75rem;color:var(--text-muted);margin:0}
         @media(max-width:768px){.more-reviews-grid{grid-template-columns:1fr;gap:0.75rem}}
 
+
+        /* Related reading list */
+        .related-reading{margin-top:1.5rem}
+        .related-reading-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.25rem}
+        .related-reading-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.5rem;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:0.55rem;transition:border-color 0.2s ease,transform 0.2s ease}
+        .related-reading-card:hover{border-color:var(--accent);transform:translateY(-1px);text-decoration:none;color:inherit}
+        .related-reading-eyebrow{font-size:0.6875rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin:0}
+        .related-reading-card h3{font-size:0.9375rem;font-weight:600;color:var(--text-primary);margin:0;line-height:1.4;letter-spacing:-0.005em}
+        @media(max-width:900px){.related-reading-list{grid-template-columns:1fr;gap:0.75rem}}
+
     </style>
     <script src="/theme-toggle.js"></script>
 </head>
@@ -833,7 +843,29 @@
         </div>
     </section>
 
-    <!-- SECTION 07: Final CTA -->
+    <!-- RELATED READING -->
+    <section class="page-section reveal" id="related-reading">
+        <p class="section-label">Related reading</p>
+        <h2>More on this <span style="color:var(--accent)">work</span>.</h2>
+        <div class="related-reading">
+            <div class="related-reading-list">
+                <a href="/posts/best-crm-for-coaches.html" class="related-reading-card">
+                    <p class="related-reading-eyebrow">Related read</p>
+                    <h3>Best CRM for Coaches and Course Creators</h3>
+                </a>
+                <a href="/posts/connect-manychat-to-crm.html" class="related-reading-card">
+                    <p class="related-reading-eyebrow">Related read</p>
+                    <h3>How to Connect ManyChat to Your CRM</h3>
+                </a>
+                <a href="/posts/automate-coaching-business.html" class="related-reading-card">
+                    <p class="related-reading-eyebrow">Related read</p>
+                    <h3>How to Automate Your Coaching Business</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+
+        <!-- SECTION 07: Final CTA -->
     <section class="page-section reveal" id="next-step">
         <div class="cta-banner">
             <h2>If your coaching business is leaking customers, start with the <span style="color:var(--accent)">audit</span>.</h2>

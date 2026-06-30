@@ -23,21 +23,21 @@
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
-    <!-- Schema: LocalBusiness -->
+    <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": "ProfessionalService",
       "@id": "https://launchforte.com/#business",
       "name": "Launch Forte",
-      "description": "The engineering layer between your strategy and your revenue. Revenue infrastructure, lead and customer systems, AI agents, reporting, and custom builds for growing businesses.",
-      "url": "https://launchforte.com",
+      "description": "Launch Forte builds and runs the revenue and operations systems businesses depend on, the CRM, the automation, the funnels, and the reporting.",
+      "url": "https://launchforte.com/",
       "logo": "https://launchforte.com/images/home/launch-forte.png",
       "image": "https://launchforte.com/images/home/launch-forte.png",
-      "email": "seth@launchforte.com",
+      "email": "mailto:seth@launchforte.com",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Dallas",
+        "addressLocality": "Dallas-Fort Worth",
         "addressRegion": "TX",
         "addressCountry": "US"
       },
@@ -48,8 +48,20 @@
         {"@type": "AdministrativeArea", "name": "Dallas-Fort Worth Metroplex"},
         {"@type": "Country", "name": "United States"}
       ],
-      "founder": {"@type": "Person", "name": "Seth Forte"},
-      "sameAs": ["https://www.linkedin.com/company/forte-web-designs"],
+      "founder": {
+        "@type": "Person",
+        "name": "Seth Forte",
+        "url": "https://sethforte.com/",
+        "sameAs": [
+          "https://sethforte.com/",
+          "https://www.linkedin.com/in/seth-forte/"
+        ]
+      },
+      "sameAs": [
+        "https://sethforte.com/",
+        "https://www.linkedin.com/in/seth-forte/",
+        "https://www.linkedin.com/company/forte-web-designs"
+      ],
       "priceRange": "$$$",
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -463,7 +475,7 @@
 <header class="site-header">
     <div class="header-container">
         <a href="/" class="header-logo">
-            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte - business automation and lead generation systems" width="160" height="28" fetchpriority="high">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
         </a>
                                         <nav class="header-nav">
             <a href="/index.html" class="active">Home</a>
