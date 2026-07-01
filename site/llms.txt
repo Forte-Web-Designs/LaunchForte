@@ -1,0 +1,35 @@
+# Launch Forte
+
+> Launch Forte builds and runs the revenue and operations systems a growing business runs on, the CRM, automation, funnels, data foundation, and reporting. Every build runs on The Forte Method (Foundation, Engine, Growth). Founded by Seth Forte, based in Dallas, Texas, serving clients nationwide. Fixed scope, fixed price, fixed timeline.
+
+## Flagship offer
+- [One Connected System](https://launchforte.com/one-connected-system): The data foundation build. We pull scattered tools into one clean source of truth, resolve identities so the same person is one record, end manual data entry, and build the foundation reporting and AI run on. Covers single source of truth, data unification, identity resolution, and system of record work.
+
+## Core pages
+- [Home](https://launchforte.com/): What Launch Forte builds, who it builds for, and The Forte Method.
+- [What We Build](https://launchforte.com/what-we-build.html): The capability catalog, lead systems, revenue infrastructure, AI agents, reporting, custom builds, and reliability.
+- [Lead Systems](https://launchforte.com/lead-systems.html): An engineered outbound system that books qualified sales calls, video outreach, capture pipeline, and the sales kit.
+- [Results](https://launchforte.com/results.html): Client outcomes and reviews.
+- [About](https://launchforte.com/about.html): Seth Forte, the founder, and the engineering and reliability background behind the builds.
+- [Free Resources](https://launchforte.com/free-resources.html): Guides and tools.
+- [Partnership](https://launchforte.com/partnership.html): The embedded growth partner engagement.
+- [Contact](https://launchforte.com/contact.html): Book a call.
+
+## Who we build for
+- [Coaches and creators](https://launchforte.com/coaches): The CRM and funnel that carry a lead from the first DM to a repeat client.
+- [Home and field services](https://launchforte.com/home-services): The system that catches every call and ends the retyping across field tools.
+- [Financial and professional firms](https://launchforte.com/financial-firms): Automated invoicing, capital calls, and investor reporting, built with the controls money work demands.
+- [Med spas and aesthetic practices](https://launchforte.com/medspa): The patient system, from new patient capture to rebooking and reactivation, on the software you already run.
+- [Med spa Patient Reactivation Campaign](https://launchforte.com/medspa/reactivation): A fixed price campaign that brings lapsed patients back in ten days from inside your software.
+- [Real estate agents](https://launchforte.com/real-estate): The GoHighLevel system that captures every lead and does the follow up while you are out closing.
+
+## Articles
+- [Best CRM for Coaches and Course Creators](https://launchforte.com/posts/best-crm-for-coaches.html): How to choose and set up the CRM a coaching business runs on.
+- [How to Connect ManyChat to Your CRM](https://launchforte.com/posts/connect-manychat-to-crm.html): Wiring DM automation into the CRM so no lead sits in an inbox.
+- [How to Automate Your Coaching Business](https://launchforte.com/posts/automate-coaching-business.html): The systems that run a coaching business from first touch to renewal.
+- [How to Stop Missing Calls in a Service Business](https://launchforte.com/posts/stop-missing-calls-service-business.html): Missed call text back and speed to lead for contractors.
+- [How to Stop Double Entry Between Field Service Tools and QuickBooks](https://launchforte.com/posts/stop-double-entry-field-service-quickbooks.html): Ending the retyping between field tools and accounting.
+- [Best CRM for Home Services](https://launchforte.com/posts/best-crm-for-home-services.html): Choosing and setting up the CRM a home services business runs on.
+- [How to Automate Capital Call Emails](https://launchforte.com/posts/automate-capital-calls.html): Automating capital calls for a fund back office.
+- [How to Automate Invoicing and Collections](https://launchforte.com/posts/automate-invoicing-collections.html): Automated invoicing and collections for a professional firm.
+- [How to Automate Financial Operations Safely](https://launchforte.com/posts/automate-financial-operations-safely.html): Automating finance operations with the controls money work demands.
