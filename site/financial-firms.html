@@ -572,6 +572,11 @@
             .vertical-visual img{min-width:680px}
         }
 
+        /* LF nav normalize */
+        .header-nav{flex-wrap:nowrap;gap:0.85rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+        .header-nav::-webkit-scrollbar{display:none}
+        .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
+        @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
     </style>
     <script src="/theme-toggle.js"></script>
 </head>

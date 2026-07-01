@@ -245,6 +245,11 @@
         .audit-cta .btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--border-light);color:var(--accent);padding:0.8rem 1.75rem;border-radius:var(--radius-pill);font-size:0.875rem;font-weight:500;text-decoration:none;background:transparent;transition:all 0.2s ease}
         .audit-cta .btn-secondary:hover{background:var(--accent-tint);text-decoration:none}
 
+        /* LF nav normalize */
+        .header-nav{flex-wrap:nowrap;gap:0.85rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+        .header-nav::-webkit-scrollbar{display:none}
+        .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
+        @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
     </style>
     <meta property="og:title" content="From a $1,000 First Project to a $10,700 Engineering Roadmap | Launch Forte">
     <meta property="og:description" content="How a $1,000 first project surfaced $10,700 in prioritized engineering work the business actually needed. Assessment first engagements expand naturally.">

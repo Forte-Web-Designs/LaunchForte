@@ -310,6 +310,11 @@
             animation: none !important;
         }
 
+        /* LF nav normalize */
+        .header-nav{flex-wrap:nowrap;gap:0.85rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+        .header-nav::-webkit-scrollbar{display:none}
+        .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
+        @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
     </style>
     <meta property="og:title" content="Managed Cold Outbound | Launch Forte">
     <meta property="og:description" content="We manage your outbound pipeline. List building, sequence writing, deliverability monitoring, reply handling, CRM updates. Infrastructure built in month 1. $2,000 per month, cancel anytime.">

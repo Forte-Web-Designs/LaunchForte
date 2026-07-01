@@ -244,6 +244,11 @@
         .audit-cta .btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--border-light);color:var(--accent);padding:0.8rem 1.75rem;border-radius:var(--radius-pill);font-size:0.875rem;font-weight:500;text-decoration:none;background:transparent;transition:all 0.2s ease}
         .audit-cta .btn-secondary:hover{background:var(--accent-tint);text-decoration:none}
 
+        /* LF nav normalize */
+        .header-nav{flex-wrap:nowrap;gap:0.85rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+        .header-nav::-webkit-scrollbar{display:none}
+        .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
+        @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
     </style>
     <meta property="og:title" content="Built the Revenue Infrastructure for a Caregiving Brand | Launch Forte">
     <meta property="og:description" content="How we engineered the revenue infrastructure a caregiving brand needed before it could compound. From audience to business in 14 days inside GoHighLevel.">

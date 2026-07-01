@@ -368,6 +368,11 @@
             animation: none !important;
         }
 
+        /* LF nav normalize */
+        .header-nav{flex-wrap:nowrap;gap:0.85rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+        .header-nav::-webkit-scrollbar{display:none}
+        .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
+        @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
     </style>
     <meta property="og:title" content="Results: $52K Recovered, 60 Hours Saved, And More | Launch Forte">
     <meta property="og:description" content="Case studies and outcomes. How we recovered $52K a year in labor, eliminated 60 hours a month of data entry, and grew an education brand from $40K to $160K monthly.">

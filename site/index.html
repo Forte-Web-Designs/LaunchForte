@@ -483,6 +483,11 @@
         }
         [data-theme="dark"] .homepage-connected .cap{fill:#f5f5f7}
         [data-theme="dark"] .homepage-connected .subcap{fill:#a1a1a6}
+        /* LF nav normalize */
+        .header-nav{flex-wrap:nowrap;gap:0.85rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+        .header-nav::-webkit-scrollbar{display:none}
+        .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
+        @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
     </style>
     <script src="/theme-toggle.js"></script>
 </head>
@@ -514,7 +519,7 @@
         <div class="section-inner">
             <div class="section-content">
                 <h1 class="display">Business Growth Isn't Luck.<br>It's <span class="rotating-word">A System</span>.</h1>
-                <p class="sub" style="max-width:640px;margin-left:auto;margin-right:auto">Revenue and operations infrastructure for growing businesses. We connect your scattered tools into one clean source of truth and take the manual work off your team, so your growth and your AI run on a foundation you can trust.</p>
+                <p class="sub" style="max-width:640px;margin-left:auto;margin-right:auto">Revenue and operations infrastructure for growing businesses.</p>
                 <div class="ctas">
                     <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary btn-primary-lg">Book a Growth Systems Audit</a>
                     <a href="#how-it-works" class="btn-secondary">See How It Works</a>
@@ -801,9 +806,9 @@
     <section class="section white" id="how-it-works">
         <div class="section-inner">
             <p class="eyebrow">How we work</p>
-            <h2>The Forte Method</h2>
+            <h2>The Forte <span style="color:var(--accent)">Method</span>.</h2>
             <p class="sub">How every build gets done. One system, run in phases, applied to your business.</p>
-            <p class="body-text" style="max-width:700px;margin:1rem auto 0">The Forte Method is how every Launch Forte build runs. It moves in phases, so what gets built is load bearing from day one and keeps working as you grow.</p>
+            <p class="sub" style="max-width:700px;margin:1rem auto 0">The Forte Method is how every Launch Forte build runs. It moves in phases, so what gets built is load bearing from day one and keeps working as you grow.</p>
             <div class="grid-3" style="margin-top:2.5rem">
                 <div class="step-card">
                     <span class="step-num">01</span>

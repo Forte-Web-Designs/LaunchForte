@@ -140,6 +140,11 @@
         .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
         .footer-location{font-size:0.8rem;color:var(--text-muted);margin-bottom:0.25rem}
         .copyright{font-size:0.75rem;color:var(--text-muted)}
+        /* LF nav normalize */
+        .header-nav{flex-wrap:nowrap;gap:0.85rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+        .header-nav::-webkit-scrollbar{display:none}
+        .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
+        @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
     </style>
     <script src="/theme-toggle.js"></script>
 </head>

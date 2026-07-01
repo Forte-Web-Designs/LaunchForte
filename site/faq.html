@@ -335,6 +335,11 @@
         .faq-panel p{color:var(--text-secondary);font-size:1rem;line-height:1.62;padding:0 24px 24px;max-width:66ch;margin:0}
         @media (prefers-reduced-motion:reduce){.faq-chev,.faq-panel{transition:none}}
         @media(max-width:520px){.faq-q{padding:20px 18px;font-size:1rem}.faq-panel p{padding:0 18px 20px}}
+        /* LF nav normalize */
+        .header-nav{flex-wrap:nowrap;gap:0.85rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+        .header-nav::-webkit-scrollbar{display:none}
+        .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
+        @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
     </style>
     <script src="/theme-toggle.js"></script>
 </head>

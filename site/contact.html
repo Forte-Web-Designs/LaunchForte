@@ -317,6 +317,11 @@
             animation: none !important;
         }
 
+        /* LF nav normalize */
+        .header-nav{flex-wrap:nowrap;gap:0.85rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+        .header-nav::-webkit-scrollbar{display:none}
+        .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
+        @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
     </style>
     <meta property="og:title" content="Contact: Book A Growth Systems Audit | Launch Forte">
     <meta property="og:description" content="Book a Growth Systems Audit or send a message. Written diagnostic, prioritized recommendations, fixed pricing on every fix. Dallas-Fort Worth, Texas. Clients nationwide.">
