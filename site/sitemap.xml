@@ -15,6 +15,12 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://launchforte.com/one-connected-system</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://launchforte.com/medspa</loc>
     <lastmod>2026-06-30</lastmod>
     <changefreq>monthly</changefreq>
