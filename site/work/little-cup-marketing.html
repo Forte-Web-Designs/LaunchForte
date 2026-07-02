@@ -7,7 +7,7 @@
     <meta name="robots" content="noindex">
     <title>Multi-Brand Newsletter Infrastructure for a Financial Media Company | Launch Forte</title>
     <meta name="description" content="How we audited and rebuilt subscriber routing infrastructure across four newsletter brands for Little Cup Marketing / ALG Financial, fixing misrouted pipelines and deploying proper source tracking.">
-    <link rel="canonical" href="https://launchforte.com/work/little-cup-marketing.html">
+    <link rel="canonical" href="https://launchforte.com/work/little-cup-marketing">
     <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <style>
@@ -286,7 +286,7 @@
 
         <p>Adam Garcia runs Little Cup Marketing, the marketing arm of ALG Financial, operating four newsletter brands focused on stock market content. Subscribers come from multiple sources: landing pages, Meta ads, beehiiv opt-ins, and partner referrals. The infrastructure was a mix of WordPress, Cloudflare Workers, beehiiv, SimpleTexting, and Make.com scenarios tying it together.</p>
 
-        <p>The routing between brands was fragile. Scenarios broke, webhooks misfired, and subscribers ended up in the wrong pipeline. One brand's SMS scenario was silently pointing to a different brand's delivery account. Nobody had a clear view of which source was driving subscribers to which brand.</p>
+        <p>The routing between brands was fragile. Scenarios broke, webhooks misfired, and subscribers ended up in the wrong pipeline. One brand's SMS scenario was pointing to a different brand's delivery account with no alert firing. Nobody had a clear view of which source was driving subscribers to which brand.</p>
 
         <h2>What We Built</h2>
 
@@ -317,7 +317,7 @@
 
         <h2>What Made This Work</h2>
 
-        <p>The value was tracing the full data flow across a multi brand infrastructure and finding where it was silently broken. The misrouted sendQ connection had been sending subscribers to the wrong brand's pipeline with no one aware. That kind of problem surfaces from mapping the entire system end to end and checking every connection against what it's supposed to be doing.</p>
+        <p>The value was tracing the full data flow across a multi brand infrastructure and finding where it was broken with no alert. The misrouted sendQ connection had been sending subscribers to the wrong brand's pipeline with no one aware. That kind of problem surfaces from mapping the entire system end to end and checking every connection against what it's supposed to be doing.</p>
     </div>
 
     <div class="cta-block">

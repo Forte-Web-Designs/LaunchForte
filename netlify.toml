@@ -814,6 +814,31 @@
   status = 301
   force = true
 
+# Old architecture URLs that never had 301s. Add coverage.
+[[redirects]]
+  from = "/work"
+  to = "/results.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/work.html"
+  to = "/results.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ai-front-desk"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ai-front-desk.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
