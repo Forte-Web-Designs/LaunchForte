@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instant Systems Grade for Service Businesses | Launch Forte</title>
+<meta name="description" content="Free instant grade of your business's revenue systems. Tracking, speed, lead capture, reputation, and foundations, scored out of 100 with plain English fixes, in about a minute.">
+<link rel="canonical" href="https://launchforte.com/grade">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Instant Systems Grade for Service Businesses">
+<meta property="og:description" content="Enter your website. In about a minute, a graded report on whether your business captures the demand it already gets.">
+<meta property="og:url" content="https://launchforte.com/grade">
+<meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Instant Systems Grade","url":"https://launchforte.com/grade","applicationCategory":"BusinessApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"Launch Forte","url":"https://launchforte.com/"}}
+</script>
+<style>
+/* ============================================================
+   BRAND TOKENS. Mirrored from the live launchforte.com pages.
+   Everything on the page derives from this block.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7;      /* page background */
+  --card:#FFFFFF;       /* cards and forms */
+  --ink:#15221E;        /* primary text */
+  --muted:#5B6660;      /* secondary text */
+  --line:#E5E3DB;       /* hairlines and borders */
+  --brand:#123B33;      /* buttons, headings accent, score numerals */
+  --brand-soft:#E7F1EC; /* chips, success tint */
+  --err:#A33B2E;        /* error text */
+  --radius:12px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+
+/* ============================================================ BASE */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.12;letter-spacing:-0.015em;margin:0 0 12px}
+h1{font-size:clamp(2.05rem,7.2vw,2.8rem);font-weight:800}
+h2{font-size:clamp(1.45rem,5vw,1.85rem);font-weight:800}
+p{margin:0 0 14px}
+a{color:var(--brand)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.sub{color:var(--muted);font-size:1.05rem;max-width:36em}
+.small{font-size:13px;color:var(--muted)}
+.section{padding:48px 0;border-top:1px solid var(--line)}
+.section:first-of-type{border-top:0}
+:focus-visible{outline:3px solid #2E6B5C;outline-offset:2px;border-radius:6px}
+
+/* ============================================================ HEADER */
+header{background:var(--card);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;height:58px}
+.nav img{height:30px;width:auto;display:block}
+.wordmark{font-weight:800;font-size:1.1rem;letter-spacing:-0.01em;color:var(--ink);text-decoration:none}
+
+/* ============================================================ BUTTONS */
+.btn{display:inline-block;background:var(--brand);color:#fff;border:0;border-radius:10px;
+     padding:15px 22px;font-family:var(--font);font-weight:700;font-size:1rem;line-height:1.3;
+     cursor:pointer;text-decoration:none;text-align:center}
+.btn:hover{filter:brightness(1.12)}
+.btn:disabled{opacity:.55;cursor:default}
+.btn.block{display:block;width:100%}
+.cta-band{padding:26px 0 40px}
+
+/* ============================================================ RUBRIC STRIP */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.rubar{display:flex;height:14px;border-radius:7px;overflow:hidden;border:1px solid var(--line);margin:18px 0 6px}
+.rubar span{background:var(--brand)}
+.rubar span:nth-child(2n){background:#2E6B5C}
+.rubar-cap{font-size:12.5px;color:var(--muted);margin:0 0 6px}
+.checkrow{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;padding:16px 0;border-top:1px solid var(--line)}
+.checkrow:first-of-type{border-top:0}
+.checkrow .name{font-weight:700;margin:0 0 3px}
+.checkrow .desc{font-size:.95rem;color:var(--muted);margin:0;max-width:32em}
+.pts{flex:none;background:var(--brand-soft);color:var(--brand);font-weight:800;font-size:.85rem;
+     border-radius:999px;padding:5px 11px;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* ============================================================ TWO CHOICES */
+.choice{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 12px;background:var(--card)}
+.choice.win{border-color:var(--brand);background:var(--brand-soft)}
+.choice .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 5px}
+.choice.win .tag{color:var(--brand)}
+.choice p{margin:0;font-size:.98rem}
+
+/* ============================================================ FORMS */
+form{margin:0}
+.field{margin:0 0 14px}
+.field label{display:block;font-size:.9rem;font-weight:600;margin:0 0 5px}
+input[type=text],input[type=email],select{
+  width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:10px;
+  font-family:var(--font);font-size:16px;color:var(--ink);background:var(--card)}
+.consent{display:flex;gap:10px;align-items:flex-start;margin:0 0 14px;font-size:.92rem}
+.consent input{width:19px;height:19px;margin-top:2px;flex:none;accent-color:var(--brand)}
+.msg{display:none;border-radius:10px;padding:12px 14px;font-size:.95rem;margin:12px 0 0}
+.msg.ok{display:block;background:var(--brand-soft);color:var(--ink)}
+.msg.err{display:block;background:#F7E9E6;color:var(--err)}
+.hp{position:absolute !important;left:-6000px !important;top:auto;width:1px;height:1px;overflow:hidden}
+.fine{font-size:12.5px;color:var(--muted);margin-top:10px}
+
+/* ============================================================ PROGRESS SCREEN */
+.run-steps{list-style:none;margin:14px 0 0;padding:0}
+.run-steps li{display:flex;align-items:center;gap:10px;padding:9px 0;font-size:.98rem;color:var(--muted);border-top:1px dashed var(--line)}
+.run-steps li:first-child{border-top:0}
+.run-steps li .dot{flex:none;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
+.run-steps li.active{color:var(--ink);font-weight:600}
+.run-steps li.active .dot{border-color:var(--brand);border-top-color:var(--line);animation:spin 1s linear infinite}
+.run-steps li.done{color:var(--ink)}
+.run-steps li.done .dot{background:var(--brand);border-color:var(--brand)}
+.run-steps li.done .dot::after{content:"\2713"}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ============================================================ TRUST + FOOTER */
+.trust{text-align:center;color:var(--muted);font-size:.95rem}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:13px;color:var(--muted)}
+footer p{margin:0 0 6px}
+
+/* ============================================================ MOTION */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .run-steps li.active .dot{animation:none;border-color:var(--brand)}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="https://launchforte.com/" aria-label="Launch Forte home">
+      <img src="https://launchforte.com/images/home/launch-forte.png" alt="Launch Forte"
+           onerror="this.style.display='none';document.getElementById('wordmark').style.display='inline'">
+      <span id="wordmark" class="wordmark" style="display:none">Launch Forte</span>
+    </a>
+  </div>
+</header>
+
+<!-- ============================================================ A. HERO -->
+<section class="section" id="top">
+  <div class="wrap">
+    <p class="eyebrow">Free instant grade, about a minute</p>
+    <h1>Every lead you lose was one you already paid for.</h1>
+    <p class="sub">Ads, search, referrals. None of it matters if the click lands on a slow site with no tracking, no working way to reach you, and a thin Google profile. Enter your website and get a graded report on whether your business captures the demand it already gets, with the exact fixes in plain English.</p>
+    <p style="margin-top:22px"><a class="btn" href="#grade">Grade my systems</a></p>
+  </div>
+</section>
+
+<!-- ============================================================ B. WHAT WE CHECK -->
+<section class="section" id="checks">
+  <div class="wrap">
+    <p class="eyebrow">01 / What we check</p>
+    <h2>Five checks. One score out of 100.</h2>
+    <p class="sub">Not an SEO scan. Keywords don't answer the phone. These are the systems that turn the traffic you already get into booked work.</p>
+
+    <div class="card" style="margin-top:20px">
+      <p class="rubar-cap">How the 100 points split</p>
+      <div class="rubar" aria-hidden="true">
+        <span style="flex:25" title="Tracking, 25"></span>
+        <span style="flex:20" title="Speed, 20"></span>
+        <span style="flex:25" title="Lead capture, 25"></span>
+        <span style="flex:20" title="Reputation, 20"></span>
+        <span style="flex:10" title="Foundations, 10"></span>
+      </div>
+
+      <div class="checkrow">
+        <div>
+          <p class="name">Tracking</p>
+          <p class="desc">Whether Meta and Google can even see your visitors. Without a pixel and analytics, every ad dollar runs blind.</p>
+        </div>
+        <span class="pts">25 pts</span>
+      </div>
+      <div class="checkrow">
+        <div>
+          <p class="name">Speed</p>
+          <p class="desc">How fast your site loads on a phone, straight from Google's own test. Slow pages bleed the leads you paid to attract.</p>
+        </div>
+        <span class="pts">20 pts</span>
+      </div>
+      <div class="checkrow">
+        <div>
+          <p class="name">Lead capture</p>
+          <p class="desc">A form that works, a number they can tap, a way to book, hours they can see. The basics that turn a visit into a lead.</p>
+        </div>
+        <span class="pts">25 pts</span>
+      </div>
+      <div class="checkrow">
+        <div>
+          <p class="name">Reputation</p>
+          <p class="desc">Your Google rating and review count. It's the first thing a prospect checks and the last thing most businesses manage.</p>
+        </div>
+        <span class="pts">20 pts</span>
+      </div>
+      <div class="checkrow">
+        <div>
+          <p class="name">Foundations</p>
+          <p class="desc">The quiet stuff: a secure connection, a site built for phones, the structured markup Google reads.</p>
+        </div>
+        <span class="pts">10 pts</span>
+      </div>
+    </div>
+
+    <p class="small" style="margin-top:14px">Public pages only. We never submit a form on your site, never log in, and never touch anything private.</p>
+  </div>
+</section>
+
+<div class="cta-band"><div class="wrap"><a class="btn block" href="#grade">Grade my systems</a></div></div>
+
+<!-- ============================================================ C. TWO CHOICES -->
+<section class="section" id="choices">
+  <div class="wrap">
+    <p class="eyebrow">02 / Your two options</p>
+    <h2>The audit you'd pay an agency for, in about a minute.</h2>
+
+    <div style="margin-top:18px">
+      <div class="choice">
+        <p class="tag">The agency route</p>
+        <p>A systems audit runs four figures, starts with a sales call, and lands in two to three weeks.</p>
+      </div>
+      <div class="choice win">
+        <p class="tag">This grade</p>
+        <p>Free, no call, scored by the same rubric every time, delivered in about a minute at a link you can share with your team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ D. THE FORM -->
+<section class="section" id="grade">
+  <div class="wrap">
+    <p class="eyebrow">03 / Your grade</p>
+    <h2>Grade my systems.</h2>
+    <p class="sub">Five fields. The report shows here and lands in your inbox.</p>
+
+    <noscript><p class="small">The grader needs JavaScript. If you can't enable it, email <a href="mailto:seth@launchforte.com">seth@launchforte.com</a> with your website and we'll run it for you.</p></noscript>
+
+    <form id="grade-form" style="margin-top:18px" novalidate>
+      <div class="field">
+        <label for="g-url">Your website</label>
+        <input type="text" id="g-url" name="url" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" required>
+      </div>
+      <div class="field">
+        <label for="g-name">Business name</label>
+        <input type="text" id="g-name" name="business_name" autocomplete="organization" required>
+      </div>
+      <div class="field">
+        <label for="g-city">City</label>
+        <input type="text" id="g-city" name="city" autocomplete="address-level2" required>
+      </div>
+      <div class="field">
+        <label for="g-vertical">What kind of business</label>
+        <select id="g-vertical" name="vertical" required>
+          <option value="">Pick the closest fit</option>
+          <option>Med spa or aesthetics</option>
+          <option>Home services (roofing, HVAC, plumbing, electrical)</option>
+          <option>Moving or hauling</option>
+          <option>Restoration</option>
+          <option>Cleaning</option>
+          <option>Landscaping or lawn care</option>
+          <option>Legal</option>
+          <option>Financial or insurance</option>
+          <option>Health, fitness, or wellness</option>
+          <option>Real estate or property management</option>
+          <option>Restaurant or hospitality</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="g-email">Email</label>
+        <input type="email" id="g-email" name="email" autocomplete="email" placeholder="you@yourbusiness.com" required>
+      </div>
+      <label class="consent" for="g-consent">
+        <input type="checkbox" id="g-consent" required>
+        <span>Email me my graded report and the occasional systems note. Unsubscribe anytime.</span>
+      </label>
+      <input class="hp" type="text" name="nickname" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn block" id="g-btn" type="submit">Grade my systems</button>
+      <div class="msg" id="g-msg" role="status"></div>
+      <p class="fine">One grade per business per day. We check public pages only. <a href="https://launchforte.com/privacy">Privacy policy</a>.</p>
+    </form>
+
+    <!-- Progress screen, shown while the checks run -->
+    <div id="run-card" style="display:none">
+      <div class="card" style="margin-top:18px">
+        <h3 style="margin:0 0 4px">Grading <span id="run-domain"></span></h3>
+        <p class="small" style="margin:0">Usually under 90 seconds. Google's speed test is the slow part.</p>
+        <ul class="run-steps" id="run-steps">
+          <li><span class="dot"></span><span>Reaching your homepage</span></li>
+          <li><span class="dot"></span><span>Checking your tracking: Meta, GA4, Tag Manager</span></li>
+          <li><span class="dot"></span><span>Running Google's mobile speed test</span></li>
+          <li><span class="dot"></span><span>Looking for the ways a lead can reach you</span></li>
+          <li><span class="dot"></span><span>Pulling your Google rating and reviews</span></li>
+          <li><span class="dot"></span><span>Scoring against the rubric</span></li>
+        </ul>
+      </div>
+      <p class="fine">Leave this page open. If it runs long, the report goes to your email instead.</p>
+    </div>
+
+    <!-- Shown if the run exceeds the on page wait -->
+    <div id="run-email" style="display:none">
+      <div class="card" style="margin-top:18px;background:var(--brand-soft);border-color:var(--brand-soft)">
+        <h3 style="margin:0 0 6px">Still crunching. The report's on its way.</h3>
+        <p style="margin:0">Google's speed test is taking its time on your site. Your graded report will arrive at <b id="run-email-addr"></b> in the next few minutes. You can close this page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ E. TRUST -->
+<section class="section">
+  <div class="wrap trust">
+    Built by Launch Forte. Upwork Top Rated, 100% Job Success, 50+ delivered projects.
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Built by <a href="https://launchforte.com/">Launch Forte</a> in Grapevine, Texas.</p>
+    <p><a href="mailto:seth@launchforte.com">seth@launchforte.com</a></p>
+    <p>&copy; 2026 Launch Forte. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CONFIG. The only lines you need to touch.
+   ============================================================ */
+const CONFIG = {
+  // n8n webhook that receives the grade form and runs the checks. POST.
+  WEBHOOK_GRADE: "https://launchforte.app.n8n.cloud/webhook/grade-submit",
+  // Where the finished report lives. The result id is appended as ?id=
+  RESULT_PAGE: "/grade/result/",
+  // On page wait before switching to "report by email". Milliseconds.
+  WAIT_LIMIT_MS: 90000
+};
+
+(function(){
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+
+  /* ------------------------------------------------ Shared helpers */
+  function setMsg(el, kind, text){
+    el.className = "msg " + kind;
+    el.textContent = text;
+  }
+  function clearMsg(el){
+    el.className = "msg";
+    el.textContent = "";
+  }
+  function postJSON(url, data){
+    return fetch(url, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(data)
+    });
+  }
+
+  /* ------------------------------------------------ URL normalizing */
+  // Accepts "acme.com", "www.acme.com/", "https://acme.com". Returns a
+  // clean https URL string, or "" when it can't be read as a website.
+  function normalizeUrl(raw){
+    let v = String(raw || "").trim().replace(/\s+/g, "").slice(0, 200);
+    if (!v) return "";
+    if (!/^https?:\/\//i.test(v)) v = "https://" + v;
+    let u;
+    try { u = new URL(v); } catch (err) { return ""; }
+    if (u.protocol !== "https:" && u.protocol !== "http:") return "";
+    const host = u.hostname;
+    if (!/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(host)) return "";
+    return u.href;
+  }
+
+  /* ------------------------------------------------ Prospect prefill */
+  // Links may carry ?u=site.com&bn=Business+Name&city=City&e=email
+  // Values prefill the form (fully editable). Malformed values are ignored.
+  function param(key, allow, cap){
+    let v = "";
+    try { v = new URLSearchParams(location.search).get(key) || ""; } catch (err) { v = ""; }
+    return v.trim().slice(0, cap).replace(allow, "");
+  }
+  const P = {
+    u:    (function(){
+            let v = "";
+            try { v = new URLSearchParams(location.search).get("u") || ""; } catch (err) {}
+            return normalizeUrl(v);
+          })(),
+    bn:   param("bn",   /[^A-Za-z0-9\u00C0-\u024F'&+., -]/g, 80),
+    city: param("city", /[^A-Za-z\u00C0-\u024F'. -]/g, 40),
+    email: (function(){
+      let v = "";
+      try { v = (new URLSearchParams(location.search).get("e") || "").trim().toLowerCase(); } catch (err) {}
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? v.slice(0, 80) : "";
+    })()
+  };
+  if (P.u && !$("g-url").value)     $("g-url").value = P.u.replace(/^https?:\/\//i, "").replace(/\/$/, "");
+  if (P.bn && !$("g-name").value)   $("g-name").value = P.bn;
+  if (P.city && !$("g-city").value) $("g-city").value = P.city;
+  if (P.email && !$("g-email").value) $("g-email").value = P.email;
+
+  /* ------------------------------------------------ Progress screen */
+  const stepTimes = [0, 2500, 5500, 48000, 55000, 62000];
+  let stepTimers = [];
+  let steps = [];
+
+  function showStep(i){
+    steps.forEach(function(li, n){
+      li.className = n < i ? "done" : (n === i ? "active" : "");
+    });
+  }
+  function finishSteps(){
+    stepTimers.forEach(clearTimeout);
+    steps.forEach(function(li){ li.className = "done"; });
+  }
+  function startProgress(domain){
+    $("grade-form").style.display = "none";
+    $("run-card").style.display = "block";
+    $("run-domain").textContent = domain;
+    steps = Array.prototype.slice.call($("run-steps").children);
+    stepTimers = stepTimes.map(function(t, i){
+      return setTimeout(function(){ showStep(i); }, t);
+    });
+  }
+  function backToForm(){
+    stepTimers.forEach(clearTimeout);
+    $("run-card").style.display = "none";
+    $("run-email").style.display = "none";
+    $("grade-form").style.display = "block";
+    const btn = $("g-btn");
+    btn.disabled = false;
+    btn.textContent = "Grade my systems";
+  }
+
+  /* ------------------------------------------------ Submit */
+  let waitTimer = null;
+  let waitExpired = false;
+
+  $("grade-form").addEventListener("submit", async function(e){
+    e.preventDefault();
+    const msg = $("g-msg");
+    clearMsg(msg);
+
+    const url = normalizeUrl($("g-url").value);
+    const name = $("g-name").value.trim().slice(0, 80);
+    const city = $("g-city").value.trim().slice(0, 40);
+    const vertical = $("g-vertical").value;
+    const email = $("g-email");
+
+    if (!url){
+      setMsg(msg, "err", "Enter your website address, like yourbusiness.com.");
+      return;
+    }
+    if (!name || !city){
+      setMsg(msg, "err", "We need your business name and city to pull your Google reviews.");
+      return;
+    }
+    if (!vertical){
+      setMsg(msg, "err", "Pick the closest fit for what kind of business you run.");
+      return;
+    }
+    if (!email.checkValidity() || !email.value.trim()){
+      setMsg(msg, "err", "Enter a working email. That's where the report link goes.");
+      return;
+    }
+    if (!$("g-consent").checked){
+      setMsg(msg, "err", "Check the consent box and we can email your report.");
+      return;
+    }
+
+    const btn = $("g-btn");
+    btn.disabled = true;
+    btn.textContent = "Starting";
+
+    let domain = "";
+    try { domain = new URL(url).hostname.replace(/^www\./i, ""); } catch (err) { domain = url; }
+
+    startProgress(domain);
+    waitExpired = false;
+    waitTimer = setTimeout(function(){
+      waitExpired = true;
+      $("run-card").style.display = "none";
+      $("run-email-addr").textContent = email.value.trim();
+      $("run-email").style.display = "block";
+    }, CONFIG.WAIT_LIMIT_MS);
+
+    try {
+      const r = await postJSON(CONFIG.WEBHOOK_GRADE, {
+        url: url,
+        business_name: name,
+        city: city,
+        vertical: vertical,
+        email: email.value.trim(),
+        consent: true,
+        hp: this.querySelector(".hp").value,
+        page: "grade",
+        ts: new Date().toISOString()
+      });
+
+      let body = null;
+      try { body = await r.json(); } catch (err) { body = null; }
+      const serverMsg = body && body.ok === false && typeof body.message === "string" ? body.message.slice(0, 200) : "";
+
+      if (r.status === 429){
+        clearTimeout(waitTimer);
+        backToForm();
+        setMsg(msg, "err", serverMsg || "That site or email already ran a grade in the last 24 hours. The report link is in your inbox.");
+        return;
+      }
+      if (!r.ok || !body || body.ok !== true || !body.id){
+        clearTimeout(waitTimer);
+        backToForm();
+        setMsg(msg, "err", serverMsg || "We couldn't reach that site. Check the URL and try again.");
+        return;
+      }
+
+      clearTimeout(waitTimer);
+      finishSteps();
+      location.href = CONFIG.RESULT_PAGE + "?id=" + encodeURIComponent(body.id);
+    } catch (err){
+      clearTimeout(waitTimer);
+      if (waitExpired){
+        // The report by email card is already up. The pipeline finishes on its own.
+        return;
+      }
+      backToForm();
+      setMsg(msg, "err", "That didn't run. Give it a minute and try again, or email seth@launchforte.com.");
+    }
+  });
+})();
+</script>
+</body>
+</html>

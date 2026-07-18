@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Systems Grade | Launch Forte</title>
+<meta name="description" content="A graded report on this business's revenue systems: tracking, speed, lead capture, reputation, and foundations, scored out of 100.">
+<!-- Individual reports stay out of search. -->
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Instant Systems Grade report">
+<meta property="og:description" content="Tracking, speed, lead capture, reputation, and foundations, scored out of 100 with plain English fixes.">
+<meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
+<style>
+/* ============================================================
+   BRAND TOKENS. Mirrored from the live launchforte.com pages.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7;      /* page background */
+  --card:#FFFFFF;       /* cards */
+  --ink:#15221E;        /* primary text */
+  --muted:#5B6660;      /* secondary text */
+  --line:#E5E3DB;       /* hairlines and borders */
+  --brand:#123B33;      /* A and B band, buttons */
+  --brand-soft:#E7F1EC;
+  --warn:#8A6A1F;       /* C band */
+  --warn-soft:#F5EEDA;
+  --err:#A33B2E;        /* D and F band, errors */
+  --err-soft:#F7E9E6;
+  --radius:12px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+
+/* ============================================================ BASE */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.12;letter-spacing:-0.015em;margin:0 0 12px}
+h1{font-size:clamp(1.8rem,6.4vw,2.5rem);font-weight:800}
+h2{font-size:clamp(1.45rem,5vw,1.85rem);font-weight:800}
+p{margin:0 0 14px}
+a{color:var(--brand)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.sub{color:var(--muted);font-size:1.05rem;max-width:36em}
+.small{font-size:13px;color:var(--muted)}
+.section{padding:44px 0;border-top:1px solid var(--line)}
+.section:first-of-type{border-top:0}
+:focus-visible{outline:3px solid #2E6B5C;outline-offset:2px;border-radius:6px}
+
+/* ============================================================ HEADER */
+header{background:var(--card);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;height:58px}
+.nav img{height:30px;width:auto;display:block}
+.wordmark{font-weight:800;font-size:1.1rem;letter-spacing:-0.01em;color:var(--ink);text-decoration:none}
+
+/* ============================================================ BUTTONS */
+.btn{display:inline-block;background:var(--brand);color:#fff;border:0;border-radius:10px;
+     padding:15px 22px;font-family:var(--font);font-weight:700;font-size:1rem;line-height:1.3;
+     cursor:pointer;text-decoration:none;text-align:center}
+.btn:hover{filter:brightness(1.12)}
+.btn:disabled{opacity:.55;cursor:default}
+.btn.block{display:block;width:100%}
+.cta-band{padding:26px 0 40px}
+
+/* ============================================================ CARDS + STATES */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.msg{display:none;border-radius:10px;padding:12px 14px;font-size:.95rem;margin:12px 0 0}
+.msg.ok{display:block;background:var(--brand-soft);color:var(--ink)}
+.msg.err{display:block;background:var(--err-soft);color:var(--err)}
+.fine{font-size:12.5px;color:var(--muted);margin-top:10px}
+.spin{width:26px;height:26px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--brand);
+      animation:spin 1s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ============================================================ SCORE DIAL */
+.dialwrap{text-align:center;margin:10px 0 4px}
+.dial{width:min(230px,70vw);height:auto;display:block;margin:0 auto}
+.dial .track{fill:none;stroke:var(--line);stroke-width:14}
+.dial .arc{fill:none;stroke:var(--brand);stroke-width:14;stroke-linecap:round;
+           transform:rotate(-90deg);transform-origin:100px 100px;
+           transition:stroke-dashoffset 1.1s ease}
+.dial-letter{font-size:64px;font-weight:800;letter-spacing:-0.02em;fill:var(--ink)}
+.dial-score{font-size:15px;font-weight:700;fill:var(--muted)}
+.band-a .arc,.band-b .arc{stroke:var(--brand)}
+.band-c .arc{stroke:var(--warn)}
+.band-d .arc,.band-f .arc{stroke:var(--err)}
+.verdict{font-size:1.12rem;max-width:34em;margin:14px auto 0;text-align:center}
+
+/* ============================================================ SUBSCORES */
+.subrow{padding:14px 0;border-top:1px solid var(--line)}
+.subrow:first-of-type{border-top:0}
+.subhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.subhead .name{font-weight:700}
+.subhead .val{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.subbar{height:8px;border-radius:4px;background:var(--paper);border:1px solid var(--line);margin-top:8px;overflow:hidden}
+.subbar i{display:block;height:100%;background:var(--brand)}
+.sub-pass i{background:var(--brand)}
+.sub-partial i{background:var(--warn)}
+.sub-fail i{background:var(--err)}
+.sub-unverified i{background:var(--muted)}
+.subnote{font-size:13px;color:var(--muted);margin:7px 0 0}
+
+/* ============================================================ FIXES */
+.fixes{list-style:none;counter-reset:fix;margin:18px 0 0;padding:0}
+.fixes li{counter-increment:fix;background:var(--card);border:1px solid var(--line);border-radius:12px;
+          padding:16px 18px 16px 52px;margin:0 0 12px;position:relative}
+.fixes li::before{content:counter(fix);position:absolute;left:16px;top:16px;width:24px;height:24px;
+                  border-radius:50%;background:var(--brand);color:#fff;font-weight:800;font-size:13px;
+                  display:flex;align-items:center;justify-content:center}
+.fixes .chip{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+             color:var(--brand);background:var(--brand-soft);border-radius:999px;padding:3px 9px;margin:0 0 7px}
+.fixes h3{font-size:1.05rem;margin:0 0 6px}
+.fixes p{margin:0;font-size:.97rem}
+.fixes pre{margin:10px 0 0;background:var(--paper);border:1px solid var(--line);border-radius:8px;
+           padding:10px 12px;font-size:12.5px;line-height:1.5;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+
+/* ============================================================ CHECKED LIST */
+.checked{margin:14px 0 0;padding:0;list-style:none}
+.checked li{padding:10px 0;border-top:1px dashed var(--line);font-size:.95rem;color:var(--muted)}
+.checked li:first-child{border-top:0}
+.checked b{color:var(--ink)}
+
+/* ============================================================ TRUST + FOOTER */
+.trust{text-align:center;color:var(--muted);font-size:.95rem}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:13px;color:var(--muted)}
+footer p{margin:0 0 6px}
+
+/* ============================================================ MOTION */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .spin{animation:none;border-top-color:var(--line)}
+  .dial .arc{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="https://launchforte.com/" aria-label="Launch Forte home">
+      <img src="https://launchforte.com/images/home/launch-forte.png" alt="Launch Forte"
+           onerror="this.style.display='none';document.getElementById('wordmark').style.display='inline'">
+      <span id="wordmark" class="wordmark" style="display:none">Launch Forte</span>
+    </a>
+  </div>
+</header>
+
+<!-- ============================================================ LOADING -->
+<section class="section" id="state-loading">
+  <div class="wrap" style="text-align:center;padding:40px 20px">
+    <div class="spin" aria-hidden="true"></div>
+    <p class="sub" style="margin:0 auto">Pulling your report.</p>
+  </div>
+</section>
+
+<!-- ============================================================ MISSING -->
+<section class="section" id="state-missing" style="display:none">
+  <div class="wrap">
+    <p class="eyebrow">Instant systems grade</p>
+    <h1>We couldn't find that report.</h1>
+    <p class="sub">The link may be incomplete, or the grade may still be running. If you just submitted your site, give it a minute and use the link from your email.</p>
+    <p style="margin-top:20px">
+      <button class="btn" id="retry-btn" type="button" style="display:none">Try again</button>
+      <a class="btn" href="/grade/" id="missing-grade-link">Run a free grade</a>
+    </p>
+    <noscript><p class="small">This report needs JavaScript to load.</p></noscript>
+  </div>
+</section>
+
+<!-- ============================================================ REPORT -->
+<div id="report" style="display:none">
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Instant systems grade</p>
+      <h1 id="r-name">Your systems grade</h1>
+      <p class="sub" id="r-meta"></p>
+
+      <div class="dialwrap">
+        <svg class="dial" id="r-dial" viewBox="0 0 200 200" role="img" aria-labelledby="r-dial-title">
+          <title id="r-dial-title">Score dial</title>
+          <circle class="track" cx="100" cy="100" r="86"></circle>
+          <circle class="arc" id="r-arc" cx="100" cy="100" r="86"></circle>
+          <text class="dial-letter" id="r-letter" x="100" y="112" text-anchor="middle">•</text>
+          <text class="dial-score" id="r-score" x="100" y="140" text-anchor="middle"></text>
+        </svg>
+      </div>
+      <p class="verdict" id="r-verdict"></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">The breakdown</p>
+      <h2>Where the points went.</h2>
+      <div class="card" style="margin-top:18px" id="r-subscores"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">The fixes</p>
+      <h2>Fix these first.</h2>
+      <p class="sub">In priority order. Every fix traces to a check that failed or came up partial on your site. Nothing here is generic.</p>
+      <ol class="fixes" id="r-fixes"></ol>
+    </div>
+  </section>
+
+  <section class="section" id="cta">
+    <div class="wrap">
+      <p class="eyebrow">The next step</p>
+      <h2>Want these fixed for you?</h2>
+      <div class="card" style="margin-top:18px" id="cta-card">
+        <p style="margin:0 0 14px">The full System Health Check goes deeper: every workflow, every integration, a prioritized roadmap. $395, delivered in days.</p>
+        <button class="btn block" id="cta-btn" type="button">Book my System Health Check</button>
+        <div class="msg" id="cta-msg" role="status"></div>
+        <p class="fine">One click. Seth replies to the email from your grade within one business day. Questions first? <a href="mailto:seth@launchforte.com">seth@launchforte.com</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Transparency</p>
+      <h2>What we checked.</h2>
+      <ul class="checked">
+        <li><b>Tracking, 25 points.</b> Your homepage code, read for a Meta pixel, GA4, and Google Tag Manager.</li>
+        <li><b>Speed, 20 points.</b> Google's own PageSpeed test of your site on a phone.</li>
+        <li><b>Lead capture, 25 points.</b> Your homepage and contact page, read for a working form or booking widget, a tappable phone number, visible hours, and chat.</li>
+        <li><b>Reputation, 20 points.</b> Your public Google Business listing: rating and review count.</li>
+        <li><b>Foundations, 10 points.</b> Secure connection, phone friendly setup, and the structured markup Google reads.</li>
+      </ul>
+      <p class="small" style="margin-top:14px">Public pages only. We never submit a form on your site, never log in, and never touch anything private. Scoring is deterministic: same rubric, same math, every site.</p>
+    </div>
+  </section>
+
+  <div class="cta-band"><div class="wrap"><a class="btn block" href="#cta">Want these fixed for you? Start the Health Check</a></div></div>
+
+  <section class="section">
+    <div class="wrap trust">
+      Built by Launch Forte. Upwork Top Rated, 100% Job Success, 50+ delivered projects.<br>
+      <span class="small">Not your site? <a href="/grade/">Run your own free grade.</a></span>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Built by <a href="https://launchforte.com/">Launch Forte</a> in Grapevine, Texas.</p>
+    <p><a href="mailto:seth@launchforte.com">seth@launchforte.com</a></p>
+    <p>&copy; 2026 Launch Forte. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CONFIG. The only lines you need to touch.
+   ============================================================ */
+const CONFIG = {
+  // n8n webhook that returns a stored report by id. GET, ?id= appended.
+  WEBHOOK_RESULT: "https://launchforte.app.n8n.cloud/webhook/grade-result",
+  // n8n webhook that flags a Health Check hand raise. POST {id}.
+  WEBHOOK_HANDRAISE: "https://launchforte.app.n8n.cloud/webhook/grade-handraise",
+  // Where a fresh grade starts.
+  GRADE_PAGE: "/grade/"
+};
+
+(function(){
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function setMsg(el, kind, text){
+    el.className = "msg " + kind;
+    el.textContent = text;
+  }
+
+  /* ------------------------------------------------ Report id */
+  let id = "";
+  try { id = (new URLSearchParams(location.search).get("id") || "").trim(); } catch (err) { id = ""; }
+  if (!/^[A-Za-z0-9-]{8,64}$/.test(id)) id = "";
+
+  function show(state){
+    $("state-loading").style.display = state === "loading" ? "block" : "none";
+    $("state-missing").style.display = state === "missing" ? "block" : "none";
+    $("report").style.display = state === "report" ? "block" : "none";
+  }
+
+  /* ------------------------------------------------ Render helpers */
+  const LETTERS = {A:"a", B:"b", C:"c", D:"d", F:"f"};
+  const STATUSES = {pass:"sub-pass", partial:"sub-partial", fail:"sub-fail", unverified:"sub-unverified"};
+
+  function el(tag, cls, text){
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+
+  function renderDial(score, letter){
+    const band = LETTERS[letter] || "c";
+    $("r-dial").setAttribute("class", "dial band-" + band);
+    $("r-letter").textContent = letter;
+    $("r-score").textContent = score + " out of 100";
+    const arc = $("r-arc");
+    const C = 2 * Math.PI * 86;
+    arc.style.strokeDasharray = String(C);
+    const target = C * (1 - score / 100);
+    const raf = window.requestAnimationFrame || function(fn){ setTimeout(fn, 16); };
+    if (reduceMotion){
+      arc.style.strokeDashoffset = String(target);
+    } else {
+      arc.style.strokeDashoffset = String(C);
+      raf(function(){
+        raf(function(){ arc.style.strokeDashoffset = String(target); });
+      });
+    }
+  }
+
+  function renderSubscores(list){
+    const box = $("r-subscores");
+    box.textContent = "";
+    list.forEach(function(s){
+      const row = el("div", "subrow " + (STATUSES[s.status] || "sub-unverified"));
+      const head = el("div", "subhead");
+      head.appendChild(el("span", "name", s.label));
+      head.appendChild(el("span", "val", s.points + " / " + s.max));
+      row.appendChild(head);
+      const bar = el("div", "subbar");
+      const fill = el("i");
+      const pct = s.max > 0 ? Math.max(0, Math.min(100, (s.points / s.max) * 100)) : 0;
+      fill.style.width = pct + "%";
+      bar.appendChild(fill);
+      row.appendChild(bar);
+      if (s.note) row.appendChild(el("p", "subnote", s.note));
+      box.appendChild(row);
+    });
+  }
+
+  function renderFixes(list){
+    const ol = $("r-fixes");
+    ol.textContent = "";
+    list.slice(0, 8).forEach(function(f){
+      const li = el("li");
+      if (f.category) li.appendChild(el("span", "chip", f.category));
+      li.appendChild(el("h3", "", f.title || "Fix"));
+      if (f.body) li.appendChild(el("p", "", f.body));
+      if (f.snippet){
+        const pre = el("pre");
+        pre.textContent = f.snippet;
+        li.appendChild(pre);
+      }
+      ol.appendChild(li);
+    });
+  }
+
+  function renderReport(d){
+    const name = d.business && d.business.name ? String(d.business.name).slice(0, 90) : "";
+    $("r-name").textContent = name || "Your systems grade";
+
+    const domain = d.site && d.site.domain ? String(d.site.domain).slice(0, 100) : "";
+    let dateStr = "";
+    if (d.ts){
+      const dt = new Date(d.ts);
+      if (!isNaN(dt.getTime())){
+        dateStr = dt.toLocaleDateString("en-US", {year:"numeric", month:"long", day:"numeric"});
+      }
+    }
+    $("r-meta").textContent = [domain, dateStr ? "graded " + dateStr : ""].filter(Boolean).join(", ");
+
+    const score = Math.max(0, Math.min(100, Math.round(Number(d.score) || 0)));
+    const letter = LETTERS[d.letter] ? d.letter : (score >= 90 ? "A" : score >= 80 ? "B" : score >= 70 ? "C" : score >= 60 ? "D" : "F");
+    renderDial(score, letter);
+
+    $("r-verdict").textContent = typeof d.verdict === "string" ? d.verdict.slice(0, 600) : "";
+
+    renderSubscores(Array.isArray(d.subscores) ? d.subscores.slice(0, 5) : []);
+    renderFixes(Array.isArray(d.fixes) ? d.fixes : []);
+
+    document.title = (name ? name + ", " : "") + "Systems Grade " + letter + " | Launch Forte";
+    show("report");
+  }
+
+  /* ------------------------------------------------ Load */
+  async function load(){
+    if (!id){
+      show("missing");
+      return;
+    }
+    show("loading");
+    try {
+      const r = await fetch(CONFIG.WEBHOOK_RESULT + "?id=" + encodeURIComponent(id));
+      let body = null;
+      try { body = await r.json(); } catch (err) { body = null; }
+      if (!r.ok || !body || body.ok !== true){
+        $("retry-btn").style.display = "inline-block";
+        show("missing");
+        return;
+      }
+      renderReport(body);
+    } catch (err){
+      $("retry-btn").style.display = "inline-block";
+      show("missing");
+    }
+  }
+  $("retry-btn").addEventListener("click", load);
+  $("missing-grade-link").setAttribute("href", CONFIG.GRADE_PAGE);
+  load();
+
+  /* ------------------------------------------------ Hand raise CTA */
+  $("cta-btn").addEventListener("click", async function(){
+    const btn = this;
+    const msg = $("cta-msg");
+    btn.disabled = true;
+    btn.textContent = "Sending";
+    try {
+      const r = await fetch(CONFIG.WEBHOOK_HANDRAISE, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({id: id, page: "grade-result", ts: new Date().toISOString()})
+      });
+      if (!r.ok) throw new Error("send failed");
+      btn.style.display = "none";
+      setMsg(msg, "ok", "Got it. Seth will reply to the email from your grade within one business day.");
+    } catch (err){
+      btn.disabled = false;
+      btn.textContent = "Book my System Health Check";
+      setMsg(msg, "err", "That didn't go through. Email seth@launchforte.com and paste your report link.");
+    }
+  });
+})();
+</script>
+</body>
+</html>
