@@ -144,7 +144,7 @@ footer p{margin:0 0 6px}
   </div>
 </header>
 
-<div class="banner">This is a live demo for Radiant, a fictitious med spa. Picture your name on it.</div>
+<div class="banner" id="demo-banner">This is a live demo for Radiant, a fictitious med spa. Picture your name on it.</div>
 
 <!-- ============================================================ A. HERO -->
 <section class="section" id="top">
@@ -352,10 +352,16 @@ footer p{margin:0 0 6px}
   </div>
 </section>
 
+<!-- ============================================================ F. TRUST -->
+<section class="section">
+  <div class="wrap trust">
+    Built by Launch Forte. Upwork Top Rated, 100% Job Success, 50+ delivered projects.
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <p>Radiant is a fictitious business created for this demo by <a href="https://launchforte.com/">Launch Forte</a>.</p>
-    <p><a href="/privacy">Privacy policy</a> &middot; <a href="/terms">Terms and conditions</a></p>
     <p><a href="mailto:seth@launchforte.com">seth@launchforte.com</a></p>
     <p>&copy; 2026 Launch Forte. All rights reserved.</p>
   </div>
@@ -367,9 +373,9 @@ footer p{margin:0 0 6px}
    ============================================================ */
 const CONFIG = {
   // n8n webhook that sends the live "be the patient" SMS sequence. Also receives the email fallback.
-  WEBHOOK_BE_THE_PATIENT: "REPLACE_WITH_N8N_WEBHOOK_URL",
+  WEBHOOK_BE_THE_PATIENT: "https://launchforte.app.n8n.cloud/webhook/radiant-demo",
   // n8n webhook that receives the CTA form and writes to Twenty CRM.
-  WEBHOOK_CTA: "REPLACE_WITH_N8N_WEBHOOK_URL",
+  WEBHOOK_CTA: "https://launchforte.app.n8n.cloud/webhook/radiant-cta",
   // Flip to true once the Twilio demo number's A2P registration is confirmed.
   LIVE_SMS_ENABLED: false
 };
@@ -441,6 +447,42 @@ const CONFIG = {
     {day:"Day 4", text:"Hi Dana, Radiant here. We're holding a few appointment times this week for returning guests. Want one? Reply YES and we'll handle the rest."},
     {day:"Day 9", text:"Last note from us, Dana. If now isn't the right time, no worries at all. Whenever you're ready, reply YES and we'll get you scheduled."}
   ];
+
+  /* ------------------------------------------------ Prospect prefill (campaign links) */
+  // Campaign links may carry ?fn=First&ln=Last&spa=Spa+Name&city=City&e=email
+  // Values prefill the CTA form (fully editable) and personalize the sample
+  // patient name and banner. Malformed or missing values are simply ignored.
+  function param(key, allow, cap){
+    let v = "";
+    try { v = new URLSearchParams(location.search).get(key) || ""; } catch (err) { v = ""; }
+    return v.trim().slice(0, cap).replace(allow, "");
+  }
+  const P = {
+    fn:   param("fn",   /[^A-Za-z\u00C0-\u024F' .-]/g, 30),
+    ln:   param("ln",   /[^A-Za-z\u00C0-\u024F' .-]/g, 30),
+    spa:  param("spa",  /[^A-Za-z0-9\u00C0-\u024F'&+., -]/g, 60),
+    city: param("city", /[^A-Za-z\u00C0-\u024F'. -]/g, 40),
+    email: (function(){
+      let v = "";
+      try { v = (new URLSearchParams(location.search).get("e") || "").trim().toLowerCase(); } catch (err) {}
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? v.slice(0, 80) : "";
+    })()
+  };
+  if (P.fn){
+    document.querySelectorAll("#sequence .bubble").forEach(function(b){
+      b.textContent = b.textContent.split("Dana").join(P.fn);
+    });
+    SEQUENCE.forEach(function(m){ m.text = m.text.split("Dana").join(P.fn); });
+  }
+  if (P.spa){
+    const banner = document.getElementById("demo-banner");
+    if (banner) banner.textContent = "This is a live demo for Radiant, a fictitious med spa. Picture " + P.spa + " on it.";
+  }
+  const fullName = (P.fn + " " + P.ln).trim();
+  if (fullName && !$("cta-name").value) $("cta-name").value = fullName;
+  if (P.spa && !$("cta-spa").value) $("cta-spa").value = P.spa;
+  if (P.city && !$("cta-city").value) $("cta-city").value = P.city;
+  if (P.email && !$("cta-email").value) $("cta-email").value = P.email;
 
   /* ------------------------------------------------ Simulated player */
   const thread = $("sim-thread");
