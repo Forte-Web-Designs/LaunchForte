@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summit Roofing Speed to Lead Demo | Launch Forte</title>
+<meta name="description" content="A live speed to lead demo built for Summit Roofing, a fictitious roofing company. Submit the form as the homeowner and feel the response land in seconds.">
+<!-- Demo page for a fictitious business. Remove the next line if you ever want it indexed. -->
+<meta name="robots" content="noindex">
+<style>
+/* ============================================================
+   BRAND TOKENS. Identical to the med spa island so both demos
+   read as the same house. Everything derives from this block.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7;      /* page background */
+  --card:#FFFFFF;       /* cards, phone, forms */
+  --ink:#15221E;        /* primary text */
+  --muted:#5B6660;      /* secondary text */
+  --line:#E5E3DB;       /* hairlines and borders */
+  --brand:#123B33;      /* buttons, headings accent, timer numerals */
+  --brand-soft:#E7F1EC; /* banner, chips, success tint */
+  --err:#A33B2E;        /* error text */
+  --bubble:#E9E9EB;     /* incoming SMS bubble */
+  --radius:12px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+
+/* ============================================================ BASE */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.12;letter-spacing:-0.015em;margin:0 0 12px}
+h1{font-size:clamp(2.05rem,7.2vw,2.8rem);font-weight:800}
+h2{font-size:clamp(1.45rem,5vw,1.85rem);font-weight:800}
+p{margin:0 0 14px}
+a{color:var(--brand)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.sub{color:var(--muted);font-size:1.05rem;max-width:36em}
+.small{font-size:13px;color:var(--muted)}
+.section{padding:48px 0;border-top:1px solid var(--line)}
+.section:first-of-type{border-top:0}
+:focus-visible{outline:3px solid #2E6B5C;outline-offset:2px;border-radius:6px}
+
+/* ============================================================ HEADER + BANNER */
+header{background:var(--card);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;height:58px}
+.nav img{height:30px;width:auto;display:block}
+.wordmark{font-weight:800;font-size:1.1rem;letter-spacing:-0.01em;color:var(--ink);text-decoration:none}
+.banner{background:var(--brand-soft);color:var(--ink);text-align:center;font-size:14px;padding:10px 16px;border-bottom:1px solid var(--line)}
+
+/* ============================================================ BUTTONS */
+.btn{display:inline-block;background:var(--brand);color:#fff;border:0;border-radius:10px;
+     padding:15px 22px;font-family:var(--font);font-weight:700;font-size:1rem;line-height:1.3;
+     cursor:pointer;text-decoration:none;text-align:center}
+.btn:hover{filter:brightness(1.12)}
+.btn:disabled{opacity:.55;cursor:default}
+.btn.block{display:block;width:100%}
+.btn-ghost{background:none;border:0;padding:0;color:var(--brand);font-family:var(--font);
+           font-size:.95rem;font-weight:600;text-decoration:underline;cursor:pointer}
+.cta-band{padding:26px 0 40px}
+
+/* ============================================================ FORMS */
+form{margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.field{margin:0 0 14px}
+.field label{display:block;font-size:.9rem;font-weight:600;margin:0 0 5px}
+input[type=text],input[type=tel],input[type=email],select{
+  width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:10px;
+  font-family:var(--font);font-size:16px;color:var(--ink);background:var(--card)}
+.consent{display:flex;gap:10px;align-items:flex-start;margin:0 0 14px;font-size:.92rem}
+.consent input{width:19px;height:19px;margin-top:2px;flex:none;accent-color:var(--brand)}
+.msg{display:none;border-radius:10px;padding:12px 14px;font-size:.95rem;margin:12px 0 0}
+.msg.ok{display:block;background:var(--brand-soft);color:var(--ink)}
+.msg.err{display:block;background:#F7E9E6;color:var(--err)}
+.hp{position:absolute !important;left:-6000px !important;top:auto;width:1px;height:1px;overflow:hidden}
+.fine{font-size:12.5px;color:var(--muted);margin-top:10px}
+
+/* ============================================================ PIPELINE BOARD (the signature) */
+.chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+      background:var(--brand-soft);color:var(--ink);border-radius:999px;padding:5px 12px}
+.board{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:22px}
+.board-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 12px}
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lane{background:var(--paper);border:1px dashed var(--line);border-radius:12px;padding:10px;min-height:130px}
+.lane-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.lane-empty{font-size:12.5px;color:var(--muted);opacity:.75;margin:0}
+.lead-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);
+           border-radius:10px;padding:10px 12px;font-size:14px;line-height:1.4}
+.lead-card b{display:block}
+.lead-card .small{margin-top:2px;display:block}
+.lead-card.arrive{animation:slidein .45s ease}
+@keyframes slidein{from{transform:translateX(-28%);opacity:0}to{transform:none;opacity:1}}
+.timerbox{border-top:1px solid var(--line);margin-top:14px;padding-top:14px;display:flex;align-items:baseline;
+          justify-content:space-between;gap:12px;flex-wrap:wrap}
+.timerbox .label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.timernum{font-size:clamp(2rem,9vw,2.6rem);font-weight:800;color:var(--brand);font-variant-numeric:tabular-nums;line-height:1}
+.board-note{font-size:13.5px;color:var(--muted);margin:10px 0 0}
+.board.done .lane-contacted{border-style:solid;border-color:var(--brand-soft);background:var(--brand-soft)}
+
+/* ============================================================ SIMULATED BUZZ */
+.buzz{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);width:min(360px,calc(100% - 28px));
+      background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px 15px;
+      box-shadow:0 14px 34px rgba(18,59,51,.18);display:none;z-index:50}
+.buzz.on{display:block;animation:buzzshake .5s ease}
+@keyframes buzzshake{0%,100%{transform:translateX(-50%)}20%{transform:translateX(calc(-50% - 5px))}
+  40%{transform:translateX(calc(-50% + 5px))}60%{transform:translateX(calc(-50% - 3px))}80%{transform:translateX(calc(-50% + 3px))}}
+.buzz .who{font-size:12px;font-weight:700;color:var(--muted);margin:0 0 6px}
+.buzz .bubble{background:var(--bubble);color:#111;border-radius:14px;border-bottom-left-radius:5px;
+              padding:9px 12px;font-size:14px;line-height:1.45;margin:0}
+.buzz .btn-ghost{margin-top:8px;font-size:.85rem}
+
+/* ============================================================ FOOTER */
+footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:13px;color:var(--muted)}
+footer p{margin:0 0 6px}
+
+/* ============================================================ MOTION */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .lead-card.arrive{animation:none}
+  .buzz.on{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="https://launchforte.com/" aria-label="Launch Forte home">
+      <img src="https://launchforte.com/images/home/launch-forte.png" alt="Launch Forte"
+           onerror="this.style.display='none';document.getElementById('wordmark').style.display='inline'">
+      <span id="wordmark" class="wordmark" style="display:none">Launch Forte</span>
+    </a>
+  </div>
+</header>
+
+<div class="banner" id="demo-banner">This is a live demo for Summit Roofing, a fictitious roofing company. Picture your name on it.</div>
+
+<!-- ============================================================ A. HERO -->
+<section class="section" id="top">
+  <div class="wrap">
+    <p class="eyebrow">Speed to lead, live demo</p>
+    <h1>After a storm, the first roofer to answer wins the roof.</h1>
+    <p class="sub">Phones melt when hail hits, and the homeowner who can't reach you books whoever answers first. Feel the fix from the homeowner's side.</p>
+    <p style="margin-top:22px"><a class="btn" href="#play">Be the homeowner</a></p>
+  </div>
+</section>
+
+<!-- ============================================================ B. THE PLAY -->
+<section class="section" id="play">
+  <div class="wrap">
+    <p class="eyebrow">01 / The play</p>
+    <h2>Be the homeowner.</h2>
+
+    <!-- Live SMS mode (shown when CONFIG.LIVE_SMS_ENABLED is true) -->
+    <div id="play-live" style="display:none">
+      <p class="sub">Fill this out the way a homeowner would the morning after hail. Summit's response lands on your own phone in seconds, marked as a demo.</p>
+      <form id="lv-form" style="margin-top:18px" novalidate>
+        <div class="field">
+          <label for="lv-first">First name</label>
+          <input type="text" id="lv-first" name="first_name" autocomplete="given-name" required>
+        </div>
+        <div class="field">
+          <label for="lv-phone">Your cell number</label>
+          <input type="tel" id="lv-phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="(555) 555-0134" required>
+        </div>
+        <div class="field">
+          <label for="lv-issue">What happened</label>
+          <select id="lv-issue" name="issue">
+            <option value="hail">Hail damage</option>
+            <option value="leak">Leaking roof</option>
+            <option value="inspect">Just an inspection</option>
+          </select>
+        </div>
+        <label class="consent" for="lv-consent">
+          <input type="checkbox" id="lv-consent" required>
+          <span>Text me Summit Roofing's demo response. Demo messages only.</span>
+        </label>
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn block" id="lv-btn" type="submit">Send it, I'm the homeowner</button>
+        <div class="msg" id="lv-msg" role="status"></div>
+        <p class="fine">US numbers only. One demo per number per day. Reply STOP anytime.</p>
+      </form>
+    </div>
+
+    <!-- Simulated mode (default until carrier approval) -->
+    <div id="play-sim">
+      <p class="sub">Fill this out the way a homeowner would the morning after hail, then watch the response land the way it lands for them.</p>
+      <p style="margin:14px 0 0"><span class="chip">Simulated run. Live texting switches on with carrier approval.</span></p>
+      <form id="sm-form" style="margin-top:18px" novalidate>
+        <div class="field">
+          <label for="sm-first">First name</label>
+          <input type="text" id="sm-first" name="first_name" autocomplete="given-name" required>
+        </div>
+        <div class="field">
+          <label for="sm-issue">What happened</label>
+          <select id="sm-issue" name="issue">
+            <option value="hail">Hail damage</option>
+            <option value="leak">Leaking roof</option>
+            <option value="inspect">Just an inspection</option>
+          </select>
+        </div>
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn block" id="sm-btn" type="submit">Send it, I'm the homeowner</button>
+        <div class="msg" id="sm-msg" role="status"></div>
+      </form>
+    </div>
+
+    <!-- The board -->
+    <div class="board" id="board" aria-label="Pipeline board, demo view">
+      <div class="board-head">
+        <span class="chip" id="board-chip">Live view, demo</span>
+      </div>
+      <div class="lanes">
+        <div class="lane" id="lane-new">
+          <p class="lane-title">New lead</p>
+          <p class="lane-empty" id="new-empty">Your lead card lands here.</p>
+        </div>
+        <div class="lane lane-contacted" id="lane-contacted">
+          <p class="lane-title">Contacted</p>
+          <p class="lane-empty" id="contacted-empty">Moves here when the response sends.</p>
+        </div>
+      </div>
+      <div class="timerbox">
+        <span class="label">Response time</span>
+        <span class="timernum" id="timer" aria-live="off">0:00</span>
+      </div>
+      <p class="board-note" id="board-note">Submit the form and watch the clock.</p>
+    </div>
+
+    <!-- Email fallback (shown when live SMS is off) -->
+    <div id="email-opt" style="margin-top:26px">
+      <h3 style="font-size:1.05rem">Want the real thing in writing? Email me the response instead.</h3>
+      <form id="em-form" novalidate>
+        <div class="field">
+          <label for="em-input">Your email</label>
+          <input type="email" id="em-input" name="email" autocomplete="email" placeholder="you@yourcompany.com" required>
+        </div>
+        <label class="consent" for="em-consent">
+          <input type="checkbox" id="em-consent" required>
+          <span>Email me Summit Roofing's demo response. Demo messages only.</span>
+        </label>
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn block" id="em-btn" type="submit">Email me the response</button>
+        <div class="msg" id="em-msg" role="status"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band"><div class="wrap"><a class="btn block" href="#start">Want your leads answered in seconds? Start here.</a></div></div>
+
+<!-- ============================================================ C. WHAT JUST HAPPENED -->
+<section class="section" id="explain">
+  <div class="wrap">
+    <p class="eyebrow">02 / What just happened</p>
+    <h2>What just happened.</h2>
+    <p class="sub" style="max-width:40em">That form stands in for every lead source you have: the website quote form, the Google ad, the Facebook lead, the missed call. The response went out automatically, written once and sent the same way at 2 pm or 2 am, storm weeks included. The board you watched is the owner's view, every lead on one screen and nothing sitting in New Lead while a competitor answers. In a real install the same wiring places the callback, books the inspection, and keeps following up until the homeowner picks a roofer.</p>
+  </div>
+</section>
+
+<div class="cta-band"><div class="wrap"><a class="btn block" href="#start">Want your leads answered in seconds? Start here.</a></div></div>
+
+<!-- ============================================================ D. CTA / HAND RAISE -->
+<section class="section" id="start">
+  <div class="wrap">
+    <p class="eyebrow">03 / Your leads</p>
+    <h2>Want your leads answered in seconds?</h2>
+    <p class="sub">Four fields, one business day.</p>
+
+    <form id="cta-form" style="margin-top:18px" novalidate>
+      <div class="field">
+        <label for="cta-name">Your name</label>
+        <input type="text" id="cta-name" name="name" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="cta-company">Company</label>
+        <input type="text" id="cta-company" name="company" autocomplete="organization" required>
+      </div>
+      <div class="field">
+        <label for="cta-city">City</label>
+        <input type="text" id="cta-city" name="city" autocomplete="address-level2">
+      </div>
+      <div class="field">
+        <label for="cta-email">Email</label>
+        <input type="email" id="cta-email" name="email" autocomplete="email" required>
+      </div>
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn block" id="cta-btn" type="submit">Start here</button>
+      <div class="msg" id="cta-msg" role="status"></div>
+    </form>
+
+    <div id="cta-done" style="display:none">
+      <div class="card" style="margin-top:18px;background:var(--brand-soft);border-color:var(--brand-soft)">
+        <h3 style="margin:0 0 6px">Got it.</h3>
+        <p style="margin:0">You'll hear from Seth within one business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Summit Roofing is a fictitious business created for this demo by <a href="https://launchforte.com/">Launch Forte</a>.</p>
+    <p><a href="mailto:seth@launchforte.com">seth@launchforte.com</a></p>
+    <p>&copy; 2026 Launch Forte. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Simulated buzz toast -->
+<div class="buzz" id="buzz" role="status" aria-live="polite">
+  <p class="who">Summit Roofing &middot; now</p>
+  <p class="bubble" id="buzz-text"></p>
+  <button class="btn-ghost" id="buzz-close" type="button">Dismiss</button>
+</div>
+
+<script>
+/* ============================================================
+   CONFIG. The only lines you need to touch.
+   ============================================================ */
+const CONFIG = {
+  // n8n webhook that sends the live homeowner response SMS. Also receives the email fallback.
+  WEBHOOK_SPEED_DEMO: "https://launchforte.app.n8n.cloud/webhook/summit-demo",
+  // n8n webhook that receives the CTA form and writes to Twenty CRM.
+  WEBHOOK_CTA: "https://launchforte.app.n8n.cloud/webhook/summit-cta",
+  // Flip to true once the demo number's A2P registration covers Summit sends.
+  LIVE_SMS_ENABLED: false
+};
+
+(function(){
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ------------------------------------------------ Shared helpers */
+  function setMsg(el, kind, text){
+    el.className = "msg " + kind;
+    el.textContent = text;
+  }
+  function clearMsg(el){
+    el.className = "msg";
+    el.textContent = "";
+  }
+  function postJSON(url, data){
+    return fetch(url, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(data)
+    });
+  }
+  const notWired = (url) => typeof url !== "string" || url.indexOf("REPLACE") !== -1;
+  const wait = (ms) => new Promise(res => setTimeout(res, ms));
+
+  /* ------------------------------------------------ Response copy (mirror of what the system sends) */
+  const ISSUE_PHRASE = { hail: "hail damage", leak: "a leaking roof", inspect: "an inspection" };
+  const ISSUE_LABEL  = { hail: "Hail damage", leak: "Leaking roof", inspect: "Inspection" };
+  function responseText(first, issueKey){
+    return "[Summit Roofing demo] Hi " + first + ", got your request about " +
+           (ISSUE_PHRASE[issueKey] || "your roof") +
+           ". We can have an inspector out this week. Reply YES and we'll lock in a time. Reply STOP to opt out.";
+  }
+
+  /* ------------------------------------------------ Prospect prefill (campaign links) */
+  // Campaign links may carry ?fn=First&ln=Last&bn=Business+Name&city=City&e=email
+  // Values prefill the forms (fully editable) and personalize the banner.
+  // Malformed or missing values are simply ignored.
+  function param(key, allow, cap){
+    let v = "";
+    try { v = new URLSearchParams(location.search).get(key) || ""; } catch (err) { v = ""; }
+    return v.trim().slice(0, cap).replace(allow, "");
+  }
+  const P = {
+    fn:   param("fn",   /[^A-Za-z\u00C0-\u024F' .-]/g, 30),
+    ln:   param("ln",   /[^A-Za-z\u00C0-\u024F' .-]/g, 30),
+    bn:   param("bn",   /[^A-Za-z0-9\u00C0-\u024F'&+., -]/g, 60),
+    city: param("city", /[^A-Za-z\u00C0-\u024F'. -]/g, 40),
+    email: (function(){
+      let v = "";
+      try { v = (new URLSearchParams(location.search).get("e") || "").trim().toLowerCase(); } catch (err) {}
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? v.slice(0, 80) : "";
+    })()
+  };
+  if (P.bn){
+    const banner = $("demo-banner");
+    if (banner) banner.textContent = "This is a live demo for Summit Roofing, a fictitious roofing company. Picture " + P.bn + " on it.";
+  }
+  if (P.fn){
+    if (!$("lv-first").value) $("lv-first").value = P.fn;
+    if (!$("sm-first").value) $("sm-first").value = P.fn;
+  }
+  const fullName = (P.fn + " " + P.ln).trim();
+  if (fullName && !$("cta-name").value) $("cta-name").value = fullName;
+  if (P.bn && !$("cta-company").value) $("cta-company").value = P.bn;
+  if (P.city && !$("cta-city").value) $("cta-city").value = P.city;
+  if (P.email && !$("cta-email").value) $("cta-email").value = P.email;
+
+  /* ------------------------------------------------ Board state machine */
+  const timerEl = $("timer");
+  let timerInt = null;
+  let t0 = 0;
+  let leadCard = null;
+
+  function fmt(ms){
+    const s = Math.floor(ms / 1000);
+    const m = Math.floor(s / 60);
+    return m + ":" + String(s % 60).padStart(2, "0");
+  }
+  function timerStart(){
+    t0 = Date.now();
+    timerEl.textContent = "0:00";
+    clearInterval(timerInt);
+    timerInt = setInterval(function(){ timerEl.textContent = fmt(Date.now() - t0); }, 120);
+  }
+  function timerStop(){
+    clearInterval(timerInt);
+    timerInt = null;
+    const elapsed = Date.now() - t0;
+    timerEl.textContent = fmt(elapsed);
+    return elapsed;
+  }
+  function boardReset(){
+    clearInterval(timerInt);
+    timerInt = null;
+    if (leadCard) leadCard.remove();
+    leadCard = null;
+    $("board").classList.remove("done");
+    $("new-empty").style.display = "";
+    $("contacted-empty").style.display = "";
+    timerEl.textContent = "0:00";
+    $("board-note").textContent = "Submit the form and watch the clock.";
+  }
+  function boardSubmit(first, issueKey){
+    boardReset();
+    $("new-empty").style.display = "none";
+    leadCard = document.createElement("div");
+    leadCard.className = "lead-card arrive";
+    const b = document.createElement("b");
+    b.textContent = first + " \u00B7 " + (ISSUE_LABEL[issueKey] || "Roof");
+    const s = document.createElement("span");
+    s.className = "small";
+    s.textContent = "just now";
+    leadCard.appendChild(b);
+    leadCard.appendChild(s);
+    $("lane-new").appendChild(leadCard);
+    $("board-note").textContent = "Lead in. Clock running.";
+    timerStart();
+    if (!reduceMotion) leadCard.scrollIntoView({block: "nearest", behavior: "smooth"});
+  }
+  function boardConfirm(noteText){
+    const elapsed = timerStop();
+    if (leadCard){
+      leadCard.classList.remove("arrive");
+      void leadCard.offsetWidth; /* restart the slide animation */
+      $("contacted-empty").style.display = "none";
+      $("lane-contacted").appendChild(leadCard);
+      leadCard.classList.add("arrive");
+    }
+    $("board").classList.add("done");
+    $("board-note").textContent = noteText + " Response time: " + fmt(elapsed) + ".";
+    return elapsed;
+  }
+
+  /* ------------------------------------------------ Simulated buzz */
+  const buzz = $("buzz");
+  function showBuzz(text){
+    $("buzz-text").textContent = text;
+    buzz.classList.remove("on");
+    void buzz.offsetWidth;
+    buzz.classList.add("on");
+  }
+  $("buzz-close").addEventListener("click", function(){ buzz.classList.remove("on"); });
+
+  /* ------------------------------------------------ Mode switch: live SMS vs simulated first */
+  if (CONFIG.LIVE_SMS_ENABLED){
+    $("play-live").style.display = "block";
+    $("play-sim").style.display = "none";
+    $("email-opt").style.display = "none";
+    $("board-chip").textContent = "Live view, demo";
+  } else {
+    $("board-chip").textContent = "Live view, simulated";
+  }
+
+  /* ------------------------------------------------ Simulated run */
+  let simRunning = false;
+  $("sm-form").addEventListener("submit", async function(e){
+    e.preventDefault();
+    const msg = $("sm-msg");
+    clearMsg(msg);
+    if (simRunning) return;
+
+    const first = $("sm-first").value.trim();
+    if (!first){
+      setMsg(msg, "err", "Give the homeowner a first name and run it.");
+      return;
+    }
+    const issueKey = $("sm-issue").value;
+    const btn = $("sm-btn");
+    simRunning = true;
+    btn.disabled = true;
+    btn.textContent = "Watch the board";
+    buzz.classList.remove("on");
+
+    boardSubmit(first, issueKey);
+    await wait(5200 + Math.floor(Math.random() * 1600));
+    boardConfirm("Response sent.");
+    showBuzz(responseText(first, issueKey));
+
+    btn.disabled = false;
+    btn.textContent = "Run it again";
+    simRunning = false;
+  });
+
+  /* ------------------------------------------------ Live SMS run */
+  $("lv-form").addEventListener("submit", async function(e){
+    e.preventDefault();
+    const msg = $("lv-msg");
+    clearMsg(msg);
+
+    const first = $("lv-first").value.trim();
+    if (!first){
+      setMsg(msg, "err", "Enter the first name Summit should reply to.");
+      return;
+    }
+    let d = $("lv-phone").value.replace(/\D/g, "");
+    if (d.length === 11 && d.charAt(0) === "1") d = d.slice(1);
+    if (d.length !== 10 || Number(d.charAt(0)) < 2){
+      setMsg(msg, "err", "Enter a 10 digit US cell number.");
+      return;
+    }
+    if (!$("lv-consent").checked){
+      setMsg(msg, "err", "Check the consent box and we can text you.");
+      return;
+    }
+    if (notWired(CONFIG.WEBHOOK_SPEED_DEMO)){
+      setMsg(msg, "err", "Builder note: set WEBHOOK_SPEED_DEMO at the top of index.html.");
+      return;
+    }
+
+    const issueKey = $("lv-issue").value;
+    const btn = $("lv-btn");
+    btn.disabled = true;
+    btn.textContent = "Sending";
+    boardSubmit(first, issueKey);
+    try {
+      const r = await postJSON(CONFIG.WEBHOOK_SPEED_DEMO, {
+        type: "sms_demo",
+        first_name: first,
+        phone: "+1" + d,
+        issue: issueKey,
+        issue_label: ISSUE_LABEL[issueKey] || "",
+        consent: true,
+        website: this.querySelector(".hp").value,
+        page: "roofing-demo",
+        ts: new Date().toISOString()
+      });
+      if (r.status === 429){
+        boardReset();
+        setMsg(msg, "err", "That number already ran a demo in the last 24 hours. Run the simulated version above instead.");
+        btn.disabled = false;
+        btn.textContent = "Send it, I'm the homeowner";
+      } else if (!r.ok){
+        throw new Error("send failed");
+      } else {
+        boardConfirm("Check your phone.");
+        setMsg(msg, "ok", "Sent, marked [Summit Roofing demo]. Reply STOP anytime.");
+        btn.textContent = "Sent";
+      }
+    } catch (err){
+      boardReset();
+      setMsg(msg, "err", "That didn't send. Give it a minute and try again.");
+      btn.disabled = false;
+      btn.textContent = "Send it, I'm the homeowner";
+    }
+  });
+
+  /* ------------------------------------------------ Email fallback form */
+  $("em-form").addEventListener("submit", async function(e){
+    e.preventDefault();
+    const msg = $("em-msg");
+    clearMsg(msg);
+
+    const input = $("em-input");
+    if (!input.checkValidity()){
+      setMsg(msg, "err", "Enter a valid email address.");
+      return;
+    }
+    if (!$("em-consent").checked){
+      setMsg(msg, "err", "Check the consent box and we can send it.");
+      return;
+    }
+    if (notWired(CONFIG.WEBHOOK_SPEED_DEMO)){
+      setMsg(msg, "err", "Builder note: set WEBHOOK_SPEED_DEMO at the top of index.html.");
+      return;
+    }
+
+    const first = ($("sm-first").value || $("lv-first").value || "").trim();
+    const issueKey = ($("play-sim").style.display !== "none" ? $("sm-issue").value : $("lv-issue").value);
+    const btn = $("em-btn");
+    btn.disabled = true;
+    btn.textContent = "Sending";
+    try {
+      const r = await postJSON(CONFIG.WEBHOOK_SPEED_DEMO, {
+        type: "email_demo",
+        email: input.value.trim(),
+        first_name: first,
+        issue: issueKey,
+        issue_label: ISSUE_LABEL[issueKey] || "",
+        consent: true,
+        website: this.querySelector(".hp").value,
+        page: "roofing-demo",
+        ts: new Date().toISOString()
+      });
+      if (!r.ok) throw new Error("send failed");
+      setMsg(msg, "ok", "Sent. Check your inbox in the next couple of minutes.");
+      btn.textContent = "Sent";
+    } catch (err){
+      setMsg(msg, "err", "That didn't send. Give it a minute and try again.");
+      btn.disabled = false;
+      btn.textContent = "Email me the response";
+    }
+  });
+
+  /* ------------------------------------------------ CTA form */
+  $("cta-form").addEventListener("submit", async function(e){
+    e.preventDefault();
+    const msg = $("cta-msg");
+    clearMsg(msg);
+
+    const name    = $("cta-name").value.trim();
+    const company = $("cta-company").value.trim();
+    const email   = $("cta-email");
+    if (!name || !company || !email.checkValidity()){
+      setMsg(msg, "err", "We need your name, company, and a working email to reply.");
+      return;
+    }
+    if (notWired(CONFIG.WEBHOOK_CTA)){
+      setMsg(msg, "err", "Builder note: set WEBHOOK_CTA at the top of index.html.");
+      return;
+    }
+
+    const btn = $("cta-btn");
+    btn.disabled = true;
+    btn.textContent = "Sending";
+    try {
+      const r = await postJSON(CONFIG.WEBHOOK_CTA, {
+        type: "cta",
+        name: name,
+        company: company,
+        city: $("cta-city").value.trim(),
+        email: email.value.trim(),
+        website: this.querySelector(".hp").value,
+        source: "roofing demo",
+        page: "roofing-demo",
+        ts: new Date().toISOString()
+      });
+      if (!r.ok) throw new Error("send failed");
+      $("cta-form").style.display = "none";
+      $("cta-done").style.display = "block";
+    } catch (err){
+      setMsg(msg, "err", "That didn't go through. Give it a minute and try again, or email seth@launchforte.com.");
+      btn.disabled = false;
+      btn.textContent = "Start here";
+    }
+  });
+})();
+</script>
+</body>
+</html>
