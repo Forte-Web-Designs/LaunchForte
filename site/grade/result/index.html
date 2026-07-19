@@ -187,6 +187,7 @@ footer p{margin:0 0 6px}
         </svg>
       </div>
       <p class="verdict" id="r-verdict"></p>
+      <p class="small" id="r-note" style="text-align:center;margin:10px auto 0;max-width:34em"></p>
     </div>
   </section>
 
@@ -239,6 +240,7 @@ footer p{margin:0 0 6px}
 
   <section class="section">
     <div class="wrap trust">
+      Built by Launch Forte. Upwork Top Rated, 100% Job Success, 50+ delivered projects.<br>
       <span class="small">Not your site? <a href="/grade/">Run your own free grade.</a></span>
     </div>
   </section>
@@ -299,10 +301,15 @@ const CONFIG = {
   }
 
   function renderDial(score, letter){
-    const band = LETTERS[letter] || "c";
+    const band = letter ? (LETTERS[letter] || "c") : (score >= 80 ? "b" : score >= 70 ? "c" : "d");
     $("r-dial").setAttribute("class", "dial band-" + band);
-    $("r-letter").textContent = letter;
-    $("r-score").textContent = score + " out of 100";
+    if (letter){
+      $("r-letter").textContent = letter;
+      $("r-score").textContent = score + " out of 100";
+    } else {
+      $("r-letter").textContent = String(score);
+      $("r-score").textContent = "out of 100, outside view";
+    }
     const arc = $("r-arc");
     const C = 2 * Math.PI * 86;
     arc.style.strokeDasharray = String(C);
@@ -322,14 +329,15 @@ const CONFIG = {
     const box = $("r-subscores");
     box.textContent = "";
     list.forEach(function(s){
+      const scored = s.points !== null && s.points !== undefined;
       const row = el("div", "subrow " + (STATUSES[s.status] || "sub-unverified"));
       const head = el("div", "subhead");
       head.appendChild(el("span", "name", s.label));
-      head.appendChild(el("span", "val", s.points + " / " + s.max));
+      head.appendChild(el("span", "val", scored ? (s.points + " / " + s.max) : "not scored"));
       row.appendChild(head);
       const bar = el("div", "subbar");
       const fill = el("i");
-      const pct = s.max > 0 ? Math.max(0, Math.min(100, (s.points / s.max) * 100)) : 0;
+      const pct = scored && s.max > 0 ? Math.max(0, Math.min(100, (s.points / s.max) * 100)) : 0;
       fill.style.width = pct + "%";
       bar.appendChild(fill);
       row.appendChild(bar);
@@ -370,15 +378,16 @@ const CONFIG = {
     $("r-meta").textContent = [domain, dateStr ? "graded " + dateStr : ""].filter(Boolean).join(", ");
 
     const score = Math.max(0, Math.min(100, Math.round(Number(d.score) || 0)));
-    const letter = LETTERS[d.letter] ? d.letter : (score >= 90 ? "A" : score >= 80 ? "B" : score >= 70 ? "C" : score >= 60 ? "D" : "F");
+    const letter = LETTERS[d.letter] ? d.letter : "";
     renderDial(score, letter);
 
     $("r-verdict").textContent = typeof d.verdict === "string" ? d.verdict.slice(0, 600) : "";
+    $("r-note").textContent = typeof d.scoreNote === "string" ? d.scoreNote.slice(0, 220) : "";
 
     renderSubscores(Array.isArray(d.subscores) ? d.subscores.slice(0, 5) : []);
     renderFixes(Array.isArray(d.fixes) ? d.fixes : []);
 
-    document.title = (name ? name + ", " : "") + "Systems Grade " + letter + " | Launch Forte";
+    document.title = (name ? name + ", " : "") + "Systems Grade" + (letter ? " " + letter : "") + " | Launch Forte";
     show("report");
   }
 
