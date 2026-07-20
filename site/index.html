@@ -543,6 +543,47 @@
         </div>
     </section>
 
+
+    <!-- TRY IT NOW -->
+    <section class="section tinted" id="try-it-now" style="padding-top:3rem;padding-bottom:3rem">
+        <div class="section-inner">
+            <div class="section-content" style="text-align:center;max-width:720px;margin-left:auto;margin-right:auto">
+                <p class="eyebrow">Try it now</p>
+                <h2 style="font-size:clamp(1.5rem,3.5vw,2rem);margin-bottom:0.85rem">See what we do before you <span style="color:var(--accent)">book anything</span>.</h2>
+                <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-secondary);margin-bottom:2rem">Four free tools that show you the truth about your business. No call, no signup, nothing touches your systems.</p>
+
+                <form id="try-grade-form" class="try-grade-form" action="/grade" method="get" novalidate>
+                    <div class="try-grade-row">
+                        <input type="text" name="u" id="try-grade-input" inputmode="url" autocomplete="url" placeholder="yourwebsite.com" aria-label="Your website" required>
+                        <button type="submit" class="btn-primary" data-gtm-event="homepage_try_grade_submit">Grade my systems</button>
+                    </div>
+                    <p class="try-grade-caption">Your revenue infrastructure, graded from the outside in about a minute.</p>
+                </form>
+
+                <div class="try-tools-grid">
+                    <a href="/demo/books" class="try-tool-card" data-gtm-event="homepage_try_books_click">
+                        <h3>The Mess Maker Finder</h3>
+                        <p>Why your books keep breaking, from one transaction export.</p>
+                        <p class="try-tool-time">Under 2 minutes</p>
+                        <span class="try-tool-btn">Try it &rarr;</span>
+                    </a>
+                    <a href="/demo/leaks" class="try-tool-card" data-gtm-event="homepage_try_leaks_click">
+                        <h3>The Leak Finder</h3>
+                        <p>The gap between work performed and money collected.</p>
+                        <p class="try-tool-time">Under 2 minutes</p>
+                        <span class="try-tool-btn">Try it &rarr;</span>
+                    </a>
+                    <a href="/leads" class="try-tool-card" data-gtm-event="homepage_try_leads_click">
+                        <h3>Verified Lead Sample</h3>
+                        <p>Ten verified leads with the audit ledger, in your inbox within the hour.</p>
+                        <p class="try-tool-time">Within the hour</p>
+                        <span class="try-tool-btn">Try it &rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- TRUSTED BY -->
     <section class="trusted-strip">
         <p class="trusted-label">Trusted by</p>
@@ -550,18 +591,6 @@
             <div class="marquee-track">
                 <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
                 <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- TRY IT YOURSELF -->
-    <section class="section tinted" style="padding-top:3rem;padding-bottom:3rem">
-        <div class="section-inner">
-            <div class="section-content" style="text-align:center">
-                <p class="eyebrow">Try it yourself</p>
-                <h2 style="font-size:1.5rem;margin-bottom:0.85rem">See what your business looks like from <span style="color:var(--accent)">outside</span>.</h2>
-                <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-secondary);margin-bottom:1.5rem;max-width:560px;margin-left:auto;margin-right:auto">Four free tools that read your systems, your books, your leads, and your revenue infrastructure, and hand you back the truth in under a minute each.</p>
-                <div class="ctas"><a href="/tools" class="btn-primary">See the free tools</a></div>
             </div>
         </div>
     </section>
@@ -688,7 +717,24 @@
                       .badge{fill:#fff;font-size:13px;font-weight:800;}
                       .coreGlow{animation:breathe 3.6s ease-in-out infinite;}
                       @keyframes breathe{0%,100%{opacity:.06;}50%{opacity:.18;}}
-                    </style>
+                
+        /* Try It Now section (homepage grader input + tool cards) */
+        .try-grade-form{max-width:520px;margin:0 auto 2.5rem}
+        .try-grade-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+        .try-grade-row input{flex:1;min-width:200px;padding:0.85rem 1.1rem;border:1px solid var(--border-light);border-radius:var(--radius-pill);font-size:0.9375rem;font-family:inherit;background:var(--surface);color:var(--text-primary)}
+        .try-grade-row input:focus{outline:2px solid var(--accent);outline-offset:2px}
+        .try-grade-row .btn-primary{padding:0.85rem 1.5rem;white-space:nowrap}
+        .try-grade-caption{font-size:0.8125rem;color:var(--text-muted);margin:0.85rem 0 0;text-align:center}
+        .try-tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:left}
+        .try-tool-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.35rem 1.5rem;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:0.5rem;transition:border-color 0.2s ease,transform 0.15s ease,box-shadow 0.2s ease}
+        .try-tool-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,136,219,0.08);text-decoration:none;color:inherit}
+        .try-tool-card h3{font-size:1rem;font-weight:700;color:var(--text-primary);margin:0;letter-spacing:-0.01em;line-height:1.3}
+        .try-tool-card p{font-size:0.875rem;line-height:1.5;color:var(--text-secondary);margin:0}
+        .try-tool-time{font-size:0.75rem!important;color:var(--text-muted)!important;font-weight:500}
+        .try-tool-btn{font-size:0.8125rem;font-weight:600;color:var(--accent);margin-top:auto;padding-top:0.35rem}
+        @media(max-width:700px){.try-tools-grid{grid-template-columns:1fr;gap:0.75rem}.try-grade-row{flex-direction:column}.try-grade-row .btn-primary{width:100%}}
+
+    </style>
                   </defs>
 
                   <text class="cap" x="480" y="42" text-anchor="middle">ONE CONNECTED SYSTEM</text>
