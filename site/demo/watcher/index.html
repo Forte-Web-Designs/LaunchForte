@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 2am Alert. A Live Monitoring Demo | Launch Forte</title>
+<meta name="description" content="Break a demo business's automation on purpose. A real watcher catches it and emails you the incident alert within seconds, then the recovery notice. Feel what monitored systems are like.">
+<style>
+/* ============================================================
+   BRAND TOKENS. Identical to the med spa island so both demos
+   read as the same house. Everything derives from this block.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7;      /* page background */
+  --card:#FFFFFF;       /* cards, phone, forms */
+  --ink:#15221E;        /* primary text */
+  --muted:#5B6660;      /* secondary text */
+  --line:#E5E3DB;       /* hairlines and borders */
+  --brand:#123B33;      /* buttons, headings accent, timer numerals */
+  --brand-soft:#E7F1EC; /* banner, chips, success tint */
+  --err:#A33B2E;        /* error text */
+  --bubble:#E9E9EB;
+  --ok:#1E7A4F;         /* healthy node green */
+  --red:#B42318;        /* broken node red */
+  --radius:12px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+
+/* ============================================================ BASE */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.55;font-size:16px}
+main{max-width:720px;margin:0 auto;padding:0 18px 72px}
+h1{font-size:clamp(28px,6vw,40px);line-height:1.15;margin:26px 0 12px;letter-spacing:-.01em}
+h2{font-size:22px;margin:44px 0 10px;letter-spacing:-.01em}
+p{margin:10px 0}
+.muted{color:var(--muted)}
+.small{font-size:13.5px}
+a{color:var(--brand)}
+button{font-family:var(--font)}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+
+/* ============================================================ BANNER */
+.banner{background:var(--brand-soft);border-bottom:1px solid var(--line);padding:10px 18px;text-align:center;font-size:14px}
+.banner strong{color:var(--brand)}
+
+/* ============================================================ CHIPS + FRAMING */
+.frame{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13.5px;color:var(--muted);margin-top:6px}
+.frame .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none}
+
+/* ============================================================ FLOW DIAGRAM */
+.flow{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:22px 0}
+.flow-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px}
+.flow-head .co{font-weight:700}
+.flow-head .live{font-size:12px;color:var(--muted);font-family:var(--mono)}
+.nodes{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:560px){.nodes{grid-template-columns:1fr 1fr}}
+.node{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;transition:border-color .3s, background .3s}
+.node .pulse{width:12px;height:12px;border-radius:50%;background:var(--ok);flex:none;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(30,122,79,.35)}70%{box-shadow:0 0 0 9px rgba(30,122,79,0)}100%{box-shadow:0 0 0 0 rgba(30,122,79,0)}}
+@media(prefers-reduced-motion:reduce){.node .pulse{animation:none}}
+.node .nm{font-weight:600;font-size:15px}
+.node .chk{font-size:12px;color:var(--muted);font-family:var(--mono)}
+.node.down{border-color:var(--red);background:#FBEDEB}
+.node.down .pulse{background:var(--red);animation:none}
+.node.down .chk{color:var(--red)}
+
+/* ============================================================ BREAK FORM */
+.break{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:22px 0}
+label{display:block;font-weight:600;font-size:14px;margin:12px 0 6px}
+input[type=email],input[type=text]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:16px;font-family:var(--font);background:#fff}
+.consent{font-size:13px;color:var(--muted);margin-top:8px}
+.modes{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px}
+@media(min-width:560px){.modes{grid-template-columns:1fr 1fr}}
+.mode-btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:14px;text-align:left;cursor:pointer;font-size:15px;transition:border-color .2s}
+.mode-btn:hover{border-color:var(--brand)}
+.mode-btn .t{font-weight:700;display:block}
+.mode-btn .s{font-size:13px;color:var(--muted)}
+.mode-btn:disabled{opacity:.55;cursor:default}
+.err{color:var(--err);font-size:14px;margin-top:10px;display:none}
+.hp{position:absolute;left:-9999px;top:-9999px}
+
+/* ============================================================ TIMELINE + STOPWATCH */
+.run{display:none;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:22px 0}
+.watch{font-family:var(--mono);font-size:clamp(40px,10vw,56px);font-weight:700;color:var(--brand);letter-spacing:.02em;line-height:1;margin:6px 0 2px}
+.watch-cap{font-size:13px;color:var(--muted)}
+.stages{list-style:none;margin:18px 0 0;padding:0}
+.stage{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line);align-items:baseline}
+.stage .mark{width:12px;height:12px;border-radius:50%;background:var(--line);flex:none;position:relative;top:2px}
+.stage.hit .mark{background:var(--ok)}
+.stage.red .mark{background:var(--red)}
+.stage .lbl{font-weight:600;font-size:15px;min-width:0}
+.stage .tm{margin-left:auto;font-family:var(--mono);font-size:13.5px;color:var(--muted);white-space:nowrap}
+.inbox-hint{background:var(--brand-soft);border-radius:10px;padding:12px 14px;font-size:14px;margin-top:14px;display:none}
+
+/* ============================================================ STORIES */
+.stories{border-left:3px solid var(--line);padding-left:16px;margin:16px 0}
+.stories p{margin:12px 0}
+
+/* ============================================================ CTA */
+.cta{background:var(--brand);color:#fff;border-radius:var(--radius);padding:26px 20px;margin:44px 0 0}
+.cta h2{margin:0 0 8px;color:#fff}
+.cta p{color:#DCE8E2}
+.cta label{color:#fff}
+.cta input{border:none}
+.cta textarea{width:100%;padding:12px 14px;border:none;border-radius:10px;font-size:16px;font-family:var(--font);min-height:70px}
+.btn{display:inline-block;background:#fff;color:var(--brand);border:none;border-radius:10px;padding:14px 22px;font-size:16px;font-weight:700;cursor:pointer;margin-top:14px}
+.btn:disabled{opacity:.6;cursor:default}
+.cta .ok-msg{display:none;background:rgba(255,255,255,.12);border-radius:10px;padding:14px;margin-top:14px}
+.cta .err{color:#F3C1B8}
+footer{max-width:720px;margin:0 auto;padding:26px 18px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="banner" id="banner">This is a live demo for <strong>Summit Ops</strong>, a fictitious company. Picture your systems on it.</div>
+
+<main>
+  <h1>Your customers found your last outage.</h1>
+  <p class="muted" style="font-size:18px">This page gives you the other option. Below is Summit Ops, a demo business with its automations under watch. Break one on purpose. A real alert lands in your own inbox within seconds, and the recovery notice follows about a minute later.</p>
+  <div class="frame"><span class="dot"></span>The failure is simulated. The watcher, the detection time, and both emails are real.</div>
+
+  <!-- FLOW DIAGRAM -->
+  <div class="flow" aria-label="Summit Ops systems, live status">
+    <div class="flow-head">
+      <span class="co">Summit Ops · systems</span>
+      <span class="live" id="liveClock">watching</span>
+    </div>
+    <div class="nodes">
+      <div class="node" id="node-lead"><span class="pulse"></span><span><span class="nm">Lead form</span><br><span class="chk" data-chk>last checked just now</span></span></div>
+      <div class="node" id="node-crm"><span class="pulse"></span><span><span class="nm">CRM updates</span><br><span class="chk" data-chk>last checked just now</span></span></div>
+      <div class="node" id="node-booking"><span class="pulse"></span><span><span class="nm">Booking webhook</span><br><span class="chk" data-chk>last checked just now</span></span></div>
+      <div class="node" id="node-invoice"><span class="pulse"></span><span><span class="nm">Invoice sync</span><br><span class="chk" data-chk>last checked just now</span></span></div>
+    </div>
+  </div>
+
+  <!-- BREAK FORM -->
+  <div class="break" id="breakBox">
+    <h2 style="margin-top:0">Break something</h2>
+    <label for="email">Your email</label>
+    <input type="email" id="email" autocomplete="email" placeholder="you@company.com" inputmode="email">
+    <input type="text" class="hp" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="consent">Send me the demo incident alerts. Two emails, demo only.</p>
+    <div class="modes">
+      <button class="mode-btn" data-mode="booking"><span class="t">Kill the booking webhook</span><span class="s">The loud one. Customers see it fail.</span></button>
+      <button class="mode-btn" data-mode="invoice"><span class="t">Silently stop the invoice sync</span><span class="s">The quiet one. Nobody sees anything.</span></button>
+    </div>
+    <p class="err" id="breakErr"></p>
+  </div>
+
+  <!-- RUN TIMELINE -->
+  <div class="run" id="runBox">
+    <h2 style="margin-top:0" id="runTitle">Failure staged. The watcher does not know yet.</h2>
+    <div class="watch" id="watch">0.0s</div>
+    <div class="watch-cap" id="watchCap">since the break, waiting on the watcher</div>
+    <ul class="stages">
+      <li class="stage red hit" id="st-press"><span class="mark"></span><span class="lbl" id="pressLbl">Failure staged</span><span class="tm" id="pressTm"></span></li>
+      <li class="stage" id="st-detect"><span class="mark"></span><span class="lbl">Watcher detects the state change</span><span class="tm" id="detectTm">…</span></li>
+      <li class="stage" id="st-alert"><span class="mark"></span><span class="lbl">Incident alert emailed to you</span><span class="tm" id="alertTm">…</span></li>
+      <li class="stage" id="st-recover"><span class="mark"></span><span class="lbl">Recovery, resolution note emailed</span><span class="tm" id="recoverTm">…</span></li>
+    </ul>
+    <div class="inbox-hint" id="inboxHint"></div>
+  </div>
+
+  <!-- EXPLANATION -->
+  <h2>What just happened</h2>
+  <p>When you pressed the button, a flag flipped on Summit Ops's demo systems. A watcher workflow, the same kind that runs against real production systems, read the state, noticed the failure, timestamped it, and emailed you. The stopwatch above is the measured gap between your press and that alert, not a canned number. The recovery pass ran the same way about a minute later.</p>
+  <p>Uptime tools ping a page and tell you the server is up. That is not the failure that costs money. The expensive ones happen inside the flows:</p>
+  <div class="stories">
+    <p>A signup flow fired on empty email addresses thousands of times before anyone noticed. The form looked fine. The list was garbage.</p>
+    <p>A tagging bug silently mislabeled new contacts for weeks. Every automation downstream of the tag ran on the wrong people.</p>
+    <p>A server locked itself mid upgrade on a Friday night. The first report came from a customer on Monday.</p>
+  </div>
+  <p><strong>Customers are your alerting system, until something else is.</strong> The silent failures are the worst of it: a crashed page gets reported fast, a quiet sync runs dark for weeks while the numbers drift.</p>
+
+  <!-- CTA -->
+  <div class="cta" id="cta">
+    <h2>Want a watcher instead? Start here.</h2>
+    <p>Your customers found your last outage. Tell me what runs your revenue and I will tell you what watching it looks like.</p>
+    <label for="cName">Name</label>
+    <input type="text" id="cName" autocomplete="name">
+    <label for="cCompany">Company</label>
+    <input type="text" id="cCompany" autocomplete="organization">
+    <label for="cEmail">Email</label>
+    <input type="email" id="cEmail" autocomplete="email" inputmode="email">
+    <label for="cRuns">What runs your revenue</label>
+    <textarea id="cRuns" placeholder="Bookings, invoicing, lead follow up, the CRM…"></textarea>
+    <button class="btn" id="ctaBtn">Ask about a watcher</button>
+    <p class="err" id="ctaErr"></p>
+    <div class="ok-msg" id="ctaOk">Got it. I will look at what you sent and reply from a real inbox, usually the same day.</div>
+  </div>
+</main>
+
+<footer>
+  Summit Ops is a fictitious business used for this demonstration. The outage you trigger is simulated on the demo; the monitoring, detection timing, and emails are real. One demo run per email per day. <a href="https://launchforte.com">Launch Forte</a>
+</footer>
+
+<script>
+(function(){
+  var WB = 'https://launchforte.app.n8n.cloud/webhook';
+  var qs = new URLSearchParams(location.search);
+  var $ = function(id){ return document.getElementById(id); };
+
+  // Prefill
+  var bn = (qs.get('bn')||'').slice(0,80);
+  if(bn){ $('banner').innerHTML = 'This is a live demo for <strong>Summit Ops</strong>, a fictitious company. Picture ' + bn.replace(/[<>&]/g,'') + "'s systems on it."; }
+  var e0 = (qs.get('e')||'').slice(0,120);
+  if(e0){ $('email').value = e0; $('cEmail').value = e0; }
+  var fn = (qs.get('fn')||'').slice(0,60);
+  if(fn){ $('cName').value = fn.replace(/[<>&]/g,''); }
+
+  // Live "last checked" tickers
+  var lastCheck = Date.now();
+  setInterval(function(){
+    var now = new Date();
+    $('liveClock').textContent = 'watching · ' + now.toLocaleTimeString([], {hour:'numeric', minute:'2-digit', second:'2-digit'});
+    var ago = Math.max(1, Math.round((Date.now()-lastCheck)/1000));
+    if(ago > 4){ lastCheck = Date.now(); ago = 1; }
+    document.querySelectorAll('.node:not(.down) [data-chk]').forEach(function(el){ el.textContent = 'last checked ' + ago + 's ago'; });
+  }, 1000);
+
+  var fmtClock = function(ts){ return new Date(ts).toLocaleTimeString([], {hour:'numeric', minute:'2-digit', second:'2-digit'}); };
+  var fmtGap = function(ms){ return (ms/1000).toFixed(1) + 's'; };
+
+  // Break flow
+  var running = false, pressTs = 0, runId = '', mode = '', alertShown = false, watchTimer = null, pollTimer = null;
+  var modeLabel = { booking:'booking webhook', invoice:'invoice sync' };
+  var nodeId = { booking:'node-booking', invoice:'node-invoice' };
+
+  function setStage(id, tmId, ts, red){
+    var st = $(id); st.classList.add('hit'); if(red) st.classList.add('red');
+    if(ts) $(tmId).textContent = fmtClock(ts);
+  }
+
+  function fail(msg){
+    var el = $('breakErr'); el.textContent = msg; el.style.display = 'block';
+    document.querySelectorAll('.mode-btn').forEach(function(b){ b.disabled = false; });
+    running = false;
+  }
+
+  document.querySelectorAll('.mode-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(running) return;
+      $('breakErr').style.display = 'none';
+      var email = $('email').value.trim();
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ fail('Enter the email where the alerts should land.'); return; }
+      running = true; mode = btn.getAttribute('data-mode');
+      document.querySelectorAll('.mode-btn').forEach(function(b){ b.disabled = true; });
+
+      var body = { email: email, mode: mode, website: $('website').value, fn: fn, bn: bn };
+      fetch(WB + '/watcher-break', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) })
+        .then(function(r){ return r.json().then(function(d){ return {s:r.status, d:d}; }); })
+        .then(function(res){
+          if(!res.d.ok){
+            if(res.s === 429 || res.d.reason){
+              if(res.d.reason === 'repeat_1d'){ fail('One demo run per email per day. Your earlier alerts are already in that inbox.'); }
+              else { fail('The demo has hit its shared daily limit. It resets at midnight Central; the rest of the page still shows how it works.'); }
+            } else { fail('That did not go through. Check the email and try again.'); }
+            return;
+          }
+          runId = res.d.runId; pressTs = res.d.pressTs || Date.now();
+          startRun();
+        })
+        .catch(function(){ fail('Could not reach the demo systems. Try again in a moment.'); });
+    });
+  });
+
+  function startRun(){
+    // node goes red
+    var n = $(nodeId[mode]); n.classList.add('down');
+    n.querySelector('[data-chk]').textContent = 'FAILING';
+    // timeline
+    $('runBox').style.display = 'block';
+    $('pressLbl').textContent = 'Failure staged: ' + modeLabel[mode] + ' down';
+    setStage('st-press', 'pressTm', pressTs, true);
+    $('runBox').scrollIntoView({behavior:'smooth', block:'center'});
+    // stopwatch
+    watchTimer = setInterval(function(){
+      if(!alertShown){ $('watch').textContent = fmtGap(Date.now() - pressTs); }
+    }, 100);
+    // poll
+    pollTimer = setInterval(poll, 1500);
+    poll();
+  }
+
+  function poll(){
+    fetch(WB + '/watcher-status?id=' + encodeURIComponent(runId))
+      .then(function(r){ return r.json(); })
+      .then(function(st){
+        if(!st.ok) return;
+        if(st.detectTs){ setStage('st-detect', 'detectTm', st.detectTs); }
+        if(st.alertTs && !alertShown){
+          alertShown = true;
+          setStage('st-alert', 'alertTm', st.alertTs);
+          var gap = st.alertTs - st.pressTs;
+          $('watch').textContent = fmtGap(gap);
+          $('watchCap').textContent = 'from your press to the alert email. Measured, not staged.';
+          $('runTitle').textContent = 'Caught. Check your inbox.';
+          var hint = $('inboxHint');
+          hint.style.display = 'block';
+          hint.textContent = 'The alert just left for your inbox with the subject "[Summit Ops demo] ALERT". The recovery notice follows in about a minute. Check spam if it is not up top.';
+        }
+        if(st.recoverTs){
+          setStage('st-recover', 'recoverTm', st.recoverTs);
+          $('runTitle').textContent = 'Resolved. Two real emails, one staged outage.';
+          var n = $(nodeId[mode]); n.classList.remove('down');
+          n.querySelector('[data-chk]').textContent = 'restored, last checked just now';
+          $('inboxHint').textContent = 'Recovery notice sent. That is the whole loop: detected, alerted, resolved, documented, without a customer involved.';
+          clearInterval(pollTimer); clearInterval(watchTimer);
+        }
+      })
+      .catch(function(){ /* keep polling */ });
+  }
+
+  // CTA
+  $('ctaBtn').addEventListener('click', function(){
+    var err = $('ctaErr'); err.style.display = 'none';
+    var name = $('cName').value.trim(), company = $('cCompany').value.trim(), email = $('cEmail').value.trim(), runs = $('cRuns').value.trim();
+    if(name.length < 2 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+      err.textContent = 'A name and a working email are the two things I need.'; err.style.display = 'block'; return;
+    }
+    $('ctaBtn').disabled = true;
+    fetch(WB + '/watcher-handraise', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({name:name, company:company, email:email, runs:runs, runId:runId}) })
+      .then(function(r){ return r.json(); })
+      .then(function(){ $('ctaOk').style.display = 'block'; })
+      .catch(function(){ $('ctaBtn').disabled = false; err.textContent = 'That did not send. Try once more.'; err.style.display = 'block'; });
+  });
+})();
+</script>
+</body>
+</html>
