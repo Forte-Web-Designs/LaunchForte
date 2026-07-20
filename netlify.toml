@@ -814,6 +814,21 @@
   status = 301
   force = true
 
+# Free Resources content merged into /tools. Redirect both the clean and
+# the .html URLs so bookmarks, footer links, and any leftover backlinks
+# route to the new home.
+[[redirects]]
+  from = "/free-resources"
+  to = "/tools"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/free-resources.html"
+  to = "/tools"
+  status = 301
+  force = true
+
 # Old architecture URLs that never had 301s. Add coverage.
 [[redirects]]
   from = "/work"

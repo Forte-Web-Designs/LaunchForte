@@ -334,7 +334,80 @@
         .tool-card-desc{font-size:0.9375rem;line-height:1.55;color:var(--text-secondary);margin:0}
         .tool-card-cta{font-size:0.875rem;font-weight:600;color:var(--text-muted);white-space:nowrap;transition:color 0.2s ease}
         @media(max-width:600px){.tool-card{grid-template-columns:auto 1fr;gap:1rem;padding:1.25rem 1.35rem}.tool-card-cta{grid-column:1 / -1;padding-left:calc(1.5rem + 1rem);color:var(--accent)}}
-    </style>
+
+        .video-card .video-thumb {
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .video-card:hover .video-thumb,
+        .video-card:focus-visible .video-thumb {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+        }
+        .video-card:focus-visible {
+            outline: none;
+        }
+        .video-card .video-thumb img {
+            transition: transform 0.4s ease;
+        }
+        .video-card:hover .video-thumb img {
+            transform: scale(1.03);
+        }
+        .video-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.85);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+        }
+        .video-lightbox.is-open {
+            display: flex;
+        }
+        .video-lightbox__inner {
+            position: relative;
+            width: 100%;
+            max-width: 960px;
+        }
+        .video-lightbox__inner video {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 14px;
+            background: #000;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+        }
+        .video-lightbox__close {
+            position: absolute;
+            top: -2.75rem;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .video-lightbox__close:hover {
+            background: rgba(255,255,255,0.18);
+        }
+        @media (max-width: 600px) {
+            .video-lightbox__close {
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+        }
+
+        </style>
     <meta property="og:title" content="Free Tools that Show You the Truth About Your Business | Launch Forte">
     <meta property="og:description" content="Four free tools that show you where your business is leaking money, from your books to your leads to your revenue infrastructure. Try them at launchforte.com.">
     <meta property="og:type" content="website">
@@ -414,7 +487,214 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
+
+    <section class="page-section reveal" id="videos">
+        <p class="section-label">Videos</p>
+        <h2>Watch the <span style="color:var(--accent)">engineering work</span>.</h2>
+        <p class="body-text">Short walkthroughs of systems we've built, frameworks we use, and patterns we've seen. Videos go here as we record them.</p>
+
+        <div class="video-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-top:1.75rem">
+
+            <button type="button" class="video-card" data-video-src="/videos/Video1-7-Layers.mp4" data-video-title="The seven layers every revenue system is built on" style="display:flex;flex-direction:column;gap:0.75rem;padding:0;background:none;border:none;text-align:left;cursor:pointer;font:inherit;color:inherit">
+                <span class="video-thumb" style="display:block;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/9;background:#1d1d1f">
+                    <img src="/images/Video1-Thumbnail-7-Layers.png" alt="The seven layers every revenue system is built on" loading="lazy" width="1672" height="941" style="display:block;width:100%;height:100%;object-fit:cover">
+                </span>
+                <span style="font-size:0.875rem;font-weight:500;color:var(--text-primary);line-height:1.4">The seven layers every revenue system is built on</span>
+            </button>
+
+            <button type="button" class="video-card" data-video-src="/videos/Video2-Cant-Be-Skipped.mp4" data-video-title="How we engineer a process that can't be skipped" style="display:flex;flex-direction:column;gap:0.75rem;padding:0;background:none;border:none;text-align:left;cursor:pointer;font:inherit;color:inherit">
+                <span class="video-thumb" style="display:block;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/9;background:#1d1d1f">
+                    <img src="/images/Video2-Thumbnail-Cant-Be-Skipped.png" alt="How we engineer a process that can't be skipped" loading="lazy" width="1565" height="1005" style="display:block;width:100%;height:100%;object-fit:cover">
+                </span>
+                <span style="font-size:0.875rem;font-weight:500;color:var(--text-primary);line-height:1.4">How we engineer a process that can't be skipped</span>
+            </button>
+
+            <button type="button" class="video-card" data-video-src="/videos/Video3-Why-Most-AI-Fails.mp4" data-video-title="The four layers under every AI system that works in production" style="display:flex;flex-direction:column;gap:0.75rem;padding:0;background:none;border:none;text-align:left;cursor:pointer;font:inherit;color:inherit">
+                <span class="video-thumb" style="display:block;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/9;background:#1d1d1f">
+                    <img src="/images/Video3-Thumbnail-Why-Most-AI-Fails.png" alt="The four layers under every AI system that works in production" loading="lazy" width="1672" height="941" style="display:block;width:100%;height:100%;object-fit:cover">
+                </span>
+                <span style="font-size:0.875rem;font-weight:500;color:var(--text-primary);line-height:1.4">The four layers under every AI system that works in production</span>
+            </button>
+
+            <button type="button" class="video-card" data-video-src="/videos/Video4-It-Fixes-Itself.mp4" data-video-title="How we design automation to catch its own failures" style="display:flex;flex-direction:column;gap:0.75rem;padding:0;background:none;border:none;text-align:left;cursor:pointer;font:inherit;color:inherit">
+                <span class="video-thumb" style="display:block;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/9;background:#1d1d1f">
+                    <img src="/images/Video4-Thumbnail-It-Fixes-Itself.png" alt="How we design automation to catch its own failures" loading="lazy" width="1672" height="941" style="display:block;width:100%;height:100%;object-fit:cover">
+                </span>
+                <span style="font-size:0.875rem;font-weight:500;color:var(--text-primary);line-height:1.4">How we design automation to catch its own failures</span>
+            </button>
+
+        </div>
+    </section>
+
+    <section class="page-section reveal" id="guides">
+        <p class="section-label">Guides</p>
+        <h2>Downloadable <span style="color:var(--accent)">frameworks</span>.</h2>
+        <p class="body-text">Reference guides on the architectures we use most often. Each one is the same framework we apply inside a paid build. Drop your email and we'll send you straight to the guide.</p>
+
+        <div class="guide-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1.75rem">
+
+            <div class="guide-card" data-guide-slug="revenue-infrastructure-map" data-guide-title="The Revenue Infrastructure Map" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:flex;flex-direction:column">
+                <h3 style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.015em;line-height:1.3">The Revenue Infrastructure Map</h3>
+                <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0 0 1.25rem;flex-grow:1">How a healthy revenue stack fits together, and where most of them break.</p>
+                <button type="button" class="guide-get-btn" style="background:var(--accent);color:#fff;border:none;padding:0.6rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;cursor:pointer;font-family:inherit;align-self:flex-start;transition:background 0.2s ease">Get the guide</button>
+
+                <form class="guide-form" style="display:none;margin-top:0.5rem" novalidate>
+                    <label style="display:block;font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.4rem;font-weight:500">Email</label>
+                    <input type="email" name="email" required autocomplete="email" placeholder="you@company.com" style="width:100%;padding:0.6rem 0.85rem;border:1px solid var(--border-light);border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fff;color:var(--text-primary);margin-bottom:0.75rem">
+                    <button type="submit" class="guide-submit-btn" style="background:var(--accent);color:#fff;border:none;padding:0.55rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s ease">Send me the guide</button>
+                    <p class="guide-error" style="display:none;font-size:0.75rem;color:#c0392b;margin-top:0.5rem;margin-bottom:0">Something went wrong. Try again or email seth@launchforte.com.</p>
+                </form>
+
+                <div class="guide-success" style="display:none;margin-top:0.5rem">
+                    <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.55;margin-bottom:0.85rem">Thanks. The guide is ready.</p>
+                    <a href="/guides/Guide-Revenue-Infrastructure-Map.pdf" class="guide-open-btn" style="display:inline-block;background:var(--accent);color:#fff;padding:0.6rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;text-decoration:none">Open the guide</a>
+                </div>
+            </div>
+
+            <div class="guide-card" data-guide-slug="four-layers-of-a-working-ai-system" data-guide-title="The Four Layers of a Working AI System" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:flex;flex-direction:column">
+                <h3 style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.015em;line-height:1.3">The Four Layers of a Working AI System</h3>
+                <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0 0 1.25rem;flex-grow:1">Why most AI projects fail, and the four layers the ones that work are built on, before you spend a dollar on a model.</p>
+                <button type="button" class="guide-get-btn" style="background:var(--accent);color:#fff;border:none;padding:0.6rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;cursor:pointer;font-family:inherit;align-self:flex-start;transition:background 0.2s ease">Get the guide</button>
+
+                <form class="guide-form" style="display:none;margin-top:0.5rem" novalidate>
+                    <label style="display:block;font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.4rem;font-weight:500">Email</label>
+                    <input type="email" name="email" required autocomplete="email" placeholder="you@company.com" style="width:100%;padding:0.6rem 0.85rem;border:1px solid var(--border-light);border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fff;color:var(--text-primary);margin-bottom:0.75rem">
+                    <button type="submit" class="guide-submit-btn" style="background:var(--accent);color:#fff;border:none;padding:0.55rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s ease">Send me the guide</button>
+                    <p class="guide-error" style="display:none;font-size:0.75rem;color:#c0392b;margin-top:0.5rem;margin-bottom:0">Something went wrong. Try again or email seth@launchforte.com.</p>
+                </form>
+
+                <div class="guide-success" style="display:none;margin-top:0.5rem">
+                    <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.55;margin-bottom:0.85rem">Thanks. The guide is ready.</p>
+                    <a href="/guides/Guide-AI-Systems.pdf" class="guide-open-btn" style="display:inline-block;background:var(--accent);color:#fff;padding:0.6rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;text-decoration:none">Open the guide</a>
+                </div>
+            </div>
+
+            <div class="guide-card" data-guide-slug="automation-that-catches-its-own-failures" data-guide-title="Automation That Catches Its Own Failures" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:flex;flex-direction:column">
+                <h3 style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.015em;line-height:1.3">Automation That Catches Its Own Failures</h3>
+                <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0 0 1.25rem;flex-grow:1">Why most automation dies the first hard week, and the five design choices that make it hold.</p>
+                <button type="button" class="guide-get-btn" style="background:var(--accent);color:#fff;border:none;padding:0.6rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;cursor:pointer;font-family:inherit;align-self:flex-start;transition:background 0.2s ease">Get the guide</button>
+
+                <form class="guide-form" style="display:none;margin-top:0.5rem" novalidate>
+                    <label style="display:block;font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.4rem;font-weight:500">Email</label>
+                    <input type="email" name="email" required autocomplete="email" placeholder="you@company.com" style="width:100%;padding:0.6rem 0.85rem;border:1px solid var(--border-light);border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fff;color:var(--text-primary);margin-bottom:0.75rem">
+                    <button type="submit" class="guide-submit-btn" style="background:var(--accent);color:#fff;border:none;padding:0.55rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s ease">Send me the guide</button>
+                    <p class="guide-error" style="display:none;font-size:0.75rem;color:#c0392b;margin-top:0.5rem;margin-bottom:0">Something went wrong. Try again or email seth@launchforte.com.</p>
+                </form>
+
+                <div class="guide-success" style="display:none;margin-top:0.5rem">
+                    <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.55;margin-bottom:0.85rem">Thanks. The guide is ready.</p>
+                    <a href="/guides/Guide-Resilient-Automation.pdf" class="guide-open-btn" style="display:inline-block;background:var(--accent);color:#fff;padding:0.6rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;text-decoration:none">Open the guide</a>
+                </div>
+            </div>
+
+            <div class="guide-card" data-guide-slug="lead-capture-audit-worksheet" data-guide-title="The Lead Capture Audit Worksheet" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:flex;flex-direction:column">
+                <h3 style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.015em;line-height:1.3">The Lead Capture Audit Worksheet</h3>
+                <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0 0 1.25rem;flex-grow:1">A self assessment that surfaces the gaps in how you capture and route leads, before they cost you another deal.</p>
+                <button type="button" class="guide-get-btn" style="background:var(--accent);color:#fff;border:none;padding:0.6rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;cursor:pointer;font-family:inherit;align-self:flex-start;transition:background 0.2s ease">Get the guide</button>
+
+                <form class="guide-form" style="display:none;margin-top:0.5rem" novalidate>
+                    <label style="display:block;font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.4rem;font-weight:500">Email</label>
+                    <input type="email" name="email" required autocomplete="email" placeholder="you@company.com" style="width:100%;padding:0.6rem 0.85rem;border:1px solid var(--border-light);border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fff;color:var(--text-primary);margin-bottom:0.75rem">
+                    <button type="submit" class="guide-submit-btn" style="background:var(--accent);color:#fff;border:none;padding:0.55rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s ease">Send me the guide</button>
+                    <p class="guide-error" style="display:none;font-size:0.75rem;color:#c0392b;margin-top:0.5rem;margin-bottom:0">Something went wrong. Try again or email seth@launchforte.com.</p>
+                </form>
+
+                <div class="guide-success" style="display:none;margin-top:0.5rem">
+                    <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.55;margin-bottom:0.85rem">Thanks. The guide is ready.</p>
+                    <a href="/guides/Guide-Lead-Capture-Audit-Worksheet.pdf" class="guide-open-btn" style="display:inline-block;background:var(--accent);color:#fff;padding:0.6rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;text-decoration:none">Open the guide</a>
+                </div>
+            </div>
+
+            <div class="guide-card" data-guide-slug="reporting-source-of-truth-checklist" data-guide-title="The Reporting Source of Truth Checklist" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:flex;flex-direction:column">
+                <h3 style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.015em;line-height:1.3">The Reporting Source of Truth Checklist</h3>
+                <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0 0 1.25rem;flex-grow:1">The questions to ask before you trust any dashboard, so you stop making decisions on numbers you cannot defend.</p>
+                <button type="button" class="guide-get-btn" style="background:var(--accent);color:#fff;border:none;padding:0.6rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;cursor:pointer;font-family:inherit;align-self:flex-start;transition:background 0.2s ease">Get the guide</button>
+
+                <form class="guide-form" style="display:none;margin-top:0.5rem" novalidate>
+                    <label style="display:block;font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.4rem;font-weight:500">Email</label>
+                    <input type="email" name="email" required autocomplete="email" placeholder="you@company.com" style="width:100%;padding:0.6rem 0.85rem;border:1px solid var(--border-light);border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fff;color:var(--text-primary);margin-bottom:0.75rem">
+                    <button type="submit" class="guide-submit-btn" style="background:var(--accent);color:#fff;border:none;padding:0.55rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s ease">Send me the guide</button>
+                    <p class="guide-error" style="display:none;font-size:0.75rem;color:#c0392b;margin-top:0.5rem;margin-bottom:0">Something went wrong. Try again or email seth@launchforte.com.</p>
+                </form>
+
+                <div class="guide-success" style="display:none;margin-top:0.5rem">
+                    <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.55;margin-bottom:0.85rem">Thanks. The guide is ready.</p>
+                    <a href="/guides/Guide-Reporting-Source-of-Truth-Checklist.pdf" class="guide-open-btn" style="display:inline-block;background:var(--accent);color:#fff;padding:0.6rem 1.1rem;border-radius:980px;font-size:0.8125rem;font-weight:500;text-decoration:none">Open the guide</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Hidden form for Netlify form detection during build. Required so submissions via AJAX get routed correctly. -->
+        <form name="guide-download" data-netlify="true" netlify-honeypot="bot-field" hidden>
+            <input type="email" name="email">
+            <input type="text" name="guide">
+            <input type="text" name="bot-field">
+        </form>
+    </section>
+
+    <section class="page-section reveal" id="articles">
+        <p class="section-label">Articles</p>
+        <h2>What we think about the <span style="color:var(--accent)">engineering work</span>.</h2>
+        <p class="body-text">Frameworks, breakdowns, and lessons from real engagements. The patterns that show up across most engagements and the ones that don't.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1.75rem">
+
+            <a href="/posts/foundation-first.html" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-decoration:none;color:inherit;transition:border-color 0.2s ease;display:block">
+                <span style="display:inline-block;font-size:0.6875rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.65rem">Framework</span>
+                <h3 style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.015em;line-height:1.3">The Foundation First Rule</h3>
+                <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0">Why the wrong build at the right time still produces nothing.</p>
+            </a>
+
+            <a href="/posts/speed-to-lead.html" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-decoration:none;color:inherit;transition:border-color 0.2s ease;display:block">
+                <span style="display:inline-block;font-size:0.6875rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.65rem">Lead systems</span>
+                <h3 style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.015em;line-height:1.3">The Speed to Lead Problem</h3>
+                <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0">Why responding in 5 minutes triples conversion, and what most teams get wrong.</p>
+            </a>
+
+            <a href="/posts/outbound-sequence.html" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-decoration:none;color:inherit;transition:border-color 0.2s ease;display:block">
+                <span style="display:inline-block;font-size:0.6875rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.65rem">Outbound</span>
+                <h3 style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.015em;line-height:1.3">The Deals You're Losing You Never See</h3>
+                <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0">Most of the buyers who would have hired you never reached your calendar. What that costs, and what an engineered outbound system changes.</p>
+            </a>
+
+            <a href="/posts/crm-fail.html" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-decoration:none;color:inherit;transition:border-color 0.2s ease;display:block">
+                <span style="display:inline-block;font-size:0.6875rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.65rem">Revenue infrastructure</span>
+                <h3 style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.015em;line-height:1.3">Why Most CRM Setups Fail Within 90 Days</h3>
+                <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0">The pattern behind the failures. And the architecture decisions that prevent them.</p>
+            </a>
+
+            <a href="/posts/automation-roi.html" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-decoration:none;color:inherit;transition:border-color 0.2s ease;display:block">
+                <span style="display:inline-block;font-size:0.6875rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.65rem">Decision making</span>
+                <h3 style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.015em;line-height:1.3">Before You Hire: How to Calculate the ROI of Automating a Task</h3>
+                <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0">The math that decides whether a hire or a system is the right next move.</p>
+            </a>
+
+            <a href="/posts/ai-agents.html" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-decoration:none;color:inherit;transition:border-color 0.2s ease;display:block">
+                <span style="display:inline-block;font-size:0.6875rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.65rem">AI agents</span>
+                <h3 style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.015em;line-height:1.3">After Hours AI Agents: Where They're Good and Where They Break Down</h3>
+                <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0">An honest read on where AI agents earn their keep and where they don't.</p>
+            </a>
+
+            <a href="/posts/cr-deals-case-study.html" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-decoration:none;color:inherit;transition:border-color 0.2s ease;display:block">
+                <span style="display:inline-block;font-size:0.6875rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.65rem">Case study</span>
+                <h3 style="font-size:1.0625rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;letter-spacing:-0.015em;line-height:1.3">How We Automated $52,000 Worth of Annual Work for a Real Estate Wholesaler</h3>
+                <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin:0">The architecture behind a build that recovered six figures a year in labor.</p>
+            </a>
+
+        </div>
+    </section>
+
+    <div class="video-lightbox" id="video-lightbox" role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="video-lightbox__inner">
+        <button type="button" class="video-lightbox__close" id="video-lightbox-close" aria-label="Close video">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <video id="video-lightbox-player" controls playsinline preload="none"></video>
+    </div>
+</div>
+
+        <!-- FOOTER -->
     <div class="footer-section">
         <a href="mailto:seth@launchforte.com" class="footer-email-main">seth@launchforte.com</a>
         <div class="footer-columns">
@@ -488,5 +768,124 @@
 <script src="/scroll-reveal.js"></script>
 <script src="/scroll-top.js"></script>
 <script src="/hamburger.js"></script>
+
+<script>
+// Guide download email gate. Each card expands into an email form on click.
+// Submissions POST to Netlify Forms (registered via the hidden form below
+// the guide grid). On success we reveal the link to the guide page.
+(function(){
+    var cards = document.querySelectorAll(".guide-card");
+    if (!cards.length) return;
+
+    function encode(data) {
+        return Object.keys(data).map(function(key){
+            return encodeURIComponent(key) + "=" + encodeURIComponent(data[key]);
+        }).join("&");
+    }
+
+    cards.forEach(function(card){
+        var getBtn = card.querySelector(".guide-get-btn");
+        var form = card.querySelector(".guide-form");
+        var input = card.querySelector('input[name="email"]');
+        var submitBtn = card.querySelector(".guide-submit-btn");
+        var errorEl = card.querySelector(".guide-error");
+        var success = card.querySelector(".guide-success");
+
+        if (!getBtn || !form) return;
+
+        getBtn.addEventListener("click", function(){
+            getBtn.style.display = "none";
+            form.style.display = "block";
+            setTimeout(function(){ input && input.focus(); }, 50);
+        });
+
+        form.addEventListener("submit", function(e){
+            e.preventDefault();
+            errorEl.style.display = "none";
+
+            var email = (input.value || "").trim();
+            if (!email || email.indexOf("@") === -1) {
+                errorEl.textContent = "Enter a valid email.";
+                errorEl.style.display = "block";
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Sending...";
+
+            var slug = card.getAttribute("data-guide-slug");
+            var title = card.getAttribute("data-guide-title");
+
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: encode({
+                    "form-name": "guide-download",
+                    "email": email,
+                    "guide": title + " (" + slug + ")",
+                    "bot-field": ""
+                })
+            }).then(function(response){
+                if (!response.ok) throw new Error("Submit failed: " + response.status);
+                form.style.display = "none";
+                success.style.display = "block";
+            }).catch(function(){
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Send me the guide";
+                errorEl.textContent = "Something went wrong. Try again or email seth@launchforte.com.";
+                errorEl.style.display = "block";
+            });
+        });
+    });
+})();
+</script>
+
+<script>
+// Video lightbox. Each .video-card opens its mp4 in a modal player on click.
+// Videos are lazy: the <source> is only set when a card is clicked, so the
+// large files never download until the user asks to watch.
+(function(){
+    var lightbox = document.getElementById("video-lightbox");
+    var player = document.getElementById("video-lightbox-player");
+    var closeBtn = document.getElementById("video-lightbox-close");
+    if (!lightbox || !player) return;
+
+    var lastFocused = null;
+
+    function openVideo(src, title){
+        lastFocused = document.activeElement;
+        player.setAttribute("aria-label", title || "Video");
+        player.src = src;
+        lightbox.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        var play = player.play();
+        if (play && play.catch) { play.catch(function(){}); }
+        closeBtn.focus();
+    }
+
+    function closeVideo(){
+        player.pause();
+        lightbox.classList.remove("is-open");
+        document.body.style.overflow = "";
+        player.removeAttribute("src");
+        player.load();
+        if (lastFocused && lastFocused.focus) { lastFocused.focus(); }
+    }
+
+    document.querySelectorAll(".video-card").forEach(function(card){
+        card.addEventListener("click", function(){
+            openVideo(card.getAttribute("data-video-src"), card.getAttribute("data-video-title"));
+        });
+    });
+
+    closeBtn.addEventListener("click", closeVideo);
+    lightbox.addEventListener("click", function(e){
+        if (e.target === lightbox) closeVideo();
+    });
+    document.addEventListener("keydown", function(e){
+        if (e.key === "Escape" && lightbox.classList.contains("is-open")) closeVideo();
+    });
+})();
+</script>
 </body>
 </html>
