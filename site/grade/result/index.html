@@ -62,6 +62,12 @@ header{background:var(--card);border-bottom:1px solid var(--line)}
 .btn:disabled{opacity:.55;cursor:default}
 .btn.block{display:block;width:100%}
 .cta-band{padding:26px 0 40px}
+.keep-going{padding:0 0 32px}
+.keep-going .eyebrow{margin:0 0 12px}
+.keep-going-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.keep-going-list li{font-size:14.5px;color:var(--muted);line-height:1.55;padding-left:14px;position:relative}
+.keep-going-list li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--brand);opacity:.65}
+.keep-going-list a{color:var(--brand);font-weight:600}
 
 /* ============================================================ CARDS + STATES */
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
@@ -238,6 +244,18 @@ footer p{margin:0 0 6px}
 
   <div class="cta-band"><div class="wrap"><a class="btn block" href="#cta">Want these fixed for you? Start the Health Check</a></div></div>
 
+  <section class="section keep-going">
+    <div class="wrap">
+      <p class="eyebrow">Keep going</p>
+      <ul class="keep-going-list">
+        <li><a href="/demo/books">The Mess Maker Finder</a>, why your books keep breaking, from one transaction export.</li>
+        <li><a href="/demo/leaks">The Leak Finder</a>, the gap between work performed and money collected.</li>
+        <li><a href="/leads">Verified Lead Sample</a>, ten verified leads with the audit ledger, in your inbox within the hour.</li>
+        <li><a href="/tools">See all free tools</a>.</li>
+      </ul>
+    </div>
+  </section>
+
   <section class="section">
     <div class="wrap trust">
       <span class="small">Not your site? <a href="/grade/">Run your own free grade.</a></span>
@@ -250,6 +268,7 @@ footer p{margin:0 0 6px}
   <div class="wrap">
     <p>Built by <a href="https://launchforte.com/">Launch Forte</a> in Grapevine, Texas.</p>
     <p><a href="mailto:seth@launchforte.com">seth@launchforte.com</a></p>
+    <p>More free tools: <a href="/tools">launchforte.com/tools</a></p>
     <p>&copy; 2026 Launch Forte. All rights reserved.</p>
   </div>
 </footer>
