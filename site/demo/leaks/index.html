@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<title>Leak Finder - find revenue slipping between your jobs and your invoices</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<style>
+/* ============ HOUSE SKIN (Launch Forte island pattern) ============ */
+:root{
+  --ink:#14181f;
+  --ink-soft:#3a424e;
+  --muted:#6b7480;
+  --line:#e4e7ec;
+  --line-soft:#eef1f4;
+  --paper:#ffffff;
+  --wash:#f6f8fa;
+  --wash-2:#f0f3f6;
+  --brand:#1f6feb;
+  --brand-ink:#0b3d91;
+  --flag:#b4530a;      /* money-problem amber, never red-alarm */
+  --flag-wash:#fdf3e7;
+  --flag-line:#f2d9bb;
+  --good:#137a4b;
+  --good-wash:#eef7f1;
+  --measure:#5b4b8a;   /* measured, not accused */
+  --measure-wash:#f2f0f9;
+  --radius:14px;
+  --radius-sm:10px;
+  --shadow:0 1px 2px rgba(20,24,31,.04),0 8px 24px rgba(20,24,31,.06);
+  --mono:"SFMono-Regular",ui-monospace,"JetBrains Mono","Menlo",Consolas,monospace;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--wash);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
+
+/* ---- top bar ---- */
+.top{border-bottom:1px solid var(--line);background:var(--paper)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{font-weight:700;letter-spacing:-.01em;font-size:15px;color:var(--ink)}
+.brand .dot{color:var(--brand)}
+.top .tag{font-size:12.5px;color:var(--muted)}
+
+/* ---- hero ---- */
+.hero{padding:52px 0 30px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-ink);margin:0 0 14px}
+h1{font-size:34px;line-height:1.12;letter-spacing:-.02em;margin:0 0 16px;font-weight:750}
+.sub{font-size:17px;color:var(--ink-soft);margin:0 0 8px;max-width:56ch}
+.hero .fine{font-size:13.5px;color:var(--muted);margin-top:14px;max-width:60ch}
+
+/* ---- card ---- */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}
+.card + .card{margin-top:18px}
+.stack{margin:26px 0 60px}
+
+/* ---- dropzone ---- */
+.drop{
+  border:1.5px dashed var(--line);border-radius:var(--radius);
+  background:var(--wash);padding:34px 24px;text-align:center;cursor:pointer;
+  transition:border-color .15s ease,background .15s ease;
+}
+.drop:hover,.drop.over{border-color:var(--brand);background:#f2f7ff}
+.drop .big{font-size:15.5px;font-weight:600;color:var(--ink);margin:0 0 4px}
+.drop .small{font-size:13.5px;color:var(--muted);margin:0}
+.drop input{display:none}
+
+.orline{display:flex;align-items:center;gap:14px;margin:18px 0;color:var(--muted);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase}
+.orline::before,.orline::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  border:1px solid var(--line);background:var(--paper);color:var(--ink);
+  font-size:14.5px;font-weight:600;padding:12px 18px;border-radius:var(--radius-sm);cursor:pointer;
+  transition:border-color .15s,background .15s,transform .05s;
+}
+.btn:hover{border-color:#c9cfd8;background:var(--wash)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff;width:100%}
+.btn.primary:hover{background:#1a63d6;border-color:#1a63d6}
+.btn.primary:disabled{background:#a9c4f2;border-color:#a9c4f2;cursor:default}
+.btn.sample{width:100%}
+.btn .kbd{font-size:12px;color:var(--muted);font-weight:500}
+
+.privacy{margin-top:18px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.privacy b{color:var(--ink-soft);font-weight:600}
+
+/* ---- mapper ---- */
+.mapper-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px}
+.mapper-head h2{font-size:18px;margin:0;letter-spacing:-.01em}
+.mapper-head .file{font-size:13px;color:var(--muted);font-family:var(--mono)}
+.mapper-note{font-size:13.5px;color:var(--ink-soft);margin:0 0 20px}
+.tmpl-badge{display:inline-block;font-size:12px;font-weight:600;color:var(--good);background:var(--good-wash);border:1px solid #cfe8db;padding:3px 9px;border-radius:999px;margin-bottom:16px}
+.maprow{display:grid;grid-template-columns:1fr auto 1.2fr;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line-soft)}
+.maprow:first-of-type{border-top:none}
+.maprow .want{font-size:14px;font-weight:600;color:var(--ink)}
+.maprow .want .req{color:var(--flag);font-weight:700;margin-left:3px}
+.maprow .want .hint{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:1px}
+.maprow .arrow{color:var(--muted);font-size:13px}
+.maprow select{
+  width:100%;font-family:inherit;font-size:14px;color:var(--ink);
+  padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:var(--paper);
+  appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%236b7480' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 11px center;padding-right:30px;
+}
+.maprow select.guessed{border-color:#bcd6b8;background-color:#f6fbf5}
+.maprow select.missing{border-color:var(--flag-line);background-color:var(--flag-wash)}
+.mapper-actions{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+.mapper-err{font-size:13px;color:var(--flag);background:var(--flag-wash);border:1px solid var(--flag-line);padding:10px 12px;border-radius:9px;margin-top:12px;display:none}
+.assumption{font-size:12.5px;color:var(--muted);margin-top:8px}
+
+/* ---- loading ---- */
+.loading{text-align:center;padding:44px 20px}
+.spin{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--brand);border-radius:50%;margin:0 auto 18px;animation:sp 0.8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.loading .msg{font-size:15px;color:var(--ink-soft);font-weight:500}
+.loading .steps{font-size:13px;color:var(--muted);margin-top:8px;min-height:20px}
+
+/* ============ REPORT RENDERER ============ */
+.report-head{padding:40px 0 8px}
+.report-head .kicker{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.report-head h1{font-size:27px;margin:0 0 6px}
+.report-head .co{font-size:15px;color:var(--ink-soft);margin:0}
+.report-head .meta{font-size:12.5px;color:var(--muted);font-family:var(--mono);margin-top:12px}
+
+.verdict{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:var(--radius);padding:22px 24px;margin:20px 0 10px;box-shadow:var(--shadow)}
+.verdict .lbl{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-ink);margin:0 0 9px}
+.verdict p{margin:0;font-size:16px;line-height:1.62;color:var(--ink)}
+.verdict .writing{color:var(--muted);font-style:italic}
+
+.scan-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);padding:15px 16px;text-align:center}
+.stat .n{font-size:24px;font-weight:750;letter-spacing:-.02em;color:var(--ink);line-height:1}
+.stat .n.flag{color:var(--flag)}
+.stat .k{font-size:12px;color:var(--muted);margin-top:6px}
+
+.sec-label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:34px 0 14px}
+
+/* finding cards */
+.finding{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
+.finding.flag{border-color:var(--flag-line)}
+.f-top{padding:18px 22px 4px}
+.f-tier{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:12px}
+.f-tier.possible{color:var(--flag);background:var(--flag-wash);border:1px solid var(--flag-line)}
+.f-tier.measured{color:var(--measure);background:var(--measure-wash);border:1px solid #ddd6ef}
+.f-tier.found{color:var(--good);background:var(--good-wash);border:1px solid #cfe8db}
+.f-tier .g{width:6px;height:6px;border-radius:50%;background:currentColor}
+.finding h3{font-size:17.5px;margin:0 0 6px;letter-spacing:-.01em}
+.f-note{font-size:14.5px;color:var(--ink-soft);margin:0 0 4px;line-height:1.58}
+.f-sig{font-size:13px;color:var(--muted);margin:8px 0 0;font-family:var(--mono);background:var(--wash);display:inline-block;padding:4px 9px;border-radius:7px}
+
+.f-cost{display:flex;align-items:baseline;gap:10px;padding:14px 22px;margin-top:14px;background:var(--wash);border-top:1px solid var(--line-soft);flex-wrap:wrap}
+.f-cost .amt{font-size:20px;font-weight:750;color:var(--flag);letter-spacing:-.01em}
+.f-cost .amt.measure{color:var(--measure)}
+.f-cost .per{font-size:13px;color:var(--muted)}
+.f-cost .math{font-size:12.5px;color:var(--muted);font-family:var(--mono);width:100%;margin-top:2px}
+
+.f-fix{padding:13px 22px;font-size:13.5px;color:var(--ink-soft);border-top:1px solid var(--line-soft);display:flex;gap:9px;align-items:flex-start}
+.f-fix .tag{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--good);white-space:nowrap;padding-top:1px}
+
+/* evidence table */
+.evidence{border-top:1px solid var(--line-soft)}
+.ev-toggle{width:100%;background:none;border:none;padding:12px 22px;text-align:left;font-size:13px;font-weight:600;color:var(--brand);cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+.ev-toggle:hover{background:var(--wash)}
+.ev-toggle .chev{transition:transform .15s}
+.ev-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.ev-body{display:none;padding:0 22px 18px}
+.ev-body.open{display:block}
+.ev-table{width:100%;border-collapse:collapse;font-size:12.5px;font-family:var(--mono)}
+.ev-table th{text-align:left;color:var(--muted);font-weight:600;padding:7px 10px 7px 0;border-bottom:1px solid var(--line);font-size:11.5px;text-transform:uppercase;letter-spacing:.03em}
+.ev-table td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line-soft);color:var(--ink-soft);white-space:nowrap}
+.ev-table td.amt{color:var(--ink);font-weight:600}
+.ev-table tr.paired td{background:var(--flag-wash)}
+.ev-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ev-cap{font-size:12px;color:var(--muted);margin:10px 0 0;font-style:italic}
+
+/* clean/no-finding block */
+.clean{background:var(--good-wash);border:1px solid #cfe8db;border-radius:var(--radius);padding:18px 22px;margin-bottom:16px}
+.clean .hd{font-size:14.5px;font-weight:600;color:var(--good);margin:0 0 4px}
+.clean p{font-size:13.5px;color:var(--ink-soft);margin:0}
+
+/* CTA */
+.cta{background:var(--ink);color:#fff;border-radius:var(--radius);padding:30px 26px;margin:34px 0 10px;text-align:center}
+.cta h3{font-size:21px;margin:0 0 8px;letter-spacing:-.01em;color:#fff}
+.cta p{font-size:14.5px;color:#b8c0cc;margin:0 0 20px;max-width:46ch;margin-left:auto;margin-right:auto}
+.cta .btn{background:#fff;border-color:#fff;color:var(--ink);font-size:15px;padding:13px 26px}
+.cta .btn:hover{background:#eef1f4;border-color:#eef1f4}
+.cta .btn.ghost{background:transparent;border-color:#3a424e;color:#fff;margin-left:10px}
+.cta .btn.ghost:hover{background:#20252e}
+
+.emailbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px;padding:16px 20px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);align-items:center}
+.emailbar label{font-size:13.5px;font-weight:600;color:var(--ink);flex:1 1 100%}
+.emailbar input{flex:1;min-width:180px;font-family:inherit;font-size:14px;padding:10px 12px;border:1px solid var(--line);border-radius:9px}
+.emailbar .btn{flex:0 0 auto}
+.emailbar .done{font-size:13px;color:var(--good);font-weight:600}
+
+.disclaim{font-size:12px;color:var(--muted);line-height:1.65;margin:26px 0 70px;padding-top:20px;border-top:1px solid var(--line)}
+
+.hidden{display:none!important}
+
+@media (max-width:560px){
+  h1{font-size:27px}
+  .hero{padding:38px 0 24px}
+  .card{padding:20px}
+  .maprow{grid-template-columns:1fr;gap:6px}
+  .maprow .arrow{display:none}
+  .scan-summary{grid-template-columns:1fr;gap:10px}
+  .stat{display:flex;align-items:center;justify-content:space-between;text-align:left}
+  .stat .k{margin-top:0}
+  .cta .btn.ghost{margin-left:0;margin-top:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+<style>
+.twodrop{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.twodrop{grid-template-columns:1fr}}
+.dropmini{border:1.5px dashed var(--line);border-radius:12px;padding:20px 16px;text-align:center;cursor:pointer;transition:.15s;position:relative;background:var(--wash)}
+.dropmini:hover,.dropmini.over{border-color:var(--accent);background:var(--card)}
+.dropmini.loaded{border-style:solid;border-color:var(--ok-line);background:var(--ok-wash)}
+.dropmini input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.dropmini .t{font-size:14px;font-weight:600;margin:0 0 4px}
+.dropmini .s{font-size:12px;color:var(--muted)}
+.dropmini .ok{font-size:12.5px;color:var(--ok);font-weight:600;margin-top:6px}
+.mapgroup{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+.mapgroup h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px}
+.periodrow{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.periodrow label{font-size:13.5px;color:var(--ink)}
+.periodrow select{font-family:inherit;font-size:13.5px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+</style>
+
+</head>
+<body>
+<div class="top"><div class="wrap"><div class="brand">Launch Forte<span class="dot">.</span></div><div class="tag">Leak Finder</div></div></div>
+
+<div id="view-intake">
+<div class="wrap"><div class="hero">
+  <p class="eyebrow">Free revenue leak scan</p>
+  <h1>Find revenue slipping between your jobs and your invoices.</h1>
+  <p class="sub">Drop two exports, your job or estimate list and your invoice list. In under a minute you get a report that names the completed jobs that were never invoiced and the invoices that came in under estimate, with the math on every number and an annualized figure if the pattern holds.</p>
+  <p class="fine">Built for services businesses and contractors. This is a diagnostic, not accounting advice. It points at jobs and invoices worth a second look; you confirm what is real.</p>
+</div></div>
+<div class="wrap"><div class="stack"><div class="card">
+  <div class="twodrop">
+    <div class="dropmini" id="drop-ops" tabindex="0"><input type="file" id="file-ops" accept=".csv,.tsv,text/csv"><p class="t">1. Jobs / estimates</p><p class="s">Job list with estimated amounts and status</p><p class="ok" id="ok-ops" style="display:none"></p></div>
+    <div class="dropmini" id="drop-money" tabindex="0"><input type="file" id="file-money" accept=".csv,.tsv,text/csv"><p class="t">2. Invoices</p><p class="s">Invoice list with amounts and dates</p><p class="ok" id="ok-money" style="display:none"></p></div>
+  </div>
+  <div class="orline">or</div>
+  <button class="btn sample" id="sample-btn">Use a sample company <span class="kbd">- prefills both files</span></button>
+  <div class="privacy"><b>What leaves your browser:</b> both files are parsed here, on your device. Only the handful of columns you confirm next travel to the server, and only long enough to run the scan in memory. <b>The saved report keeps the totals plus only the specific jobs and invoices it flags</b>, never your full lists. Raw uploads are never stored. Ask and it's purged. Nothing here trains anything.</div>
+</div></div></div>
+</div>
+
+<div id="view-mapper" class="hidden">
+<div class="wrap"><div class="stack"><div class="card">
+  <div class="mapper-head"><h2>Confirm your columns</h2><span class="file" id="map-file"></span></div>
+  <p class="mapper-note">We took a guess at each column. Fix anything wrong, set your billing period so we can annualize honestly, add your email, then run. Only the columns below are used.</p>
+  <div class="mapgroup"><h3>Jobs / estimates file</h3><div id="maprows-ops"></div></div>
+  <div class="mapgroup"><h3>Invoices file</h3><div id="maprows-money"></div></div>
+  <div class="periodrow"><label for="period">These files cover about</label><select id="period"><option value="12">one month</option><option value="4" selected>one quarter</option><option value="1">one year</option></select><span class="s" style="font-size:12.5px;color:var(--muted)">used only to annualize the found leak</span></div>
+  <div class="emailbar" style="margin-top:18px"><label for="run-email">Your email (so we can save and send your report)</label><input type="email" id="run-email" placeholder="you@yourcompany.com" autocomplete="email"></div>
+  <div class="mapper-err" id="map-err"></div>
+  <div class="mapper-actions"><button class="btn primary" id="run-btn">Run the scan</button><button class="btn" id="back-btn">Start over</button></div>
+</div></div></div>
+</div>
+
+<div id="view-loading" class="hidden"><div class="wrap"><div class="stack"><div class="card loading"><div class="spin"></div><div class="msg">Sending your files to the scanner</div><div class="steps">Matching jobs to invoices...</div></div></div></div></div>
+
+<script>
+const CONFIG={webhookBase:"https://launchforte.app.n8n.cloud/webhook",submitPath:"leaks-submit",reportPage:"/demo/leaks/report/",caps:{rows:5000,sizeMB:5},
+ opsFields:[{key:"jobId",label:"Job ID / reference",req:true,hint:"Ties a job to its invoice"},{key:"client",label:"Client / customer",req:true,hint:"Who the job was for"},{key:"estimate",label:"Estimated amount",req:true,hint:"Quoted or contracted value"},{key:"status",label:"Status",req:true,hint:"Completed, in progress, etc"},{key:"description",label:"Description",req:false,hint:"What the job was"},{key:"completion",label:"Completion date",req:false,hint:"When it finished, if present"}],
+ moneyFields:[{key:"invId",label:"Invoice number",req:true,hint:"The invoice identifier"},{key:"amount",label:"Invoice amount",req:true,hint:"What was billed"},{key:"jobRef",label:"Job reference",req:false,hint:"Links invoice to a job, if present"},{key:"client",label:"Client / customer",req:false,hint:"Used to match when job ref is blank"},{key:"invDate",label:"Invoice date",req:false,hint:"When it was billed"}]
+};
+const HINTS={jobId:[/job.*(id|ref|no|#|number)/,/project.*(id|ref)/,/^job$/,/work order/,/wo\b/],client:[/client/,/customer/,/account/,/company/,/name/],estimate:[/estimat/,/quote/,/contract/,/bid/,/budget/,/proposal/],status:[/status/,/stage/,/state/],description:[/descri/,/scope/,/detail/,/service/,/work/],completion:[/complet/,/finish/,/end date/,/closed/,/done/],invId:[/invoice.*(no|#|number|id)/,/^inv/,/bill.*no/],amount:[/amount/,/total/,/invoiced/,/billed/,/amt/,/value/],jobRef:[/job.*(ref|id|no|#)/,/project.*(ref|id)/,/po\b/,/reference/],invDate:[/invoice date/,/bill date/,/date/,/issued/]};
+const TEMPLATES={jobsGeneric:{name:"Jobs / estimates export",hints:["job id","client","estimate","status"]},invoicesGeneric:{name:"Invoices export",hints:["invoice #","amount","job ref","invoice date"]}};
+
+const SAMPLE={
+ ops:{filename:"cedar_stone_jobs_Q2.csv",headers:["Job ID","Client","Description","Estimate","Start Date","Completion Date","Status"],rows:[
+["J-1001","Meadowbrook HOA","Paver patio + seating wall","18500","2024-04-02","2024-04-19","Completed"],["J-1002","Riverside Dental","Front walkway rebuild","9200","2024-04-03","2024-04-11","Completed"],["J-1003","Oakmont Offices","Segmental retaining wall","31000","2024-04-05","2024-05-02","Completed"],["J-1004","Trellis Cafe","Courtyard hardscape","12400","2024-04-08","2024-04-22","Completed"],["J-1005","Vista Apartments","Site drainage + regrade","21750","2024-04-10","2024-05-06","Completed"],["J-1006","Grace Church","Memorial garden","15600","2024-04-12","2024-04-30","Completed"],["J-1007","Lakeside Retail","Parking lot planter islands","27300","2024-04-15","2024-05-10","Completed"],["J-1008","Birchwood HOA","Entry monument + bed","8900","2024-04-18","2024-04-26","Completed"],["J-1009","Summit Medical","Entry plaza pavers","22000","2024-04-19","2024-05-08","Completed"],["J-1010","Fairfax Logistics","Loading apron + bollards","44000","2024-04-22","2024-05-20","Completed"],["J-1011","Cornerstone Bank","Entry plaza + steps","26000","2024-04-24","2024-05-15","Completed"],["J-1012","Hillcrest Academy","Central courtyard","19800","2024-04-26","2024-05-18","Completed"],["J-1013","Pinewood Clinic","Side walkway","7400","2024-04-29","2024-05-07","Completed"],["J-1014","Del Rey Estates","Pool surround + coping","28500","2024-05-01","2024-05-24","Completed"],["J-1015","Monarch Plaza","Hardscape refresh","16200","2024-05-03","2024-05-17","Completed"],["J-1016","Westgate HOA","Fire pit lounge","11800","2024-05-06","2024-05-20","Completed"],["J-1017","Aspen Dental Group","Entry + planters","9450","2024-05-08","2024-05-16","Completed"],["J-1018","Beacon Church","Columbarium plaza","33000","2024-05-10","","In Progress"]]},
+ money:{filename:"cedar_stone_invoices_Q2.csv",headers:["Invoice #","Job Ref","Client","Amount","Invoice Date"],rows:[
+["INV-5001","J-1001","Meadowbrook HOA","18500","2024-04-24"],["INV-5002","J-1002","Riverside Dental","9200","2024-04-15"],["INV-5003","J-1003","Oakmont Offices","31000","2024-05-08"],["INV-5004","J-1004","Trellis Cafe","12400","2024-04-26"],["INV-5005","J-1005","Vista Apartments","21750","2024-05-10"],["INV-5006","J-1006","Grace Church","15600","2024-05-03"],["INV-5007","","Lakeside Retail","27300","2024-05-14"],["INV-5008","J-1008","Birchwood HOA","8900","2024-04-30"],["INV-5009","J-1009","Summit Medical","24500","2024-05-12"],["INV-5010","J-1010","Fairfax Logistics","33500","2024-05-24"],["INV-5011","J-1011","Cornerstone Bank","19200","2024-05-20"],["INV-5012","J-1012","Hillcrest Academy","14100","2024-05-22"],["INV-5013","J-1013","Pinewood Clinic","6900","2024-05-11"]]}
+};
+
+const $=s=>document.querySelector(s);
+function show(v){["intake","mapper","loading"].forEach(x=>$("#view-"+x).classList.toggle("hidden",x!==v));window.scrollTo({top:0,behavior:"instant"});}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function infer(headers,fields){const map={};const used=new Set();for(const f of fields){const pats=HINTS[f.key]||[];for(const h of headers){if(used.has(h))continue;if(pats.some(p=>p.test(h.toLowerCase().trim()))){map[f.key]=h;used.add(h);break;}}}return map;}
+
+let ST={ops:null,money:null};
+function parseFile(file,slot){
+  return new Promise((resolve,reject)=>{
+    if(file.size>CONFIG.caps.sizeMB*1024*1024)return reject("over "+CONFIG.caps.sizeMB+" MB");
+    Papa.parse(file,{skipEmptyLines:true,complete:res=>{
+      const rows=res.data.filter(r=>r.some(c=>String(c).trim()!==""));
+      if(rows.length<2)return reject("no header + data");
+      let hi=0;for(let i=0;i<Math.min(rows.length,8);i++){const c=rows[i].map(x=>x.toLowerCase());if(c.some(x=>/date|job|invoice|client|amount|estimat/.test(x))){hi=i;break;}}
+      const headers=rows[hi].map(h=>String(h).trim());const body=rows.slice(hi+1);
+      if(body.length>CONFIG.caps.rows)return reject(body.length.toLocaleString()+" rows over the "+CONFIG.caps.rows.toLocaleString()+" cap");
+      if(headers.filter(h=>h).length<2)return reject("couldn't read column headers");
+      resolve({headers,rows:body,filename:file.name});
+    },error:()=>reject("couldn't read as CSV")});
+  });
+}
+async function onFile(file,which){
+  const okEl=$("#ok-"+which),dropEl=$("#drop-"+which);
+  try{const parsed=await parseFile(file,which);ST[which]=parsed;okEl.textContent="\u2713 "+parsed.filename+" ("+parsed.rows.length+" rows)";okEl.style.display="block";dropEl.classList.add("loaded");if(ST.ops&&ST.money)beginMapper(false);}
+  catch(e){okEl.textContent="\u2715 "+e;okEl.style.display="block";okEl.style.color="var(--flag)";}
+}
+
+function beginMapper(isSample){
+  ST.isSample=!!isSample;
+  $("#map-file").textContent=ST.ops.filename+" + "+ST.money.filename;
+  ST.opsMap=infer(ST.ops.headers,CONFIG.opsFields);
+  ST.moneyMap=infer(ST.money.headers,CONFIG.moneyFields);
+  renderGroup("maprows-ops",CONFIG.opsFields,ST.ops.headers,ST.opsMap,"ops");
+  renderGroup("maprows-money",CONFIG.moneyFields,ST.money.headers,ST.moneyMap,"money");
+  show("mapper");
+}
+function renderGroup(elId,fields,headers,mapping,which){
+  const box=$("#"+elId);box.innerHTML="";
+  fields.forEach(f=>{
+    const g=mapping[f.key];
+    const opts=['<option value="">- not in this file -</option>'].concat(headers.map(h=>'<option value="'+esc(h)+'" '+(h===g?"selected":"")+'>'+esc(h)+'</option>')).join("");
+    const cls=g?"guessed":(f.req?"missing":"");
+    box.insertAdjacentHTML("beforeend",'<div class="maprow"><div class="want">'+f.label+(f.req?'<span class="req">*</span>':'')+'<span class="hint">'+f.hint+'</span></div><div class="arrow">\u2192</div><select data-w="'+which+'" data-key="'+f.key+'" class="'+cls+'">'+opts+'</select></div>');
+  });
+  box.querySelectorAll("select").forEach(sel=>sel.addEventListener("change",()=>{const m=sel.dataset.w==="ops"?ST.opsMap:ST.moneyMap;m[sel.dataset.key]=sel.value;sel.classList.remove("guessed","missing");if(sel.value)sel.classList.add("guessed");else if((sel.dataset.w==="ops"?CONFIG.opsFields:CONFIG.moneyFields).find(f=>f.key===sel.dataset.key).req)sel.classList.add("missing");$("#map-err").style.display="none";}));
+}
+function mapRows(parsed,mapping,fields){const idx={};fields.forEach(f=>{idx[f.key]=mapping[f.key]?parsed.headers.indexOf(mapping[f.key]):-1;});return parsed.rows.map(row=>{const o={};fields.forEach(f=>{o[f.key]=(idx[f.key]>=0)?String(row[idx[f.key]]||""):"";});return o;});}
+function validate(){const mo=CONFIG.opsFields.filter(f=>f.req&&!ST.opsMap[f.key]);const mm=CONFIG.moneyFields.filter(f=>f.req&&!ST.moneyMap[f.key]);if(mo.length)return"Jobs file still needs: "+mo.map(f=>f.label).join(", ")+".";if(mm.length)return"Invoices file still needs: "+mm.map(f=>f.label).join(", ")+".";if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($("#run-email").value.trim()))return"Add a valid email so we can hold your report.";return null;}
+
+async function runScan(){
+  const opsRows=mapRows(ST.ops,ST.opsMap,CONFIG.opsFields);
+  const moneyRows=mapRows(ST.money,ST.moneyMap,CONFIG.moneyFields);
+  const email=$("#run-email").value.trim();
+  const factor=parseInt($("#period").value)||4;
+  const windowLabel=factor===12?"this month":factor===1?"this year":"this quarter";
+  const company=ST.isSample?"Cedar & Stone Hardscapes":(ST.ops.filename.replace(/\.(csv|tsv)$/i,"").replace(/[_\-]+/g," ").replace(/\bjobs?\b|\bexport\b|\bestimates?\b|\bq[1-4]\b/gi,"").trim()||"your company");
+  show("loading");
+  try{
+    const r=await fetch(CONFIG.webhookBase+"/"+CONFIG.submitPath,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,company,opsRows,moneyRows,annualizeFactor:factor,windowLabel,hp:""})});
+    const d=await r.json();
+    if(d&&d.ok&&d.id){location.href=CONFIG.reportPage+"?id="+encodeURIComponent(d.id);return;}
+    if(d&&d.reason==="repeat_1d")flashErr("You've already run a scan today on this email. Try again tomorrow, or use a different email.");
+    else if(d&&d.reason==="daily_cap")flashErr("The free scanner is at today's limit. Please try again tomorrow.");
+    else flashErr("That didn't go through. Check the files and your email, then try again.");
+  }catch(e){flashErr("Couldn't reach the scanner. Please try again in a moment.");}
+}
+function flashErr(m){show("mapper");const e=$("#map-err");e.textContent=m;e.style.display="block";}
+
+["ops","money"].forEach(which=>{
+  const drop=$("#drop-"+which),inp=$("#file-"+which);
+  drop.addEventListener("click",e=>{if(e.target!==inp)inp.click();});
+  drop.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();inp.click();}});
+  drop.addEventListener("dragover",e=>{e.preventDefault();drop.classList.add("over");});
+  drop.addEventListener("dragleave",()=>drop.classList.remove("over"));
+  drop.addEventListener("drop",e=>{e.preventDefault();drop.classList.remove("over");if(e.dataTransfer.files[0])onFile(e.dataTransfer.files[0],which);});
+  inp.addEventListener("change",e=>{if(e.target.files[0])onFile(e.target.files[0],which);});
+});
+$("#sample-btn").addEventListener("click",()=>{ST.ops={headers:SAMPLE.ops.headers.slice(),rows:SAMPLE.ops.rows.map(r=>r.slice()),filename:SAMPLE.ops.filename};ST.money={headers:SAMPLE.money.headers.slice(),rows:SAMPLE.money.rows.map(r=>r.slice()),filename:SAMPLE.money.filename};beginMapper(true);});
+$("#run-btn").addEventListener("click",()=>{const err=validate();if(err){const e=$("#map-err");e.textContent=err;e.style.display="block";return;}runScan();});
+$("#back-btn").addEventListener("click",()=>{ST={ops:null,money:null};["ops","money"].forEach(w=>{$("#ok-"+w).style.display="none";$("#drop-"+w).classList.remove("loaded");$("#file-"+w).value="";});show("intake");});
+show("intake");
+</script>
+</body>
+</html>

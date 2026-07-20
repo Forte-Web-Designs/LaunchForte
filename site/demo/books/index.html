@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<title>Mess Maker Finder - find what's quietly doubling your books</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<style>
+/* ============ HOUSE SKIN (Launch Forte island pattern) ============ */
+:root{
+  --ink:#14181f;
+  --ink-soft:#3a424e;
+  --muted:#6b7480;
+  --line:#e4e7ec;
+  --line-soft:#eef1f4;
+  --paper:#ffffff;
+  --wash:#f6f8fa;
+  --wash-2:#f0f3f6;
+  --brand:#1f6feb;
+  --brand-ink:#0b3d91;
+  --flag:#b4530a;      /* money-problem amber, never red-alarm */
+  --flag-wash:#fdf3e7;
+  --flag-line:#f2d9bb;
+  --good:#137a4b;
+  --good-wash:#eef7f1;
+  --measure:#5b4b8a;   /* measured, not accused */
+  --measure-wash:#f2f0f9;
+  --radius:14px;
+  --radius-sm:10px;
+  --shadow:0 1px 2px rgba(20,24,31,.04),0 8px 24px rgba(20,24,31,.06);
+  --mono:"SFMono-Regular",ui-monospace,"JetBrains Mono","Menlo",Consolas,monospace;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--wash);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
+
+/* ---- top bar ---- */
+.top{border-bottom:1px solid var(--line);background:var(--paper)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{font-weight:700;letter-spacing:-.01em;font-size:15px;color:var(--ink)}
+.brand .dot{color:var(--brand)}
+.top .tag{font-size:12.5px;color:var(--muted)}
+
+/* ---- hero ---- */
+.hero{padding:52px 0 30px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-ink);margin:0 0 14px}
+h1{font-size:34px;line-height:1.12;letter-spacing:-.02em;margin:0 0 16px;font-weight:750}
+.sub{font-size:17px;color:var(--ink-soft);margin:0 0 8px;max-width:56ch}
+.hero .fine{font-size:13.5px;color:var(--muted);margin-top:14px;max-width:60ch}
+
+/* ---- card ---- */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}
+.card + .card{margin-top:18px}
+.stack{margin:26px 0 60px}
+
+/* ---- dropzone ---- */
+.drop{
+  border:1.5px dashed var(--line);border-radius:var(--radius);
+  background:var(--wash);padding:34px 24px;text-align:center;cursor:pointer;
+  transition:border-color .15s ease,background .15s ease;
+}
+.drop:hover,.drop.over{border-color:var(--brand);background:#f2f7ff}
+.drop .big{font-size:15.5px;font-weight:600;color:var(--ink);margin:0 0 4px}
+.drop .small{font-size:13.5px;color:var(--muted);margin:0}
+.drop input{display:none}
+
+.orline{display:flex;align-items:center;gap:14px;margin:18px 0;color:var(--muted);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase}
+.orline::before,.orline::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  border:1px solid var(--line);background:var(--paper);color:var(--ink);
+  font-size:14.5px;font-weight:600;padding:12px 18px;border-radius:var(--radius-sm);cursor:pointer;
+  transition:border-color .15s,background .15s,transform .05s;
+}
+.btn:hover{border-color:#c9cfd8;background:var(--wash)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff;width:100%}
+.btn.primary:hover{background:#1a63d6;border-color:#1a63d6}
+.btn.primary:disabled{background:#a9c4f2;border-color:#a9c4f2;cursor:default}
+.btn.sample{width:100%}
+.btn .kbd{font-size:12px;color:var(--muted);font-weight:500}
+
+.privacy{margin-top:18px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.privacy b{color:var(--ink-soft);font-weight:600}
+
+/* ---- mapper ---- */
+.mapper-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px}
+.mapper-head h2{font-size:18px;margin:0;letter-spacing:-.01em}
+.mapper-head .file{font-size:13px;color:var(--muted);font-family:var(--mono)}
+.mapper-note{font-size:13.5px;color:var(--ink-soft);margin:0 0 20px}
+.tmpl-badge{display:inline-block;font-size:12px;font-weight:600;color:var(--good);background:var(--good-wash);border:1px solid #cfe8db;padding:3px 9px;border-radius:999px;margin-bottom:16px}
+.maprow{display:grid;grid-template-columns:1fr auto 1.2fr;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line-soft)}
+.maprow:first-of-type{border-top:none}
+.maprow .want{font-size:14px;font-weight:600;color:var(--ink)}
+.maprow .want .req{color:var(--flag);font-weight:700;margin-left:3px}
+.maprow .want .hint{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:1px}
+.maprow .arrow{color:var(--muted);font-size:13px}
+.maprow select{
+  width:100%;font-family:inherit;font-size:14px;color:var(--ink);
+  padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:var(--paper);
+  appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%236b7480' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 11px center;padding-right:30px;
+}
+.maprow select.guessed{border-color:#bcd6b8;background-color:#f6fbf5}
+.maprow select.missing{border-color:var(--flag-line);background-color:var(--flag-wash)}
+.mapper-actions{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+.mapper-err{font-size:13px;color:var(--flag);background:var(--flag-wash);border:1px solid var(--flag-line);padding:10px 12px;border-radius:9px;margin-top:12px;display:none}
+.assumption{font-size:12.5px;color:var(--muted);margin-top:8px}
+
+/* ---- loading ---- */
+.loading{text-align:center;padding:44px 20px}
+.spin{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--brand);border-radius:50%;margin:0 auto 18px;animation:sp 0.8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.loading .msg{font-size:15px;color:var(--ink-soft);font-weight:500}
+.loading .steps{font-size:13px;color:var(--muted);margin-top:8px;min-height:20px}
+
+/* ============ REPORT RENDERER ============ */
+.report-head{padding:40px 0 8px}
+.report-head .kicker{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.report-head h1{font-size:27px;margin:0 0 6px}
+.report-head .co{font-size:15px;color:var(--ink-soft);margin:0}
+.report-head .meta{font-size:12.5px;color:var(--muted);font-family:var(--mono);margin-top:12px}
+
+.verdict{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:var(--radius);padding:22px 24px;margin:20px 0 10px;box-shadow:var(--shadow)}
+.verdict .lbl{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-ink);margin:0 0 9px}
+.verdict p{margin:0;font-size:16px;line-height:1.62;color:var(--ink)}
+.verdict .writing{color:var(--muted);font-style:italic}
+
+.scan-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);padding:15px 16px;text-align:center}
+.stat .n{font-size:24px;font-weight:750;letter-spacing:-.02em;color:var(--ink);line-height:1}
+.stat .n.flag{color:var(--flag)}
+.stat .k{font-size:12px;color:var(--muted);margin-top:6px}
+
+.sec-label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:34px 0 14px}
+
+/* finding cards */
+.finding{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
+.finding.flag{border-color:var(--flag-line)}
+.f-top{padding:18px 22px 4px}
+.f-tier{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:12px}
+.f-tier.possible{color:var(--flag);background:var(--flag-wash);border:1px solid var(--flag-line)}
+.f-tier.measured{color:var(--measure);background:var(--measure-wash);border:1px solid #ddd6ef}
+.f-tier.found{color:var(--good);background:var(--good-wash);border:1px solid #cfe8db}
+.f-tier .g{width:6px;height:6px;border-radius:50%;background:currentColor}
+.finding h3{font-size:17.5px;margin:0 0 6px;letter-spacing:-.01em}
+.f-note{font-size:14.5px;color:var(--ink-soft);margin:0 0 4px;line-height:1.58}
+.f-sig{font-size:13px;color:var(--muted);margin:8px 0 0;font-family:var(--mono);background:var(--wash);display:inline-block;padding:4px 9px;border-radius:7px}
+
+.f-cost{display:flex;align-items:baseline;gap:10px;padding:14px 22px;margin-top:14px;background:var(--wash);border-top:1px solid var(--line-soft);flex-wrap:wrap}
+.f-cost .amt{font-size:20px;font-weight:750;color:var(--flag);letter-spacing:-.01em}
+.f-cost .amt.measure{color:var(--measure)}
+.f-cost .per{font-size:13px;color:var(--muted)}
+.f-cost .math{font-size:12.5px;color:var(--muted);font-family:var(--mono);width:100%;margin-top:2px}
+
+.f-fix{padding:13px 22px;font-size:13.5px;color:var(--ink-soft);border-top:1px solid var(--line-soft);display:flex;gap:9px;align-items:flex-start}
+.f-fix .tag{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--good);white-space:nowrap;padding-top:1px}
+
+/* evidence table */
+.evidence{border-top:1px solid var(--line-soft)}
+.ev-toggle{width:100%;background:none;border:none;padding:12px 22px;text-align:left;font-size:13px;font-weight:600;color:var(--brand);cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+.ev-toggle:hover{background:var(--wash)}
+.ev-toggle .chev{transition:transform .15s}
+.ev-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.ev-body{display:none;padding:0 22px 18px}
+.ev-body.open{display:block}
+.ev-table{width:100%;border-collapse:collapse;font-size:12.5px;font-family:var(--mono)}
+.ev-table th{text-align:left;color:var(--muted);font-weight:600;padding:7px 10px 7px 0;border-bottom:1px solid var(--line);font-size:11.5px;text-transform:uppercase;letter-spacing:.03em}
+.ev-table td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line-soft);color:var(--ink-soft);white-space:nowrap}
+.ev-table td.amt{color:var(--ink);font-weight:600}
+.ev-table tr.paired td{background:var(--flag-wash)}
+.ev-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ev-cap{font-size:12px;color:var(--muted);margin:10px 0 0;font-style:italic}
+
+/* clean/no-finding block */
+.clean{background:var(--good-wash);border:1px solid #cfe8db;border-radius:var(--radius);padding:18px 22px;margin-bottom:16px}
+.clean .hd{font-size:14.5px;font-weight:600;color:var(--good);margin:0 0 4px}
+.clean p{font-size:13.5px;color:var(--ink-soft);margin:0}
+
+/* CTA */
+.cta{background:var(--ink);color:#fff;border-radius:var(--radius);padding:30px 26px;margin:34px 0 10px;text-align:center}
+.cta h3{font-size:21px;margin:0 0 8px;letter-spacing:-.01em;color:#fff}
+.cta p{font-size:14.5px;color:#b8c0cc;margin:0 0 20px;max-width:46ch;margin-left:auto;margin-right:auto}
+.cta .btn{background:#fff;border-color:#fff;color:var(--ink);font-size:15px;padding:13px 26px}
+.cta .btn:hover{background:#eef1f4;border-color:#eef1f4}
+.cta .btn.ghost{background:transparent;border-color:#3a424e;color:#fff;margin-left:10px}
+.cta .btn.ghost:hover{background:#20252e}
+
+.emailbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px;padding:16px 20px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);align-items:center}
+.emailbar label{font-size:13.5px;font-weight:600;color:var(--ink);flex:1 1 100%}
+.emailbar input{flex:1;min-width:180px;font-family:inherit;font-size:14px;padding:10px 12px;border:1px solid var(--line);border-radius:9px}
+.emailbar .btn{flex:0 0 auto}
+.emailbar .done{font-size:13px;color:var(--good);font-weight:600}
+
+.disclaim{font-size:12px;color:var(--muted);line-height:1.65;margin:26px 0 70px;padding-top:20px;border-top:1px solid var(--line)}
+
+.hidden{display:none!important}
+
+@media (max-width:560px){
+  h1{font-size:27px}
+  .hero{padding:38px 0 24px}
+  .card{padding:20px}
+  .maprow{grid-template-columns:1fr;gap:6px}
+  .maprow .arrow{display:none}
+  .scan-summary{grid-template-columns:1fr;gap:10px}
+  .stat{display:flex;align-items:center;justify-content:space-between;text-align:left}
+  .stat .k{margin-top:0}
+  .cta .btn.ghost{margin-left:0;margin-top:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap">
+  <div class="brand">Launch Forte<span class="dot">.</span></div>
+  <div class="tag">Mess Maker Finder</div>
+</div></div>
+
+<div id="view-intake">
+<div class="wrap">
+  <div class="hero">
+    <p class="eyebrow">Free books scan</p>
+    <h1>Find what's quietly doubling your books.</h1>
+    <p class="sub">Drop a transaction export. In under a minute you get a report that names the specific rows that look duplicated, double-counted, or mismatched, with the math behind every number and the rows to confirm.</p>
+    <p class="fine">Built for any business running QuickBooks Online. This is a diagnostic, not accounting advice. It points at rows worth a second look; you or your bookkeeper confirm what's real.</p>
+  </div>
+</div>
+<div class="wrap"><div class="stack">
+  <div class="card">
+    <div class="drop" id="drop" tabindex="0" role="button" aria-label="Upload a transaction export">
+      <input type="file" id="file" accept=".csv,.tsv,text/csv">
+      <p class="big">Drop your transaction export here</p>
+      <p class="small">CSV, up to 5,000 rows / 5 MB. A QuickBooks export is recognized automatically.</p>
+    </div>
+    <div class="orline">or</div>
+    <button class="btn sample" id="sample-btn">Use a sample company <span class="kbd">- prefills a real export</span></button>
+    <div class="privacy"><b>What leaves your browser:</b> your file is parsed here, on your device. Only the handful of columns you confirm next travel to the server, and only long enough to run the scan in memory. <b>The saved report keeps the totals plus only the specific rows it flags</b>, never your full ledger. Raw uploads are never stored. Ask and it's purged. Nothing here trains anything.</div>
+  </div>
+</div></div>
+</div>
+
+<div id="view-mapper" class="hidden">
+<div class="wrap"><div class="stack">
+  <div class="card">
+    <div class="mapper-head"><h2>Confirm your columns</h2><span class="file" id="map-file"></span></div>
+    <div id="tmpl-badge-slot"></div>
+    <p class="mapper-note">We took a guess at which column is which. Fix anything that's wrong, add your email so we can hold the report for you, then run the scan. Only the columns below are used.</p>
+    <div id="maprows"></div>
+    <div class="emailbar" style="margin-top:18px">
+      <label for="run-email">Your email (so we can save and send your report)</label>
+      <input type="email" id="run-email" placeholder="you@yourcompany.com" autocomplete="email">
+    </div>
+    <div class="mapper-err" id="map-err"></div>
+    <div class="mapper-actions">
+      <button class="btn primary" id="run-btn">Run the scan</button>
+      <button class="btn" id="back-btn">Use a different file</button>
+    </div>
+    <p class="assumption" id="assumption"></p>
+  </div>
+</div></div>
+</div>
+
+<div id="view-loading" class="hidden">
+<div class="wrap"><div class="stack">
+  <div class="card loading"><div class="spin"></div><div class="msg">Sending your ledger to the scanner</div><div class="steps" id="load-steps">Parsing rows in your browser...</div></div>
+</div></div>
+</div>
+
+<script>
+const CONFIG = {
+  webhookBase: "https://launchforte.app.n8n.cloud/webhook",
+  submitPath: "books-submit",
+  reportPage: "/demo/books/report/",
+  caps: { rows: 5000, sizeMB: 5 },
+  fields: [
+    { key:"date", label:"Transaction date", req:true, hint:"When it hit the books" },
+    { key:"amount", label:"Amount", req:true, hint:"Dollar value of the line" },
+    { key:"description", label:"Description / memo", req:true, hint:"Payee, memo, or the sync label" },
+    { key:"type", label:"Transaction type", req:false, hint:"Invoice, Deposit, Expense... if present" },
+    { key:"account", label:"Account / category", req:false, hint:"Chart-of-accounts line, if present" },
+    { key:"source", label:"Source / added by", req:false, hint:"Bank feed, connector, or manual, if present" }
+  ],
+  templates: {
+    qbo: { name:"QuickBooks Online transaction export", hints:["date","transaction type","num","name","memo/description","account","amount","split","source"], map:{ date:"Date", amount:"Amount", description:"Memo/Description", type:"Transaction Type", account:"Account", source:"Source" } },
+    genericTxn: { name:"Generic transaction / bank export", hints:["date","description","amount","category","balance"], map:{ date:"Date", amount:"Amount", description:"Description", account:"Category" } }
+  }
+};
+
+// seeded sample (QBO column order) -- prefills the mapper so the demo runs through the real pipeline
+const SAMPLE = { filename:"northgate_dental_transactions_Q2.csv", template:"qbo",
+  headers:["Date","Transaction Type","Num","Name","Memo/Description","Account","Split","Amount","Source"],
+  rows:[
+["2024-04-01","Deposit","","Patient copays","Daily card batch \u2014 Elavon","Undeposited Funds","-Split-","1840.00","Bank Feed"],
+["2024-04-01","Expense","1042","Henry Schein","Dental supplies restock","Cost of Goods Sold","Checking","612.45","Bank Feed"],
+["2024-04-02","Invoice","1188","Alvarez, M.","Crown \u2014 porcelain","Services Income","A/R","1250.00","QBO"],
+["2024-04-02","Payment","","Alvarez, M.","Payment received \u2014 INV 1188","A/R","Checking","1250.00","QBO"],
+["2024-04-03","Expense","1043","City Water Utility","Q2 water","Utilities","Checking","148.22","Bank Feed"],
+["2024-04-03","Deposit","","Patient copays","Daily card batch \u2014 Elavon","Undeposited Funds","-Split-","2210.00","Bank Feed"],
+["2024-04-05","Expense","","Dentrix / Henry Schein One","Dentrix cloud subscription \u2014 monthly","Software Subscriptions","Checking","389.00","Bank Feed"],
+["2024-04-06","Expense","2051","Dentrix Henry Schein One","Dentrix Cloud subscription monthly","Software Subscriptions","Checking","389.00","QBO Connector"],
+["2024-04-08","Invoice","1189","Okafor, D.","Implant \u2014 stage 1","Services Income","A/R","2400.00","QBO"],
+["2024-04-08","Payment","","Okafor, D.","Payment received \u2014 INV 1189","A/R","Checking","2400.00","QBO"],
+["2024-04-09","Expense","1044","Staff payroll \u2014 ADP","Payroll run 04/09","Payroll Expenses","Checking","8420.11","Bank Feed"],
+["2024-04-10","Deposit","","Patient copays","Daily card batch \u2014 Elavon","Undeposited Funds","-Split-","1975.50","Bank Feed"],
+["2024-04-11","Expense","1045","Landlord \u2014 Northgate Plaza","April rent","Rent Expense","Checking","4100.00","Bank Feed"],
+["2024-04-12","Deposit","","Stripe","Stripe payout \u2014 batch STR-4471","Sales Income","Checking","3620.00","Bank Feed"],
+["2024-04-15","Expense","1046","Patterson Dental","Composite + burs","Cost of Goods Sold","Checking","734.90","Bank Feed"],
+["2024-04-16","Invoice","1190","Reyes, L.","Whitening package","Services Income","A/R","520.00","QBO"],
+["2024-04-16","Payment","","Reyes, L.","Payment received \u2014 INV 1190","A/R","Checking","520.00","QBO"],
+["2024-04-18","Expense","1047","City Water Utility","Backflow test","Utilities","Checking","95.00","Bank Feed"],
+["2024-04-19","Expense","","Guardian Insurance","Malpractice premium \u2014 April","Insurance Expense","Checking","1180.00","Manual"],
+["2024-04-21","Expense","3310","Guardian Insurance Co","Malpractice premium April","Insurance Expense","Checking","1180.00","Bank Feed"],
+["2024-04-22","Deposit","","Patient copays","Daily card batch \u2014 Elavon","Undeposited Funds","-Split-","2640.75","Bank Feed"],
+["2024-04-23","Expense","1048","Comcast Business","Internet \u2014 April","Utilities","Checking","219.99","Bank Feed"],
+["2024-04-24","Invoice","1191","Nakamura, S.","Root canal + crown","Services Income","A/R","1980.00","QBO"],
+["2024-04-24","Payment","","Nakamura, S.","Payment received \u2014 INV 1191","A/R","Checking","1980.00","QBO"],
+["2024-04-26","Invoice","1192","Bright Smiles Corporate","Q2 hygiene contract","Services Income","A/R","3150.00","QBO"],
+["2024-04-29","Deposit","","Bright Smiles Corporate","Deposit \u2014 Q2 hygiene","Services Income","Checking","3150.00","Bank Feed"],
+["2024-04-30","Expense","","Petty cash","Office coffee + supplies","Office Expenses","Cash","62.40","Manual"],
+["2024-04-30","Expense","","Owner reimbursement","Conference travel \u2014 hand entered","Travel","Checking","845.20","Manual"],
+["2024-04-30","Journal Entry","JE-118","","Depreciation \u2014 Q2 equipment","Depreciation","-Split-","1250.00","Manual"],
+["2024-05-01","Expense","1049","Henry Schein","Dental supplies restock","Cost of Goods Sold","Checking","598.10","Bank Feed"],
+["2024-05-02","Deposit","","Patient copays","Daily card batch \u2014 Elavon","Undeposited Funds","-Split-","1710.25","Bank Feed"]
+]};
+
+const $ = s => document.querySelector(s);
+function show(v){ ["intake","mapper","loading"].forEach(x=>$("#view-"+x).classList.toggle("hidden", x!==v)); window.scrollTo({top:0,behavior:"instant"}); }
+function escapeHtml(s){ return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+const HEADER_HINTS = { date:[/date/,/posted/], amount:[/amount/,/amt/,/total/,/debit/,/credit/,/value/], description:[/memo/,/descri/,/payee/,/name/,/detail/,/narration/], type:[/type/,/transaction type/], account:[/account/,/category/,/chart/,/split/,/class/], source:[/source/,/added by/,/entered by/,/origin/,/method/] };
+function detectTemplate(h){ const lower=h.map(x=>x.toLowerCase().trim()); for(const k of Object.keys(CONFIG.templates)){ const t=CONFIG.templates[k]; const hit=t.hints.filter(x=>lower.includes(x)).length; if(hit>=Math.min(4,Math.ceil(t.hints.length*0.5))) return k; } return null; }
+function inferMapping(headers){ const tmpl=detectTemplate(headers); const map={}; const used=new Set(); if(tmpl){ const tm=CONFIG.templates[tmpl].map; for(const [k,hh] of Object.entries(tm)){ if(headers.includes(hh)){ map[k]=hh; used.add(hh);} } } for(const f of CONFIG.fields){ if(map[f.key])continue; const pats=HEADER_HINTS[f.key]||[]; for(const hh of headers){ if(used.has(hh))continue; if(pats.some(p=>p.test(hh.toLowerCase().trim()))){ map[f.key]=hh; used.add(hh); break; } } } return {tmpl,map}; }
+
+let STATE = { headers:[], records:[], mapping:{}, tmpl:null, filename:"", isSample:false };
+function beginMapper(headers, records, filename, presetTmpl, isSample){
+  STATE = { headers, records, mapping:{}, tmpl:null, filename, isSample:!!isSample };
+  const { tmpl, map } = inferMapping(headers);
+  STATE.tmpl = presetTmpl||tmpl; STATE.mapping = map;
+  $("#map-file").textContent = filename + "  \u00b7  " + records.length + " rows";
+  const slot=$("#tmpl-badge-slot");
+  slot.innerHTML = (STATE.tmpl && CONFIG.templates[STATE.tmpl]) ? '<span class="tmpl-badge">Recognized: '+CONFIG.templates[STATE.tmpl].name+'</span>' : '<span class="tmpl-badge" style="color:var(--muted);background:var(--wash);border-color:var(--line)">Custom layout - confirm each column</span>';
+  const box=$("#maprows"); box.innerHTML="";
+  CONFIG.fields.forEach(f=>{
+    const guessed=STATE.mapping[f.key];
+    const opts=['<option value="">- not in this file -</option>'].concat(headers.map(h=>'<option value="'+escapeHtml(h)+'" '+(h===guessed?"selected":"")+'>'+escapeHtml(h)+'</option>')).join("");
+    const cls=guessed?"guessed":(f.req?"missing":"");
+    box.insertAdjacentHTML("beforeend", '<div class="maprow"><div class="want">'+f.label+(f.req?'<span class="req">*</span>':'')+'<span class="hint">'+f.hint+'</span></div><div class="arrow">\u2192</div><select data-key="'+f.key+'" class="'+cls+'">'+opts+'</select></div>');
+  });
+  box.querySelectorAll("select").forEach(sel=>sel.addEventListener("change",()=>{ STATE.mapping[sel.dataset.key]=sel.value; sel.classList.remove("guessed","missing"); if(sel.value)sel.classList.add("guessed"); else if(CONFIG.fields.find(f=>f.key===sel.dataset.key).req)sel.classList.add("missing"); $("#map-err").style.display="none"; }));
+  const gc=CONFIG.fields.filter(f=>STATE.mapping[f.key]).length;
+  $("#assumption").textContent = "We matched "+gc+" of "+CONFIG.fields.length+" columns automatically. Required columns are marked with *.";
+  show("mapper");
+}
+
+function validateMapping(){ const missing=CONFIG.fields.filter(f=>f.req && !STATE.mapping[f.key]); if(missing.length) return "We still need: "+missing.map(f=>f.label).join(", ")+". Pick the matching column, or if it isn't in this file, this scan can't run on it."; const email=$("#run-email").value.trim(); if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return "Add a valid email so we can hold your report."; return null; }
+
+function buildRows(){ const m=STATE.mapping; const col={}; Object.keys(m).forEach(k=>{ col[k]=m[k]?STATE.headers.indexOf(m[k]):-1; }); const at=(row,k)=>(col[k]!=null&&col[k]>=0)?row[col[k]]:""; return STATE.records.map(row=>({ date:String(at(row,"date")||""), amount:String(at(row,"amount")||""), description:String(at(row,"description")||""), type:m.type?String(at(row,"type")||""):"", account:m.account?String(at(row,"account")||""):"", source:m.source?String(at(row,"source")||""):"" })); }
+
+async function runScan(){
+  const rows = buildRows();
+  const email = $("#run-email").value.trim();
+  const company = STATE.isSample ? "Northgate Dental Studio" : (STATE.filename.replace(/\.(csv|tsv)$/i,"").replace(/[_\-]+/g," ").replace(/\btransactions?\b|\bexport\b|\bq[1-4]\b/gi,"").trim() || "your company");
+  show("loading");
+  try{
+    const r = await fetch(CONFIG.webhookBase+"/"+CONFIG.submitPath, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ email, company, rows, hp:"" }) });
+    const d = await r.json();
+    if(d && d.ok && d.id){ location.href = CONFIG.reportPage + "?id=" + encodeURIComponent(d.id); return; }
+    if(d && d.reason==="repeat_1d"){ flashRunError("You've already run a scan today on this email. Try again tomorrow, or use a different email."); }
+    else if(d && d.reason==="daily_cap"){ flashRunError("The free scanner is at today's limit. Please try again tomorrow."); }
+    else { flashRunError("That didn't go through. Check the file and your email, then try again."); }
+  }catch(e){ flashRunError("Couldn't reach the scanner. Please try again in a moment."); }
+}
+function flashRunError(msg){ show("mapper"); const e=$("#map-err"); e.textContent=msg; e.style.display="block"; }
+
+function handleFile(file){
+  removeIntakeError();
+  if(file.size > CONFIG.caps.sizeMB*1024*1024) return intakeError("That file is over "+CONFIG.caps.sizeMB+" MB. Export a smaller date range and try again.");
+  Papa.parse(file,{ skipEmptyLines:true, complete:(res)=>{
+    const rows=res.data.filter(r=>r.some(c=>String(c).trim()!==""));
+    if(rows.length<2) return intakeError("That file doesn't have a header row and any data. Export again from your accounting tool.");
+    let hi=findHeaderRow(rows); const headers=rows[hi].map(h=>String(h).trim()); const body=rows.slice(hi+1);
+    if(body.length>CONFIG.caps.rows) return intakeError("That export has "+body.length.toLocaleString()+" rows; the cap is "+CONFIG.caps.rows.toLocaleString()+". Export a shorter period.");
+    if(headers.filter(h=>h).length<3) return intakeError("We couldn't read column headers in that file. Make sure the first row names the columns.");
+    beginMapper(headers, body, file.name, null, false);
+  }, error:()=>intakeError("That file couldn't be read as a CSV. Re-export and try again.") });
+}
+function findHeaderRow(rows){ for(let i=0;i<Math.min(rows.length,8);i++){ const c=rows[i].map(x=>x.toLowerCase()); if(c.some(x=>/date/.test(x)) && c.some(x=>/amount|amt|total|debit|credit/.test(x))) return i; } return 0; }
+function intakeError(msg){ let e=$("#intake-err"); if(!e){ e=document.createElement("p"); e.id="intake-err"; e.style.cssText="color:var(--flag);font-size:13.5px;margin:14px 0 0;padding:10px 12px;background:var(--flag-wash);border:1px solid var(--flag-line);border-radius:9px"; $("#drop").parentNode.appendChild(e); } e.textContent=msg; }
+function removeIntakeError(){ const e=$("#intake-err"); if(e) e.remove(); }
+
+const drop=$("#drop"), fileInput=$("#file");
+drop.addEventListener("click",()=>fileInput.click());
+drop.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); fileInput.click(); } });
+drop.addEventListener("dragover",e=>{ e.preventDefault(); drop.classList.add("over"); });
+drop.addEventListener("dragleave",()=>drop.classList.remove("over"));
+drop.addEventListener("drop",e=>{ e.preventDefault(); drop.classList.remove("over"); if(e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+fileInput.addEventListener("change",e=>{ if(e.target.files[0]) handleFile(e.target.files[0]); });
+$("#sample-btn").addEventListener("click",()=>beginMapper(SAMPLE.headers.slice(), SAMPLE.rows.map(r=>r.slice()), SAMPLE.filename, SAMPLE.template, true));
+$("#run-btn").addEventListener("click",()=>{ const err=validateMapping(); if(err){ const e=$("#map-err"); e.textContent=err; e.style.display="block"; return; } runScan(); });
+$("#back-btn").addEventListener("click",()=>show("intake"));
+show("intake");
+</script>
+</body>
+</html>

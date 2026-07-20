@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Your Verified Lead Sample | Launch Forte</title>
+<style>
+:root{--brand:#123B33;--brand-soft:#E7F1EC;--paper:#FBFAF7;--ink:#15221E;--muted:#5B6660;--line:#E5E3DB;--card:#FFFFFF;--err:#A33B2E;--radius:12px;--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--font)}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+header{background:var(--card);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 20px}
+.brandmark{font-weight:800;letter-spacing:-0.01em;color:var(--ink);text-decoration:none;font-size:18px}
+.navlink{color:var(--brand);font-weight:600;text-decoration:none;font-size:14px}
+.section{padding:56px 0}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:-0.015em;line-height:1.15;margin:0 0 14px}
+h2{font-size:clamp(22px,3.5vw,30px);font-weight:800;letter-spacing:-0.01em;margin:0 0 10px}
+.sub{color:var(--muted);font-size:1.05em;margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.btn{display:inline-block;background:var(--brand);color:#fff;font-weight:700;border:0;border-radius:10px;padding:13px 22px;font-size:16px;cursor:pointer;text-decoration:none}
+.btn:hover{opacity:.92}
+.btn:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.spin{width:34px;height:34px;border:4px solid var(--line);border-top-color:var(--brand);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 0 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spin{animation:none;border-top-color:var(--line)}}
+.count{font-size:22px;font-weight:800;margin:0 0 8px}
+.scarcenote{margin:0;padding:12px 14px;background:var(--brand-soft);border-radius:10px;color:var(--brand);font-size:14.5px}
+.lead{margin:0 0 14px}
+.lead-name{font-weight:700;margin:0 0 2px;font-size:17px}
+.lead-meta{font-weight:400;color:var(--muted)}
+.lead-email{margin:0 0 10px;font-size:14px;color:var(--brand);font-weight:600}
+.badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;color:var(--muted);margin:0 6px 6px 0;background:#fff}
+.badge.good{background:var(--brand-soft);color:var(--brand);border-color:transparent}
+.judge{margin:8px 0 0;font-size:14.5px;color:var(--ink)}
+.judge .v{font-weight:700;color:var(--brand)}
+.cta-band{background:var(--brand);color:#fff;padding:44px 0}
+.cta-band h2{color:#fff}
+.cta-band p{color:#dceae3;margin:0 0 18px}
+.cta-band .card{border:0}
+.field{margin:0 0 14px}
+.field label{display:block;font-weight:600;font-size:14px;margin:0 0 6px}
+.field input,.field textarea{width:100%;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font:inherit;color:var(--ink)}
+.field textarea{min-height:84px;resize:vertical}
+.hp{position:absolute;left:-5000px;opacity:0}
+.msg{margin:12px 0 0;font-weight:600}
+.msg.err{color:var(--err)}
+.fine{font-size:12.5px;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:26px 0;margin-top:20px}
+footer p{margin:0 0 6px;font-size:14px;color:var(--muted)}
+footer a{color:var(--brand)}
+[hidden]{display:none !important}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brandmark" href="/">Launch Forte</a><a class="navlink" href="/leads/">Request a sample</a></div></header>
+
+<section class="section" id="loading"><div class="wrap">
+<div class="spin" role="status" aria-label="Loading"></div>
+<p class="sub">Pulling your ledger.</p>
+</div></section>
+
+<section class="section" id="notfound" hidden><div class="wrap">
+<p class="eyebrow">Ledger</p>
+<h1>No ledger at this link.</h1>
+<p class="sub">Ledger links are private and single sample. Check the link in your delivery email. If you just received it, give the machine a few seconds and refresh.</p>
+<p><a class="btn" href="/leads/">Request a sample</a></p>
+</div></section>
+
+<div id="report" hidden>
+<section class="section"><div class="wrap">
+<p class="eyebrow">Verified lead sample</p>
+<h1>Every check, every lead.</h1>
+<p class="sub" id="meta"></p>
+<div class="card">
+<p class="count" id="count"></p>
+<p class="scarcenote" id="scarce" hidden></p>
+</div>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="wrap">
+<p class="eyebrow">The ledger</p>
+<h2>What each lead survived</h2>
+<div id="leads"></div>
+<p class="fine">Found and verified name the tool that did the work. The judge verdict cites only the fields shown here.</p>
+</div></section>
+
+<div class="cta-band"><div class="wrap">
+<h2>Want a hundred more like these, or the whole campaign run for you?</h2>
+<p>Reply to your delivery email, or raise your hand here and you will hear back within one business day.</p>
+<div class="card">
+<form id="hr" novalidate>
+<div class="field"><label for="hr_name">Name</label><input id="hr_name" type="text" autocomplete="name"></div>
+<div class="field"><label for="hr_company">Company</label><input id="hr_company" type="text" autocomplete="organization"></div>
+<div class="field"><label for="hr_email">Email</label><input id="hr_email" type="email" autocomplete="email"></div>
+<div class="field"><label for="hr_offer">What you sell</label><textarea id="hr_offer"></textarea></div>
+<input class="hp" type="text" id="hr_hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+<button class="btn" id="hr_go" type="submit">Raise my hand</button>
+<div class="msg" id="hr_msg" role="status" aria-live="polite"></div>
+</form>
+</div>
+</div></div>
+</div>
+
+<footer><div class="wrap">
+<p>Launch Forte, Grapevine, Texas.</p>
+<p>This ledger is a private link for the requester. Sample contacts receive nothing from us.</p>
+<p><a href="/leads/">Request a sample</a> <a href="/grade/" style="margin-left:14px">Run the free systems grade</a></p>
+</div></footer>
+
+<script>
+const CONFIG={
+WEBHOOK_LEDGER:'https://launchforte.app.n8n.cloud/webhook/sample-ledger',
+WEBHOOK_HANDRAISE:'https://launchforte.app.n8n.cloud/webhook/sample-handraise',
+LEADS_PAGE:'https://launchforte.com/leads/',
+WAIT_LIMIT_MS:15000
+};
+const $=(id)=>document.getElementById(id);
+const esc=(s)=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function show(which){['loading','notfound','report'].forEach(id=>{$(id).hidden=(id!==which)})}
+function goodVal(v){v=String(v).toLowerCase();return v.indexOf('pass')===0||v.indexOf('fit')===0||v.indexOf('valid')===0}
+function render(data){
+const s=data.sample||{};
+$('meta').textContent=(s.icp?s.icp+'. ':'')+(s.requestedAt?'Requested '+s.requestedAt+'.':'');
+const delivered=s.delivered!=null?s.delivered:(data.leads||[]).length;
+$('count').textContent=delivered+' of ten delivered.';
+if(s.scarce){
+$('scarce').hidden=false;
+$('scarce').textContent='We drew '+(s.drawn!=null?s.drawn:'the full pool of')+' raw contacts for this segment, and these are the ones that cleared every check. Your segment runs thin, and that is worth knowing too.';
+}
+const box=$('leads');box.innerHTML='';
+(data.leads||[]).forEach(L=>{
+const card=document.createElement('div');card.className='lead card';
+let badges='';
+(L.checks||[]).forEach(pair=>{
+const lab=esc(pair[0]),val=esc(pair[1]);
+badges+='<span class="badge'+(goodVal(pair[1])?' good':'')+'">'+lab+(val?': '+val:'')+'</span>';
+});
+const j=L.judge||{};
+card.innerHTML='<p class="lead-name">'+esc(L.name)+' <span class="lead-meta">'+esc([L.title,L.company,L.city].filter(Boolean).join(', '))+'</span></p>'
++'<p class="lead-email">'+esc(L.email)+'</p>'
++'<p class="badges">'+badges+'</p>'
++(j.verdict?'<p class="judge"><span class="v">Judge: '+esc(j.verdict)+'.</span> '+esc(j.reason||'')+'</p>':'');
+box.appendChild(card);
+});
+show('report');
+}
+async function load(){
+const id=new URLSearchParams(location.search).get('id');
+if(!id){show('notfound');return}
+try{
+const ctl=new AbortController();const t=setTimeout(()=>ctl.abort(),CONFIG.WAIT_LIMIT_MS);
+const r=await fetch(CONFIG.WEBHOOK_LEDGER+'?id='+encodeURIComponent(id),{signal:ctl.signal});
+clearTimeout(t);
+const data=await r.json().catch(()=>({found:false}));
+if(data&&data.found){render(data)}else{show('notfound')}
+}catch(e){show('notfound')}
+}
+async function raise(ev){
+ev.preventDefault();
+const msg=$('hr_msg');msg.className='msg';msg.textContent='';
+const name=$('hr_name').value.trim(),company=$('hr_company').value.trim(),email=$('hr_email').value.trim(),offer=$('hr_offer').value.trim();
+if(!name||!email){msg.className='msg err';msg.textContent='A name and an email are enough to start.';return}
+$('hr_go').disabled=true;msg.textContent='Sending.';
+const id=new URLSearchParams(location.search).get('id')||'';
+const body={name,company,email,offer,sampleId:id,hp:$('hr_hp').value,ts:new Date().toISOString()};
+try{
+const r=await fetch(CONFIG.WEBHOOK_HANDRAISE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+msg.textContent='Got it. You will hear back within one business day.';
+}catch(e){msg.className='msg err';msg.textContent='That did not go through. Reply to your delivery email instead.';$('hr_go').disabled=false;}
+}
+load();
+$('hr').addEventListener('submit',raise);
+</script>
+</body>
+</html>
