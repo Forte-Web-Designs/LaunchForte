@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Pipeline That Talks. A Live CRM Messaging Demo | Launch Forte</title>
+<meta name="description" content="Drag a deal card across a live pipeline board and watch each stage send a real, correctly targeted email to your own inbox within seconds. Feel what stage driven messaging is.">
+<style>
+/* ============================================================
+   BRAND TOKENS. Identical to the med spa island so both demos
+   read as the same house. Everything derives from this block.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7;      /* page background */
+  --ink:#15221E;        /* primary text */
+  --ink-soft:#5B6660;   /* secondary text */
+  --line:#E5E3DB;       /* hairlines */
+  --card:#FFFFFF;       /* card surface */
+  --accent:#123B33;     /* brand deep green, primary action */
+  --accent-ink:#FFFFFF;
+  --warm:#A33B2E;       /* rust, alerts and emphasis */
+  --gold:#C9A227;       /* small highlights */
+  --dark:#12211C;       /* dark CTA card */
+  --radius:12px;
+  --shadow:0 1px 2px rgba(28,43,54,.06), 0 8px 24px rgba(28,43,54,.07);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-ui);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--font);font-weight:600;line-height:1.18}
+a{color:var(--accent)}
+.small{font-size:13px;color:var(--ink-soft)}
+
+/* banner */
+.banner{background:var(--dark);color:#E8EFEA;text-align:center;font-size:13.5px;padding:9px 16px}
+.banner strong{color:#fff}
+
+/* hero */
+.hero{padding:44px 0 10px;text-align:center}
+.hero h1{font-size:clamp(30px,4.6vw,46px);max-width:820px;margin:0 auto 14px}
+.hero p.lede{font-size:clamp(16px,2vw,19px);color:var(--ink-soft);max-width:680px;margin:0 auto 18px}
+.chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0 6px}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--ink-soft);box-shadow:var(--shadow)}
+.chip b{color:var(--ink)}
+
+/* start form */
+.startCard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);max-width:560px;margin:26px auto;padding:26px 26px 22px;text-align:left}
+.startCard h3{font-size:20px;margin-bottom:6px}
+.startCard label{display:block;font-size:13px;color:var(--ink-soft);margin:12px 0 5px}
+.startCard input[type=email], .startCard input[type=text]{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:9px;font-size:15.5px;background:#FDFDFB}
+.consent{display:flex;gap:9px;align-items:flex-start;margin-top:13px;font-size:13.5px;color:var(--ink-soft)}
+.consent input{margin-top:3px}
+.btn{display:inline-block;background:var(--accent);color:var(--accent-ink);border:none;border-radius:9px;padding:13px 22px;font-size:15.5px;font-weight:600;cursor:pointer;width:100%;margin-top:16px}
+.btn:disabled{opacity:.55;cursor:default}
+.hp{position:absolute;left:-6000px;top:-6000px}
+.err{color:var(--warm);font-size:13.5px;margin-top:10px;display:none}
+
+/* board */
+.boardWrap{margin:30px 0 8px}
+.board{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.col{background:#F3F1EA;border:1px solid var(--line);border-radius:12px;min-height:250px;padding:9px;transition:background .15s, border-color .15s}
+.col.over{background:#E9F2F0;border-color:var(--accent)}
+.col h4{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);padding:2px 4px 8px;display:flex;justify-content:space-between;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.card-deal{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:12px;cursor:grab;user-select:none;touch-action:none;position:relative}
+.card-deal:active{cursor:grabbing}
+.card-deal .nm{font-weight:600;font-size:14.5px}
+.card-deal .val{font-size:12.5px;color:var(--ink-soft);margin-top:3px}
+.card-deal .badge{position:absolute;top:-9px;right:-6px;background:var(--gold);color:#2b230a;font-size:10.5px;font-weight:700;border-radius:999px;padding:2px 8px;display:none}
+.card-deal.dragging{opacity:.45}
+.ghost{position:fixed;pointer-events:none;z-index:60;width:180px;transform:rotate(2deg)}
+.lane-int{margin-top:12px;background:#F3F1EA;border:1px dashed var(--line);border-radius:12px;padding:9px;display:none}
+.lane-int h4{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:7px}
+.task{background:#FFF9E8;border:1px solid #EAD9A0;border-radius:9px;padding:10px 12px;font-size:13.5px}
+
+/* time warp */
+.warp{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:16px 18px;margin-top:14px;display:none}
+.warp h4{font-size:14px;margin-bottom:4px}
+.warp p{font-size:13px;color:var(--ink-soft);margin-bottom:10px}
+.warp input[type=range]{width:100%;accent-color:var(--accent)}
+.warpDays{font-weight:700;font-variant-numeric:tabular-nums}
+
+/* lost picker */
+.lostPick{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:16px 18px;margin-top:14px;display:none}
+.lostPick h4{font-size:14px;margin-bottom:9px}
+.lostPick button{background:#F3F1EA;border:1px solid var(--line);border-radius:9px;padding:10px 16px;font-size:14px;cursor:pointer;margin-right:8px}
+.lostPick button:hover{border-color:var(--accent)}
+
+/* narrator */
+.narr{background:var(--dark);color:#DCE7E1;border-radius:var(--radius);padding:20px 22px;margin-top:18px}
+.narr h4{color:#fff;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;opacity:.75}
+.narr .feed{display:flex;flex-direction:column;gap:9px;max-height:260px;overflow-y:auto}
+.narr .ev{font-size:14px;line-height:1.5;border-left:2px solid var(--accent);padding-left:11px}
+.narr .ev .t{opacity:.55;font-size:12px;font-variant-numeric:tabular-nums}
+.narr .ev.mail b{color:#F2D680}
+
+/* layout: board plus narrator on desktop */
+.play{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:960px){
+  .play{grid-template-columns:2.1fr 1fr;gap:18px;align-items:start}
+  .narr{margin-top:30px}
+}
+
+/* explainer + stats */
+.section{padding:44px 0 8px}
+.section h2{font-size:clamp(24px,3.2vw,32px);margin-bottom:12px}
+.section p{color:var(--ink-soft);max-width:720px;margin-bottom:12px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:20px 0}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:18px}
+.stat .n{font-family:var(--font);font-size:30px;color:var(--accent)}
+.stat .d{font-size:13.5px;color:var(--ink-soft);margin-top:4px}
+
+/* CTA */
+.cta{background:var(--dark);border-radius:var(--radius);color:#E8EFEA;padding:34px 30px;margin:40px 0 60px;display:none}
+.cta h2{color:#fff;font-size:clamp(22px,3vw,30px);margin-bottom:8px}
+.cta p{color:#B9C9C0;max-width:640px;margin-bottom:18px}
+.cta label{display:block;font-size:13px;color:#9FB3A9;margin:12px 0 5px}
+.cta input, .cta select{width:100%;padding:12px 13px;border:1px solid #2C4038;border-radius:9px;font-size:15px;background:#1A2E27;color:#fff}
+.cta .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.cta .grid2{grid-template-columns:1fr}}
+.cta .btn{background:var(--accent);width:auto;padding:13px 28px}
+.cta .ok{display:none;font-size:16px;color:#F2D680;margin-top:14px}
+footer{padding:26px 0 40px;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="banner"><strong>This is a live demo for Summit Services, a fictitious company.</strong> Picture your pipeline on it.</div>
+
+<section class="hero wrap">
+  <h1 id="heroH">Drag the deal. Watch your inbox.</h1>
+  <p class="lede">Below is a live sales pipeline for Summit Services. Your name rides the deal card. Every stage you drag it to sends a different, correctly targeted email to your real inbox within seconds. Nobody at Summit Services is typing anything, because Summit Services does not exist. The messages are real.</p>
+  <div class="chips">
+    <span class="chip"><b>Live</b>, the emails really send</span>
+    <span class="chip"><b>Demo only</b>, a handful of messages, then it stops</span>
+    <span class="chip">Works with <b>any CRM</b>, this mechanic ships in all of them</span>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="startCard" id="startCard">
+    <h3>Put yourself on the board</h3>
+    <p class="small">Enter the inbox you can check right now. The deal card takes your name, and the demo emails land there as you play.</p>
+    <form id="startForm" autocomplete="on">
+      <label for="fEmail">Your email</label>
+      <input type="email" id="fEmail" required placeholder="you@company.com">
+      <label for="fName">First name (optional)</label>
+      <input type="text" id="fName" placeholder="What the card should say">
+      <input class="hp" type="text" name="website" id="fWeb" tabindex="-1" autocomplete="off">
+      <label class="consent"><input type="checkbox" id="fConsent"> <span>Send me the demo emails as I play. Demo messages only, a handful at most.</span></label>
+      <button class="btn" id="startBtn" type="submit">Start the demo</button>
+      <div class="err" id="startErr"></div>
+    </form>
+  </div>
+
+  <div class="play" id="play" style="display:none">
+    <div>
+      <div class="boardWrap">
+        <div class="board" id="board">
+          <div class="col" data-stage="new"><h4>New Lead <span class="dot" style="background:#8FA6B2"></span></h4><div class="colBody" id="col-new"></div></div>
+          <div class="col" data-stage="contacted"><h4>Contacted <span class="dot" style="background:#5B8DB8"></span></h4><div class="colBody" id="col-contacted"></div></div>
+          <div class="col" data-stage="quoted"><h4>Quoted <span class="dot" style="background:var(--gold)"></span></h4><div class="colBody" id="col-quoted"></div></div>
+          <div class="col" data-stage="won"><h4>Won <span class="dot" style="background:var(--accent)"></span></h4><div class="colBody" id="col-won"></div></div>
+          <div class="col" data-stage="lost"><h4>Lost <span class="dot" style="background:var(--warm)"></span></h4><div class="colBody" id="col-lost"></div></div>
+        </div>
+        <div class="lane-int" id="laneInt"><h4>Internal (Summit's own board)</h4><div class="task" id="intTask"></div></div>
+      </div>
+
+      <div class="warp" id="warp">
+        <h4>Fast forward</h4>
+        <p>The card is sitting in Quoted with no reply. Real pipelines stall here for weeks. Slide time forward and watch what a system does about it, with nobody touching anything.</p>
+        <input type="range" id="warpRange" min="0" max="14" value="0" step="1">
+        <div class="small">Demo time elapsed: <span class="warpDays" id="warpDays">0 days</span> since the quote went out. At 14 days, something happens on its own.</div>
+      </div>
+
+      <div class="lostPick" id="lostPick">
+        <h4>Why did the deal die? (The system asks, because the answer changes the message.)</h4>
+        <button id="lostPrice">Price was too high</button>
+        <button id="lostTiming">Bad timing</button>
+      </div>
+    </div>
+
+    <div class="narr" id="narr">
+      <h4>What just happened, in plain words</h4>
+      <div class="feed" id="feed"></div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>Every CRM ships this. Almost nobody runs it.</h2>
+    <p>What you just felt is called stage driven messaging: the record moves, and the right message sends itself, from the rep's own address, at the moment it matters. It is the single most common automation mechanic in existence. It sits switched off inside the CRM most businesses already pay for.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">48%</div><div class="d">of salespeople never make a single follow up attempt after the first contact.</div></div>
+      <div class="stat"><div class="n">80%</div><div class="d">of sales take five or more touches before they close.</div></div>
+      <div class="stat"><div class="n">0</div><div class="d">people typed any of the emails you just received.</div></div>
+    </div>
+    <p>The demo you played is not a product. It is the outcome, made visible. The board is the CRM you already have; the emails are the follow ups your pipeline is not sending today.</p>
+  </section>
+
+  <div class="cta" id="cta">
+    <h2>Your CRM has this feature. This demo is the outcome.</h2>
+    <p>Want it installed on yours, whatever it is? Tell us what you run (spreadsheets count) and we will map your stages to messages that sound like you.</p>
+    <form id="ctaForm">
+      <div class="grid2">
+        <div><label for="cName">Your name</label><input type="text" id="cName" required></div>
+        <div><label for="cCompany">Company</label><input type="text" id="cCompany"></div>
+      </div>
+      <div class="grid2">
+        <div><label for="cEmail">Email</label><input type="email" id="cEmail" required></div>
+        <div><label for="cCrm">What CRM do you run?</label>
+          <select id="cCrm">
+            <option value="">Pick one</option>
+            <option>None / spreadsheets</option>
+            <option>HubSpot</option>
+            <option>GoHighLevel</option>
+            <option>Salesforce</option>
+            <option>Pipedrive</option>
+            <option>Zoho</option>
+            <option>Jobber / ServiceTitan / trade software</option>
+            <option>Something else</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn" id="ctaBtn" type="submit">Start here</button>
+      <div class="ok" id="ctaOk">Got it. A real person (one, specifically) will reply from a real inbox.</div>
+      <div class="err" id="ctaErr" style="color:#F2B8A0"></div>
+    </form>
+  </div>
+
+  <footer class="small">A working demo by <a href="https://launchforte.com">Launch Forte</a>. Summit Services is fictitious; the automation and the emails are real. No list, no sequence, no spam: the messages stop when the play stops.</footer>
+</div>
+
+<script>
+(function(){
+  var API = 'https://launchforte.app.n8n.cloud/webhook';
+  var runId = null, firstName = 'Friend';
+  var played = {};            // stageKey -> true
+  var currentStage = 'new';
+  var warpFired = false;
+
+  var qs = new URLSearchParams(location.search);
+  var pfFn = qs.get('fn') || '', pfBn = qs.get('bn') || '', pfE = qs.get('e') || '';
+  if (pfFn) document.getElementById('fName').value = pfFn;
+  if (pfE) document.getElementById('fEmail').value = pfE;
+  if (pfBn) {
+    document.querySelector('.banner').innerHTML = '<strong>This is a live demo for Summit Services, a fictitious company.</strong> Picture the ' + escapeHtml(pfBn) + ' pipeline on it.';
+  }
+
+  function escapeHtml(s){ var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  function now(){ var d = new Date(); return d.toLocaleTimeString([], {hour:'numeric', minute:'2-digit', second:'2-digit'}); }
+  function narrate(html, mail){
+    var f = document.getElementById('feed');
+    var ev = document.createElement('div');
+    ev.className = 'ev' + (mail ? ' mail' : '');
+    ev.innerHTML = '<span class="t">' + now() + '</span><br>' + html;
+    f.prepend(ev);
+  }
+  function post(path, body){
+    return fetch(API + '/' + path, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)}).then(function(r){ return r.json().catch(function(){ return {ok:false, reason:'network'}; }); });
+  }
+
+  /* ---------- start ---------- */
+  document.getElementById('startForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('fEmail').value.trim();
+    var consent = document.getElementById('fConsent').checked;
+    var err = document.getElementById('startErr');
+    err.style.display = 'none';
+    if (!consent) { err.textContent = 'Check the consent box so we are allowed to send you the demo emails.'; err.style.display = 'block'; return; }
+    var btn = document.getElementById('startBtn');
+    btn.disabled = true; btn.textContent = 'Setting up your card...';
+    post('pipeline-start', {
+      email: email,
+      consent: true,
+      fn: document.getElementById('fName').value.trim(),
+      bn: pfBn,
+      website: document.getElementById('fWeb').value
+    }).then(function(j){
+      if (j.ok) {
+        runId = j.runId; firstName = j.firstName || 'Friend';
+        beginPlay();
+      } else {
+        btn.disabled = false; btn.textContent = 'Start the demo';
+        if (j.reason === 'repeat_1d') err.textContent = 'This inbox already played today. The demo allows one full play per inbox per day, which is itself the rate limiter doing its job. Come back tomorrow, or use another inbox.';
+        else if (j.reason === 'daily_cap') err.textContent = 'The demo hit its daily send cap (it protects its own sender reputation, which is also the point). Try again tomorrow.';
+        else err.textContent = 'That did not look like a valid email. Try again?';
+        err.style.display = 'block';
+      }
+    });
+  });
+
+  function beginPlay(){
+    document.getElementById('startCard').style.display = 'none';
+    document.getElementById('play').style.display = '';
+    var card = document.createElement('div');
+    card.className = 'card-deal'; card.id = 'deal';
+    card.innerHTML = '<span class="badge" id="dealBadge">rescued</span><div class="nm">' + escapeHtml(firstName) + '’s project</div><div class="val">Summit Services · spring package</div>';
+    document.getElementById('col-new').appendChild(card);
+    wireDrag(card);
+    narrate('Your card is live in <b>New Lead</b>. Drag it to <b>Contacted</b> and watch the inbox you just gave us. Really: open it in another tab.');
+    document.getElementById('play').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  /* ---------- drag (pointer events, works with touch) ---------- */
+  function wireDrag(card){
+    var ghost = null, startX = 0, startY = 0;
+    card.addEventListener('pointerdown', function(e){
+      if (currentStage === 'won' || currentStage === 'lost') return;
+      card.setPointerCapture(e.pointerId);
+      startX = e.clientX; startY = e.clientY;
+      ghost = card.cloneNode(true);
+      ghost.classList.add('ghost'); ghost.style.display = 'none';
+      document.body.appendChild(ghost);
+      card.classList.add('dragging');
+      e.preventDefault();
+    });
+    card.addEventListener('pointermove', function(e){
+      if (!ghost) return;
+      if (Math.abs(e.clientX-startX) + Math.abs(e.clientY-startY) > 6) ghost.style.display = '';
+      ghost.style.left = (e.clientX - 90) + 'px';
+      ghost.style.top = (e.clientY - 28) + 'px';
+      var col = colAt(e.clientX, e.clientY);
+      document.querySelectorAll('.col').forEach(function(c){ c.classList.toggle('over', c === col); });
+    });
+    function finish(e){
+      if (!ghost) return;
+      var col = colAt(e.clientX, e.clientY);
+      document.querySelectorAll('.col').forEach(function(c){ c.classList.remove('over'); });
+      ghost.remove(); ghost = null;
+      card.classList.remove('dragging');
+      if (col) dropOn(col.getAttribute('data-stage'));
+    }
+    card.addEventListener('pointerup', finish);
+    card.addEventListener('pointercancel', function(){ if (ghost){ ghost.remove(); ghost = null; card.classList.remove('dragging'); document.querySelectorAll('.col').forEach(function(c){ c.classList.remove('over'); }); } });
+  }
+  function colAt(x, y){
+    var els = document.elementsFromPoint(x, y);
+    for (var i=0;i<els.length;i++){ if (els[i].classList && els[i].classList.contains('col')) return els[i]; }
+    return null;
+  }
+
+  var ORDER = ['new','contacted','quoted','won','lost'];
+  function dropOn(stage){
+    if (stage === currentStage) return;
+    if (stage === 'new') { moveCard('new'); currentStage = 'new'; hideExtras(); return; }
+    if (stage === 'won' || stage === 'lost') {
+      if (ORDER.indexOf(currentStage) < ORDER.indexOf('quoted') && currentStage !== 'contacted') {
+        narrate('Deals usually get talked to before they close. Try <b>Contacted</b> first, but the board will not stop you next drag.');
+      }
+    }
+    moveCard(stage);
+    var prev = currentStage; currentStage = stage;
+    hideExtras();
+    if (stage === 'contacted') fireStage('contacted');
+    if (stage === 'quoted') { fireStage('quoted'); showWarp(); }
+    if (stage === 'won') { fireStage('won'); wonBeat(); }
+    if (stage === 'lost') showLostPick();
+  }
+  function moveCard(stage){
+    document.getElementById('col-' + stage).appendChild(document.getElementById('deal'));
+  }
+  function hideExtras(){
+    document.getElementById('warp').style.display = 'none';
+    document.getElementById('lostPick').style.display = 'none';
+  }
+
+  /* ---------- stage firing ---------- */
+  var STAGE_WORDS = {
+    contacted: 'Card moved to <b>Contacted</b>. The warm follow up (“here is what happens next”) just sent itself to your inbox, from the rep’s own address. In a real pipeline this fires the moment first touch is logged.',
+    quoted: 'Card moved to <b>Quoted</b>. The quote recap with a single clear next step is on its way to you. This is the email most businesses mean to send and do not.',
+    rescue: '<b>14 days, no reply.</b> Nobody dragged anything. Time itself was the trigger: the stalled deal rescue just went out, and the card got its “rescued” badge. Quotes do not lose, they expire, unless something is watching.',
+    won: 'Card moved to <b>Won</b>. Two emails are heading to you: the onboarding welcome, and the invoice with a PDF attached that generated itself. A kickoff task also just landed on Summit’s internal lane below the board. One drag, three actions.',
+    lost_price: 'Card moved to <b>Lost</b>, reason: <b>price</b>. The win back on its way to you talks about budget, because the system knows why you left. Same stage, different message.',
+    lost_bad_timing: 'Card moved to <b>Lost</b>, reason: <b>bad timing</b>. The win back heading to you holds the door open for later, because that is what a timing exit needs. Same stage, different message.'
+  };
+  function fireStage(stage, reason){
+    var key = stage === 'lost' ? 'lost_' + reason : stage;
+    if (played[key]) { narrate('That stage already sent its email this play. Dragging back and forth does not double send: the system remembers. (That restraint is also the feature.)'); return; }
+    post('pipeline-stage', {runId: runId, stage: stage, reason: reason || ''}).then(function(j){
+      if (j.ok && !j.already) {
+        played[key] = true;
+        narrate(STAGE_WORDS[key] + ' <b>Check your inbox.</b>', true);
+        maybeShowCta();
+      } else if (j.ok && j.already) {
+        played[key] = true;
+        narrate('That stage already sent its email this play. No double sends.');
+      } else {
+        narrate('The demo could not reach its own backend just then. Drag again in a moment.');
+      }
+    });
+  }
+
+  /* ---------- time warp ---------- */
+  function showWarp(){
+    if (warpFired) return;
+    var w = document.getElementById('warp');
+    w.style.display = '';
+    var r = document.getElementById('warpRange');
+    r.value = 0; updateDays(0);
+    r.oninput = function(){ updateDays(parseInt(r.value, 10)); };
+  }
+  function updateDays(d){
+    document.getElementById('warpDays').textContent = d + (d === 1 ? ' day' : ' days');
+    if (d >= 14 && !warpFired && currentStage === 'quoted') {
+      warpFired = true;
+      document.getElementById('dealBadge').style.display = 'inline-block';
+      fireStage('rescue');
+      document.getElementById('warp').querySelector('p').textContent = 'It fired. No drag, no reminder, no rep remembering. The clock did it.';
+    }
+  }
+
+  /* ---------- won beat ---------- */
+  function wonBeat(){
+    var lane = document.getElementById('laneInt');
+    lane.style.display = '';
+    document.getElementById('intTask').textContent = 'Kick off ' + firstName + '’s project (auto created when the deal closed)';
+  }
+
+  /* ---------- lost picker ---------- */
+  function showLostPick(){
+    document.getElementById('lostPick').style.display = '';
+    narrate('The card is in <b>Lost</b>. Before anything sends, the system wants one fact: why. Pick a reason and see how the message changes.');
+    document.getElementById('lostPrice').onclick = function(){ document.getElementById('lostPick').style.display='none'; fireStage('lost', 'price'); };
+    document.getElementById('lostTiming').onclick = function(){ document.getElementById('lostPick').style.display='none'; fireStage('lost', 'bad_timing'); };
+  }
+
+  /* ---------- CTA ---------- */
+  function maybeShowCta(){
+    if (played['won'] || played['lost_price'] || played['lost_bad_timing']) {
+      var c = document.getElementById('cta');
+      if (c.style.display !== 'block') {
+        c.style.display = 'block';
+        setTimeout(function(){ c.scrollIntoView({behavior:'smooth', block:'center'}); }, 1200);
+      }
+    }
+  }
+  document.getElementById('ctaForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = document.getElementById('ctaBtn');
+    btn.disabled = true; btn.textContent = 'Sending...';
+    post('pipeline-handraise', {
+      name: document.getElementById('cName').value.trim(),
+      company: document.getElementById('cCompany').value.trim(),
+      email: document.getElementById('cEmail').value.trim(),
+      crm: document.getElementById('cCrm').value,
+      runId: runId || ''
+    }).then(function(){
+      document.getElementById('ctaOk').style.display = 'block';
+      btn.style.display = 'none';
+    });
+  });
+})();
+</script>
+</body>
+</html>
