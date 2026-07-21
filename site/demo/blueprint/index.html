@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Instant Systems Blueprint. Five Answers, One Map | Launch Forte</title>
+<meta name="description" content="Answer five plain questions and watch a map of your operation draw itself, with the leaks marked in red. Nothing connects to anything.">
+<style>
+/* ============================================================
+   BRAND TOKENS. Identical to the med spa island so both demos
+   read as the same house. Everything derives from this block.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7;      /* page background */
+  --card:#FFFFFF;       /* cards, phone, forms */
+  --ink:#15221E;        /* primary text */
+  --muted:#5B6660;      /* secondary text */
+  --line:#E5E3DB;       /* hairlines and borders */
+  --brand:#123B33;      /* buttons, headings accent, timer numerals */
+  --brand-soft:#E7F1EC; /* banner, chips, success tint */
+  --err:#A33B2E;        /* error text */
+  --bubble:#E9E9EB;
+  --ok:#1E7A4F;         /* healthy node green */
+  --red:#B42318;        /* broken node red */
+  --radius:12px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.55;font-size:16px}
+main{max-width:720px;margin:0 auto;padding:0 18px 72px}
+h1{font-size:clamp(28px,6vw,40px);line-height:1.15;margin:26px 0 12px;letter-spacing:-.01em}
+h2{font-size:22px;margin:44px 0 10px;letter-spacing:-.01em}
+p{margin:10px 0}
+.muted{color:var(--muted)}
+.small{font-size:13.5px}
+a{color:var(--brand)}
+button{font-family:var(--font)}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:4px}
+.frame{display:inline-flex;align-items:center;gap:8px;background:var(--brand-soft);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13.5px;margin-top:14px}
+.frame .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none}
+.q{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 14px;margin:16px 0}
+.q .qn{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em}
+.q .qt{font-weight:600;font-size:17px;margin:4px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 15px;font-size:14.5px;cursor:pointer;transition:background .12s,border-color .12s}
+.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.chip.sec[aria-pressed="true"]{background:var(--brand-soft);border-color:var(--brand);color:var(--brand)}
+.otherwrap{margin-top:10px;display:none}
+.otherwrap.show{display:block}
+.otherwrap input{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14.5px;font-family:var(--font)}
+.hint{font-size:13px;color:var(--muted);margin:10px 0 0}
+.mapcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:20px 0}
+.mapcard .mh{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;margin-bottom:8px}
+.leakline{font-size:26px;font-weight:700;color:var(--brand);margin:4px 0 10px}
+.leakline .n{color:var(--red)}
+.leakline.zero .n{color:var(--ok)}
+#map svg{width:100%;height:auto;display:block}
+.hd{font-family:var(--mono);font-size:9px;fill:var(--muted);text-anchor:middle;letter-spacing:.1em}
+.bn{fill:var(--brand-soft);stroke:var(--line);stroke-width:1}
+.bt{font-family:var(--mono);font-size:10.5px;fill:var(--ink);text-anchor:middle}
+.bx{fill:var(--card);stroke:var(--brand);stroke-width:1.5}
+.bx.red{stroke:var(--red)}
+.bl{font-family:var(--mono);font-size:9.5px;fill:var(--muted);text-anchor:middle;letter-spacing:.08em}
+.bl.rl{fill:var(--red)}
+.bt2{font-family:var(--font);font-size:12.5px;font-weight:600;fill:var(--ink);text-anchor:middle}
+.eg{fill:none;stroke:var(--brand);stroke-width:1.5;opacity:.5}
+.eg.red{stroke:var(--red);stroke-dasharray:5 4;opacity:.95;stroke-width:2}
+.own{fill:var(--card);stroke:var(--red);stroke-width:2;stroke-dasharray:5 4}
+.ownt{font-family:var(--mono);font-size:11px;font-weight:700;fill:var(--red);text-anchor:middle}
+.bdg{fill:#FDF0EE;stroke:var(--red);stroke-width:1}
+.bdgc{fill:var(--red)}
+.bdgx{font-family:var(--mono);font-size:9px;font-weight:700;fill:#fff;text-anchor:middle}
+.bdgt{font-family:var(--mono);font-size:9.5px;fill:var(--red)}
+.break{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:20px 0}
+label{display:block;font-size:14px;font-weight:600;margin:12px 0 5px}
+input[type=email],input[type=text]{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:15px;font-family:var(--font)}
+.consent{display:flex;gap:9px;align-items:flex-start;margin:14px 0;font-size:13.5px;color:var(--muted)}
+.consent input{margin-top:3px;flex:none}
+.btn{display:inline-block;background:var(--brand);color:#fff;border:0;border-radius:10px;padding:14px 24px;font-size:16px;font-weight:600;cursor:pointer;width:100%}
+.btn[disabled]{opacity:.55;cursor:default}
+.err{color:var(--err);font-size:14px;margin:10px 0 0;display:none}
+.err.show{display:block}
+.hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+footer{border-top:1px solid var(--line);margin-top:56px;padding-top:18px;font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){
+  .chip{transition:background .12s,border-color .12s,transform .08s}
+  .chip:active{transform:scale(.97)}
+}
+</style>
+</head>
+<body>
+<main>
+  <h1 id="hero">Five answers. A map of your whole operation, leaks marked in red.</h1>
+  <p class="muted">The grader looks at your business from the outside. This is the inside view: tell us how work actually moves, and watch the map draw itself while you answer.</p>
+  <div class="frame"><span class="dot"></span>Five questions, nothing connects to anything. This reads your answers and touches nothing.</div>
+
+  <section class="q" id="q1">
+    <div class="qn">QUESTION 1 OF 5</div>
+    <div class="qt">Where do customers come from?</div>
+    <div class="chips" data-q="sources" data-multi="1">
+      <button type="button" class="chip" data-v="ads" aria-pressed="false">Ads</button>
+      <button type="button" class="chip" data-v="search" aria-pressed="false">Google search</button>
+      <button type="button" class="chip" data-v="social" aria-pressed="false">Social + DMs</button>
+      <button type="button" class="chip" data-v="referrals" aria-pressed="false">Referrals</button>
+      <button type="button" class="chip" data-v="walkins" aria-pressed="false">Walk ins + calls</button>
+      <button type="button" class="chip" data-v="other" aria-pressed="false">Other</button>
+    </div>
+    <div class="otherwrap" id="ow-sources"><input type="text" id="other-sources" maxlength="60" placeholder="Tell us in a few words" aria-label="Other customer source"></div>
+    <p class="hint">Pick everything that applies.</p>
+  </section>
+
+  <section class="q" id="q2">
+    <div class="qn">QUESTION 2 OF 5</div>
+    <div class="qt">What catches them when they show up?</div>
+    <div class="chips" data-q="capture" data-multi="1">
+      <button type="button" class="chip" data-v="forms" aria-pressed="false">Website forms</button>
+      <button type="button" class="chip" data-v="phone" aria-pressed="false">Phone</button>
+      <button type="button" class="chip" data-v="dms_hand" aria-pressed="false">DMs answered by hand</button>
+      <button type="button" class="chip" data-v="inbox" aria-pressed="false">Email inbox</button>
+      <button type="button" class="chip" data-v="nothing" aria-pressed="false">Nothing consistent</button>
+      <button type="button" class="chip" data-v="other" aria-pressed="false">Other</button>
+    </div>
+    <div class="otherwrap" id="ow-capture"><input type="text" id="other-capture" maxlength="60" placeholder="Tell us in a few words" aria-label="Other capture method"></div>
+    <p class="hint">Pick everything that applies.</p>
+  </section>
+
+  <section class="q" id="q3">
+    <div class="qn">QUESTION 3 OF 5</div>
+    <div class="qt">What runs the middle of the business?</div>
+    <div class="chips" data-q="middlePrimary">
+      <button type="button" class="chip" data-v="crm_allinone" aria-pressed="false">An all in one CRM</button>
+      <button type="button" class="chip" data-v="crm_sales" aria-pressed="false">A sales CRM</button>
+      <button type="button" class="chip" data-v="spreadsheets" aria-pressed="false">Spreadsheets</button>
+      <button type="button" class="chip" data-v="memory" aria-pressed="false">Someone's memory</button>
+      <button type="button" class="chip" data-v="industry_tool" aria-pressed="false">An industry tool</button>
+      <button type="button" class="chip" data-v="other" aria-pressed="false">Other</button>
+    </div>
+    <div class="otherwrap" id="ow-middle"><input type="text" id="other-middle" maxlength="60" placeholder="Tell us in a few words" aria-label="Other middle system"></div>
+    <p class="hint" style="margin-top:14px">Anything else helping out? Optional.</p>
+    <div class="chips" data-q="middleSecondary" style="margin-top:8px">
+      <button type="button" class="chip sec" data-v="crm_allinone" aria-pressed="false">An all in one CRM</button>
+      <button type="button" class="chip sec" data-v="crm_sales" aria-pressed="false">A sales CRM</button>
+      <button type="button" class="chip sec" data-v="spreadsheets" aria-pressed="false">Spreadsheets</button>
+      <button type="button" class="chip sec" data-v="memory" aria-pressed="false">Someone's memory</button>
+      <button type="button" class="chip sec" data-v="industry_tool" aria-pressed="false">An industry tool</button>
+    </div>
+  </section>
+
+  <section class="q" id="q4">
+    <div class="qn">QUESTION 4 OF 5</div>
+    <div class="qt">How does money get billed and reconciled?</div>
+    <div class="chips" data-q="money">
+      <button type="button" class="chip" data-v="acct_connected" aria-pressed="false">Accounting software, connected to the middle</button>
+      <button type="button" class="chip" data-v="acct_not_connected" aria-pressed="false">Accounting software, not connected</button>
+      <button type="button" class="chip" data-v="invoices_hand" aria-pressed="false">Invoices by hand</button>
+      <button type="button" class="chip" data-v="check_bank" aria-pressed="false">I check the bank</button>
+    </div>
+  </section>
+
+  <section class="q" id="q5">
+    <div class="qn">QUESTION 5 OF 5</div>
+    <div class="qt">Who moves information between these by hand?</div>
+    <div class="chips" data-q="mover">
+      <button type="button" class="chip" data-v="nobody" aria-pressed="false">Nobody, it flows</button>
+      <button type="button" class="chip" data-v="team_member" aria-pressed="false">A team member</button>
+      <button type="button" class="chip" data-v="owner" aria-pressed="false">Mostly me, the owner</button>
+      <button type="button" class="chip" data-v="missed" aria-pressed="false">Things just get missed</button>
+    </div>
+  </section>
+
+  <section class="mapcard" id="mapcard" hidden>
+    <div class="mh">YOUR MAP, DRAWN FROM YOUR ANSWERS</div>
+    <div class="leakline" id="leakline"></div>
+    <div id="map" aria-live="polite"></div>
+  </section>
+
+  <section class="break" id="gate">
+    <h2 style="margin-top:0">Get the read on your map</h2>
+    <p class="muted small">We'll generate a short plain English read of what the map shows, written only from your five answers, and give you a link that keeps the map.</p>
+    <label for="fn">First name <span class="muted" style="font-weight:400">(optional)</span></label>
+    <input type="text" id="fn" maxlength="60" autocomplete="given-name">
+    <label for="email">Email</label>
+    <input type="email" id="email" required autocomplete="email" inputmode="email">
+    <div class="hp" aria-hidden="true"><label>Website<input type="text" id="hp" tabindex="-1" autocomplete="off"></label></div>
+    <div class="consent"><input type="checkbox" id="consent"><label for="consent" style="margin:0;font-weight:400">Email me my Blueprint and occasional notes on fixing systems like this. One run per email per day.</label></div>
+    <button type="button" class="btn" id="go">Draw my Blueprint</button>
+    <p class="err" id="err"></p>
+  </section>
+
+  <h2>What this is</h2>
+  <p class="muted">Most owners have never seen their own operation drawn as a system. Sources feed capture, capture feeds the middle, the middle feeds money. When a step runs by hand, on memory, or through one person, the map shows it in red. That red is where leads, invoices, and hours quietly leak.</p>
+  <p class="muted">This demo reads five answers and touches nothing. The after version of this map is the System Health Check: your systems mapped for real, leaks priced, fixes prioritized.</p>
+
+  <footer>Launch Forte, Grapevine, TX. Systems and automation for businesses that run on people's memory. <a href="https://launchforte.com">launchforte.com</a></footer>
+</main>
+<script>
+/* Blueprint map engine. Deterministic: answers in, leaks + SVG out. */
+var BP_LABELS = {
+  sources:{ads:'Ads', search:'Google search', social:'Social + DMs', referrals:'Referrals', walkins:'Walk ins + calls', other:'Other'},
+  capture:{forms:'Website forms', phone:'Phone', dms_hand:'DMs by hand', inbox:'Email inbox', nothing:'Nothing consistent', other:'Other'},
+  middle:{crm_allinone:'All in one CRM', crm_sales:'Sales CRM', spreadsheets:'Spreadsheets', memory:"Someone's memory", industry_tool:'Industry tool', other:'Other'},
+  money:{acct_connected:'Accounting, connected', acct_not_connected:'Accounting, not connected', invoices_hand:'Invoices by hand', check_bank:'Checking the bank'},
+  mover:{nobody:'Nobody, it flows', team_member:'A team member', owner:'Mostly the owner', missed:'Things get missed'}
+};
+function bpLeaks(a){
+  var leaks=[];
+  var add=function(id,label,line){leaks.push({id:id,label:label,line:line});};
+  if(a.capture.indexOf('dms_hand')>=0) add('dms','DMs answered by hand','You told us DMs are answered by hand. Anything answered by hand can sit unanswered, and there is no record when it does.');
+  if(a.capture.indexOf('nothing')>=0) add('no_capture','No consistent catch point','You told us nothing catches new customers consistently. Leads that arrive without a catch point are possible losses that never show up anywhere.');
+  if(a.money==='acct_not_connected') add('money_disconnected','Accounting not connected','Your accounting software is not connected to the middle of the business. The same work gets entered twice, and the two systems can disagree.');
+  if(a.money==='invoices_hand') add('invoices_hand','Invoices by hand','Invoices go out by hand. Work that finishes without a triggered invoice is possible unbilled work.');
+  if(a.money==='check_bank') add('check_bank','Reconciled by checking the bank','Reconciliation happens by checking the bank. That measures what arrived, not what should have arrived.');
+  if(a.middle.primary==='memory') add('memory_middle','Runs on memory',"The middle of the operation runs on someone's memory. Memory does not scale and does not hand off.");
+  if(a.middle.primary==='spreadsheets') add('spreadsheet_middle','Middle lives in spreadsheets','The middle of the operation lives in spreadsheets. Spreadsheets hold information but do not move it.');
+  if(a.mover==='owner') add('owner_router','Owner is the router','You told us mostly you move information between these by hand. On this map, you are the router: every flow passes through you.');
+  if(a.mover==='missed') add('dropped','Things get missed','You told us things just get missed. The map shows flows with no clear owner, which is where dropped items live.');
+  return leaks;
+}
+function bpEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+/* Renders the map as an SVG string. Width fixed 360 units, height computed. */
+function bpMap(a){
+  var leaks=bpLeaks(a);
+  var has=function(id){return leaks.some(function(l){return l.id===id;});};
+  var owner=a.mover==='owner';
+  var W=360, cx=W/2;
+  var sN=a.sources.map(function(k){return BP_LABELS.sources[k];});
+  var cN=a.capture.map(function(k){return BP_LABELS.capture[k];});
+  var midLabel=BP_LABELS.middle[a.middle.primary]+(a.middle.secondary?(' + '+BP_LABELS.middle[a.middle.secondary]):'');
+  var monLabel=BP_LABELS.money[a.money];
+  /* vertical layout */
+  var rowY=function(items,y){ /* chip row centered */
+    var g='', pad=6, chW=Math.min(104,(W-16-(items.length-1)*pad)/items.length), h=30;
+    var total=items.length*chW+(items.length-1)*pad, x0=(W-total)/2;
+    var centers=[];
+    items.forEach(function(t,i){
+      var x=x0+i*(chW+pad); centers.push(x+chW/2);
+      g+='<rect x="'+x+'" y="'+y+'" width="'+chW+'" height="'+h+'" rx="8" class="bn"/>';
+      g+='<text x="'+(x+chW/2)+'" y="'+(y+19)+'" class="bt" textLength="'+Math.min(chW-10, t.length*6.2)+'" lengthAdjust="spacingAndGlyphs">'+bpEsc(t)+'</text>';
+    });
+    return {svg:g, centers:centers, h:h};
+  };
+  var box=function(label,y,red,tag){
+    var h=40, x=30, w=W-60;
+    var cls=red?'bx red':'bx';
+    var g='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="10" class="'+cls+'"/>';
+    g+='<text x="'+cx+'" y="'+(y+18)+'" class="bl'+(red?' rl':'')+'">'+bpEsc(tag)+'</text>';
+    g+='<text x="'+cx+'" y="'+(y+33)+'" class="bt2">'+bpEsc(label)+'</text>';
+    return {svg:g, h:h};
+  };
+  var edge=function(x1,y1,x2,y2,red){
+    return '<path d="M'+x1+' '+y1+' C '+x1+' '+((y1+y2)/2)+', '+x2+' '+((y1+y2)/2)+', '+x2+' '+y2+'" class="'+(red?'eg red':'eg')+'"/>';
+  };
+  var badge=function(x,y,txt){
+    var w=Math.min(200, txt.length*6.4+26);
+    return '<g><rect x="'+(x-w/2)+'" y="'+(y-11)+'" width="'+w+'" height="22" rx="11" class="bdg"/>'+
+      '<circle cx="'+(x-w/2+12)+'" cy="'+y+'" r="6" class="bdgc"/><text x="'+(x-w/2+12)+'" y="'+(y+3.5)+'" class="bdgx">!</text>'+
+      '<text x="'+(x-w/2+24)+'" y="'+(y+3.5)+'" class="bdgt">'+bpEsc(txt)+'</text></g>';
+  };
+  var y=18, out='', edges='', badges='';
+  out+='<text x="'+cx+'" y="'+y+'" class="hd">CUSTOMERS COME FROM</text>'; y+=10;
+  var s=rowY(sN,y); out+=s.svg; var sBot=y+s.h; y=sBot;
+  var gap1=has('no_capture')?58:44;
+  var capY=y+gap1;
+  out+='<text x="'+cx+'" y="'+(capY-8)+'" class="hd">WHAT CATCHES THEM</text>';
+  var c=rowY(cN,capY); var cBot=capY+c.h;
+  /* edges sources -> capture */
+  var noCap=has('no_capture');
+  s.centers.forEach(function(x1){ edges+=edge(x1,sBot,cx,capY-12,noCap); });
+  c.centers.forEach(function(x2){ edges+=edge(cx,capY-12,x2,capY,noCap); });
+  if(noCap) badges+=badge(cx, sBot+Math.floor(gap1/2), 'no consistent catch point');
+  out+=c.svg; y=cBot;
+  /* owner router */
+  var oy=0;
+  if(owner){
+    oy=y+58;
+    out+='<circle cx="'+cx+'" cy="'+oy+'" r="26" class="own"/>';
+    out+='<text x="'+cx+'" y="'+(oy+4)+'" class="ownt">YOU</text>';
+    badges+=badge(cx, oy+40, 'every flow passes through the owner');
+    y=oy+56;
+  } else { y=y+44; }
+  /* middle */
+  var midRed=has('memory_middle')||has('spreadsheet_middle');
+  var midY=y+14;
+  var m=box(midLabel, midY, midRed, 'THE MIDDLE');
+  var dmsIdx=a.capture.indexOf('dms_hand');
+  c.centers.forEach(function(x1,i){
+    var red=(i===dmsIdx);
+    if(owner){ edges+=edge(x1,cBot,cx,oy-26,red); }
+    else { edges+=edge(x1,cBot,cx,midY,red); }
+  });
+  if(owner){ edges+=edge(cx,oy+26,cx,midY,false); }
+  if(dmsIdx>=0) badges+=badge(Math.min(W-104,Math.max(104,c.centers[dmsIdx])), cBot+16, 'answered by hand, no record');
+  out+=m.svg; y=midY+m.h;
+  if(midRed) badges+=badge(cx, midY+m.h+14, has('memory_middle')?'runs on memory':'lives in spreadsheets');
+  /* money */
+  var monRed=has('money_disconnected')||has('invoices_hand')||has('check_bank');
+  var monGap=(midRed||owner)?62:48;
+  var monY=y+monGap;
+  var mo=box(monLabel, monY, monRed, 'MONEY');
+  if(owner){
+    edges+=edge(cx-40,y,cx-40,oy+18,false);
+    edges+=edge(cx,oy+26,cx,monY,monRed);
+  } else {
+    edges+=edge(cx,y,cx,monY,monRed);
+  }
+  if(monRed && !midRed) badges+=badge(cx, y+Math.floor(monGap/2), has('money_disconnected')?'not connected':(has('invoices_hand')?'billed by hand':'reconciled at the bank'));
+  if(monRed && midRed) badges+=badge(cx, monY+mo.h+14, has('money_disconnected')?'accounting not connected':(has('invoices_hand')?'billed by hand':'reconciled at the bank'));
+  out+=mo.svg; y=monY+mo.h;
+  if(monRed && midRed) y+=26;
+  if(has('dropped')){ badges+=badge(cx, y+22, 'flows with no owner, items get dropped'); y+=36; }
+  var H=y+22;
+  return {svg:'<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of your operation">'+edges+out+badges+'</svg>', leaks:leaks, leakCount:leaks.length};
+}
+
+(function(){
+  var state={sources:[],capture:[],middlePrimary:null,middleSecondary:null,money:null,mover:null};
+  var qs=function(s,r){return (r||document).querySelector(s);};
+  var qsa=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+  function answers(){
+    return {sources:state.sources.slice(),capture:state.capture.slice(),
+      middle:{primary:state.middlePrimary,secondary:state.middleSecondary},
+      money:state.money,mover:state.mover};
+  }
+  function complete(){return state.sources.length>0&&state.capture.length>0&&!!state.middlePrimary&&!!state.money&&!!state.mover;}
+  function render(){
+    var card=qs('#mapcard');
+    if(!complete()){card.hidden=true;return;}
+    var res=bpMap(answers());
+    var ll=qs('#leakline');
+    if(res.leakCount===0){ll.className='leakline zero';ll.innerHTML='We can see <span class="n">0</span> leaks from five answers.';}
+    else {ll.className='leakline';ll.innerHTML='We can see <span class="n">'+res.leakCount+'</span> leak'+(res.leakCount===1?'':'s')+' from five answers.';}
+    qs('#map').innerHTML=res.svg;
+    card.hidden=false;
+  }
+  qsa('.chips').forEach(function(group){
+    var key=group.getAttribute('data-q'), multi=group.getAttribute('data-multi')==='1';
+    group.addEventListener('click',function(ev){
+      var b=ev.target.closest('.chip'); if(!b) return;
+      var v=b.getAttribute('data-v');
+      if(multi){
+        var i=state[key].indexOf(v);
+        if(i>=0){state[key].splice(i,1);b.setAttribute('aria-pressed','false');}
+        else {state[key].push(v);b.setAttribute('aria-pressed','true');}
+      } else {
+        if(state[key]===v && key==='middleSecondary'){state[key]=null;b.setAttribute('aria-pressed','false');}
+        else{
+          state[key]=v;
+          qsa('.chip',group).forEach(function(c){c.setAttribute('aria-pressed', c===b?'true':'false');});
+        }
+      }
+      var ow={sources:'ow-sources',capture:'ow-capture',middlePrimary:'ow-middle'}[key];
+      if(ow){
+        var showOther = multi ? state[key].indexOf('other')>=0 : state[key]==='other';
+        qs('#'+ow).className='otherwrap'+(showOther?' show':'');
+      }
+      render();
+    });
+  });
+  /* prefill */
+  try{
+    var p=new URLSearchParams(location.search);
+    if(p.get('fn')) qs('#fn').value=p.get('fn').slice(0,60);
+    if(p.get('e')) qs('#email').value=p.get('e').slice(0,120);
+  }catch(e){}
+  var busy=false;
+  qs('#go').addEventListener('click',function(){
+    if(busy) return;
+    var err=qs('#err'); err.className='err'; err.textContent='';
+    if(!complete()){err.textContent='Answer all five questions first. The map needs every layer.';err.className='err show';return;}
+    var email=qs('#email').value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent='Enter a working email so we can send your Blueprint.';err.className='err show';return;}
+    if(!qs('#consent').checked){err.textContent='Check the consent box so we can email your Blueprint.';err.className='err show';return;}
+    busy=true; var btn=qs('#go'); btn.disabled=true; btn.textContent='Drawing your Blueprint...';
+    var a=answers();
+    var body={email:email,firstName:qs('#fn').value.trim(),consent:true,hp:qs('#hp').value,
+      answers:{sources:a.sources,capture:a.capture,middle:a.middle,money:a.money,mover:a.mover,
+        sourcesOther:qs('#other-sources').value.trim(),captureOther:qs('#other-capture').value.trim(),middleOther:qs('#other-middle').value.trim()}};
+    fetch('https://launchforte.app.n8n.cloud/webhook/blueprint-submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+    .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
+    .then(function(res){
+      if(res.j && res.j.ok && res.j.id){location.href='/demo/blueprint/report/?id='+encodeURIComponent(res.j.id);return;}
+      busy=false; btn.disabled=false; btn.textContent='Draw my Blueprint';
+      var reason=res.j&&res.j.reason;
+      if(reason==='repeat_1d'){err.textContent='This email already ran a Blueprint today. One run per email per day. Come back tomorrow, or use the report link from your inbox.';}
+      else if(reason==='daily_cap'){err.textContent='The demo hit its daily limit. It resets overnight. Come back tomorrow and your run is waiting.';}
+      else{err.textContent='Something did not go through. Check the answers and try again.';}
+      err.className='err show';
+    })
+    .catch(function(){busy=false;btn.disabled=false;btn.textContent='Draw my Blueprint';err.textContent='The connection did not go through. Try again in a moment.';err.className='err show';});
+  });
+})();
+</script>
+</body>
+</html>
