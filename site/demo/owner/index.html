@@ -8,151 +8,471 @@
 <link rel="canonical" href="https://launchforte.com/demo/owner/">
 <style>
 :root{
-  --brand:#0088DB; --brand-soft:#E6F2FA; --brand-ink:#075A8F;
-  --ink:#141922; --muted:#5A6472; --line:#E4E8EE; --bg:#F5F7FA; --card:#FFFFFF;
+  --brand:#0088DB; --brand-soft:#E6F2FA; --brand-ink:#075A8F; --brand-glow:rgba(0,136,219,.35);
+  --ink:#0B1220; --ink-soft:#141922; --muted:#5A6472; --muted-2:#8892A0;
+  --line:#E4E8EE; --line-strong:#D5DBE3;
+  --bg:#F5F7FA; --card:#FFFFFF;
+  --dark-bg:#0A1220; --dark-bg-2:#0E1729; --dark-card:#111C33; --dark-line:rgba(255,255,255,.08); --dark-line-2:rgba(255,255,255,.14);
+  --dark-text:#E7EDF5; --dark-muted:#93A1B5;
   --ok:#1E7A4F; --warn:#B4541B; --danger:#C23B3B;
-  --radius:16px; --shadow:0 1px 2px rgba(20,25,34,.05),0 8px 24px rgba(20,25,34,.06);
-  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --radius:16px; --radius-lg:22px;
+  --shadow:0 1px 2px rgba(20,25,34,.05),0 8px 24px rgba(20,25,34,.06);
+  --shadow-lg:0 1px 2px rgba(20,25,34,.06),0 20px 60px rgba(20,25,34,.1);
+  --font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
-.wrap{max-width:760px;margin:0 auto;padding:0 20px}
-header.site{border-bottom:1px solid var(--line);background:#fff}
-header.site .wrap{display:flex;align-items:center;gap:10px;height:60px}
-.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}
-.logo b{color:var(--brand)}
-.hero{padding:56px 0 20px}
-.eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-ink);background:var(--brand-soft);padding:6px 12px;border-radius:999px}
-h1{font-size:38px;line-height:1.12;letter-spacing:-.02em;margin:18px 0 12px}
-.sub{font-size:19px;color:var(--muted);margin:0 0 14px}
-.zero{font-size:14px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start}
-.zero svg{flex:0 0 auto;margin-top:2px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin:16px 0}
-.qnum{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-ink)}
-.qtitle{font-size:20px;font-weight:700;letter-spacing:-.01em;margin:6px 0 4px}
-.qhint{font-size:14px;color:var(--muted);margin:0 0 14px}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.wrap-narrow{max-width:760px;margin:0 auto;padding:0 24px}
+
+/* ========== TOP NAV ========== */
+.nav{position:sticky;top:0;z-index:30;background:rgba(10,18,32,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--dark-line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}
+.nav-logo{font-weight:800;font-size:19px;letter-spacing:-.02em;color:#fff;text-decoration:none}
+.nav-logo b{color:var(--brand)}
+.nav-links{display:flex;gap:28px;font-size:14px;font-weight:500}
+.nav-links a{color:var(--dark-muted);text-decoration:none;transition:color .15s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:#fff;color:var(--ink);padding:8px 16px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;transition:transform .15s}
+.nav-cta:hover{transform:translateY(-1px)}
+@media(max-width:720px){.nav-links{display:none}}
+
+/* ========== HERO (DARK, GLOWING) ========== */
+.hero{position:relative;background:linear-gradient(180deg,#0A1220 0%,#0E1729 55%,#0A1220 100%);color:var(--dark-text);overflow:hidden;padding:88px 0 100px}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 900px 500px at 50% 0%,rgba(0,136,219,.24),transparent 60%);pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 700px 400px at 80% 100%,rgba(74,181,237,.14),transparent 55%);pointer-events:none}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;max-width:1120px;margin:0 auto;padding:0 24px}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:44px}.hero{padding:60px 0 72px}}
+
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#B7DBF3;background:rgba(0,136,219,.14);border:1px solid rgba(0,136,219,.28);padding:7px 14px;border-radius:999px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);box-shadow:0 0 12px var(--brand-glow)}
+
+h1{font-size:clamp(38px,5.6vw,60px);line-height:1.04;letter-spacing:-.028em;margin:22px 0 20px;font-weight:800;color:#fff}
+h1 .accent{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:19px;color:#B7C4D6;margin:0 0 28px;max-width:36ch;line-height:1.55}
+.hero-meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:8px}
+.hero-meta-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--dark-muted)}
+.hero-meta-item svg{color:var(--brand);flex:0 0 auto}
+
+/* ========== HERO SVG ILLUSTRATION ========== */
+.hero-illo{position:relative;aspect-ratio:1/1;max-width:460px;margin:0 auto;width:100%}
+.hero-illo svg{width:100%;height:100%;filter:drop-shadow(0 20px 60px rgba(0,136,219,.25))}
+
+/* ========== SECTION SCAFFOLD ========== */
+.section{padding:88px 0}
+.section-head{text-align:center;max-width:640px;margin:0 auto 48px}
+.kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:14px}
+h2{font-size:clamp(30px,3.6vw,42px);line-height:1.12;letter-spacing:-.02em;margin:0 0 14px;font-weight:800;color:var(--ink)}
+.section-sub{font-size:18px;color:var(--muted);margin:0}
+
+/* ========== HOW IT WORKS ========== */
+.hiw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:820px){.hiw-grid{grid-template-columns:1fr;gap:14px}}
+.hiw-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:28px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
+.hiw-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
+.hiw-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--brand-soft);color:var(--brand-ink);font-weight:800;font-size:15px;margin-bottom:16px}
+.hiw-title{font-size:18px;font-weight:700;color:var(--ink);margin:0 0 8px;letter-spacing:-.01em}
+.hiw-body{font-size:15px;color:var(--muted);line-height:1.6;margin:0}
+.hiw-card::after{content:"";position:absolute;inset:auto -30% -60% auto;width:180px;height:180px;background:radial-gradient(circle,rgba(0,136,219,.05),transparent 70%);pointer-events:none}
+
+/* ========== FORM SECTION (the interactive core) ========== */
+.form-section{background:linear-gradient(180deg,#F5F7FA 0%,#EEF2F7 100%);padding:88px 0 100px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.form-head{text-align:center;max-width:640px;margin:0 auto 40px}
+.form-head .kicker{color:var(--brand)}
+
+/* ========== CARDS ========== */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:28px;margin:18px 0;transition:box-shadow .2s,border-color .2s}
+.card:focus-within{border-color:var(--brand);box-shadow:0 1px 2px rgba(20,25,34,.05),0 12px 40px rgba(0,136,219,.12)}
+.qnum{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand);background:var(--brand-soft);padding:5px 11px;border-radius:999px}
+.qnum::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand)}
+.qtitle{font-size:22px;font-weight:700;letter-spacing:-.015em;margin:14px 0 4px;color:var(--ink);line-height:1.25}
+.qhint{font-size:15px;color:var(--muted);margin:0 0 20px;line-height:1.5}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{cursor:pointer;user-select:none;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:11px 16px;font-size:15px;font-weight:600;transition:border-color .12s,background .12s,color .12s}
-.chip:hover{border-color:var(--brand)}
-.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
-.chip.none[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
-.optional{font-weight:600;color:var(--muted);font-size:13px}
-.gate{margin-top:8px}
-.field{margin:0 0 14px}
-.field label{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
-.field input[type=email]{width:100%;font-size:16px;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font-family:inherit}
-.field input[type=email]:focus{outline:none;border-color:var(--brand)}
-.consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted)}
-.consent input{margin-top:3px;width:18px;height:18px;flex:0 0 auto}
+.chip{cursor:pointer;user-select:none;border:1.5px solid var(--line-strong);background:#fff;color:var(--ink);border-radius:12px;padding:12px 18px;font-size:15px;font-weight:600;font-family:inherit;transition:all .15s;position:relative}
+.chip:hover{border-color:var(--brand);color:var(--brand-ink);transform:translateY(-1px)}
+.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 6px 20px rgba(0,136,219,.28)}
+.chip.none[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);box-shadow:0 6px 20px rgba(11,18,32,.28)}
+.optional{font-weight:500;color:var(--muted-2);font-size:12px;text-transform:none;letter-spacing:0;margin-left:6px}
+
+/* gate */
+.gate{background:linear-gradient(180deg,#fff 0%,#F9FBFD 100%);border:1.5px solid var(--brand);box-shadow:0 1px 2px rgba(20,25,34,.05),0 20px 60px rgba(0,136,219,.15)}
+.gate .qtitle{font-size:24px;margin-top:0}
+.field{margin:0 0 16px}
+.field label{display:block;font-size:13px;font-weight:600;margin:0 0 8px;color:var(--ink)}
+.field input[type=email]{width:100%;font-size:16px;padding:14px 16px;border:1.5px solid var(--line-strong);border-radius:12px;font-family:inherit;background:#fff;transition:border-color .15s,box-shadow .15s}
+.field input[type=email]:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px rgba(0,136,219,.12)}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted);margin-top:14px;line-height:1.5}
+.consent input{margin-top:2px;width:18px;height:18px;flex:0 0 auto;accent-color:var(--brand)}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.cta{display:block;width:100%;border:none;background:var(--brand);color:#fff;font-size:17px;font-weight:700;padding:15px 18px;border-radius:12px;cursor:pointer;margin-top:8px;transition:background .12s}
-.cta:hover{background:var(--brand-ink)}
-.cta:disabled{opacity:.55;cursor:not-allowed}
-.err{display:none;margin-top:12px;font-size:14px;color:var(--danger);background:#FCEDED;border:1px solid #F3CFCF;border-radius:10px;padding:11px 13px}
-.fine{font-size:13px;color:var(--muted);text-align:center;margin:16px 0 8px}
-footer.site{border-top:1px solid var(--line);margin-top:40px;padding:26px 0;color:var(--muted);font-size:13px;background:#fff}
-footer.site a{color:var(--brand-ink);text-decoration:none}
-@media(max-width:520px){h1{font-size:30px}.hero{padding:36px 0 14px}.card{padding:18px}}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:none;background:linear-gradient(180deg,var(--brand) 0%,#0077C4 100%);color:#fff;font-size:17px;font-weight:700;padding:17px 22px;border-radius:12px;cursor:pointer;margin-top:20px;font-family:inherit;transition:transform .12s,box-shadow .2s;box-shadow:0 8px 24px rgba(0,136,219,.35),0 1px 2px rgba(0,0,0,.06)}
+.cta:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(0,136,219,.42),0 1px 2px rgba(0,0,0,.06)}
+.cta:active{transform:translateY(0)}
+.cta:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+.cta svg{transition:transform .15s}
+.cta:hover svg{transform:translateX(3px)}
+.err{display:none;margin-top:14px;font-size:14px;color:var(--danger);background:#FCEDED;border:1px solid #F3CFCF;border-radius:10px;padding:12px 14px;font-weight:500}
+.fine{font-size:13px;color:var(--muted-2);text-align:center;margin:20px 0 0;display:flex;align-items:center;justify-content:center;gap:8px}
+.fine svg{color:var(--brand);flex:0 0 auto}
+
+/* ========== WHAT YOU GET (dark band) ========== */
+.deliver{background:linear-gradient(180deg,#0A1220 0%,#0E1729 100%);color:var(--dark-text);padding:96px 0;position:relative;overflow:hidden}
+.deliver::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 800px 400px at 50% 0%,rgba(0,136,219,.15),transparent 60%);pointer-events:none}
+.deliver .kicker{color:#4AB5ED}
+.deliver h2{color:#fff}
+.deliver .section-sub{color:#B7C4D6}
+.deliver-grid{position:relative;display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:960px;margin:0 auto}
+@media(max-width:760px){.deliver-grid{grid-template-columns:1fr}}
+.deliver-card{background:linear-gradient(180deg,var(--dark-card) 0%,#0E1A30 100%);border:1px solid var(--dark-line-2);border-radius:var(--radius-lg);padding:32px;position:relative;overflow:hidden;transition:transform .2s,border-color .2s}
+.deliver-card:hover{transform:translateY(-3px);border-color:rgba(0,136,219,.4)}
+.deliver-card .icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:rgba(0,136,219,.14);color:#4AB5ED;margin-bottom:18px}
+.deliver-card h3{font-size:20px;font-weight:700;color:#fff;margin:0 0 10px;letter-spacing:-.01em}
+.deliver-card p{font-size:15px;color:#B7C4D6;line-height:1.6;margin:0}
+.deliver-card::after{content:"";position:absolute;top:0;right:0;width:180px;height:180px;background:radial-gradient(circle at top right,rgba(0,136,219,.12),transparent 70%);pointer-events:none}
+
+/* ========== TRUST STRIP ========== */
+.trust{padding:56px 0;background:#fff;border-top:1px solid var(--line)}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:960px;margin:0 auto;text-align:center}
+@media(max-width:720px){.trust-grid{grid-template-columns:1fr;gap:20px}}
+.trust-item{display:flex;flex-direction:column;align-items:center;gap:10px}
+.trust-item .icon{color:var(--brand)}
+.trust-item strong{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.trust-item span{font-size:14px;color:var(--muted);line-height:1.5;max-width:32ch}
+
+/* ========== FOOTER ========== */
+footer.site{background:#0A1220;color:#93A1B5;padding:48px 0 40px;font-size:14px}
+footer.site .foot-inner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:center}
+footer.site a{color:#4AB5ED;text-decoration:none;font-weight:500;transition:color .15s}
+footer.site a:hover{color:#7BCCF7}
+footer.site .foot-brand{font-weight:700;color:#fff;font-size:15px}
+footer.site .foot-brand b{color:var(--brand)}
+
+@media(max-width:520px){
+  h1{font-size:36px}
+  .hero{padding:56px 0 64px}
+  .section{padding:64px 0}
+  .form-section{padding:64px 0 72px}
+  .deliver{padding:72px 0}
+  .card{padding:22px}
+}
 </style>
 </head>
 <body>
-<header class="site"><div class="wrap"><span class="logo">Launch<b>Forte</b></span></div></header>
 
-<main class="wrap">
-  <section class="hero">
-    <span class="eyebrow">Free, about two minutes</span>
-    <h1>How much does your business depend on you?</h1>
-    <p class="sub">Answer five questions and see the honest grade a buyer or broker would give, plus what that dependence is worth when you sell.</p>
-    <div class="zero">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5A6472" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <span>Answer honestly. Nothing connects to anything. This reads your answers and touches nothing.</span>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="https://launchforte.com/">Launch<b>Forte</b></a>
+    <div class="nav-links">
+      <a href="/tools">Free Tools</a>
+      <a href="https://launchforte.com/">Home</a>
+      <a href="https://launchforte.com/#contact">Contact</a>
     </div>
-  </section>
+    <a class="nav-cta" href="/tools">All Tools</a>
+  </div>
+</nav>
 
-  <form id="assess" autocomplete="off">
-    <!-- Q1 -->
-    <div class="card" data-q="q1">
-      <div class="qnum">Question 1 of 5</div>
-      <div class="qtitle">If you disappeared for a month, what happens?</div>
-      <p class="qhint">No phone, no email, fully off the grid.</p>
-      <div class="chips" role="group" aria-label="If you disappeared for a month">
-        <button type="button" class="chip" data-v="runs_fine">Runs fine</button>
-        <button type="button" class="chip" data-v="slows_survives">Slows but survives</button>
-        <button type="button" class="chip" data-v="stalls">Stalls</button>
-        <button type="button" class="chip" data-v="stops_cold">Stops cold</button>
-      </div>
-    </div>
-    <!-- Q2 -->
-    <div class="card" data-q="q2">
-      <div class="qnum">Question 2 of 5</div>
-      <div class="qtitle">Who holds pricing and quoting judgment?</div>
-      <p class="qhint">Deciding what a job is worth and what to charge.</p>
-      <div class="chips" role="group" aria-label="Pricing and quoting judgment">
-        <button type="button" class="chip" data-v="documented">A documented process</button>
-        <button type="button" class="chip" data-v="couple_people">A couple of people</button>
-        <button type="button" class="chip" data-v="mostly_me">Mostly me</button>
-        <button type="button" class="chip" data-v="only_me">Only me</button>
-      </div>
-    </div>
-    <!-- Q3 -->
-    <div class="card" data-q="q3">
-      <div class="qnum">Question 3 of 5</div>
-      <div class="qtitle">Who owns the top customer relationships?</div>
-      <p class="qhint">The clients who would be hardest to lose.</p>
-      <div class="chips" role="group" aria-label="Top customer relationships">
-        <button type="button" class="chip" data-v="company_systems">The company and its systems</button>
-        <button type="button" class="chip" data-v="team">The team</button>
-        <button type="button" class="chip" data-v="mostly_me">Mostly me</button>
-        <button type="button" class="chip" data-v="only_me">Only me</button>
-      </div>
-    </div>
-    <!-- Q4 -->
-    <div class="card" data-q="q4">
-      <div class="qnum">Question 4 of 5</div>
-      <div class="qtitle">What is actually written down?</div>
-      <p class="qhint">Pick every one that a new hire could open and follow today.</p>
-      <div class="chips" role="group" aria-label="What is written down" data-multi="1">
-        <button type="button" class="chip" data-v="core_processes">Core processes</button>
-        <button type="button" class="chip" data-v="onboarding">Onboarding</button>
-        <button type="button" class="chip" data-v="sales_process">The sales process</button>
-        <button type="button" class="chip" data-v="logins">Vendor and account logins</button>
-        <button type="button" class="chip none" data-v="__none">None of it</button>
-      </div>
-    </div>
-    <!-- Q5 -->
-    <div class="card" data-q="revenue">
-      <div class="qnum">Question 5 of 5 <span class="optional">optional, sharpens your number</span></div>
-      <div class="qtitle">Approximate annual revenue</div>
-      <p class="qhint">Used only to show the dollar range on a business your size. Skip it if you would rather not say.</p>
-      <div class="chips" role="group" aria-label="Approximate annual revenue">
-        <button type="button" class="chip" data-v="under_250k">Under $250k</button>
-        <button type="button" class="chip" data-v="r250_500k">$250k to $500k</button>
-        <button type="button" class="chip" data-v="r500k_1m">$500k to $1M</button>
-        <button type="button" class="chip" data-v="r1_2m">$1M to $2M</button>
-        <button type="button" class="chip" data-v="r2_5m">$2M to $5M</button>
-        <button type="button" class="chip" data-v="r5m_plus">$5M plus</button>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="dot"></span>Free assessment · Two minutes</span>
+      <h1>How much does your business depend on <span class="accent">you</span>?</h1>
+      <p class="hero-sub">Answer five questions and see the honest grade a buyer or broker would give, plus what that dependence is worth when you sell.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>About 2 minutes</span>
+        </div>
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Nothing connects to anything</span>
+        </div>
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>No signup for the grade</span>
+        </div>
       </div>
     </div>
 
-    <!-- Gate -->
-    <div class="card gate">
-      <div class="qtitle">See your grade</div>
-      <p class="qhint">Your result shows here and lands in your inbox at a link you can keep.</p>
-      <div class="field">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="you@company.com" inputmode="email">
-      </div>
-      <div class="hp" aria-hidden="true"><label>Website<input type="text" id="hp" name="hp" tabindex="-1" autocomplete="off"></label></div>
-      <label class="consent"><input type="checkbox" id="consent"><span>Email me my grade and the occasional systems note. Unsubscribe anytime.</span></label>
-      <button type="submit" class="cta" id="submit">Grade my dependence</button>
-      <div class="err" id="err"></div>
-    </div>
-    <p class="fine">One grade per email per day. Nothing connects to anything, and no private data is touched.</p>
-  </form>
-</main>
+    <!-- HERO ILLUSTRATION: person at center, four processes orbiting -->
+    <div class="hero-illo">
+      <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#0088DB" stop-opacity=".4"/>
+            <stop offset="100%" stop-color="#0088DB" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4AB5ED"/>
+            <stop offset="100%" stop-color="#0088DB"/>
+          </linearGradient>
+          <linearGradient id="node" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#132A44"/>
+            <stop offset="100%" stop-color="#0A1930"/>
+          </linearGradient>
+          <linearGradient id="core" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#4AB5ED"/>
+            <stop offset="100%" stop-color="#0088DB"/>
+          </linearGradient>
+        </defs>
 
-<footer class="site"><div class="wrap">Built by Launch Forte in Grapevine, Texas. More free tools: <a href="https://launchforte.com/tools">launchforte.com/tools</a></div></footer>
+        <!-- ambient glow -->
+        <circle cx="250" cy="250" r="240" fill="url(#glow)"/>
+
+        <!-- dashed orbit rings -->
+        <circle cx="250" cy="250" r="180" stroke="rgba(74,181,237,.28)" stroke-width="1.5" stroke-dasharray="4 6"/>
+        <circle cx="250" cy="250" r="130" stroke="rgba(74,181,237,.18)" stroke-width="1"/>
+
+        <!-- connecting lines from center to each satellite -->
+        <line x1="250" y1="250" x2="250" y2="70" stroke="url(#ring)" stroke-width="1.5" opacity=".6"/>
+        <line x1="250" y1="250" x2="430" y2="250" stroke="url(#ring)" stroke-width="1.5" opacity=".6"/>
+        <line x1="250" y1="250" x2="250" y2="430" stroke="url(#ring)" stroke-width="1.5" opacity=".6"/>
+        <line x1="250" y1="250" x2="70" y2="250" stroke="url(#ring)" stroke-width="1.5" opacity=".6"/>
+
+        <!-- center: the owner (avatar disc) -->
+        <circle cx="250" cy="250" r="62" fill="url(#core)" stroke="#4AB5ED" stroke-width="2"/>
+        <circle cx="250" cy="235" r="18" fill="#0A1220" fill-opacity=".35"/>
+        <path d="M215 290 Q250 265 285 290 L285 305 L215 305 Z" fill="#0A1220" fill-opacity=".35"/>
+
+        <!-- satellites: labeled process nodes -->
+        <!-- top: Pricing -->
+        <g>
+          <rect x="200" y="30" width="100" height="46" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.5)" stroke-width="1.5"/>
+          <text x="250" y="58" text-anchor="middle" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif">Pricing</text>
+        </g>
+        <!-- right: Sales -->
+        <g>
+          <rect x="386" y="222" width="90" height="46" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.5)" stroke-width="1.5"/>
+          <text x="431" y="250" text-anchor="middle" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif">Sales</text>
+        </g>
+        <!-- bottom: Onboarding -->
+        <g>
+          <rect x="188" y="422" width="124" height="46" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.5)" stroke-width="1.5"/>
+          <text x="250" y="450" text-anchor="middle" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif">Onboarding</text>
+        </g>
+        <!-- left: Clients -->
+        <g>
+          <rect x="24" y="222" width="92" height="46" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.5)" stroke-width="1.5"/>
+          <text x="70" y="250" text-anchor="middle" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif">Clients</text>
+        </g>
+
+        <!-- pulse dots -->
+        <circle cx="250" cy="250" r="4" fill="#fff">
+          <animate attributeName="r" values="4;8;4" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">How it works</div>
+      <h2>Five questions. One honest number.</h2>
+      <p class="section-sub">This is the same read a buyer, broker, or acquirer runs on your business. It looks for judgment, relationships, and processes that live in your head instead of in the business.</p>
+    </div>
+    <div class="hiw-grid">
+      <div class="hiw-card">
+        <div class="hiw-num">1</div>
+        <h3 class="hiw-title">Answer five questions</h3>
+        <p class="hiw-body">Owner disappearance, pricing judgment, top relationships, what's written down, and revenue. Two minutes. Chips, not essays.</p>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">2</div>
+        <h3 class="hiw-title">Get a letter grade</h3>
+        <p class="hiw-body">A to F on how much the business depends on you personally. Same rubric a broker uses to knock 30% off a valuation.</p>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">3</div>
+        <h3 class="hiw-title">See the dollar impact</h3>
+        <p class="hiw-body">Your grade mapped to a valuation multiplier. If you shared revenue, you'll see a dollar range on what the dependence costs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM SECTION -->
+<section class="form-section">
+  <div class="wrap-narrow">
+    <div class="form-head">
+      <div class="kicker">Take the assessment</div>
+      <h2>Ready when you are.</h2>
+      <p class="section-sub">Answer honestly. The grade only helps if the answers do.</p>
+    </div>
+
+    <form id="assess" autocomplete="off">
+      <!-- Q1 -->
+      <div class="card" data-q="q1">
+        <div class="qnum">Question 1 of 5</div>
+        <div class="qtitle">If you disappeared for a month, what happens?</div>
+        <p class="qhint">No phone, no email, fully off the grid.</p>
+        <div class="chips" role="group" aria-label="If you disappeared for a month">
+          <button type="button" class="chip" data-v="runs_fine">Runs fine</button>
+          <button type="button" class="chip" data-v="slows_survives">Slows but survives</button>
+          <button type="button" class="chip" data-v="stalls">Stalls</button>
+          <button type="button" class="chip" data-v="stops_cold">Stops cold</button>
+        </div>
+      </div>
+      <!-- Q2 -->
+      <div class="card" data-q="q2">
+        <div class="qnum">Question 2 of 5</div>
+        <div class="qtitle">Who holds pricing and quoting judgment?</div>
+        <p class="qhint">Deciding what a job is worth and what to charge.</p>
+        <div class="chips" role="group" aria-label="Pricing and quoting judgment">
+          <button type="button" class="chip" data-v="documented">A documented process</button>
+          <button type="button" class="chip" data-v="couple_people">A couple of people</button>
+          <button type="button" class="chip" data-v="mostly_me">Mostly me</button>
+          <button type="button" class="chip" data-v="only_me">Only me</button>
+        </div>
+      </div>
+      <!-- Q3 -->
+      <div class="card" data-q="q3">
+        <div class="qnum">Question 3 of 5</div>
+        <div class="qtitle">Who owns the top customer relationships?</div>
+        <p class="qhint">The clients who would be hardest to lose.</p>
+        <div class="chips" role="group" aria-label="Top customer relationships">
+          <button type="button" class="chip" data-v="company_systems">The company and its systems</button>
+          <button type="button" class="chip" data-v="team">The team</button>
+          <button type="button" class="chip" data-v="mostly_me">Mostly me</button>
+          <button type="button" class="chip" data-v="only_me">Only me</button>
+        </div>
+      </div>
+      <!-- Q4 -->
+      <div class="card" data-q="q4">
+        <div class="qnum">Question 4 of 5</div>
+        <div class="qtitle">What is actually written down?</div>
+        <p class="qhint">Pick every one that a new hire could open and follow today.</p>
+        <div class="chips" role="group" aria-label="What is written down" data-multi="1">
+          <button type="button" class="chip" data-v="core_processes">Core processes</button>
+          <button type="button" class="chip" data-v="onboarding">Onboarding</button>
+          <button type="button" class="chip" data-v="sales_process">The sales process</button>
+          <button type="button" class="chip" data-v="logins">Vendor and account logins</button>
+          <button type="button" class="chip none" data-v="__none">None of it</button>
+        </div>
+      </div>
+      <!-- Q5 -->
+      <div class="card" data-q="revenue">
+        <div class="qnum">Question 5 of 5 <span class="optional">optional, sharpens your number</span></div>
+        <div class="qtitle">Approximate annual revenue</div>
+        <p class="qhint">Used only to show the dollar range on a business your size. Skip it if you would rather not say.</p>
+        <div class="chips" role="group" aria-label="Approximate annual revenue">
+          <button type="button" class="chip" data-v="under_250k">Under $250k</button>
+          <button type="button" class="chip" data-v="r250_500k">$250k to $500k</button>
+          <button type="button" class="chip" data-v="r500k_1m">$500k to $1M</button>
+          <button type="button" class="chip" data-v="r1_2m">$1M to $2M</button>
+          <button type="button" class="chip" data-v="r2_5m">$2M to $5M</button>
+          <button type="button" class="chip" data-v="r5m_plus">$5M plus</button>
+        </div>
+      </div>
+
+      <!-- Gate -->
+      <div class="card gate">
+        <div class="qtitle">See your grade</div>
+        <p class="qhint">Your result shows here and lands in your inbox at a link you can keep.</p>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@company.com" inputmode="email">
+        </div>
+        <div class="hp" aria-hidden="true"><label>Website<input type="text" id="hp" name="hp" tabindex="-1" autocomplete="off"></label></div>
+        <label class="consent"><input type="checkbox" id="consent"><span>Email me my grade and the occasional systems note. Unsubscribe anytime.</span></label>
+        <button type="submit" class="cta" id="submit">
+          <span>Grade my dependence</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <div class="err" id="err"></div>
+      </div>
+      <p class="fine">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        One grade per email per day. Nothing connects to anything, and no private data is touched.
+      </p>
+    </form>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="deliver">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">What you get</div>
+      <h2 style="color:#fff">Your grade lands in your inbox in seconds.</h2>
+      <p class="section-sub" style="color:#B7C4D6">Plus what it means, and what would move it up.</p>
+    </div>
+    <div class="deliver-grid">
+      <div class="deliver-card">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h3>The grade itself</h3>
+        <p>An A through F score with the band label a broker would use. No math to interpret. You see it, you know it.</p>
+      </div>
+      <div class="deliver-card">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h3>Dollar impact if you shared revenue</h3>
+        <p>The valuation multiplier a business at your grade actually earns, plus the dollar range on a business your size.</p>
+      </div>
+      <div class="deliver-card">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>The three moves that would raise it</h3>
+        <p>The specific systems, processes, or documentation that would move you up one letter grade. Prioritized.</p>
+      </div>
+      <div class="deliver-card">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+        </div>
+        <h3>A link you can keep</h3>
+        <p>Emailed with the report link so you can pull it up again, share with a partner, or send to an advisor without redoing anything.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <strong>Nothing connects to anything</strong>
+        <span>No integrations, no OAuth, no read access to any system.</span>
+      </div>
+      <div class="trust-item">
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <strong>Your answers stay yours</strong>
+        <span>Score is computed from what you told the page. Nothing else is looked at.</span>
+      </div>
+      <div class="trust-item">
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <strong>Free, and it stays free</strong>
+        <span>No pricing on this page. The grade is the grade. That's it.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-inner">
+      <div>Built by <span class="foot-brand">Launch<b>Forte</b></span> in Grapevine, Texas.</div>
+      <div>More free tools: <a href="https://launchforte.com/tools">launchforte.com/tools</a></div>
+    </div>
+  </div>
+</footer>
 
 <script>
 const CONFIG = { webhookBase: "https://launchforte.app.n8n.cloud/webhook", reportPath: "/demo/owner/report/" };
@@ -210,7 +530,7 @@ form.addEventListener('submit', async (e) => {
     const j = await r.json().catch(()=>null);
     if(j && j.ok && j.id){ location.href = CONFIG.reportPath + '?id=' + encodeURIComponent(j.id); return; }
     if(j && j.reason === 'repeat_1d'){ showErr('You already ran a grade today. Check your inbox for the link, or come back tomorrow.'); }
-    else if(j && j.reason === 'daily_cap'){ showErr('We have hit today\u2019s limit for free grades. Please try again tomorrow.'); }
+    else if(j && j.reason === 'daily_cap'){ showErr('We have hit today’s limit for free grades. Please try again tomorrow.'); }
     else { showErr('Something went wrong on our side. Please try again in a moment.'); }
   }catch(err){ showErr('Could not reach the grader. Check your connection and try again.'); }
   btn.disabled = false; btn.textContent = 'Grade my dependence';
