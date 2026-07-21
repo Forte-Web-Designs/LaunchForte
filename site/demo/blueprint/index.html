@@ -5,58 +5,121 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Instant Systems Blueprint. Five Answers, One Map | Launch Forte</title>
 <meta name="description" content="Answer five plain questions and watch a map of your operation draw itself, with the leaks marked in red. Nothing connects to anything.">
+<link rel="canonical" href="https://launchforte.com/demo/blueprint/">
 <style>
-/* ============================================================
-   BRAND TOKENS. Identical to the med spa island so both demos
-   read as the same house. Everything derives from this block.
-   ============================================================ */
 :root{
-  --paper:#FBFAF7;      /* page background */
-  --card:#FFFFFF;       /* cards, phone, forms */
-  --ink:#15221E;        /* primary text */
-  --muted:#5B6660;      /* secondary text */
-  --line:#E5E3DB;       /* hairlines and borders */
-  --brand:#0088DB;      /* buttons, headings accent, timer numerals */
-  --brand-soft:#E6F2FA; /* banner, chips, success tint */
-  --err:#A33B2E;        /* error text */
-  --bubble:#E9E9EB;
-  --ok:#1E7A4F;         /* healthy node green */
-  --red:#B42318;        /* broken node red */
-  --radius:12px;
-  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --brand:#0088DB; --brand-soft:#E6F2FA; --brand-ink:#075A8F; --brand-glow:rgba(0,136,219,.35);
+  --ink:#0B1220; --ink-soft:#141922; --muted:#5A6472; --muted-2:#8892A0;
+  --line:#E4E8EE; --line-strong:#D5DBE3;
+  --bg:#F5F7FA; --card:#FFFFFF; --paper:#FFFFFF;
+  --dark-bg:#0A1220; --dark-bg-2:#0E1729; --dark-card:#111C33; --dark-line:rgba(255,255,255,.08); --dark-line-2:rgba(255,255,255,.14);
+  --dark-text:#E7EDF5; --dark-muted:#93A1B5;
+  --ok:#1E7A4F; --warn:#B4541B; --danger:#C23B3B; --err:#C23B3B; --red:#C23B3B;
+  --radius:16px; --radius-lg:22px;
+  --shadow:0 1px 2px rgba(20,25,34,.05),0 8px 24px rgba(20,25,34,.06);
+  --shadow-lg:0 1px 2px rgba(20,25,34,.06),0 20px 60px rgba(20,25,34,.1);
+  --font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box}
+html,body{margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.55;font-size:16px}
-main{max-width:720px;margin:0 auto;padding:0 18px 72px}
-h1{font-size:clamp(28px,6vw,40px);line-height:1.15;margin:26px 0 12px;letter-spacing:-.01em}
-h2{font-size:22px;margin:44px 0 10px;letter-spacing:-.01em}
-p{margin:10px 0}
-.muted{color:var(--muted)}
-.small{font-size:13.5px}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-size:16px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.wrap-narrow{max-width:760px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:4px}
 a{color:var(--brand)}
 button{font-family:var(--font)}
-:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:4px}
-.frame{display:inline-flex;align-items:center;gap:8px;background:var(--brand-soft);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13.5px;margin-top:14px}
-.frame .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none}
-.q{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 14px;margin:16px 0}
-.q .qn{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em}
-.q .qt{font-weight:600;font-size:17px;margin:4px 0 12px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 15px;font-size:14.5px;cursor:pointer;transition:background .12s,border-color .12s}
-.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
-.chip.sec[aria-pressed="true"]{background:var(--brand-soft);border-color:var(--brand);color:var(--brand)}
-.otherwrap{margin-top:10px;display:none}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:30;background:rgba(10,18,32,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--dark-line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}
+.nav-logo{font-weight:800;font-size:19px;letter-spacing:-.02em;color:#fff;text-decoration:none}
+.nav-logo b{color:var(--brand)}
+.nav-links{display:flex;gap:28px;font-size:14px;font-weight:500}
+.nav-links a{color:var(--dark-muted);text-decoration:none;transition:color .15s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:#fff;color:var(--ink);padding:8px 16px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;transition:transform .15s}
+.nav-cta:hover{transform:translateY(-1px)}
+@media(max-width:720px){.nav-links{display:none}}
+
+/* HERO */
+.hero-section{position:relative;background:linear-gradient(180deg,#0A1220 0%,#0E1729 55%,#0A1220 100%);color:var(--dark-text);overflow:hidden;padding:88px 0 100px}
+.hero-section::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 900px 500px at 50% 0%,rgba(0,136,219,.24),transparent 60%);pointer-events:none}
+.hero-section::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 700px 400px at 80% 100%,rgba(74,181,237,.14),transparent 55%);pointer-events:none}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;max-width:1120px;margin:0 auto;padding:0 24px}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:44px}.hero-section{padding:60px 0 72px}}
+
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#B7DBF3;background:rgba(0,136,219,.14);border:1px solid rgba(0,136,219,.28);padding:7px 14px;border-radius:999px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);box-shadow:0 0 12px var(--brand-glow);animation:heropulse 2s infinite}
+@keyframes heropulse{0%,100%{box-shadow:0 0 12px var(--brand-glow)}50%{box-shadow:0 0 20px var(--brand-glow)}}
+
+#hero{font-size:clamp(36px,5.4vw,56px);line-height:1.06;letter-spacing:-.028em;margin:22px 0 20px;font-weight:800;color:#fff}
+h1{font-size:clamp(36px,5.4vw,56px);line-height:1.06;letter-spacing:-.028em;margin:22px 0 20px;font-weight:800;color:#fff}
+h1 .accent,#hero .accent{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:19px;color:#B7C4D6;margin:0 0 28px;max-width:38ch;line-height:1.55}
+.hero-meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:8px}
+.hero-meta-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--dark-muted)}
+.hero-meta-item svg{color:var(--brand);flex:0 0 auto}
+
+/* Hero SVG */
+.hero-illo{position:relative;aspect-ratio:1/1;max-width:460px;margin:0 auto;width:100%}
+.hero-illo svg{width:100%;height:100%;filter:drop-shadow(0 20px 60px rgba(0,136,219,.25))}
+
+/* Section scaffold */
+.section{padding:88px 0}
+.section-head{text-align:center;max-width:640px;margin:0 auto 48px}
+.kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:14px}
+h2{font-size:clamp(30px,3.6vw,42px);line-height:1.12;letter-spacing:-.02em;margin:0 0 14px;font-weight:800;color:var(--ink)}
+.section-sub{font-size:18px;color:var(--muted);margin:0}
+p{margin:0 0 14px}
+.muted{color:var(--muted)}
+.small{font-size:13.5px}
+
+/* HOW IT WORKS */
+.hiw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:820px){.hiw-grid{grid-template-columns:1fr;gap:14px}}
+.hiw-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:28px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
+.hiw-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
+.hiw-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--brand-soft);color:var(--brand-ink);font-weight:800;font-size:15px;margin-bottom:16px}
+.hiw-title{font-size:18px;font-weight:700;color:var(--ink);margin:0 0 8px;letter-spacing:-.01em}
+.hiw-body{font-size:15px;color:var(--muted);line-height:1.6;margin:0}
+.hiw-card::after{content:"";position:absolute;inset:auto -30% -60% auto;width:180px;height:180px;background:radial-gradient(circle,rgba(0,136,219,.05),transparent 70%);pointer-events:none}
+
+/* FORM SECTION */
+.form-section{background:linear-gradient(180deg,#F5F7FA 0%,#EEF2F7 100%);padding:88px 0 100px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.form-head{text-align:center;max-width:640px;margin:0 auto 40px}
+.frame{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:13.5px;color:var(--muted);margin:14px auto;box-shadow:var(--shadow)}
+.frame .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none;animation:pulseok 2s infinite}
+@keyframes pulseok{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* Question cards */
+.q{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px 26px 20px;margin:18px 0;box-shadow:var(--shadow);transition:box-shadow .2s,border-color .2s}
+.q:focus-within{border-color:var(--brand);box-shadow:0 1px 2px rgba(20,25,34,.05),0 12px 40px rgba(0,136,219,.12)}
+.q .qn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--brand);background:var(--brand-soft);padding:5px 11px;border-radius:999px;letter-spacing:.06em;font-weight:700}
+.q .qn::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand)}
+.q .qt{font-weight:700;font-size:20px;margin:12px 0 14px;color:var(--ink);letter-spacing:-.01em}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1.5px solid var(--line-strong);background:var(--card);color:var(--ink);border-radius:12px;padding:11px 16px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;position:relative}
+.chip:hover{border-color:var(--brand);color:var(--brand-ink);transform:translateY(-1px)}
+.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 6px 20px rgba(0,136,219,.28)}
+.chip.sec[aria-pressed="true"]{background:var(--brand-soft);border-color:var(--brand);color:var(--brand-ink);box-shadow:0 4px 14px rgba(0,136,219,.15)}
+.otherwrap{margin-top:12px;display:none}
 .otherwrap.show{display:block}
-.otherwrap input{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14.5px;font-family:var(--font)}
-.hint{font-size:13px;color:var(--muted);margin:10px 0 0}
-.mapcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:20px 0}
-.mapcard .mh{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;margin-bottom:8px}
-.leakline{font-size:26px;font-weight:700;color:var(--brand);margin:4px 0 10px}
+.otherwrap input{width:100%;padding:12px 14px;border:1.5px solid var(--line-strong);border-radius:10px;font-size:14.5px;font-family:var(--font);background:#fff;transition:border-color .15s}
+.otherwrap input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px rgba(0,136,219,.12)}
+.hint{font-size:13px;color:var(--muted);margin:12px 0 0}
+
+/* Map card */
+.mapcard{background:var(--card);border:1.5px solid var(--brand);border-radius:var(--radius-lg);padding:24px;margin:24px 0;box-shadow:0 1px 2px rgba(20,25,34,.05),0 20px 60px rgba(0,136,219,.15)}
+.mapcard .mh{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--brand);background:var(--brand-soft);padding:5px 11px;border-radius:999px;letter-spacing:.06em;font-weight:700;margin-bottom:12px}
+.mapcard .mh::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand);animation:pulseok 2s infinite}
+.leakline{font-size:24px;font-weight:800;color:var(--brand);margin:4px 0 12px;letter-spacing:-.01em;line-height:1.2}
 .leakline .n{color:var(--red)}
 .leakline.zero .n{color:var(--ok)}
 #map svg{width:100%;height:auto;display:block}
+/* SVG classes the JS engine writes into innerHTML — MUST match the token vocabulary */
 .hd{font-family:var(--mono);font-size:9px;fill:var(--muted);text-anchor:middle;letter-spacing:.1em}
 .bn{fill:var(--brand-soft);stroke:var(--line);stroke-width:1}
 .bt{font-family:var(--mono);font-size:10.5px;fill:var(--ink);text-anchor:middle}
@@ -73,129 +136,344 @@ button{font-family:var(--font)}
 .bdgc{fill:var(--red)}
 .bdgx{font-family:var(--mono);font-size:9px;font-weight:700;fill:#fff;text-anchor:middle}
 .bdgt{font-family:var(--mono);font-size:9.5px;fill:var(--red)}
-.break{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:20px 0}
-label{display:block;font-size:14px;font-weight:600;margin:12px 0 5px}
-input[type=email],input[type=text]{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:15px;font-family:var(--font)}
-.consent{display:flex;gap:9px;align-items:flex-start;margin:14px 0;font-size:13.5px;color:var(--muted)}
-.consent input{margin-top:3px;flex:none}
-.btn{display:inline-block;background:var(--brand);color:#fff;border:0;border-radius:10px;padding:14px 24px;font-size:16px;font-weight:600;cursor:pointer;width:100%}
-.btn[disabled]{opacity:.55;cursor:default}
-.err{color:var(--err);font-size:14px;margin:10px 0 0;display:none}
+
+/* Gate / break */
+.break{background:linear-gradient(180deg,#fff 0%,#F9FBFD 100%);border:1.5px solid var(--brand);border-radius:var(--radius-lg);padding:28px;margin:22px 0;box-shadow:0 1px 2px rgba(20,25,34,.05),0 20px 60px rgba(0,136,219,.15)}
+.break h2{margin-top:0;font-size:24px;color:var(--ink)}
+label{display:block;font-size:13px;font-weight:600;margin:14px 0 8px;color:var(--ink)}
+input[type=email],input[type=text]{width:100%;padding:14px 16px;border:1.5px solid var(--line-strong);border-radius:12px;font-size:15px;font-family:var(--font);background:#fff;transition:border-color .15s,box-shadow .15s}
+input[type=email]:focus,input[type=text]:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px rgba(0,136,219,.12)}
+.consent{display:flex;gap:12px;align-items:flex-start;margin:16px 0;font-size:14px;color:var(--muted);line-height:1.5}
+.consent input{margin-top:2px;width:18px;height:18px;flex:none;accent-color:var(--brand)}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(180deg,var(--brand) 0%,#0077C4 100%);color:#fff;border:0;border-radius:12px;padding:17px 24px;font-size:16px;font-weight:700;cursor:pointer;width:100%;font-family:inherit;transition:transform .12s,box-shadow .2s;box-shadow:0 8px 24px rgba(0,136,219,.35)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(0,136,219,.42)}
+.btn[disabled]{opacity:.55;cursor:default;transform:none}
+.err{color:var(--err);font-size:14px;margin:14px 0 0;display:none;background:#FCEDED;border:1px solid #F3CFCF;border-radius:10px;padding:11px 13px;font-weight:500}
 .err.show{display:block}
 .hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-footer{border-top:1px solid var(--line);margin-top:56px;padding-top:18px;font-size:13px;color:var(--muted)}
+
+/* WHAT THIS IS (dark band) */
+.explain{background:linear-gradient(180deg,#0A1220 0%,#0E1729 100%);color:var(--dark-text);padding:96px 0;position:relative;overflow:hidden}
+.explain::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 800px 400px at 50% 0%,rgba(0,136,219,.15),transparent 60%);pointer-events:none}
+.explain .kicker{color:#4AB5ED}
+.explain h2{color:#fff}
+.explain-body{position:relative;max-width:760px;margin:0 auto}
+.explain-body p{font-size:17px;color:#C4CFDD;line-height:1.7;margin:0 0 20px}
+.explain-body strong{color:#fff;font-weight:700}
+
+/* FOOTER */
+footer.site{background:#0A1220;color:#93A1B5;padding:48px 0 40px;font-size:14px}
+footer.site .foot-inner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:center;max-width:1120px;margin:0 auto;padding:0 24px}
+footer.site a{color:#4AB5ED;text-decoration:none;font-weight:500;transition:color .15s}
+footer.site a:hover{color:#7BCCF7}
+footer.site .foot-brand{font-weight:700;color:#fff;font-size:15px}
+footer.site .foot-brand b{color:var(--brand)}
+
+@media(max-width:520px){
+  #hero,h1{font-size:34px}
+  .hero-section{padding:56px 0 64px}
+  .section{padding:64px 0}
+  .form-section{padding:64px 0 72px}
+  .explain{padding:72px 0}
+  .q{padding:22px}
+  .break{padding:22px}
+}
 @media (prefers-reduced-motion:no-preference){
-  .chip{transition:background .12s,border-color .12s,transform .08s}
+  .chip{transition:background .12s,border-color .12s,transform .08s,box-shadow .15s,color .12s}
   .chip:active{transform:scale(.97)}
 }
 </style>
 </head>
 <body>
-<main>
-  <h1 id="hero">Five answers. A map of your whole operation, leaks marked in red.</h1>
-  <p class="muted">The grader looks at your business from the outside. This is the inside view: tell us how work actually moves, and watch the map draw itself while you answer.</p>
-  <div class="frame"><span class="dot"></span>Five questions, nothing connects to anything. This reads your answers and touches nothing.</div>
 
-  <section class="q" id="q1">
-    <div class="qn">QUESTION 1 OF 5</div>
-    <div class="qt">Where do customers come from?</div>
-    <div class="chips" data-q="sources" data-multi="1">
-      <button type="button" class="chip" data-v="ads" aria-pressed="false">Ads</button>
-      <button type="button" class="chip" data-v="search" aria-pressed="false">Google search</button>
-      <button type="button" class="chip" data-v="social" aria-pressed="false">Social + DMs</button>
-      <button type="button" class="chip" data-v="referrals" aria-pressed="false">Referrals</button>
-      <button type="button" class="chip" data-v="walkins" aria-pressed="false">Walk ins + calls</button>
-      <button type="button" class="chip" data-v="other" aria-pressed="false">Other</button>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="https://launchforte.com/">Launch<b>Forte</b></a>
+    <div class="nav-links">
+      <a href="/tools">Free Tools</a>
+      <a href="https://launchforte.com/">Home</a>
+      <a href="https://launchforte.com/#contact">Contact</a>
     </div>
-    <div class="otherwrap" id="ow-sources"><input type="text" id="other-sources" maxlength="60" placeholder="Tell us in a few words" aria-label="Other customer source"></div>
-    <p class="hint">Pick everything that applies.</p>
-  </section>
+    <a class="nav-cta" href="/tools">All Tools</a>
+  </div>
+</nav>
 
-  <section class="q" id="q2">
-    <div class="qn">QUESTION 2 OF 5</div>
-    <div class="qt">What catches them when they show up?</div>
-    <div class="chips" data-q="capture" data-multi="1">
-      <button type="button" class="chip" data-v="forms" aria-pressed="false">Website forms</button>
-      <button type="button" class="chip" data-v="phone" aria-pressed="false">Phone</button>
-      <button type="button" class="chip" data-v="dms_hand" aria-pressed="false">DMs answered by hand</button>
-      <button type="button" class="chip" data-v="inbox" aria-pressed="false">Email inbox</button>
-      <button type="button" class="chip" data-v="nothing" aria-pressed="false">Nothing consistent</button>
-      <button type="button" class="chip" data-v="other" aria-pressed="false">Other</button>
+<!-- HERO -->
+<section class="hero-section">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="dot"></span>Free · Five questions · About two minutes</span>
+      <h1 id="hero">Five answers. A map of your operation, leaks marked in <span class="accent">red</span>.</h1>
+      <p class="hero-sub">The grader looks at your business from the outside. This is the inside view: tell us how work actually moves, watch the map draw itself while you answer.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/><path d="M17 3h4v4"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span>Live map as you answer</span>
+        </div>
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Nothing connects to anything</span>
+        </div>
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Deterministic, from your answers</span>
+        </div>
+      </div>
     </div>
-    <div class="otherwrap" id="ow-capture"><input type="text" id="other-capture" maxlength="60" placeholder="Tell us in a few words" aria-label="Other capture method"></div>
-    <p class="hint">Pick everything that applies.</p>
-  </section>
 
-  <section class="q" id="q3">
-    <div class="qn">QUESTION 3 OF 5</div>
-    <div class="qt">What runs the middle of the business?</div>
-    <div class="chips" data-q="middlePrimary">
-      <button type="button" class="chip" data-v="crm_allinone" aria-pressed="false">An all in one CRM</button>
-      <button type="button" class="chip" data-v="crm_sales" aria-pressed="false">A sales CRM</button>
-      <button type="button" class="chip" data-v="spreadsheets" aria-pressed="false">Spreadsheets</button>
-      <button type="button" class="chip" data-v="memory" aria-pressed="false">Someone's memory</button>
-      <button type="button" class="chip" data-v="industry_tool" aria-pressed="false">An industry tool</button>
-      <button type="button" class="chip" data-v="other" aria-pressed="false">Other</button>
+    <!-- HERO SVG: system map -->
+    <div class="hero-illo">
+      <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#0088DB" stop-opacity=".4"/>
+            <stop offset="100%" stop-color="#0088DB" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="node" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#132A44"/>
+            <stop offset="100%" stop-color="#0A1930"/>
+          </linearGradient>
+          <linearGradient id="brand" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#4AB5ED"/>
+            <stop offset="100%" stop-color="#0088DB"/>
+          </linearGradient>
+          <linearGradient id="alert" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FF6B57"/>
+            <stop offset="100%" stop-color="#C23B3B"/>
+          </linearGradient>
+        </defs>
+        <circle cx="250" cy="250" r="240" fill="url(#glow)"/>
+
+        <!-- CUSTOMERS COME FROM (row of small nodes) -->
+        <text x="250" y="66" text-anchor="middle" fill="#7788A0" font-size="10" font-weight="700" font-family="ui-monospace,SFMono-Regular,monospace" letter-spacing="1.2">SOURCES</text>
+        <g>
+          <rect x="80" y="80" width="70" height="26" rx="6" fill="url(#node)" stroke="#4AB5ED" stroke-width="1"/>
+          <text x="115" y="97" text-anchor="middle" fill="#B7DBF3" font-size="10" font-weight="600" font-family="-apple-system,Inter,sans-serif">Ads</text>
+          <rect x="165" y="80" width="80" height="26" rx="6" fill="url(#node)" stroke="#4AB5ED" stroke-width="1"/>
+          <text x="205" y="97" text-anchor="middle" fill="#B7DBF3" font-size="10" font-weight="600" font-family="-apple-system,Inter,sans-serif">Referrals</text>
+          <rect x="260" y="80" width="90" height="26" rx="6" fill="url(#node)" stroke="#4AB5ED" stroke-width="1"/>
+          <text x="305" y="97" text-anchor="middle" fill="#B7DBF3" font-size="10" font-weight="600" font-family="-apple-system,Inter,sans-serif">Social + DMs</text>
+          <rect x="360" y="80" width="60" height="26" rx="6" fill="url(#node)" stroke="#4AB5ED" stroke-width="1"/>
+          <text x="390" y="97" text-anchor="middle" fill="#B7DBF3" font-size="10" font-weight="600" font-family="-apple-system,Inter,sans-serif">Search</text>
+        </g>
+
+        <!-- edges to capture layer -->
+        <g stroke="rgba(74,181,237,.35)" stroke-width="1" fill="none">
+          <path d="M115 106 Q160 130 175 175"/>
+          <path d="M205 106 Q220 140 205 175"/>
+          <path d="M305 106 Q280 140 265 175" stroke="rgba(255,107,87,.8)" stroke-dasharray="4 3" stroke-width="1.5"/>
+          <path d="M390 106 Q350 140 320 175"/>
+        </g>
+
+        <!-- CAPTURE row -->
+        <text x="250" y="192" text-anchor="middle" fill="#7788A0" font-size="10" font-weight="700" font-family="ui-monospace,SFMono-Regular,monospace" letter-spacing="1.2">CATCH</text>
+        <g>
+          <rect x="130" y="205" width="90" height="30" rx="8" fill="#0E1729" stroke="#4AB5ED" stroke-width="1.5"/>
+          <text x="175" y="224" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="-apple-system,Inter,sans-serif">Forms</text>
+          <rect x="230" y="205" width="130" height="30" rx="8" fill="#1a1015" stroke="#FF6B57" stroke-width="1.5"/>
+          <text x="295" y="224" text-anchor="middle" fill="#FF9885" font-size="11" font-weight="700" font-family="-apple-system,Inter,sans-serif">DMs by hand</text>
+        </g>
+
+        <!-- edges down to middle -->
+        <g stroke="rgba(74,181,237,.35)" stroke-width="1" fill="none">
+          <path d="M175 235 Q220 260 240 275"/>
+          <path d="M295 235 Q270 258 260 275" stroke="rgba(255,107,87,.8)" stroke-dasharray="4 3" stroke-width="1.5"/>
+        </g>
+
+        <!-- YOU node (owner router) -->
+        <g>
+          <circle cx="250" cy="290" r="26" fill="none" stroke="#FF6B57" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="250" y="295" text-anchor="middle" fill="#FF6B57" font-size="12" font-weight="800" font-family="ui-monospace,SFMono-Regular,monospace">YOU</text>
+        </g>
+
+        <!-- MIDDLE box (red = memory/spreadsheets) -->
+        <g>
+          <rect x="130" y="345" width="240" height="46" rx="10" fill="#1a1015" stroke="#FF6B57" stroke-width="2"/>
+          <text x="250" y="362" text-anchor="middle" fill="#FF9885" font-size="9" font-weight="700" font-family="ui-monospace,SFMono-Regular,monospace" letter-spacing="1.2">THE MIDDLE</text>
+          <text x="250" y="380" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="-apple-system,Inter,sans-serif">Spreadsheets + memory</text>
+        </g>
+
+        <line x1="250" y1="316" x2="250" y2="345" stroke="rgba(255,107,87,.8)" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+        <!-- MONEY box (red = disconnected) -->
+        <g>
+          <rect x="130" y="420" width="240" height="46" rx="10" fill="#1a1015" stroke="#FF6B57" stroke-width="2"/>
+          <text x="250" y="437" text-anchor="middle" fill="#FF9885" font-size="9" font-weight="700" font-family="ui-monospace,SFMono-Regular,monospace" letter-spacing="1.2">MONEY</text>
+          <text x="250" y="455" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="-apple-system,Inter,sans-serif">Not connected</text>
+        </g>
+        <line x1="250" y1="391" x2="250" y2="420" stroke="rgba(255,107,87,.8)" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+        <!-- alert badge -->
+        <g>
+          <rect x="380" y="330" width="90" height="22" rx="11" fill="#3d1218" stroke="#FF6B57" stroke-width="1"/>
+          <circle cx="393" cy="341" r="6" fill="#FF6B57"/>
+          <text x="393" y="345" text-anchor="middle" fill="#fff" font-size="9" font-weight="700" font-family="ui-monospace,SFMono-Regular,monospace">!</text>
+          <text x="404" y="345" fill="#FF9885" font-size="9" font-family="ui-monospace,SFMono-Regular,monospace">leak found</text>
+        </g>
+      </svg>
     </div>
-    <div class="otherwrap" id="ow-middle"><input type="text" id="other-middle" maxlength="60" placeholder="Tell us in a few words" aria-label="Other middle system"></div>
-    <p class="hint" style="margin-top:14px">Anything else helping out? Optional.</p>
-    <div class="chips" data-q="middleSecondary" style="margin-top:8px">
-      <button type="button" class="chip sec" data-v="crm_allinone" aria-pressed="false">An all in one CRM</button>
-      <button type="button" class="chip sec" data-v="crm_sales" aria-pressed="false">A sales CRM</button>
-      <button type="button" class="chip sec" data-v="spreadsheets" aria-pressed="false">Spreadsheets</button>
-      <button type="button" class="chip sec" data-v="memory" aria-pressed="false">Someone's memory</button>
-      <button type="button" class="chip sec" data-v="industry_tool" aria-pressed="false">An industry tool</button>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">How it works</div>
+      <h2>Sources feed capture. Capture feeds the middle. The middle feeds money.</h2>
+      <p class="section-sub">When a step runs by hand, on memory, or through one person, the map draws it in red. That red is where leads, invoices, and hours quietly leak.</p>
     </div>
-  </section>
-
-  <section class="q" id="q4">
-    <div class="qn">QUESTION 4 OF 5</div>
-    <div class="qt">How does money get billed and reconciled?</div>
-    <div class="chips" data-q="money">
-      <button type="button" class="chip" data-v="acct_connected" aria-pressed="false">Accounting software, connected to the middle</button>
-      <button type="button" class="chip" data-v="acct_not_connected" aria-pressed="false">Accounting software, not connected</button>
-      <button type="button" class="chip" data-v="invoices_hand" aria-pressed="false">Invoices by hand</button>
-      <button type="button" class="chip" data-v="check_bank" aria-pressed="false">I check the bank</button>
+    <div class="hiw-grid">
+      <div class="hiw-card">
+        <div class="hiw-num">1</div>
+        <h3 class="hiw-title">Answer five questions</h3>
+        <p class="hiw-body">Sources, catch points, middle, money, mover. Chips, not essays. About two minutes.</p>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">2</div>
+        <h3 class="hiw-title">Watch the map draw</h3>
+        <p class="hiw-body">The map rebuilds every time you pick an answer. Leaks appear in red as the pattern reveals itself.</p>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">3</div>
+        <h3 class="hiw-title">Get the read on your map</h3>
+        <p class="hiw-body">A plain-English write-up, plus a link that keeps the map. Emailed. Yours to share with anyone.</p>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="q" id="q5">
-    <div class="qn">QUESTION 5 OF 5</div>
-    <div class="qt">Who moves information between these by hand?</div>
-    <div class="chips" data-q="mover">
-      <button type="button" class="chip" data-v="nobody" aria-pressed="false">Nobody, it flows</button>
-      <button type="button" class="chip" data-v="team_member" aria-pressed="false">A team member</button>
-      <button type="button" class="chip" data-v="owner" aria-pressed="false">Mostly me, the owner</button>
-      <button type="button" class="chip" data-v="missed" aria-pressed="false">Things just get missed</button>
+<!-- FORM SECTION -->
+<section class="form-section">
+  <div class="wrap-narrow">
+    <div class="form-head">
+      <div class="kicker">Try it</div>
+      <h2>Five questions. One map.</h2>
+      <p class="section-sub">Pick the answers that describe how your operation actually works.</p>
+      <div style="text-align:center"><span class="frame"><span class="dot"></span>Nothing connects to anything. This reads your answers and touches nothing.</span></div>
     </div>
-  </section>
 
-  <section class="mapcard" id="mapcard" hidden>
-    <div class="mh">YOUR MAP, DRAWN FROM YOUR ANSWERS</div>
-    <div class="leakline" id="leakline"></div>
-    <div id="map" aria-live="polite"></div>
-  </section>
+    <section class="q" id="q1">
+      <div class="qn">QUESTION 1 OF 5</div>
+      <div class="qt">Where do customers come from?</div>
+      <div class="chips" data-q="sources" data-multi="1">
+        <button type="button" class="chip" data-v="ads" aria-pressed="false">Ads</button>
+        <button type="button" class="chip" data-v="search" aria-pressed="false">Google search</button>
+        <button type="button" class="chip" data-v="social" aria-pressed="false">Social + DMs</button>
+        <button type="button" class="chip" data-v="referrals" aria-pressed="false">Referrals</button>
+        <button type="button" class="chip" data-v="walkins" aria-pressed="false">Walk ins + calls</button>
+        <button type="button" class="chip" data-v="other" aria-pressed="false">Other</button>
+      </div>
+      <div class="otherwrap" id="ow-sources"><input type="text" id="other-sources" maxlength="60" placeholder="Tell us in a few words" aria-label="Other customer source"></div>
+      <p class="hint">Pick everything that applies.</p>
+    </section>
 
-  <section class="break" id="gate">
-    <h2 style="margin-top:0">Get the read on your map</h2>
-    <p class="muted small">We'll generate a short plain English read of what the map shows, written only from your five answers, and give you a link that keeps the map.</p>
-    <label for="fn">First name <span class="muted" style="font-weight:400">(optional)</span></label>
-    <input type="text" id="fn" maxlength="60" autocomplete="given-name">
-    <label for="email">Email</label>
-    <input type="email" id="email" required autocomplete="email" inputmode="email">
-    <div class="hp" aria-hidden="true"><label>Website<input type="text" id="hp" tabindex="-1" autocomplete="off"></label></div>
-    <div class="consent"><input type="checkbox" id="consent"><label for="consent" style="margin:0;font-weight:400">Email me my Blueprint and occasional notes on fixing systems like this. One run per email per day.</label></div>
-    <button type="button" class="btn" id="go">Draw my Blueprint</button>
-    <p class="err" id="err"></p>
-  </section>
+    <section class="q" id="q2">
+      <div class="qn">QUESTION 2 OF 5</div>
+      <div class="qt">What catches them when they show up?</div>
+      <div class="chips" data-q="capture" data-multi="1">
+        <button type="button" class="chip" data-v="forms" aria-pressed="false">Website forms</button>
+        <button type="button" class="chip" data-v="phone" aria-pressed="false">Phone</button>
+        <button type="button" class="chip" data-v="dms_hand" aria-pressed="false">DMs answered by hand</button>
+        <button type="button" class="chip" data-v="inbox" aria-pressed="false">Email inbox</button>
+        <button type="button" class="chip" data-v="nothing" aria-pressed="false">Nothing consistent</button>
+        <button type="button" class="chip" data-v="other" aria-pressed="false">Other</button>
+      </div>
+      <div class="otherwrap" id="ow-capture"><input type="text" id="other-capture" maxlength="60" placeholder="Tell us in a few words" aria-label="Other capture method"></div>
+      <p class="hint">Pick everything that applies.</p>
+    </section>
 
-  <h2>What this is</h2>
-  <p class="muted">Most owners have never seen their own operation drawn as a system. Sources feed capture, capture feeds the middle, the middle feeds money. When a step runs by hand, on memory, or through one person, the map shows it in red. That red is where leads, invoices, and hours quietly leak.</p>
-  <p class="muted">This demo reads five answers and touches nothing. The after version of this map is the System Health Check: your systems mapped for real, leaks priced, fixes prioritized.</p>
+    <section class="q" id="q3">
+      <div class="qn">QUESTION 3 OF 5</div>
+      <div class="qt">What runs the middle of the business?</div>
+      <div class="chips" data-q="middlePrimary">
+        <button type="button" class="chip" data-v="crm_allinone" aria-pressed="false">An all in one CRM</button>
+        <button type="button" class="chip" data-v="crm_sales" aria-pressed="false">A sales CRM</button>
+        <button type="button" class="chip" data-v="spreadsheets" aria-pressed="false">Spreadsheets</button>
+        <button type="button" class="chip" data-v="memory" aria-pressed="false">Someone's memory</button>
+        <button type="button" class="chip" data-v="industry_tool" aria-pressed="false">An industry tool</button>
+        <button type="button" class="chip" data-v="other" aria-pressed="false">Other</button>
+      </div>
+      <div class="otherwrap" id="ow-middle"><input type="text" id="other-middle" maxlength="60" placeholder="Tell us in a few words" aria-label="Other middle system"></div>
+      <p class="hint" style="margin-top:14px">Anything else helping out? Optional.</p>
+      <div class="chips" data-q="middleSecondary" style="margin-top:8px">
+        <button type="button" class="chip sec" data-v="crm_allinone" aria-pressed="false">An all in one CRM</button>
+        <button type="button" class="chip sec" data-v="crm_sales" aria-pressed="false">A sales CRM</button>
+        <button type="button" class="chip sec" data-v="spreadsheets" aria-pressed="false">Spreadsheets</button>
+        <button type="button" class="chip sec" data-v="memory" aria-pressed="false">Someone's memory</button>
+        <button type="button" class="chip sec" data-v="industry_tool" aria-pressed="false">An industry tool</button>
+      </div>
+    </section>
 
-  <p style="max-width:720px;margin:22px auto 0;padding:0 18px;font-size:13px;color:var(--muted);text-align:center">More free tools: <a href="/tools" style="color:var(--brand);font-weight:600;text-decoration:none">launchforte.com/tools</a></p>
-  <footer>Launch Forte, Grapevine, TX. Systems and automation for businesses that run on people's memory. <a href="https://launchforte.com">launchforte.com</a></footer>
-</main>
+    <section class="q" id="q4">
+      <div class="qn">QUESTION 4 OF 5</div>
+      <div class="qt">How does money get billed and reconciled?</div>
+      <div class="chips" data-q="money">
+        <button type="button" class="chip" data-v="acct_connected" aria-pressed="false">Accounting software, connected to the middle</button>
+        <button type="button" class="chip" data-v="acct_not_connected" aria-pressed="false">Accounting software, not connected</button>
+        <button type="button" class="chip" data-v="invoices_hand" aria-pressed="false">Invoices by hand</button>
+        <button type="button" class="chip" data-v="check_bank" aria-pressed="false">I check the bank</button>
+      </div>
+    </section>
+
+    <section class="q" id="q5">
+      <div class="qn">QUESTION 5 OF 5</div>
+      <div class="qt">Who moves information between these by hand?</div>
+      <div class="chips" data-q="mover">
+        <button type="button" class="chip" data-v="nobody" aria-pressed="false">Nobody, it flows</button>
+        <button type="button" class="chip" data-v="team_member" aria-pressed="false">A team member</button>
+        <button type="button" class="chip" data-v="owner" aria-pressed="false">Mostly me, the owner</button>
+        <button type="button" class="chip" data-v="missed" aria-pressed="false">Things just get missed</button>
+      </div>
+    </section>
+
+    <section class="mapcard" id="mapcard" hidden>
+      <div class="mh">YOUR MAP, DRAWN FROM YOUR ANSWERS</div>
+      <div class="leakline" id="leakline"></div>
+      <div id="map" aria-live="polite"></div>
+    </section>
+
+    <section class="break" id="gate">
+      <h2>Get the read on your map</h2>
+      <p class="muted small">We'll generate a short plain English read of what the map shows, written only from your five answers, and give you a link that keeps the map.</p>
+      <label for="fn">First name <span class="muted" style="font-weight:400">(optional)</span></label>
+      <input type="text" id="fn" maxlength="60" autocomplete="given-name" placeholder="What we should call you">
+      <label for="email">Email</label>
+      <input type="email" id="email" required autocomplete="email" inputmode="email" placeholder="you@company.com">
+      <div class="hp" aria-hidden="true"><label>Website<input type="text" id="hp" tabindex="-1" autocomplete="off"></label></div>
+      <div class="consent"><input type="checkbox" id="consent"><label for="consent" style="margin:0;font-weight:400">Email me my Blueprint and occasional notes on fixing systems like this. One run per email per day.</label></div>
+      <button type="button" class="btn" id="go">
+        Draw my Blueprint
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <p class="err" id="err"></p>
+    </section>
+  </div>
+</section>
+
+<!-- WHAT THIS IS (dark band) -->
+<section class="explain">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">What this is</div>
+      <h2>Most owners have never seen their operation as a system.</h2>
+    </div>
+    <div class="explain-body">
+      <p>Sources feed capture. Capture feeds the middle. The middle feeds money. When a step runs by hand, on memory, or through one person, the map shows it in red. That red is where leads, invoices, and hours quietly leak.</p>
+      <p>This demo reads five answers and touches nothing. <strong>The after version of this map is the System Health Check</strong>: your systems mapped for real, leaks priced, fixes prioritized.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="foot-inner">
+    <div>Systems and automation for businesses that run on people's memory. Built by <span class="foot-brand">Launch<b>Forte</b></span> in Grapevine, Texas.</div>
+    <div>More free tools: <a href="https://launchforte.com/tools">launchforte.com/tools</a></div>
+  </div>
+</footer>
+
 <script>
 /* Blueprint map engine. Deterministic: answers in, leaks + SVG out. */
 var BP_LABELS = {

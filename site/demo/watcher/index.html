@@ -5,196 +5,451 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The 2am Alert. A Live Monitoring Demo | Launch Forte</title>
 <meta name="description" content="Break a demo business's automation on purpose. A real watcher catches it and emails you the incident alert within seconds, then the recovery notice. Feel what monitored systems are like.">
+<link rel="canonical" href="https://launchforte.com/demo/watcher/">
 <style>
-/* ============================================================
-   BRAND TOKENS. Identical to the med spa island so both demos
-   read as the same house. Everything derives from this block.
-   ============================================================ */
 :root{
-  --paper:#FBFAF7;      /* page background */
-  --card:#FFFFFF;       /* cards, phone, forms */
-  --ink:#15221E;        /* primary text */
-  --muted:#5B6660;      /* secondary text */
-  --line:#E5E3DB;       /* hairlines and borders */
-  --brand:#0088DB;      /* buttons, headings accent, timer numerals */
-  --brand-soft:#E6F2FA; /* banner, chips, success tint */
-  --err:#A33B2E;        /* error text */
-  --bubble:#E9E9EB;
-  --ok:#1E7A4F;         /* healthy node green */
-  --red:#B42318;        /* broken node red */
-  --radius:12px;
-  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --brand:#0088DB; --brand-soft:#E6F2FA; --brand-ink:#075A8F; --brand-glow:rgba(0,136,219,.35);
+  --ink:#0B1220; --ink-soft:#141922; --muted:#5A6472; --muted-2:#8892A0;
+  --line:#E4E8EE; --line-strong:#D5DBE3;
+  --bg:#F5F7FA; --card:#FFFFFF;
+  --dark-bg:#0A1220; --dark-bg-2:#0E1729; --dark-card:#111C33; --dark-line:rgba(255,255,255,.08); --dark-line-2:rgba(255,255,255,.14);
+  --dark-text:#E7EDF5; --dark-muted:#93A1B5;
+  --ok:#1E7A4F; --warn:#B4541B; --danger:#C23B3B; --err:#C23B3B; --red:#C23B3B;
+  --radius:16px; --radius-lg:22px;
+  --shadow:0 1px 2px rgba(20,25,34,.05),0 8px 24px rgba(20,25,34,.06);
+  --shadow-lg:0 1px 2px rgba(20,25,34,.06),0 20px 60px rgba(20,25,34,.1);
+  --font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
-
-/* ============================================================ BASE */
 *{box-sizing:border-box}
+html,body{margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.55;font-size:16px}
-main{max-width:720px;margin:0 auto;padding:0 18px 72px}
-h1{font-size:clamp(28px,6vw,40px);line-height:1.15;margin:26px 0 12px;letter-spacing:-.01em}
-h2{font-size:22px;margin:44px 0 10px;letter-spacing:-.01em}
-p{margin:10px 0}
-.muted{color:var(--muted)}
-.small{font-size:13.5px}
-a{color:var(--brand)}
-button{font-family:var(--font)}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-size:16px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.wrap-narrow{max-width:760px;margin:0 auto;padding:0 24px}
 :focus-visible{outline:3px solid var(--brand);outline-offset:2px}
 
-/* ============================================================ BANNER */
-.banner{background:var(--brand-soft);border-bottom:1px solid var(--line);padding:10px 18px;text-align:center;font-size:14px}
-.banner strong{color:var(--brand)}
+/* ========== NAV ========== */
+.nav{position:sticky;top:0;z-index:30;background:rgba(10,18,32,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--dark-line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}
+.nav-logo{font-weight:800;font-size:19px;letter-spacing:-.02em;color:#fff;text-decoration:none}
+.nav-logo b{color:var(--brand)}
+.nav-links{display:flex;gap:28px;font-size:14px;font-weight:500}
+.nav-links a{color:var(--dark-muted);text-decoration:none;transition:color .15s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:#fff;color:var(--ink);padding:8px 16px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;transition:transform .15s}
+.nav-cta:hover{transform:translateY(-1px)}
+@media(max-width:720px){.nav-links{display:none}}
 
-/* ============================================================ CHIPS + FRAMING */
-.frame{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13.5px;color:var(--muted);margin-top:6px}
-.frame .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none}
+/* ========== HERO ========== */
+.hero{position:relative;background:linear-gradient(180deg,#0A1220 0%,#0E1729 55%,#0A1220 100%);color:var(--dark-text);overflow:hidden;padding:88px 0 100px}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 900px 500px at 50% 0%,rgba(0,136,219,.24),transparent 60%);pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 700px 400px at 80% 100%,rgba(74,181,237,.14),transparent 55%);pointer-events:none}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;max-width:1120px;margin:0 auto;padding:0 24px}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:44px}.hero{padding:60px 0 72px}}
 
-/* ============================================================ FLOW DIAGRAM */
-.flow{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:22px 0}
-.flow-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px}
-.flow-head .co{font-weight:700}
-.flow-head .live{font-size:12px;color:var(--muted);font-family:var(--mono)}
-.nodes{display:grid;grid-template-columns:1fr;gap:10px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#B7DBF3;background:rgba(0,136,219,.14);border:1px solid rgba(0,136,219,.28);padding:7px 14px;border-radius:999px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);box-shadow:0 0 12px var(--brand-glow);animation:heropulse 2s infinite}
+@keyframes heropulse{0%,100%{box-shadow:0 0 12px var(--brand-glow)}50%{box-shadow:0 0 20px var(--brand-glow)}}
+
+h1{font-size:clamp(38px,5.6vw,60px);line-height:1.04;letter-spacing:-.028em;margin:22px 0 20px;font-weight:800;color:#fff}
+h1 .accent{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:19px;color:#B7C4D6;margin:0 0 28px;max-width:38ch;line-height:1.55}
+.hero-meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:8px}
+.hero-meta-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--dark-muted)}
+.hero-meta-item svg{color:var(--brand);flex:0 0 auto}
+
+/* ========== HERO SVG (systems radar) ========== */
+.hero-illo{position:relative;aspect-ratio:1/1;max-width:460px;margin:0 auto;width:100%}
+.hero-illo svg{width:100%;height:100%;filter:drop-shadow(0 20px 60px rgba(0,136,219,.25))}
+
+/* ========== SECTION SCAFFOLD ========== */
+.section{padding:88px 0}
+.section-head{text-align:center;max-width:640px;margin:0 auto 48px}
+.kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:14px}
+h2{font-size:clamp(30px,3.6vw,42px);line-height:1.12;letter-spacing:-.02em;margin:0 0 14px;font-weight:800;color:var(--ink)}
+.section-sub{font-size:18px;color:var(--muted);margin:0}
+
+/* ========== HOW IT WORKS ========== */
+.hiw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:820px){.hiw-grid{grid-template-columns:1fr;gap:14px}}
+.hiw-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:28px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
+.hiw-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
+.hiw-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--brand-soft);color:var(--brand-ink);font-weight:800;font-size:15px;margin-bottom:16px}
+.hiw-title{font-size:18px;font-weight:700;color:var(--ink);margin:0 0 8px;letter-spacing:-.01em}
+.hiw-body{font-size:15px;color:var(--muted);line-height:1.6;margin:0}
+.hiw-card::after{content:"";position:absolute;inset:auto -30% -60% auto;width:180px;height:180px;background:radial-gradient(circle,rgba(0,136,219,.05),transparent 70%);pointer-events:none}
+
+/* ========== BANNER ========== */
+.banner{background:var(--brand-soft);border-bottom:1px solid #cfe6f7;color:#075A8F;padding:12px 20px;text-align:center;font-size:14px}
+.banner strong{color:var(--brand-ink);font-weight:700}
+
+/* ========== INTERACTIVE SECTION ========== */
+.form-section{background:linear-gradient(180deg,#F5F7FA 0%,#EEF2F7 100%);padding:88px 0 100px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.form-head{text-align:center;max-width:640px;margin:0 auto 40px}
+
+/* Systems flow diagram (repurposed .flow) */
+.flow{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:24px;margin:24px 0}
+.flow-head{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:18px}
+.flow-head .co{font-weight:700;font-size:15px;color:var(--ink);letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.flow-head .co::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px rgba(30,122,79,.5);animation:pulseok 2s infinite}
+@keyframes pulseok{0%,100%{opacity:1}50%{opacity:.5}}
+.flow-head .live{font-size:12px;color:var(--muted);font-family:var(--mono);background:var(--brand-soft);padding:5px 10px;border-radius:999px}
+.nodes{display:grid;grid-template-columns:1fr;gap:12px}
 @media(min-width:560px){.nodes{grid-template-columns:1fr 1fr}}
-.node{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;transition:border-color .3s, background .3s}
+.node{border:1px solid var(--line-strong);background:#fff;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:14px;transition:all .3s}
 .node .pulse{width:12px;height:12px;border-radius:50%;background:var(--ok);flex:none;animation:pulse 2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(30,122,79,.35)}70%{box-shadow:0 0 0 9px rgba(30,122,79,0)}100%{box-shadow:0 0 0 0 rgba(30,122,79,0)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(30,122,79,.4)}70%{box-shadow:0 0 0 10px rgba(30,122,79,0)}100%{box-shadow:0 0 0 0 rgba(30,122,79,0)}}
 @media(prefers-reduced-motion:reduce){.node .pulse{animation:none}}
-.node .nm{font-weight:600;font-size:15px}
-.node .chk{font-size:12px;color:var(--muted);font-family:var(--mono)}
-.node.down{border-color:var(--red);background:#FBEDEB}
-.node.down .pulse{background:var(--red);animation:none}
-.node.down .chk{color:var(--red)}
+.node .nm{font-weight:700;font-size:15px;color:var(--ink)}
+.node .chk{font-size:12px;color:var(--muted);font-family:var(--mono);margin-top:2px}
+.node.down{border-color:var(--red);background:#FEF2F0;animation:shake .4s}
+.node.down .pulse{background:var(--red);animation:none;box-shadow:0 0 0 5px rgba(194,59,59,.15)}
+.node.down .chk{color:var(--red);font-weight:600}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}
 
-/* ============================================================ BREAK FORM */
-.break{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:22px 0}
-label{display:block;font-weight:600;font-size:14px;margin:12px 0 6px}
-input[type=email],input[type=text]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:16px;font-family:var(--font);background:#fff}
-.consent{font-size:13px;color:var(--muted);margin-top:8px}
-.modes{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px}
+/* Break form */
+.break{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:28px;margin:24px 0}
+.break h2{font-size:22px;margin:0 0 18px;color:var(--ink)}
+.break label{display:block;font-size:13px;font-weight:600;margin:0 0 8px;color:var(--ink)}
+.break input[type=email],.break input[type=text]{width:100%;padding:14px 16px;border:1.5px solid var(--line-strong);border-radius:12px;font-size:15px;font-family:inherit;background:#fff;transition:border-color .15s,box-shadow .15s}
+.break input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px rgba(0,136,219,.12)}
+.consent{font-size:13px;color:var(--muted);margin:10px 0 0}
+.modes{display:grid;grid-template-columns:1fr;gap:12px;margin-top:18px}
 @media(min-width:560px){.modes{grid-template-columns:1fr 1fr}}
-.mode-btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:14px;text-align:left;cursor:pointer;font-size:15px;transition:border-color .2s}
-.mode-btn:hover{border-color:var(--brand)}
-.mode-btn .t{font-weight:700;display:block}
-.mode-btn .s{font-size:13px;color:var(--muted)}
-.mode-btn:disabled{opacity:.55;cursor:default}
-.err{color:var(--err);font-size:14px;margin-top:10px;display:none}
+.mode-btn{border:1.5px solid var(--line-strong);background:#fff;border-radius:14px;padding:18px;text-align:left;cursor:pointer;font-family:inherit;transition:all .18s;position:relative;overflow:hidden}
+.mode-btn:hover{border-color:var(--brand);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,136,219,.15)}
+.mode-btn .t{font-weight:700;display:block;font-size:15px;color:var(--ink);margin-bottom:4px}
+.mode-btn .s{font-size:13px;color:var(--muted);display:block}
+.mode-btn:disabled{opacity:.5;cursor:default;transform:none;box-shadow:none}
+.err{color:var(--err);font-size:14px;margin-top:12px;display:none;background:#FCEDED;border:1px solid #F3CFCF;border-radius:10px;padding:11px 13px;font-weight:500}
 .hp{position:absolute;left:-9999px;top:-9999px}
 
-/* ============================================================ TIMELINE + STOPWATCH */
-.run{display:none;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:22px 0}
-.watch{font-family:var(--mono);font-size:clamp(40px,10vw,56px);font-weight:700;color:var(--brand);letter-spacing:.02em;line-height:1;margin:6px 0 2px}
-.watch-cap{font-size:13px;color:var(--muted)}
-.stages{list-style:none;margin:18px 0 0;padding:0}
-.stage{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line);align-items:baseline}
-.stage .mark{width:12px;height:12px;border-radius:50%;background:var(--line);flex:none;position:relative;top:2px}
-.stage.hit .mark{background:var(--ok)}
-.stage.red .mark{background:var(--red)}
-.stage .lbl{font-weight:600;font-size:15px;min-width:0}
-.stage .tm{margin-left:auto;font-family:var(--mono);font-size:13.5px;color:var(--muted);white-space:nowrap}
-.inbox-hint{background:var(--brand-soft);border-radius:10px;padding:12px 14px;font-size:14px;margin-top:14px;display:none}
+/* Timeline + stopwatch */
+.run{display:none;background:linear-gradient(180deg,#fff 0%,#F9FBFD 100%);border:1.5px solid var(--brand);box-shadow:0 1px 2px rgba(20,25,34,.05),0 20px 60px rgba(0,136,219,.15);border-radius:var(--radius-lg);padding:32px;margin:24px 0}
+.run h2{font-size:22px;margin:0 0 18px;color:var(--ink)}
+.watch{font-family:var(--mono);font-size:clamp(56px,12vw,84px);font-weight:700;color:var(--brand);letter-spacing:-.02em;line-height:1;margin:6px 0 4px;background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.watch-cap{font-size:14px;color:var(--muted);font-weight:500}
+.stages{list-style:none;margin:24px 0 0;padding:0}
+.stage{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line);align-items:center}
+.stage:first-child{border-top:none}
+.stage .mark{width:14px;height:14px;border-radius:50%;background:var(--line-strong);flex:none;transition:background .3s,box-shadow .3s}
+.stage.hit .mark{background:var(--ok);box-shadow:0 0 0 4px rgba(30,122,79,.15)}
+.stage.red .mark{background:var(--red);box-shadow:0 0 0 4px rgba(194,59,59,.15)}
+.stage .lbl{font-weight:600;font-size:15px;min-width:0;color:var(--ink)}
+.stage:not(.hit) .lbl{color:var(--muted)}
+.stage .tm{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap;background:var(--bg);padding:4px 10px;border-radius:6px}
+.inbox-hint{background:var(--brand-soft);border-radius:12px;padding:14px 16px;font-size:14px;margin-top:18px;display:none;color:var(--brand-ink)}
 
-/* ============================================================ STORIES */
-.stories{border-left:3px solid var(--line);padding-left:16px;margin:16px 0}
-.stories p{margin:12px 0}
+/* ========== EXPLAIN / STORIES (dark band) ========== */
+.explain{background:linear-gradient(180deg,#0A1220 0%,#0E1729 100%);color:var(--dark-text);padding:96px 0;position:relative;overflow:hidden}
+.explain::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 800px 400px at 50% 0%,rgba(0,136,219,.15),transparent 60%);pointer-events:none}
+.explain .kicker{color:#4AB5ED}
+.explain h2{color:#fff}
+.explain-body{position:relative;max-width:760px;margin:0 auto}
+.explain-body p{font-size:17px;color:#C4CFDD;line-height:1.7;margin:0 0 20px}
+.explain-body strong{color:#fff;font-weight:700}
+.stories{display:grid;grid-template-columns:1fr;gap:16px;margin:32px 0;position:relative}
+@media(min-width:720px){.stories{grid-template-columns:repeat(3,1fr)}}
+.story{background:linear-gradient(180deg,var(--dark-card) 0%,#0E1A30 100%);border:1px solid var(--dark-line-2);border-radius:var(--radius-lg);padding:24px;position:relative;overflow:hidden;font-size:15px;color:#B7C4D6;line-height:1.6}
+.story::before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--brand),#4AB5ED)}
+.story::after{content:"";position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle at top right,rgba(0,136,219,.1),transparent 70%);pointer-events:none}
 
-/* ============================================================ CTA */
-.cta{background:var(--brand);color:#fff;border-radius:var(--radius);padding:26px 20px;margin:44px 0 0}
-.cta h2{margin:0 0 8px;color:#fff}
-.cta p{color:#DCE8E2}
-.cta label{color:#fff}
-.cta input{border:none}
-.cta textarea{width:100%;padding:12px 14px;border:none;border-radius:10px;font-size:16px;font-family:var(--font);min-height:70px}
-.btn{display:inline-block;background:#fff;color:var(--brand);border:none;border-radius:10px;padding:14px 22px;font-size:16px;font-weight:700;cursor:pointer;margin-top:14px}
-.btn:disabled{opacity:.6;cursor:default}
-.cta .ok-msg{display:none;background:rgba(255,255,255,.12);border-radius:10px;padding:14px;margin-top:14px}
-.cta .err{color:#F3C1B8}
-footer{max-width:720px;margin:0 auto;padding:26px 18px;font-size:13px;color:var(--muted)}
+/* ========== CTA ========== */
+.cta-section{padding:96px 0;background:var(--bg);border-top:1px solid var(--line)}
+.cta{background:linear-gradient(135deg,#0A1220 0%,#0E2A44 100%);border-radius:var(--radius-lg);padding:48px;position:relative;overflow:hidden;max-width:760px;margin:0 auto;box-shadow:0 20px 60px rgba(10,18,32,.25)}
+.cta::before{content:"";position:absolute;top:0;right:0;width:400px;height:400px;background:radial-gradient(circle,rgba(0,136,219,.2),transparent 60%);pointer-events:none}
+.cta h2{color:#fff;font-size:28px;margin:0 0 10px;letter-spacing:-.02em;position:relative}
+.cta > p{color:#B7C4D6;font-size:16px;margin:0 0 24px;position:relative}
+.cta label{color:#B7C4D6;display:block;font-size:13px;font-weight:600;margin:14px 0 8px;position:relative}
+.cta input,.cta textarea{width:100%;padding:14px 16px;border:1px solid rgba(255,255,255,.14);border-radius:12px;font-size:15px;font-family:inherit;background:rgba(255,255,255,.06);color:#fff;position:relative;transition:border-color .15s,background .15s}
+.cta input::placeholder,.cta textarea::placeholder{color:#7788A0}
+.cta input:focus,.cta textarea:focus{outline:none;border-color:var(--brand);background:rgba(255,255,255,.1)}
+.cta textarea{min-height:90px;resize:vertical}
+.btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,var(--brand) 0%,#0077C4 100%);color:#fff;border:none;border-radius:12px;padding:14px 24px;font-size:15px;font-weight:700;cursor:pointer;margin-top:20px;font-family:inherit;transition:transform .12s,box-shadow .2s;box-shadow:0 8px 24px rgba(0,136,219,.35);position:relative}
+.btn:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(0,136,219,.42)}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.cta .err{color:#FBA5A0;background:rgba(194,59,59,.14);border-color:rgba(194,59,59,.3);position:relative}
+.cta .ok-msg{display:none;background:rgba(30,122,79,.16);border:1px solid rgba(30,122,79,.35);border-radius:12px;padding:14px 16px;margin-top:16px;color:#B4E5CB;font-size:14px;position:relative}
+
+/* ========== FOOTER ========== */
+footer.site{background:#0A1220;color:#93A1B5;padding:48px 0 40px;font-size:14px}
+footer.site .foot-inner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:center;max-width:1120px;margin:0 auto;padding:0 24px}
+footer.site a{color:#4AB5ED;text-decoration:none;font-weight:500;transition:color .15s}
+footer.site a:hover{color:#7BCCF7}
+footer.site .foot-brand{font-weight:700;color:#fff;font-size:15px}
+footer.site .foot-brand b{color:var(--brand)}
+
+@media(max-width:520px){
+  h1{font-size:36px}
+  .hero{padding:56px 0 64px}
+  .section{padding:64px 0}
+  .form-section{padding:64px 0 72px}
+  .explain{padding:72px 0}
+  .cta-section{padding:64px 0}
+  .cta{padding:28px}
+}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="https://launchforte.com/">Launch<b>Forte</b></a>
+    <div class="nav-links">
+      <a href="/tools">Free Tools</a>
+      <a href="https://launchforte.com/">Home</a>
+      <a href="https://launchforte.com/#contact">Contact</a>
+    </div>
+    <a class="nav-cta" href="/tools">All Tools</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="dot"></span>Live monitoring demo</span>
+      <h1>Your customers found your last <span class="accent">outage</span>.</h1>
+      <p class="hero-sub">This page gives you the other option. Break a demo business on purpose and feel a real incident alert land in your inbox in seconds.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Alert in seconds</span>
+        </div>
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Real emails, measured</span>
+        </div>
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Simulated on the demo</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO SVG: systems radar -->
+    <div class="hero-illo">
+      <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#0088DB" stop-opacity=".4"/>
+            <stop offset="100%" stop-color="#0088DB" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4AB5ED"/>
+            <stop offset="100%" stop-color="#0088DB"/>
+          </linearGradient>
+          <linearGradient id="node" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#132A44"/>
+            <stop offset="100%" stop-color="#0A1930"/>
+          </linearGradient>
+          <linearGradient id="alert" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FF6B57"/>
+            <stop offset="100%" stop-color="#C23B3B"/>
+          </linearGradient>
+        </defs>
+
+        <circle cx="250" cy="250" r="240" fill="url(#glow)"/>
+
+        <!-- radar sweep -->
+        <circle cx="250" cy="250" r="220" stroke="rgba(74,181,237,.15)" stroke-width="1"/>
+        <circle cx="250" cy="250" r="160" stroke="rgba(74,181,237,.2)" stroke-width="1" stroke-dasharray="4 6"/>
+        <circle cx="250" cy="250" r="100" stroke="rgba(74,181,237,.28)" stroke-width="1"/>
+
+        <!-- crosshair -->
+        <line x1="250" y1="30" x2="250" y2="470" stroke="rgba(74,181,237,.1)" stroke-width="1"/>
+        <line x1="30" y1="250" x2="470" y2="250" stroke="rgba(74,181,237,.1)" stroke-width="1"/>
+
+        <!-- center: eye of the watcher -->
+        <circle cx="250" cy="250" r="52" fill="url(#ring)" stroke="#4AB5ED" stroke-width="2"/>
+        <circle cx="250" cy="250" r="20" fill="#0A1220"/>
+        <circle cx="250" cy="250" r="8" fill="#4AB5ED">
+          <animate attributeName="r" values="8;12;8" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- healthy nodes -->
+        <g>
+          <circle cx="120" cy="140" r="18" fill="url(#node)" stroke="#2FA968" stroke-width="2"/>
+          <circle cx="120" cy="140" r="4" fill="#2FA968">
+            <animate attributeName="opacity" values="1;.3;1" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <text x="120" y="180" text-anchor="middle" fill="#B7DBF3" font-size="11" font-weight="600" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif">LEADS</text>
+        </g>
+        <g>
+          <circle cx="380" cy="140" r="18" fill="url(#node)" stroke="#2FA968" stroke-width="2"/>
+          <circle cx="380" cy="140" r="4" fill="#2FA968">
+            <animate attributeName="opacity" values="1;.3;1" dur="2s" repeatCount="indefinite" begin=".5s"/>
+          </circle>
+          <text x="380" y="180" text-anchor="middle" fill="#B7DBF3" font-size="11" font-weight="600" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif">CRM</text>
+        </g>
+
+        <!-- broken node with alert -->
+        <g>
+          <circle cx="380" cy="360" r="22" fill="url(#node)" stroke="url(#alert)" stroke-width="2.5"/>
+          <circle cx="380" cy="360" r="6" fill="#FF6B57">
+            <animate attributeName="r" values="6;10;6" dur=".8s" repeatCount="indefinite"/>
+          </circle>
+          <text x="380" y="404" text-anchor="middle" fill="#FF9885" font-size="11" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif">BOOKING</text>
+          <text x="380" y="418" text-anchor="middle" fill="#FF6B57" font-size="9" font-family="ui-monospace,SFMono-Regular,monospace">FAILING</text>
+        </g>
+
+        <!-- healthy node -->
+        <g>
+          <circle cx="120" cy="360" r="18" fill="url(#node)" stroke="#2FA968" stroke-width="2"/>
+          <circle cx="120" cy="360" r="4" fill="#2FA968">
+            <animate attributeName="opacity" values="1;.3;1" dur="2s" repeatCount="indefinite" begin="1s"/>
+          </circle>
+          <text x="120" y="400" text-anchor="middle" fill="#B7DBF3" font-size="11" font-weight="600" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif">INVOICE</text>
+        </g>
+
+        <!-- lines from watcher to nodes -->
+        <line x1="250" y1="250" x2="120" y2="140" stroke="rgba(74,181,237,.4)" stroke-width="1"/>
+        <line x1="250" y1="250" x2="380" y2="140" stroke="rgba(74,181,237,.4)" stroke-width="1"/>
+        <line x1="250" y1="250" x2="380" y2="360" stroke="rgba(255,107,87,.6)" stroke-width="1.5" stroke-dasharray="3 3">
+          <animate attributeName="stroke-dashoffset" values="0;-12" dur=".5s" repeatCount="indefinite"/>
+        </line>
+        <line x1="250" y1="250" x2="120" y2="360" stroke="rgba(74,181,237,.4)" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
 <div class="banner" id="banner">This is a live demo for <strong>Summit Ops</strong>, a fictitious company. Picture your systems on it.</div>
 
-<main>
-  <h1>Your customers found your last outage.</h1>
-  <p class="muted" style="font-size:18px">This page gives you the other option. Below is Summit Ops, a demo business with its automations under watch. Break one on purpose. A real alert lands in your own inbox within seconds, and the recovery notice follows about a minute later.</p>
-  <div class="frame"><span class="dot"></span>The failure is simulated. The watcher, the detection time, and both emails are real.</div>
-
-  <!-- FLOW DIAGRAM -->
-  <div class="flow" aria-label="Summit Ops systems, live status">
-    <div class="flow-head">
-      <span class="co">Summit Ops · systems</span>
-      <span class="live" id="liveClock">watching</span>
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">How it works</div>
+      <h2>Break something on purpose. Feel a real alert.</h2>
+      <p class="section-sub">Uptime tools ping a page. That is not the failure that costs money. The expensive ones happen inside the flows.</p>
     </div>
-    <div class="nodes">
-      <div class="node" id="node-lead"><span class="pulse"></span><span><span class="nm">Lead form</span><br><span class="chk" data-chk>last checked just now</span></span></div>
-      <div class="node" id="node-crm"><span class="pulse"></span><span><span class="nm">CRM updates</span><br><span class="chk" data-chk>last checked just now</span></span></div>
-      <div class="node" id="node-booking"><span class="pulse"></span><span><span class="nm">Booking webhook</span><br><span class="chk" data-chk>last checked just now</span></span></div>
-      <div class="node" id="node-invoice"><span class="pulse"></span><span><span class="nm">Invoice sync</span><br><span class="chk" data-chk>last checked just now</span></span></div>
+    <div class="hiw-grid">
+      <div class="hiw-card">
+        <div class="hiw-num">1</div>
+        <h3 class="hiw-title">Pick which one to break</h3>
+        <p class="hiw-body">The loud one (customers see it fail) or the quiet one (nobody notices for weeks). Both are common patterns.</p>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">2</div>
+        <h3 class="hiw-title">Watch the stopwatch</h3>
+        <p class="hiw-body">A real watcher workflow reads the state change, timestamps it, and emails you. Measured, not staged.</p>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">3</div>
+        <h3 class="hiw-title">Two real emails</h3>
+        <p class="hiw-body">Incident alert now, recovery notice about a minute later. The whole loop, without a customer involved.</p>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- BREAK FORM -->
-  <div class="break" id="breakBox">
-    <h2 style="margin-top:0">Break something</h2>
-    <label for="email">Your email</label>
-    <input type="email" id="email" autocomplete="email" placeholder="you@company.com" inputmode="email">
-    <input type="text" class="hp" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <p class="consent">Send me the demo incident alerts. Two emails, demo only.</p>
-    <div class="modes">
-      <button class="mode-btn" data-mode="booking"><span class="t">Kill the booking webhook</span><span class="s">The loud one. Customers see it fail.</span></button>
-      <button class="mode-btn" data-mode="invoice"><span class="t">Silently stop the invoice sync</span><span class="s">The quiet one. Nobody sees anything.</span></button>
+<!-- INTERACTIVE (widget lives here, all IDs preserved) -->
+<section class="form-section">
+  <div class="wrap-narrow">
+    <div class="form-head">
+      <div class="kicker">Try it</div>
+      <h2>Summit Ops systems, watched live.</h2>
+      <p class="section-sub">Everything below runs against real automation. Break it, catch it, resolve it.</p>
     </div>
-    <p class="err" id="breakErr"></p>
-  </div>
 
-  <!-- RUN TIMELINE -->
-  <div class="run" id="runBox">
-    <h2 style="margin-top:0" id="runTitle">Failure staged. The watcher does not know yet.</h2>
-    <div class="watch" id="watch">0.0s</div>
-    <div class="watch-cap" id="watchCap">since the break, waiting on the watcher</div>
-    <ul class="stages">
-      <li class="stage red hit" id="st-press"><span class="mark"></span><span class="lbl" id="pressLbl">Failure staged</span><span class="tm" id="pressTm"></span></li>
-      <li class="stage" id="st-detect"><span class="mark"></span><span class="lbl">Watcher detects the state change</span><span class="tm" id="detectTm">…</span></li>
-      <li class="stage" id="st-alert"><span class="mark"></span><span class="lbl">Incident alert emailed to you</span><span class="tm" id="alertTm">…</span></li>
-      <li class="stage" id="st-recover"><span class="mark"></span><span class="lbl">Recovery, resolution note emailed</span><span class="tm" id="recoverTm">…</span></li>
-    </ul>
-    <div class="inbox-hint" id="inboxHint"></div>
-  </div>
+    <!-- FLOW DIAGRAM -->
+    <div class="flow" aria-label="Summit Ops systems, live status">
+      <div class="flow-head">
+        <span class="co">Summit Ops · systems</span>
+        <span class="live" id="liveClock">watching</span>
+      </div>
+      <div class="nodes">
+        <div class="node" id="node-lead"><span class="pulse"></span><span><span class="nm">Lead form</span><br><span class="chk" data-chk>last checked just now</span></span></div>
+        <div class="node" id="node-crm"><span class="pulse"></span><span><span class="nm">CRM updates</span><br><span class="chk" data-chk>last checked just now</span></span></div>
+        <div class="node" id="node-booking"><span class="pulse"></span><span><span class="nm">Booking webhook</span><br><span class="chk" data-chk>last checked just now</span></span></div>
+        <div class="node" id="node-invoice"><span class="pulse"></span><span><span class="nm">Invoice sync</span><br><span class="chk" data-chk>last checked just now</span></span></div>
+      </div>
+    </div>
 
-  <!-- EXPLANATION -->
-  <h2>What just happened</h2>
-  <p>When you pressed the button, a flag flipped on Summit Ops's demo systems. A watcher workflow, the same kind that runs against real production systems, read the state, noticed the failure, timestamped it, and emailed you. The stopwatch above is the measured gap between your press and that alert, not a canned number. The recovery pass ran the same way about a minute later.</p>
-  <p>Uptime tools ping a page and tell you the server is up. That is not the failure that costs money. The expensive ones happen inside the flows:</p>
-  <div class="stories">
-    <p>A signup flow fired on empty email addresses thousands of times before anyone noticed. The form looked fine. The list was garbage.</p>
-    <p>A tagging bug silently mislabeled new contacts for weeks. Every automation downstream of the tag ran on the wrong people.</p>
-    <p>A server locked itself mid upgrade on a Friday night. The first report came from a customer on Monday.</p>
-  </div>
-  <p><strong>Customers are your alerting system, until something else is.</strong> The silent failures are the worst of it: a crashed page gets reported fast, a quiet sync runs dark for weeks while the numbers drift.</p>
+    <!-- BREAK FORM -->
+    <div class="break" id="breakBox">
+      <h2>Break something</h2>
+      <label for="email">Your email</label>
+      <input type="email" id="email" autocomplete="email" placeholder="you@company.com" inputmode="email">
+      <input type="text" class="hp" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <p class="consent">Send me the demo incident alerts. Two emails, demo only.</p>
+      <div class="modes">
+        <button class="mode-btn" data-mode="booking"><span class="t">Kill the booking webhook</span><span class="s">The loud one. Customers see it fail.</span></button>
+        <button class="mode-btn" data-mode="invoice"><span class="t">Silently stop the invoice sync</span><span class="s">The quiet one. Nobody sees anything.</span></button>
+      </div>
+      <p class="err" id="breakErr"></p>
+    </div>
 
-  <!-- CTA -->
-  <div class="cta" id="cta">
-    <h2>Want a watcher instead? Start here.</h2>
-    <p>Your customers found your last outage. Tell me what runs your revenue and I will tell you what watching it looks like.</p>
-    <label for="cName">Name</label>
-    <input type="text" id="cName" autocomplete="name">
-    <label for="cCompany">Company</label>
-    <input type="text" id="cCompany" autocomplete="organization">
-    <label for="cEmail">Email</label>
-    <input type="email" id="cEmail" autocomplete="email" inputmode="email">
-    <label for="cRuns">What runs your revenue</label>
-    <textarea id="cRuns" placeholder="Bookings, invoicing, lead follow up, the CRM…"></textarea>
-    <button class="btn" id="ctaBtn">Ask about a watcher</button>
-    <p class="err" id="ctaErr"></p>
-    <div class="ok-msg" id="ctaOk">Got it. I will look at what you sent and reply from a real inbox, usually the same day.</div>
+    <!-- RUN TIMELINE -->
+    <div class="run" id="runBox">
+      <h2 id="runTitle">Failure staged. The watcher does not know yet.</h2>
+      <div class="watch" id="watch">0.0s</div>
+      <div class="watch-cap" id="watchCap">since the break, waiting on the watcher</div>
+      <ul class="stages">
+        <li class="stage red hit" id="st-press"><span class="mark"></span><span class="lbl" id="pressLbl">Failure staged</span><span class="tm" id="pressTm"></span></li>
+        <li class="stage" id="st-detect"><span class="mark"></span><span class="lbl">Watcher detects the state change</span><span class="tm" id="detectTm">…</span></li>
+        <li class="stage" id="st-alert"><span class="mark"></span><span class="lbl">Incident alert emailed to you</span><span class="tm" id="alertTm">…</span></li>
+        <li class="stage" id="st-recover"><span class="mark"></span><span class="lbl">Recovery, resolution note emailed</span><span class="tm" id="recoverTm">…</span></li>
+      </ul>
+      <div class="inbox-hint" id="inboxHint"></div>
+    </div>
   </div>
-<p style="max-width:720px;margin:22px auto 0;padding:0 18px;font-size:13px;color:var(--muted);text-align:center">More free tools: <a href="/tools" style="color:var(--brand);font-weight:600;text-decoration:none">launchforte.com/tools</a></p>
-</main>
+</section>
 
-<footer>
-  Summit Ops is a fictitious business used for this demonstration. The outage you trigger is simulated on the demo; the monitoring, detection timing, and emails are real. One demo run per email per day. <a href="https://launchforte.com">Launch Forte</a>
+<!-- EXPLAIN (dark) -->
+<section class="explain">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Why this matters</div>
+      <h2>Silent failures are the worst of it.</h2>
+      <p class="section-sub" style="color:#B7C4D6">A crashed page gets reported fast. A quiet sync runs dark for weeks while the numbers drift.</p>
+    </div>
+    <div class="explain-body">
+      <div class="stories">
+        <div class="story">A signup flow fired on empty email addresses thousands of times before anyone noticed. The form looked fine. The list was garbage.</div>
+        <div class="story">A tagging bug silently mislabeled new contacts for weeks. Every automation downstream of the tag ran on the wrong people.</div>
+        <div class="story">A server locked itself mid upgrade on a Friday night. The first report came from a customer on Monday.</div>
+      </div>
+      <p><strong>Customers are your alerting system, until something else is.</strong> The stopwatch above is the gap between your press and the alert email. On real production systems, the same watcher pattern catches these silent failures before they cost you money.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="wrap">
+    <div class="cta" id="cta">
+      <h2>Want a watcher instead? Start here.</h2>
+      <p>Tell me what runs your revenue and I will tell you what watching it looks like.</p>
+      <label for="cName">Name</label>
+      <input type="text" id="cName" autocomplete="name" placeholder="Your name">
+      <label for="cCompany">Company</label>
+      <input type="text" id="cCompany" autocomplete="organization" placeholder="Your company">
+      <label for="cEmail">Email</label>
+      <input type="email" id="cEmail" autocomplete="email" inputmode="email" placeholder="you@company.com">
+      <label for="cRuns">What runs your revenue</label>
+      <textarea id="cRuns" placeholder="Bookings, invoicing, lead follow up, the CRM…"></textarea>
+      <button class="btn" id="ctaBtn">
+        Ask about a watcher
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <p class="err" id="ctaErr"></p>
+      <div class="ok-msg" id="ctaOk">Got it. I will look at what you sent and reply from a real inbox, usually the same day.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="foot-inner">
+    <div>Summit Ops is fictitious. The monitoring, detection timing, and emails are real. Built by <span class="foot-brand">Launch<b>Forte</b></span> in Grapevine, Texas.</div>
+    <div>More free tools: <a href="https://launchforte.com/tools">launchforte.com/tools</a></div>
+  </div>
 </footer>
 
 <script>
