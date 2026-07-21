@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Lead Path Stopwatch. A Live Assurance Demo | Launch Forte</title>
+<meta name="description" content="Watch a synthetic test lead run Summit Ops's full lead path, every checkpoint proven by a real timestamp, ending on the monthly proof report.">
+<style>
+/* ============================================================
+   BRAND TOKENS. Identical to the pipeline and owner islands so
+   all demos read as the same house. Everything derives from
+   this block.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7;      /* page background */
+  --card:#FFFFFF;       /* cards, forms */
+  --ink:#15221E;        /* primary text */
+  --muted:#5B6660;      /* secondary text */
+  --line:#E5E3DB;       /* hairlines and borders */
+  --brand:#0088DB;      /* buttons, headings accent, timer numerals */
+  --brand-soft:#E6F2FA; /* banner, chips, success tint */
+  --err:#A33B2E;        /* error text */
+  --ok:#1E7A4F;         /* healthy node green */
+  --red:#B42318;        /* broken node red */
+  --pending:#9AAAB6;    /* pending checkpoint text */
+  --radius:12px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+
+/* ============================================================ BASE */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.55;font-size:16px}
+main{max-width:720px;margin:0 auto;padding:0 18px 72px}
+h1{font-size:clamp(28px,6vw,40px);line-height:1.15;margin:26px 0 12px;letter-spacing:-.01em}
+h2{font-size:22px;margin:44px 0 10px;letter-spacing:-.01em}
+p{margin:0 0 14px}
+.muted{color:var(--muted)}
+.small{font-size:13.5px}
+a{color:var(--brand)}
+button{font-family:var(--font)}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* ============================================================ BANNER */
+.banner{background:var(--brand-soft);border-bottom:1px solid var(--line);padding:10px 18px;text-align:center;font-size:14px}
+.banner strong{font-weight:700}
+
+/* ============================================================ HERO */
+.eyebrow{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);font-weight:700;margin:26px 0 6px}
+.lede{font-size:16px;color:var(--ink);margin:0 0 12px;max-width:60ch}
+.zero{font-size:13.5px;color:var(--muted);border-left:3px solid var(--line);padding-left:12px;margin:0 0 4px}
+
+/* ============================================================ LIVE CARD */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin:22px 0;overflow:hidden}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)}
+.sysname{display:flex;flex-direction:column;line-height:1.2}
+.sysname b{font-size:15px;letter-spacing:-.01em}
+.sysname span{font-size:12px;color:var(--muted);letter-spacing:.02em}
+.clock{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.clock .live{color:var(--ok);font-weight:600}
+
+.stopwrap{padding:20px 16px 6px;text-align:center;background:#FDFCF9}
+.stopwatch{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:clamp(38px,10vw,54px);font-weight:600;letter-spacing:.01em;color:var(--brand);line-height:1;transition:color .2s ease}
+.stopwatch.frozen{color:var(--ok)}
+.stoplabel{margin-top:6px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.verdict{display:inline-flex;align-items:center;gap:7px;margin-top:10px;font-size:13.5px;font-weight:600;color:var(--muted)}
+.verdict .badge{display:none;padding:3px 10px;border-radius:999px;font-size:11.5px;letter-spacing:.04em;background:#E7F1EC;color:var(--ok);border:1px solid #C7E0D3}
+.verdict.pass .badge{display:inline-block}
+.verdict.pass .word{display:none}
+
+/* ============================================================ TIMELINE */
+.timeline{list-style:none;margin:12px 0 4px;padding:0 16px}
+.cp{position:relative;display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:10px;padding:8px 0}
+.cp .rail{position:absolute;left:11px;top:24px;bottom:-8px;width:2px;background:var(--line)}
+.cp:last-child .rail{display:none}
+.cp .rail i{position:absolute;inset:0 0 auto 0;height:0;background:var(--brand);transition:height .5s ease}
+.cp.done .rail i{height:100%}
+.cp .knob{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);background:var(--card);display:grid;place-items:center;color:#fff;font-size:11px;z-index:1;transition:.25s ease}
+.cp.run .knob{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.cp.done .knob{border-color:var(--brand);background:var(--brand)}
+.cp .knob svg{opacity:0;transition:opacity .2s ease .05s}
+.cp.done .knob svg{opacity:1}
+.cp .label{font-size:14.5px;color:var(--pending);transition:color .2s ease}
+.cp.run .label{color:var(--ink);font-weight:500}
+.cp.done .label{color:var(--ink)}
+.cp .at{font-family:var(--mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;opacity:0;transform:translateY(2px);transition:.25s ease}
+.cp.done .at{opacity:1;transform:none}
+
+/* ============================================================ RUN CONTROLS */
+.run{padding:14px 16px 18px;border-top:1px solid var(--line);margin-top:6px}
+.field{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:15px}
+.field::placeholder{color:var(--pending)}
+.field:focus-visible{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.consent{display:flex;gap:9px;align-items:flex-start;margin:11px 2px;font-size:13.5px;color:var(--muted);line-height:1.45}
+.consent input{margin-top:3px;accent-color:var(--brand);width:16px;height:16px;flex:0 0 auto}
+.hp{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden}
+.btn{width:100%;margin-top:12px;padding:13px 16px;border:0;border-radius:10px;background:var(--brand);color:#fff;font:inherit;font-weight:700;font-size:16px;cursor:pointer;transition:.15s ease}
+.btn:hover{filter:brightness(1.05)}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.6;cursor:default}
+.btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--brand-soft)}
+.note{margin:10px 2px 0;font-size:13.5px;min-height:1.2em}
+.note.err{color:var(--err)}
+.note.ok{color:var(--ok)}
+.mailout{margin-top:12px;padding:12px 13px;border:1px dashed var(--line);border-radius:10px;background:var(--brand-soft);font-size:13.5px;color:var(--ink);display:none}
+.mailout.show{display:block}
+.mailout b{color:var(--brand)}
+
+/* ============================================================ CONTENT SECTIONS */
+.block{margin:36px 0 0}
+.block h2{margin:0 0 10px}
+.block p{color:var(--ink);margin:0 0 12px}
+.block p.sub{color:var(--muted)}
+.contrast{font-size:17.5px;line-height:1.5;font-weight:500;color:var(--ink);max-width:60ch;margin:0}
+.contrast em{font-style:normal;color:var(--brand);font-weight:600}
+
+/* ============================================================ CTA */
+.cta{background:var(--brand-soft);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin:32px 0 0}
+.cta h2{color:var(--ink);margin:0 0 8px}
+.cta p{color:var(--ink);margin:0 0 14px}
+.form{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form .full{grid-column:1/-1}
+@media(max-width:560px){ .form{grid-template-columns:1fr} }
+textarea.field{resize:vertical;min-height:88px;font-family:inherit}
+.cta .btn{max-width:100%}
+
+/* ============================================================ FOOTER */
+footer{max-width:720px;margin:0 auto;padding:26px 18px;font-size:13px;color:var(--muted)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="banner" id="banner"><strong>This is a live demo for Summit Ops, a fictitious company.</strong> Picture your lead path on it.</div>
+
+<main>
+
+  <p class="eyebrow">Lead Flow Assurance</p>
+  <h1>Proof your leads still get answered.</h1>
+  <p class="lede">Run a synthetic test lead through Summit Ops's full lead path. Every checkpoint is stamped with a real time as it clears, and the stopwatch shows the true gap from form to response.</p>
+  <p class="zero">The test runs against the demo business. Nothing connects to your systems.</p>
+
+  <div class="card" id="card">
+    <div class="card-head">
+      <div class="sysname">
+        <b>Summit Ops</b>
+        <span>lead path</span>
+      </div>
+      <div class="clock"><span class="live">&#9679; live</span> <span id="clock">--:--:--</span></div>
+    </div>
+
+    <div class="stopwrap">
+      <div class="stopwatch" id="stopwatch" aria-live="off">0:00.0</div>
+      <div class="stoplabel">Measured, not staged</div>
+      <div class="verdict" id="verdict">
+        <span class="word">test not run yet</span>
+        <span class="badge">PASS &middot; response in <span id="passTime">0:00</span></span>
+      </div>
+    </div>
+
+    <ul class="timeline" id="timeline" aria-live="polite">
+      <li class="cp" data-key="submitted">
+        <span class="rail"><i></i></span>
+        <span class="knob" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.3l2.2 2.2 4.8-5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="label">Test lead submitted</span>
+        <span class="at"></span>
+      </li>
+      <li class="cp" data-key="created">
+        <span class="rail"><i></i></span>
+        <span class="knob" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.3l2.2 2.2 4.8-5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="label">Record created</span>
+        <span class="at"></span>
+      </li>
+      <li class="cp" data-key="fired">
+        <span class="rail"><i></i></span>
+        <span class="knob" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.3l2.2 2.2 4.8-5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="label">Automation fired</span>
+        <span class="at"></span>
+      </li>
+      <li class="cp" data-key="responded">
+        <span class="rail"><i></i></span>
+        <span class="knob" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.3l2.2 2.2 4.8-5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="label">Response sent and received</span>
+        <span class="at"></span>
+      </li>
+    </ul>
+
+    <div class="run">
+      <label for="email" style="position:absolute;left:-9999px">Your email</label>
+      <input class="field" id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@company.com">
+      <label class="consent">
+        <input type="checkbox" id="consent">
+        <span>Send me the test results and the sample monthly report. Demo messages only.</span>
+      </label>
+      <div class="hp" aria-hidden="true">
+        <label>Company website<input type="text" id="hp_url" tabindex="-1" autocomplete="off"></label>
+      </div>
+      <button class="btn" id="runBtn">Run this week&rsquo;s test</button>
+      <div class="note" id="note" role="status"></div>
+      <div class="mailout" id="mailout">
+        <b>Two emails are on the way.</b> This week&rsquo;s test result now, and the sample monthly proof report in about a minute.
+      </div>
+    </div>
+  </div>
+
+  <section class="block">
+    <h2>What just happened</h2>
+    <p>When you pressed run, a synthetic test lead entered Summit Ops&rsquo;s lead path, the same path a real prospect would hit. A real row landed in the pipeline. The responder workflow fired. A response email was generated and its send confirmed. Each time above was written by the step that actually completed it, so none of them are canned. The stopwatch is the true gap from the test lead to the confirmed response.</p>
+    <p class="sub">Two emails went to your inbox. The first is this week&rsquo;s test result with the checkpoint times. The second, about a minute later, is the sample monthly proof report: four weekly tests with their response times, one week showing a caught incident and the time it was detected, and the month&rsquo;s verdict on the lead path. That report is the product.</p>
+  </section>
+
+  <section class="block">
+    <p class="contrast">Form monitors check that your form loads. <em>This verifies your lead actually got answered, and how fast, every week, with proof.</em></p>
+  </section>
+
+  <section class="cta" id="cta">
+    <h2>Want your lead path tested every week, with proof in your inbox?</h2>
+    <p>Tell me what catches your leads today and I will set up a weekly synthetic test through your real path, a stopwatch on every run, an alert the moment one goes silent, and a one page report each month.</p>
+    <div class="form">
+      <input class="field" id="c_name" type="text" autocomplete="name" placeholder="Name">
+      <input class="field" id="c_company" type="text" autocomplete="organization" placeholder="Company">
+      <input class="field full" id="c_email" type="email" autocomplete="email" placeholder="Email">
+      <textarea class="field full" id="c_answer" placeholder="What catches your leads today"></textarea>
+      <div class="hp" aria-hidden="true"><label>Website<input type="text" id="c_hp" tabindex="-1" autocomplete="off"></label></div>
+      <div class="full">
+        <button class="btn" id="ctaBtn">Ask about assurance</button>
+        <div class="note full" id="ctaNote" role="status"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>A working demo by <a href="https://launchforte.com">Launch Forte</a>. Summit Ops is fictitious; the timestamps and the emails are real once wired. Two demo messages only, then it stops.</footer>
+
+<script>
+/* ============================================================
+   Lead Path Stopwatch (Demo 12 / U4)
+   ------------------------------------------------------------
+   GOING LIVE: set MOCK=false and fill the three endpoints once
+   the Assurance n8n workflows are published.
+     RUN_URL    POST {email, hp}            -> {runId}
+     STATUS_URL GET  ?run=<runId>           -> {
+                    checkpoints:[{key,at}],   // at = ISO string, present once done
+                    submittedAt, respondedAt, // ISO strings
+                    done:boolean,
+                    blocked:boolean,          // gate: already ran today
+                    verdict:"PASS"|"FAIL"
+                  }
+     CTA_URL    POST {name,company,email,answer,hp} -> {ok:true}
+   The render path is identical in mock and live: both feed a
+   status snapshot into applyStatus().
+   ============================================================ */
+const CONFIG = {
+  MOCK: true,
+  RUN_URL: "",
+  STATUS_URL: "",
+  CTA_URL: ""
+};
+
+const CP_ORDER = ["submitted","created","fired","responded"];
+// mock completion offsets from press, ms
+const MOCK_OFFSETS = { submitted:320, created:1650, fired:3450, responded:8650 };
+
+const $ = (id)=>document.getElementById(id);
+const timeline = $("timeline");
+const stopEl = $("stopwatch");
+const verdictEl = $("verdict");
+const noteEl = $("note");
+const mailoutEl = $("mailout");
+const runBtn = $("runBtn");
+
+let running = false;
+let startPress = 0;
+let submittedAt = null;   // Date when submit cleared (stopwatch start)
+let frozenGapMs = null;   // measured form -> response gap
+const doneAt = {};        // key -> Date captured once
+const usedEmails = new Set(); // mock-only gate demo
+
+/* ---- live clock ---- */
+function tick(){
+  const d = new Date();
+  const p = (n)=>String(n).padStart(2,"0");
+  let h = d.getHours(); const ampm = h>=12?"PM":"AM"; h = h%12||12;
+  $("clock").textContent = `${h}:${p(d.getMinutes())}:${p(d.getSeconds())} ${ampm}`;
+}
+tick(); setInterval(tick,1000);
+
+/* ---- prefill (fn, bn, e) ---- */
+(function prefill(){
+  const q = new URLSearchParams(location.search);
+  const fn=q.get("fn"), bn=q.get("bn"), e=q.get("e");
+  if(e){ $("email").value=e; $("c_email").value=e; }
+  if(fn) $("c_name").value=fn;
+  if(bn) $("c_company").value=bn;
+})();
+
+/* ---- formatting ---- */
+function fmtStop(ms){
+  const s = Math.max(0,ms)/1000;
+  const m = Math.floor(s/60);
+  const rem = (s - m*60);
+  return `${m}:${rem.toFixed(1).padStart(4,"0")}`;
+}
+function fmtGap(ms){
+  const s = Math.round(Math.max(0,ms)/1000);
+  const m = Math.floor(s/60);
+  return `${m}:${String(s-m*60).padStart(2,"0")}`;
+}
+function clockAt(d){
+  const p=(n)=>String(n).padStart(2,"0");
+  let h=d.getHours(); const ap=h>=12?"PM":"AM"; h=h%12||12;
+  return `${h}:${p(d.getMinutes())}:${p(d.getSeconds())} ${ap}`;
+}
+
+/* ---- render one status snapshot ---- */
+function applyStatus(st){
+  CP_ORDER.forEach((key,i)=>{
+    const li = timeline.querySelector(`[data-key="${key}"]`);
+    const at = st.doneAt[key];
+    const isDone = !!at;
+    const isRun = !isDone && (i===0 ? true : !!st.doneAt[CP_ORDER[i-1]]);
+    li.classList.toggle("done", isDone);
+    li.classList.toggle("run", isRun && running || (isRun && !st.finished));
+    if(isDone){
+      li.querySelector(".at").textContent = clockAt(at);
+    }
+  });
+
+  // stopwatch
+  if(st.submittedAt){
+    const end = st.respondedAt || new Date();
+    const gap = end - st.submittedAt;
+    if(st.respondedAt){
+      frozenGapMs = gap;
+      stopEl.textContent = fmtStop(gap);
+      stopEl.classList.add("frozen");
+    }else{
+      stopEl.textContent = fmtStop(gap);
+    }
+  }
+
+  if(st.finished){
+    running = false;
+    if(st.verdict!=="FAIL"){
+      verdictEl.classList.add("pass");
+      $("passTime").textContent = fmtGap(frozenGapMs ?? 0);
+      mailoutEl.classList.add("show");
+    }
+    runBtn.disabled = false;
+    runBtn.textContent = "Run again next week";
+  }
+}
+
+/* ---- mock snapshot from elapsed ---- */
+function mockSnapshot(){
+  const el = Date.now() - startPress;
+  const snap = { doneAt:{}, submittedAt:null, respondedAt:null, finished:false, verdict:"PASS" };
+  CP_ORDER.forEach((key)=>{
+    if(el >= MOCK_OFFSETS[key]){
+      if(!doneAt[key]) doneAt[key] = new Date(startPress + MOCK_OFFSETS[key]);
+      snap.doneAt[key] = doneAt[key];
+    }
+  });
+  snap.submittedAt = snap.doneAt.submitted || null;
+  snap.respondedAt = snap.doneAt.responded || null;
+  snap.finished = !!snap.respondedAt;
+  return snap;
+}
+
+/* ---- live snapshot from STATUS_URL ---- */
+async function liveSnapshot(runId){
+  const r = await fetch(`${CONFIG.STATUS_URL}?run=${encodeURIComponent(runId)}`,{headers:{Accept:"application/json"}});
+  const d = await r.json();
+  const snap = { doneAt:{}, submittedAt:null, respondedAt:null, finished:!!d.done, verdict:d.verdict||"PASS", blocked:!!d.blocked };
+  (d.checkpoints||[]).forEach(c=>{ if(c.at) snap.doneAt[c.key]=new Date(c.at); });
+  if(d.submittedAt) snap.submittedAt=new Date(d.submittedAt);
+  if(d.respondedAt) snap.respondedAt=new Date(d.respondedAt);
+  return snap;
+}
+
+/* ---- run loop ---- */
+let loopHandle=null;
+function startLoop(runId){
+  const step = async ()=>{
+    let snap;
+    try{
+      snap = CONFIG.MOCK ? mockSnapshot() : await liveSnapshot(runId);
+    }catch(err){
+      noteEl.className="note err";
+      noteEl.textContent="Could not reach the test runner. Try again in a moment.";
+      running=false; runBtn.disabled=false; runBtn.textContent="Run this week’s test";
+      return;
+    }
+    if(snap.blocked){
+      running=false; runBtn.disabled=false; runBtn.textContent="Run this week’s test";
+      noteEl.className="note"; noteEl.style.color="var(--muted)";
+      noteEl.textContent="This email already ran today. One test per day keeps the demo honest.";
+      return;
+    }
+    applyStatus(snap);
+    if(!snap.finished){ loopHandle=setTimeout(step, 80); }
+  };
+  step();
+}
+
+function resetTimeline(){
+  frozenGapMs=null;
+  for(const k in doneAt) delete doneAt[k];
+  stopEl.classList.remove("frozen");
+  stopEl.textContent="0:00.0";
+  verdictEl.classList.remove("pass");
+  mailoutEl.classList.remove("show");
+  timeline.querySelectorAll(".cp").forEach(li=>{ li.classList.remove("done","run"); li.querySelector(".at").textContent=""; });
+}
+
+runBtn.addEventListener("click", async ()=>{
+  if(running) return;
+  const email = $("email").value.trim();
+  const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const hp = $("hp_url").value.trim();
+
+  // honeypot: fake success, write nothing, run nothing
+  if(hp){
+    noteEl.className="note ok";
+    noteEl.textContent="Test queued. Check your inbox shortly.";
+    return;
+  }
+  if(!okEmail){ noteEl.className="note err"; noteEl.textContent="Enter a valid email so the results have somewhere to land."; $("email").focus(); return; }
+  if(!$("consent").checked){ noteEl.className="note err"; noteEl.textContent="Tick the consent box and I will send the two demo emails."; return; }
+  if(CONFIG.MOCK && usedEmails.has(email.toLowerCase())){
+    noteEl.className="note"; noteEl.style.color="var(--muted)";
+    noteEl.textContent="This email already ran today. One test per day keeps the demo honest.";
+    return;
+  }
+
+  noteEl.className="note"; noteEl.textContent=""; noteEl.style.color="";
+  resetTimeline();
+  running=true; runBtn.disabled=true; runBtn.textContent="Running the test…";
+  startPress=Date.now();
+  usedEmails.add(email.toLowerCase());
+
+  let runId="mock";
+  if(!CONFIG.MOCK){
+    try{
+      const r=await fetch(CONFIG.RUN_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,hp})});
+      const d=await r.json();
+      if(d.blocked){ running=false; runBtn.disabled=false; runBtn.textContent="Run this week’s test"; noteEl.className="note"; noteEl.style.color="var(--muted)"; noteEl.textContent="This email already ran today. One test per day keeps the demo honest."; return; }
+      runId=d.runId;
+    }catch(err){
+      running=false; runBtn.disabled=false; runBtn.textContent="Run this week’s test";
+      noteEl.className="note err"; noteEl.textContent="Could not start the test. Try again in a moment."; return;
+    }
+  }
+  startLoop(runId);
+});
+
+/* ---- CTA ---- */
+$("ctaBtn").addEventListener("click", async ()=>{
+  const name=$("c_name").value.trim(), company=$("c_company").value.trim(), email=$("c_email").value.trim(), answer=$("c_answer").value.trim();
+  const hp=$("c_hp").value.trim();
+  const note=$("ctaNote");
+  if(hp){ note.className="note ok"; note.textContent="Got it. I will be in touch shortly."; return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ note.className="note err"; note.textContent="Add an email I can reach you at."; $("c_email").focus(); return; }
+  const btn=$("ctaBtn"); btn.disabled=true; btn.textContent="Sending…";
+  try{
+    if(!CONFIG.MOCK){
+      await fetch(CONFIG.CTA_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name,company,email,answer,hp,source:"assurance demo"})});
+    }
+    note.className="note ok"; note.textContent="Got it. I will be in touch shortly.";
+    btn.textContent="Sent";
+  }catch(err){
+    note.className="note err"; note.textContent="That did not go through. Try again in a moment.";
+    btn.disabled=false; btn.textContent="Ask about assurance";
+  }
+});
+</script>
+</body>
+</html>
