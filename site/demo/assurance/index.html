@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>The Lead Path Stopwatch. A Live Assurance Demo | Launch Forte</title>
 <meta name="description" content="Watch a synthetic test lead run Summit Ops's full lead path, every checkpoint proven by a real timestamp, ending on the monthly proof report.">
 <style>
@@ -255,10 +254,10 @@ footer{max-width:720px;margin:0 auto;padding:26px 18px;font-size:13px;color:var(
    status snapshot into applyStatus().
    ============================================================ */
 const CONFIG = {
-  MOCK: true,
-  RUN_URL: "",
-  STATUS_URL: "",
-  CTA_URL: ""
+  MOCK: false,
+  RUN_URL: "https://launchforte.app.n8n.cloud/webhook/assurance-run",
+  STATUS_URL: "https://launchforte.app.n8n.cloud/webhook/assurance-status",
+  CTA_URL: "https://launchforte.app.n8n.cloud/webhook/assurance-cta"
 };
 
 const CP_ORDER = ["submitted","created","fired","responded"];
@@ -446,7 +445,9 @@ runBtn.addEventListener("click", async ()=>{
   let runId="mock";
   if(!CONFIG.MOCK){
     try{
-      const r=await fetch(CONFIG.RUN_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,hp})});
+      const q=new URLSearchParams(location.search);
+      const fn=q.get("fn")||"", bn=q.get("bn")||"";
+      const r=await fetch(CONFIG.RUN_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,hp,consent:true,fn,bn})});
       const d=await r.json();
       if(d.blocked){ running=false; runBtn.disabled=false; runBtn.textContent="Run this week’s test"; noteEl.className="note"; noteEl.style.color="var(--muted)"; noteEl.textContent="This email already ran today. One test per day keeps the demo honest."; return; }
       runId=d.runId;
