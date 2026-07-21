@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Owner Dependency Grade | Launch Forte</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{
+  --brand:#0088DB; --brand-soft:#E6F2FA; --brand-ink:#075A8F;
+  --ink:#141922; --muted:#5A6472; --line:#E4E8EE; --bg:#F5F7FA; --card:#FFFFFF;
+  --ok:#1E7A4F; --warn:#B4541B; --danger:#C23B3B; --dark:#0E1620;
+  --radius:16px; --shadow:0 1px 2px rgba(20,25,34,.05),0 8px 24px rgba(20,25,34,.06);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header.site{border-bottom:1px solid var(--line);background:#fff}
+header.site .wrap{display:flex;align-items:center;gap:10px;height:60px}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}
+.logo b{color:var(--brand)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin:16px 0}
+
+/* loading */
+#loading{padding:80px 0;text-align:center}
+.spin{width:38px;height:38px;border:3px solid var(--brand-soft);border-top-color:var(--brand);border-radius:50%;margin:0 auto 16px;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.spin{animation:none}}
+#loading p{color:var(--muted);font-size:15px}
+
+/* hero */
+.rhero{padding:44px 0 6px}
+.reyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-ink)}
+.band-name{font-size:40px;font-weight:800;letter-spacing:-.02em;margin:8px 0 2px}
+.band-sub{font-size:18px;color:var(--muted);margin:0}
+.meter{margin:22px 0 6px}
+.meter .track{position:relative;height:12px;border-radius:999px;background:linear-gradient(90deg,#1E7A4F 0%,#8FB93A 33%,#E0A21B 66%,#C23B3B 100%)}
+.meter .pin{position:absolute;top:-6px;width:4px;height:24px;background:var(--ink);border-radius:2px;transform:translateX(-2px);box-shadow:0 0 0 3px #fff}
+.meter .scale{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:8px}
+.scorenum{font-size:14px;color:var(--muted);margin-top:10px}
+.scorenum b{color:var(--ink)}
+
+/* money beat */
+.money{background:var(--dark);color:#fff;border:none}
+.money .label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7FC4EC}
+.money .big{font-size:34px;font-weight:800;letter-spacing:-.02em;margin:8px 0 10px;line-height:1.15}
+.money .line{font-size:16px;color:#C7D0DA;margin:0}
+.money .disc{display:inline-block;margin-top:14px;font-size:13px;color:#fff;background:rgba(255,255,255,.12);padding:6px 12px;border-radius:999px}
+
+/* dims */
+.sec-title{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-ink);margin:0 0 4px}
+.dim{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.dim:last-child{border-bottom:none}
+.dim .dinfo{flex:1;min-width:0}
+.dim .dlabel{font-size:15px;font-weight:600}
+.dim .dval{font-size:13px;color:var(--muted);text-transform:capitalize}
+.dim .bar{flex:0 0 96px;height:8px;border-radius:999px;background:var(--brand-soft);overflow:hidden}
+.dim .fill{height:100%;border-radius:999px;background:var(--brand)}
+.dim .fill.hi{background:var(--danger)}
+.dim .fill.mid{background:var(--warn)}
+
+/* weak + verdict */
+.weak li{margin:8px 0;font-size:15px}
+.verdict{font-size:17px;line-height:1.6}
+
+/* ladder + cta */
+.ladder{background:var(--brand-soft);border:1px solid #CDE6F6}
+.ladder h3{margin:0 0 8px;font-size:20px;letter-spacing:-.01em}
+.ladder p{margin:0 0 4px;color:var(--muted);font-size:15px}
+.field{margin:14px 0 0}
+.field label{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
+.field input,.field textarea{width:100%;font-size:16px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font-family:inherit;background:#fff}
+.field textarea{min-height:76px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--brand)}
+.row2{display:flex;gap:12px}
+.row2 .field{flex:1}
+.cta{display:block;width:100%;border:none;background:var(--brand);color:#fff;font-size:17px;font-weight:700;padding:15px 18px;border-radius:12px;cursor:pointer;margin-top:16px;transition:background .12s}
+.cta:hover{background:var(--brand-ink)}
+.cta:disabled{opacity:.55;cursor:not-allowed}
+.emailme{display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between}
+.emailme .txt{font-size:15px;color:var(--muted);flex:1;min-width:200px}
+.btn-ghost{border:1.5px solid var(--brand);background:#fff;color:var(--brand-ink);font-size:15px;font-weight:700;padding:11px 18px;border-radius:12px;cursor:pointer;white-space:nowrap}
+.btn-ghost:disabled{opacity:.55;cursor:not-allowed}
+.note{font-size:14px;margin-top:10px}
+.note.ok{color:var(--ok)} .note.bad{color:var(--danger)}
+.notfound{padding:70px 0;text-align:center;color:var(--muted)}
+footer.site{border-top:1px solid var(--line);margin-top:40px;padding:26px 0;color:var(--muted);font-size:13px;background:#fff}
+footer.site a{color:var(--brand-ink);text-decoration:none}
+@media(max-width:520px){.band-name{font-size:32px}.money .big{font-size:27px}.row2{flex-direction:column;gap:0}}
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap"><span class="logo">Launch<b>Forte</b></span></div></header>
+
+<main class="wrap">
+  <div id="loading">
+    <div class="spin"></div>
+    <p>Scoring your answers and writing your grade...</p>
+  </div>
+  <div id="report" style="display:none"></div>
+  <div id="notfound" class="notfound" style="display:none">
+    <p>We could not find that grade. It may have expired.<br><a href="/demo/owner/">Run a new one here.</a></p>
+  </div>
+</main>
+
+<footer class="site"><div class="wrap">Built by Launch Forte in Grapevine, Texas. More free tools: <a href="https://launchforte.com/tools">launchforte.com/tools</a></div></footer>
+
+<script>
+const CONFIG = { webhookBase: "https://launchforte.app.n8n.cloud/webhook" };
+const params = new URLSearchParams(location.search);
+const id = params.get('id') || '';
+const elLoad = document.getElementById('loading');
+const elRep = document.getElementById('report');
+const elNF = document.getElementById('notfound');
+
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function money(n){ return '$' + Number(n).toLocaleString('en-US'); }
+
+if(!/^ow-[a-z0-9-]+$/i.test(id)){ elLoad.style.display='none'; elNF.style.display='block'; }
+else { poll(0); }
+
+async function poll(n){
+  try{
+    const r = await fetch(CONFIG.webhookBase + '/owner-report?id=' + encodeURIComponent(id), { headers:{'Accept':'application/json'} });
+    const j = await r.json().catch(()=>null);
+    if(j && j.notFound){ elLoad.style.display='none'; elNF.style.display='block'; return; }
+    if(j && j.ready && j.report){ render(j.report); return; }
+  }catch(e){}
+  if(n >= 20){ elLoad.querySelector('p').textContent = 'Still working. Your grade will also arrive by email shortly.'; return; }
+  setTimeout(()=>poll(n+1), 2000);
+}
+
+function pinPct(score){ return Math.max(2, Math.min(98, score)); }
+function fillClass(pts,max){ const r = pts/max; return r >= 0.66 ? 'hi' : (r >= 0.4 ? 'mid' : ''); }
+
+function render(rep){
+  const dims = rep.dimensions || [];
+  const dimHtml = dims.map(d => {
+    const pct = Math.round((d.pts / d.max) * 100);
+    return '<div class="dim"><div class="dinfo"><div class="dlabel">' + esc(d.label) + '</div><div class="dval">' + esc(String(d.value).replace(/_/g,' ')) + '</div></div><div class="bar"><div class="fill ' + fillClass(d.pts,d.max) + '" style="width:' + pct + '%"></div></div></div>';
+  }).join('');
+  const weak = (rep.weakLines || []);
+  const weakHtml = weak.length ? ('<div class="card"><p class="sec-title">What is holding the grade back</p><ul class="weak">' + weak.map(w => '<li>' + esc(w) + '</li>').join('') + '</ul></div>') : '';
+  const hasMoneyNum = rep.dollarGap && rep.dollarGap.high != null;
+  const moneyBig = hasMoneyNum
+    ? (rep.band === 'Sellable' ? ('Up to ' + money(rep.dollarGap.high) + ' in upside') : (money(rep.dollarGap.low) + ' to ' + money(rep.dollarGap.high)))
+    : 'Add revenue to see your number';
+  const discLabel = rep.discount ? (rep.band === 'Sellable' ? ('Near sellable, ' + esc(rep.discount.label) + ' typical gap') : ('Typical discount ' + esc(rep.discount.label))) : '';
+
+  elRep.innerHTML =
+    '<section class="rhero">' +
+      '<div class="reyebrow">Your owner dependency grade</div>' +
+      '<div class="band-name">' + esc(rep.band) + '</div>' +
+      '<p class="band-sub">This is the grade a buyer or broker would put on how much the business runs through you.</p>' +
+      '<div class="meter"><div class="track"><div class="pin" style="left:' + pinPct(rep.score) + '%"></div></div>' +
+        '<div class="scale"><span>Sellable</span><span>Transferable</span><span>Owner Reliant</span><span>Owner Dependent</span></div></div>' +
+      '<div class="scorenum">Dependency score <b>' + esc(rep.score) + ' / 100</b> (higher means the business leans on you more).</div>' +
+    '</section>' +
+
+    '<div class="card money"><div class="label">What this is worth when you sell</div>' +
+      '<div class="big">' + esc(moneyBig) + '</div>' +
+      '<p class="line">' + esc(rep.moneyLine) + '</p>' +
+      (discLabel ? ('<span class="disc">' + discLabel + '</span>') : '') + '</div>' +
+
+    '<div class="card"><p class="sec-title">The five things a buyer checks</p>' + dimHtml + '</div>' +
+
+    weakHtml +
+
+    '<div class="card"><p class="sec-title">Read</p><p class="verdict">' + esc(rep.verdict) + '</p></div>' +
+
+    '<div class="card emailme"><div class="txt">Want this as a one page summary you can show an advisor or broker? We will email it to the address you used.</div>' +
+      '<button class="btn-ghost" id="emailBtn">Email me this summary</button>' +
+      '<div class="note" id="emailNote" style="width:100%;display:none"></div></div>' +
+
+    '<div class="card ladder">' +
+      '<h3>Close the gap and raise what the business is worth</h3>' +
+      '<p>The fix is documented systems: an operating layer that lets the business run, quote, and hold its relationships without depending on you. That is what moves the grade toward sellable.</p>' +
+      '<div class="row2"><div class="field"><label for="cName">Your name</label><input type="text" id="cName" autocomplete="name"></div>' +
+        '<div class="field"><label for="cCompany">Company</label><input type="text" id="cCompany" autocomplete="organization"></div></div>' +
+      '<div class="field"><label for="cEmail">Email</label><input type="email" id="cEmail" autocomplete="email"></div>' +
+      '<div class="field"><label for="cMsg">What would you most want off your plate?</label><textarea id="cMsg" placeholder="Optional"></textarea></div>' +
+      '<button class="cta" id="ctaBtn">Get the plan to close this gap</button>' +
+      '<div class="note" id="ctaNote" style="display:none"></div>' +
+    '</div>';
+
+  elLoad.style.display='none'; elRep.style.display='block';
+  wire(rep);
+}
+
+function wire(rep){
+  const emailBtn = document.getElementById('emailBtn');
+  const emailNote = document.getElementById('emailNote');
+  emailBtn.addEventListener('click', async () => {
+    emailBtn.disabled = true; emailBtn.textContent = 'Sending...';
+    try{
+      await fetch(CONFIG.webhookBase + '/owner-email', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ id }) });
+      emailNote.textContent = 'Sent. Check your inbox for the summary.'; emailNote.className='note ok';
+    }catch(e){ emailNote.textContent = 'Could not send just now. Please try again.'; emailNote.className='note bad'; }
+    emailNote.style.display='block'; emailBtn.textContent = 'Email me this summary';
+  });
+
+  const ctaBtn = document.getElementById('ctaBtn');
+  const ctaNote = document.getElementById('ctaNote');
+  ctaBtn.addEventListener('click', async () => {
+    const name = document.getElementById('cName').value.trim();
+    const company = document.getElementById('cCompany').value.trim();
+    const email = document.getElementById('cEmail').value.trim();
+    const msg = document.getElementById('cMsg').value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ ctaNote.textContent='Enter a valid email so we can reach you.'; ctaNote.className='note bad'; ctaNote.style.display='block'; return; }
+    ctaBtn.disabled = true; ctaBtn.textContent = 'Sending...';
+    try{
+      await fetch(CONFIG.webhookBase + '/owner-handraise', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ id, name, company, email, message: msg, band: rep.band, score: rep.score }) });
+      ctaNote.textContent = 'Got it. Seth will reach out with the plan to close this gap.'; ctaNote.className='note ok'; ctaNote.style.display='block';
+      ctaBtn.textContent = 'Sent';
+    }catch(e){ ctaBtn.disabled=false; ctaBtn.textContent='Get the plan to close this gap'; ctaNote.textContent='Could not send just now. Please try again.'; ctaNote.className='note bad'; ctaNote.style.display='block'; }
+  });
+}
+</script>
+</body>
+</html>
