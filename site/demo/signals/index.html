@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Signal Audit - three numbers that should match, and never do</title>
+<meta name="description" content="The three numbers behind your ad spend live in three tools and rarely match. Drag the range and watch the gap form, then see what a reconciliation finds.">
+<link rel="canonical" href="https://launchforte.com/demo/signals/">
+<meta property="og:title" content="Signal Audit - three numbers that should match, and never do">
+<meta property="og:description" content="Leads in the CRM, lead events in analytics, conversions in the ad platform. Same month, three different answers. See why.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://launchforte.com/demo/signals/">
+<style>
+:root{
+  --brand:#0088DB;
+  --brand-soft:#E6F2FA;
+  --ink:#14181F;
+  --paper:#FFFFFF;
+  --bg:#F6F8FA;
+  --muted:#6B7480;
+  --line:#E4E7EC;
+  --good:#137A4B;
+  --bad:#C4384A;
+  --bad-soft:#FBECEE;
+  --warn:#9A6A12;
+  --radius:14px;
+  --maxw:760px;
+  --shadow:0 1px 2px rgba(20,24,31,.04),0 8px 24px rgba(20,24,31,.06);
+  --font:Inter,-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--font);font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+.top{
+  background:var(--paper);border-bottom:1px solid var(--line);
+  font-size:13px;font-weight:600;letter-spacing:.01em;color:var(--muted);
+  padding:11px 20px;
+}
+.top b{color:var(--ink)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.head{padding:34px 0 6px}
+h1{
+  font-size:34px;font-weight:750;line-height:1.12;letter-spacing:-.02em;
+  margin:0 0 14px;
+}
+.lede{font-size:17px;color:var(--muted);margin:0 0 22px;max-width:60ch}
+.banner{
+  display:flex;gap:10px;align-items:flex-start;
+  background:var(--brand-soft);border:1px solid #cfe6f7;color:#0b4c73;
+  border-radius:12px;padding:11px 14px;font-size:13.5px;line-height:1.45;margin:0 0 26px;
+}
+.banner svg{flex:0 0 auto;margin-top:1px}
+
+/* number cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:18px 16px 16px;
+}
+.card .lab{font-size:12.5px;font-weight:600;color:var(--muted);letter-spacing:.02em;text-transform:uppercase}
+.card .num{font-size:42px;font-weight:750;letter-spacing:-.03em;line-height:1;margin:10px 0 4px;font-variant-numeric:tabular-nums}
+.card .src{font-size:12.5px;color:var(--muted)}
+.decision{font-size:15.5px;font-weight:600;text-align:center;margin:18px 0 4px;color:var(--ink)}
+.decision span{color:var(--brand)}
+
+/* range control */
+.control{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin:22px 0 8px}
+.control .rowlab{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.control .rowlab .k{font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.02em}
+.control .rowlab .v{font-size:14.5px;font-weight:650;font-variant-numeric:tabular-nums}
+.slider{position:relative;height:34px}
+.slider .track{position:absolute;top:15px;left:8px;right:8px;height:4px;background:var(--line);border-radius:4px}
+.slider .fill{position:absolute;top:15px;height:4px;background:var(--brand);border-radius:4px}
+.slider input[type=range]{
+  -webkit-appearance:none;appearance:none;position:absolute;top:0;left:0;width:100%;height:34px;
+  margin:0;background:transparent;pointer-events:none;
+}
+.slider input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;pointer-events:auto;
+  width:24px;height:24px;border-radius:50%;background:var(--paper);
+  border:2px solid var(--brand);box-shadow:0 1px 3px rgba(20,24,31,.2);cursor:grab;margin-top:5px;
+}
+.slider input[type=range]::-webkit-slider-thumb:active{cursor:grabbing}
+.slider input[type=range]::-moz-range-thumb{
+  pointer-events:auto;width:24px;height:24px;border-radius:50%;background:var(--paper);
+  border:2px solid var(--brand);box-shadow:0 1px 3px rgba(20,24,31,.2);cursor:grab;
+}
+.presets{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.preset{
+  flex:1;min-width:92px;border:1px solid var(--line);background:var(--paper);color:var(--ink);
+  border-radius:10px;padding:9px 10px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;
+}
+.preset[aria-pressed=true]{border-color:var(--brand);background:var(--brand-soft);color:#0b4c73}
+
+/* gaps */
+.gaps-h{font-size:13px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);margin:26px 0 10px}
+.gap{border:1px solid var(--line);border-radius:12px;background:var(--paper);margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow)}
+.gap>button{
+  all:unset;display:flex;width:100%;box-sizing:border-box;align-items:center;gap:12px;
+  padding:15px 16px;cursor:pointer;
+}
+.gap>button:focus-visible{outline:2px solid var(--brand);outline-offset:-2px}
+.gap .dot{flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:var(--bad)}
+.gap .gtxt{flex:1;font-size:15.5px;font-weight:650;line-height:1.3}
+.gap .gtxt b{color:var(--bad);font-weight:750;font-variant-numeric:tabular-nums}
+.gap .chev{flex:0 0 auto;color:var(--muted);transition:transform .18s ease}
+.gap[aria-expanded=true] .chev{transform:rotate(90deg)}
+.gap .body{max-height:0;overflow:hidden;transition:max-height .22s ease}
+.gap[aria-expanded=true] .body{max-height:340px}
+.gap .body-in{padding:0 16px 16px;font-size:14.5px;color:#333a44;line-height:1.55}
+.gap .body-in .fix{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);color:var(--ink)}
+.gap .body-in .fix b{color:var(--good);font-weight:700}
+.recon{font-size:13px;color:var(--muted);line-height:1.55;margin:6px 4px 0;font-variant-numeric:tabular-nums}
+.recon b{color:var(--ink);font-weight:650}
+
+/* closer + cta */
+.closer{margin:30px 0 6px;font-size:16.5px;line-height:1.55}
+.cta{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin:16px 0 40px}
+.cta h2{font-size:21px;font-weight:750;letter-spacing:-.01em;margin:0 0 6px}
+.cta p{font-size:14.5px;color:var(--muted);margin:0 0 16px;line-height:1.5}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12.5px;font-weight:650;color:var(--ink);margin-bottom:5px}
+.field input,.field select{
+  width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--paper);
+  border:1px solid var(--line);border-radius:10px;padding:11px 12px;
+}
+.field input:focus,.field select:focus{outline:2px solid var(--brand);outline-offset:-1px;border-color:var(--brand)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.submit{
+  width:100%;background:var(--brand);color:#fff;border:1px solid var(--brand);
+  border-radius:10px;padding:13px 18px;font:inherit;font-size:15px;font-weight:650;cursor:pointer;margin-top:4px;
+}
+.submit:disabled{opacity:.6;cursor:default}
+.msg{font-size:14px;margin-top:12px;line-height:1.5;display:none}
+.msg.ok{display:block;color:var(--good)}
+.msg.err{display:block;color:var(--bad)}
+.foot{color:var(--muted);font-size:12.5px;padding:0 0 34px;text-align:center}
+
+@media (max-width:560px){
+  h1{font-size:28px}
+  .cards{grid-template-columns:1fr;gap:10px}
+  .card{display:flex;align-items:baseline;justify-content:space-between;padding:16px}
+  .card .colw{display:flex;flex-direction:column}
+  .card .num{font-size:38px;margin:0}
+  .head{padding:26px 0 4px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="top"><b>Launch Forte.</b> Signal Audit</div>
+<div class="wrap">
+  <div class="head">
+    <h1>Same business. Same month.<br>Three different answers.</h1>
+    <p class="lede">Your CRM counts leads. Your analytics counts lead events. Your ad platform counts conversions. They describe the same month and rarely agree. Drag the range and watch the gap move.</p>
+    <div class="banner">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#0b4c73" stroke-width="1.4"/><path d="M8 4.6v4.2" stroke="#0b4c73" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.4" r=".9" fill="#0b4c73"/></svg>
+      <div>This is fictitious data for Summit Services, a demo company. Your numbers are different, which is the point.</div>
+    </div>
+  </div>
+
+  <div class="cards" id="cards">
+    <div class="card"><div class="colw"><div class="lab">CRM leads</div><div class="num" id="n-crm">0</div><div class="src">people in your pipeline</div></div></div>
+    <div class="card"><div class="colw"><div class="lab">Analytics events</div><div class="num" id="n-an">0</div><div class="src">lead events on the site</div></div></div>
+    <div class="card"><div class="colw"><div class="lab">Ad conversions</div><div class="num" id="n-ad">0</div><div class="src">reported by the ad platform</div></div></div>
+  </div>
+  <div class="decision">Same business. Same month. <span>Which one did you make decisions with?</span></div>
+
+  <div class="control">
+    <div class="rowlab"><div class="k">Date range</div><div class="v" id="rangelab">-</div></div>
+    <div class="slider" id="slider">
+      <div class="track"></div>
+      <div class="fill" id="fill"></div>
+      <input type="range" id="r-start" min="0" max="90" step="1" value="61" aria-label="Range start date">
+      <input type="range" id="r-end" min="0" max="90" step="1" value="90" aria-label="Range end date">
+    </div>
+    <div class="presets">
+      <button class="preset" data-preset="apr">April</button>
+      <button class="preset" data-preset="may">May</button>
+      <button class="preset" data-preset="jun" aria-pressed="true">June</button>
+    </div>
+  </div>
+
+  <div class="gaps-h">Click any gap to see why</div>
+  <div id="gaps"></div>
+  <div class="recon" id="recon"></div>
+
+  <p class="closer">Every business running ads has three numbers. Almost none of them match, and every decision rides on whichever screen the owner happened to open. The Signal Audit reconciles yours and names every gap, the same way this page just did with fictitious data.</p>
+
+  <div class="cta">
+    <h2>See your three numbers</h2>
+    <p>Tell me where to send the reconciliation. I map your CRM, analytics, and ad platform for a recent range, then list every gap and how to close it.</p>
+    <div class="field"><label for="f-name">Name</label><input id="f-name" type="text" autocomplete="name" placeholder="Your name"></div>
+    <div class="field"><label for="f-company">Company</label><input id="f-company" type="text" autocomplete="organization" placeholder="Company name"></div>
+    <div class="field"><label for="f-email">Work email</label><input id="f-email" type="email" autocomplete="email" placeholder="you@yourcompany.com"></div>
+    <div class="field"><label for="f-spend">Roughly what do you spend monthly on ads? (optional)</label>
+      <select id="f-spend">
+        <option value="">Prefer not to say</option>
+        <option value="under-2k">Under $2k</option>
+        <option value="2k-10k">$2k to $10k</option>
+        <option value="10k-50k">$10k to $50k</option>
+        <option value="50k-plus">$50k or more</option>
+      </select>
+    </div>
+    <div class="hp" aria-hidden="true"><label for="hp">Leave this field empty</label><input id="hp" name="hp" type="text" tabindex="-1" autocomplete="off"></div>
+    <button class="submit" id="submit">Request my Signal Audit</button>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="foot">Fictitious data. Launch Forte.</div>
+</div>
+
+<script>
+"use strict";
+// ---- endpoint (n8n hand raise: writes Twenty source "signal audit demo", notifies Seth) ----
+var WEBHOOK = "https://launchforte.app.n8n.cloud/webhook/signal-audit-handraise";
+
+// ---- seeded deterministic dataset: monthly totals allocated per day so every range reconciles exactly ----
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function allocate(total,weights){
+  var sw=0,i;for(i=0;i<weights.length;i++)sw+=weights[i];
+  var raw=weights.map(function(w){return total*w/sw;});
+  var fl=raw.map(Math.floor);
+  var used=0;for(i=0;i<fl.length;i++)used+=fl[i];
+  var rem=total-used;
+  var order=raw.map(function(r,idx){return{idx:idx,frac:r-Math.floor(r)};}).sort(function(a,b){return b.frac-a.frac;});
+  for(var k=0;k<rem;k++){fl[order[k].idx]++;}
+  return fl;
+}
+// month key, label, first-day, day count, and totals. Reconciliation is guaranteed:
+//   CRM = web + unt,  AD = web + dbl + phn.  June = the hook: 96 / 118 / 143.
+var MONTHS=[
+  {key:"apr",label:"April 2026",start:"2026-04-01",days:30,web:78, unt:15,dbl:22,phn:17},
+  {key:"may",label:"May 2026",  start:"2026-05-01",days:31,web:112,unt:26,dbl:31,phn:20},
+  {key:"jun",label:"June 2026", start:"2026-06-01",days:30,web:96, unt:22,dbl:28,phn:19}
+];
+var rng=mulberry32(20260421);
+var DAYS=[];      // flat list, index 0..90
+var RANGES={};    // key -> [startIdx,endIdx]
+(function build(){
+  MONTHS.forEach(function(m){
+    var w=[],d,dt;
+    for(d=0;d<m.days;d++){
+      dt=new Date(m.start+"T00:00:00"); dt.setDate(dt.getDate()+d);
+      var dow=dt.getDay();
+      var weekend=(dow===0||dow===6)?0.55:1.0;
+      var jitter=0.7+rng()*0.6;
+      w.push(weekend*jitter);
+    }
+    var web=allocate(m.web,w),unt=allocate(m.unt,w),dbl=allocate(m.dbl,w),phn=allocate(m.phn,w);
+    var startIdx=DAYS.length;
+    for(d=0;d<m.days;d++){
+      dt=new Date(m.start+"T00:00:00"); dt.setDate(dt.getDate()+d);
+      DAYS.push({date:dt,web:web[d],unt:unt[d],dbl:dbl[d],phn:phn[d]});
+    }
+    RANGES[m.key]=[startIdx,DAYS.length-1];
+  });
+})();
+var MAXI=DAYS.length-1; // 90
+
+function sumRange(s,e,key){var t=0;for(var i=s;i<=e;i++)t+=DAYS[i][key];return t;}
+function fmtDate(d){return d.toLocaleDateString("en-US",{month:"short",day:"numeric"});}
+
+// ---- gap copy (mechanism language only; found / measured / possible / typical) ----
+var GAP_DEFS=[
+  {id:"double",title:function(n){return n+" conversions counted twice";},
+   body:"The ad platform's built-in tracking and a separate tag manager can both fire on the same confirmation page. When that happens, one real conversion is measured twice. It is a typical setup drift that builds up quietly as tools get added over time.",
+   fix:"choose one source of truth for each event and retire the duplicate trigger, so a conversion is counted once."},
+  {id:"untracked",title:function(n){return n+" leads invisible to analytics";},
+   body:"Phone calls and direct messages can become leads without ever loading a page. Website analytics only measures what happens on the site, so these people never appear there, even though they are real leads in the CRM.",
+   fix:"capture off-site leads where they happen (call tracking, message and form capture) and pass them into the same event stream analytics reads."},
+  {id:"attribution",title:function(n){return n+" clicks that never became identifiable leads";},
+   body:"When the click identifier is missing or dropped between the ad and the form, the platform can still record a conversion it cannot tie to a specific person. The count then includes conversions with no matching lead behind them.",
+   fix:"preserve the click identifier through the form and match it back to the lead record, so every counted conversion maps to a real person."}
+];
+// which sum feeds each gap
+var GAP_KEY={double:"dbl",untracked:"unt",attribution:"phn"};
+
+// build gap DOM once
+var gapsEl=document.getElementById("gaps");
+GAP_DEFS.forEach(function(g){
+  var wrap=document.createElement("div");wrap.className="gap";wrap.setAttribute("aria-expanded","false");
+  wrap.innerHTML=
+    '<button type="button" aria-expanded="false">'+
+      '<span class="dot"></span>'+
+      '<span class="gtxt" data-title="'+g.id+'"></span>'+
+      '<span class="chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'+
+    '</button>'+
+    '<div class="body"><div class="body-in">'+g.body+
+      '<div class="fix"><b>Fix direction:</b> '+g.fix+'</div>'+
+    '</div></div>';
+  var btn=wrap.querySelector("button");
+  btn.addEventListener("click",function(){
+    var open=wrap.getAttribute("aria-expanded")==="true";
+    wrap.setAttribute("aria-expanded",open?"false":"true");
+    btn.setAttribute("aria-expanded",open?"false":"true");
+  });
+  gapsEl.appendChild(wrap);
+});
+
+// ---- render ----
+var els={crm:document.getElementById("n-crm"),an:document.getElementById("n-an"),ad:document.getElementById("n-ad")};
+var reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+var animState={};
+function setNum(el,to){
+  var from=parseInt(el.getAttribute("data-v")||"0",10);
+  el.setAttribute("data-v",to);
+  if(reduce||from===to){el.textContent=to;return;}
+  var key=el.id;if(animState[key])cancelAnimationFrame(animState[key]);
+  var t0=null,dur=340;
+  function step(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/dur);var e=1-Math.pow(1-p,3);el.textContent=Math.round(from+(to-from)*e);if(p<1){animState[key]=requestAnimationFrame(step);}}
+  animState[key]=requestAnimationFrame(step);
+}
+var recEl=document.getElementById("recon");
+function render(s,e){
+  var AN=sumRange(s,e,"web");
+  var unt=sumRange(s,e,"unt"),dbl=sumRange(s,e,"dbl"),phn=sumRange(s,e,"phn");
+  var CRM=AN+unt, AD=AN+dbl+phn;
+  setNum(els.crm,CRM);setNum(els.an,AN);setNum(els.ad,AD);
+  var vals={double:dbl,untracked:unt,attribution:phn};
+  GAP_DEFS.forEach(function(g){
+    var n=vals[g.id];
+    document.querySelector('.gtxt[data-title="'+g.id+'"]').innerHTML="<b>"+n+"</b> "+g.title(n).replace(String(n)+" ","");
+  });
+  recEl.innerHTML="How it reconciles: analytics <b>"+AN+"</b> + <b>"+unt+"</b> off-site = <b>"+CRM+"</b> in the CRM. Analytics <b>"+AN+"</b> + <b>"+dbl+"</b> double + <b>"+phn+"</b> phantom = <b>"+AD+"</b> in the ad platform.";
+  document.getElementById("rangelab").textContent=fmtDate(DAYS[s].date)+" to "+fmtDate(DAYS[e].date);
+  updateFill(s,e);
+}
+
+// ---- dual-handle range slider ----
+var rStart=document.getElementById("r-start"),rEnd=document.getElementById("r-end"),fill=document.getElementById("fill");
+function updateFill(s,e){
+  var a=s/MAXI, b=e/MAXI, tw=24; // thumb width; fill spans between thumb centers
+  fill.style.left="calc("+(a*100)+"% + "+(tw/2 - a*tw)+"px)";
+  fill.style.width="calc("+((b-a)*100)+"% - "+((b-a)*tw)+"px)";
+}
+function readRange(){
+  var s=parseInt(rStart.value,10),e=parseInt(rEnd.value,10);
+  if(s>e){var t=s;s=e;e=t;}
+  return [s,e];
+}
+function onSlide(){
+  var r=readRange();
+  render(r[0],r[1]);
+  syncPresets(r[0],r[1]);
+}
+// keep the closer handle on top for touch reachability
+rStart.addEventListener("input",function(){
+  if(parseInt(rStart.value,10)>parseInt(rEnd.value,10)){rEnd.value=rStart.value;}
+  onSlide();
+});
+rEnd.addEventListener("input",function(){
+  if(parseInt(rEnd.value,10)<parseInt(rStart.value,10)){rStart.value=rEnd.value;}
+  onSlide();
+});
+
+// ---- presets ----
+var presetBtns=[].slice.call(document.querySelectorAll(".preset"));
+function syncPresets(s,e){
+  presetBtns.forEach(function(b){
+    var r=RANGES[b.getAttribute("data-preset")];
+    b.setAttribute("aria-pressed",(r[0]===s&&r[1]===e)?"true":"false");
+  });
+}
+presetBtns.forEach(function(b){
+  b.addEventListener("click",function(){
+    var r=RANGES[b.getAttribute("data-preset")];
+    rStart.value=r[0];rEnd.value=r[1];
+    render(r[0],r[1]);syncPresets(r[0],r[1]);
+  });
+});
+
+// ---- CTA submit (honeypot hp travels in payload; workflow returns ok + writes nothing if filled) ----
+var submitBtn=document.getElementById("submit"),msg=document.getElementById("msg");
+function show(kind,text){msg.className="msg "+kind;msg.textContent=text;}
+submitBtn.addEventListener("click",function(){
+  var name=document.getElementById("f-name").value.trim();
+  var company=document.getElementById("f-company").value.trim();
+  var email=document.getElementById("f-email").value.trim();
+  var spend=document.getElementById("f-spend").value;
+  var hp=document.getElementById("hp").value;
+  if(!email||email.indexOf("@")<1){show("err","Add a work email so I can send the reconciliation.");document.getElementById("f-email").focus();return;}
+  if(!name){show("err","Add your name so I know who I am reaching.");document.getElementById("f-name").focus();return;}
+  submitBtn.disabled=true;submitBtn.textContent="Sending...";
+  fetch(WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({name:name,company:company,email:email,spend:spend,hp:hp})})
+  .then(function(r){
+    submitBtn.textContent="Request my Signal Audit";
+    if(r.ok){
+      show("ok","Got it. Your request is in. I will reach out at "+email+" to set up access.");
+      submitBtn.textContent="Request sent";
+    }else{
+      submitBtn.disabled=false;show("err","That did not send. Please try again in a moment.");
+    }
+  })
+  .catch(function(){submitBtn.disabled=false;submitBtn.textContent="Request my Signal Audit";show("err","That did not send. Check your connection and try again.");});
+});
+
+// ---- init: June (the hook) ----
+(function init(){
+  var r=RANGES["jun"];
+  rStart.value=r[0];rEnd.value=r[1];
+  render(r[0],r[1]);syncPresets(r[0],r[1]);
+})();
+</script>
+</body>
+</html>
