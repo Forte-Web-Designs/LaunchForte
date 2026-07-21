@@ -56,9 +56,33 @@ h1 .accent{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-ba
 .hero-meta-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--dark-muted)}
 .hero-meta-item svg{color:var(--brand);flex:0 0 auto}
 
-/* ========== HERO SVG ILLUSTRATION ========== */
-.hero-illo{position:relative;aspect-ratio:1/1;max-width:460px;margin:0 auto;width:100%}
-.hero-illo svg{width:100%;height:100%;filter:drop-shadow(0 20px 60px rgba(0,136,219,.25))}
+/* ========== HERO SVG ILLUSTRATION (interactive) ========== */
+.hero-illo{position:relative;aspect-ratio:1/1;max-width:460px;margin:0 auto;width:100%;perspective:1200px;transition:transform .18s cubic-bezier(.2,.7,.3,1.2)}
+.hero-illo svg{width:100%;height:100%;filter:drop-shadow(0 20px 60px rgba(0,136,219,.25));transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+.hero-illo:hover svg{filter:drop-shadow(0 20px 80px rgba(0,136,219,.4))}
+.hero-illo .sat{cursor:pointer;transform-origin:center;transition:transform .25s cubic-bezier(.2,.9,.3,1.4)}
+.hero-illo .sat rect{transition:fill .25s,stroke .25s,filter .3s}
+.hero-illo .sat text{transition:fill .25s,font-weight .25s}
+.hero-illo .sat:hover{transform:scale(1.08)}
+.hero-illo .sat:hover rect{fill:#0088DB;stroke:#4AB5ED;filter:drop-shadow(0 0 12px rgba(74,181,237,.6))}
+.hero-illo .sat:hover text{fill:#fff}
+.hero-illo .link{transition:stroke .3s,stroke-width .3s,opacity .3s}
+.hero-illo .sat:hover ~ line,.hero-illo:hover .link{opacity:.9;stroke-width:2.2}
+.hero-illo .core{transform-origin:center;animation:coreDrift 6s ease-in-out infinite}
+@keyframes coreDrift{0%,100%{transform:translate(0,0)}50%{transform:translate(0,-4px)}}
+@keyframes orbitSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.hero-illo *,.hero-illo{animation:none!important;transition:none!important;transform:none!important}}
+
+/* ========== PROGRESS BAR ========== */
+.progress-shell{position:sticky;top:64px;z-index:20;background:rgba(245,247,250,.72);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 24px;display:none}
+.progress-shell.on{display:block}
+.progress-shell .pinner{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:14px;font-size:13px;color:var(--muted);font-weight:600}
+.progress-track{flex:1;height:6px;background:var(--line);border-radius:999px;overflow:hidden;position:relative}
+.progress-fill{position:absolute;inset:0;background:linear-gradient(90deg,var(--brand) 0%,#4AB5ED 100%);border-radius:999px;width:0;transition:width .5s cubic-bezier(.2,.7,.3,1);box-shadow:0 0 12px rgba(0,136,219,.4)}
+.progress-fill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.5) 50%,transparent 100%);animation:shimmer 2.2s linear infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.progress-label{white-space:nowrap;font-variant-numeric:tabular-nums}
+.progress-label b{color:var(--brand);font-weight:800}
 
 /* ========== SECTION SCAFFOLD ========== */
 .section{padding:88px 0}
@@ -82,18 +106,31 @@ h2{font-size:clamp(30px,3.6vw,42px);line-height:1.12;letter-spacing:-.02em;margi
 .form-head{text-align:center;max-width:640px;margin:0 auto 40px}
 .form-head .kicker{color:var(--brand)}
 
-/* ========== CARDS ========== */
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:28px;margin:18px 0;transition:box-shadow .2s,border-color .2s}
+/* ========== CARDS (interactive) ========== */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:28px;margin:18px 0;transition:box-shadow .3s,border-color .3s,transform .3s cubic-bezier(.2,.7,.3,1);position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(0,136,219,.06),transparent 40%);opacity:0;transition:opacity .35s;pointer-events:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 1px 2px rgba(20,25,34,.05),0 16px 40px rgba(20,25,34,.09)}
+.card:hover::before{opacity:1}
+.card.answered{border-color:var(--brand);box-shadow:0 1px 2px rgba(20,25,34,.05),0 12px 32px rgba(0,136,219,.14)}
+.card.answered::after{content:"✓";position:absolute;top:22px;right:22px;width:26px;height:26px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;animation:pop .35s cubic-bezier(.2,.9,.3,1.6)}
+@keyframes pop{0%{transform:scale(0) rotate(-90deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
 .card:focus-within{border-color:var(--brand);box-shadow:0 1px 2px rgba(20,25,34,.05),0 12px 40px rgba(0,136,219,.12)}
-.qnum{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand);background:var(--brand-soft);padding:5px 11px;border-radius:999px}
-.qnum::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand)}
-.qtitle{font-size:22px;font-weight:700;letter-spacing:-.015em;margin:14px 0 4px;color:var(--ink);line-height:1.25}
-.qhint{font-size:15px;color:var(--muted);margin:0 0 20px;line-height:1.5}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{cursor:pointer;user-select:none;border:1.5px solid var(--line-strong);background:#fff;color:var(--ink);border-radius:12px;padding:12px 18px;font-size:15px;font-weight:600;font-family:inherit;transition:all .15s;position:relative}
-.chip:hover{border-color:var(--brand);color:var(--brand-ink);transform:translateY(-1px)}
-.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 6px 20px rgba(0,136,219,.28)}
-.chip.none[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);box-shadow:0 6px 20px rgba(11,18,32,.28)}
+.qnum{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand);background:var(--brand-soft);padding:5px 11px;border-radius:999px;position:relative;z-index:1}
+.qnum::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand);animation:softpulse 1.6s ease-in-out infinite}
+@keyframes softpulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,136,219,.5)}50%{opacity:.55;box-shadow:0 0 0 6px rgba(0,136,219,0)}}
+.qtitle{font-size:22px;font-weight:700;letter-spacing:-.015em;margin:14px 0 4px;color:var(--ink);line-height:1.25;position:relative;z-index:1}
+.qhint{font-size:15px;color:var(--muted);margin:0 0 20px;line-height:1.5;position:relative;z-index:1}
+.chips{display:flex;flex-wrap:wrap;gap:10px;position:relative;z-index:1}
+.chip{cursor:pointer;user-select:none;border:1.5px solid var(--line-strong);background:#fff;color:var(--ink);border-radius:12px;padding:12px 18px;font-size:15px;font-weight:600;font-family:inherit;position:relative;overflow:hidden;transition:transform .25s cubic-bezier(.2,.9,.3,1.5),border-color .18s,color .18s,box-shadow .25s,background .18s}
+.chip::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,rgba(0,136,219,.18),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.chip:hover{border-color:var(--brand);color:var(--brand-ink);transform:translateY(-2px) scale(1.02);box-shadow:0 8px 22px rgba(0,136,219,.18)}
+.chip:hover::before{opacity:1}
+.chip:active{transform:translateY(0) scale(.96);transition-duration:.08s}
+.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 8px 22px rgba(0,136,219,.35),0 0 0 4px rgba(0,136,219,.08);animation:chipPop .45s cubic-bezier(.2,.9,.3,1.5)}
+.chip.none[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:0 8px 22px rgba(11,18,32,.28),0 0 0 4px rgba(11,18,32,.08)}
+@keyframes chipPop{0%{transform:scale(.85)}55%{transform:scale(1.09)}100%{transform:scale(1)}}
+.chip .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);transform:translate(-50%,-50%) scale(0);pointer-events:none;animation:ripple .55s ease-out forwards}
+@keyframes ripple{0%{transform:translate(-50%,-50%) scale(0);opacity:.7}100%{transform:translate(-50%,-50%) scale(3);opacity:0}}
 .optional{font-weight:500;color:var(--muted-2);font-size:12px;text-transform:none;letter-spacing:0;margin-left:6px}
 
 /* gate */
@@ -106,12 +143,20 @@ h2{font-size:clamp(30px,3.6vw,42px);line-height:1.12;letter-spacing:-.02em;margi
 .consent{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted);margin-top:14px;line-height:1.5}
 .consent input{margin-top:2px;width:18px;height:18px;flex:0 0 auto;accent-color:var(--brand)}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:none;background:linear-gradient(180deg,var(--brand) 0%,#0077C4 100%);color:#fff;font-size:17px;font-weight:700;padding:17px 22px;border-radius:12px;cursor:pointer;margin-top:20px;font-family:inherit;transition:transform .12s,box-shadow .2s;box-shadow:0 8px 24px rgba(0,136,219,.35),0 1px 2px rgba(0,0,0,.06)}
-.cta:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(0,136,219,.42),0 1px 2px rgba(0,0,0,.06)}
-.cta:active{transform:translateY(0)}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:none;background:linear-gradient(180deg,var(--brand) 0%,#0077C4 100%);color:#fff;font-size:17px;font-weight:700;padding:17px 22px;border-radius:12px;cursor:pointer;margin-top:20px;font-family:inherit;transition:transform .15s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s;box-shadow:0 8px 24px rgba(0,136,219,.35),0 1px 2px rgba(0,0,0,.06);position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-100%);transition:transform .6s}
+.cta:hover{transform:translateY(-2px) scale(1.01);box-shadow:0 16px 34px rgba(0,136,219,.5),0 1px 2px rgba(0,0,0,.06)}
+.cta:hover::before{transform:translateX(100%)}
+.cta:active{transform:translateY(0) scale(.99);transition-duration:.08s}
 .cta:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
-.cta svg{transition:transform .15s}
-.cta:hover svg{transform:translateX(3px)}
+.cta svg{transition:transform .25s cubic-bezier(.2,.9,.3,1.4);position:relative;z-index:1}
+.cta:hover svg{transform:translateX(4px)}
+.cta span{position:relative;z-index:1}
+
+/* ========== CONFETTI (celebration burst) ========== */
+.confetti-host{position:fixed;inset:0;pointer-events:none;z-index:80;overflow:hidden}
+.confetti-dot{position:absolute;width:10px;height:10px;border-radius:50%;opacity:0;animation:confettiFall 1.4s cubic-bezier(.15,.7,.4,1) forwards}
+@keyframes confettiFall{0%{opacity:1;transform:translate(0,0) scale(.6)}60%{opacity:1}100%{opacity:0;transform:translate(var(--dx,0),var(--dy,120px)) rotate(var(--rot,180deg)) scale(1)}}
 .err{display:none;margin-top:14px;font-size:14px;color:var(--danger);background:#FCEDED;border:1px solid #F3CFCF;border-radius:10px;padding:12px 14px;font-weight:500}
 .fine{font-size:13px;color:var(--muted-2);text-align:center;margin:20px 0 0;display:flex;align-items:center;justify-content:center;gap:8px}
 .fine svg{color:var(--brand);flex:0 0 auto}
@@ -197,8 +242,8 @@ footer.site .foot-brand b{color:var(--brand)}
       </div>
     </div>
 
-    <!-- HERO ILLUSTRATION: person at center, four processes orbiting -->
-    <div class="hero-illo">
+    <!-- HERO ILLUSTRATION: person at center, four processes orbiting (interactive) -->
+    <div class="hero-illo" id="heroIllo">
       <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
           <radialGradient id="glow" cx="50%" cy="50%" r="50%">
@@ -222,39 +267,47 @@ footer.site .foot-brand b{color:var(--brand)}
         <!-- ambient glow -->
         <circle cx="250" cy="250" r="240" fill="url(#glow)"/>
 
-        <!-- dashed orbit rings -->
-        <circle cx="250" cy="250" r="180" stroke="rgba(74,181,237,.28)" stroke-width="1.5" stroke-dasharray="4 6"/>
+        <!-- rotating dashed orbit -->
+        <g style="transform-origin:250px 250px;animation:orbitSpin 60s linear infinite">
+          <circle cx="250" cy="250" r="180" stroke="rgba(74,181,237,.28)" stroke-width="1.5" stroke-dasharray="4 6"/>
+        </g>
         <circle cx="250" cy="250" r="130" stroke="rgba(74,181,237,.18)" stroke-width="1"/>
 
-        <!-- connecting lines from center to each satellite -->
-        <line x1="250" y1="250" x2="250" y2="70" stroke="url(#ring)" stroke-width="1.5" opacity=".6"/>
-        <line x1="250" y1="250" x2="430" y2="250" stroke="url(#ring)" stroke-width="1.5" opacity=".6"/>
-        <line x1="250" y1="250" x2="250" y2="430" stroke="url(#ring)" stroke-width="1.5" opacity=".6"/>
-        <line x1="250" y1="250" x2="70" y2="250" stroke="url(#ring)" stroke-width="1.5" opacity=".6"/>
+        <!-- connecting lines from center to each satellite (data-flow pulses) -->
+        <line class="link" x1="250" y1="250" x2="250" y2="70" stroke="url(#ring)" stroke-width="1.5" opacity=".6" stroke-dasharray="4 8">
+          <animate attributeName="stroke-dashoffset" values="0;-24" dur="2.5s" repeatCount="indefinite"/>
+        </line>
+        <line class="link" x1="250" y1="250" x2="430" y2="250" stroke="url(#ring)" stroke-width="1.5" opacity=".6" stroke-dasharray="4 8">
+          <animate attributeName="stroke-dashoffset" values="0;-24" dur="2.8s" repeatCount="indefinite"/>
+        </line>
+        <line class="link" x1="250" y1="250" x2="250" y2="430" stroke="url(#ring)" stroke-width="1.5" opacity=".6" stroke-dasharray="4 8">
+          <animate attributeName="stroke-dashoffset" values="0;-24" dur="3.2s" repeatCount="indefinite"/>
+        </line>
+        <line class="link" x1="250" y1="250" x2="70" y2="250" stroke="url(#ring)" stroke-width="1.5" opacity=".6" stroke-dasharray="4 8">
+          <animate attributeName="stroke-dashoffset" values="0;-24" dur="2.7s" repeatCount="indefinite"/>
+        </line>
 
         <!-- center: the owner (avatar disc) -->
-        <circle cx="250" cy="250" r="62" fill="url(#core)" stroke="#4AB5ED" stroke-width="2"/>
-        <circle cx="250" cy="235" r="18" fill="#0A1220" fill-opacity=".35"/>
-        <path d="M215 290 Q250 265 285 290 L285 305 L215 305 Z" fill="#0A1220" fill-opacity=".35"/>
+        <g class="core">
+          <circle cx="250" cy="250" r="62" fill="url(#core)" stroke="#4AB5ED" stroke-width="2"/>
+          <circle cx="250" cy="235" r="18" fill="#0A1220" fill-opacity=".35"/>
+          <path d="M215 290 Q250 265 285 290 L285 305 L215 305 Z" fill="#0A1220" fill-opacity=".35"/>
+        </g>
 
-        <!-- satellites: labeled process nodes -->
-        <!-- top: Pricing -->
-        <g>
+        <!-- satellites: labeled process nodes (each hoverable) -->
+        <g class="sat">
           <rect x="200" y="30" width="100" height="46" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.5)" stroke-width="1.5"/>
           <text x="250" y="58" text-anchor="middle" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif">Pricing</text>
         </g>
-        <!-- right: Sales -->
-        <g>
+        <g class="sat">
           <rect x="386" y="222" width="90" height="46" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.5)" stroke-width="1.5"/>
           <text x="431" y="250" text-anchor="middle" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif">Sales</text>
         </g>
-        <!-- bottom: Onboarding -->
-        <g>
+        <g class="sat">
           <rect x="188" y="422" width="124" height="46" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.5)" stroke-width="1.5"/>
           <text x="250" y="450" text-anchor="middle" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif">Onboarding</text>
         </g>
-        <!-- left: Clients -->
-        <g>
+        <g class="sat">
           <rect x="24" y="222" width="92" height="46" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.5)" stroke-width="1.5"/>
           <text x="70" y="250" text-anchor="middle" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif">Clients</text>
         </g>
@@ -296,6 +349,15 @@ footer.site .foot-brand b{color:var(--brand)}
     </div>
   </div>
 </section>
+
+<!-- Progress bar (sticky, appears once user starts) -->
+<div class="progress-shell" id="progShell">
+  <div class="pinner">
+    <span class="progress-label"><b id="progCount">0</b> of 5 answered</span>
+    <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+    <span class="progress-label" id="progPct">0%</span>
+  </div>
+</div>
 
 <!-- FORM SECTION -->
 <section class="form-section">
@@ -473,6 +535,130 @@ footer.site .foot-brand b{color:var(--brand)}
     </div>
   </div>
 </footer>
+
+<!-- Interactive layer: hero parallax, chip ripple, card hover-glow, progress bar, confetti burst. Pure visual. -->
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* -------- Hero SVG parallax on mouse move -------- */
+  var illo = document.getElementById('heroIllo');
+  if(illo && !reduce){
+    var raf = null, tx = 0, ty = 0;
+    illo.addEventListener('mousemove', function(e){
+      var r = illo.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width - .5) * 14;
+      ty = ((e.clientY - r.top) / r.height - .5) * 14;
+      if(raf) return;
+      raf = requestAnimationFrame(function(){
+        illo.style.transform = 'translate(' + tx + 'px,' + ty + 'px)';
+        raf = null;
+      });
+    });
+    illo.addEventListener('mouseleave', function(){
+      illo.style.transform = '';
+    });
+  }
+
+  /* -------- Card hover: track mouse for radial glow -------- */
+  document.querySelectorAll('.card').forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+
+  /* -------- Chip ripple burst on click -------- */
+  document.querySelectorAll('.chip').forEach(function(chip){
+    chip.addEventListener('pointerdown', function(e){
+      if(reduce) return;
+      var r = chip.getBoundingClientRect();
+      var ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      var size = Math.max(r.width, r.height) * 1.6;
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - r.left) + 'px';
+      ripple.style.top  = (e.clientY - r.top) + 'px';
+      chip.appendChild(ripple);
+      setTimeout(function(){ ripple.remove(); }, 600);
+    });
+  });
+
+  /* -------- Progress bar: watch card answered state -------- */
+  var progShell = document.getElementById('progShell');
+  var progFill = document.getElementById('progFill');
+  var progCount = document.getElementById('progCount');
+  var progPct = document.getElementById('progPct');
+  var required = ['q1','q2','q3']; // per the existing JS: first three required for grading
+  var celebrated = false;
+
+  function updateProgress(){
+    var answered = 0;
+    document.querySelectorAll('.card[data-q]').forEach(function(card){
+      var pressed = card.querySelector('.chip[aria-pressed="true"]');
+      if(pressed){
+        card.classList.add('answered');
+        answered++;
+      } else {
+        card.classList.remove('answered');
+      }
+    });
+    if(answered > 0) progShell.classList.add('on');
+    var pct = Math.min(100, Math.round((answered / 5) * 100));
+    progFill.style.width = pct + '%';
+    progCount.textContent = answered;
+    progPct.textContent = pct + '%';
+
+    /* Celebrate when required (first 3) are done */
+    var reqDone = required.every(function(q){
+      var card = document.querySelector('.card[data-q="' + q + '"]');
+      return card && card.querySelector('.chip[aria-pressed="true"]');
+    });
+    if(reqDone && !celebrated){
+      celebrated = true;
+      confettiBurst();
+    }
+  }
+
+  /* Delegate: listen at document level so we run AFTER the existing chip handler flips aria-pressed */
+  document.addEventListener('click', function(e){
+    var chip = e.target.closest('.chip');
+    if(!chip) return;
+    /* Small delay so the existing handler runs first */
+    setTimeout(updateProgress, 20);
+  });
+
+  /* -------- Confetti burst on required-questions completion -------- */
+  function confettiBurst(){
+    if(reduce) return;
+    var colors = ['#0088DB','#4AB5ED','#B7DBF3','#F5B944','#2FA968'];
+    var host = document.createElement('div');
+    host.className = 'confetti-host';
+    document.body.appendChild(host);
+    /* Fire from the CTA button if visible, else from mid-screen */
+    var origin = document.getElementById('submit');
+    var r = origin ? origin.getBoundingClientRect() : {left:innerWidth/2, top:innerHeight/2, width:0, height:0};
+    var ox = r.left + r.width/2;
+    var oy = r.top + r.height/2;
+    for(var i=0;i<28;i++){
+      var d = document.createElement('span');
+      d.className = 'confetti-dot';
+      var angle = Math.random() * Math.PI * 2;
+      var dist = 80 + Math.random() * 160;
+      d.style.left = ox + 'px';
+      d.style.top = oy + 'px';
+      d.style.background = colors[i % colors.length];
+      d.style.setProperty('--dx', (Math.cos(angle) * dist) + 'px');
+      d.style.setProperty('--dy', (Math.sin(angle) * dist + 100) + 'px');
+      d.style.setProperty('--rot', (Math.random() * 720 - 360) + 'deg');
+      d.style.animationDelay = (Math.random() * .15) + 's';
+      host.appendChild(d);
+    }
+    setTimeout(function(){ host.remove(); }, 1800);
+  }
+})();
+</script>
 
 <script>
 const CONFIG = { webhookBase: "https://launchforte.app.n8n.cloud/webhook", reportPath: "/demo/owner/report/" };
