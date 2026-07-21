@@ -191,7 +191,7 @@ function bpMap(a){
     return '<path d="M'+x1+' '+y1+' C '+x1+' '+((y1+y2)/2)+', '+x2+' '+((y1+y2)/2)+', '+x2+' '+y2+'" class="'+(red?'eg red':'eg')+'"/>';
   };
   var badge=function(x,y,txt){
-    var w=Math.min(200, txt.length*6.4+26);
+    var w=Math.min(320, txt.length*6.6+30);
     return '<g><rect x="'+(x-w/2)+'" y="'+(y-11)+'" width="'+w+'" height="22" rx="11" class="bdg"/>'+
       '<circle cx="'+(x-w/2+12)+'" cy="'+y+'" r="6" class="bdgc"/><text x="'+(x-w/2+12)+'" y="'+(y+3.5)+'" class="bdgx">!</text>'+
       '<text x="'+(x-w/2+24)+'" y="'+(y+3.5)+'" class="bdgt">'+bpEsc(txt)+'</text></g>';
