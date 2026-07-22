@@ -663,20 +663,23 @@ footer.site .foot-brand b{color:var(--brand)}
       setTimeout(function(){ pill.style.display=''; }, 250);
     });
     document.getElementById('askSend').addEventListener('click', function(){
-      var name = (document.getElementById('askName').value || '').trim();
-      var email = (document.getElementById('askEmail').value || '').trim();
-      var msg = (document.getElementById('askMsg').value || '').trim();
-      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || msg.length < 3){
-        document.getElementById('askEmail').style.borderColor = '#C23B3B'; return;
-      }
-      var send = document.getElementById('askSend'); send.disabled = true; send.textContent = 'Sending...';
-      var body = encodeURIComponent('From: ' + (name || 'anonymous') + ' <' + email + '>\n\nPage: ' + location.href + '\n\n' + msg);
+    var name = (document.getElementById('askName').value || '').trim();
+    var email = (document.getElementById('askEmail').value || '').trim();
+    var msg = (document.getElementById('askMsg').value || '').trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || msg.length < 3){ document.getElementById('askEmail').style.borderColor='#C23B3B'; return; }
+    var send = document.getElementById('askSend'); send.disabled=true; send.textContent='Sending...';
+    var payload = {name:name, email:email, message:msg, sourcePath:location.pathname};
+    var fallback = function(){
+      var body = encodeURIComponent('From: ' + (name||'anonymous') + ' <' + email + '>\n\nPage: ' + location.href + '\n\n' + msg);
       var subject = encodeURIComponent('Question from ' + location.pathname);
-      var a = document.createElement('a');
-      a.href = 'mailto:seth@launchforte.com?subject=' + subject + '&body=' + body; a.target = '_blank';
+      var a = document.createElement('a'); a.href='mailto:seth@launchforte.com?subject=' + subject + '&body=' + body; a.target='_blank';
       document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(function(){ panel.classList.add('sent'); }, 300);
-    });
+    };
+    fetch('https://launchforte.app.n8n.cloud/webhook/ask-anything', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)})
+      .then(function(r){ if(!r.ok) throw new Error('http'); return r.json(); })
+      .then(function(){ panel.classList.add('sent'); })
+      .catch(function(){ fallback(); setTimeout(function(){ panel.classList.add('sent'); }, 300); });
+  });
   }
 })();
 </script>
