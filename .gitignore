@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Unused raw video originals
+site/videos/Danielle Review.mp4
+site/videos/video-0.mp4
