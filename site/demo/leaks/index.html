@@ -351,6 +351,21 @@ h1{font-size:34px;line-height:1.12;letter-spacing:-.02em;margin:0 0 16px;font-we
 .form-head{text-align:center;max-width:640px;margin:32px auto 24px;padding:0 24px}
 .form-head .kicker{color:#0088DB}
 .form-head h2{font-size:clamp(24px,3vw,32px);letter-spacing:-.02em;font-weight:800;margin:0;color:#14181f}
+
+/* ===== INTERACTIVE KIT (matches owner/watcher/pipeline/blueprint) ===== */
+.hero-illo{transition:transform .18s cubic-bezier(.2,.7,.3,1.2)}
+.hero-illo svg{transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+.hero-illo:hover svg{filter:drop-shadow(0 20px 80px rgba(0,136,219,.4))}
+.hiw-card,.what-card,.q,.stat,.story,.finding,.choice{position:relative;overflow:hidden}
+.hiw-card::before,.what-card::before,.q::before,.stat::before,.story::before,.finding::before,.choice::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,136,219,.06),transparent 55%);opacity:0;transition:opacity .3s;pointer-events:none;border-radius:inherit;z-index:0}
+.hiw-card:hover::before,.what-card:hover::before,.q:hover::before,.stat:hover::before,.story:hover::before,.finding:hover::before,.choice:hover::before{opacity:1}
+.hiw-card > *,.what-card > *,.q > *,.stat > *,.story > *,.finding > *,.choice > *{position:relative;z-index:1}
+.ripple-el{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);transform:translate(-50%,-50%) scale(0);pointer-events:none;animation:ripple-kit .55s ease-out forwards}
+@keyframes ripple-kit{0%{transform:translate(-50%,-50%) scale(0);opacity:.7}100%{transform:translate(-50%,-50%) scale(3);opacity:0}}
+.chip{transition:transform .18s cubic-bezier(.2,.9,.3,1.4),box-shadow .15s,border-color .15s,background .15s,color .15s}
+.chip:hover{transform:translateY(-2px) scale(1.02)}
+.chip:active{transform:translateY(0) scale(.97);transition-duration:.08s}
+@media(prefers-reduced-motion:reduce){.hero-illo,.hero-illo svg,.hiw-card,.what-card,.chip,.ripple-el{animation:none!important;transition:none!important;transform:none!important}}
 </style>
 
 </head>
@@ -720,6 +735,53 @@ show("intake");
   </button>
   <div class="ask-ok">Got it. Reply landing in your inbox soon.</div>
 </div>
+
+
+<script>
+/* Interactive kit: hero parallax + card cursor-follow + ripple burst */
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var illo = document.getElementById('heroIllo');
+  if(illo && !reduce){
+    var raf = null;
+    illo.addEventListener('mousemove', function(e){
+      var r = illo.getBoundingClientRect();
+      var tx = ((e.clientX - r.left) / r.width - .5) * 14;
+      var ty = ((e.clientY - r.top) / r.height - .5) * 14;
+      if(raf) return;
+      raf = requestAnimationFrame(function(){ illo.style.transform = 'translate(' + tx + 'px,' + ty + 'px)'; raf = null; });
+    });
+    illo.addEventListener('mouseleave', function(){ illo.style.transform = ''; });
+  }
+
+  document.querySelectorAll('.hiw-card, .what-card, .q, .stat, .story, .finding, .choice').forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+
+  document.querySelectorAll('.chip, .btn, .mode-btn, .hero-cta, .btn-inv, .go, .ask-send').forEach(function(el){
+    el.addEventListener('pointerdown', function(e){
+      if(reduce) return;
+      var r = el.getBoundingClientRect();
+      var ripple = document.createElement('span');
+      ripple.className = 'ripple-el';
+      var size = Math.max(r.width, r.height) * 1.6;
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - r.left) + 'px';
+      ripple.style.top  = (e.clientY - r.top) + 'px';
+      if(getComputedStyle(el).position === 'static') el.style.position = 'relative';
+      var overflow = getComputedStyle(el).overflow;
+      if(overflow === 'visible') el.style.overflow = 'hidden';
+      el.appendChild(ripple);
+      setTimeout(function(){ ripple.remove(); }, 600);
+    });
+  });
+})();
+</script>
 
 <script>
 (function(){
