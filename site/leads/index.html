@@ -7,83 +7,19 @@
 <meta name="description" content="Pick your ideal customer and get ten verified, judged leads inside the hour, with the audit ledger showing every check each lead survived.">
 <link rel="canonical" href="https://launchforte.com/leads/">
 <style>
-:root{--brand:#0088DB;--brand-soft:#E7F2FB;--paper:#FBFAF7;--ink:#15221E;--muted:#5B6660;--line:#E5E3DB;--card:#FFFFFF;--err:#A33B2E;--radius:12px;--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--font)}
-.wrap{max-width:960px;margin:0 auto;padding:0 20px}
-header{background:var(--card);border-bottom:1px solid var(--line)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 20px}
-.brandmark{font-weight:800;letter-spacing:-0.01em;color:var(--ink);text-decoration:none;font-size:18px}
-.navlink{color:var(--brand);font-weight:600;text-decoration:none;font-size:14px}
-.section{padding:56px 0}
-.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
-h1{font-size:clamp(30px,5vw,44px);font-weight:800;letter-spacing:-0.015em;line-height:1.15;margin:0 0 14px}
-h2{font-size:clamp(22px,3.5vw,30px);font-weight:800;letter-spacing:-0.01em;margin:0 0 10px}
-.sub{color:var(--muted);font-size:1.05em;margin:0 0 18px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
-.btn{display:inline-block;background:var(--brand);color:#fff;font-weight:700;border:0;border-radius:10px;padding:13px 22px;font-size:16px;cursor:pointer;text-decoration:none}
-.btn:hover{opacity:.92}
-.btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
-.specimen{margin-top:28px;border-left:4px solid var(--brand)}
-.spec-name{font-weight:700;margin:0 0 8px}
-.spec-meta{font-weight:400;color:var(--muted)}
-.badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;color:var(--muted);margin:0 6px 6px 0;background:#fff}
-.badge.good{background:var(--brand-soft);color:var(--brand);border-color:transparent}
-.steprow{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
-.steprow:last-child{border-bottom:0}
-.stepnum{flex:0 0 34px;height:34px;border-radius:50%;background:var(--brand-soft);color:var(--brand);font-weight:800;display:flex;align-items:center;justify-content:center}
-.steprow .name{font-weight:700;margin:0 0 2px}
-.steprow .desc{margin:0;color:var(--muted);font-size:14.5px}
-.cta-band{background:var(--brand);color:#fff;padding:44px 0}
-.cta-band h2{color:#fff}
-.cta-band p{color:#dceae3;margin:0 0 18px}
-.cta-band .btn{background:#fff;color:var(--brand)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:720px){.grid2{grid-template-columns:1fr}}
-.field{margin:0 0 14px}
-.field label{display:block;font-weight:600;font-size:14px;margin:0 0 6px}
-.field input,.field select{width:100%;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font:inherit;color:var(--ink)}
-.chips{min-height:34px}
-.chip{display:inline-block;background:var(--brand-soft);color:var(--brand);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;margin:0 6px 6px 0}
-.consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);margin:8px 0 16px}
-.consent input{margin-top:3px}
-.hp{position:absolute;left:-5000px;opacity:0}
-.msg{margin:12px 0 0;font-weight:600}
-.msg.err{color:var(--err)}
-.fine{font-size:12.5px;color:var(--muted)}
-.warn{color:var(--err)}
-footer{border-top:1px solid var(--line);padding:26px 0;margin-top:20px}
-footer p{margin:0 0 6px;font-size:14px;color:var(--muted)}
-footer a{color:var(--brand)}
-html{scroll-behavior:smooth}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-
-/* Ask Pill */
-.ask-pill{position:fixed;bottom:22px;right:22px;z-index:50;display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%);color:#fff;padding:14px 20px;border-radius:999px;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;font-weight:700;font-size:15px;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(0,136,219,.45),0 0 0 6px rgba(0,136,219,.08);transition:transform .18s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s;animation:askFloat 3s ease-in-out infinite}
-.ask-pill:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 40px rgba(0,136,219,.55),0 0 0 8px rgba(0,136,219,.1)}
-.ask-pill:active{transform:translateY(-1px) scale(.98)}
-.ask-pill svg{flex:none}
-.ask-pill .pulse-ask{position:absolute;top:12px;right:14px;width:10px;height:10px;border-radius:50%;background:#4AB5ED;box-shadow:0 0 12px #4AB5ED;animation:askPulseK 1.8s ease-in-out infinite}
-@keyframes askFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@keyframes askPulseK{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
-.ask-panel{position:fixed;bottom:22px;right:22px;z-index:51;width:min(360px,calc(100vw - 44px));background:#fff;border:1px solid #E4E8EE;border-radius:20px;box-shadow:0 30px 80px rgba(10,18,32,.25),0 0 0 1px rgba(0,136,219,.06);padding:20px;transform:translateY(20px) scale(.9);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.2,.9,.3,1.3);font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif}
-.ask-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
-.ask-panel h4{margin:0 0 6px;font-size:17px;font-weight:800;color:#0B1220;letter-spacing:-.01em}
-.ask-panel p{margin:0 0 14px;font-size:13.5px;color:#5A6472;line-height:1.5}
-.ask-panel input,.ask-panel textarea{width:100%;padding:11px 13px;border:1.5px solid #E4E8EE;border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:#0B1220;margin:0 0 8px;transition:border-color .15s,box-shadow .15s}
-.ask-panel input:focus,.ask-panel textarea:focus{outline:none;border-color:#0088DB;box-shadow:0 0 0 3px rgba(0,136,219,.12)}
-.ask-panel textarea{min-height:74px;resize:vertical}
-.ask-panel .ask-send{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%);color:#fff;border:none;border-radius:10px;padding:12px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .12s,box-shadow .25s;box-shadow:0 6px 18px rgba(0,136,219,.32);margin-top:4px}
-.ask-panel .ask-send:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,136,219,.42)}
-.ask-panel .ask-close{position:absolute;top:12px;right:12px;background:none;border:none;color:#8892A0;cursor:pointer;padding:4px;line-height:1;font-family:inherit}
-.ask-panel .ask-close:hover{color:#0B1220}
-.ask-panel .ask-ok{display:none;text-align:center;font-size:14px;color:#1E7A4F;padding:12px 8px;background:rgba(30,122,79,.08);border-radius:10px;margin-top:8px;font-weight:600}
-.ask-panel.sent .ask-ok{display:block}
-.ask-panel.sent input,.ask-panel.sent textarea,.ask-panel.sent .ask-send{display:none}
-@media(prefers-reduced-motion:reduce){.ask-pill{animation:none!important;transition:none!important}}
-
-/* ===== HOMEPAGE HEADER + FOOTER CSS (from index.html) ===== */
 :root{
+  --brand:#0088DB; --brand-soft:#E6F2FA; --brand-ink:#075A8F; --brand-glow:rgba(0,136,219,.35);
+  --ink:#0B1220; --ink-soft:#141922; --muted:#5A6472; --muted-2:#8892A0;
+  --line:#E4E8EE; --line-strong:#D5DBE3;
+  --bg:#F5F7FA; --card:#FFFFFF; --paper:#FFFFFF;
+  --dark-bg:#0A1220; --dark-bg-2:#0E1729; --dark-card:#111C33; --dark-line:rgba(255,255,255,.08); --dark-line-2:rgba(255,255,255,.14);
+  --dark-text:#E7EDF5; --dark-muted:#93A1B5;
+  --ok:#1E7A4F; --warn:#B4541B; --danger:#C23B3B; --err:#C23B3B;
+  --radius:16px; --radius-lg:22px;
+  --shadow:0 1px 2px rgba(20,25,34,.05),0 8px 24px rgba(20,25,34,.06);
+  --shadow-lg:0 1px 2px rgba(20,25,34,.06),0 20px 60px rgba(20,25,34,.1);
+  --font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
   --text-primary:#1d1d1f;
   --text-secondary:#515154;
   --text-muted:#86868b;
@@ -95,6 +31,18 @@ html{scroll-behavior:smooth}
   --background-dark-lf:#1d1d1f;
   --card-bg-lf:#ffffff;
 }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-size:16px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.wrap-narrow{max-width:760px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+a{color:var(--brand)}
+button{font-family:var(--font)}
+p{margin:0 0 14px}
+
+/* HOMEPAGE HEADER + FOOTER */
 .site-header{background:rgba(245,245,247,0.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:0.5px solid var(--border-lf);padding:0 2rem;height:64px;position:sticky;top:0;z-index:100;display:flex;align-items:center;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif}
 .site-header .header-container{max-width:1100px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
 .site-header .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
@@ -110,7 +58,6 @@ html{scroll-behavior:smooth}
   .site-header .header-nav::-webkit-scrollbar{display:none}
   .site-header .header-nav a{white-space:nowrap;font-size:0.75rem;padding:0.35rem 0.35rem}
 }
-
 .site-footer{background:var(--background-dark-lf);color:var(--text-muted);padding:3rem 2rem 2rem;border-top:1px solid #2a2a2c;text-align:left;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif}
 .site-footer .site-footer-inner{max-width:980px;margin:0 auto}
 .site-footer .footer-email-main{color:#f5f5f7;font-size:1rem;margin-bottom:2rem;display:inline-block;font-weight:400;letter-spacing:-0.01em;text-decoration:none}
@@ -127,9 +74,149 @@ html{scroll-behavior:smooth}
   .site-footer .footer-columns{grid-template-columns:1fr 1fr;gap:1.5rem}
   .site-footer .footer-bottom{flex-direction:column}
 }
-@media(max-width:480px){
-  .site-footer .footer-columns{grid-template-columns:1fr}
+@media(max-width:480px){.site-footer .footer-columns{grid-template-columns:1fr}}
+
+/* HERO */
+.hero-section{position:relative;background:linear-gradient(180deg,#0A1220 0%,#0E1729 55%,#0A1220 100%);color:var(--dark-text);overflow:hidden;padding:88px 0 100px}
+.hero-section::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 900px 500px at 50% 0%,rgba(0,136,219,.24),transparent 60%);pointer-events:none}
+.hero-section::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 700px 400px at 80% 100%,rgba(74,181,237,.14),transparent 55%);pointer-events:none}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;max-width:1120px;margin:0 auto;padding:0 24px}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:44px}.hero-section{padding:60px 0 72px}}
+
+.eyebrow-hero{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#B7DBF3;background:rgba(0,136,219,.14);border:1px solid rgba(0,136,219,.28);padding:7px 14px;border-radius:999px}
+.eyebrow-hero .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);box-shadow:0 0 12px var(--brand-glow);animation:heropulse 2s infinite}
+@keyframes heropulse{0%,100%{box-shadow:0 0 12px var(--brand-glow)}50%{box-shadow:0 0 20px var(--brand-glow)}}
+
+h1{font-size:clamp(38px,5.6vw,60px);line-height:1.04;letter-spacing:-.028em;margin:22px 0 20px;font-weight:800;color:#fff}
+h1 .accent-word{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:19px;color:#B7C4D6;margin:0 0 28px;max-width:38ch;line-height:1.55}
+.hero-meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:8px}
+.hero-meta-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--dark-muted)}
+.hero-meta-item svg{color:var(--brand);flex:0 0 auto}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,var(--brand) 0%,#0077C4 100%);color:#fff;font-weight:700;border:0;border-radius:12px;padding:15px 26px;font-size:16px;cursor:pointer;text-decoration:none;margin-top:14px;transition:transform .18s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s;box-shadow:0 10px 28px rgba(0,136,219,.4);position:relative;overflow:hidden}
+.hero-cta::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-100%);transition:transform .6s}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,136,219,.5);color:#fff}
+.hero-cta:hover::before{transform:translateX(100%)}
+.hero-cta:active{transform:translateY(0) scale(.98)}
+
+/* Hero SVG (interactive) */
+.hero-illo{position:relative;aspect-ratio:1/1;max-width:460px;margin:0 auto;width:100%;transition:transform .18s cubic-bezier(.2,.7,.3,1.2)}
+.hero-illo svg{width:100%;height:100%;filter:drop-shadow(0 20px 60px rgba(0,136,219,.25));transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+.hero-illo:hover svg{filter:drop-shadow(0 20px 80px rgba(0,136,219,.4))}
+.hero-illo .check-node{cursor:pointer;transform-origin:center;transition:transform .25s cubic-bezier(.2,.9,.3,1.4)}
+.hero-illo .check-node rect{transition:fill .25s,stroke .25s,filter .3s}
+.hero-illo .check-node:hover{transform:scale(1.06)}
+.hero-illo .check-node:hover rect{fill:#0088DB;stroke:#4AB5ED;filter:drop-shadow(0 0 12px rgba(74,181,237,.6))}
+.hero-illo .check-node:hover text{fill:#fff}
+@keyframes orbitSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+/* Sections */
+.section{padding:88px 0}
+.section-head{text-align:center;max-width:640px;margin:0 auto 48px}
+.kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:14px}
+h2{font-size:clamp(30px,3.6vw,42px);line-height:1.12;letter-spacing:-.02em;margin:0 0 14px;font-weight:800;color:var(--ink)}
+.section-sub{font-size:18px;color:var(--muted);margin:0}
+
+/* Specimen card */
+.specimen-wrap{max-width:760px;margin:36px auto 0}
+.specimen{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow);border-left:4px solid var(--brand)}
+.spec-name{font-weight:700;margin:0 0 10px;font-size:17px;color:var(--ink)}
+.spec-meta{font-weight:400;color:var(--muted)}
+.spec-badges{margin:6px 0 12px}
+.badge{display:inline-block;border:1px solid var(--line-strong);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:600;color:var(--muted);margin:0 6px 6px 0;background:#fff}
+.badge.good{background:var(--brand-soft);color:var(--brand-ink);border-color:transparent;font-weight:700}
+.fine{font-size:13px;color:var(--muted-2)}
+
+/* HOW IT WORKS 7-step */
+.steps-grid{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:8px 32px;box-shadow:var(--shadow)}
+.steprow{display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--line);align-items:flex-start;position:relative;transition:background .18s}
+.steprow:last-child{border-bottom:0}
+.steprow:hover{background:linear-gradient(90deg,rgba(0,136,219,.03),transparent 60%);border-radius:12px}
+.stepnum{flex:0 0 42px;height:42px;border-radius:12px;background:linear-gradient(180deg,var(--brand-soft),#DDEBF7);color:var(--brand-ink);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 4px 12px rgba(0,136,219,.15);transition:transform .2s cubic-bezier(.2,.9,.3,1.4)}
+.steprow:hover .stepnum{transform:scale(1.06) rotate(-3deg)}
+.steprow .name{font-weight:700;margin:0 0 4px;font-size:16px;color:var(--ink);letter-spacing:-.005em}
+.steprow .desc{margin:0;color:var(--muted);font-size:15px;line-height:1.55}
+
+/* CTA band (dark) */
+.cta-band{background:linear-gradient(135deg,#0A1220 0%,#0E2A44 100%);color:#fff;padding:80px 0;position:relative;overflow:hidden}
+.cta-band::before{content:"";position:absolute;top:0;right:0;width:600px;height:600px;background:radial-gradient(circle,rgba(0,136,219,.2),transparent 60%);pointer-events:none}
+.cta-band h2{color:#fff;position:relative}
+.cta-band p{color:#B7C4D6;margin:0 0 22px;font-size:17px;position:relative}
+.cta-band .btn-inv{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--brand);font-weight:700;border:0;border-radius:12px;padding:15px 28px;font-size:16px;cursor:pointer;text-decoration:none;transition:transform .18s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s;box-shadow:0 10px 28px rgba(0,0,0,.25);position:relative;overflow:hidden}
+.cta-band .btn-inv::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(0,136,219,.15) 50%,transparent 70%);transform:translateX(-100%);transition:transform .6s}
+.cta-band .btn-inv:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.35);color:var(--brand)}
+.cta-band .btn-inv:hover::before{transform:translateX(100%)}
+
+/* What lands (2-up cards) */
+.what-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px;margin:0 auto}
+@media(max-width:720px){.what-grid{grid-template-columns:1fr}}
+.what-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s;position:relative;overflow:hidden}
+.what-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
+.what-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,136,219,.06),transparent 55%);opacity:0;transition:opacity .3s;pointer-events:none;border-radius:inherit}
+.what-card:hover::before{opacity:1}
+.what-card > *{position:relative}
+.what-icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:var(--brand-soft);color:var(--brand-ink);margin-bottom:16px}
+.what-card .name{font-weight:700;font-size:18px;color:var(--ink);margin:0 0 8px;letter-spacing:-.01em}
+.what-card .desc{margin:0;color:var(--muted);font-size:15px;line-height:1.6}
+
+/* FORM SECTION (widget) */
+.form-section{background:linear-gradient(180deg,#F5F7FA 0%,#EEF2F7 100%);padding:88px 0 100px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);scroll-margin-top:80px}
+.form-head{text-align:center;max-width:640px;margin:0 auto 40px}
+.form-card{max-width:640px;margin:0 auto;background:linear-gradient(180deg,#fff 0%,#F9FBFD 100%);border:1.5px solid var(--brand);border-radius:var(--radius-lg);padding:36px;box-shadow:0 1px 2px rgba(20,25,34,.05),0 20px 60px rgba(0,136,219,.15)}
+.field{margin:0 0 16px}
+.field label{display:block;font-weight:700;font-size:13.5px;margin:0 0 8px;color:var(--ink)}
+.field input,.field select{width:100%;background:#fff;border:1.5px solid var(--line-strong);border-radius:12px;padding:13px 16px;font:inherit;color:var(--ink);font-size:15px;transition:border-color .15s,box-shadow .15s}
+.field input:focus,.field select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px rgba(0,136,219,.12)}
+.chips{min-height:38px;padding:6px 0}
+.chip{display:inline-block;background:var(--brand-soft);color:var(--brand-ink);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;margin:0 6px 6px 0;border:1px solid transparent;transition:transform .18s cubic-bezier(.2,.9,.3,1.4)}
+.chip:hover{transform:translateY(-1px);border-color:var(--brand)}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted);margin:12px 0 16px;line-height:1.5}
+.consent input{margin-top:2px;width:18px;height:18px;flex:0 0 auto;accent-color:var(--brand)}
+.hp{position:absolute;left:-5000px;opacity:0}
+.warn{color:var(--err)}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:linear-gradient(180deg,var(--brand) 0%,#0077C4 100%);color:#fff;font-weight:700;border:0;border-radius:12px;padding:16px 22px;font-size:16px;cursor:pointer;font-family:inherit;transition:transform .12s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s;box-shadow:0 8px 24px rgba(0,136,219,.32);position:relative;overflow:hidden}
+.btn::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-100%);transition:transform .6s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,136,219,.45)}
+.btn:hover::before{transform:translateX(100%)}
+.btn:active{transform:translateY(0) scale(.99)}
+.btn:disabled{opacity:.6;cursor:default;transform:none;box-shadow:none}
+.msg{margin:14px 0 0;font-weight:600;font-size:14.5px}
+.msg.err{color:var(--err);background:#FCEDED;border:1px solid #F3CFCF;border-radius:10px;padding:11px 13px;font-weight:500}
+
+/* Ask Pill */
+.ask-pill{position:fixed;bottom:22px;right:22px;z-index:50;display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%);color:#fff;padding:14px 20px;border-radius:999px;font-family:inherit;font-weight:700;font-size:15px;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(0,136,219,.45),0 0 0 6px rgba(0,136,219,.08);transition:transform .18s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s;animation:askFloat 3s ease-in-out infinite}
+.ask-pill:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 40px rgba(0,136,219,.55),0 0 0 8px rgba(0,136,219,.1)}
+.ask-pill:active{transform:translateY(-1px) scale(.98)}
+.ask-pill svg{flex:none}
+.ask-pill .pulse-ask{position:absolute;top:12px;right:14px;width:10px;height:10px;border-radius:50%;background:#4AB5ED;box-shadow:0 0 12px #4AB5ED;animation:askPulseK 1.8s ease-in-out infinite}
+@keyframes askFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes askPulseK{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.ask-panel{position:fixed;bottom:22px;right:22px;z-index:51;width:min(360px,calc(100vw - 44px));background:#fff;border:1px solid #E4E8EE;border-radius:20px;box-shadow:0 30px 80px rgba(10,18,32,.25),0 0 0 1px rgba(0,136,219,.06);padding:20px;transform:translateY(20px) scale(.9);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.2,.9,.3,1.3);font-family:inherit}
+.ask-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
+.ask-panel h4{margin:0 0 6px;font-size:17px;font-weight:800;color:#0B1220;letter-spacing:-.01em}
+.ask-panel p{margin:0 0 14px;font-size:13.5px;color:#5A6472;line-height:1.5}
+.ask-panel input,.ask-panel textarea{width:100%;padding:11px 13px;border:1.5px solid #E4E8EE;border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:#0B1220;margin:0 0 8px;transition:border-color .15s,box-shadow .15s}
+.ask-panel input:focus,.ask-panel textarea:focus{outline:none;border-color:#0088DB;box-shadow:0 0 0 3px rgba(0,136,219,.12)}
+.ask-panel textarea{min-height:74px;resize:vertical}
+.ask-panel .ask-send{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%);color:#fff;border:none;border-radius:10px;padding:12px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .12s,box-shadow .25s;box-shadow:0 6px 18px rgba(0,136,219,.32);margin-top:4px}
+.ask-panel .ask-send:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,136,219,.42)}
+.ask-panel .ask-close{position:absolute;top:12px;right:12px;background:none;border:none;color:#8892A0;cursor:pointer;padding:4px;line-height:1;font-family:inherit}
+.ask-panel .ask-close:hover{color:#0B1220}
+.ask-panel .ask-ok{display:none;text-align:center;font-size:14px;color:#1E7A4F;padding:12px 8px;background:rgba(30,122,79,.08);border-radius:10px;margin-top:8px;font-weight:600}
+.ask-panel.sent .ask-ok{display:block}
+.ask-panel.sent input,.ask-panel.sent textarea,.ask-panel.sent .ask-send{display:none}
+
+@media(max-width:520px){
+  h1{font-size:36px}
+  .hero-section{padding:56px 0 64px}
+  .section{padding:64px 0}
+  .form-section{padding:64px 0 72px}
+  .cta-band{padding:56px 0}
+  .form-card{padding:24px}
+  .steps-grid{padding:8px 20px}
 }
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
@@ -152,141 +239,224 @@ html{scroll-behavior:smooth}
   </div>
 </header>
 
+<!-- HERO -->
+<section class="hero-section">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow-hero"><span class="dot"></span>Verified lead sample</span>
+      <h1>Ten leads that survived <span class="accent-word">seven checks</span>.</h1>
+      <p class="hero-sub">Bought lists bounce because nobody checked them. This works the other way around: pick your ideal customer, and every contact reaching your inbox is sourced, screened, verified, and judged a fit, with a written ledger you can read.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Well inside the hour</span>
+        </div>
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Seven checks, all in writing</span>
+        </div>
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+          <span>Ten contacts + ledger</span>
+        </div>
+      </div>
+      <p><a class="hero-cta" href="#sample">
+        Send my sample
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a></p>
+    </div>
 
-<section class="section"><div class="wrap">
-<p class="eyebrow">Verified lead sample</p>
-<h1>Ten leads that survived seven checks. Free, inside the hour.</h1>
-<p class="sub">Bought lists bounce because nobody checked them. This sample works the other way around: pick your ideal customer, and every contact that reaches your inbox has been sourced to your picks, screened, verified deliverable, and judged a fit, with a written ledger you can read.</p>
-<p><a class="btn" href="#sample">Send my sample</a></p>
-<div class="card specimen" aria-label="Example ledger row">
-<p class="spec-name">Jordan Malone <span class="spec-meta">Director of Property Management, Bayline PM, Tampa</span></p>
-<p class="spec-badges"><span class="badge">Sourced to picks</span><span class="badge">No suppression hits</span><span class="badge">No duplicates</span><span class="badge">Not a role inbox</span><span class="badge">Email found at domain</span><span class="badge">Verified deliverable</span><span class="badge good">Judged fit</span></p>
-<p class="fine">One row in the ledger format. Yours shows this for every lead delivered.</p>
+    <!-- Hero SVG: seven checks -->
+    <div class="hero-illo" id="heroIllo">
+      <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#0088DB" stop-opacity=".4"/>
+            <stop offset="100%" stop-color="#0088DB" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="node" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#132A44"/>
+            <stop offset="100%" stop-color="#0A1930"/>
+          </linearGradient>
+          <linearGradient id="good" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#4AB5ED"/>
+            <stop offset="100%" stop-color="#0088DB"/>
+          </linearGradient>
+        </defs>
+        <circle cx="250" cy="250" r="240" fill="url(#glow)"/>
+
+        <!-- rotating dashed orbit -->
+        <g style="transform-origin:250px 250px;animation:orbitSpin 60s linear infinite">
+          <circle cx="250" cy="250" r="210" stroke="rgba(74,181,237,.2)" stroke-width="1.5" stroke-dasharray="4 8"/>
+        </g>
+
+        <!-- vertical column of 7 check rows -->
+        <g transform="translate(60,80)">
+          <!-- Row 1 -->
+          <g class="check-node">
+            <rect x="0" y="0" width="380" height="42" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.4)" stroke-width="1.5"/>
+            <circle cx="26" cy="21" r="10" fill="url(#good)"/>
+            <path d="M22 21l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <text x="52" y="26" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,Inter,sans-serif">Sourced to your picks</text>
+          </g>
+          <!-- Row 2 -->
+          <g class="check-node" transform="translate(0,52)">
+            <rect x="0" y="0" width="380" height="42" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.4)" stroke-width="1.5"/>
+            <circle cx="26" cy="21" r="10" fill="url(#good)"/>
+            <path d="M22 21l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <text x="52" y="26" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,Inter,sans-serif">No suppression hits</text>
+          </g>
+          <!-- Row 3 -->
+          <g class="check-node" transform="translate(0,104)">
+            <rect x="0" y="0" width="380" height="42" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.4)" stroke-width="1.5"/>
+            <circle cx="26" cy="21" r="10" fill="url(#good)"/>
+            <path d="M22 21l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <text x="52" y="26" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,Inter,sans-serif">No duplicates</text>
+          </g>
+          <!-- Row 4 -->
+          <g class="check-node" transform="translate(0,156)">
+            <rect x="0" y="0" width="380" height="42" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.4)" stroke-width="1.5"/>
+            <circle cx="26" cy="21" r="10" fill="url(#good)"/>
+            <path d="M22 21l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <text x="52" y="26" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,Inter,sans-serif">Not a role inbox</text>
+          </g>
+          <!-- Row 5 -->
+          <g class="check-node" transform="translate(0,208)">
+            <rect x="0" y="0" width="380" height="42" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.4)" stroke-width="1.5"/>
+            <circle cx="26" cy="21" r="10" fill="url(#good)"/>
+            <path d="M22 21l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <text x="52" y="26" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,Inter,sans-serif">Email at company domain</text>
+          </g>
+          <!-- Row 6 -->
+          <g class="check-node" transform="translate(0,260)">
+            <rect x="0" y="0" width="380" height="42" rx="12" fill="url(#node)" stroke="rgba(74,181,237,.4)" stroke-width="1.5"/>
+            <circle cx="26" cy="21" r="10" fill="url(#good)"/>
+            <path d="M22 21l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <text x="52" y="26" fill="#B7DBF3" font-size="13" font-weight="700" font-family="-apple-system,Inter,sans-serif">Verified deliverable</text>
+          </g>
+          <!-- Row 7 -->
+          <g class="check-node" transform="translate(0,312)">
+            <rect x="0" y="0" width="380" height="42" rx="12" fill="#0E1A30" stroke="#4AB5ED" stroke-width="2"/>
+            <circle cx="26" cy="21" r="10" fill="url(#good)"/>
+            <path d="M22 21l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <text x="52" y="26" fill="#fff" font-size="13" font-weight="800" font-family="-apple-system,Inter,sans-serif">Judged a fit</text>
+          </g>
+        </g>
+
+        <!-- pulse dot bottom center -->
+        <circle cx="250" cy="450" r="6" fill="#4AB5ED">
+          <animate attributeName="r" values="6;10;6" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIMEN -->
+<section class="section">
+  <div class="wrap-narrow">
+    <div class="section-head">
+      <div class="kicker">One row, from the ledger</div>
+      <h2>Every lead shows up like this.</h2>
+      <p class="section-sub">A written proof of every check it survived, for every contact you receive.</p>
+    </div>
+    <div class="specimen-wrap">
+      <div class="specimen">
+        <p class="spec-name">Jordan Malone <span class="spec-meta">Director of Property Management, Bayline PM, Tampa</span></p>
+        <p class="spec-badges"><span class="badge">Sourced to picks</span><span class="badge">No suppression hits</span><span class="badge">No duplicates</span><span class="badge">Not a role inbox</span><span class="badge">Email found at domain</span><span class="badge">Verified deliverable</span><span class="badge good">Judged fit</span></p>
+        <p class="fine">One row in the ledger format. Yours shows this for every lead delivered.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS: 7 steps -->
+<section class="section" style="padding-top:0">
+  <div class="wrap-narrow">
+    <div class="section-head">
+      <div class="kicker">How it works</div>
+      <h2>Seven checks between sourcing and your inbox</h2>
+      <p class="section-sub">Every check writes a row. The ledger that lands with your sample shows all seven for every lead.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="steprow"><div class="stepnum">1</div><div><p class="name">Sourced to your picks</p><p class="desc">Vertical, metro, company size, and decision maker titles. Nothing outside them.</p></div></div>
+      <div class="steprow"><div class="stepnum">2</div><div><p class="name">Suppression screen</p><p class="desc">Anyone already in our client and prospect world never appears in a sample.</p></div></div>
+      <div class="steprow"><div class="stepnum">3</div><div><p class="name">Duplicate screen</p><p class="desc">One appearance per person, checked against every batch this system has ever run.</p></div></div>
+      <div class="steprow"><div class="stepnum">4</div><div><p class="name">Role inbox screen</p><p class="desc">Addresses like info@ and office@ are dropped on sight.</p></div></div>
+      <div class="steprow"><div class="stepnum">5</div><div><p class="name">Email found at the company domain</p><p class="desc">Found fresh at the company domain, never pulled from a stale export.</p></div></div>
+      <div class="steprow"><div class="stepnum">6</div><div><p class="name">Deliverability verified</p><p class="desc">Only addresses that verify valid ship. Unknowns and catch alls are held out.</p></div></div>
+      <div class="steprow"><div class="stepnum">7</div><div><p class="name">Judged a fit, in writing</p><p class="desc">Each contact is read against your picks and gets a one line verdict you can see.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="wrap">
+    <div style="max-width:640px;margin:0 auto;text-align:center">
+      <h2>The artifact does the selling.</h2>
+      <p>You get the leads and the ledger. If they hold up, we should talk about a hundred more.</p>
+      <a class="btn-inv" href="#sample">
+        Send my sample
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
 </div>
-</div></section>
 
-<section class="section"><div class="wrap">
-<p class="eyebrow">How it works</p>
-<h2>Seven checks between sourcing and your inbox</h2>
-<p class="sub">Every check writes a row. The ledger that lands with your sample shows all seven for every lead.</p>
-<div class="card">
-<div class="steprow"><div class="stepnum">1</div><div><p class="name">Sourced to your picks</p><p class="desc">Vertical, metro, company size, and decision maker titles. Nothing outside them.</p></div></div>
-<div class="steprow"><div class="stepnum">2</div><div><p class="name">Suppression screen</p><p class="desc">Anyone already in our client and prospect world never appears in a sample.</p></div></div>
-<div class="steprow"><div class="stepnum">3</div><div><p class="name">Duplicate screen</p><p class="desc">One appearance per person, checked against every batch this system has ever run.</p></div></div>
-<div class="steprow"><div class="stepnum">4</div><div><p class="name">Role inbox screen</p><p class="desc">Addresses like info@ and office@ are dropped on sight.</p></div></div>
-<div class="steprow"><div class="stepnum">5</div><div><p class="name">Email found at the company domain</p><p class="desc">Found fresh at the company domain, never pulled from a stale export.</p></div></div>
-<div class="steprow"><div class="stepnum">6</div><div><p class="name">Deliverability verified</p><p class="desc">Only addresses that verify valid ship. Unknowns and catch alls are held out.</p></div></div>
-<div class="steprow"><div class="stepnum">7</div><div><p class="name">Judged a fit, in writing</p><p class="desc">Each contact is read against your picks and gets a one line verdict you can see.</p></div></div>
-</div>
-</div></section>
+<!-- WHAT LANDS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">What lands in your inbox</div>
+      <h2>The sample and its ledger</h2>
+    </div>
+    <div class="what-grid">
+      <div class="what-card">
+        <div class="what-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+        </div>
+        <p class="name">The sample</p>
+        <p class="desc">Ten contacts with name, title, company, city, and a verified business email, delivered as a clean table, usually well inside the hour.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <p class="name">The ledger</p>
+        <p class="desc">A private link showing, for every lead, each check it passed and the written reason it was judged a fit. If your segment runs thin, the ledger says so plainly and you still get every lead that survived.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="cta-band"><div class="wrap">
-<h2>The artifact does the selling.</h2>
-<p>You get the leads and the ledger. If they hold up, we should talk about a hundred more.</p>
-<a class="btn" href="#sample">Send my sample</a>
-</div></div>
-
-<section class="section"><div class="wrap">
-<p class="eyebrow">What lands in your inbox</p>
-<h2>The sample and its ledger</h2>
-<div class="grid2">
-<div class="card"><p class="name" style="font-weight:700;margin:0 0 6px">The sample</p><p class="desc" style="margin:0;color:var(--muted)">Ten contacts with name, title, company, city, and a verified business email, delivered as a clean table, usually well inside the hour.</p></div>
-<div class="card"><p class="name" style="font-weight:700;margin:0 0 6px">The ledger</p><p class="desc" style="margin:0;color:var(--muted)">A private link showing, for every lead, each check it passed and the written reason it was judged a fit. If your segment runs thin, the ledger says so plainly and you still get every lead that survived.</p></div>
-</div>
-</div></section>
-
-<section class="section" id="sample"><div class="wrap">
-<p class="eyebrow">Your picks</p>
-<h2>Describe your ideal customer</h2>
-<p class="sub">Four picks bound the sourcing. The titles update as you choose a vertical.</p>
-<noscript><p class="warn">This form needs JavaScript enabled to submit.</p></noscript>
-<form id="f" novalidate>
-<div class="field"><label for="vertical">Vertical</label><select id="vertical" required><option value="" disabled selected>Choose a vertical</option></select></div>
-<div class="field"><label for="metro">Metro</label><select id="metro" required><option value="" disabled selected>Choose a metro or state</option></select></div>
-<div class="field"><label for="size">Company size</label><select id="size" required><option value="" disabled selected>Choose a size band</option></select></div>
-<div class="field"><label>Decision maker titles we target</label><div class="chips" id="chips"><span class="fine">Choose a vertical to see the titles.</span></div><p class="fine">Preset per vertical so sourcing stays tight.</p></div>
-<div class="field"><label for="email">Business email</label><input id="email" type="email" required placeholder="you@yourcompany.com" autocomplete="email"><p class="fine warn" id="emailnote" hidden>That looks like a personal mailbox. This sample verifies business domains, so a work email gets you the real thing. You can still send it, and the reply will explain.</p></div>
-<label class="consent"><input type="checkbox" id="consent" required> Email me the sample and its ledger link. One sample per business every 7 days.</label>
-<input class="hp" type="text" id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-<button class="btn" id="go" type="submit">Send my sample</button>
-<div class="msg" id="msg" role="status" aria-live="polite"></div>
-<p class="fine">Business email required. Sample contacts are business records from public and licensed sources, and they receive nothing from us.</p>
-</form>
-</div></section>
-
-<script>
-const CONFIG={
-WEBHOOK_SUBMIT:'https://launchforte.app.n8n.cloud/webhook/sample-submit',
-LEDGER_PAGE:'https://launchforte.com/leads/ledger/',
-PAGE:'leads',
-WAIT_LIMIT_MS:15000
-};
-const VERTICALS={
-property_management:{label:'Property management',titles:['Owner','President','Director of Property Management','Regional Property Manager','VP of Operations']},
-staffing_recruiting:{label:'Staffing and recruiting',titles:['Owner','President','Managing Director','VP of Recruiting','Branch Manager']},
-marketing_agencies:{label:'Marketing agencies',titles:['Owner','Founder','President','Managing Partner','VP of Client Services']},
-accounting_tax:{label:'Accounting and tax firms',titles:['Managing Partner','Partner','Owner','President','Firm Administrator']},
-law_firms:{label:'Law firms',titles:['Managing Partner','Partner','Owner','COO','Firm Administrator']},
-commercial_services:{label:'Commercial services',titles:['Owner','President','CEO','General Manager','VP of Operations']}
-};
-const METROS=[['dallas-fort-worth','Dallas Fort Worth'],['houston','Houston'],['austin','Austin'],['san-antonio','San Antonio'],['atlanta','Atlanta'],['phoenix','Phoenix'],['chicago','Chicago'],['new-york','New York'],['los-angeles','Los Angeles'],['orange-county','Orange County'],['sf-bay-area','San Francisco Bay Area'],['san-diego','San Diego'],['miami','Miami'],['fort-lauderdale','Fort Lauderdale'],['tampa','Tampa'],['orlando','Orlando'],['charlotte','Charlotte'],['raleigh-durham','Raleigh Durham'],['nashville','Nashville'],['denver','Denver'],['seattle','Seattle'],['portland','Portland'],['minneapolis-st-paul','Minneapolis St Paul'],['boston','Boston'],['philadelphia','Philadelphia'],['washington-dc','Washington DC'],['las-vegas','Las Vegas'],['salt-lake-city','Salt Lake City'],['columbus','Columbus'],['indianapolis','Indianapolis'],['kansas-city','Kansas City'],['st-louis','St Louis']];
-const STATES=[['texas','Texas statewide'],['florida','Florida statewide'],['california','California statewide'],['georgia','Georgia statewide'],['north-carolina','North Carolina statewide'],['arizona','Arizona statewide'],['tennessee','Tennessee statewide'],['colorado','Colorado statewide'],['ohio','Ohio statewide'],['illinois','Illinois statewide']];
-const SIZES=[['1-10','1 to 10 employees'],['11-50','11 to 50 employees'],['51-200','51 to 200 employees'],['201-500','201 to 500 employees']];
-const FREE_MAIL=['gmail.com','yahoo.com','hotmail.com','outlook.com','aol.com','icloud.com','me.com','proton.me','protonmail.com','msn.com','live.com','ymail.com','gmx.com','mail.com','comcast.net','att.net','sbcglobal.net','verizon.net'];
-const $=(id)=>document.getElementById(id);
-function fill(){
-const v=$('vertical');Object.keys(VERTICALS).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=VERTICALS[k].label;v.appendChild(o)});
-const m=$('metro');const g1=document.createElement('optgroup');g1.label='Metros';METROS.forEach(([val,lab])=>{const o=document.createElement('option');o.value=val;o.textContent=lab;g1.appendChild(o)});m.appendChild(g1);
-const g2=document.createElement('optgroup');g2.label='Statewide';STATES.forEach(([val,lab])=>{const o=document.createElement('option');o.value=val;o.textContent=lab;g2.appendChild(o)});m.appendChild(g2);
-const s=$('size');SIZES.forEach(([val,lab])=>{const o=document.createElement('option');o.value=val;o.textContent=lab;s.appendChild(o)});
-}
-function chips(){
-const k=$('vertical').value;const c=$('chips');c.innerHTML='';
-if(!k||!VERTICALS[k]){c.innerHTML='<span class="fine">Choose a vertical to see the titles.</span>';return}
-VERTICALS[k].titles.forEach(t=>{const el=document.createElement('span');el.className='chip';el.textContent=t;c.appendChild(el)});
-}
-function mailNote(){
-const e=$('email').value.trim().toLowerCase();const d=e.split('@')[1]||'';
-$('emailnote').hidden=!(d&&FREE_MAIL.indexOf(d)>-1);
-}
-function prefill(){
-const p=new URLSearchParams(location.search);
-if(p.get('v')&&VERTICALS[p.get('v')])$('vertical').value=p.get('v');
-if(p.get('m'))$('metro').value=p.get('m');
-if(p.get('s'))$('size').value=p.get('s');
-if(p.get('e'))$('email').value=p.get('e');
-chips();mailNote();
-}
-const BLOCK_TEXT={
-free_mailbox:'Personal mailboxes bounce off our own checks too. We sent a short note there explaining why, and your work email gets the real sample.',
-repeat_7d:'One sample per business every 7 days, and yours ran recently. The ledger link from last time still works.',
-daily_cap:'All five of today’s sample slots are taken. Come back tomorrow, the machine resets overnight.',
-invalid:'That email did not validate. Check it and try again.'
-};
-async function submit(ev){
-ev.preventDefault();
-const msg=$('msg');msg.className='msg';msg.textContent='';
-const vertical=$('vertical').value,metro=$('metro').value,size=$('size').value,email=$('email').value.trim();
-if(!vertical||!metro||!size){msg.className='msg err';msg.textContent='Pick a vertical, a metro, and a size band first.';return}
-if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){msg.className='msg err';msg.textContent='Enter a working email address.';return}
-if(!$('consent').checked){msg.className='msg err';msg.textContent='Tick the consent box so we can email your sample.';return}
-$('go').disabled=true;msg.textContent='Sending your picks.';
-const body={vertical,metro,size,email,consent:true,hp:$('hp').value,page:CONFIG.PAGE,ts:new Date().toISOString()};
-try{
-const ctl=new AbortController();const t=setTimeout(()=>ctl.abort(),CONFIG.WAIT_LIMIT_MS);
-const r=await fetch(CONFIG.WEBHOOK_SUBMIT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:ctl.signal});
-clearTimeout(t);
-const data=await r.json().catch(()=>({}));
-if(data&&data.ok){msg.textContent='On it. Watch '+email+' for your sample and its ledger link, usually well inside the hour.';}
-else{msg.className='msg err';msg.textContent=BLOCK_TEXT[data&&data.reason]||'That did not go through. Give it a minute and try again.';$('go').disabled=false;}
-}catch(e){msg.className='msg err';msg.textContent='Could not reach the sample machine. Give it a minute and try again.';$('go').disabled=false;}
-}
-fill();prefill();
-$('vertical').addEventListener('change',chips);
-$('email').addEventListener('input',mailNote);
-$('f').addEventListener('submit',submit);
-</script>
-
+<!-- FORM (widget core, byte-identical structure) -->
+<section class="form-section" id="sample">
+  <div class="wrap">
+    <div class="form-head">
+      <div class="kicker">Your picks</div>
+      <h2>Describe your ideal customer</h2>
+      <p class="section-sub">Four picks bound the sourcing. The titles update as you choose a vertical.</p>
+    </div>
+    <noscript><p class="warn" style="text-align:center">This form needs JavaScript enabled to submit.</p></noscript>
+    <form id="f" novalidate class="form-card">
+      <div class="field"><label for="vertical">Vertical</label><select id="vertical" required><option value="" disabled selected>Choose a vertical</option></select></div>
+      <div class="field"><label for="metro">Metro</label><select id="metro" required><option value="" disabled selected>Choose a metro or state</option></select></div>
+      <div class="field"><label for="size">Company size</label><select id="size" required><option value="" disabled selected>Choose a size band</option></select></div>
+      <div class="field"><label>Decision maker titles we target</label><div class="chips" id="chips"><span class="fine">Choose a vertical to see the titles.</span></div><p class="fine">Preset per vertical so sourcing stays tight.</p></div>
+      <div class="field"><label for="email">Business email</label><input id="email" type="email" required placeholder="you@yourcompany.com" autocomplete="email"><p class="fine warn" id="emailnote" hidden>That looks like a personal mailbox. This sample verifies business domains, so a work email gets you the real thing. You can still send it, and the reply will explain.</p></div>
+      <label class="consent"><input type="checkbox" id="consent" required> <span>Email me the sample and its ledger link. One sample per business every 7 days.</span></label>
+      <input class="hp" type="text" id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn" id="go" type="submit">
+        Send my sample
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <div class="msg" id="msg" role="status" aria-live="polite"></div>
+      <p class="fine" style="margin-top:14px">Business email required. Sample contacts are business records from public and licensed sources, and they receive nothing from us.</p>
+    </form>
+  </div>
+</section>
 
 <footer class="site-footer">
   <div class="site-footer-inner">
@@ -362,25 +532,121 @@ $('f').addEventListener('submit',submit);
   <div class="ask-ok">Got it. Reply landing in your inbox soon.</div>
 </div>
 
+<!-- Interactive kit -->
 <script>
 (function(){
-  var pill = document.getElementById('askPill'); var panel = document.getElementById('askPanel');
-  if(!pill || !panel) return;
-  pill.addEventListener('click', function(){ panel.classList.add('open'); pill.style.display='none'; panel.setAttribute('aria-hidden','false'); setTimeout(function(){ document.getElementById('askName').focus(); }, 250); });
-  document.getElementById('askClose').addEventListener('click', function(){ panel.classList.remove('open'); panel.setAttribute('aria-hidden','true'); setTimeout(function(){ pill.style.display=''; }, 250); });
-  document.getElementById('askSend').addEventListener('click', function(){
-    var name = (document.getElementById('askName').value || '').trim();
-    var email = (document.getElementById('askEmail').value || '').trim();
-    var msg = (document.getElementById('askMsg').value || '').trim();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || msg.length < 3){ document.getElementById('askEmail').style.borderColor='#C23B3B'; return; }
-    var send = document.getElementById('askSend'); send.disabled=true; send.textContent='Sending...';
-    var body = encodeURIComponent('From: ' + (name||'anonymous') + ' <' + email + '>\n\nPage: ' + location.href + '\n\n' + msg);
-    var subject = encodeURIComponent('Question from ' + location.pathname);
-    var a = document.createElement('a'); a.href='mailto:seth@launchforte.com?subject=' + subject + '&body=' + body; a.target='_blank';
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(function(){ panel.classList.add('sent'); }, 300);
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var illo = document.getElementById('heroIllo');
+  if(illo && !reduce){
+    var raf = null;
+    illo.addEventListener('mousemove', function(e){
+      var r = illo.getBoundingClientRect();
+      var tx = ((e.clientX - r.left) / r.width - .5) * 14;
+      var ty = ((e.clientY - r.top) / r.height - .5) * 14;
+      if(raf) return;
+      raf = requestAnimationFrame(function(){ illo.style.transform = 'translate(' + tx + 'px,' + ty + 'px)'; raf = null; });
+    });
+    illo.addEventListener('mouseleave', function(){ illo.style.transform = ''; });
+  }
+  document.querySelectorAll('.what-card').forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
   });
+  var pill = document.getElementById('askPill'); var panel = document.getElementById('askPanel');
+  if(pill && panel){
+    pill.addEventListener('click', function(){ panel.classList.add('open'); pill.style.display='none'; panel.setAttribute('aria-hidden','false'); setTimeout(function(){ document.getElementById('askName').focus(); }, 250); });
+    document.getElementById('askClose').addEventListener('click', function(){ panel.classList.remove('open'); panel.setAttribute('aria-hidden','true'); setTimeout(function(){ pill.style.display=''; }, 250); });
+    document.getElementById('askSend').addEventListener('click', function(){
+      var name = (document.getElementById('askName').value || '').trim();
+      var email = (document.getElementById('askEmail').value || '').trim();
+      var msg = (document.getElementById('askMsg').value || '').trim();
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || msg.length < 3){ document.getElementById('askEmail').style.borderColor='#C23B3B'; return; }
+      var send = document.getElementById('askSend'); send.disabled=true; send.textContent='Sending...';
+      var body = encodeURIComponent('From: ' + (name||'anonymous') + ' <' + email + '>\n\nPage: ' + location.href + '\n\n' + msg);
+      var subject = encodeURIComponent('Question from ' + location.pathname);
+      var a = document.createElement('a'); a.href='mailto:seth@launchforte.com?subject=' + subject + '&body=' + body; a.target='_blank';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){ panel.classList.add('sent'); }, 300);
+    });
+  }
 })();
+</script>
+
+<!-- Verified Lead Sample widget script (preserved byte-identical) -->
+<script>
+const CONFIG={
+WEBHOOK_SUBMIT:'https://launchforte.app.n8n.cloud/webhook/sample-submit',
+LEDGER_PAGE:'https://launchforte.com/leads/ledger/',
+PAGE:'leads',
+WAIT_LIMIT_MS:15000
+};
+const VERTICALS={
+property_management:{label:'Property management',titles:['Owner','President','Director of Property Management','Regional Property Manager','VP of Operations']},
+staffing_recruiting:{label:'Staffing and recruiting',titles:['Owner','President','Managing Director','VP of Recruiting','Branch Manager']},
+marketing_agencies:{label:'Marketing agencies',titles:['Owner','Founder','President','Managing Partner','VP of Client Services']},
+accounting_tax:{label:'Accounting and tax firms',titles:['Managing Partner','Partner','Owner','President','Firm Administrator']},
+law_firms:{label:'Law firms',titles:['Managing Partner','Partner','Owner','COO','Firm Administrator']},
+commercial_services:{label:'Commercial services',titles:['Owner','President','CEO','General Manager','VP of Operations']}
+};
+const METROS=[['dallas-fort-worth','Dallas Fort Worth'],['houston','Houston'],['austin','Austin'],['san-antonio','San Antonio'],['atlanta','Atlanta'],['phoenix','Phoenix'],['chicago','Chicago'],['new-york','New York'],['los-angeles','Los Angeles'],['orange-county','Orange County'],['sf-bay-area','San Francisco Bay Area'],['san-diego','San Diego'],['miami','Miami'],['fort-lauderdale','Fort Lauderdale'],['tampa','Tampa'],['orlando','Orlando'],['charlotte','Charlotte'],['raleigh-durham','Raleigh Durham'],['nashville','Nashville'],['denver','Denver'],['seattle','Seattle'],['portland','Portland'],['minneapolis-st-paul','Minneapolis St Paul'],['boston','Boston'],['philadelphia','Philadelphia'],['washington-dc','Washington DC'],['las-vegas','Las Vegas'],['salt-lake-city','Salt Lake City'],['columbus','Columbus'],['indianapolis','Indianapolis'],['kansas-city','Kansas City'],['st-louis','St Louis']];
+const STATES=[['texas','Texas statewide'],['florida','Florida statewide'],['california','California statewide'],['georgia','Georgia statewide'],['north-carolina','North Carolina statewide'],['arizona','Arizona statewide'],['tennessee','Tennessee statewide'],['colorado','Colorado statewide'],['ohio','Ohio statewide'],['illinois','Illinois statewide']];
+const SIZES=[['1-10','1 to 10 employees'],['11-50','11 to 50 employees'],['51-200','51 to 200 employees'],['201-500','201 to 500 employees']];
+const FREE_MAIL=['gmail.com','yahoo.com','hotmail.com','outlook.com','aol.com','icloud.com','me.com','proton.me','protonmail.com','msn.com','live.com','ymail.com','gmx.com','mail.com','comcast.net','att.net','sbcglobal.net','verizon.net'];
+const $=(id)=>document.getElementById(id);
+function fill(){
+const v=$('vertical');Object.keys(VERTICALS).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=VERTICALS[k].label;v.appendChild(o)});
+const m=$('metro');const g1=document.createElement('optgroup');g1.label='Metros';METROS.forEach(([val,lab])=>{const o=document.createElement('option');o.value=val;o.textContent=lab;g1.appendChild(o)});m.appendChild(g1);
+const g2=document.createElement('optgroup');g2.label='Statewide';STATES.forEach(([val,lab])=>{const o=document.createElement('option');o.value=val;o.textContent=lab;g2.appendChild(o)});m.appendChild(g2);
+const s=$('size');SIZES.forEach(([val,lab])=>{const o=document.createElement('option');o.value=val;o.textContent=lab;s.appendChild(o)});
+}
+function chips(){
+const k=$('vertical').value;const c=$('chips');c.innerHTML='';
+if(!k||!VERTICALS[k]){c.innerHTML='<span class="fine">Choose a vertical to see the titles.</span>';return}
+VERTICALS[k].titles.forEach(t=>{const el=document.createElement('span');el.className='chip';el.textContent=t;c.appendChild(el)});
+}
+function mailNote(){
+const e=$('email').value.trim().toLowerCase();const d=e.split('@')[1]||'';
+$('emailnote').hidden=!(d&&FREE_MAIL.indexOf(d)>-1);
+}
+function prefill(){
+const p=new URLSearchParams(location.search);
+if(p.get('v')&&VERTICALS[p.get('v')])$('vertical').value=p.get('v');
+if(p.get('m'))$('metro').value=p.get('m');
+if(p.get('s'))$('size').value=p.get('s');
+if(p.get('e'))$('email').value=p.get('e');
+chips();mailNote();
+}
+const BLOCK_TEXT={
+free_mailbox:'Personal mailboxes bounce off our own checks too. We sent a short note there explaining why, and your work email gets the real sample.',
+repeat_7d:'One sample per business every 7 days, and yours ran recently. The ledger link from last time still works.',
+daily_cap:'All five of today’s sample slots are taken. Come back tomorrow, the machine resets overnight.',
+invalid:'That email did not validate. Check it and try again.'
+};
+async function submit(ev){
+ev.preventDefault();
+const msg=$('msg');msg.className='msg';msg.textContent='';
+const vertical=$('vertical').value,metro=$('metro').value,size=$('size').value,email=$('email').value.trim();
+if(!vertical||!metro||!size){msg.className='msg err';msg.textContent='Pick a vertical, a metro, and a size band first.';return}
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){msg.className='msg err';msg.textContent='Enter a working email address.';return}
+if(!$('consent').checked){msg.className='msg err';msg.textContent='Tick the consent box so we can email your sample.';return}
+$('go').disabled=true;msg.textContent='Sending your picks.';
+const body={vertical,metro,size,email,consent:true,hp:$('hp').value,page:CONFIG.PAGE,ts:new Date().toISOString()};
+try{
+const ctl=new AbortController();const t=setTimeout(()=>ctl.abort(),CONFIG.WAIT_LIMIT_MS);
+const r=await fetch(CONFIG.WEBHOOK_SUBMIT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:ctl.signal});
+clearTimeout(t);
+const data=await r.json().catch(()=>({}));
+if(data&&data.ok){msg.textContent='On it. Watch '+email+' for your sample and its ledger link, usually well inside the hour.';}
+else{msg.className='msg err';msg.textContent=BLOCK_TEXT[data&&data.reason]||'That did not go through. Give it a minute and try again.';$('go').disabled=false;}
+}catch(e){msg.className='msg err';msg.textContent='Could not reach the sample machine. Give it a minute and try again.';$('go').disabled=false;}
+}
+fill();prefill();
+$('vertical').addEventListener('change',chips);
+$('email').addEventListener('input',mailNote);
+$('f').addEventListener('submit',submit);
 </script>
 </body>
 </html>
