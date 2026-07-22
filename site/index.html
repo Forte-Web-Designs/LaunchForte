@@ -488,6 +488,57 @@
         .header-nav::-webkit-scrollbar{display:none}
         .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
         @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
+        /* ===== Tool-page style hero ===== */
+        .lf-hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#0A1220 0%,#0E1729 55%,#0A1220 100%);color:#E7EDF5;padding:96px 0 104px}
+        .lf-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 900px 520px at 30% 0%,rgba(0,136,219,.26),transparent 60%);pointer-events:none}
+        .lf-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 700px 420px at 85% 100%,rgba(74,181,237,.14),transparent 55%);pointer-events:none}
+        .lf-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at 40% 30%,#000 30%,transparent 72%);mask-image:radial-gradient(ellipse at 40% 30%,#000 30%,transparent 72%);pointer-events:none}
+        .lf-hero-inner{position:relative;max-width:1120px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+        .lf-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#B7DBF3;background:rgba(0,136,219,.14);border:1px solid rgba(0,136,219,.30);padding:7px 14px;border-radius:999px}
+        .lf-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:#0088DB;box-shadow:0 0 12px rgba(0,136,219,.7);animation:lfpulse 2s infinite}
+        @keyframes lfpulse{0%,100%{box-shadow:0 0 10px rgba(0,136,219,.5)}50%{box-shadow:0 0 20px rgba(0,136,219,.95)}}
+        .lf-h1{font-size:clamp(38px,5.4vw,58px);line-height:1.05;letter-spacing:-.028em;font-weight:800;color:#fff;margin:22px 0 18px}
+        .lf-h1 .lf-accent{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .lf-sub{font-size:19px;line-height:1.55;color:#B7C4D6;max-width:40ch;margin:0 0 28px}
+        .lf-ctas{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+        .lf-cta{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%);color:#fff;font-weight:700;border:0;border-radius:12px;padding:15px 26px;font-size:16px;text-decoration:none;box-shadow:0 10px 28px rgba(0,136,219,.4);transition:transform .18s ease,box-shadow .25s}
+        .lf-cta:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(0,136,219,.5);color:#fff}
+        .lf-cta-ghost{display:inline-flex;align-items:center;gap:8px;color:#B7C4D6;font-weight:600;font-size:15px;text-decoration:none;padding:14px 4px}
+        .lf-cta-ghost:hover{color:#fff}
+        .lf-meta{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:22px;font-size:13.5px;color:#93A1B5}
+        .lf-meta span{display:inline-flex;align-items:center;gap:8px}
+        .lf-meta b{color:#B7DBF3;font-weight:600}
+        .lf-hero-visual{background:#fff;border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:20px;box-shadow:0 30px 70px rgba(0,0,0,.45)}
+        .lf-hero-visual img{width:100%;height:auto;display:block}
+        @media(max-width:900px){.lf-hero{padding:60px 0 68px}.lf-hero-inner{grid-template-columns:1fr;gap:36px}.lf-hero-visual{order:-1}}
+        /* ===== Tool-page system across the whole page ===== */
+        /* Calmer light rhythm */
+        .section.white{background:#FFFFFF}
+        .section.tinted{background:#F5F7FA}
+        /* Eyebrows -> glowing pill */
+        .eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(0,136,219,.10);border:1px solid rgba(0,136,219,.24);color:#0088DB !important;padding:6px 13px;border-radius:999px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1}
+        .section.dark .eyebrow{background:rgba(0,136,219,.16);border-color:rgba(0,136,219,.34);color:#B7DBF3 !important}
+        /* Gradient accent words in headings (override inline color) */
+        h1 span[style*="var(--accent)"], h2 span[style*="var(--accent)"], h2 span[style*="--accent-warm"]{
+          background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent !important;color:#0088DB}
+        .section.dark h2 span[style*="var(--accent)"], .section.dark h2 span[style*="--accent-warm"]{
+          background:linear-gradient(180deg,#7EC9F1 0%,#4AB5ED 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent !important}
+        /* Premium primary buttons */
+        .btn-primary{background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%) !important;border-radius:12px !important;box-shadow:0 8px 22px rgba(0,136,219,.26);transition:transform .18s ease,box-shadow .25s}
+        .btn-primary:hover{box-shadow:0 12px 30px rgba(0,136,219,.4);transform:translateY(-1px)}
+        .btn-secondary{border-radius:12px}
+        /* Cards: softer, premium, lift on hover */
+        .service-card,.step-card,.capability-row,.review-card,.stat-card,.card{border-radius:16px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+        .service-card:hover,.step-card:hover,.review-card:hover,.stat-card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(20,25,34,.10);border-color:rgba(0,136,219,.30)}
+        .capability-row:hover{background:rgba(0,136,219,.04);border-color:rgba(0,136,219,.22)}
+        /* Enrich the dark bands to match the hero */
+        .section.dark{position:relative;overflow:hidden;background:linear-gradient(180deg,#0A1220 0%,#0E1729 55%,#0A1220 100%)}
+        .section.dark::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 820px 460px at 50% -10%,rgba(0,136,219,.22),transparent 60%);pointer-events:none}
+        .section.dark .section-inner{position:relative;z-index:1}
+        /* Trusted-by strip: quiet premium */
+        .trusted-strip{background:#0E1729;color:#93A1B5;padding:24px 0}
+        .trusted-strip .trusted-label{color:#7788A0}
+        .trusted-strip .marquee-track span{color:#8fa0b6}
     </style>
     <script src="/theme-toggle.js"></script>
 </head>
@@ -515,15 +566,24 @@
 <main>
 
     <!-- HERO -->
-    <section class="section tinted hero">
-        <div class="section-inner">
-            <div class="section-content">
-                <h1 class="display">Business Growth Isn't Luck.<br>It's <span class="rotating-word">A System</span>.</h1>
-                <p class="sub" style="max-width:640px;margin-left:auto;margin-right:auto">Revenue and operations infrastructure for growing businesses.</p>
-                <div class="ctas">
-                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary btn-primary-lg">Book a Growth Systems Audit</a>
-                    <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+    <section class="lf-hero">
+        <div class="lf-hero-grid" aria-hidden="true"></div>
+        <div class="lf-hero-inner">
+            <div>
+                <span class="lf-eyebrow"><span class="dot"></span>Revenue and operations systems</span>
+                <h1 class="lf-h1">Business growth isn't luck. It's <span class="lf-accent">a system</span>.</h1>
+                <p class="lf-sub">Revenue and operations infrastructure for growing businesses, built and run on The Forte Method.</p>
+                <div class="lf-ctas">
+                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="lf-cta">Book a Growth Systems Audit</a>
+                    <a href="#how-it-works" class="lf-cta-ghost">See how it works</a>
                 </div>
+                <div class="lf-meta">
+                    <span><b>Fixed scope</b>, fixed price, fixed timeline</span>
+                    <span>Built by an engineer, run as a partner</span>
+                </div>
+            </div>
+            <div class="lf-hero-visual">
+                <img src="/images/launchforte-homepage-connected-system.svg" alt="One connected system feeding your bottom line" width="960" height="540" loading="eager">
             </div>
         </div>
     </section>
