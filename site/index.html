@@ -561,6 +561,17 @@
         .try-tool-time{font-size:0.75rem!important;color:var(--text-muted)!important;font-weight:500}
         .try-tool-btn{font-size:0.8125rem;font-weight:600;color:var(--accent);margin-top:auto;padding-top:0.35rem}
         @media(max-width:700px){.try-tools-grid{grid-template-columns:1fr;gap:0.75rem}.try-grade-row{flex-direction:column}.try-grade-row .btn-primary{width:100%}}
+        /* Featured video review (Modern Bungalow) */
+        .mb-feature{max-width:720px;margin:2.25rem auto 0;text-align:left}
+        .mb-video{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#0E1729}
+        .mb-video iframe,.mb-video video{position:absolute;inset:0;width:100%;height:100%;border:0}
+        .mb-video-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:radial-gradient(ellipse at 50% 42%,rgba(0,136,219,.28),transparent 62%),linear-gradient(180deg,#0A1220,#0E1729)}
+        .mb-video-ph svg{width:46px;height:46px;color:#fff;opacity:.92}
+        .mb-video-ph .lbl{font-weight:700;font-size:14.5px;color:#E7EDF5}
+        .mb-video-ph .small{font-size:12px;color:#7788A0}
+        .mb-quote{margin-top:18px}
+        .mb-quote blockquote{margin:0;font-size:1.0625rem;line-height:1.65;color:var(--text-primary);border-left:3px solid var(--accent);padding-left:16px}
+        .mb-attrib{font-weight:600;color:var(--text-primary);margin-top:12px}
     </style>
     <script src="/theme-toggle.js"></script>
 </head>
@@ -783,6 +794,23 @@
                 <div style="font-size:0.9375rem;font-weight:500;color:var(--text-primary)">Matt, 6 Months to Speech</div>
                 <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:4px">CRM build and automation for an online coaching program</div>
             </div>
+            <!-- FEATURED VIDEO REVIEW: Modern Bungalow. When the video is ready, paste the embed (YouTube iframe or Senja) inside .mb-video and delete the .mb-video-ph placeholder. -->
+            <div class="mb-feature">
+                <div class="mb-video">
+                    <div class="mb-video-ph">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                        <span class="lbl">Modern Bungalow, video review</span>
+                        <span class="small">Coming soon</span>
+                    </div>
+                </div>
+                <div class="mb-quote">
+                    <p class="eyebrow">Featured client</p>
+                    <blockquote>"My team was spending a lot of time answering "can I get an update on my order" calls. Seth made me a series of automated emails that go out automatically when I update my order metafields. We also spent about 15 minutes of staff time every time I needed to send a delivery request out to our delivery team, and create an invoice in our system to pay for the delivery. Seth created a process that handles it all automatically when the order is ready for delivery. Another thing we were doing was manually updating prices in our account software every time we had a price update in Shopify. We're too small to pay for a full featured inventory software so Seth made a clean little automation that we can trigger to automatically update prices when we change them in Shopify. He's super easy to work with, always gets the requirements clear at the beginning of the project and sends me documentation at the end that I can keep in my drive for my team to understand. He's enabled me to keep running my business with a very lean, super efficient team."</blockquote>
+                    <div class="mb-attrib">Danielle, Modern Bungalow</div>
+                    <div class="small" style="color:var(--text-muted);margin-top:4px">Order status emails, automated delivery dispatch and invoicing, and Shopify to accounting price sync</div>
+                </div>
+            </div>
+
             <div style="margin-top:2.5rem"><a href="/results.html" class="btn-secondary">See more results</a></div>
         </div>
     </section>
