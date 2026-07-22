@@ -539,6 +539,13 @@
         .trusted-strip{background:#0E1729;color:#93A1B5;padding:24px 0}
         .trusted-strip .trusted-label{color:#7788A0}
         .trusted-strip .marquee-track span{color:#8fa0b6}
+        /* Hero: stay light-on-dark in dark mode too */
+        [data-theme="dark"] .lf-hero .lf-h1{color:#fff}
+        [data-theme="dark"] .lf-sub{color:#B7C4D6}
+        [data-theme="dark"] .lf-eyebrow{color:#B7DBF3 !important}
+        [data-theme="dark"] .lf-cta{color:#fff !important}
+        [data-theme="dark"] .lf-cta-ghost{color:#B7C4D6 !important}
+        [data-theme="dark"] .lf-cta-ghost:hover{color:#fff !important}
     </style>
     <script src="/theme-toggle.js"></script>
 </head>
@@ -571,15 +578,11 @@
         <div class="lf-hero-inner">
             <div>
                 <span class="lf-eyebrow"><span class="dot"></span>Revenue and operations systems</span>
-                <h1 class="lf-h1">Business growth isn't luck. It's <span class="lf-accent">a system</span>.</h1>
-                <p class="lf-sub">Revenue and operations infrastructure for growing businesses, built and run on The Forte Method.</p>
+                <h1 class="lf-h1">Business growth isn't luck. It's <span class="lf-accent rotating-word">A System</span>.</h1>
+                <p class="lf-sub">Revenue and operations infrastructure for growing businesses.</p>
                 <div class="lf-ctas">
                     <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="lf-cta">Book a Growth Systems Audit</a>
                     <a href="#how-it-works" class="lf-cta-ghost">See how it works</a>
-                </div>
-                <div class="lf-meta">
-                    <span><b>Fixed scope</b>, fixed price, fixed timeline</span>
-                    <span>Built by an engineer, run as a partner</span>
                 </div>
             </div>
             <div class="lf-hero-visual">
@@ -743,136 +746,6 @@
                   <text x="935" y="421" text-anchor="end" font-size="11" font-weight="700" letter-spacing="1.3"><tspan fill="#aab3c0">THE </tspan><tspan fill="#2563eb">FORTE</tspan><tspan fill="#aab3c0"> METHOD</tspan></text>
                 </svg>
             </div>
-        </div>
-    </section>
-
-    <!-- LAUNCH FORTE MODEL DIAGRAM -->
-    <section class="section white" style="padding-top:4.5rem;padding-bottom:4.5rem">
-        <div class="section-inner">
-            <div class="section-content" style="margin-bottom:2.5rem">
-                <p class="eyebrow">One Connected System</p>
-                <h2>One source of truth your whole business <span style="color:var(--accent)">runs on</span>.</h2>
-                <p class="sub">Most operations are sitting on a dozen disconnected tools with someone retyping data by hand. We pull it all into one clean record on every customer and give you one source of truth your whole team can trust.</p>
-                <p class="sub" style="margin-top:0.85rem">That system gets built and run the same way every time. We call it <a href="/#how-it-works" style="color:var(--accent);font-weight:600">The Forte Method</a>.</p>
-                <div class="ctas" style="margin-top:1.25rem"><a href="/one-connected-system" class="btn-primary">See the One Connected System build</a></div>
-            </div>
-        </div>
-        <!-- ONE CONNECTED SYSTEM VISUAL -->
-        <div class="homepage-connected">
-                <svg viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="cs-title cs-desc">
-                  <title id="cs-title">One connected system feeding your bottom line</title>
-                  <desc id="cs-desc">Six capabilities, lead systems, revenue infrastructure, AI agents, reporting, custom builds, and reliability, each with the outcome it produces, all connected to a central hub labeled your bottom line, makes you more money.</desc>
-                  <defs>
-                    <filter id="cs-ns" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="1.5" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.08"/></filter>
-                    <filter id="cs-dg" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-                    <filter id="cs-soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="10"/></filter>
-                    <style>
-                      text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
-                      .cap{fill:#0f172a;font-size:20px;font-weight:700;letter-spacing:1px;}
-                      .subcap{fill:#94a3b8;font-size:12.5px;font-weight:500;}
-                      .box{fill:#ffffff;stroke:#e6e9ef;stroke-width:1.3;filter:url(#cs-ns);}
-                      .bname{fill:#1f2733;font-size:13px;font-weight:700;}
-                      .bbenefit{fill:#94a3b8;font-size:10px;font-weight:500;}
-                      .spoke{fill:none;stroke:#d3dae4;stroke-width:1.7;}
-                      .hubLabel{fill:#1d4ed8;font-size:11px;font-weight:700;letter-spacing:.5px;}
-                      .hubBig{fill:#0f172a;font-size:15px;font-weight:700;}
-                      .badge{fill:#fff;font-size:13px;font-weight:800;}
-                      .coreGlow{animation:breathe 3.6s ease-in-out infinite;}
-                      @keyframes breathe{0%,100%{opacity:.06;}50%{opacity:.18;}}
-                
-        /* Try It Now section (homepage grader input + tool cards) */
-        .try-grade-form{max-width:520px;margin:0 auto 2.5rem}
-        .try-grade-row{display:flex;gap:0.5rem;flex-wrap:wrap}
-        .try-grade-row input{flex:1;min-width:200px;padding:0.85rem 1.1rem;border:1.5px solid rgba(0,0,0,0.18);border-radius:var(--radius-pill);font-size:0.9375rem;font-family:inherit;background:#ffffff;color:var(--text-primary);box-shadow:0 1px 3px rgba(0,0,0,0.04);transition:border-color 0.15s ease,box-shadow 0.15s ease}
-        .try-grade-row input::placeholder{color:#9ca3af}
-        .try-grade-row input:hover{border-color:rgba(0,0,0,0.28)}
-        .try-grade-row input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,136,219,0.15)}
-        .try-grade-row .btn-primary{padding:0.85rem 1.5rem;white-space:nowrap}
-        .try-grade-caption{font-size:0.8125rem;color:var(--text-muted);margin:0.85rem 0 0;text-align:center}
-        .try-tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:left}
-        .try-tool-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.35rem 1.5rem;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:0.5rem;transition:border-color 0.2s ease,transform 0.15s ease,box-shadow 0.2s ease}
-        .try-tool-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,136,219,0.08);text-decoration:none;color:inherit}
-        .try-tool-card h3{font-size:1rem;font-weight:700;color:var(--text-primary);margin:0;letter-spacing:-0.01em;line-height:1.3}
-        .try-tool-card p{font-size:0.875rem;line-height:1.5;color:var(--text-secondary);margin:0}
-        .try-tool-time{font-size:0.75rem!important;color:var(--text-muted)!important;font-weight:500}
-        .try-tool-btn{font-size:0.8125rem;font-weight:600;color:var(--accent);margin-top:auto;padding-top:0.35rem}
-        @media(max-width:700px){.try-tools-grid{grid-template-columns:1fr;gap:0.75rem}.try-grade-row{flex-direction:column}.try-grade-row .btn-primary{width:100%}}
-
-    </style>
-                  </defs>
-
-                  <text class="cap" x="480" y="42" text-anchor="middle">ONE CONNECTED SYSTEM</text>
-                  <text class="subcap" x="480" y="66" text-anchor="middle">Every capability feeds the same number</text>
-
-                  <!-- spokes -->
-                  <path class="spoke" d="M234 127 L480 288"/>
-                  <path class="spoke" d="M234 288 L480 288"/>
-                  <path class="spoke" d="M234 449 L480 288"/>
-                  <path class="spoke" d="M726 127 L480 288"/>
-                  <path class="spoke" d="M726 288 L480 288"/>
-                  <path class="spoke" d="M726 449 L480 288"/>
-
-                  <!-- flowing dots converging inward -->
-                  <circle r="3.6" fill="#2563eb" filter="url(#cs-dg)"><animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" path="M234 127 L480 288"/></circle>
-                  <circle r="3.6" fill="#16a34a" filter="url(#cs-dg)"><animateMotion dur="2.6s" begin=".4s" repeatCount="indefinite" path="M234 288 L480 288"/></circle>
-                  <circle r="3.6" fill="#8b5cf6" filter="url(#cs-dg)"><animateMotion dur="2.6s" begin=".8s" repeatCount="indefinite" path="M234 449 L480 288"/></circle>
-                  <circle r="3.6" fill="#0ea5e9" filter="url(#cs-dg)"><animateMotion dur="2.6s" begin=".2s" repeatCount="indefinite" path="M726 127 L480 288"/></circle>
-                  <circle r="3.6" fill="#f59e0b" filter="url(#cs-dg)"><animateMotion dur="2.6s" begin=".6s" repeatCount="indefinite" path="M726 288 L480 288"/></circle>
-                  <circle r="3.6" fill="#14b8a6" filter="url(#cs-dg)"><animateMotion dur="2.6s" begin="1s" repeatCount="indefinite" path="M726 449 L480 288"/></circle>
-
-                  <!-- left boxes -->
-                  <g>
-                    <rect class="box" x="14" y="96" width="220" height="62" rx="12"/>
-                    <rect x="24" y="110" width="3.5" height="34" rx="2" fill="#2563eb"/>
-                    <text class="bname" x="36" y="127">Lead Systems</text>
-                    <text class="bbenefit" x="36" y="146">Responds to every lead in seconds</text>
-                  </g>
-                  <g>
-                    <rect class="box" x="14" y="257" width="220" height="62" rx="12"/>
-                    <rect x="24" y="271" width="3.5" height="34" rx="2" fill="#16a34a"/>
-                    <text class="bname" x="36" y="288">Revenue Infrastructure</text>
-                    <text class="bbenefit" x="36" y="307">Keeps more of what you earn</text>
-                  </g>
-                  <g>
-                    <rect class="box" x="14" y="418" width="220" height="62" rx="12"/>
-                    <rect x="24" y="432" width="3.5" height="34" rx="2" fill="#8b5cf6"/>
-                    <text class="bname" x="36" y="449">AI Agents</text>
-                    <text class="bbenefit" x="36" y="468">Works every lead without you chasing</text>
-                  </g>
-
-                  <!-- right boxes -->
-                  <g>
-                    <rect class="box" x="726" y="96" width="220" height="62" rx="12"/>
-                    <rect x="932.5" y="110" width="3.5" height="34" rx="2" fill="#0ea5e9"/>
-                    <text class="bname" x="924" y="127" text-anchor="end">Reporting</text>
-                    <text class="bbenefit" x="924" y="146" text-anchor="end">One source of truth you can trust</text>
-                  </g>
-                  <g>
-                    <rect class="box" x="726" y="257" width="220" height="62" rx="12"/>
-                    <rect x="932.5" y="271" width="3.5" height="34" rx="2" fill="#f59e0b"/>
-                    <text class="bname" x="924" y="288" text-anchor="end">Custom Builds</text>
-                    <text class="bbenefit" x="924" y="307" text-anchor="end">Takes the manual work off your team</text>
-                  </g>
-                  <g>
-                    <rect class="box" x="726" y="418" width="220" height="62" rx="12"/>
-                    <rect x="932.5" y="432" width="3.5" height="34" rx="2" fill="#14b8a6"/>
-                    <text class="bname" x="924" y="449" text-anchor="end">Reliability</text>
-                    <text class="bbenefit" x="924" y="468" text-anchor="end">Nothing gets missed when you scale</text>
-                  </g>
-
-                  <!-- hub -->
-                  <circle class="coreGlow" cx="480" cy="288" r="92" fill="#2563eb" filter="url(#cs-soft)"/>
-                  <circle cx="480" cy="288" r="84" fill="#ffffff" stroke="#c3d6fb" stroke-width="2" filter="url(#cs-ns)"/>
-                  <circle cx="480" cy="246" r="14" fill="#16a34a"/>
-                  <text class="badge" x="480" y="251" text-anchor="middle">$</text>
-                  <text class="hubLabel" x="480" y="278" text-anchor="middle">YOUR BOTTOM LINE</text>
-                  <text class="hubBig" x="480" y="300" text-anchor="middle">Makes you</text>
-                  <text class="hubBig" x="480" y="319" text-anchor="middle">more money</text>
-                  <text x="480" y="520" text-anchor="middle" font-size="13.5" font-weight="700" letter-spacing="1.6"><tspan fill="#9aa4b2">THE </tspan><tspan fill="#2563eb">FORTE</tspan><tspan fill="#9aa4b2"> METHOD</tspan></text>
-                </svg>
-        </div>
-        <div class="section-inner" style="margin-top:1.75rem">
-            <p class="sub" style="text-align:center">That one connected system is the foundation everything else runs on. <a href="/one-connected-system" style="color:var(--accent);font-weight:600">See how we build it</a>.</p>
         </div>
     </section>
 
