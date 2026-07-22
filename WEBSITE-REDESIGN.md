@@ -10,7 +10,7 @@ Last updated: 2026-07-21. Homepage is done and live.
 ## 1. The goal
 
 Make the marketing pages look like the interactive tool/demo pages (dark gradient hero,
-glowing eyebrow pill, gradient accent word, gradient CTA, one product visual on the right)
+plain kicker eyebrow (no badge/pill), gradient accent word, gradient CTA, one product visual on the right)
 while keeping the rest of the page clean and Apple-esque (light sections, refined cards).
 
 Reference pages that set the look (already live):
@@ -51,7 +51,7 @@ hero/band navy is **#0A1220 -> #0E1729**.
 
 - **Homepage (`site/index.html`)**: fully converted and live.
   - Dark `lf-hero` with rotating accent word ("A System" -> "Using The Right Data" -> ...), gradient CTA, `lf-hero-visual` product card on the right (currently the connected-system SVG).
-  - Site-wide skin applied (pill eyebrows, gradient accent headings, premium buttons/cards, enriched dark bands + trusted strip).
+  - Site-wide skin applied (plain kicker eyebrows, no badge/pill, gradient accent headings, premium buttons/cards, enriched dark bands + trusted strip).
   - Dark-mode overrides so hero text stays white (the CTA is an `<a>`, so the site's dark-mode `a{color:#4ab5ed}` was bleeding in).
   - Removed the duplicated "One Connected System" model-diagram section (that visual now lives in the hero).
 
@@ -74,9 +74,9 @@ It is scoped to the shared class names the site already uses (`.eyebrow`, `.sect
 .lf-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 700px 420px at 85% 100%,rgba(74,181,237,.14),transparent 55%);pointer-events:none}
 .lf-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at 40% 30%,#000 30%,transparent 72%);mask-image:radial-gradient(ellipse at 40% 30%,#000 30%,transparent 72%);pointer-events:none}
 .lf-hero-inner{position:relative;max-width:1120px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
-.lf-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#B7DBF3;background:rgba(0,136,219,.14);border:1px solid rgba(0,136,219,.30);padding:7px 14px;border-radius:999px}
-.lf-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:#0088DB;box-shadow:0 0 12px rgba(0,136,219,.7);animation:lfpulse 2s infinite}
-@keyframes lfpulse{0%,100%{box-shadow:0 0 10px rgba(0,136,219,.5)}50%{box-shadow:0 0 20px rgba(0,136,219,.95)}}
+/* Eyebrow is plain kicker text, NOT a badge/pill. Do not add a background,
+   border, padding, border-radius, or a glowing .dot to eyebrows. */
+.lf-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#7EC9F1}
 .lf-h1{font-size:clamp(38px,5.4vw,58px);line-height:1.05;letter-spacing:-.028em;font-weight:800;color:#fff;margin:22px 0 18px}
 .lf-h1 .lf-accent{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .lf-sub{font-size:19px;line-height:1.55;color:#B7C4D6;max-width:40ch;margin:0 0 28px}
@@ -92,8 +92,9 @@ It is scoped to the shared class names the site already uses (`.eyebrow`, `.sect
 /* ===== Tool-page system across the whole page ===== */
 .section.white{background:#FFFFFF}
 .section.tinted{background:#F5F7FA}
-.eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(0,136,219,.10);border:1px solid rgba(0,136,219,.24);color:#0088DB !important;padding:6px 13px;border-radius:999px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1}
-.section.dark .eyebrow{background:rgba(0,136,219,.16);border-color:rgba(0,136,219,.34);color:#B7DBF3 !important}
+/* Plain kicker text, no badge/pill. No background/border/padding/border-radius. */
+.eyebrow{display:block;background:none;border:0;padding:0;border-radius:0;color:#0088DB !important;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.3}
+.section.dark .eyebrow{color:#B7DBF3 !important}
 h1 span[style*="var(--accent)"], h2 span[style*="var(--accent)"], h2 span[style*="--accent-warm"]{
   background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent !important;color:#0088DB}
 .section.dark h2 span[style*="var(--accent)"], .section.dark h2 span[style*="--accent-warm"]{
@@ -135,7 +136,7 @@ Replace the page's existing hero `<section>` with this shape:
   <div class="lf-hero-grid" aria-hidden="true"></div>
   <div class="lf-hero-inner">
     <div>
-      <span class="lf-eyebrow"><span class="dot"></span>EYEBROW TEXT</span>
+      <span class="lf-eyebrow">EYEBROW TEXT</span>
       <h1 class="lf-h1">Headline with an <span class="lf-accent">accent word</span>.</h1>
       <p class="lf-sub">One-line positioning subhead.</p>
       <div class="lf-ctas">
