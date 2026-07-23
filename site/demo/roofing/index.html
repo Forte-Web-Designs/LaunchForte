@@ -155,7 +155,7 @@ footer p{margin:0 0 6px}
     <h2>Be the homeowner.</h2>
 
     <!-- Live SMS mode (shown when CONFIG.LIVE_SMS_ENABLED is true) -->
-    <div id="play-live" style="display:none">
+    <div id="play-live">
       <p class="sub">Fill this out the way a homeowner would the morning after hail. Summit's response lands on your own phone in seconds, marked as a demo.</p>
       <form id="lv-form" style="margin-top:18px" novalidate>
         <div class="field">
@@ -532,6 +532,10 @@ const CONFIG = {
     }
     if (!$("lv-consent").checked){
       setMsg(msg, "err", "Check the consent box and we can text you.");
+      return;
+    }
+    if (!CONFIG.LIVE_SMS_ENABLED){
+      setMsg(msg, "ok", "Thanks, your consent is recorded. Demo texts are paused until carrier approval clears. Watch the response play out on the board below in the meantime.");
       return;
     }
     if (notWired(CONFIG.WEBHOOK_SPEED_DEMO)){
