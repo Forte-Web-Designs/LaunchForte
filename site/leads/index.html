@@ -612,6 +612,15 @@ accounting_tax:{label:'Accounting and tax firms',titles:['Managing Partner','Par
 law_firms:{label:'Law firms',titles:['Managing Partner','Partner','Owner','COO','Firm Administrator']},
 commercial_services:{label:'Commercial services',titles:['Owner','President','CEO','General Manager','VP of Operations']}
 };
+// Per-vertical headline swap (v param). Keys mirror VERTICALS. accent-word keeps the gradient.
+const HEADLINE={
+marketing_agencies:'Ten <span class="accent-word">verified</span> leads for your agency, free.',
+property_management:'Ten <span class="accent-word">verified</span> property management leads, free.',
+staffing_recruiting:'Ten <span class="accent-word">verified</span> staffing leads, free.',
+accounting_tax:'Ten <span class="accent-word">verified</span> accounting leads, free.',
+law_firms:'Ten <span class="accent-word">verified</span> leads for your firm, free.',
+commercial_services:'Ten <span class="accent-word">verified</span> commercial services leads, free.'
+};
 const METROS=[['dallas-fort-worth','Dallas Fort Worth'],['houston','Houston'],['austin','Austin'],['san-antonio','San Antonio'],['atlanta','Atlanta'],['phoenix','Phoenix'],['chicago','Chicago'],['new-york','New York'],['los-angeles','Los Angeles'],['orange-county','Orange County'],['sf-bay-area','San Francisco Bay Area'],['san-diego','San Diego'],['miami','Miami'],['fort-lauderdale','Fort Lauderdale'],['tampa','Tampa'],['orlando','Orlando'],['charlotte','Charlotte'],['raleigh-durham','Raleigh Durham'],['nashville','Nashville'],['denver','Denver'],['seattle','Seattle'],['portland','Portland'],['minneapolis-st-paul','Minneapolis St Paul'],['boston','Boston'],['philadelphia','Philadelphia'],['washington-dc','Washington DC'],['las-vegas','Las Vegas'],['salt-lake-city','Salt Lake City'],['columbus','Columbus'],['indianapolis','Indianapolis'],['kansas-city','Kansas City'],['st-louis','St Louis']];
 const STATES=[['texas','Texas statewide'],['florida','Florida statewide'],['california','California statewide'],['georgia','Georgia statewide'],['north-carolina','North Carolina statewide'],['arizona','Arizona statewide'],['tennessee','Tennessee statewide'],['colorado','Colorado statewide'],['ohio','Ohio statewide'],['illinois','Illinois statewide']];
 const SIZES=[['1-10','1 to 10 employees'],['11-50','11 to 50 employees'],['51-200','51 to 200 employees'],['201-500','201 to 500 employees']];
@@ -634,8 +643,11 @@ $('emailnote').hidden=!(d&&FREE_MAIL.indexOf(d)>-1);
 }
 function prefill(){
 const p=new URLSearchParams(location.search);
-if(p.get('v')&&VERTICALS[p.get('v')])$('vertical').value=p.get('v');
+const v=p.get('v');
+if(v&&VERTICALS[v])$('vertical').value=v;
+if(v&&HEADLINE[v]){const h=document.querySelector('h1');if(h){h.innerHTML=HEADLINE[v];document.title=h.textContent+' | Launch Forte';}}
 if(p.get('m'))$('metro').value=p.get('m');
+else if(p.get('city')){const cq=p.get('city').trim().toLowerCase();let hit=cq&&METROS.find(x=>x[1].toLowerCase().indexOf(cq)>-1);if(!hit&&cq)hit=STATES.find(x=>x[1].toLowerCase().indexOf(cq)>-1);if(hit)$('metro').value=hit[0];}
 if(p.get('s'))$('size').value=p.get('s');
 if(p.get('e'))$('email').value=p.get('e');
 chips();mailNote();
