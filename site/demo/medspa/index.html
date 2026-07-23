@@ -114,6 +114,7 @@ input[type=text],input[type=tel],input[type=email],select{
   font-family:var(--font);font-size:16px;color:var(--ink);background:var(--card)}
 .consent{display:flex;gap:10px;align-items:flex-start;margin:0 0 14px;font-size:.92rem}
 .consent input{width:19px;height:19px;margin-top:2px;flex:none;accent-color:var(--brand)}
+.consent-links{margin:0 0 14px;font-size:.92rem}
 .msg{display:none;border-radius:10px;padding:12px 14px;font-size:.95rem;margin:12px 0 0}
 .msg.ok{display:block;background:var(--brand-soft);color:var(--ink)}
 .msg.err{display:block;background:#F7E9E6;color:var(--err)}
@@ -259,9 +260,10 @@ footer p{margin:0 0 6px}
           <input type="tel" id="btp-phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="(555) 555-0134" required>
         </div>
         <label class="consent" for="btp-consent">
-          <input type="checkbox" id="btp-consent" required>
-          <span>Text me the 3 message demo sequence. Demo messages only, no marketing.</span>
+          <input type="checkbox" id="btp-consent" name="btp-consent" required>
+          <span>By checking this box, you agree to receive up to 3 automated demonstration text messages from Launch Forte at the number you provided, showing how automated patient follow-up works. One-time demo, up to 3 messages sent a few minutes apart. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. Consent is not a condition of any purchase.</span>
         </label>
+        <p class="consent-links"><a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">Terms</a></p>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="btn block" id="btp-btn" type="submit">Text me the demo</button>
         <div class="msg" id="btp-msg" role="status"></div>

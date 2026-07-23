@@ -71,6 +71,7 @@ input[type=text],input[type=tel],input[type=email],select{
   font-family:var(--font);font-size:16px;color:var(--ink);background:var(--card)}
 .consent{display:flex;gap:10px;align-items:flex-start;margin:0 0 14px;font-size:.92rem}
 .consent input{width:19px;height:19px;margin-top:2px;flex:none;accent-color:var(--brand)}
+.consent-links{margin:0 0 14px;font-size:.92rem}
 .msg{display:none;border-radius:10px;padding:12px 14px;font-size:.95rem;margin:12px 0 0}
 .msg.ok{display:block;background:var(--brand-soft);color:var(--ink)}
 .msg.err{display:block;background:#F7E9E6;color:var(--err)}
@@ -174,9 +175,10 @@ footer p{margin:0 0 6px}
           </select>
         </div>
         <label class="consent" for="lv-consent">
-          <input type="checkbox" id="lv-consent" required>
-          <span>Text me Summit Roofing's demo response. Demo messages only.</span>
+          <input type="checkbox" id="lv-consent" name="lv-consent" required>
+          <span>By checking this box, you agree to receive 1 automated demonstration text message from Launch Forte at the number you provided, showing how automated lead response works. One-time demo, a single message. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. Consent is not a condition of any purchase.</span>
         </label>
+        <p class="consent-links"><a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">Terms</a></p>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="btn block" id="lv-btn" type="submit">Send it, I'm the homeowner</button>
         <div class="msg" id="lv-msg" role="status"></div>
