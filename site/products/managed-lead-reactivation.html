@@ -315,6 +315,49 @@
         .header-nav::-webkit-scrollbar{display:none}
         .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
         @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
+    
+        /* ===== Tool-page style hero (from redesign md, widened to homepage) ===== */
+        .lf-hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#0A1220 0%,#0E1729 55%,#0A1220 100%);color:#E7EDF5;padding:96px 0 104px}
+        /* --- Fix lf-hero breakout of .main-content --- */
+        .lf-hero{width:100vw;margin-left:calc(-50vw + 50%);max-width:100vw}
+        .lf-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 900px 520px at 30% 0%,rgba(0,136,219,.26),transparent 60%);pointer-events:none}
+        .lf-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 700px 420px at 85% 100%,rgba(74,181,237,.14),transparent 55%);pointer-events:none}
+        .lf-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at 40% 30%,#000 30%,transparent 72%);mask-image:radial-gradient(ellipse at 40% 30%,#000 30%,transparent 72%);pointer-events:none}
+        .lf-hero-inner{position:relative;max-width:1240px;margin:0 auto;padding:0 24px}
+        .lf-hero-inner.centered{text-align:center;max-width:900px}
+        .lf-hero-inner.centered .lf-sub{margin-left:auto;margin-right:auto}
+        .lf-hero-inner.centered .lf-ctas{justify-content:center}
+        .lf-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#7EC9F1}
+        .lf-h1{font-size:clamp(38px,5.4vw,58px);line-height:1.05;letter-spacing:-.028em;font-weight:800;color:#fff;margin:22px 0 18px}
+        .lf-h1 .lf-accent{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .lf-sub{font-size:19px;line-height:1.55;color:#B7C4D6;max-width:56ch;margin:0 0 20px}
+        .lf-price{font-size:15px;color:#7EC9F1;font-weight:600;margin:12px 0 20px}
+        .lf-meta{display:inline-flex;flex-wrap:wrap;gap:12px 22px;margin:16px 0 20px;font-size:14px;color:#93A1B5;justify-content:center}
+        .lf-meta-item b{color:#B7DBF3;font-weight:600}
+        .lf-ctas{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:8px}
+        .lf-cta{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%);color:#fff;font-weight:700;border:0;border-radius:12px;padding:15px 26px;font-size:16px;text-decoration:none;box-shadow:0 10px 28px rgba(0,136,219,.4);transition:transform .18s ease,box-shadow .25s}
+        .lf-cta:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(0,136,219,.5);color:#fff}
+        .lf-cta-ghost{display:inline-flex;align-items:center;gap:8px;color:#B7C4D6;font-weight:600;font-size:15px;text-decoration:none;padding:14px 4px}
+        .lf-cta-ghost:hover{color:#fff}
+        @media(max-width:900px){.lf-hero{padding:60px 0 68px}}
+
+        /* ===== Tool-page system across the whole page ===== */
+        .section.white{background:#FFFFFF}
+        .section.tinted{background:#F5F7FA}
+        .eyebrow{display:block;background:none;border:0;padding:0;border-radius:0;color:#0088DB !important;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.3}
+        .section.dark .eyebrow{color:#B7DBF3 !important}
+        h1 span[style*="var(--accent)"], h2 span[style*="var(--accent)"], h2 span[style*="--accent-warm"]{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent !important;color:#0088DB}
+        .btn-primary{background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%) !important;border-radius:12px !important;box-shadow:0 8px 22px rgba(0,136,219,.26);transition:transform .18s ease,box-shadow .25s}
+        .btn-primary:hover{box-shadow:0 12px 30px rgba(0,136,219,.4);transform:translateY(-1px)}
+        .btn-secondary{border-radius:12px}
+        .service-card,.step-card,.capability-row,.review-card,.stat-card,.card{border-radius:16px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+        .service-card:hover,.step-card:hover,.review-card:hover,.stat-card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(20,25,34,.10);border-color:rgba(0,136,219,.30)}
+
+        [data-theme="dark"] .lf-hero .lf-h1{color:#fff}
+        [data-theme="dark"] .lf-sub{color:#B7C4D6}
+        [data-theme="dark"] .lf-eyebrow{color:#B7DBF3 !important}
+        [data-theme="dark"] .lf-cta{color:#fff !important}
+        [data-theme="dark"] .lf-cta-ghost{color:#B7C4D6 !important}
     </style>
     <meta property="og:title" content="Managed Lead Reactivation | Launch Forte">
     <meta property="og:description" content="Quarterly reactivation campaigns targeting dead leads in your CRM. New segments, new messaging, reply handling, and booking. $1,500 per month, cancel anytime.">
@@ -355,19 +398,15 @@
         <a href="/what-we-build.html">What We Build</a><span class="sep">&rsaquo;</span><span>Managed Lead Reactivation</span>
     </nav>
 
-    <div class="hero">
-        <div class="hero-badge animate-fade-up"><span class="hero-badge-dot"></span> Managed</div>
-        <h1 class="page-title animate-fade-up animate-delay-1">Managed Lead Reactivation</h1>
-        <div class="meta-row animate-fade-up animate-delay-2">
-            <div class="meta-item">
-                <span class="meta-label">Price</span>
-                <span class="meta-value">$1,500/mo</span>
-            </div>
-            <div class="meta-item">
-                <span class="meta-label">Timeline</span>
-                <span class="meta-value timeline">Ongoing</span>
-            </div>
-        </div>
+    <!-- HERO (lf-hero pattern per redesign md) -->
+    <section class="lf-hero">
+      <div class="lf-hero-grid" aria-hidden="true"></div>
+      <div class="lf-hero-inner centered">
+        <span class="lf-eyebrow">Managed</span>
+        <h1 class="lf-h1">Managed Lead Reactivation</h1>
+        <div class="lf-meta"><span class="lf-meta-item"><b>Price:</b> $1,500/mo</span></div>
+      </div>
+    </section>
     </div>
 
     <section class="section reveal">
