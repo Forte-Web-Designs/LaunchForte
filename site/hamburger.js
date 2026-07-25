@@ -25,7 +25,12 @@
         '[data-theme="dark"] #mobile-nav a.active{color:#4ab5ed!important}',
         '#mobile-nav a:last-child{border-bottom:none}',
 
-        '@media(max-width:1024px){',
+        /* Close (X) button inside the open overlay */
+        '#mobile-nav-close{position:absolute;top:1.25rem;right:1.5rem;width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--border,#1e293b);border-radius:8px;cursor:pointer;padding:0;color:var(--text-primary,#f0f4f8);transition:border-color 0.2s ease,color 0.2s ease}',
+        '#mobile-nav-close:hover{border-color:var(--accent,#0088DB);color:var(--accent,#0088DB)}',
+        '#mobile-nav-close svg{width:18px;height:18px;display:block}',
+
+        '@media(max-width:1200px){',
         '#hamburger{display:flex!important}',
         '.header-nav{display:none!important}',
         '}'
@@ -44,6 +49,13 @@
     var overlay = document.createElement('div');
     overlay.id = 'mobile-nav';
     overlay.setAttribute('aria-hidden', 'true');
+
+    var closeBtn = document.createElement('button');
+    closeBtn.id = 'mobile-nav-close';
+    closeBtn.setAttribute('aria-label', 'Close menu');
+    closeBtn.type = 'button';
+    closeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+    overlay.appendChild(closeBtn);
 
     var desktopNav = document.querySelector('.header-nav');
     if (desktopNav) {
@@ -82,6 +94,8 @@
         if (btn.classList.contains('open')) closeMenu();
         else openMenu();
     });
+
+    closeBtn.addEventListener('click', closeMenu);
 
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeMenu();
