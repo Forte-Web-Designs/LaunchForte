@@ -30,10 +30,9 @@
         '#mobile-nav-close:hover{border-color:var(--accent,#0088DB);color:var(--accent,#0088DB)}',
         '#mobile-nav-close svg{width:18px;height:18px;display:block}',
 
-        '@media(max-width:1200px){',
+        /* Always hamburger, regardless of screen size. */
         '#hamburger{display:flex!important}',
-        '.header-nav{display:none!important}',
-        '}'
+        '.header-nav{display:none!important}'
     ].join('');
 
     var style = document.createElement('style');
