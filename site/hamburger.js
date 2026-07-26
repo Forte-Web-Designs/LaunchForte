@@ -69,6 +69,24 @@
         });
     }
 
+    // Append site-wide extras that are not part of every page's .header-nav.
+    // Keeps the overlay in sync as new destinations get added, without
+    // requiring an edit to each page's header markup.
+    var extras = [{ href: '/writing.html', text: 'Writing' }];
+    var currentPath = location.pathname.replace(/\/$/, '');
+    extras.forEach(function (item) {
+        // Skip if this link is already in the overlay (from the cloned nav).
+        if (overlay.querySelector('a[href="' + item.href + '"]')) return;
+        var a = document.createElement('a');
+        a.href = item.href;
+        a.textContent = item.text;
+        if (currentPath === item.href.replace(/\.html$/, '').replace(/\/$/, '')) {
+            a.classList.add('active');
+        }
+        a.addEventListener('click', closeMenu);
+        overlay.appendChild(a);
+    });
+
     var headerContainer = document.querySelector('.header-container');
     if (headerContainer) headerContainer.appendChild(btn);
     document.body.appendChild(overlay);
