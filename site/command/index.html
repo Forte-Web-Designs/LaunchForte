@@ -77,6 +77,18 @@ h2{font-size:15px;margin:0 0 12px;font-weight:700;letter-spacing:-.01em}
 .grid2{display:grid;gap:12px}
 @media(min-width:860px){.grid2{grid-template-columns:1fr 1fr}}
 
+/* the brief: the hero, and the only thing that matters above the fold */
+.brief{padding:20px 20px 10px 22px}
+.brief .head{font-size:clamp(21px,5.6vw,29px);font-weight:800;letter-spacing:-.032em;line-height:1.14}
+.brief .sub{color:var(--muted-2);font-size:12px;margin-top:4px;letter-spacing:.01em}
+.brief .rows{margin-top:15px}
+.brief .r{display:grid;grid-template-columns:80px 1fr;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+.brief .k{font-size:10px;letter-spacing:.12em;font-weight:800;color:var(--muted-2);padding-top:4px}
+.brief .k.urgent{color:var(--danger)} .brief .k.lead{color:var(--brand)}
+.brief .v{font-size:15px;font-weight:650;letter-spacing:-.01em}
+.brief .v .det{display:block;color:var(--muted);font-size:13px;font-weight:400;margin-top:4px;letter-spacing:0}
+.brief .v .det a{font-weight:600}
+
 /* next steps */
 .step-top{display:flex;gap:10px;align-items:baseline}
 .pri{font-size:10.5px;font-weight:800;letter-spacing:.1em;flex:none;padding-top:2px}
@@ -175,6 +187,10 @@ footer .note{line-height:1.6}
 </header>
 
 <div id="banners"></div>
+
+<section id="brief">
+  <div id="briefcard" class="card brief rail-brand"><div class="head">loading</div></div>
+</section>
 
 <section id="next-steps">
   <p class="eyebrow">Next steps</p>
@@ -297,6 +313,64 @@ function metric(k, v, sub, na){
   if (sub && !na){ var s = el('small', null, ' ' + sub); val.appendChild(s); }
   w.appendChild(val);
   return w;
+}
+
+function renderBrief(b){
+  var host = $('briefcard');
+  var sec = $('brief');
+  if (!b){ sec.classList.add('hide'); return; }
+  sec.classList.remove('hide');
+  var urgent = (b.needsYou && b.needsYou.urgent) || 0;
+  host.className = 'card brief reveal ' + (urgent > 0 ? 'rail-bad' : 'rail-brand');
+  host.innerHTML = '';
+
+  var head = urgent > 0
+    ? (urgent + (urgent === 1 ? ' thing needs you today' : ' things need you today'))
+    : ((b.jobs && b.jobs.aWaiting) ? (b.jobs.aWaiting + ' A fits waiting to be applied to')
+                                   : 'Nothing needs you today');
+  host.appendChild(el('div','head', head));
+  host.appendChild(el('div','sub','Where the money is right now'));
+
+  var rows = el('div','rows');
+  function line(label, main, detail, cls, link){
+    var r = el('div','r');
+    r.appendChild(el('div','k' + (cls ? ' ' + cls : ''), label));
+    var v = el('div','v', main);
+    if (detail){
+      var d = el('span','det', detail);
+      if (link){
+        d.appendChild(document.createTextNode(' '));
+        var a = el('a', null, 'Open the posting');
+        a.href = link; a.target = '_blank'; a.rel = 'noopener noreferrer';
+        d.appendChild(a);
+      }
+      v.appendChild(d);
+    }
+    r.appendChild(v);
+    rows.appendChild(r);
+  }
+
+  var q = b.needsYou || {};
+  var needsMain = q.top ? q.top.action : (q.line || '');
+  var needsDet = q.top ? q.line : '';
+
+  if (urgent > 0) line('NEEDS YOU', needsMain, needsDet, 'urgent');
+
+  if (b.jobs){
+    var t = b.jobs.top;
+    var det = t ? ('Best buyer: ' + t.title + ', $' + (num(t.spend) || 0) + ' spent'
+      + (t.country ? ', ' + t.country : '')
+      + (t.demo ? '. Show them ' + t.demo : '') + '.') : '';
+    line('JOBS', b.jobs.line, det, 'lead', t ? t.url : null);
+  }
+  if (b.campaign){
+    line('CAMPAIGN', b.campaign.name + ': ' + b.campaign.verdict,
+      b.campaign.line + '. Apollo ' + (num(b.campaign.creditsUsed) || 0) + ' of ' + (num(b.campaign.creditsCap) || 0) + ' credits.');
+  }
+  if (b.money) line('MONEY', b.money.line, '');
+  if (urgent === 0) line('QUEUE', needsMain, needsDet);
+
+  host.appendChild(rows);
 }
 
 function renderSteps(list){
@@ -461,11 +535,13 @@ function table(node, cols, rows){
 
 function renderCats(list){
   table($('cats'), [
-    {label:'Vertical', get:function(r){return r.vertical;}},
-    {label:'Sourced', n:1, get:function(r){return num(r.sourced);}},
-    {label:'Enrolled', n:1, get:function(r){return num(r.enrolled);}},
+    {label:'Category', get:function(r){return r.category || r.vertical;}},
+    {label:'Leads', n:1, get:function(r){return num(r.totalLeads);}},
+    {label:'Cold', n:1, get:function(r){return num(r.cold);}},
+    {label:'In motion', n:1, get:function(r){return num(r.inMotion);}},
     {label:'Replied', n:1, get:function(r){return num(r.replied);}},
-    {label:'Pool', n:1, get:function(r){return num(r.poolDepth);}},
+    {label:'Raises', n:1, get:function(r){return num(r.handRaises);}},
+    {label:'Pool', n:1, get:function(r){return num(r.poolRows);}},
     {label:'Status', get:function(r){
       var t = {active:'ok', queued:'gray', held:'warn', demoted:'bad', caution:'warn'}[r.status] || 'gray';
       return {tag:t, text:r.status || 'unknown'};
@@ -577,6 +653,7 @@ function paint(data){
       banner('bad','The ' + (p === 'queue' ? 'next steps queue' : 'main snapshot') + ' is missing from this refresh. Everything else on the page is current.');
   });
 
+  renderBrief(data.brief);
   renderSteps(data.nextSteps);
   renderGauge(data.gauge);
   renderCamps(data.command);
@@ -643,6 +720,15 @@ var SAMPLE = {
   meta:{generatedAt:new Date(Date.now()-3600e3).toISOString(),
     parts:{main:new Date(Date.now()-3600e3).toISOString(), queue:new Date(Date.now()-3900e3).toISOString()},
     refreshCadence:'daily 6:45am CT plus event writes', contractVersion:1},
+  brief:{
+    money:{revenue:0,closes:0,proposalsOut:0,handRaises:1,line:'1 hand raise waiting, nothing closed yet'},
+    jobs:{aWaiting:10,applied:0,provenBuyers:4,line:'10 A fits waiting, 4 with a buyer who has spent over $5k',
+      top:{title:'QuickBooks Expert for Financial Tasks',spend:53451,country:'Ireland',rating:4.97,demo:'/demo/books',url:'https://www.upwork.com/'}},
+    campaign:{name:'Campaign 1',verdict:'HOLD',colour:'gray',contacted:0,enrolled:140,runwayDays:2.8,
+      creditsUsed:459,creditsCap:2500,line:'140 enrolled and nothing sent yet, verdict HOLD'},
+    needsYou:{count:1,urgent:0,top:{priority:'THIS WEEK',action:'Rule the close kit price bands and delivery timelines'},
+      line:'1 open, none urgent today'}
+  },
   gauge:{state:'too_early', colour:'gray',
     reason:'collecting: deliverability (nothing sent yet), replies (0 of 30 sends needed), pipeline (no replies yet). Already passing: demo conversion, raise rate 11.9%'},
   nextSteps:[
@@ -665,9 +751,9 @@ var SAMPLE = {
     suggestedDemo:'/leads', client:{country:'US', spend:41000, hireRate:82, rating:4.9, verified:true},
     url:'https://www.upwork.com/', applied:false, postedAt:new Date(Date.now()-7200e3).toISOString()}],
   categories:[
-    {vertical:'marketing_agencies', sourced:206, enrolled:140, replied:0, poolDepth:3107, status:'active'},
-    {vertical:'staffing_recruiting', sourced:493, enrolled:0, replied:0, poolDepth:3107, status:'queued'},
-    {vertical:'roofing', sourced:27, enrolled:0, replied:0, poolDepth:null, status:'held'}],
+    {category:'marketing_agencies', totalLeads:206, cold:206, inMotion:0, replied:0, handRaises:0, poolRows:493, status:'active'},
+    {category:'staffing_recruiting', totalLeads:493, cold:493, inMotion:0, replied:0, handRaises:0, poolRows:3107, status:'queued'},
+    {category:'roofing', totalLeads:27, cold:27, inMotion:0, replied:0, handRaises:0, poolRows:null, status:'held'}],
   demos:[
     {demo:'Instant Systems Grade', url:'/grade', status:'live', runs7:3, runs30:9, runsTotal:9, raises30:4, raiseRate:null, raiseRateLabel:'collecting (n=9)', lastRun:new Date(Date.now()-5400e3).toISOString()},
     {demo:'Verified Lead Sample', url:'/leads', status:'in campaign', runs7:4, runs30:19, runsTotal:19, raises30:2, raiseRate:null, raiseRateLabel:'collecting (n=19)', lastRun:new Date(Date.now()-9000e3).toISOString()},
