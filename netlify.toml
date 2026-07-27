@@ -782,18 +782,6 @@
   force = true
 
 # Writing page retired 2026-06-03. Now flows through Resources merge into Free Resources.
-[[redirects]]
-  from = "/writing.html"
-  to = "/free-resources.html"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/writing"
-  to = "/free-resources.html"
-  status = 301
-  force = true
-
 # Reviews page retired 2026-06-08. Content absorbed into /results.
 [[redirects]]
   from = "/reviews.html"
