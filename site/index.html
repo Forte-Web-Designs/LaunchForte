@@ -539,6 +539,9 @@
         .trusted-strip{background:#0E1729;color:#93A1B5;padding:24px 0}
         .trusted-strip .trusted-label{color:#7788A0}
         .trusted-strip .marquee-track span{color:#8fa0b6}
+        .proof-badges{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0.75rem 1.5rem;padding:0 1.25rem;margin:0 auto 1.5rem;max-width:960px}
+        .proof-badge{font-size:0.8125rem;font-weight:600;letter-spacing:0.02em;color:var(--text-secondary);padding:0.4rem 0.9rem;background:var(--card-bg);border:1px solid var(--border);border-radius:999px;white-space:nowrap}
+        [data-theme="dark"] .proof-badge{color:#B7C4D6;background:#111C33;border-color:rgba(255,255,255,.14)}
         /* Hero: stay light-on-dark in dark mode too */
         [data-theme="dark"] .lf-hero .lf-h1{color:#fff}
         [data-theme="dark"] .lf-sub{color:#B7C4D6}
@@ -598,17 +601,17 @@
 
 <main>
 
-    <!-- HERO -->
+    <!-- 1. HERO -->
     <section class="lf-hero">
         <div class="lf-hero-grid" aria-hidden="true"></div>
         <div class="lf-hero-inner">
             <div>
-                <span class="lf-eyebrow">Revenue and operations systems</span>
-                <h1 class="lf-h1">Business growth isn't luck. It's <span class="lf-accent rotating-word">A System</span>.</h1>
-                <p class="lf-sub">Revenue and operations infrastructure for growing businesses.</p>
+                <span class="lf-eyebrow">Revenue and operations systems we build and run</span>
+                <h1 class="lf-h1">Every lead caught. Every follow up sent. Every dollar visible.</h1>
+                <p class="lf-sub">Launch Forte builds the system your business runs on, then runs it with you. Play the demos below and watch it work before you ever book a call.</p>
                 <div class="lf-ctas">
-                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="lf-cta">Book a Growth Systems Audit</a>
-                    <a href="#how-it-works" class="lf-cta-ghost">See how it works</a>
+                    <a href="#try-it-now" class="lf-cta" data-gtm-event="homepage_hero_grade_click">Grade my systems free</a>
+                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="lf-cta-ghost">Book the Growth Systems Audit</a>
                 </div>
             </div>
             <div class="lf-hero-visual">
@@ -617,29 +620,13 @@
         </div>
     </section>
 
-    <!-- WELCOME TO LAUNCH FORTE VIDEO -->
-    <section class="section tinted" style="padding-top:1rem;padding-bottom:3rem">
-        <div class="section-inner">
-            <div style="max-width:720px;margin:0 auto">
-                <div class="about-video-wrap">
-                    <div id="about-video-player"></div>
-                    <button type="button" class="about-video-unmute" aria-label="Unmute video">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                        <span>Tap to unmute</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- TRY IT NOW -->
+    <!-- 2. PLAY -->
     <section class="section tinted" id="try-it-now" style="padding-top:3rem;padding-bottom:3rem">
         <div class="section-inner">
             <div class="section-content" style="text-align:center;max-width:720px;margin-left:auto;margin-right:auto">
                 <p class="eyebrow">Try it now</p>
                 <h2 style="font-size:clamp(1.5rem,3.5vw,2rem);margin-bottom:0.85rem">See what we do before you <span style="color:var(--accent)">book anything</span>.</h2>
-                <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-secondary);margin-bottom:2rem">Nine free tools and live demos that show you the truth about your business. No call, no signup, nothing touches your systems.</p>
+                <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-secondary);margin-bottom:2rem">Nine free tools and live demos. No call, no signup, nothing touches your systems. Most visitors start with the grade.</p>
 
                 <form id="try-grade-form" class="try-grade-form" action="/grade" method="get" novalidate>
                     <div class="try-grade-row">
@@ -675,8 +662,13 @@
         </div>
     </section>
 
-    <!-- TRUSTED BY -->
+    <!-- 3. PROOF STRIP -->
     <section class="trusted-strip">
+        <div class="proof-badges">
+            <span class="proof-badge">Top Rated on Upwork</span>
+            <span class="proof-badge">100% Job Success across 50+ projects</span>
+            <!-- REPEAT_RATE_STAT: compute from Twenty (clients with a second engagement / total clients). Render nothing until Seth supplies a real number, never estimate. -->
+        </div>
         <p class="trusted-label">Trusted by</p>
         <div class="marquee-wrap">
             <div class="marquee-track">
@@ -686,14 +678,14 @@
         </div>
     </section>
 
-    <!-- THE WHOLE ENGINE -->
-    <section class="section white">
+    <!-- 4. THE ENGINE (merged: connected-system graphic + The Whole Engine + Forte Method essence) -->
+    <section class="section white" id="the-engine">
         <div class="section-inner">
             <div class="section-content">
                 <p class="eyebrow">The whole engine</p>
                 <h2>From getting found to <span style="color:var(--accent)">getting paid</span>.</h2>
-                <p class="sub">We build and run the system behind every step, how customers find you, how they get captured, how they convert, and how the money lands. Most businesses run that on five vendors who each hold one piece. We own the whole engine.</p>
-                <div class="ctas"><a href="/lead-systems.html" class="btn-secondary">See Lead Systems</a> <a href="/what-we-build.html" class="btn-secondary">What We Build</a></div>
+                <p class="sub">We build and run every step: how customers find you, how they get captured, how they convert, and how the money lands. Most businesses run that across five vendors who each hold one piece. We own the whole engine, we map what you already run before building anything new, and we report the one number that matters at month end, the revenue it produced.</p>
+                <div class="ctas"><a href="/what-we-build.html" class="btn-secondary">See everything we build</a> <a href="/one-connected-system" class="btn-secondary">How The Forte Method works</a></div>
             </div>
             <!-- HOMEPAGE ENGINE VISUAL -->
             <div class="homepage-engine">
@@ -771,52 +763,20 @@
                   <text class="looplabel" x="480" y="416" text-anchor="middle">Retention and referrals</text>
                   <text x="935" y="421" text-anchor="end" font-size="11" font-weight="700" letter-spacing="1.3"><tspan fill="#aab3c0">THE </tspan><tspan fill="#2563eb">FORTE</tspan><tspan fill="#aab3c0"> METHOD</tspan></text>
                 </svg>
+                <blockquote style="max-width:720px;margin:2rem auto 0;text-align:center;font-size:1.35rem;line-height:1.5;font-weight:500;color:var(--text-primary)">One clean record on everyone who comes through your business.</blockquote>
             </div>
         </div>
     </section>
 
-    <!-- SOURCE OF TRUTH STRIP -->
-    <section class="section tinted">
-        <div class="section-inner">
-            <blockquote style="max-width:720px;margin:0 auto;text-align:center;font-size:1.35rem;line-height:1.5;font-weight:500;color:var(--text-primary)">One clean record on everyone who comes through your business.</blockquote>
-        </div>
-    </section>
-
-    <!-- TESTIMONIALS -->
-    <section class="section white">
-        <div class="section-inner">
-            <p class="eyebrow">Testimonials</p>
-            <h2>Straight from the <span style="color:var(--accent)">clients</span>.</h2>
-            <!-- Danielle Sandusky, Modern Bungalow (video + quote) -->
-            <div style="max-width:520px;margin:2rem auto 0">
-                <video controls playsinline preload="metadata" poster="/videos/danielle-poster.jpg" src="/videos/danielle-review.mp4" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;border:1px solid var(--border);background:#0E1729;display:block;margin-bottom:1rem"></video>
-                <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-primary);font-style:italic;margin-bottom:0.85rem">"He's enabled me to keep running my business with a very lean, super efficient team."</p>
-                <div style="font-size:0.9375rem;font-weight:500;color:var(--text-primary)">Danielle Sandusky, Modern Bungalow</div>
-                <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:4px">Order and pricing automation for a furniture company</div>
-            </div>
-
-            <!-- Matt, 6 Months to Speech (video widget + quote) -->
-            <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
-            <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true" style="display:block;max-width:500px;margin:2.5rem auto 0"></div>
-            <div style="max-width:520px;margin:1.75rem auto 0">
-                <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-primary);font-style:italic;margin-bottom:0.85rem">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
-                <div style="font-size:0.9375rem;font-weight:500;color:var(--text-primary)">Matt Juels, 6 Months to Speech</div>
-                <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:4px">CRM build and automation for an online coaching program</div>
-            </div>
-
-            <div style="margin-top:2.5rem"><a href="/results.html" class="btn-secondary">See more results</a></div>
-        </div>
-    </section>
-
-    <!-- WHERE MOST ENGAGEMENTS START -->
-    <section class="section tinted" id="how-to-engage" style="scroll-margin-top:80px">
+    <!-- 5. HOW TO ENGAGE (survivor; tier cards preserve #audit, #core-systems-build, #partnership) -->
+    <section class="section white" id="how-to-engage" style="scroll-margin-top:80px">
         <div class="section-inner">
             <p class="eyebrow">Where most engagements start</p>
             <h2>How to engage</h2>
             <div class="grid-3">
                 <div class="service-card" id="audit">
                     <h3>Growth Systems Audit</h3>
-                    <p>We find where you're losing customers and what it's costing you. A written diagnostic, prioritized, with a fixed price on every fix. It credits toward your first build.</p>
+                    <p>We find where you're losing customers and what it costs you. A written diagnostic with a fixed price on every fix, and it credits toward your first build.</p>
                     <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary">Book an Audit</a>
                 </div>
                 <div class="service-card" id="core-systems-build">
@@ -826,87 +786,18 @@
                 </div>
                 <div class="service-card" id="partnership">
                     <h3>Embedded Growth Systems Partner</h3>
-                    <p>The engineering brain at the table once the build is live. Monthly review, async access, new builds off the roadmap, and a result you can read in dollars.</p>
+                    <p>The engineering brain at the table after the build is live. Monthly review, async access, and a result you can read in dollars.</p>
                     <a href="/partnership.html" class="btn-primary">Learn About the Partnership</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- THE FORTE METHOD -->
-    <section class="section white" id="how-it-works">
-        <div class="section-inner">
-            <p class="eyebrow">How we work</p>
-            <h2>The Forte <span style="color:var(--accent)">Method</span>.</h2>
-            <p class="sub">How every build gets done. One system, run in phases, applied to your business.</p>
-            <p class="sub" style="max-width:700px;margin:1rem auto 0">The Forte Method is how every Launch Forte build runs. It moves in phases, so what gets built is load bearing from day one and keeps working as you grow.</p>
-            <div class="grid-3" style="margin-top:2.5rem">
-                <div class="step-card">
-                    <span class="step-num">01</span>
-                    <h3>Foundation</h3>
-                    <p>We map what you already run and fix what is load bearing, before anything new gets built. You come out with a clear picture of your systems and the gaps that are costing you money.</p>
-                </div>
-                <div class="step-card">
-                    <span class="step-num">02</span>
-                    <h3>Engine</h3>
-                    <p>We build the core your business runs on. It captures every lead and carries it through follow up to a booked call or a paid job, with nobody on your team chasing.</p>
-                </div>
-                <div class="step-card">
-                    <span class="step-num">03</span>
-                    <h3>Growth</h3>
-                    <p>We stay on as the team that owns and improves the system, and reports the one number that matters at month end, the revenue it produced.</p>
-                </div>
-            </div>
-            <div style="margin-top:2.5rem"><a href="/what-we-build.html" class="btn-secondary">See what we build</a></div>
-        </div>
-    </section>
-
-    <!-- WHAT WE BUILD -->
-    <section class="section tinted" id="what-we-build">
-        <div class="section-inner">
-            <p class="eyebrow">Services</p>
-            <h2>What We Build</h2>
-            <div class="capability-list">
-                <a href="/what-we-build.html#lead-systems" class="capability-row">
-                    <span class="capability-num">01</span>
-                    <h3 class="capability-name">Outbound and Lead Systems</h3>
-                    <p class="capability-desc">The engine that fills your calendar with qualified calls.</p>
-                </a>
-                <a href="/what-we-build.html#revenue-infrastructure" class="capability-row">
-                    <span class="capability-num">02</span>
-                    <h3 class="capability-name">Revenue Infrastructure</h3>
-                    <p class="capability-desc">The operational foundation every dollar compounds on.</p>
-                </a>
-                <a href="/what-we-build.html#ai-orchestration" class="capability-row">
-                    <span class="capability-num">03</span>
-                    <h3 class="capability-name">AI Agents and Orchestration</h3>
-                    <p class="capability-desc">AI that does the work your team can't afford to do by hand.</p>
-                </a>
-                <a href="/what-we-build.html#reporting" class="capability-row">
-                    <span class="capability-num">04</span>
-                    <h3 class="capability-name">Reporting and Dashboards</h3>
-                    <p class="capability-desc">The numbers that show you where the money is.</p>
-                </a>
-                <a href="/what-we-build.html#custom-builds" class="capability-row">
-                    <span class="capability-num">05</span>
-                    <h3 class="capability-name">Custom Builds and Integrations</h3>
-                    <p class="capability-desc">When the off the shelf answer doesn't fit, we build the one that does.</p>
-                </a>
-                <a href="/what-we-build.html#engineering-reliability" class="capability-row">
-                    <span class="capability-num">06</span>
-                    <h3 class="capability-name">Engineering and Reliability</h3>
-                    <p class="capability-desc">The rigor that keeps the whole machine running when volume doubles.</p>
-                </a>
-            </div>
-            <div style="margin-top:2.5rem"><a href="/what-we-build.html" class="btn-secondary">See everything we build</a></div>
-        </div>
-    </section>
-
-    <!-- WHO WE BUILD FOR -->
-    <section class="section white" id="who-we-build-for">
+    <!-- 6. WHO WE BUILD FOR (survivor; intro line shortened per runbook) -->
+    <section class="section tinted" id="who-we-build-for">
         <div class="section-inner">
             <p class="eyebrow">Who we build for</p>
-            <h2>We build revenue and operations systems for the businesses <span style="color:var(--accent)">below</span>.</h2>
+            <h2>Built for the businesses <span style="color:var(--accent)">below</span>, with a page for each.</h2>
             <div class="capability-list">
                 <a href="/coaches" class="capability-row">
                     <span class="capability-num">01</span>
@@ -937,47 +828,21 @@
         </div>
     </section>
 
-    <!-- NOT SURE WHERE TO START -->
-    <section class="section tinted" style="padding-top:1.5rem">
-        <div class="section-inner">
-            <div class="section-content">
-                <h2 style="font-size:1.5rem;margin-bottom:0.85rem">Most people start with the audit.</h2>
-                <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-secondary);margin-bottom:1.5rem">A fast, fixed scope diagnostic that shows you what's worth fixing and what it's worth.</p>
-                <div class="ctas"><a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DIFFERENTIATOR / DARK STATEMENT -->
-    <section class="section dark">
-        <div class="section-inner">
-            <div class="section-content">
-                <p class="eyebrow" style="color:var(--accent-warm)">Why Launch Forte</p>
-                <h2>Engineers that <span style="color:var(--accent-warm)">speak revenue</span>.</h2>
-                <p class="sub">We start with the money and build the system that moves it, then we run it. The reliability standards come from years keeping critical systems up at a national bank. An in house engineering team, without the headcount.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEATURED CASE STUDY -->
+    <!-- 7. TESTIMONIALS (merged: video + Danielle + Andrew cards + featured case study; Alex + Mark already live on /results) -->
     <section class="section white">
         <div class="section-inner">
-            <p class="eyebrow">Featured Case Study</p>
-            <a href="/work/between-generations-care.html" class="featured-case">
-                <div class="featured-case-content">
-                    <span class="featured-case-client">Between Generations Care</span>
-                    <span class="featured-case-metric">Full platform build from scratch inside GoHighLevel. CRM, booking calendars, email sequences, and a complete customer journey from Instagram follower to repeat client. Zero manual steps.</span>
-                </div>
-                <span class="featured-case-link">Read the full case study</span>
-            </a>
-        </div>
-    </section>
+            <p class="eyebrow">Testimonials</p>
+            <h2>Straight from the <span style="color:var(--accent)">clients</span>.</h2>
 
-    <!-- WHAT CLIENTS SAY -->
-    <section class="section tinted">
-        <div class="section-inner">
-            <p class="eyebrow">What Clients Say</p>
-            <div class="review-grid">
+            <!-- Danielle Sandusky, Modern Bungalow (video + quote) -->
+            <div style="max-width:520px;margin:2rem auto 0">
+                <video controls playsinline preload="metadata" poster="/videos/danielle-poster.jpg" src="/videos/danielle-review.mp4" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;border:1px solid var(--border);background:#0E1729;display:block;margin-bottom:1rem"></video>
+                <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-primary);font-style:italic;margin-bottom:0.85rem">"He's enabled me to keep running my business with a very lean, super efficient team."</p>
+                <div style="font-size:0.9375rem;font-weight:500;color:var(--text-primary)">Danielle Sandusky, Modern Bungalow</div>
+                <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:4px">Order and pricing automation for a furniture company</div>
+            </div>
+
+            <div class="review-grid" style="margin-top:3rem">
                 <div class="review-card">
                     <div class="review-stars">★★★★★</div>
                     <p class="review-quote">"Seth is my go to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout."</p>
@@ -986,38 +851,50 @@
                 </div>
                 <div class="review-card">
                     <div class="review-stars">★★★★★</div>
-                    <p class="review-quote">"Extremely knowledgeable and patient. He thought outside the box to offer solutions we did not consider. Highly recommend and we will use him again."</p>
-                    <h3 class="review-author">Alex, UDI Group</h3>
-                    <div class="review-project">Review System Development</div>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-quote">"Seth is an amazing rare breed. He is not just focused on what is asked of him, he actually scopes the need to make sure the work meets your need to the maximum level. Brilliant Developer and the kind of man you wished was your neighbor."</p>
-                    <h3 class="review-author">Mark, San Florida</h3>
-                    <div class="review-project">Web Development</div>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
                     <p class="review-quote">"If you need an automation specialist, stop looking right now and hire Seth. He will blow your mind with his knowledge and his ability to take your idea and not only understand what you want to achieve but also build on it."</p>
                     <h3 class="review-author">Andrew, Kingfisher Ads</h3>
                     <div class="review-project">Automation</div>
                 </div>
             </div>
-            <div style="margin-top:2.5rem"><a href="/results.html" class="btn-secondary">See all reviews</a></div>
+
+            <!-- Featured case study, folded into testimonials per runbook -->
+            <div style="margin-top:2.5rem">
+                <p class="eyebrow" style="margin-bottom:0.75rem">Featured case study</p>
+                <a href="/work/between-generations-care.html" class="featured-case">
+                    <div class="featured-case-content">
+                        <span class="featured-case-client">Between Generations Care</span>
+                        <span class="featured-case-metric">Full platform build from scratch inside GoHighLevel. CRM, booking calendars, email sequences, and a complete customer journey from Instagram follower to repeat client. Zero manual steps.</span>
+                    </div>
+                    <span class="featured-case-link">Read the full case study</span>
+                </a>
+            </div>
+
+            <div style="margin-top:2.5rem"><a href="/results.html" class="btn-secondary">See more results</a></div>
         </div>
     </section>
 
-    <!-- ABOUT -->
-    <section class="section white">
+    <!-- 8. ABOUT AND WHY (merged: founder block absorbs "engineers that speak revenue" essence via appended sentence) -->
+    <section class="section tinted">
         <div class="section-inner">
             <p class="eyebrow">About</p>
             <div class="about-block">
                 <img src="/images/about/headshot-6.jpg" alt="Seth Forte, founder of Launch Forte, automation consultant in Dallas-Fort Worth Texas" class="about-avatar" loading="lazy" decoding="async">
                 <div>
                     <p class="about-name">Seth Forte, Founder</p>
-                    <p>Launch Forte builds the infrastructure growing businesses run on. I spent years as a reliability engineer keeping critical systems standing at a national bank, and now I build and run them for businesses that can't hire that in house.</p>
+                    <p>Launch Forte builds the infrastructure growing businesses run on. I spent years as a reliability engineer keeping critical systems standing at a national bank, and now I build and run them for businesses that can't hire that in house. The reliability standards on every build come from those years.</p>
                     <p style="margin-bottom:1.25rem">Every engagement starts with diagnosing what the problem is costing. If the math doesn't work, we'll tell you.</p>
                     <a href="/about.html" class="btn-secondary">More about us</a>
+                </div>
+            </div>
+
+            <!-- WELCOME VIDEO (kept as founder-voice supplement inside About) -->
+            <div style="max-width:720px;margin:2.5rem auto 0">
+                <div class="about-video-wrap">
+                    <div id="about-video-player"></div>
+                    <button type="button" class="about-video-unmute" aria-label="Unmute video">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                        <span>Tap to unmute</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1056,25 +933,14 @@
         </div>
     </section>
 
-    <!-- FINAL CTA / DARK STATEMENT -->
+    <!-- 10. FINAL CTA + CALENDLY (merged: one ask, one embed) -->
     <section class="section dark">
         <div class="section-inner">
             <div class="section-content">
                 <h2>When the calendar's empty or growth has stalled, it usually traces back to the <span style="color:var(--accent-warm)">system</span>.</h2>
-                <p class="sub">Start with the audit, and we'll tell you what's worth fixing.</p>
-                <div class="ctas">
-                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary btn-primary-lg">Book a Growth Systems Audit</a>
-                </div>
+                <p class="sub">Start with the audit, and we'll tell you what's worth fixing. Pick a time below.</p>
             </div>
-        </div>
-    </section>
-
-    <!-- BOOK A CALL -->
-    <section class="section tinted">
-        <div class="section-inner">
-            <p class="eyebrow">Book a Call</p>
-            <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-secondary);margin-bottom:1.5rem">Skip the back and forth. Pick a time.</p>
-            <div class="calendly-wrap">
+            <div class="calendly-wrap" style="margin-top:2rem">
                 <iframe src="https://calendly.com/seth-launchforte/30min" title="Book a call with Seth Forte" loading="lazy"></iframe>
             </div>
         </div>
