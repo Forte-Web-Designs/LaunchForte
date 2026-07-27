@@ -234,20 +234,25 @@ footer .note{line-height:1.6}
    and the endpoints become /webhook/dash-{token}-summary. Nothing else moves. */
 var PATH_STYLE = 'nested';
 var API_BASE   = 'https://launchforte.app.n8n.cloud/webhook';
-/* The token is read from this page's own directory, so rotating it means
-   renaming the folder and changing the n8n constant. This file never changes.
-   THIS FALLBACK IS A PLACEHOLDER. Before going live: rename the parent
-   directory to a real random token AND change the TOKEN_FALLBACK line below
-   to match. Keeping them in sync means a fresh visit lands on the right
-   token even if the URL is loaded from a bookmark that dropped the path. */
-var TOKEN_FALLBACK = 'PLACEHOLDER-CHANGE-BEFORE-GOING-LIVE';
+/* THE TOKEN IS NEVER COMMITTED. It is resolved at runtime, in this order:
+   1. the URL hash, ex: /command/#t=<token>   (never sent to a server, never in
+      a Referer header, never in this repo)
+   2. the directory this file is served from, ex: /command/<token>/
+   3. the placeholder below, which resolves to nothing and renders the no token
+      screen. Leave it as a placeholder in version control, always. */
+var TOKEN_FALLBACK = 'PLACEHOLDER-CHANGE-ME';
+
+var TOKEN = (function(){
+  var h = location.hash.match(/[#&]t=([A-Za-z0-9_-]{16,})/);
+  if (h) return h[1];
+  var m = location.pathname.match(/\/command\/([A-Za-z0-9_-]{16,})/);
+  if (m) return m[1];
+  return TOKEN_FALLBACK;
+})();
+var HAS_TOKEN = TOKEN !== TOKEN_FALLBACK;
 var POLL_MS = 5 * 60 * 1000;
 var STALE_HOURS = 26;
 
-var TOKEN = (function(){
-  var m = location.pathname.match(/\/command\/([A-Za-z0-9_-]{16,})/);
-  return m ? m[1] : TOKEN_FALLBACK;
-})();
 function ep(name){
   return PATH_STYLE === 'nested'
     ? API_BASE + '/dash-' + TOKEN + '/' + name
@@ -352,7 +357,7 @@ function renderCamps(list){
     if (c.vertical) bits.push(c.vertical);
     if (c.cohorts && c.cohorts.length) bits.push('cohorts ' + c.cohorts.join(' and '));
     if (c.demoDestination) bits.push('sends to ' + c.demoDestination);
-    left.appendChild(el('div','camp-sub', bits.join('  ·  ')));
+    left.appendChild(el('div','camp-sub', bits.join('  \u00b7  ')));
     head.appendChild(left);
     head.appendChild(el('div','verdict', c.verdict || ''));
     card.appendChild(head);
@@ -446,7 +451,7 @@ function table(node, cols, rows){
       var td = el('td', c.n ? 'n' : null);
       var v = c.get(r);
       if (v && v.tag){ var s = el('span','tag ' + v.tag, v.text); td.appendChild(s); }
-      else td.textContent = (v === null || v === undefined || v === '') ? '—' : v;
+      else td.textContent = (v === null || v === undefined || v === '') ? '\u2014' : v;
       row.appendChild(td);
     });
     tb.appendChild(row);
@@ -483,7 +488,7 @@ function renderDemos(list){
     {label:'Raises', n:1, get:function(r){return num(r.raises30);}},
     {label:'Raise rate', n:1, get:function(r){
       return (r.raiseRate === null || r.raiseRate === undefined)
-        ? (r.raiseRateLabel || '—') : num(r.raiseRate,1) + '%';
+        ? (r.raiseRateLabel || '\u2014') : num(r.raiseRate,1) + '%';
     }},
     {label:'Last run', get:function(r){return r.lastRun ? shortTime(r.lastRun) : null;}}
   ], list);
@@ -674,8 +679,22 @@ var SAMPLE = {
 };
 
 /* ------------------------------------------------------------------- boot */
+function noToken(){
+  $('dot').className = 'dot down';
+  $('asof').textContent = 'no token';
+  $('steps').innerHTML = '';
+  var c = el('div','card rail-warn');
+  c.appendChild(el('div','step-action','This link is missing its token.'));
+  c.appendChild(el('div','step-meta','Open the Command Center from the link in your daily digest. The token is what makes this page yours, and it is deliberately not stored in the site.'));
+  $('steps').appendChild(c);
+  ['working','command','charts','double-down','jobs','categories','demos'].forEach(function(id){
+    var n = $(id); if (n) n.classList.add('hide');
+  });
+  $('refreshline').textContent = 'Nothing loaded.';
+}
 function boot(){
   if (PREVIEW){ paint(SAMPLE); return; }
+  if (!HAS_TOKEN){ noToken(); return; }
   pullSummary().catch(offline);
   setInterval(tick, POLL_MS);
   document.addEventListener('visibilitychange', function(){
