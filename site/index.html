@@ -542,8 +542,11 @@
         .proof-badges{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0.75rem 1.5rem;padding:0 1.25rem;margin:0 auto 1.5rem;max-width:960px}
         .proof-badge{font-size:0.8125rem;font-weight:600;letter-spacing:0.02em;color:var(--text-secondary);padding:0.4rem 0.9rem;background:var(--card-bg);border:1px solid var(--border);border-radius:999px;white-space:nowrap}
         [data-theme="dark"] .proof-badge{color:#B7C4D6;background:#111C33;border-color:rgba(255,255,255,.14)}
-        .video-testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:2rem;max-width:1100px;margin-left:auto;margin-right:auto}
-        .video-testi{min-width:0}
+        .video-testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:2rem;max-width:1100px;margin-left:auto;margin-right:auto;align-items:stretch}
+        .video-testi{min-width:0;display:flex;flex-direction:column}
+        .video-testi > video,.video-testi > .senja-embed{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;border:1px solid var(--border);background:#0E1729;display:block;margin:0 0 1rem}
+        .video-testi > .senja-embed{height:auto;aspect-ratio:auto}
+        .video-testi .vt-quote{margin-top:auto}
         @media(max-width:768px){.video-testi-grid{grid-template-columns:1fr;gap:2.5rem}}
         /* Hero: stay light-on-dark in dark mode too */
         [data-theme="dark"] .lf-hero .lf-h1{color:#fff}
@@ -836,20 +839,25 @@
             <p class="eyebrow">Testimonials</p>
             <h2>Straight from the <span style="color:var(--accent)">clients</span>.</h2>
 
-            <!-- Video testimonials: Danielle + Matt, side by side on desktop, stacked on mobile -->
+            <!-- Video testimonials: Danielle + Matt, side by side on desktop, stacked on mobile.
+                 Cards use flex-column so the quote block pins to the bottom regardless of video height. -->
             <div class="video-testi-grid">
                 <div class="video-testi">
-                    <video controls playsinline preload="metadata" poster="/videos/danielle-poster.jpg" src="/videos/danielle-review.mp4" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;border:1px solid var(--border);background:#0E1729;display:block;margin-bottom:1rem"></video>
-                    <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-primary);font-style:italic;margin-bottom:0.85rem">"He's enabled me to keep running my business with a very lean, super efficient team."</p>
-                    <div style="font-size:0.9375rem;font-weight:500;color:var(--text-primary)">Danielle Sandusky, Modern Bungalow</div>
-                    <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:4px">Order and pricing automation for a furniture company</div>
+                    <video controls playsinline preload="metadata" poster="/videos/danielle-poster.jpg" src="/videos/danielle-review.mp4"></video>
+                    <div class="vt-quote">
+                        <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-primary);font-style:italic;margin-bottom:0.85rem">"He's enabled me to keep running my business with a very lean, super efficient team."</p>
+                        <div style="font-size:0.9375rem;font-weight:500;color:var(--text-primary)">Danielle Sandusky, Modern Bungalow</div>
+                        <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:4px">Order and pricing automation for a furniture company</div>
+                    </div>
                 </div>
                 <div class="video-testi">
                     <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
-                    <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true" style="display:block;width:100%;margin-bottom:1rem"></div>
-                    <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-primary);font-style:italic;margin-bottom:0.85rem">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
-                    <div style="font-size:0.9375rem;font-weight:500;color:var(--text-primary)">Matt Juels, 6 Months to Speech</div>
-                    <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:4px">CRM build and automation for an online coaching program</div>
+                    <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true"></div>
+                    <div class="vt-quote">
+                        <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-primary);font-style:italic;margin-bottom:0.85rem">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
+                        <div style="font-size:0.9375rem;font-weight:500;color:var(--text-primary)">Matt Juels, 6 Months to Speech</div>
+                        <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:4px">CRM build and automation for an online coaching program</div>
+                    </div>
                 </div>
             </div>
 
