@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /command/
 
 # AI crawlers: explicit allow so we show up in ChatGPT, Perplexity,
 # Claude, and Google's AI Overviews. The default User-agent: * Allow above
