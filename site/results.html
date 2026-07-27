@@ -424,6 +424,19 @@
         [data-theme="dark"] .lf-cta{color:#fff !important}
         [data-theme="dark"] .lf-cta-ghost{color:#B7C4D6 !important}
         [data-theme="dark"] .lf-cta-ghost:hover{color:#fff !important}
+
+        /* Proof strip (shared component from homepage, mirrored here) */
+        .trusted-strip{padding:1.5rem 1.5rem 3rem;background:var(--background);text-align:center}
+        .trusted-strip .trusted-label{font-size:0.8125rem;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin:0 0 1rem;font-weight:600}
+        .proof-badges{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0.75rem 1.5rem;padding:0 1.25rem;margin:0 auto 1.5rem;max-width:960px}
+        .proof-badge{font-size:0.8125rem;font-weight:600;letter-spacing:0.02em;color:var(--text-secondary);padding:0.4rem 0.9rem;background:var(--card-bg);border:1px solid var(--border);border-radius:999px;white-space:nowrap}
+        [data-theme="dark"] .trusted-strip{background:#1d1d1f}
+        [data-theme="dark"] .proof-badge{color:#B7C4D6;background:#111C33;border-color:rgba(255,255,255,.14)}
+        .marquee-wrap{overflow:hidden;position:relative;max-width:980px;margin:0 auto;mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
+        .marquee-track{display:flex;gap:3rem;animation:marquee 30s linear infinite;width:max-content}
+        .marquee-track span{font-size:0.875rem;font-weight:500;color:var(--text-muted);letter-spacing:0;white-space:nowrap;opacity:0.7}
+        [data-theme="dark"] .marquee-track span{color:#a1a1a6}
+        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
     </style>
     <meta property="og:title" content="Results: $52K Recovered, 60 Hours Saved, And More | Launch Forte">
     <meta property="og:description" content="Case studies and outcomes. How we recovered $52K a year in labor, eliminated 60 hours a month of data entry, and grew an education brand from $40K to $160K monthly.">
@@ -469,6 +482,21 @@
         <h1 class="lf-h1">Engineering work that moved <span class="lf-accent">real businesses</span>.</h1>
           <p class="lf-sub">Every engagement on this page started with a problem a real business was paying for. Names omitted where requested. Outcomes are real.</p>
       </div>
+    </section>
+
+    <!-- PROOF STRIP (shared from homepage) -->
+    <section class="trusted-strip reveal">
+        <div class="proof-badges">
+            <span class="proof-badge">100% Job Success across 50+ projects</span>
+            <!-- REPEAT_RATE_STAT: compute from Twenty (clients with a second engagement / total clients). Render nothing until Seth supplies a real number, never estimate. -->
+        </div>
+        <p class="trusted-label">Trusted by</p>
+        <div class="marquee-wrap">
+            <div class="marquee-track">
+                <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
+                <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
+            </div>
+        </div>
     </section>
 
     <!-- ANCHOR PILLS -->

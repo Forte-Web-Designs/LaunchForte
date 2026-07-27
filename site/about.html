@@ -429,6 +429,19 @@
         [data-theme="dark"] .lf-cta{color:#fff !important}
         [data-theme="dark"] .lf-cta-ghost{color:#B7C4D6 !important}
         [data-theme="dark"] .lf-cta-ghost:hover{color:#fff !important}
+
+        /* Proof strip (shared component from homepage, mirrored here) */
+        .trusted-strip{padding:1.5rem 1.5rem 3rem;background:var(--background);text-align:center}
+        .trusted-strip .trusted-label{font-size:0.8125rem;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin:0 0 1rem;font-weight:600}
+        .proof-badges{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0.75rem 1.5rem;padding:0 1.25rem;margin:0 auto 1.5rem;max-width:960px}
+        .proof-badge{font-size:0.8125rem;font-weight:600;letter-spacing:0.02em;color:var(--text-secondary);padding:0.4rem 0.9rem;background:var(--card-bg);border:1px solid var(--border);border-radius:999px;white-space:nowrap}
+        [data-theme="dark"] .trusted-strip{background:#1d1d1f}
+        [data-theme="dark"] .proof-badge{color:#B7C4D6;background:#111C33;border-color:rgba(255,255,255,.14)}
+        .marquee-wrap{overflow:hidden;position:relative;max-width:980px;margin:0 auto;mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
+        .marquee-track{display:flex;gap:3rem;animation:marquee 30s linear infinite;width:max-content}
+        .marquee-track span{font-size:0.875rem;font-weight:500;color:var(--text-muted);letter-spacing:0;white-space:nowrap;opacity:0.7}
+        [data-theme="dark"] .marquee-track span{color:#a1a1a6}
+        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
     </style>
     <meta property="og:title" content="About: Solo Engineering Practice By Seth Forte | Launch Forte">
     <meta property="og:description" content="Solo engineering practice run by Seth Forte. SRE background, financial services origin, growth systems built to survive volume. Dallas-Fort Worth, Texas. Clients nationwide.">
@@ -497,7 +510,8 @@
                 <p class="profile-name">Seth Forte</p>
                 <p class="profile-role">Founder</p>
                 <p class="body-text">Launch Forte builds the infrastructure growing businesses run on. I spent years as a reliability engineer keeping critical systems standing at a national bank, and now I build and run them for businesses that can't hire that in house.</p>
-                <p class="body-text" style="margin-bottom:0;">Every engagement starts with diagnosing what the problem is costing. If the math doesn't work, we'll tell you.</p>
+                <p class="body-text">Every engagement starts with diagnosing what the problem is costing. If the math doesn't work, I'll tell you.</p>
+                <p class="body-text" style="margin-bottom:0;color:var(--text-muted);font-size:0.9375rem">Every engagement runs through one engineer's hands, mine. That is the whole point.</p>
             </div>
         </div>
     </div>
@@ -508,6 +522,21 @@
             <span class="voyage-badge-text">As Featured in <strong>Voyage Dallas Magazine</strong></span>
         </a>
     </div>
+
+    <!-- PROOF STRIP (shared from homepage) -->
+    <section class="trusted-strip reveal">
+        <div class="proof-badges">
+            <span class="proof-badge">100% Job Success across 50+ projects</span>
+            <!-- REPEAT_RATE_STAT: compute from Twenty (clients with a second engagement / total clients). Render nothing until Seth supplies a real number, never estimate. -->
+        </div>
+        <p class="trusted-label">Trusted by</p>
+        <div class="marquee-wrap">
+            <div class="marquee-track">
+                <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
+                <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
+            </div>
+        </div>
+    </section>
 
     <!-- FOUNDER LINK -->
     <div class="section reveal">
@@ -523,23 +552,23 @@
 
     <!-- DIFFERENTIATORS -->
     <div class="section reveal">
-        <span class="section-label">How We Work Differently</span>
+        <span class="section-label">How I Work Differently</span>
         <div class="diff-grid">
             <div class="diff-card">
-                <div class="diff-title">We start with the math</div>
-                <div class="diff-body">Every project begins by calculating what the problem is costing. If the ROI doesn't work, we don't build it. We never oversell scope. Clients always know what they're getting.</div>
+                <div class="diff-title">I start with the math</div>
+                <div class="diff-body">Every project begins by calculating what the problem is costing. If the ROI does not work, I do not build it. I never oversell scope. Clients always know what they are getting.</div>
             </div>
             <div class="diff-card">
-                <div class="diff-title">You own everything we build</div>
-                <div class="diff-body">We document every system, train you on how it works, hand it over. No retainers required to keep the lights on. Clients stay because the work is good, not because we made them dependent.</div>
+                <div class="diff-title">You own everything I build</div>
+                <div class="diff-body">I document every system, train you on how it works, hand it over. No retainers required to keep the lights on. Clients stay because the work is good, not because I made them dependent.</div>
             </div>
             <div class="diff-card">
                 <div class="diff-title">Clear scope, no surprises</div>
-                <div class="diff-body">Before we write code, we define what's being built and why. You know what you're getting, when, and what it's supposed to do. No scope creep.</div>
+                <div class="diff-body">Before I write code, I define what is being built and why. You know what you are getting, when, and what it is supposed to do. No scope creep.</div>
             </div>
             <div class="diff-card">
-                <div class="diff-title">We solve the real problem</div>
-                <div class="diff-body">Most clients come in asking for a specific tool. We ask what problem that solves. Sometimes the answer changes what we build. Sometimes it saves them money. Always it makes the solution better.</div>
+                <div class="diff-title">I solve the real problem</div>
+                <div class="diff-body">Most clients come in asking for a specific tool. I ask what problem that solves. Sometimes the answer changes what I build. Sometimes it saves them money. Always it makes the solution better.</div>
             </div>
         </div>
     </div>
@@ -572,7 +601,7 @@
     <div class="section reveal">
         <div class="cta-block">
             <h2>Let's talk about <span style="color:var(--accent)">your system</span>.</h2>
-            <p class="body-text">A 30-minute call is usually enough to understand what's broken and whether we're the right fit to fix it. No obligation. Just a clear picture of what's possible.</p>
+            <p class="body-text">A 30 minute call is usually enough to understand what is broken and whether I am the right fit to fix it. No obligation. Just a clear picture of what is possible.</p>
             <div class="cta-buttons">
                 <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary">Book a Call &rarr;</a>
                 <a href="/results.html" class="btn-secondary">See Our Results</a>

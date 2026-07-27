@@ -472,6 +472,19 @@
         [data-theme="dark"] .lf-cta{color:#fff !important}
         [data-theme="dark"] .lf-cta-ghost{color:#B7C4D6 !important}
         [data-theme="dark"] .lf-cta-ghost:hover{color:#fff !important}
+
+        /* Proof strip (shared component from homepage, mirrored here) */
+        .trusted-strip{padding:1.5rem 1.5rem 3rem;background:var(--background);text-align:center}
+        .trusted-strip .trusted-label{font-size:0.8125rem;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin:0 0 1rem;font-weight:600}
+        .proof-badges{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0.75rem 1.5rem;padding:0 1.25rem;margin:0 auto 1.5rem;max-width:960px}
+        .proof-badge{font-size:0.8125rem;font-weight:600;letter-spacing:0.02em;color:var(--text-secondary);padding:0.4rem 0.9rem;background:var(--card-bg);border:1px solid var(--border);border-radius:999px;white-space:nowrap}
+        [data-theme="dark"] .trusted-strip{background:#1d1d1f}
+        [data-theme="dark"] .proof-badge{color:#B7C4D6;background:#111C33;border-color:rgba(255,255,255,.14)}
+        .marquee-wrap{overflow:hidden;position:relative;max-width:980px;margin:0 auto;mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
+        .marquee-track{display:flex;gap:3rem;animation:marquee 30s linear infinite;width:max-content}
+        .marquee-track span{font-size:0.875rem;font-weight:500;color:var(--text-muted);letter-spacing:0;white-space:nowrap;opacity:0.7}
+        [data-theme="dark"] .marquee-track span{color:#a1a1a6}
+        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
     </style>
     <script src="/theme-toggle.js"></script>
 </head>
@@ -532,6 +545,21 @@
         <a href="#inbound-and-paid" class="anchor-pill">Inbound and Paid</a>
     </div>
 
+    <!-- PROOF STRIP (shared from homepage) -->
+    <section class="trusted-strip reveal">
+        <div class="proof-badges">
+            <span class="proof-badge">100% Job Success across 50+ projects</span>
+            <!-- REPEAT_RATE_STAT: compute from Twenty (clients with a second engagement / total clients). Render nothing until Seth supplies a real number, never estimate. -->
+        </div>
+        <p class="trusted-label">Trusted by</p>
+        <div class="marquee-wrap">
+            <div class="marquee-track">
+                <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
+                <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
+            </div>
+        </div>
+    </section>
+
     <!-- SECTION: Categories -->
     <section class="page-section reveal" id="categories" style="border-top:none;padding-top:2.5rem">
 
@@ -540,6 +568,7 @@
             <h3>Outbound and Lead Systems</h3>
             <p class="category-subtitle">The engine that fills your calendar with qualified calls.</p>
             <p class="category-description">An empty calendar is the fastest way a growing business loses money. We build the system that puts qualified buyers in front of you on its own, and hand you the playbook to close them. The deals you're losing are the ones you never saw.</p>
+            <p style="font-size:0.9375rem;color:var(--text-secondary);margin-top:1rem">Try it first: <a href="/leads" style="color:var(--accent);font-weight:600">Play the two minute version</a> (Verified Lead Sample).</p>
             <a href="/lead-systems.html" class="btn-primary" style="margin-top:1rem">See Lead Systems</a>
         </div>
 
@@ -548,6 +577,7 @@
             <h3>Revenue Infrastructure</h3>
             <p class="category-subtitle">The foundation every dollar compounds on.</p>
             <p class="category-description">The operational backbone the business runs on, built so growth makes you stronger instead of breaking what's underneath. When the foundation is right, every new customer costs less to win and keep. When it's wrong, scale just multiplies the cracks.</p>
+            <p style="font-size:0.9375rem;color:var(--text-secondary);margin-top:1rem">Try it first: <a href="/demo/leaks" style="color:var(--accent);font-weight:600">Play the two minute version</a> (The Leak Finder).</p>
             <a href="/what-we-build/revenue-infrastructure.html" class="btn-primary" style="margin-top:1rem">See Revenue Infrastructure</a>
         </div>
 
@@ -556,6 +586,7 @@
             <h3>AI Agents and Orchestration</h3>
             <p class="category-subtitle">The work that used to need a person, running on its own.</p>
             <p class="category-description">The work that doesn't need a human, done by something that doesn't sleep. Inbound handled at any hour. Repetitive judgment calls made the same way every time. The hours your team should be selling or building, not catching up.</p>
+            <p style="font-size:0.9375rem;color:var(--text-secondary);margin-top:1rem">Try it first: <a href="/demo/blueprint" style="color:var(--accent);font-weight:600">Play the two minute version</a> (Instant Systems Blueprint).</p>
             <a href="/what-we-build/ai-agents.html" class="btn-primary" style="margin-top:1rem">See AI Agents</a>
         </div>
 
@@ -564,6 +595,7 @@
             <h3>Reporting and Dashboards</h3>
             <p class="category-subtitle">The numbers that show you where the money is.</p>
             <p class="category-description">Decisions made on guesswork cost more than the work to build the answer. We engineer the layer that makes the numbers worth deciding on, so the call you make about where to spend, hire, and double down isn't the wrong one.</p>
+            <p style="font-size:0.9375rem;color:var(--text-secondary);margin-top:1rem">Try it first: <a href="/demo/signals" style="color:var(--accent);font-weight:600">Play the two minute version</a> (The Three Numbers).</p>
             <a href="/what-we-build/reporting-dashboards.html" class="btn-primary" style="margin-top:1rem">See Reporting</a>
         </div>
 
@@ -572,6 +604,7 @@
             <h3>Custom Builds and Integrations</h3>
             <p class="category-subtitle">When off the shelf doesn't fit, we build the one that does.</p>
             <p class="category-description">The most valuable systems rarely come in a box. When your business does something no platform was built for, we engineer the thing that fits it exactly, to the same standard as a system that can't go down. The build no one else can sell you, because no one else is building it.</p>
+            <p style="font-size:0.9375rem;color:var(--text-secondary);margin-top:1rem">Try it first: <a href="/demo/assurance" style="color:var(--accent);font-weight:600">Play the two minute version</a> (Reliability Assurance demo).</p>
             <a href="/what-we-build/custom-builds.html" class="btn-primary" style="margin-top:1rem">See Custom Builds</a>
         </div>
 
@@ -580,6 +613,7 @@
             <h3>Engineering and Reliability</h3>
             <p class="category-subtitle">What keeps the machine running when volume doubles.</p>
             <p class="category-description">The day a system breaks is the day you find out who built it like it would last. We build for the volume you don't have yet, so when it comes, the systems hold and the bad day doesn't happen.</p>
+            <p style="font-size:0.9375rem;color:var(--text-secondary);margin-top:1rem">Try it first: <a href="/demo/watcher" style="color:var(--accent);font-weight:600">Play the two minute version</a> (The 2am Watcher).</p>
             <a href="/what-we-build/engineering-reliability.html" class="btn-primary" style="margin-top:1rem">See Engineering and Reliability</a>
         </div>
 
@@ -588,6 +622,7 @@
             <h3>Inbound and Paid Systems</h3>
             <p class="category-subtitle">The systems that get you found, and make the ad spend pay.</p>
             <p class="category-description">Outbound reaches out. Your other customers are already searching for what you do and asking AI who to trust. We build the systems behind those channels: the search and AI visibility setup that gets you surfaced, plus the tracking, the pixels, the landing pages, and the attribution that turn ad spend into booked revenue. The channel is the strategy. The system underneath is ours.</p>
+            <p style="font-size:0.9375rem;color:var(--text-secondary);margin-top:1rem">Try it first: <a href="/leads" style="color:var(--accent);font-weight:600">Play the two minute version</a> (Verified Lead Sample).</p>
             <a href="/what-we-build/inbound-paid-systems.html" class="btn-primary" style="margin-top:1rem">See Inbound and Paid Systems</a>
         </div>
     </section>
