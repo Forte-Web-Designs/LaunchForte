@@ -692,10 +692,25 @@ function noToken(){
   });
   $('refreshline').textContent = 'Nothing loaded.';
 }
+/* A deep link can carry a section alongside the token, ex:
+   /command/#t=<token>&s=jobs  scrolls to the JOBS block after the first paint.
+   The token and an anchor cannot both own the fragment, so the section rides
+   in the same fragment as a parameter instead of as a bare #jobs anchor. */
+function jumpToSection(){
+  var m = location.hash.match(/[#&]s=([a-z-]+)/);
+  if (!m) return;
+  var n = $(m[1]);
+  if (!n) return;
+  setTimeout(function(){
+    n.scrollIntoView({behavior: MOTION_OK ? 'smooth' : 'auto', block: 'start'});
+  }, 120);
+}
+var MOTION_OK = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
 function boot(){
-  if (PREVIEW){ paint(SAMPLE); return; }
+  if (PREVIEW){ paint(SAMPLE); jumpToSection(); return; }
   if (!HAS_TOKEN){ noToken(); return; }
-  pullSummary().catch(offline);
+  pullSummary().then(jumpToSection).catch(offline);
   setInterval(tick, POLL_MS);
   document.addEventListener('visibilitychange', function(){
     if (!document.hidden) tick();
