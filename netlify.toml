@@ -842,6 +842,32 @@
   status = 301
   force = true
 
+# Video review page retired 2026-07-27. Content absorbed into /results.
+[[redirects]]
+  from = "/videoreview.html"
+  to = "/results.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/videoreview"
+  to = "/results.html"
+  status = 301
+  force = true
+
+# Homepage style preview retired 2026-07-27. Design-time page, not for visitors.
+[[redirects]]
+  from = "/preview/"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/preview"
+  to = "/"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
