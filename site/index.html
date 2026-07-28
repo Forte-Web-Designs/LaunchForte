@@ -18,6 +18,7 @@
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
     <link rel="stylesheet" href="/studio.css">
+    <script src="/studio-theme.js"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -256,11 +257,11 @@
 
         /* Testimonials */
         .testi-h2 { margin-bottom: 3rem; }
-        .video-testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: var(--sp-8); align-items: stretch; }
-        .video-testi { min-width: 0; display: flex; flex-direction: column; }
-        .video-testi > video, .video-testi > .senja-embed { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: var(--radius-3xl); box-shadow: inset 0 0 0 1px var(--border); background: var(--ink); display: block; margin: 0 0 1.25rem; }
-        .video-testi > .senja-embed { height: auto; aspect-ratio: auto; }
-        .video-testi .vt-quote { margin-top: auto; }
+        .video-testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; margin-top: var(--sp-8); align-items: stretch; max-width: 900px; margin-left: auto; margin-right: auto; }
+        .video-testi { min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .video-testi .video-frame { width: 100%; max-width: 380px; margin: 0 auto 1.25rem; display: flex; align-items: center; justify-content: center; }
+        .video-testi .video-frame video, .video-testi .video-frame .senja-embed { display: block; width: 100%; height: auto; max-width: 380px; border-radius: var(--radius-3xl); overflow: hidden; }
+        .video-testi .vt-quote { margin-top: auto; max-width: 380px; }
         @media(max-width: 768px) { .video-testi-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
 
         .review-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
@@ -282,8 +283,7 @@
         /* About */
         .about-block { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: flex-start; }
         @media(max-width: 700px) { .about-block { grid-template-columns: 1fr; gap: 1.5rem; text-align: left; } }
-        .about-avatar { width: 140px; height: 140px; border-radius: 999px; object-fit: cover; filter: grayscale(100%); transition: filter var(--dur-hover); }
-        .about-avatar:hover { filter: grayscale(0%); }
+        .about-avatar { width: 140px; height: 140px; border-radius: 999px; object-fit: cover; }
         .about-name { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xl); font-weight: 600; margin: 0 0 1rem; color: var(--ink); }
         .about-block p { color: var(--n-700); font-size: var(--text-base); line-height: 1.7; margin: 0 0 1rem; }
         .about-video-wrap { position: relative; aspect-ratio: 16/9; background: var(--ink); border-radius: var(--radius-3xl); overflow: hidden; }
@@ -321,23 +321,27 @@
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<header class="studio-nav">
+<header class="studio-nav site-header">
     <div class="studio-grid-bg" aria-hidden="true"></div>
     <div class="studio-nav-inner">
-        <a href="/" class="studio-logo" aria-label="Launch Forte home">
-            <img src="/images/home/launch-forte.png" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
+        <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
         </a>
-        <nav class="studio-nav-links" aria-label="Primary">
-            <a href="/index.html" class="active">Home</a>
-            <a href="/what-we-build.html">What We Build</a>
-            <a href="/one-connected-system">One Connected System</a>
-            <a href="/#who-we-build-for">Who We Build For</a>
-            <a href="/results.html">Results</a>
-            <a href="/tools">Free Tools</a>
-            <a href="/pricing">Pricing</a>
-            <a href="/about.html">About</a>
+        <div class="studio-nav-right">
             <a href="/contact.html" class="studio-nav-cta">Contact</a>
-        </nav>
+            <!-- header-nav is cloned into the hamburger overlay by hamburger.js; hidden on the header itself -->
+            <nav class="header-nav" aria-label="Primary" style="display:none">
+                <a href="/index.html" class="active">Home</a>
+                <a href="/what-we-build.html">What We Build</a>
+                <a href="/one-connected-system">One Connected System</a>
+                <a href="/#who-we-build-for">Who We Build For</a>
+                <a href="/results.html">Results</a>
+                <a href="/tools">Free Tools</a>
+                <a href="/pricing">Pricing</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </nav>
+        </div>
     </div>
 </header>
 
@@ -366,7 +370,7 @@
         <div class="play-intro studio-reveal">
             <p class="studio-eyebrow">Try it now</p>
             <h2 class="studio-h2">See what we do before you book anything.</h2>
-            <p class="studio-lead" style="margin: 1.25rem auto 0;">Nine free tools and live demos. No call, no signup, nothing touches your systems. Most visitors start with the grade.</p>
+            <p class="studio-lead" style="margin: 1.25rem auto 0;">Nine free tools and live demos. Most visitors start with the grade.</p>
         </div>
 
         <form id="try-grade-form" class="try-grade-form studio-reveal" action="/grade" method="get" novalidate>
@@ -407,13 +411,6 @@
             <span class="proof-badge">100% Job Success across 50+ projects</span>
             <!-- REPEAT_RATE_STAT: compute from Twenty (clients with a second engagement / total clients). Render nothing until Seth supplies a real number, never estimate. -->
             <!-- BLUEPRINT_COUNTER_STAT: once /blueprint ships, render "{n} systems running" and "{d} playable demos" as two more proof-badge spans, sourced from the Blueprint's live counters. Render nothing until then. -->
-        </div>
-        <!-- Chelsea testimonial (senja widget, same id as the one on /results, permissioned per Seth) -->
-        <div class="proof-video studio-reveal">
-            <script src="https://widget.senja.io/widget/f9608693-095f-4192-a41c-53d2c30b0fcd/platform.js" type="text/javascript" async></script>
-            <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="true"></div>
-            <p class="proof-video-quote">"10 out of 10 experience. Absolutely recommend."</p>
-            <p class="proof-video-attrib">Chelsea Juels, 6 Months to Speech</p>
         </div>
         <div class="trusted-strip studio-reveal">
             <p class="trusted-label">Trusted by</p>
@@ -586,7 +583,9 @@
 
         <div class="video-testi-grid studio-reveal-stagger">
             <div class="video-testi studio-reveal">
-                <video controls playsinline preload="metadata" poster="/videos/danielle-poster.jpg" src="/videos/danielle-review.mp4"></video>
+                <div class="video-frame">
+                    <video controls playsinline preload="metadata" poster="/videos/danielle-poster.jpg" src="/videos/danielle-review.mp4"></video>
+                </div>
                 <div class="vt-quote">
                     <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He's enabled me to keep running my business with a very lean, super efficient team."</p>
                     <div style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-sm);font-weight:600;color:var(--ink);">Danielle Sandusky, Modern Bungalow</div>
@@ -594,8 +593,10 @@
                 </div>
             </div>
             <div class="video-testi studio-reveal">
-                <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
-                <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true"></div>
+                <div class="video-frame">
+                    <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
+                    <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true"></div>
+                </div>
                 <div class="vt-quote">
                     <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
                     <div style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-sm);font-weight:600;color:var(--ink);">Matt Juels, 6 Months to Speech</div>

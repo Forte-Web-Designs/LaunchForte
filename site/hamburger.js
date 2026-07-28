@@ -87,7 +87,8 @@
         overlay.appendChild(a);
     });
 
-    var headerContainer = document.querySelector('.header-container');
+    /* Prefer the Studio nav host when present (Pass 8), otherwise the legacy header container. */
+    var headerContainer = document.querySelector('.studio-nav-right') || document.querySelector('.header-container');
     if (headerContainer) headerContainer.appendChild(btn);
     document.body.appendChild(overlay);
 

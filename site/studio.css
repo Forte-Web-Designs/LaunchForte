@@ -90,7 +90,7 @@
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --dur-reveal: 320ms;
+  --dur-reveal: 700ms;
   --dur-hover: 180ms;
 
   /* Container widths */
@@ -182,30 +182,23 @@ body {
 }
 .studio-logo { display: inline-flex; align-items: center; text-decoration: none; }
 .studio-logo img { height: 32px; width: auto; display: block; filter: brightness(0) invert(1); }
-.studio-nav-links { display: flex; gap: 1.75rem; align-items: center; flex-wrap: wrap; }
-.studio-nav-links a {
-  color: var(--n-400);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  text-decoration: none;
-  transition: color var(--dur-hover) var(--ease-out);
-}
-.studio-nav-links a:hover, .studio-nav-links a.active { color: var(--paper); }
+.studio-nav-right { display: flex; align-items: center; gap: 1rem; }
 .studio-nav-cta {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.55rem 1.1rem;
-  background: var(--paper);
-  color: var(--ink);
+  padding: 0.55rem 1.25rem;
+  background: #FFFFFF;
+  color: #0A0A0A;
   border-radius: 999px;
   font-size: var(--text-sm);
   font-weight: 600;
   text-decoration: none;
   transition: transform var(--dur-hover) var(--ease-out), background var(--dur-hover);
 }
-.studio-nav-cta:hover { transform: translateY(-1px); background: var(--n-100); color: var(--ink); }
-@media (max-width: 720px) {
-  .studio-nav-links a:not(.studio-nav-cta) { display: none; }
-}
+.studio-nav-cta:hover { transform: translateY(-1px); background: #F5F5F5; color: #0A0A0A; }
+/* Hamburger sits on the black panel; override the script's default border/bg colors so it reads */
+.studio-nav #hamburger { border-color: rgba(255,255,255,0.24); background: transparent; }
+.studio-nav #hamburger:hover { border-color: var(--accent); }
+.studio-nav #hamburger span { background: #FFFFFF; }
 
 /* Grid pattern that lives behind the rounded pane */
 .studio-grid-bg {
@@ -492,16 +485,16 @@ a:hover { color: var(--accent-hover); }
 /* ============================================================
    6. Motion — reveal-on-scroll + hover physics
    ============================================================ */
-.studio-reveal { opacity: 0; transform: translateY(24px); transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out); }
+.studio-reveal { opacity: 0; transform: translateY(32px); transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out); }
 .studio-reveal.is-visible { opacity: 1; transform: none; }
 .studio-reveal-stagger > * { transition-delay: 0ms; }
-.studio-reveal-stagger > *:nth-child(2) { transition-delay: 80ms; }
-.studio-reveal-stagger > *:nth-child(3) { transition-delay: 160ms; }
-.studio-reveal-stagger > *:nth-child(4) { transition-delay: 240ms; }
-.studio-reveal-stagger > *:nth-child(5) { transition-delay: 320ms; }
-.studio-reveal-stagger > *:nth-child(6) { transition-delay: 400ms; }
-.studio-reveal-stagger > *:nth-child(7) { transition-delay: 480ms; }
-.studio-reveal-stagger > *:nth-child(8) { transition-delay: 560ms; }
+.studio-reveal-stagger > *:nth-child(2) { transition-delay: 140ms; }
+.studio-reveal-stagger > *:nth-child(3) { transition-delay: 280ms; }
+.studio-reveal-stagger > *:nth-child(4) { transition-delay: 420ms; }
+.studio-reveal-stagger > *:nth-child(5) { transition-delay: 560ms; }
+.studio-reveal-stagger > *:nth-child(6) { transition-delay: 700ms; }
+.studio-reveal-stagger > *:nth-child(7) { transition-delay: 840ms; }
+.studio-reveal-stagger > *:nth-child(8) { transition-delay: 980ms; }
 
 @media (prefers-reduced-motion: reduce) {
   .studio-reveal { opacity: 1; transform: none; transition: none; }
