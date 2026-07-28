@@ -3,6 +3,8 @@
 <head>
     <link rel="preload" as="image" href="/images/home/launch-forte.png" fetchpriority="high">
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
+    <!-- Preload the first hero video so it starts painting the moment the page loads, not on scroll -->
+    <link rel="preload" as="video" href="/media/hero-1.mp4" type="video/mp4">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Launch Forte | Business Automation and Revenue Systems, Built and Run</title>
@@ -17,8 +19,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p8j">
-    <script src="/studio-theme.js?v=p8j"></script>
+    <link rel="stylesheet" href="/studio.css?v=p8k">
+    <script src="/studio-theme.js?v=p8k"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -476,7 +478,8 @@
 <div class="hero-zone">
     <!-- Rotating ambient video (muted, autoplay, back-to-back). Poster shows first paint.
          The JS at the bottom of the page cycles through /media/hero-1.mp4 .. hero-4.mp4. -->
-    <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="metadata" poster="/images/home/launch-forte.png" aria-hidden="true">
+    <!-- preload="auto" eagerly fetches the whole file so the video plays instantly, not after a scroll cue. No poster: the dark hero background reads clean until the first frame paints. -->
+    <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
         <source src="/media/hero-1.mp4" type="video/mp4">
     </video>
     <!-- Two overlays: left-to-right dark gradient for text legibility, bottom fade dissolving into the pane's rounded top -->
@@ -510,11 +513,6 @@
     <!-- Hero content: eyebrow, H1 with gradient line 1, Ask Forte field, stats row -->
     <div class="hero-content">
         <div class="hero-content-inner">
-            <p class="hero-eyebrow-line">
-                <span class="dot" aria-hidden="true"></span>
-                <span class="mark">LAUNCH FORTE</span>
-                <span class="rule" aria-hidden="true"></span>
-            </p>
             <h1 class="hero-h1">
                 <span class="hero-h1-line-1">Every lead caught.</span>
                 <span class="hero-h1-line-2">Every follow up sent. Every dollar visible.</span>
@@ -1009,14 +1007,18 @@
     ];
     var i = 0;
     v.removeAttribute('loop'); // We rotate instead of looping a single file
-    // Set initial position + source
+    // Set initial position (source already in <source> tag so first frame paints ASAP)
+    v.style.objectPosition = sources[0].pos;
+    // Kick playback the moment enough data arrives
+    v.addEventListener('loadeddata', function(){ v.play().catch(function(){}); }, { once: true });
+    v.play().catch(function(){});
+
     function loadIndex(k){
         var s = sources[k];
         v.style.objectPosition = s.pos;
         v.src = s.src;
         v.play().catch(function(){});
     }
-    loadIndex(0);
     v.addEventListener('ended', function(){
         i = (i + 1) % sources.length;
         loadIndex(i);
@@ -1052,8 +1054,8 @@
     });
 })();
 </script>
-<script src="/studio-motion.js?v=p8j" defer></script>
-<script src="/scroll-top.js?v=p8j" defer></script>
-<script src="/hamburger.js?v=p8j" defer></script>
+<script src="/studio-motion.js?v=p8k" defer></script>
+<script src="/scroll-top.js?v=p8k" defer></script>
+<script src="/hamburger.js?v=p8k" defer></script>
 </body>
 </html>
