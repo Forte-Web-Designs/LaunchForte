@@ -81,25 +81,29 @@
       document.body.appendChild(btn);
     }
 
-    /* Scroll behaviour: only if we started inline. */
-    if (host) {
-      var scrollHandler = function () {
-        if (window.scrollY > SCROLL_TRIGGER) {
-          if (!btn.classList.contains('scrolled')) {
-            document.body.appendChild(btn);   /* move out of the nav */
-            btn.classList.add('scrolled');
-          }
-        } else {
-          if (btn.classList.contains('scrolled')) {
-            btn.classList.remove('scrolled');
-            host.insertBefore(btn, host.firstChild);   /* move back into the nav */
-          }
+    /* Scroll behaviour: theme toggle floats + nav frosts once past threshold.
+       Nav toggle runs regardless of `host` (it's for every page, even those
+       without an inline theme toggle mount). */
+    var navEl = document.querySelector('header.studio-nav, header.hero-nav');
+    var scrollHandler = function () {
+      var past = window.scrollY > SCROLL_TRIGGER;
+      if (navEl) navEl.classList.toggle('is-scrolled', past);
+      if (!host) return;
+      if (past) {
+        if (!btn.classList.contains('scrolled')) {
+          document.body.appendChild(btn);   /* move out of the nav */
+          btn.classList.add('scrolled');
         }
-      };
-      window.addEventListener('scroll', scrollHandler, { passive: true });
-      /* Initial check in case the page loads already scrolled (deep link, refresh, etc). */
-      scrollHandler();
-    }
+      } else {
+        if (btn.classList.contains('scrolled')) {
+          btn.classList.remove('scrolled');
+          host.insertBefore(btn, host.firstChild);   /* move back into the nav */
+        }
+      }
+    };
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    /* Initial check in case the page loads already scrolled (deep link, refresh, etc). */
+    scrollHandler();
   }
 
   if (document.readyState === 'loading') {

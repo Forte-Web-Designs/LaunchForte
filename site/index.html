@@ -19,8 +19,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p8o">
-    <script src="/studio-theme.js?v=p8o"></script>
+    <link rel="stylesheet" href="/studio.css?v=p8p">
+    <script src="/studio-theme.js?v=p8p"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -232,7 +232,12 @@
         }
 
         /* Nav sits ON the hero ground, at the top of the page */
-        .hero-nav { position: relative; z-index: 40; padding: 0; background: transparent; }
+        /* Homepage nav is sticky at top of page, transparent while over
+           the dark cinematic hero (studio.css default frosted paper is
+           overridden here), gets a dark-frosted look via .is-scrolled once
+           past the hero threshold (managed by studio-theme.js scroll listener). */
+        .hero-nav { position: sticky; top: 0; z-index: 40; padding: 0.75rem 0; background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-bottom: 1px solid transparent !important; transition: background 0.2s ease, border-color 0.2s ease; }
+        .hero-nav.is-scrolled { background: rgba(10, 10, 10, 0.82) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; backdrop-filter: saturate(180%) blur(20px) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
         .hero-nav .studio-nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
         .hero-nav .studio-logo img { filter: brightness(0) invert(1); height: 28px; width: auto; display: block; }
         .hero-nav .studio-nav-cta { background: #FFFFFF; color: #0A0A0A; }
@@ -612,6 +617,31 @@
      Black nav bleeds into a full-bleed dark hero. Video plays ambient
      behind two overlays. White rounded-top pane begins below the hero.
      ============================================================ -->
+<!-- Nav lives OUTSIDE .hero-zone so position:sticky works (sticky is broken
+     inside overflow:hidden ancestors). Sits above the video via z-index. -->
+<header class="studio-nav site-header hero-nav">
+    <div class="studio-nav-inner">
+        <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
+        </a>
+        <div class="studio-nav-right">
+            <a href="/contact.html" class="studio-nav-cta">Contact</a>
+            <!-- header-nav is cloned into the hamburger overlay by hamburger.js; hidden on the header itself -->
+            <nav class="header-nav" aria-label="Primary" style="display:none">
+                <a href="/index.html" class="active">Home</a>
+                <a href="/what-we-build.html">What We Build</a>
+                <a href="/one-connected-system">One Connected System</a>
+                <a href="/#who-we-build-for">Who We Build For</a>
+                <a href="/results.html">Results</a>
+                <a href="/tools">Free Tools</a>
+                <a href="/pricing">Pricing</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
 <div class="hero-zone">
     <!-- Rotating ambient video (muted, autoplay, back-to-back). Poster shows first paint.
          The JS at the bottom of the page cycles through /media/hero-1.mp4 .. hero-4.mp4. -->
@@ -622,30 +652,6 @@
     <!-- Two overlays: left-to-right dark gradient for text legibility, bottom fade dissolving into the pane's rounded top -->
     <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
-
-    <!-- Nav sits ON the dark hero ground, not a separate peek -->
-    <header class="studio-nav site-header hero-nav">
-        <div class="studio-nav-inner">
-            <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
-                <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
-            </a>
-            <div class="studio-nav-right">
-                <a href="/contact.html" class="studio-nav-cta">Contact</a>
-                <!-- header-nav is cloned into the hamburger overlay by hamburger.js; hidden on the header itself -->
-                <nav class="header-nav" aria-label="Primary" style="display:none">
-                    <a href="/index.html" class="active">Home</a>
-                    <a href="/what-we-build.html">What We Build</a>
-                    <a href="/one-connected-system">One Connected System</a>
-                    <a href="/#who-we-build-for">Who We Build For</a>
-                    <a href="/results.html">Results</a>
-                    <a href="/tools">Free Tools</a>
-                    <a href="/pricing">Pricing</a>
-                    <a href="/about.html">About</a>
-                    <a href="/contact.html">Contact</a>
-                </nav>
-            </div>
-        </div>
-    </header>
 
     <!-- Hero content: H1, quiet CTA pair, stats row.
          Section 9 supersedes the hero field: the massive Ask Forte bar lives
@@ -1353,8 +1359,8 @@
     window.addEventListener('resize', apply, { passive: true });
 })();
 </script>
-<script src="/studio-motion.js?v=p8o" defer></script>
-<script src="/scroll-top.js?v=p8o" defer></script>
-<script src="/hamburger.js?v=p8o" defer></script>
+<script src="/studio-motion.js?v=p8p" defer></script>
+<script src="/scroll-top.js?v=p8p" defer></script>
+<script src="/hamburger.js?v=p8p" defer></script>
 </body>
 </html>

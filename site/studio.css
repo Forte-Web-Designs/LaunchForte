@@ -149,16 +149,30 @@ body {
    4. Shell: black nav panel + white content pane with rounded top
    ============================================================ */
 .studio-nav {
-  /* Studio's shell: the header is absolutely positioned OVER the pane, not
-     a big dark block. The dark peek at the very top is the body background
-     showing through above the pane's rounded top corners (about 0.5rem). */
-  position: absolute;
-  top: 3.5rem;
+  /* Sticky sitewide: nav follows the visitor down the page. Frosted paper
+     background always visible so nav reads on any content behind it,
+     including dark demo hero sections. Homepage overrides via .hero-nav
+     to be transparent over the cinematic hero. */
+  position: sticky;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 40;
-  color: var(--ink);   /* text on the paper pane below the peek */
-  padding: 0;
+  color: var(--ink);
+  padding: 0.75rem 0;
+  background: rgba(255, 255, 255, 0.88);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+[data-theme="dark"] .studio-nav {
+  background: rgba(10, 10, 10, 0.82);
+  border-bottom-color: var(--border);
+}
+/* .is-scrolled kept for finer control; currently same-as-default */
+.studio-nav.is-scrolled {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 .studio-nav .studio-logo img {
   /* Logo reads on the paper pane in light mode. Invert only in dark mode. */
