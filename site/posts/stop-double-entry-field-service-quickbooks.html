@@ -99,78 +99,37 @@
       ]
     }
     </script>
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}html,body{overflow-x:clip;overscroll-behavior-x:none}
-        :root{--text-primary: #1d1d1f;--text-secondary: #515154;--text-muted: #86868b;--accent:#0088DB;--accent-hover: #4ab5ed;--accent-subtle: rgba(0,136,219,0.10);--accent-glow: rgba(0,136,219,0.10);--accent-2: #4ab5ed;--accent-3: #0088DB;--background: #f5f5f7;--background-alt: #ffffff;--surface: #ffffff;--surface-hover: #f5f5f7;--border: rgba(0,0,0,0.08);--border-light: rgba(0,0,0,0.12);
-            --background-dark: #1d1d1f;
-            --card-bg: #ffffff;
-            --accent-warm: #4ab5ed;
-            --accent-tint: rgba(0,136,219,0.10);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-pill:980px}
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;line-height:1.6;color:var(--text-primary);background:var(--background);background-image:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(6,182,212,0.04) 0%,transparent 50%);background-attachment:fixed}
-        a{color:var(--accent-hover);text-decoration:none;transition:0.2s}
-        a:hover{text-decoration:underline}
-        .site-header{position:sticky;top:0;z-index:100;background:rgba(245,245,247,0.85);backdrop-filter:blur(20px) saturate(1.5)}
-        .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
-        .site-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent-hover),var(--accent),transparent);opacity:0.4}
-        .header-container{max-width:1100px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;height:52px}
-        .header-logo{text-decoration:none;display:flex;align-items:center}
-        .header-logo:hover{opacity:0.85;text-decoration:none}
-        .logo-img{height:28px;width:auto;display:block}[data-theme="dark"] .logo-img{filter:brightness(0) invert(1)}
-        .header-nav{display:flex;gap:1.5rem;align-items:center}
-        .header-nav a{color:var(--text-secondary);font-size:0.9rem;text-decoration:none;transition:color 0.2s ease}
-        .header-nav a:hover,.header-nav a.active{color:var(--text-primary)}
-        .main-content{max-width:720px;margin:0 auto;padding:5rem 2rem 6rem;position:relative;z-index:1}
-        .post-tag{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:1rem;display:block}
-        .post-title{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.25}
-        .post-meta{font-size:0.82rem;color:var(--text-muted);margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
-        .post-body h2{font-size:1.25rem;font-weight:700;color:var(--text-primary);margin:2.5rem 0 1rem}
-        .post-body p{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8}
-        .post-body ul,.post-body ol{color:var(--text-secondary);margin:0 0 1.5rem 1.5rem;line-height:1.8}
-        .post-body li{margin-bottom:0.5rem}
-        .post-body strong{color:var(--text-primary);font-weight:600}
-        .callout{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:1.25rem 1.5rem;margin:2rem 0}
-        .callout p{margin:0;color:var(--text-secondary)}
-        .back-link{display:inline-block;font-size:0.85rem;color:var(--text-muted);margin-bottom:2.5rem}
-        .back-link:hover{color:var(--accent)}
-        .cta-block{margin-top:4rem;padding:2rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:center}
-        .cta-block p{color:var(--text-secondary);margin-bottom:1.25rem}
-        .btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.75rem;background:var(--accent);color:#ffffff;border:none;border-radius:var(--radius-pill);font-size:0.875rem;font-weight:500;cursor:pointer;transition:all 0.2s ease;text-decoration:none;font-family:inherit}
-        .btn-primary:hover{background:var(--accent-hover);color:#ffffff;transform:translateY(-1px);box-shadow:0 8px 30px var(--accent-glow)}
-        .footer-section{margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)}
-        .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-        .footer-location{font-size:0.8rem;color:var(--text-muted);margin-bottom:0.25rem}
-        .copyright{font-size:0.75rem;color:var(--text-muted)}
-        /* LF nav normalize */
-        .header-nav{flex-wrap:nowrap;gap:0.85rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
-        .header-nav::-webkit-scrollbar{display:none}
-        .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
-        @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
-    </style>
-    <script src="/theme-toggle.js"></script>
+
+    <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/studio.css?v=p8n">
+    <script src="/studio-theme.js?v=p8n"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<div class="grid-bg"></div>
-<header class="site-header">
-    <div class="header-container">
-        <a href="/" class="header-logo">
-            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte" width="160" height="28" fetchpriority="high">
+<header class="studio-nav site-header">
+    <div class="studio-nav-inner">
+        <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
         </a>
-                                        <nav class="header-nav">
-            <a href="/index.html">Home</a>
-            <a href="/what-we-build.html">What We Build</a>
-            <a href="/one-connected-system">One Connected System</a>
-            <a href="/#who-we-build-for">Who We Build For</a>
-            <a href="/results.html">Results</a>
-            <a href="/tools" class="active">Free Tools</a>
-            <a href="/pricing">Pricing</a>
-            <a href="/about.html">About</a>
-            <a href="/contact.html">Contact</a>
-        </nav>
+        <div class="studio-nav-right">
+            <a href="/contact.html" class="studio-nav-cta">Contact</a>
+            <nav class="header-nav" aria-label="Primary" style="display:none">
+                <a href="/index.html">Home</a>
+                <a href="/what-we-build.html">What We Build</a>
+                <a href="/one-connected-system">One Connected System</a>
+                <a href="/#who-we-build-for">Who We Build For</a>
+                <a href="/results.html">Results</a>
+                <a href="/tools">Free Tools</a>
+                <a href="/pricing">Pricing</a>
+                <a href="/about.html">About</a>
+                <a href="/writing.html" class="active">Writing</a>
+                <a href="/contact.html">Contact</a>
+            </nav>
+        </div>
     </div>
 </header>
 
-<main class="main-content">
+<main class="studio-pane">
     <a href="/tools" class="back-link">Back to Resources</a>
 
     <span class="post-tag">Service Business</span>
@@ -230,18 +189,49 @@
         <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
     </div>
 
-    <div class="footer-section">
-        <div class="footer-bottom">
-            <div>
-                <p class="footer-location">Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
-                <p class="copyright">&copy; 2026 Launch Forte. All rights reserved.</p>
+    <footer class="studio-footer">
+        <div class="studio-footer-inner">
+            <a href="mailto:seth@launchforte.com" class="footer-email-main" style="display:block;text-align:center;font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-2xl);font-weight:600;color:var(--ink);margin-bottom:var(--sp-16);text-decoration:none;letter-spacing:-0.015em;">seth@launchforte.com</a>
+            <div class="studio-footer-cols">
+                <div class="studio-footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="/one-connected-system">One Connected System</a></li>
+                        <li><a href="/#audit">Audit</a></li>
+                        <li><a href="/#core-systems-build">Build</a></li>
+                        <li><a href="/partnership.html">Partnership</a></li>
+                        <li><a href="/what-we-build.html">What We Build</a></li>
+                    </ul>
+                </div>
+                <div class="studio-footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about.html">About</a></li>
+                        <li><a href="/results.html">Results</a></li>
+                        <li><a href="/tools">Free Tools</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                        <li><a href="/faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="studio-footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
+                        <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
+                        <li><a href="mailto:seth@launchforte.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="studio-footer-bottom">
+                <p>Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
+                <p>&copy; 2026 Launch Forte. All rights reserved.</p>
             </div>
         </div>
-    </div>
-</main>
+    </footer>
 
-<script src="/scroll-reveal.js"></script>
-<script src="/scroll-top.js"></script>
-<script src="/hamburger.js"></script>
+</main>
+<script src="/studio-motion.js?v=p8n" defer></script>
+<script src="/scroll-top.js?v=p8n" defer></script>
+<script src="/hamburger.js?v=p8n" defer></script>
 </body>
 </html>

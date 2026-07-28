@@ -57,227 +57,6 @@
       "image": "https://launchforte.com/images/home/launch-forte.png"
     }
     </script>
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}html,body{overflow-x:clip;overscroll-behavior-x:none}
-        :root{--text-primary: #1d1d1f;--text-secondary: #515154;--text-muted: #86868b;--accent:#0088DB;--accent-hover: #4ab5ed;--accent-subtle: rgba(0,136,219,0.10);--accent-glow: rgba(0,136,219,0.10);--accent-2: #4ab5ed;--accent-3: #0088DB;--background: #f5f5f7;--background-alt: #ffffff;--surface: #ffffff;--surface-hover: #f5f5f7;--border: rgba(0,0,0,0.08);--border-light: rgba(0,0,0,0.12);
-            --background-dark: #1d1d1f;
-            --card-bg: #ffffff;
-            --accent-warm: #4ab5ed;
-            --accent-tint: rgba(0,136,219,0.10);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-pill:980px}
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;line-height:1.6;color:var(--text-primary);background:var(--background);background-image:radial-gradient(ellipse at 20% 0%,rgba(0,136,219,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(6,182,212,0.04) 0%,transparent 50%);background-attachment:fixed}
-        a{color:var(--accent-hover);text-decoration:none;transition:0.2s}
-        a:hover{text-decoration:underline}
-        .site-header{position:sticky;top:0;z-index:100;background:rgba(245,245,247,0.85);backdrop-filter:blur(20px) saturate(1.5)}
-        .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
-        .site-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent-hover),var(--accent),transparent);opacity:0.4}
-        .header-container{max-width:1100px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;height:52px}
-        .header-logo{text-decoration:none;display:flex;align-items:center}
-        .header-logo:hover{opacity:0.85;text-decoration:none}
-        .logo-img{height:28px;width:auto;display:block}[data-theme="dark"] .logo-img{filter:brightness(0) invert(1)}
-        .header-nav{display:flex;gap:1.5rem;align-items:center}
-        .header-nav a{color:var(--text-secondary);font-size:0.9rem;text-decoration:none;transition:color 0.2s ease}
-        .header-nav a:hover,.header-nav a.active{color:var(--text-primary)}
-        .main-content{max-width:720px;margin:0 auto;padding:5rem 2rem 6rem;position:relative;z-index:1}
-        .post-tag{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:1rem;display:block}
-        .post-title{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.25}
-        .post-meta{font-size:0.82rem;color:var(--text-muted);margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
-        .post-body h2{font-size:1.25rem;font-weight:700;color:var(--text-primary);margin:2.5rem 0 1rem}
-        .post-body p{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8}
-        .post-body ul,.post-body ol{color:var(--text-secondary);margin:0 0 1.5rem 1.5rem;line-height:1.8}
-        .post-body li{margin-bottom:0.5rem}
-        .post-body strong{color:var(--text-primary);font-weight:600}
-        .callout{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:1.25rem 1.5rem;margin:2rem 0}
-        .callout p{margin:0;color:var(--text-secondary)}
-        .stat-row{display:flex;gap:2rem;margin:2rem 0;flex-wrap:wrap}
-        .stat-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;flex:1;min-width:140px}
-        .stat-num{font-size:1.5rem;font-weight:700;color:var(--text-primary);display:block}
-        .stat-label{font-size:0.8rem;color:var(--text-muted)}
-        .back-link{display:inline-block;font-size:0.85rem;color:var(--text-muted);margin-bottom:2.5rem}
-        .back-link:hover{color:var(--accent)}
-        .cta-block{margin-top:4rem;padding:2rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:center}
-        .cta-block p{color:var(--text-secondary);margin-bottom:1.25rem}
-        .btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.75rem;background:var(--accent);color:#ffffff;border:none;border-radius:var(--radius-pill);font-size:0.875rem;font-weight:500;cursor:pointer;transition:all 0.2s ease;text-decoration:none;font-family:inherit}
-        .btn-primary:hover{background:var(--accent-hover);color:#ffffff;transform:translateY(-1px);box-shadow:0 8px 30px var(--accent-glow)}
-        .footer-section{margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)}
-        .footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-        .footer-location{color:var(--text-muted);font-size:0.85rem;margin-bottom:0.35rem}
-        .copyright{color:var(--text-muted);font-size:0.85rem}
-        .footer-status{display:flex;align-items:center;gap:0.4rem;font-size:0.6875rem;color:var(--text-muted);font-weight:400}
-        .footer-status .dot{width:6px;height:6px;background:#22c55e;border-radius:50%}
-        .reveal{opacity:1;transform:none}
-        .reveal.revealed{opacity:1;transform:translateY(0)}
-        @media(max-width:768px){.header-container{padding:0.75rem 1.25rem}.header-nav{gap:0.85rem}.header-nav a{font-size:0.82rem}.main-content{padding:3rem 1.25rem 4rem}.stat-row{gap:1rem}.footer-bottom{flex-direction:column;gap:0.5rem;align-items:flex-start}}
-    
-        /* === Apple-style overrides === */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
-            font-size: 17px;
-            line-height: 1.5;
-        }
-        body::before, body::after { display: none !important; }
-        .grid-bg { display: none !important; }
-        .hero-headline, h1.display, .page-title, .hero h1 {
-            font-weight: 500;
-            letter-spacing: -0.025em;
-            line-height: 1.05;
-        }
-        h2, .section-heading {
-            font-weight: 500;
-            letter-spacing: -0.022em;
-            line-height: 1.1;
-        }
-        h3, .card-heading {
-            font-weight: 500;
-            letter-spacing: -0.015em;
-        }
-        .eyebrow {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--accent);
-            letter-spacing: 0;
-            text-transform: none;
-            margin: 0 0 12px;
-        }
-        .sub, .lede, .hero-sub, .page-subtitle, .hero-subtitle {
-            font-size: 1.1875rem;
-            line-height: 1.45;
-            color: var(--text-secondary);
-            font-weight: 400;
-            letter-spacing: -0.005em;
-        }
-        p { font-size: 1.0625rem; line-height: 1.55; }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #fff !important;
-            border-radius: 980px;
-            font-weight: 500;
-            box-shadow: none !important;
-            transition: background 0.2s ease, color 0.2s ease;
-        }
-        .btn-primary:hover {
-            background: var(--accent-warm, #4ab5ed);
-            transform: none !important;
-            box-shadow: none !important;
-        }
-        .btn-ghost, .btn-secondary {
-            background: transparent;
-            color: var(--accent);
-            border: 1px solid var(--border-light);
-            border-radius: 980px;
-            font-weight: 500;
-            transition: opacity 0.2s ease, background 0.2s ease;
-        }
-        .btn-ghost:hover, .btn-secondary:hover {
-            opacity: 0.75;
-            transform: none !important;
-            background: var(--accent-tint, rgba(0,136,219,0.10));
-            color: var(--accent);
-            border-color: var(--border-light);
-        }
-        .btn-link { color: var(--accent) !important; font-weight: 500; }
-        .btn-link:hover { color: var(--accent-warm, #4ab5ed) !important; opacity: 0.85; }
-
-        .stage-card, .result-card, .review-card, .capability-card,
-        .step-card, .case-study-card, .case-study, .featured-card, .video-quote-card,
-        .feature-block, .service-card, .featured-case, .audit-section,
-        .stat-card, .stat-item, .metric-item, .cta-block, .cta-section, .next-step,
-        .engagement-block, .product-card, .credibility-card, .cap-card,
-        .pricing-card, .results-card, .about-block, .industry-card,
-        .calendly-wrap, .faq-item-card {
-            background: var(--card-bg, #ffffff);
-            border-radius: 18px;
-            border: 1px solid var(--border);
-            transition: background 0.2s ease, border-color 0.2s ease;
-        }
-        .stage-card:hover, .result-card:hover, .review-card:hover,
-        .capability-card:hover, .step-card:hover, .case-study-card:hover,
-        .case-study:hover, .featured-card:hover, .video-quote-card:hover,
-        .product-card:hover, .credibility-card:hover, .results-card:hover {
-            transform: none !important;
-            box-shadow: none !important;
-            background: var(--background);
-            border-color: var(--border-light);
-        }
-
-        .section-label, .stage-number, .step-number, .stage-label,
-        .case-label, .review-stars, .trust-label, .metric-label,
-        .featured-label, .stage-badge, .case-study-meta, .case-study-tags,
-        .review-attribution, .review-project {
-            text-transform: none;
-            letter-spacing: 0;
-        }
-        .section-label {
-            color: var(--accent);
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-        .section-label::before { display: none; }
-
-        .footer-section, .site-footer {
-            background: var(--background-dark, #1d1d1f);
-            color: #86868b;
-            border-top: none;
-            margin-top: 6rem;
-            padding: 3rem 2rem 2rem;
-            border-radius: 18px 18px 0 0;
-        }
-        .footer-section a, .site-footer a { color: #86868b; }
-        .footer-section a:hover, .site-footer a:hover { color: #ffffff; }
-        .footer-col h4 {
-            color: #ffffff;
-            opacity: 0.75;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-        .footer-email-main, .footer-email-main a {
-            color: #ffffff !important;
-            opacity: 0.95;
-            font-weight: 500;
-        }
-        .footer-location, .copyright, .footer-status { color: #86868b !important; }
-
-        .site-header {
-            background: rgba(245, 245, 247, 0.85) !important;
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 0.5px solid var(--border);
-        }
-        .site-header::after { display: none !important; }
-        .header-nav a, .nav-link { color: var(--text-primary); opacity: 0.85; font-weight: 400; }
-        .header-nav a:hover, .nav-link:hover { color: var(--text-primary); opacity: 1; }
-        .header-nav a.active, .nav-link.active { color: var(--accent); opacity: 1; font-weight: 600; background: var(--accent-subtle); }
-
-        .tech-tag, .case-study-tags span, .review-tag, .cs-tag {
-            background: var(--accent-tint, rgba(0,136,219,0.10));
-            color: var(--accent);
-            border: none;
-        }
-
-        .result-stat, .case-study-stat, .featured-stat, .stat-card .stat,
-        .feature-block .stat, .metric-value, .stat, .credibility-stat,
-        .stat-item .stat, .cs-metric-num, .results-big-number, .rotating-word {
-            color: var(--accent) !important;
-            -webkit-text-fill-color: var(--accent) !important;
-            background: none !important;
-            background-clip: unset !important;
-            -webkit-background-clip: unset !important;
-            animation: none !important;
-        }
-        .gradient-text {
-            color: var(--accent);
-            background: none;
-            -webkit-text-fill-color: var(--accent);
-            animation: none !important;
-        }
-
-        /* LF nav normalize */
-        .header-nav{flex-wrap:nowrap;gap:0.85rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
-        .header-nav::-webkit-scrollbar{display:none}
-        .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
-        @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
-    </style>
     <meta property="og:title" content="How We Automated $52,000 Worth of Annual Work for a Real Estate Wholesaler | Launch Forte">
     <meta property="og:description" content="A full walkthrough of the CR Deals Cincinnati project — the problem, the system we built, and what we'd do differently if we started today.">
     <meta property="og:type" content="website">
@@ -287,31 +66,37 @@
     <meta name="twitter:title" content="How We Automated $52,000 Worth of Annual Work for a Real Estate Wholesaler | Launch Forte">
     <meta name="twitter:description" content="A full walkthrough of the CR Deals Cincinnati project — the problem, the system we built, and what we'd do differently if we started today.">
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
-    <script src="/theme-toggle.js"></script>
+
+    <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/studio.css?v=p8n">
+    <script src="/studio-theme.js?v=p8n"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<div class="grid-bg"></div>
-<header class="site-header">
-    <div class="header-container">
-        <a href="/" class="header-logo">
-            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte" width="160" height="28" fetchpriority="high">
+<header class="studio-nav site-header">
+    <div class="studio-nav-inner">
+        <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
         </a>
-                                        <nav class="header-nav">
-            <a href="/index.html">Home</a>
-            <a href="/what-we-build.html">What We Build</a>
-            <a href="/one-connected-system">One Connected System</a>
-            <a href="/#who-we-build-for">Who We Build For</a>
-            <a href="/results.html">Results</a>
-            <a href="/tools" class="active">Free Tools</a>
-            <a href="/pricing">Pricing</a>
-            <a href="/about.html">About</a>
-            <a href="/contact.html">Contact</a>
-        </nav>
+        <div class="studio-nav-right">
+            <a href="/contact.html" class="studio-nav-cta">Contact</a>
+            <nav class="header-nav" aria-label="Primary" style="display:none">
+                <a href="/index.html">Home</a>
+                <a href="/what-we-build.html">What We Build</a>
+                <a href="/one-connected-system">One Connected System</a>
+                <a href="/#who-we-build-for">Who We Build For</a>
+                <a href="/results.html">Results</a>
+                <a href="/tools">Free Tools</a>
+                <a href="/pricing">Pricing</a>
+                <a href="/about.html">About</a>
+                <a href="/writing.html" class="active">Writing</a>
+                <a href="/contact.html">Contact</a>
+            </nav>
+        </div>
     </div>
 </header>
 
-<main class="main-content">
+<main class="studio-pane">
     <a href="/tools" class="back-link">Back to Resources</a>
 
     <span class="post-tag">Automation</span>
@@ -383,18 +168,49 @@
         <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Call</a>
     </div>
 
-    <div class="footer-section">
-        <div class="footer-bottom">
-            <div>
-                <p class="footer-location">Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
-                <p class="copyright">&copy; 2026 Launch Forte. All rights reserved.</p>
+    <footer class="studio-footer">
+        <div class="studio-footer-inner">
+            <a href="mailto:seth@launchforte.com" class="footer-email-main" style="display:block;text-align:center;font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-2xl);font-weight:600;color:var(--ink);margin-bottom:var(--sp-16);text-decoration:none;letter-spacing:-0.015em;">seth@launchforte.com</a>
+            <div class="studio-footer-cols">
+                <div class="studio-footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="/one-connected-system">One Connected System</a></li>
+                        <li><a href="/#audit">Audit</a></li>
+                        <li><a href="/#core-systems-build">Build</a></li>
+                        <li><a href="/partnership.html">Partnership</a></li>
+                        <li><a href="/what-we-build.html">What We Build</a></li>
+                    </ul>
+                </div>
+                <div class="studio-footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about.html">About</a></li>
+                        <li><a href="/results.html">Results</a></li>
+                        <li><a href="/tools">Free Tools</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                        <li><a href="/faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="studio-footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
+                        <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
+                        <li><a href="mailto:seth@launchforte.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="studio-footer-bottom">
+                <p>Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
+                <p>&copy; 2026 Launch Forte. All rights reserved.</p>
             </div>
         </div>
-    </div>
-</main>
+    </footer>
 
-<script src="/scroll-reveal.js"></script>
-<script src="/scroll-top.js"></script>
-<script src="/hamburger.js"></script>
+</main>
+<script src="/studio-motion.js?v=p8n" defer></script>
+<script src="/scroll-top.js?v=p8n" defer></script>
+<script src="/hamburger.js?v=p8n" defer></script>
 </body>
 </html>
