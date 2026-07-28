@@ -765,3 +765,70 @@ a:hover { color: var(--accent-hover); }
 
 .playbook-outcome { margin: var(--sp-6) 0 0; padding: var(--sp-5) var(--sp-5); background: var(--ink); color: var(--paper); border-radius: var(--radius-3xl); font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1rem; line-height: 1.55; font-weight: 500; }
 .playbook-outcome-label { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-right: 0.5rem; }
+
+/* ---- About page: profile, differentiators, voyage badge ---- */
+.profile-row { display: grid; grid-template-columns: 160px 1fr; gap: var(--sp-6); align-items: start; margin-top: var(--sp-4); }
+@media (max-width: 640px) { .profile-row { grid-template-columns: 1fr; text-align: center; } .profile-photo { margin: 0 auto; } }
+.profile-photo { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; display: block; border: 3px solid var(--border); }
+.profile-name { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1.5rem; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); margin: 0 0 0.15rem; }
+.profile-role { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.9375rem; font-weight: 500; color: var(--accent); margin: 0 0 var(--sp-3); text-transform: uppercase; letter-spacing: 0.1em; }
+.diff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--sp-4); margin-top: var(--sp-4); }
+.diff-card { padding: var(--sp-5); background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-3xl); }
+.diff-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); margin-bottom: 0.65rem; }
+.diff-body { color: var(--n-600); font-size: 0.9375rem; line-height: 1.6; }
+.voyage-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--paper); border: 1px solid var(--border); border-radius: 999px; text-decoration: none; color: var(--ink); transition: border-color 0.2s ease, color 0.2s ease; }
+.voyage-badge:hover { border-color: var(--accent); color: var(--accent); }
+.voyage-badge-text { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.8125rem; font-weight: 500; }
+.voyage-badge-text strong { font-weight: 700; }
+.calendly-wrap { margin: var(--sp-8) auto; max-width: 800px; border-radius: var(--radius-3xl); overflow: hidden; }
+.calendly-wrap iframe { display: block; width: 100%; min-height: 700px; border: 0; }
+
+/* ---- Results / homepage: trusted strip label + marquee ---- */
+.trusted-label { text-align: center; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--n-500); margin: var(--sp-4) 0 var(--sp-3); }
+.marquee-wrap { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); padding: var(--sp-2) 0; }
+.marquee-track { display: inline-flex; gap: 2.5rem; animation: marquee 40s linear infinite; white-space: nowrap; padding-left: 2.5rem; }
+.marquee-track span { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1rem; font-weight: 600; color: var(--n-400); filter: grayscale(100%); transition: color 0.2s ease, filter 0.2s ease; }
+.marquee-track span:hover { color: var(--accent); filter: grayscale(0); }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+/* ---- Results: video testimonials block + inline star rating ---- */
+.video-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--sp-6); margin: var(--sp-6) 0; max-width: 1000px; }
+.video-block { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.video-block .senja-embed, .video-block video, .video-block iframe { display: block; width: 100%; max-width: 380px; margin: 0 auto var(--sp-3); border-radius: var(--radius-3xl); overflow: hidden; }
+.video-quote { max-width: 380px; margin: 0 auto; }
+.video-quote p { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1rem; line-height: 1.5; font-weight: 500; color: var(--ink); margin: 0 0 0.5rem; font-style: italic; }
+.rating-line { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.9375rem; font-weight: 600; color: var(--ink); }
+.rating-stars-inline { color: var(--accent); letter-spacing: 0.15em; }
+
+/* ---- Writing: toggle wrap (year filter) ---- */
+.toggle-wrap { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: var(--sp-6) 0; }
+.btn-toggle { padding: 0.5rem 1rem; background: var(--paper-2); border: 1px solid var(--border); border-radius: 999px; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.8125rem; font-weight: 600; color: var(--ink); cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease; }
+.btn-toggle:hover, .btn-toggle.active { border-color: var(--accent); color: var(--accent); background: var(--paper); }
+
+/* ---- Contact: honeypot (hidden bot trap) ---- */
+.honeypot { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+
+/* ---- Cinematic hero: mobile stacks video ABOVE text (per Seth 2026-07-28)
+   Below 768px the video moves to the top as a fixed-height banner, then
+   the hero-content sits below on solid black. Overrides the per-page
+   inline rules that had the video full-width dimmed-behind-text. ---- */
+@media (max-width: 768px) {
+  .hero-zone { padding-bottom: var(--sp-6); }
+  .hero-zone .hero-video {
+    position: relative !important;
+    width: 100% !important;
+    height: 220px !important;
+    object-fit: cover;
+    object-position: center;
+    opacity: 1 !important;
+    display: block;
+  }
+  .hero-zone .hero-overlay { display: none !important; }
+  .hero-zone .hero-content { padding: var(--sp-6) 0 var(--sp-4) !important; }
+  .hero-zone .hero-content-inner { text-align: center; }
+  .hero-zone .hero-h1 { max-width: 100% !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-zone .hero-video { display: none !important; }
+}
