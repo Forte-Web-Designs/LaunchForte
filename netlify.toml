@@ -5,7 +5,7 @@
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
-# Forte Bot alias 2026-07-28. /ask is a campaign-friendly shortcut to the bot page.
+# Ask Forte alias 2026-07-28. /ask is the product's own address; canonical stays /demo/blueprint/.
 [[redirects]]
   from = "/ask"
   to = "/demo/blueprint/"

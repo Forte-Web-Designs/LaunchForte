@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Forte Bot: Sketch a System With Us | Launch Forte</title>
-<meta name="description" content="Type your automation pain into one box. The bot recognizes the shape, asks the veteran question, and sketches your system in the chat. Free, no signup.">
+<title>Ask Forte: The Napkin Sketch of Your System | Launch Forte</title>
+<meta name="description" content="Type your automation pain into one box. Ask Forte recognizes the shape, asks the veteran question, and sketches your napkin in the chat. Free, no signup.">
 <link rel="canonical" href="https://launchforte.com/demo/blueprint/">
-<meta property="og:title" content="Forte Bot: Sketch a System With Us | Launch Forte">
-<meta property="og:description" content="Type your automation pain into one box. The bot recognizes the shape, asks the veteran question, and sketches your system in the chat.">
+<meta property="og:title" content="Ask Forte: The Napkin Sketch of Your System | Launch Forte">
+<meta property="og:description" content="Type your automation pain into one box. Ask Forte recognizes the shape, asks the veteran question, and sketches your napkin in the chat.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://launchforte.com/demo/blueprint/">
 <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
@@ -151,16 +151,16 @@ textarea::placeholder{color:var(--muted-2)}
   </header>
 
   <section class="hero">
-    <span class="eyebrow"><span class="dot"></span>Forte Bot</span>
-    <h1>Got an automation idea or a pain point? Ask.</h1>
-    <p class="sub">One box, one veteran question back, then the bot sketches your system in the chat. Free. No signup to see the sketch.</p>
+    <span class="eyebrow"><span class="dot"></span>Ask Forte</span>
+    <h1>Got an automation idea or a pain point? Ask Forte.</h1>
+    <p class="sub">One box, one veteran question back, then Ask Forte sketches your napkin in the chat. Free. No signup to see the napkin.</p>
   </section>
 
   <div class="chat" id="chat">
 
     <!-- HOLDING STATE (rendered when LIVE=false, hidden when true) -->
     <div class="holding" id="holding">
-      <h2>The bot's warming up.</h2>
+      <h2>Ask Forte is warming up.</h2>
       <p>The flows behind it land shortly. In the meantime, three tools that already answer live.</p>
       <div class="holding-tools">
         <a class="holding-tool" href="/grade" data-gtm-event="fortebot_holding_grade">
@@ -179,7 +179,7 @@ textarea::placeholder{color:var(--muted-2)}
     </div>
 
     <!-- LIVE CHAT (rendered when LIVE=true) -->
-    <div class="chat-log hide" id="log" role="log" aria-live="polite" aria-label="Chat with Forte Bot"></div>
+    <div class="chat-log hide" id="log" role="log" aria-live="polite" aria-label="Chat with Ask Forte"></div>
 
     <div class="composer hide" id="composer">
       <div class="chips" id="chips">
@@ -192,7 +192,7 @@ textarea::placeholder{color:var(--muted-2)}
         <button type="button" class="chip" data-group="matters" data-value="reporting">Reporting matters most</button>
       </div>
       <div class="input-row">
-        <textarea id="input" placeholder="Describe your build or pain in plain words. What runs today, what should happen instead." maxlength="500" rows="1" aria-label="Your message" autocomplete="off" spellcheck="true"></textarea>
+        <textarea id="input" placeholder="Describe your build or pain in plain words. What runs today, what should happen instead." maxlength="500" rows="1" aria-label="Your message to Ask Forte" autocomplete="off" spellcheck="true"></textarea>
         <button type="button" class="send" id="send">Send</button>
       </div>
       <div class="char-count" id="charcount">0 / 500</div>
@@ -201,7 +201,7 @@ textarea::placeholder{color:var(--muted-2)}
     <div class="gate hide" id="gate">
       <div class="input-row">
         <input type="email" id="gate-email" placeholder="you@company.com" aria-label="Your email" autocomplete="email" required>
-        <button type="button" class="send" id="gate-send">Email me the sketch</button>
+        <button type="button" class="send" id="gate-send">Email me the napkin</button>
       </div>
       <p class="char-count" id="gate-msg" style="min-height:14px"></p>
     </div>
@@ -209,7 +209,7 @@ textarea::placeholder{color:var(--muted-2)}
   </div>
 
   <p class="meta">
-    Forte Bot is a demo. It sketches, it doesn't build. The audit is <a href="/pricing">how a real one gets scoped</a>.
+    Ask Forte is a demo. It sketches, it doesn't build. The audit is <a href="/pricing">how a real one gets scoped</a>.
   </p>
 
 </div>
@@ -235,7 +235,7 @@ textarea::placeholder{color:var(--muted-2)}
 
   /* Deflection line for off script input (kept literally in one place
      so the voice scan can find it). */
-  var DEFLECT = "I only sketch business systems. Describe yours and I'll draw it.";
+  var DEFLECT = "Ask Forte only sketches business systems. Describe yours and I'll draw it.";
 
   /* Character cap on the free text box. Runbook says 500. */
   var CHAR_CAP = 500;
@@ -332,7 +332,7 @@ textarea::placeholder{color:var(--muted-2)}
   /* ------------------------------ opening ----------------------------- */
   function opening(){
     bubble("bot",
-      "Hi. I'm Forte Bot. Tell me what you're trying to automate, or where the pain is, in your own words. "
+      "Hi. I'm Ask Forte. Tell me what you're trying to automate, or where the pain is, in your own words. "
       + '<span class="quiet">The chips below sharpen the answer if you want to pick two.</span>'
     );
   }
@@ -365,7 +365,7 @@ textarea::placeholder{color:var(--muted-2)}
 
   /* ------------------------------ turn 2: DRAW ------------------------ */
   function draw(answer){
-    bubble("bot", "give me a second, sketching it");
+    bubble("bot", "give me a second, sketching your napkin");
     var t = typing();
     return fetch(DRAW, {
       method: "POST",
@@ -386,7 +386,7 @@ textarea::placeholder{color:var(--muted-2)}
       turn = TURN_SKETCH;
       /* one closing bubble then swap composer for the email gate */
       setTimeout(function(){
-        var line = "Want it as a PDF, plus which of our live demos matches your build? Drop your email.";
+        var line = "Want the napkin as a PDF, plus which of our live demos matches your build? Drop your email.";
         bubble("bot", line);
         openGate();
       }, 700);
@@ -426,11 +426,11 @@ textarea::placeholder{color:var(--muted-2)}
       $("gate").classList.add("hide");
       /* the paywall line ends the thread in the bot's own voice, per runbook */
       bubble("bot",
-        "Sent. The sketch and the matched demo are on their way to " + esc(email) + "."
+        "Sent. The napkin and the matched demo are on their way to " + esc(email) + "."
       );
       setTimeout(function(){
         bubble("bot",
-          "The full picture, the phases, the hours, the plan: that's what the audit buys. This sketch is me thinking; the audit is me measuring."
+          "The full picture, the phases, the hours, the plan: that's what the audit buys. The napkin is me thinking; the audit is me measuring."
           + '<br><br><a href="/pricing">See what the audit costs and what it opens.</a>'
         );
         turn = TURN_DONE;
