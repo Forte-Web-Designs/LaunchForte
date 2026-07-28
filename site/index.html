@@ -433,7 +433,30 @@
         .engine-copy .studio-h2 { margin-bottom: 1.5rem; }
         .engine-copy p.sub { color: var(--n-600); font-size: var(--text-lg); line-height: 1.6; margin: 0 0 1rem; }
         .engine-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: var(--sp-8); }
+        /* Engine SVGs (per Engine SVG Swap mini-runbook). Both inline; LF vars
+           map to site tokens so dark mode is free. --lf-accent stays constant
+           across themes; ink/paper flip. */
+        .homepage-engine {
+            --lf-ink: var(--ink);
+            --lf-paper: var(--paper);
+            --lf-gray: var(--n-500);
+            --lf-line: var(--border);
+            --lf-chipbg: var(--n-100);
+            --lf-accent: var(--accent);
+        }
+        [data-theme="dark"] .homepage-engine {
+            --lf-chipbg: var(--n-800);
+        }
         .homepage-engine svg { width: 100%; height: auto; display: block; border-radius: var(--radius-3xl); background: var(--paper-2); padding: 1.25rem; box-shadow: inset 0 0 0 1px var(--border); }
+        .homepage-engine .the-engine-svg { max-width: 1160px; margin: 0 auto; }
+        .homepage-engine .the-compounding-svg { max-width: 860px; margin: 1.5rem auto 0; padding: 1rem 1.25rem; }
+        /* Mobile fallback per mini-runbook §4: if the wide engine reads
+           cramped under 640px, hide it and let the compounding graphic
+           (mobile-proportioned) carry the section. Never a horizontal scroll. */
+        @media(max-width: 640px) {
+            .homepage-engine .the-engine-svg { display: none; }
+            .homepage-engine .the-compounding-svg { margin-top: 0; }
+        }
         .engine-caption { max-width: 720px; margin: var(--sp-16) auto 0; text-align: center; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: clamp(1.35rem, 2.4vw, 1.75rem); line-height: 1.35; font-weight: 500; color: var(--ink); }
 
         /* How to engage: three service cards */
@@ -767,77 +790,109 @@
                 </div>
             </div>
             <div class="homepage-engine studio-reveal">
-                <svg viewBox="0 0 960 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-                  <title id="title">The engine your business runs on</title>
-                  <desc id="desc">Lead sources, ads and search, social and DMs, and referrals, flow into a central system made of capture, CRM, follow up, and reporting, then out to booked appointments, revenue, and repeat clients, with a retention loop feeding back to the start.</desc>
-                  <defs>
-                    <filter id="ns" x="-30%" y="-30%" width="160%" height="180%">
-                      <feDropShadow dx="0" dy="1.5" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.08"/>
-                    </filter>
-                    <filter id="dg" x="-200%" y="-200%" width="500%" height="500%">
-                      <feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                    </filter>
-                    <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="9"/></filter>
-                    <style>
-                      text{font-family:'Mona Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
-                      .cap{fill:#0A0A0A;font-size:20px;font-weight:600;}
-                      .io{fill:#ffffff;stroke:#E5E5E5;stroke-width:1.5;filter:url(#ns);}
-                      .iolabel{fill:#171717;font-size:13px;font-weight:500;}
-                      .core{fill:#ffffff;stroke:#0088DB;stroke-width:2;filter:url(#ns);}
-                      .coreTitle{fill:#0088DB;font-size:13px;font-weight:700;letter-spacing:.3px;}
-                      .pill{fill:#F5F5F5;stroke:#E5E5E5;stroke-width:1;}
-                      .plabel{fill:#171717;font-size:12.5px;font-weight:500;}
-                      .wire{fill:none;stroke:#D4D4D4;stroke-width:1.8;}
-                      .loop{fill:none;stroke:#D4D4D4;stroke-width:1.8;stroke-dasharray:5 6;}
-                      .looplabel{fill:#737373;font-size:12px;font-weight:600;}
-                      .coreGlow{animation:breathe 3.6s ease-in-out infinite;}
-                      @keyframes breathe{0%,100%{opacity:.07;}50%{opacity:.2;}}
-                    </style>
-                  </defs>
+                <svg class="the-engine-svg" viewBox="0 0 1200 660" xmlns="http://www.w3.org/2000/svg" font-family="Mona Sans, ui-sans-serif, system-ui, sans-serif" role="img" aria-label="The engine your business runs on: sources flow into your system, your system produces booked jobs, revenue, and repeat clients, and retention feeds back into the sources.">
+                  <style>
+                    .the-engine-svg .ink{fill:var(--lf-ink,#141414)} .the-engine-svg .mut{fill:var(--lf-gray,#7a7a7a)}
+                    .the-engine-svg .card{fill:var(--lf-paper,#ffffff);stroke:var(--lf-line,#e4e4e4);stroke-width:1.5}
+                    .the-engine-svg .chip{fill:var(--lf-chipbg,#fafafa);stroke:var(--lf-line,#e4e4e4);stroke-width:1.25}
+                    .the-engine-svg .wire{fill:none;stroke:var(--lf-line,#dcdcdc);stroke-width:1.5}
+                    .the-engine-svg .loop{fill:none;stroke:var(--lf-gray,#9a9a9a);stroke-width:1.25;stroke-dasharray:2 7;stroke-linecap:round}
+                    .the-engine-svg .accent{fill:var(--lf-accent,#0088DB)} .the-engine-svg .accentline{stroke:var(--lf-accent,#0088DB)}
+                    .the-engine-svg .tick{stroke:var(--lf-accent,#0088DB);stroke-width:3;stroke-linecap:round}
+                    @media (prefers-reduced-motion: reduce){ .the-engine-svg .pulse,.the-engine-svg .corepulse{display:none} }
+                  </style>
 
-                  <text class="cap" x="480" y="36" text-anchor="middle">The engine your business runs on</text>
+                  <text x="600" y="52" text-anchor="middle" font-size="21" font-weight="650" class="ink">The engine your business runs on</text>
 
-                  <!-- wires in -->
-                  <path class="wire" d="M174 119 C280 119 300 152 380 152"/>
-                  <path class="wire" d="M174 209 C300 209 300 210 380 210"/>
-                  <path class="wire" d="M174 299 C280 299 300 268 380 268"/>
-                  <!-- wires out -->
-                  <path class="wire" d="M580 152 C680 152 700 119 786 119"/>
-                  <path class="wire" d="M580 210 C700 210 700 209 786 209"/>
-                  <path class="wire" d="M580 268 C680 268 700 299 786 299"/>
-                  <!-- retention loop -->
-                  <path class="loop" d="M820 324 C760 398 540 398 480 398 C420 398 240 398 150 324"/>
+                  <g font-size="15" font-weight="500">
+                    <rect class="card" x="60" y="140" width="200" height="52" rx="12"/>
+                    <line class="tick" x1="80" y1="156" x2="80" y2="176"/>
+                    <text class="ink" x="96" y="171">Ads and search</text>
+                    <rect class="card" x="60" y="288" width="200" height="52" rx="12"/>
+                    <line class="tick" x1="80" y1="304" x2="80" y2="324"/>
+                    <text class="ink" x="96" y="319">Social and DMs</text>
+                    <rect class="card" x="60" y="436" width="200" height="52" rx="12"/>
+                    <line class="tick" x1="80" y1="452" x2="80" y2="472"/>
+                    <text class="ink" x="96" y="467">Referrals</text>
+                  </g>
 
-                  <!-- flowing dots -->
-                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" path="M174 119 C280 119 300 152 380 152"/></circle>
-                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="2.6s" begin=".5s" repeatCount="indefinite" path="M174 209 C300 209 300 210 380 210"/></circle>
-                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="2.6s" begin="1s" repeatCount="indefinite" path="M174 299 C280 299 300 268 380 268"/></circle>
-                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite" path="M580 152 C680 152 700 119 786 119"/></circle>
-                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="2.6s" begin="1.8s" repeatCount="indefinite" path="M580 210 C700 210 700 209 786 209"/></circle>
-                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="2.6s" begin="2.3s" repeatCount="indefinite" path="M580 268 C680 268 700 299 786 299"/></circle>
-                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="4.2s" begin="0s" repeatCount="indefinite" path="M820 324 C760 398 540 398 480 398 C420 398 240 398 150 324"/></circle>
+                  <rect x="470" y="128" width="260" height="392" rx="22" fill="var(--lf-paper,#ffffff)" stroke="var(--lf-accent,#0088DB)" stroke-width="2"/>
+                  <text x="600" y="168" text-anchor="middle" font-size="14" font-weight="700" letter-spacing="1.5" class="accent">YOUR SYSTEM</text>
+                  <g font-size="14" font-weight="500" text-anchor="middle">
+                    <rect class="chip" x="502" y="192" width="196" height="46" rx="10"/><text class="ink" x="600" y="221">Capture</text>
+                    <rect class="chip" x="502" y="256" width="196" height="46" rx="10"/><text class="ink" x="600" y="285">CRM</text>
+                    <rect class="chip" x="502" y="320" width="196" height="46" rx="10"/><text class="ink" x="600" y="349">Follow up</text>
+                    <rect class="chip" x="502" y="384" width="196" height="46" rx="10"/><text class="ink" x="600" y="413">Reporting</text>
+                  </g>
+                  <text x="600" y="482" text-anchor="middle" font-size="12.5" class="mut">one clean record on everyone</text>
 
-                  <!-- inputs -->
-                  <g><rect class="io" x="24" y="96" width="150" height="46" rx="12"/><rect x="32" y="108" width="4" height="22" rx="2" fill="#0088DB"/><text class="iolabel" x="99" y="124" text-anchor="middle">Ads and search</text></g>
-                  <g><rect class="io" x="24" y="186" width="150" height="46" rx="12"/><rect x="32" y="198" width="4" height="22" rx="2" fill="#0088DB"/><text class="iolabel" x="99" y="214" text-anchor="middle">Social and DMs</text></g>
-                  <g><rect class="io" x="24" y="276" width="150" height="46" rx="12"/><rect x="32" y="288" width="4" height="22" rx="2" fill="#0088DB"/><text class="iolabel" x="99" y="304" text-anchor="middle">Referrals</text></g>
+                  <path id="engine-w1" class="wire" d="M260,166 C360,166 380,220 470,232"/>
+                  <path id="engine-w2" class="wire" d="M260,314 C350,314 380,318 470,322"/>
+                  <path id="engine-w3" class="wire" d="M260,462 C360,462 380,412 470,406"/>
+                  <path id="engine-w4" class="wire" d="M730,232 C820,220 840,166 940,166"/>
+                  <path id="engine-w5" class="wire" d="M730,322 C820,318 850,314 940,314"/>
+                  <path id="engine-w6" class="wire" d="M730,406 C820,412 840,462 940,462"/>
 
-                  <!-- core -->
-                  <rect class="coreGlow" x="380" y="96" width="200" height="228" rx="20" fill="#0088DB" filter="url(#soft)"/>
-                  <rect class="core" x="380" y="96" width="200" height="228" rx="18"/>
-                  <text class="coreTitle" x="480" y="126" text-anchor="middle">YOUR SYSTEM</text>
-                  <g><rect class="pill" x="405" y="142" width="150" height="30" rx="8"/><text class="plabel" x="480" y="162" text-anchor="middle">Capture</text></g>
-                  <g><rect class="pill" x="405" y="180" width="150" height="30" rx="8"/><text class="plabel" x="480" y="200" text-anchor="middle">CRM</text></g>
-                  <g><rect class="pill" x="405" y="218" width="150" height="30" rx="8"/><text class="plabel" x="480" y="238" text-anchor="middle">Follow up</text></g>
-                  <g><rect class="pill" x="405" y="256" width="150" height="30" rx="8"/><text class="plabel" x="480" y="276" text-anchor="middle">Reporting</text></g>
+                  <g font-size="15" font-weight="500">
+                    <rect class="card" x="940" y="140" width="200" height="52" rx="12"/>
+                    <line class="tick" x1="960" y1="156" x2="960" y2="176"/>
+                    <text class="ink" x="976" y="171">Booked</text>
+                    <rect class="card" x="940" y="288" width="200" height="52" rx="12"/>
+                    <line class="tick" x1="960" y1="304" x2="960" y2="324"/>
+                    <text class="ink" x="976" y="319">Revenue</text>
+                    <rect class="card" x="940" y="436" width="200" height="52" rx="12"/>
+                    <line class="tick" x1="960" y1="452" x2="960" y2="472"/>
+                    <text class="ink" x="976" y="467">Repeat clients</text>
+                  </g>
 
-                  <!-- outputs -->
-                  <g><rect class="io" x="786" y="96" width="150" height="46" rx="12"/><rect x="794" y="108" width="4" height="22" rx="2" fill="#0A0A0A"/><text class="iolabel" x="861" y="124" text-anchor="middle">Booked</text></g>
-                  <g><rect class="io" x="786" y="186" width="150" height="46" rx="12"/><rect x="794" y="198" width="4" height="22" rx="2" fill="#0A0A0A"/><text class="iolabel" x="861" y="214" text-anchor="middle">Revenue</text></g>
-                  <g><rect class="io" x="786" y="276" width="150" height="46" rx="12"/><rect x="794" y="288" width="4" height="22" rx="2" fill="#0A0A0A"/><text class="iolabel" x="861" y="304" text-anchor="middle">Repeat clients</text></g>
+                  <path id="engine-loopback" class="loop" d="M1040,492 C1040,590 600,610 600,610 C600,610 160,590 160,492"/>
+                  <text x="600" y="640" text-anchor="middle" font-size="12.5" class="mut">retention and referrals feed the top</text>
 
-                  <text class="looplabel" x="480" y="416" text-anchor="middle">Retention and referrals</text>
-                  <text x="935" y="421" text-anchor="end" font-size="11" font-weight="700" letter-spacing="1.3"><tspan fill="#A3A3A3">THE </tspan><tspan fill="#0088DB">FORTE</tspan><tspan fill="#A3A3A3"> METHOD</tspan></text>
+                  <g class="pulse">
+                    <circle r="4" class="accent"><animateMotion dur="3.6s" repeatCount="indefinite" begin="0s"><mpath href="#engine-w1"/></animateMotion></circle>
+                    <circle r="4" class="accent"><animateMotion dur="4.2s" repeatCount="indefinite" begin="1.1s"><mpath href="#engine-w2"/></animateMotion></circle>
+                    <circle r="4" class="accent"><animateMotion dur="3.9s" repeatCount="indefinite" begin="2s"><mpath href="#engine-w3"/></animateMotion></circle>
+                    <circle r="4" class="accent"><animateMotion dur="3.6s" repeatCount="indefinite" begin="0.6s"><mpath href="#engine-w4"/></animateMotion></circle>
+                    <circle r="4" class="accent"><animateMotion dur="4.2s" repeatCount="indefinite" begin="1.7s"><mpath href="#engine-w5"/></animateMotion></circle>
+                    <circle r="4" class="accent"><animateMotion dur="3.9s" repeatCount="indefinite" begin="2.6s"><mpath href="#engine-w6"/></animateMotion></circle>
+                    <circle r="3.5" class="accent" opacity="0.8"><animateMotion dur="7s" repeatCount="indefinite" begin="0.4s"><mpath href="#engine-loopback"/></animateMotion></circle>
+                  </g>
+                  <text x="1140" y="640" text-anchor="end" font-size="11" letter-spacing="1.2" class="mut">THE <tspan class="accent" font-weight="700">FORTE</tspan> METHOD</text>
+                </svg>
+
+                <svg class="the-compounding-svg" viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg" font-family="Mona Sans, ui-sans-serif, system-ui, sans-serif" role="img" aria-label="Every lesson from every build flows into one practice memory, and every new build ships from it smarter.">
+                  <style>
+                    .the-compounding-svg .ink{fill:var(--lf-ink,#141414)} .the-compounding-svg .mut{fill:var(--lf-gray,#7a7a7a)}
+                    .the-compounding-svg .card{fill:var(--lf-paper,#ffffff);stroke:var(--lf-line,#e4e4e4);stroke-width:1.5}
+                    .the-compounding-svg .wire{fill:none;stroke:var(--lf-line,#dcdcdc);stroke-width:1.5}
+                    .the-compounding-svg .accent{fill:var(--lf-accent,#0088DB)}
+                    @media (prefers-reduced-motion: reduce){ .the-compounding-svg .pulse,.the-compounding-svg .ring{display:none} }
+                  </style>
+                  <g font-size="13.5" font-weight="500">
+                    <rect class="card" x="40" y="40" width="150" height="40" rx="10"/><text class="ink" x="115" y="65" text-anchor="middle">every fix</text>
+                    <rect class="card" x="40" y="110" width="150" height="40" rx="10"/><text class="ink" x="115" y="135" text-anchor="middle">every gotcha</text>
+                    <rect class="card" x="40" y="180" width="150" height="40" rx="10"/><text class="ink" x="115" y="205" text-anchor="middle">every timing</text>
+                  </g>
+                  <path id="comp-c1" class="wire" d="M190,60 C300,60 330,110 415,124"/>
+                  <path id="comp-c2" class="wire" d="M190,130 C300,130 330,130 415,130"/>
+                  <path id="comp-c3" class="wire" d="M190,200 C300,200 330,150 415,136"/>
+                  <circle cx="470" cy="130" r="56" fill="var(--lf-paper,#ffffff)" stroke="var(--lf-accent,#0088DB)" stroke-width="2"/>
+                  <circle class="ring" cx="470" cy="130" r="56" fill="none" stroke="var(--lf-accent,#0088DB)" stroke-width="1" opacity="0.5">
+                    <animate attributeName="r" values="56;70" dur="2.8s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.5;0" dur="2.8s" repeatCount="indefinite"/>
+                  </circle>
+                  <text x="470" y="124" text-anchor="middle" font-size="13" font-weight="700" class="accent">RECORDED</text>
+                  <text x="470" y="142" text-anchor="middle" font-size="13" font-weight="700" class="accent">ONCE</text>
+                  <path id="comp-c4" class="wire" d="M526,130 C620,130 640,130 710,130"/>
+                  <rect class="card" x="710" y="106" width="160" height="48" rx="12"/>
+                  <text class="ink" x="790" y="126" text-anchor="middle" font-size="13.5" font-weight="600">your build ships</text>
+                  <text class="ink" x="790" y="143" text-anchor="middle" font-size="13.5" font-weight="600">with all of it</text>
+                  <g class="pulse">
+                    <circle r="3.5" class="accent"><animateMotion dur="3s" repeatCount="indefinite" begin="0s"><mpath href="#comp-c1"/></animateMotion></circle>
+                    <circle r="3.5" class="accent"><animateMotion dur="3.4s" repeatCount="indefinite" begin="0.9s"><mpath href="#comp-c2"/></animateMotion></circle>
+                    <circle r="3.5" class="accent"><animateMotion dur="3.2s" repeatCount="indefinite" begin="1.8s"><mpath href="#comp-c3"/></animateMotion></circle>
+                    <circle r="4" class="accent"><animateMotion dur="2.6s" repeatCount="indefinite" begin="0.5s"><mpath href="#comp-c4"/></animateMotion></circle>
+                  </g>
                 </svg>
             </div>
         </div>
