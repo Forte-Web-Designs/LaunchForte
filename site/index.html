@@ -102,6 +102,7 @@
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
+        { "@type": "Question", "name": "What makes you different from any other automation shop?", "acceptedAnswer": { "@type": "Answer", "text": "Most shops build a workflow and leave. We run systems that keep records on themselves. Every mistake any build ever surfaced became a written rule, every fix became a pattern, and every new build starts with all of it loaded. You're not hiring one engineer's memory, you're hiring the accumulated lessons of every system we've ever run, and yours reports to you every morning while it adds to them." } },
         { "@type": "Question", "name": "What does Launch Forte actually build?", "acceptedAnswer": { "@type": "Answer", "text": "The operational system a business runs on, end to end. The system that books the calls, the workflows that run the fulfillment, the source of truth your numbers come from, and the reporting that tells you where the money is. Six areas in practice: lead systems, revenue infrastructure, AI agents, reporting, custom builds, and the reliability that keeps it all standing when volume doubles. Most engagements touch a few of these, not all at once. The audit decides which." } },
         { "@type": "Question", "name": "What changes once the system is in?", "acceptedAnswer": { "@type": "Answer", "text": "Two things move. You make more money, because leads get answered in seconds and worked without anyone chasing, and nothing that should close goes cold. And you keep more of what you earn, because the manual work runs on its own and the numbers come from one place you can trust. Your team stops holding the business together by hand and gets back to the work only people can do. Growth stops depending on heroics and becomes something the system repeats." } },
         { "@type": "Question", "name": "Are you a lead gen agency or a systems company?", "acceptedAnswer": { "@type": "Answer", "text": "A systems company. Lead gen is one thing we build, because an empty calendar is one way a business loses money. But most of what costs you is not out front, it is the manual work, the number living in one person's head, the process that breaks the day volume doubles. We find the part of the business that is one mistake away from a bad day and engineer it so it cannot happen. Filling the calendar is where some engagements start. It is never the whole job." } },
@@ -542,6 +543,10 @@
         .proof-badges{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0.75rem 1.5rem;padding:0 1.25rem;margin:0 auto 1.5rem;max-width:960px}
         .proof-badge{font-size:0.8125rem;font-weight:600;letter-spacing:0.02em;color:var(--text-secondary);padding:0.4rem 0.9rem;background:var(--card-bg);border:1px solid var(--border);border-radius:999px;white-space:nowrap}
         [data-theme="dark"] .proof-badge{color:#B7C4D6;background:#111C33;border-color:rgba(255,255,255,.14)}
+        .proof-video{max-width:420px;margin:0 auto 1.75rem;text-align:center}
+        .proof-video .senja-embed{display:block;margin:0 auto 0.85rem}
+        .proof-video-quote{font-size:0.9375rem;line-height:1.5;color:var(--text-primary);font-style:italic;margin:0 0 0.35rem;padding:0 1rem}
+        .proof-video-attrib{font-size:0.8125rem;color:var(--text-muted);margin:0;font-weight:500}
         .video-testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:2rem;max-width:1100px;margin-left:auto;margin-right:auto;align-items:stretch}
         .video-testi{min-width:0;display:flex;flex-direction:column}
         .video-testi > video,.video-testi > .senja-embed{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;border:1px solid var(--border);background:#0E1729;display:block;margin:0 0 1rem}
@@ -599,6 +604,7 @@
             <a href="/#who-we-build-for">Who We Build For</a>
             <a href="/results.html">Results</a>
             <a href="/tools">Free Tools</a>
+            <a href="/pricing">Pricing</a>
             <a href="/about.html">About</a>
             <a href="/contact.html">Contact</a>
         </nav>
@@ -673,6 +679,14 @@
         <div class="proof-badges">
             <span class="proof-badge">100% Job Success across 50+ projects</span>
             <!-- REPEAT_RATE_STAT: compute from Twenty (clients with a second engagement / total clients). Render nothing until Seth supplies a real number, never estimate. -->
+            <!-- BLUEPRINT_COUNTER_STAT: once /blueprint ships, render "{n} systems running" and "{d} playable demos" as two more proof-badge spans, sourced from the Blueprint's live counters. Render nothing until then. -->
+        </div>
+        <!-- Chelsea testimonial (senja widget, same id as the one on /results, permissioned per Seth) -->
+        <div class="proof-video">
+            <script src="https://widget.senja.io/widget/f9608693-095f-4192-a41c-53d2c30b0fcd/platform.js" type="text/javascript" async></script>
+            <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="true"></div>
+            <p class="proof-video-quote">"10 out of 10 experience. Absolutely recommend."</p>
+            <p class="proof-video-attrib">Chelsea Juels, 6 Months to Speech</p>
         </div>
         <p class="trusted-label">Trusted by</p>
         <div class="marquee-wrap">
@@ -690,6 +704,7 @@
                 <p class="eyebrow">The whole engine</p>
                 <h2>From getting found to <span style="color:var(--accent)">getting paid</span>.</h2>
                 <p class="sub">We build and run every step: how customers find you, how they get captured, how they convert, and how the money lands. Most businesses run that across five vendors who each hold one piece. We own the whole engine, we map what you already run before building anything new, and we report the one number that matters at month end, the revenue it produced.</p>
+                <p class="sub">The practice compounds too. Every fix, every gotcha, every timing, every lesson from every build gets recorded once and carried into the next one, so your system ships with the scar tissue of fifty builds already in it, and it reports what it caught every morning.</p>
                 <div class="ctas"><a href="/what-we-build.html" class="btn-secondary">See everything we build</a> <a href="/one-connected-system" class="btn-secondary">How The Forte Method works</a></div>
             </div>
             <!-- HOMEPAGE ENGINE VISUAL -->
@@ -926,6 +941,10 @@
             <h2>What buyers usually ask before <span style="color:var(--accent)">booking an audit</span>.</h2>
             <div class="faq-shell">
                 <div class="faq-group">
+                    <div class="faq-qa">
+                        <button class="faq-q" aria-expanded="false"><span>What makes you different from any other automation shop?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                        <div class="faq-panel"><div class="faq-panel-inner"><p>Most shops build a workflow and leave. We run systems that keep records on themselves. Every mistake any build ever surfaced became a written rule, every fix became a pattern, and every new build starts with all of it loaded. You're not hiring one engineer's memory, you're hiring the accumulated lessons of every system we've ever run, and yours reports to you every morning while it adds to them.</p></div></div>
+                    </div>
                     <div class="faq-qa">
                         <button class="faq-q" aria-expanded="false"><span>What changes once the system is in?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                         <div class="faq-panel"><div class="faq-panel-inner"><p>Leads stop slipping, you can finally see which marketing makes a customer, and the day to day stops running through you, so you can hire or step back without the wheels coming off.</p></div></div>
