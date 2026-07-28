@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Proposal Cockpit</title>
+<style>
+:root{
+  --paper:#FBFAF7; --panel:#F4F1E9; --ink:#14213D; --grey:#7A8598;
+  --hair:#E2DED5; --brass:#C6A35C; --oxide:#A34A32; --white:#fff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:16px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-text-size-adjust:100%}
+.wrap{max-width:760px;margin:0 auto;padding:32px 20px 96px}
+.eyebrow{font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--brass);font-weight:700}
+h1{font-size:clamp(28px,6vw,40px);letter-spacing:-.02em;line-height:1.06;margin:12px 0 8px}
+p.sub{color:var(--grey);margin:0 0 26px}
+label{display:block;font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink);font-weight:700;margin:0 0 7px}
+.field{margin:0 0 20px}
+.hint{font-size:13px;color:var(--grey);margin:6px 0 0}
+textarea,input[type=text],select{width:100%;background:var(--white);color:var(--ink);
+  border:1px solid var(--hair);border-radius:3px;padding:12px 13px;font:15px/1.5 inherit}
+textarea{min-height:230px;resize:vertical}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--grey) 50%),linear-gradient(135deg,var(--grey) 50%,transparent 50%);
+  background-position:calc(100% - 18px) 20px,calc(100% - 13px) 20px;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+textarea:focus,input:focus,select:focus{outline:2px solid var(--brass);outline-offset:1px;border-color:var(--brass)}
+.row{display:flex;gap:14px;flex-wrap:wrap}
+.row .field{flex:1 1 220px}
+button.go{appearance:none;border:1px solid var(--ink);background:var(--ink);color:var(--paper);
+  border-radius:2px;padding:14px 22px;font:700 13px/1 inherit;letter-spacing:.08em;
+  text-transform:uppercase;cursor:pointer}
+button.go[disabled]{opacity:.45;cursor:default}
+button.go:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.note{font-size:13px;color:var(--grey);margin:14px 0 0}
+
+/* progress */
+#work{display:none;margin:26px 0 0}
+.bar{height:8px;background:var(--panel);border:1px solid var(--hair);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--brass);
+  transition:width .6s cubic-bezier(.4,0,.2,1)}
+.statline{display:flex;justify-content:space-between;align-items:baseline;margin:12px 0 0;gap:12px}
+.stage{font-weight:600}
+.clock{font:12px/1 ui-monospace,Menlo,Consolas,monospace;color:var(--grey);white-space:nowrap}
+.steps{margin:18px 0 0;padding:0;list-style:none;font-size:14px}
+.steps li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;color:var(--grey)}
+.steps li .m{width:15px;flex:0 0 15px;text-align:center;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace}
+.steps li.done{color:var(--ink)}
+.steps li.done .m{color:var(--brass)}
+.steps li.now{color:var(--ink);font-weight:600}
+.done-box{display:none;border:1px solid var(--brass);background:var(--panel);border-radius:3px;padding:18px;margin:22px 0 0}
+.err{display:none;border:1px solid var(--oxide);background:#fdf6f4;border-radius:3px;padding:16px;margin:22px 0 0;color:var(--oxide)}
+a.btn{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;
+  padding:12px 18px;border-radius:2px;font:700 12px/1 inherit;letter-spacing:.07em;text-transform:uppercase;margin:12px 8px 0 0}
+footer{margin-top:34px;border-top:1px solid var(--hair);padding-top:14px;
+  font:11px/1.6 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--grey)}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Proposal cockpit</div>
+  <h1>Paste the job. Get the package.</h1>
+  <p class="sub">Cover letter, video script, sketch, demo link, and the client thread pack. Drafts only, nothing is sent anywhere.</p>
+
+  <div id="form">
+    <div class="row">
+      <div class="field">
+        <label for="channel">Channel</label>
+        <select id="channel">
+          <option value="Upwork">Upwork</option>
+          <option value="External client">External client</option>
+        </select>
+        <p class="hint">Upwork signs as Seth Forte with no links. External allows Launch Forte and a booking link.</p>
+      </div>
+      <div class="field">
+        <label for="uid">Upwork job id</label>
+        <input id="uid" type="text" placeholder="optional, from the JOBS tab" autocomplete="off">
+        <p class="hint">Pulls the judge's angle and buyer snapshot as context.</p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="post">Job post</label>
+      <textarea id="post" placeholder="Paste the whole posting."></textarea>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="company">Company</label>
+        <input id="company" type="text" placeholder="optional" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="notes">Notes for the draft</label>
+        <input id="notes" type="text" placeholder="optional, anything the post does not say" autocomplete="off">
+      </div>
+    </div>
+
+    <button class="go" id="go">Draft it</button>
+    <p class="note">Usually about two minutes. You can close this page, the package also lands in your inbox.</p>
+  </div>
+
+  <div id="work">
+    <div class="bar"><i id="fill"></i></div>
+    <div class="statline">
+      <span class="stage" id="stage">Sending it over</span>
+      <span class="clock" id="clock">0:00</span>
+    </div>
+    <ul class="steps" id="steps"></ul>
+    <p class="note" id="slow" style="display:none">Taking longer than usual. It is still running, and the email lands either way.</p>
+  </div>
+
+  <div class="done-box" id="done">
+    <strong>Ready.</strong>
+    <p class="note" style="margin-top:6px">Everything is on the result page, and the same package is in your inbox.</p>
+    <a class="btn" id="openResult" href="#" target="_blank" rel="noopener">Open the result page</a>
+  </div>
+
+  <div class="err" id="err"></div>
+
+  <footer>Launch Forte &middot; drafts only, the bid is still your click</footer>
+</div>
+
+<script>
+(function(){
+  /* ---- the one place to change if the endpoint ever moves ---- */
+  var SUBMIT = "https://launchforte.app.n8n.cloud/webhook/cockpit-submit-754cf2072a1fa8eb684043f8";
+
+  var STAGES = [
+    { at:0,   label:"Sending it over" },
+    { at:4,   label:"Reading the post" },
+    { at:10,  label:"Drafting against your template" },
+    { at:95,  label:"Running the voice pass" },
+    { at:125, label:"Drawing the sketch" },
+    { at:140, label:"Packing the thread pack" }
+  ];
+  var EXPECTED = 155;   /* seconds, the honest typical run */
+
+  var $ = function(id){ return document.getElementById(id); };
+  var t0 = null, timer = null, poller = null, statusUrl = null, finished = false;
+
+  function paintSteps(idx){
+    var ul = $("steps"); ul.innerHTML = "";
+    STAGES.forEach(function(s, i){
+      var li = document.createElement("li");
+      var cls = i < idx ? "done" : (i === idx ? "now" : "");
+      if (cls) li.className = cls;
+      var m = document.createElement("span"); m.className = "m";
+      m.textContent = i < idx ? "✓" : (i === idx ? "•" : "·");
+      var tx = document.createElement("span"); tx.textContent = s.label;
+      li.appendChild(m); li.appendChild(tx); ul.appendChild(li);
+    });
+  }
+
+  function tick(){
+    var el = Math.round((Date.now() - t0) / 1000);
+    var mm = Math.floor(el / 60), ss = el % 60;
+    $("clock").textContent = mm + ":" + (ss < 10 ? "0" : "") + ss;
+
+    var idx = 0;
+    for (var i = 0; i < STAGES.length; i++) if (el >= STAGES[i].at) idx = i;
+    $("stage").textContent = STAGES[idx].label;
+    paintSteps(idx);
+
+    /* the bar tracks elapsed time but never claims finished before the
+       server says so, so it eases toward 92 and waits there */
+    var pct = finished ? 100 : Math.min(92, (el / EXPECTED) * 92);
+    $("fill").style.width = pct.toFixed(1) + "%";
+
+    if (!finished && el > 240) $("slow").style.display = "block";
+  }
+
+  function stop(){ clearInterval(timer); clearInterval(poller); }
+
+  function fail(msg){
+    stop();
+    $("work").style.display = "none";
+    $("err").style.display = "block";
+    $("err").textContent = msg;
+    $("go").disabled = false;
+  }
+
+  function succeed(){
+    finished = true;
+    tick();
+    stop();
+    setTimeout(function(){
+      $("work").style.display = "none";
+      $("done").style.display = "block";
+      if (statusUrl) $("openResult").href = statusUrl;
+    }, 700);
+  }
+
+  function poll(){
+    if (!statusUrl) return;
+    fetch(statusUrl + "&format=json", { cache:"no-store" })
+      .then(function(r){ return r.json(); })
+      .then(function(j){ if (j && j.ready) succeed(); })
+      .catch(function(){ /* a missed poll is not a failure, keep waiting */ });
+  }
+
+  $("go").addEventListener("click", function(){
+    var post = $("post").value.trim();
+    if (post.split(/\s+/).length < 25) {
+      fail("That post is too short to draft from. Paste the whole posting.");
+      return;
+    }
+    $("err").style.display = "none";
+    $("go").disabled = true;
+    $("form").style.display = "none";
+    $("work").style.display = "block";
+    finished = false;
+    t0 = Date.now();
+    tick();
+    timer = setInterval(tick, 500);
+
+    fetch(SUBMIT, {
+      method:"POST",
+      headers:{ "content-type":"application/json" },
+      body: JSON.stringify({
+        "Job post": post,
+        "Channel": $("channel").value,
+        "Upwork job id": $("uid").value.trim(),
+        "Company or client name": $("company").value.trim(),
+        "Notes for the draft": $("notes").value.trim()
+      })
+    })
+    .then(function(r){ return r.text(); })
+    .then(function(t){
+      var j = null; try { j = JSON.parse(t); } catch(e){}
+      if (!j || !j.ok) { fail("The cockpit did not accept that. " + t.slice(0,160)); return; }
+      statusUrl = j.statusUrl || null;
+      poller = setInterval(poll, 3000);
+      setTimeout(poll, 8000);
+    })
+    .catch(function(e){ fail("Could not reach the cockpit. " + e.message); });
+  });
+})();
+</script>
+</body>
+</html>
