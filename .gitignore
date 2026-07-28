@@ -43,3 +43,7 @@ next-env.d.ts
 # Unused raw video originals
 site/videos/Danielle Review.mp4
 site/videos/video-0.mp4
+
+# Tailwind Plus Studio source (Pass 8 design reference; licensed for Seth's own projects, not to be shipped)
+/tailwind-plus-studio/
+/design-reference/
