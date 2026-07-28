@@ -262,40 +262,39 @@ h1{font-size:34px;line-height:1.12;letter-spacing:-.02em;margin:0 0 16px;font-we
   --background-dark-lf:#1d1d1f;
   --card-bg-lf:#ffffff;
 }
-.site-header{background:rgba(245,245,247,0.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:0.5px solid var(--border-lf);padding:0 2rem;height:64px;position:sticky;top:0;z-index:100;display:flex;align-items:center;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif}
-.site-header .header-container{max-width:1100px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-.site-header .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
-.site-header .header-logo:hover{opacity:0.85}
-.site-header .logo-img{height:28px;width:auto;display:block}
-.site-header .header-nav{display:flex;gap:1.5rem;align-items:center}
-.site-header .header-nav a{font-size:0.8125rem;color:var(--text-primary);opacity:0.85;text-decoration:none;font-weight:400}
-.site-header .header-nav a:hover{opacity:1;text-decoration:none;color:var(--accent)}
-.site-header .header-nav a.active{opacity:1;font-weight:600;background:var(--accent-subtle);color:var(--accent);padding:0.35rem 0.7rem;border-radius:6px}
+
+
+
+
+
+
+
+
+
 @media(max-width:900px){
-  .site-header{padding:12px 18px}
-  .site-header .header-nav{gap:1rem;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
-  .site-header .header-nav::-webkit-scrollbar{display:none}
-  .site-header .header-nav a{white-space:nowrap;font-size:0.75rem;padding:0.35rem 0.35rem}
+
+
+
+
 }
 
-.site-footer{background:var(--background-dark-lf);color:var(--text-muted);padding:3rem 2rem 2rem;border-top:1px solid #2a2a2c;text-align:left;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif}
-.site-footer .site-footer-inner{max-width:980px;margin:0 auto}
-.site-footer .footer-email-main{color:#f5f5f7;font-size:1rem;margin-bottom:2rem;display:inline-block;font-weight:400;letter-spacing:-0.01em;text-decoration:none}
-.site-footer .footer-email-main:hover{opacity:0.7;color:#f5f5f7}
-.site-footer .footer-columns{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-bottom:2.5rem;padding-top:1.5rem;border-top:0.5px solid rgba(255,255,255,0.1)}
-.site-footer .footer-col h4{font-size:0.75rem;font-weight:500;color:#f5f5f7;letter-spacing:0;margin:0 0 1rem;text-transform:none}
-.site-footer .footer-col ul{list-style:none;padding:0;margin:0}
-.site-footer .footer-col li{margin-bottom:0.5rem}
-.site-footer .footer-col a{color:#86868b;font-size:0.8125rem;text-decoration:none;font-weight:400}
-.site-footer .footer-col a:hover{color:#f5f5f7;opacity:1}
-.site-footer .footer-bottom{padding-top:1.5rem;border-top:0.5px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
-.site-footer .footer-bottom p{font-size:0.6875rem;line-height:1.5;color:#86868b;margin:0 0 4px}
+
+
+
+
+
+
+
+
+
+
+
 @media(max-width:768px){
-  .site-footer .footer-columns{grid-template-columns:1fr 1fr;gap:1.5rem}
-  .site-footer .footer-bottom{flex-direction:column}
+
+
 }
 @media(max-width:480px){
-  .site-footer .footer-columns{grid-template-columns:1fr}
+
 }
 
 /* ===== PREMIUM HERO + SECTIONS (matches sibling demos) ===== */
@@ -351,27 +350,34 @@ h1{font-size:34px;line-height:1.12;letter-spacing:-.02em;margin:0 0 16px;font-we
 .chip:active{transform:translateY(0) scale(.97);transition-duration:.08s}
 @media(prefers-reduced-motion:reduce){.hero-illo,.hero-illo svg,.hiw-card,.what-card,.chip,.ripple-el{animation:none!important;transition:none!important;transform:none!important}}
 </style>
+
+<link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/studio.css?v=p8o">
+<script src="/studio-theme.js?v=p8o"></script>
 </head>
 <body>
 
 
-<header class="site-header">
-  <div class="header-container">
-    <a href="/" class="header-logo">
-      <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
-    </a>
-    <nav class="header-nav">
-      <a href="/">Home</a>
-      <a href="/what-we-build.html">What We Build</a>
-      <a href="/one-connected-system">One Connected System</a>
-      <a href="/#who-we-build-for">Who We Build For</a>
-      <a href="/results.html">Results</a>
-      <a href="/tools" class="active">Free Tools</a>
-      <a href="/pricing">Pricing</a>
-      <a href="/about.html">About</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
-  </div>
+<header class="studio-nav site-header">
+    <div class="studio-nav-inner">
+        <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
+        </a>
+        <div class="studio-nav-right">
+            <a href="/contact.html" class="studio-nav-cta">Contact</a>
+            <nav class="header-nav" aria-label="Primary" style="display:none">
+                <a href="/index.html">Home</a>
+                <a href="/what-we-build.html">What We Build</a>
+                <a href="/one-connected-system">One Connected System</a>
+                <a href="/#who-we-build-for">Who We Build For</a>
+                <a href="/results.html">Results</a>
+                <a href="/tools" class="active">Free Tools</a>
+                <a href="/pricing">Pricing</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </nav>
+        </div>
+    </div>
 </header>
 
 <!-- HERO -->
@@ -687,56 +693,44 @@ show("intake");
 </script>
 
 
-<footer class="site-footer">
-  <div class="site-footer-inner">
-    <a href="mailto:seth@launchforte.com" class="footer-email-main">seth@launchforte.com</a>
-    <div class="footer-columns">
-      <div class="footer-col">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="/one-connected-system">One Connected System</a></li>
-          <li><a href="/#audit">Audit</a></li>
-          <li><a href="/#core-systems-build">Build</a></li>
-          <li><a href="/#partnership">Partnership</a></li>
-          <li><a href="/what-we-build.html">What We Build</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Who we build for</h4>
-        <ul>
-          <li><a href="/coaches">Coaches and creators</a></li>
-          <li><a href="/home-services">Home and field services</a></li>
-          <li><a href="/financial-firms">Financial and professional firms</a></li>
-          <li><a href="/medspa">Med spas and aesthetic practices</a></li>
-          <li><a href="/real-estate">Real estate agents</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="/about.html">About</a></li>
-          <li><a href="/results.html">Results</a></li>
-          <li><a href="/tools">Free Tools</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="/faq.html">FAQ</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <ul>
-          <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
-          <li><a href="mailto:seth@launchforte.com">Email</a></li>
-        </ul>
-      </div>
+<footer class="studio-footer">
+    <div class="studio-footer-inner">
+        <a href="mailto:seth@launchforte.com" class="footer-email-main" style="display:block;text-align:center;font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-2xl);font-weight:600;color:var(--ink);margin-bottom:var(--sp-16);text-decoration:none;letter-spacing:-0.015em;">seth@launchforte.com</a>
+        <div class="studio-footer-cols">
+            <div class="studio-footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="/one-connected-system">One Connected System</a></li>
+                    <li><a href="/#audit">Audit</a></li>
+                    <li><a href="/#core-systems-build">Build</a></li>
+                    <li><a href="/partnership.html">Partnership</a></li>
+                    <li><a href="/what-we-build.html">What We Build</a></li>
+                </ul>
+            </div>
+            <div class="studio-footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/results.html">Results</a></li>
+                    <li><a href="/tools">Free Tools</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                    <li><a href="/faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="studio-footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
+                    <li><a href="mailto:seth@launchforte.com">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="studio-footer-bottom">
+            <p>Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
+            <p>&copy; 2026 Launch Forte. All rights reserved.</p>
+        </div>
     </div>
-    <div class="footer-bottom">
-      <div>
-        <p>Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
-        <p>&copy; 2026 Launch Forte. All rights reserved.</p>
-      </div>
-    </div>
-  </div>
 </footer>
 
 <!-- ASK PILL -->
@@ -834,5 +828,7 @@ show("intake");
   });
 })();
 </script>
+
+<script src="/hamburger.js?v=p8o" defer></script>
 </body>
 </html>
