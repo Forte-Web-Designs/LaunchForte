@@ -12,6 +12,20 @@
   status = 301
   force = true
 
+# One Connected System retired 2026-07-28 per runbook. Homepage engine
+# section + /what-we-build now carry that story. Both URL forms redirected.
+[[redirects]]
+  from = "/one-connected-system.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/one-connected-system"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
 # Services page retired 2026-05-09. Old stage-based framing collapsed into /what-we-build.
 [[redirects]]
   from = "/services.html"

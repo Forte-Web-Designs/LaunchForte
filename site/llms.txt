@@ -3,7 +3,7 @@
 > Launch Forte builds and runs the revenue and operations systems a growing business runs on, the CRM, automation, funnels, data foundation, and reporting. Every build runs on The Forte Method (Foundation, Engine, Growth). Founded by Seth Forte, based in Dallas, Texas, serving clients nationwide. Fixed scope, fixed price, fixed timeline.
 
 ## Flagship offer
-- [One Connected System](https://launchforte.com/one-connected-system): The data foundation build. We pull scattered tools into one clean source of truth, resolve identities so the same person is one record, end manual data entry, and build the foundation reporting and AI run on. Covers single source of truth, data unification, identity resolution, and system of record work.
+- [One Connected System](https://launchforte.com/what-we-build.html): The data foundation build. We pull scattered tools into one clean source of truth, resolve identities so the same person is one record, end manual data entry, and build the foundation reporting and AI run on. Covers single source of truth, data unification, identity resolution, and system of record work.
 
 ## Core pages
 - [Home](https://launchforte.com/): What Launch Forte builds, who it builds for, and The Forte Method.

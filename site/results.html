@@ -42,12 +42,47 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=p8q">
-    <script src="/studio-theme.js?v=p8q"></script>
+    <link rel="stylesheet" href="/studio.css?v=p8r">
+    <script src="/studio-theme.js?v=p8r"></script>
+    <style>
+        /* Cinematic hero — same rotating video pattern as homepage + About.
+           Results is the proof page; the hero introduces it in the same visual
+           language rather than a flat gradient. */
+        .hero-zone { position: relative; background: #0A0A0A; color: #FFFFFF; overflow: hidden; padding-bottom: 3rem; }
+        main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
+        main.studio-pane.hero-follows::before { display: none; }
+        .hero-video { position: absolute; top: 0; right: 0; width: 65%; height: 100%; object-fit: cover; object-position: center; z-index: 0; }
+        @media(max-width: 900px) { .hero-video { width: 100%; opacity: 0.55; } }
+        @media(prefers-reduced-motion: reduce) { .hero-video { display: none; } }
+        .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+        .hero-overlay-lr { background: linear-gradient(90deg, #0A0A0A 0%, rgba(10,10,10,0.85) 35%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.25) 100%); }
+        .hero-overlay-btm { background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #FFFFFF 100%); }
+        [data-theme="dark"] .hero-overlay-btm { background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #0A0A0A 100%); }
+        /* Nav overrides for dark hero — same as homepage .hero-nav */
+        .hero-nav { position: sticky; top: 0; z-index: 40; padding: 0.75rem 0; background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-bottom: 1px solid transparent !important; transition: background 0.2s ease, border-color 0.2s ease; }
+        .hero-nav.is-scrolled { background: rgba(10, 10, 10, 0.82) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; backdrop-filter: saturate(180%) blur(20px) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
+        .hero-nav .studio-nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+        .hero-nav .studio-logo img { filter: brightness(0) invert(1); height: 28px; width: auto; display: block; }
+        .hero-nav .studio-nav-cta { background: #FFFFFF; color: #0A0A0A; }
+        .hero-nav .studio-nav-cta:hover { background: #F5F5F5; color: #0A0A0A; }
+        .hero-nav #hamburger { border-color: rgba(255,255,255,0.24); }
+        .hero-nav #hamburger span { background: #FFFFFF; }
+        /* Hero content — Results H1 centered */
+        .hero-content { position: relative; z-index: 20; padding: 5rem 0 3rem; }
+        .hero-content-inner { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; text-align: center; }
+        @media(min-width: 640px) { .hero-content-inner { padding: 0 2rem; } }
+        .hero-eyebrow-line { display: inline-flex; align-items: center; gap: 0.85rem; margin: 0 0 1.5rem; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #FFFFFF; }
+        .hero-eyebrow-line .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(0,136,219,0.18); flex: none; }
+        .hero-h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.06; letter-spacing: -0.03em; margin: 0 auto 1.5rem; max-width: 22ch; }
+        .hero-h1 .hero-h1-line-1 { display: block; background: linear-gradient(90deg, #FFFFFF 0%, #4AB5ED 55%, #0088DB 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+        .hero-h1 .hero-h1-line-2 { display: block; color: #FFFFFF; }
+        .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 60ch; }
+    </style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<header class="studio-nav site-header">
+<!-- Nav lives OUTSIDE .hero-zone so position:sticky works. -->
+<header class="studio-nav site-header hero-nav">
     <div class="studio-nav-inner">
         <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
             <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
@@ -57,7 +92,6 @@
             <nav class="header-nav" aria-label="Primary" style="display:none">
                 <a href="/index.html">Home</a>
                 <a href="/what-we-build.html">What We Build</a>
-                <a href="/one-connected-system">One Connected System</a>
                 <a href="/#who-we-build-for">Who We Build For</a>
                 <a href="/results.html" class="active">Results</a>
                 <a href="/tools">Free Tools</a>
@@ -69,18 +103,27 @@
     </div>
 </header>
 
-<main class="studio-pane">
+<!-- CINEMATIC HERO — same rotating video as homepage + About. -->
+<div class="hero-zone">
+    <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="/media/hero-1.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
+    <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
 
-    <!-- HERO -->
-    <!-- HERO (lf-hero pattern per redesign md) -->
-    <section class="lf-hero">
-      <div class="lf-hero-grid" aria-hidden="true"></div>
-      <div class="lf-hero-inner centered">
-        <span class="lf-eyebrow">Results</span>
-        <h1 class="lf-h1">Engineering work that moved <span class="lf-accent">real businesses</span>.</h1>
-          <p class="lf-sub">Every engagement on this page started with a problem a real business was paying for. Names omitted where requested. Outcomes are real.</p>
-      </div>
-    </section>
+    <div class="hero-content">
+        <div class="hero-content-inner">
+            <span class="hero-eyebrow-line"><span class="dot"></span><span class="mark">Results</span></span>
+            <h1 class="hero-h1">
+                <span class="hero-h1-line-1">Engineering work</span>
+                <span class="hero-h1-line-2">that moved real businesses.</span>
+            </h1>
+            <p class="hero-sub-dark">Every engagement on this page started with a problem a real business was paying for. Names omitted where requested. Outcomes are real.</p>
+        </div>
+    </div>
+</div>
+
+<main class="studio-pane hero-follows">
 
     <!-- PROOF STRIP (shared from homepage) -->
     <section class="trusted-strip reveal">
@@ -446,8 +489,7 @@
                 <div class="studio-footer-col">
                     <h4>Services</h4>
                     <ul>
-                        <li><a href="/one-connected-system">One Connected System</a></li>
-                        <li><a href="/#audit">Audit</a></li>
+                            <li><a href="/#audit">Audit</a></li>
                         <li><a href="/#core-systems-build">Build</a></li>
                         <li><a href="/partnership.html">Partnership</a></li>
                         <li><a href="/what-we-build.html">What We Build</a></li>
@@ -480,8 +522,33 @@
     </footer>
 
 </main>
-<script src="/studio-motion.js?v=p8q" defer></script>
-<script src="/scroll-top.js?v=p8q" defer></script>
-<script src="/hamburger.js?v=p8q" defer></script>
+<script>
+// Cinematic hero: rotate through /media/hero-1.mp4 .. hero-4.mp4 (same as homepage).
+(function(){
+    var v = document.getElementById('hero-video');
+    if (!v) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var sources = [
+        { src: '/media/hero-1.mp4', pos: 'center center' },
+        { src: '/media/hero-2.mp4', pos: 'center 30%' },
+        { src: '/media/hero-4.mp4', pos: 'center center' }
+    ];
+    var i = 0;
+    function playNext(){
+        i = (i + 1) % sources.length;
+        v.src = sources[i].src;
+        v.style.objectPosition = sources[i].pos;
+        v.load();
+        v.play().catch(function(){});
+    }
+    v.style.objectPosition = sources[0].pos;
+    v.addEventListener('ended', playNext);
+    v.addEventListener('loadeddata', function(){ v.play().catch(function(){}); });
+    v.play().catch(function(){});
+})();
+</script>
+<script src="/studio-motion.js?v=p8r" defer></script>
+<script src="/scroll-top.js?v=p8r" defer></script>
+<script src="/hamburger.js?v=p8r" defer></script>
 </body>
 </html>
