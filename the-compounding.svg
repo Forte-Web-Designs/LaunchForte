@@ -1,0 +1,34 @@
+<svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg" font-family="Mona Sans, ui-sans-serif, system-ui, sans-serif" role="img" aria-label="Every lesson from every build flows into one practice memory, and every new build ships from it smarter.">
+  <style>
+    .ink{fill:var(--lf-ink,#141414)} .mut{fill:var(--lf-gray,#7a7a7a)}
+    .card{fill:var(--lf-paper,#ffffff);stroke:var(--lf-line,#e4e4e4);stroke-width:1.5}
+    .wire{fill:none;stroke:var(--lf-line,#dcdcdc);stroke-width:1.5}
+    .accent{fill:var(--lf-accent,#0088DB)}
+    @media (prefers-reduced-motion: reduce){ .pulse,.ring{display:none} }
+  </style>
+  <g font-size="13.5" font-weight="500">
+    <rect class="card" x="40" y="40" width="150" height="40" rx="10"/><text class="ink" x="115" y="65" text-anchor="middle">every fix</text>
+    <rect class="card" x="40" y="110" width="150" height="40" rx="10"/><text class="ink" x="115" y="135" text-anchor="middle">every gotcha</text>
+    <rect class="card" x="40" y="180" width="150" height="40" rx="10"/><text class="ink" x="115" y="205" text-anchor="middle">every timing</text>
+  </g>
+  <path id="c1" class="wire" d="M190,60 C300,60 330,110 415,124"/>
+  <path id="c2" class="wire" d="M190,130 C300,130 330,130 415,130"/>
+  <path id="c3" class="wire" d="M190,200 C300,200 330,150 415,136"/>
+  <circle cx="470" cy="130" r="56" fill="var(--lf-paper,#ffffff)" stroke="var(--lf-accent,#0088DB)" stroke-width="2"/>
+  <circle class="ring" cx="470" cy="130" r="56" fill="none" stroke="var(--lf-accent,#0088DB)" stroke-width="1" opacity="0.5">
+    <animate attributeName="r" values="56;70" dur="2.8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0" dur="2.8s" repeatCount="indefinite"/>
+  </circle>
+  <text x="470" y="124" text-anchor="middle" font-size="13" font-weight="700" class="accent">RECORDED</text>
+  <text x="470" y="142" text-anchor="middle" font-size="13" font-weight="700" class="accent">ONCE</text>
+  <path id="c4" class="wire" d="M526,130 C620,130 640,130 710,130"/>
+  <rect class="card" x="710" y="106" width="160" height="48" rx="12"/>
+  <text class="ink" x="790" y="126" text-anchor="middle" font-size="13.5" font-weight="600">your build ships</text>
+  <text class="ink" x="790" y="143" text-anchor="middle" font-size="13.5" font-weight="600">with all of it</text>
+  <g class="pulse">
+    <circle r="3.5" class="accent"><animateMotion dur="3s" repeatCount="indefinite" begin="0s"><mpath href="#c1"/></animateMotion></circle>
+    <circle r="3.5" class="accent"><animateMotion dur="3.4s" repeatCount="indefinite" begin="0.9s"><mpath href="#c2"/></animateMotion></circle>
+    <circle r="3.5" class="accent"><animateMotion dur="3.2s" repeatCount="indefinite" begin="1.8s"><mpath href="#c3"/></animateMotion></circle>
+    <circle r="4" class="accent"><animateMotion dur="2.6s" repeatCount="indefinite" begin="0.5s"><mpath href="#c4"/></animateMotion></circle>
+  </g>
+</svg>
