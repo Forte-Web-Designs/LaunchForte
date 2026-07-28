@@ -457,15 +457,20 @@
 
         /* Testimonials */
         .testi-h2 { margin-bottom: 3rem; }
-        /* Video testimonials. Danielle is a native <video> capped to 420px.
-           Matt is a senja widget with data-mode="shadow" (senja's default) so
-           it renders in its own shadow root; my CSS can't reach inside so I
-           only style the outer wrapper. The widget's inline style caps its
-           own max-width at 420px, matching Danielle's frame width. */
+        /* Video testimonials. Danielle is a native <video>. Matt is a senja
+           widget in light DOM mode (data-mode="light") so my CSS can reach
+           inside and cap it to match Danielle's 340px frame. */
         .video-testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; margin-top: var(--sp-8); align-items: start; max-width: 820px; margin-left: auto; margin-right: auto; }
         .video-testi { min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .video-testi .video-frame { width: 100%; max-width: 340px; margin: 0 auto 1.25rem; display: block; }
         .video-testi .video-frame video { display: block; width: 100%; height: auto; max-width: 100%; border-radius: var(--radius-3xl); background: var(--ink); }
+        /* Matt's senja widget capped to match Danielle's 340px frame. Senja injects its own card; cap outer + all descendants and flatten borders so it reads like the Studio paper look. */
+        .video-testi .senja-frame .senja-embed { display: block; width: 100% !important; max-width: 340px !important; margin: 0 auto !important; }
+        .video-testi .senja-frame .senja-embed *,
+        .video-testi .senja-frame .senja-embed *::before,
+        .video-testi .senja-frame .senja-embed *::after { max-width: 100% !important; box-sizing: border-box !important; }
+        .video-testi .senja-frame .senja-embed video,
+        .video-testi .senja-frame .senja-embed img { max-width: 100% !important; height: auto !important; display: block !important; }
         .video-testi .vt-quote { margin-top: 0.5rem; max-width: 340px; }
         @media(max-width: 768px) { .video-testi-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
 
@@ -889,9 +894,9 @@
                 </div>
             </div>
             <div class="video-testi studio-reveal">
-                <div class="video-frame">
-                    <!-- Matt: same source /results.html uses, since the senja widget wouldn't behave at 420px in Pass 8 shell -->
-                    <video controls playsinline preload="metadata" poster="/videos/matt-poster.jpg" src="/videos/video-1.mp4"></video>
+                <div class="video-frame senja-frame">
+                    <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
+                    <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="light" data-lazyload="true"></div>
                 </div>
                 <div class="vt-quote">
                     <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
