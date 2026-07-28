@@ -2,6 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
     <link rel="preload" as="image" href="/images/home/launch-forte.png" fetchpriority="high">
+    <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Launch Forte | Business Automation and Revenue Systems, Built and Run</title>
@@ -16,11 +17,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+    <link rel="stylesheet" href="/studio.css">
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -183,421 +180,154 @@
     ]
     </script>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{
-            --text-primary:#1d1d1f;
-            --text-secondary:#515154;
-            --text-muted:#86868b;
-            --accent:#0088DB;
-            --accent-warm:#4ab5ed;
-            --accent-tint:rgba(0,136,219,0.10);
-            --accent-hover:#4ab5ed;
-            --background:#f5f5f7;
-            --background-alt:#ffffff;
-            --card-bg:#ffffff;
-            --background-dark:#1d1d1f;
-            --border:rgba(0,0,0,0.08);
-            --border-strong:rgba(0,0,0,0.12);
-            --on-accent:#ffffff;
-        }
-        html{scroll-behavior:smooth}
-        html,body{overflow-x:clip;overscroll-behavior-x:none}
-        body{
-            font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter',sans-serif;
-            font-size:17px;
-            line-height:1.5;
-            color:var(--text-primary);
-            background-color:var(--background);
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-font-smoothing:grayscale;
-        }
-        a{color:var(--accent);text-decoration:none;transition:opacity 0.2s ease}
-        a:hover{opacity:0.7}
+        /* Page-specific: homepage. Tokens + shell come from /studio.css. */
 
-        /* Type scale */
-        .display,.hero h1{font-size:clamp(2.25rem,5vw,3.25rem);font-weight:500;letter-spacing:-0.025em;line-height:1.05;color:var(--text-primary);margin:0 0 18px}
-        h1{font-size:clamp(2.25rem,5vw,3.25rem);font-weight:500;letter-spacing:-0.025em;line-height:1.05;color:var(--text-primary);margin:0 0 18px}
-        h2,.section-heading{font-size:clamp(1.875rem,3.5vw,2.5rem);font-weight:500;letter-spacing:-0.022em;line-height:1.1;color:var(--text-primary);margin:0 0 16px}
-        h3,.card-heading{font-size:1.25rem;font-weight:500;letter-spacing:-0.015em;line-height:1.2;color:var(--text-primary);margin:0 0 8px}
-        h4{font-size:0.875rem;font-weight:500;color:var(--text-primary);margin:0 0 12px;letter-spacing:-0.005em}
-        .eyebrow{font-size:0.875rem;font-weight:500;color:var(--accent);letter-spacing:0;text-transform:none;margin:0 0 12px}
-        .sub,.lede{font-size:1.1875rem;line-height:1.45;color:var(--text-secondary);font-weight:400;letter-spacing:-0.005em;margin:0 0 28px}
-        p{font-size:1.0625rem;line-height:1.55;color:var(--text-secondary);margin:0 0 12px}
-        .fine-print,small{font-size:0.75rem;color:var(--text-muted)}
+        /* Hero: two column, huge display type, restraint on visual side */
+        .hero-inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3.5rem; align-items: center; padding-top: 3rem; padding-bottom: 4rem; }
+        @media(max-width: 900px) { .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 2rem; padding-bottom: 2.5rem; } }
+        .hero-eyebrow { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-sm); font-weight: 600; color: var(--n-500); letter-spacing: 0.04em; margin-bottom: 1.5rem; text-transform: none; }
+        .hero-h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(2.25rem, 6vw, 4.5rem); line-height: 1.02; letter-spacing: -0.035em; color: var(--ink); margin: 0 0 1.5rem; }
+        .hero-sub { font-size: var(--text-xl); line-height: 1.5; color: var(--n-600); max-width: 46ch; margin: 0 0 2rem; }
+        .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.85rem; align-items: center; }
+        .hero-visual img { display: block; width: 100%; height: auto; border-radius: var(--radius-3xl); }
 
-        /* Buttons */
-        .btn-primary{background:var(--accent);color:#fff;padding:0.75rem 1.5rem;border:none;border-radius:980px;font-size:0.95rem;font-weight:500;cursor:pointer;transition:background 0.2s ease;text-decoration:none;display:inline-block;line-height:1.2;font-family:inherit}
-        .btn-primary:hover{background:var(--accent-warm);color:#fff;opacity:1}
-        .btn-primary-lg{padding:0.9rem 1.85rem;font-size:1rem}
-        .btn-secondary{background:transparent;color:var(--accent);border:none;padding:0.75rem 0.25rem;font-size:0.95rem;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:opacity 0.2s ease;font-family:inherit}
-        .btn-secondary:hover{opacity:0.7}
-        .btn-secondary::after{content:'›';font-size:1.1rem;margin-left:2px;line-height:1}
+        /* Try it now (PLAY) */
+        .play-intro { text-align: center; max-width: 720px; margin: 0 auto var(--sp-16); }
+        .try-grade-form { max-width: 520px; margin: 0 auto 2.5rem; }
+        .try-grade-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .try-grade-row input { flex: 1; min-width: 200px; padding: 0.85rem 1.1rem; border: 1px solid var(--border-strong); border-radius: 999px; font: inherit; font-size: var(--text-sm); background: var(--paper); color: var(--ink); }
+        .try-grade-row input:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+        .try-grade-caption { font-size: var(--text-sm); color: var(--n-500); margin: 0.85rem 0 0; text-align: center; }
+        .try-tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: left; margin-top: var(--sp-8); }
+        @media(max-width: 700px) { .try-tools-grid { grid-template-columns: 1fr; gap: 0.75rem; } .try-grade-row { flex-direction: column; } .try-grade-row .studio-btn { width: 100%; } }
+        .try-tool-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1.5rem; background: var(--paper); border-radius: var(--radius-3xl); box-shadow: inset 0 0 0 1px var(--border); text-decoration: none; color: var(--ink); transition: background var(--dur-hover) var(--ease-out), transform var(--dur-hover) var(--ease-out); }
+        .try-tool-card:hover { background: var(--n-50); transform: translateY(-2px); color: var(--ink); }
+        .try-tool-card h3 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-lg); font-weight: 600; margin: 0; letter-spacing: -0.01em; color: var(--ink); }
+        .try-tool-card p { font-size: var(--text-sm); line-height: 1.55; color: var(--n-600); margin: 0; }
+        .try-tool-time { font-size: var(--text-xs) !important; color: var(--n-500) !important; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+        .try-tool-btn { font-size: var(--text-sm); font-weight: 600; color: var(--accent); margin-top: auto; padding-top: 0.5rem; }
+        .see-all-tools { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1.75rem; font-size: var(--text-sm); color: var(--accent); font-weight: 600; }
 
-        /* Header */
-        .site-header{background:rgba(245,245,247,0.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:0.5px solid var(--border);padding:0 2rem;height:64px;position:sticky;top:0;z-index:100;display:flex;align-items:center}
-        .header-container{max-width:1100px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-        .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
-        .header-logo:hover{opacity:0.85}
-        .logo-img{height:28px;width:auto;display:block}[data-theme="dark"] .logo-img{filter:brightness(0) invert(1)}
-        .header-nav{display:flex;gap:1.5rem;align-items:center}
-        .header-nav a{font-size:0.8125rem;color:var(--text-primary);opacity:0.85;text-decoration:none;font-weight:400}
-        .header-nav a:hover{opacity:1;text-decoration:none;color:var(--accent)}
-        .header-nav a.active{opacity:1;font-weight:600;background:var(--accent-subtle);color:var(--accent);padding:0.35rem 0.7rem;border-radius:6px}
+        /* Proof strip */
+        .proof-strip { text-align: center; }
+        .proof-badges { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.75rem 1.5rem; margin: 0 auto var(--sp-8); max-width: 960px; }
+        .proof-badge { font-size: var(--text-sm); font-weight: 600; color: var(--n-700); padding: 0.4rem 0.9rem; background: var(--paper); border: 1px solid var(--border); border-radius: 999px; white-space: nowrap; }
+        .proof-video { max-width: 420px; margin: 0 auto var(--sp-8); text-align: center; }
+        .proof-video .senja-embed { display: block; margin: 0 auto 0.85rem; }
+        .proof-video-quote { font-size: var(--text-base); line-height: 1.5; color: var(--ink); font-style: italic; margin: 0 0 0.35rem; padding: 0 1rem; }
+        .proof-video-attrib { font-size: var(--text-sm); color: var(--n-500); margin: 0; font-weight: 500; }
+        .trusted-strip { margin-top: var(--sp-16); }
+        .trusted-label { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-sm); font-weight: 600; color: var(--n-500); text-align: center; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 1.25rem; }
+        .marquee-wrap { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); }
+        .marquee-track { display: flex; gap: 2.5rem; white-space: nowrap; animation: marquee 40s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee-track span { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-lg); font-weight: 600; color: var(--n-400); filter: grayscale(100%); transition: color var(--dur-hover), filter var(--dur-hover); }
+        .marquee-track span:hover { color: var(--accent); filter: grayscale(0%); }
+        @media(prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
 
-        /* Sections */
-        .section{padding:5rem 1.5rem;text-align:center}
-        .section.dark{background:var(--background-dark);color:#f5f5f7;padding:6rem 1.5rem}
-        .section.dark h2,.section.dark h1,.section.dark h3{color:#f5f5f7}
-        .section.dark p,.section.dark .sub{color:#a1a1a6}
-        .section.tinted{background:var(--background)}
-        .section.white{background:#ffffff}
-        .section-inner{max-width:980px;margin:0 auto}
-        .section-content{max-width:620px;margin:0 auto}
-        .section-content p{margin-left:auto;margin-right:auto}
-        .ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;margin-top:8px}
+        /* Engine */
+        .engine-inner { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: start; }
+        @media(min-width: 900px) { .engine-inner { grid-template-columns: .9fr 1.1fr; gap: 4rem; } }
+        .engine-copy .studio-eyebrow { color: var(--n-500); margin-bottom: 1rem; }
+        .engine-copy .studio-h2 { margin-bottom: 1.5rem; }
+        .engine-copy p.sub { color: var(--n-600); font-size: var(--text-lg); line-height: 1.6; margin: 0 0 1rem; }
+        .engine-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: var(--sp-8); }
+        .homepage-engine svg { width: 100%; height: auto; display: block; border-radius: var(--radius-3xl); background: var(--paper-2); padding: 1.25rem; box-shadow: inset 0 0 0 1px var(--border); }
+        .engine-caption { max-width: 720px; margin: var(--sp-16) auto 0; text-align: center; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: clamp(1.35rem, 2.4vw, 1.75rem); line-height: 1.35; font-weight: 500; color: var(--ink); }
 
-        /* Hero */
-        .hero{padding:7rem 1.5rem 3rem;text-align:center}
-        .hero h1.display{margin:0 0 2.5rem}
-        .hero .rotating-word{display:inline-block;color:var(--accent);transition:opacity 0.3s ease;font-weight:500}
+        /* How to engage: three service cards */
+        .engage-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: var(--sp-16); }
+        @media(min-width: 900px) { .engage-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; } }
+        .service-card { display: flex; flex-direction: column; padding: 2rem; background: var(--paper); border-radius: var(--radius-3xl); box-shadow: inset 0 0 0 1px var(--border); transition: background var(--dur-hover) var(--ease-out), transform var(--dur-hover); }
+        .service-card:hover { background: var(--n-50); transform: translateY(-2px); }
+        .service-card h3 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: var(--text-2xl); color: var(--ink); margin: 0 0 1rem; letter-spacing: -0.015em; }
+        .service-card p { color: var(--n-600); font-size: var(--text-base); line-height: 1.6; margin: 0 0 1.5rem; flex: 1; }
+        .service-card .studio-btn { align-self: flex-start; }
 
-        /* Stats row */
-        .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:980px;margin:3rem auto 0}
-        .stat-item{background:#fff;border-radius:18px;padding:2rem 1.25rem;text-align:center}
-        .stat-item .stat{font-size:2.5rem;font-weight:500;color:var(--accent);letter-spacing:-0.025em;line-height:1.05;display:block;margin-bottom:6px}
-        .stat-item .stat-label{font-size:0.8125rem;color:var(--text-secondary);font-weight:400;letter-spacing:0}
+        /* Who we build for: editorial list */
+        .capability-list { display: flex; flex-direction: column; margin-top: var(--sp-16); border-top: 1px solid var(--border); }
+        .capability-row { display: grid; grid-template-columns: auto 1fr; gap: 2rem; padding: 2rem 0.5rem; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--ink); align-items: baseline; transition: background var(--dur-hover); }
+        .capability-row:hover { background: var(--n-50); color: var(--ink); }
+        @media(min-width: 900px) { .capability-row { grid-template-columns: auto 1fr 1fr; gap: 3rem; } }
+        .capability-num { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-sm); font-weight: 600; color: var(--n-400); letter-spacing: 0.06em; }
+        .capability-name { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.015em; color: var(--ink); margin: 0; }
+        .capability-desc { color: var(--n-600); font-size: var(--text-base); line-height: 1.55; margin: 0.5rem 0 0; }
+        @media(min-width: 900px) { .capability-desc { margin: 0; } }
 
-        /* Trusted strip */
-        .trusted-strip{padding:1.5rem 1.5rem 4rem;background:var(--background);text-align:center}
-        .trusted-label{font-size:0.8125rem;font-weight:500;color:var(--text-muted);letter-spacing:0;margin-bottom:1.25rem}
-        .marquee-wrap{overflow:hidden;position:relative;max-width:980px;margin:0 auto;mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
-        .marquee-track{display:flex;gap:3rem;animation:marquee 30s linear infinite;width:max-content}
-        .marquee-track span{font-size:0.875rem;font-weight:500;color:var(--text-muted);letter-spacing:0;white-space:nowrap;opacity:0.7}
-        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+        /* Testimonials */
+        .testi-h2 { margin-bottom: 3rem; }
+        .video-testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: var(--sp-8); align-items: stretch; }
+        .video-testi { min-width: 0; display: flex; flex-direction: column; }
+        .video-testi > video, .video-testi > .senja-embed { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: var(--radius-3xl); box-shadow: inset 0 0 0 1px var(--border); background: var(--ink); display: block; margin: 0 0 1.25rem; }
+        .video-testi > .senja-embed { height: auto; aspect-ratio: auto; }
+        .video-testi .vt-quote { margin-top: auto; }
+        @media(max-width: 768px) { .video-testi-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
 
-        /* 3-up card grid */
-        .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:3.5rem;text-align:left}
-        .service-card{background:var(--card-bg);border-radius:18px;padding:2.25rem 1.75rem;border:none;display:flex;flex-direction:column;height:100%;scroll-margin-top:80px}
-        #how-it-works{scroll-margin-top:80px}
-        .service-card h3{margin-bottom:8px}
-        .service-card p{font-size:1rem;color:var(--text-secondary);line-height:1.5;margin-bottom:1rem;flex-grow:1}
-        .service-card .price-line{font-size:0.9375rem;color:var(--text-primary);font-weight:500;margin-bottom:1.25rem;line-height:1.45}
-        .service-card .btn-primary{align-self:flex-start;padding:0.6rem 1.25rem;font-size:0.875rem}
+        .review-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        @media(min-width: 700px) { .review-grid { grid-template-columns: repeat(2, 1fr); } }
+        .review-card { padding: 2rem; background: var(--paper); border-radius: var(--radius-3xl); box-shadow: inset 0 0 0 1px var(--border); transition: transform var(--dur-hover), background var(--dur-hover); }
+        .review-card:hover { transform: translateY(-2px); background: var(--n-50); }
+        .review-stars { color: #EBBF3A; font-size: var(--text-sm); letter-spacing: 3px; margin-bottom: 1rem; }
+        .review-quote { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-lg); line-height: 1.5; color: var(--ink); font-weight: 500; margin: 0 0 1.25rem; }
+        .review-author { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-sm); font-weight: 600; color: var(--ink); margin: 0 0 0.25rem; }
+        .review-project { font-size: var(--text-xs); color: var(--n-500); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
 
-        /* 4-step grid (How It Works) */
-        .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:3.5rem;text-align:left}
-        .step-card{background:var(--card-bg);border-radius:18px;padding:2rem 1.5rem;display:flex;flex-direction:column}
-        .step-card .step-num{font-size:0.8125rem;color:var(--accent);font-weight:500;margin-bottom:1rem;letter-spacing:0}
-        .step-card h3{margin-bottom:6px}
-        .step-card p{font-size:0.9375rem;line-height:1.5;color:var(--text-secondary)}
+        .featured-case { display: block; padding: 2rem 2.5rem; background: var(--ink); color: var(--paper); border-radius: var(--radius-3xl); text-decoration: none; transition: transform var(--dur-hover); }
+        .featured-case:hover { transform: translateY(-2px); color: var(--paper); }
+        .featured-case-content { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem; }
+        .featured-case-client { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-2xl); font-weight: 600; color: var(--paper); letter-spacing: -0.015em; }
+        .featured-case-metric { color: var(--n-400); font-size: var(--text-base); line-height: 1.6; }
+        .featured-case-link { color: var(--accent); font-weight: 600; font-size: var(--text-sm); text-decoration: underline; text-underline-offset: 0.2em; }
 
-        /* Numbered capability list */
-        .capability-list{max-width:980px;margin:3rem auto 0;border-top:0.5px solid var(--border);text-align:left}
-        .capability-row{display:grid;grid-template-columns:60px 1fr 1.6fr;gap:1.75rem;align-items:baseline;padding:1.75rem 0.5rem;border-bottom:0.5px solid var(--border);text-decoration:none;color:inherit;transition:background 0.2s ease}
-        .capability-row:hover{opacity:1;background:rgba(0,0,0,0.015)}
-        .capability-num{font-size:0.8125rem;font-weight:500;color:var(--accent);letter-spacing:0}
-        .capability-name{font-size:1.25rem;font-weight:500;color:var(--text-primary);letter-spacing:-0.015em;line-height:1.2;margin:0}
-        .capability-desc{font-size:1rem;color:var(--text-secondary);line-height:1.5;margin:0}
-
-        /* Featured case */
-        .featured-case{display:flex;align-items:center;justify-content:space-between;gap:2rem;background:#fff;border-radius:18px;padding:2.25rem;text-align:left;text-decoration:none;max-width:980px;margin:2.5rem auto 0;transition:opacity 0.2s ease}
-        .featured-case:hover{opacity:0.85}
-        .featured-case-content{flex:1}
-        .featured-case-client{display:block;font-size:1.25rem;font-weight:500;color:var(--text-primary);letter-spacing:-0.015em;margin-bottom:8px}
-        .featured-case-metric{display:block;font-size:1rem;color:var(--text-secondary);line-height:1.5}
-        .featured-case-link{font-size:0.95rem;font-weight:500;color:var(--accent);flex-shrink:0}
-        .featured-case-link::after{content:'›';font-size:1.1rem;margin-left:2px}
-
-        /* Reviews grid */
-        .review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:3rem;text-align:left;max-width:980px;margin-left:auto;margin-right:auto}
-        .review-card{background:#fff;border-radius:18px;padding:2rem 1.75rem}
-        .review-stars{color:#f5a623;font-size:0.9rem;letter-spacing:2px;margin-bottom:1rem}
-        .review-quote{font-size:1.0625rem;line-height:1.55;color:var(--text-primary);margin-bottom:1.25rem;font-weight:400}
-        .review-author{font-size:0.9375rem;font-weight:500;color:var(--text-primary);letter-spacing:-0.01em;margin:0 0 4px}
-        .review-project{font-size:0.8125rem;color:var(--text-muted)}
-
-        /* About block */
-        .about-block{display:flex;gap:2rem;align-items:center;max-width:780px;margin:2.5rem auto 0;text-align:left;background:#fff;border-radius:18px;padding:2.25rem}
-        .about-avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;flex-shrink:0}
-        .about-name{font-size:1.0625rem;font-weight:500;color:var(--text-primary);margin-bottom:1rem;letter-spacing:-0.01em}
+        /* About */
+        .about-block { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: flex-start; }
+        @media(max-width: 700px) { .about-block { grid-template-columns: 1fr; gap: 1.5rem; text-align: left; } }
+        .about-avatar { width: 140px; height: 140px; border-radius: 999px; object-fit: cover; filter: grayscale(100%); transition: filter var(--dur-hover); }
+        .about-avatar:hover { filter: grayscale(0%); }
+        .about-name { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xl); font-weight: 600; margin: 0 0 1rem; color: var(--ink); }
+        .about-block p { color: var(--n-700); font-size: var(--text-base); line-height: 1.7; margin: 0 0 1rem; }
+        .about-video-wrap { position: relative; aspect-ratio: 16/9; background: var(--ink); border-radius: var(--radius-3xl); overflow: hidden; }
+        #about-video-player { width: 100%; height: 100%; display: block; }
+        .about-video-unmute { position: absolute; right: 12px; bottom: 12px; z-index: 3; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(0,0,0,0.7); color: #fff; border: 0; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; backdrop-filter: blur(6px); }
+        .about-video-unmute.is-hidden { display: none; }
 
         /* FAQ */
-        .faq-list{max-width:780px;margin:3rem auto 0;text-align:left}
-        .faq-item{padding:1.75rem 0;border-bottom:0.5px solid var(--border)}
-        .faq-item:last-child{border-bottom:none}
-        .faq-item h3{font-size:1.0625rem;font-weight:500;color:var(--text-primary);margin-bottom:0.75rem;line-height:1.35;letter-spacing:-0.01em}
-        .faq-item p{font-size:1rem;line-height:1.55;color:var(--text-secondary);margin:0}
+        .faq-shell { max-width: 800px; margin: 0 auto; }
+        .faq-group { border-top: 1px solid var(--border); }
+        .faq-qa { border-bottom: 1px solid var(--border); }
+        .faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.5rem 0; background: transparent; border: 0; text-align: left; cursor: pointer; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-lg); font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
+        .faq-chev { width: 20px; height: 20px; color: var(--n-500); transition: transform 0.25s var(--ease-out), color var(--dur-hover); flex: none; }
+        .faq-qa.open .faq-chev { transform: rotate(180deg); color: var(--accent); }
+        .faq-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s var(--ease-out); }
+        .faq-qa.open .faq-panel { grid-template-rows: 1fr; }
+        .faq-panel-inner { overflow: hidden; }
+        .faq-panel p { color: var(--n-600); font-size: var(--text-base); line-height: 1.7; padding: 0 0 1.5rem; margin: 0; }
 
-        /* Calendly */
-        .calendly-wrap{background:#fff;border-radius:18px;overflow:hidden;margin-top:2rem;max-width:780px;margin-left:auto;margin-right:auto}
-        .calendly-wrap iframe{display:block;border:none;width:100%;min-height:630px}
+        /* Final CTA (dark) */
+        .final-cta { padding: var(--sp-24) 0; background: var(--ink); color: var(--paper); border-radius: var(--radius-4xl); margin-top: var(--sp-24); }
+        .final-cta-inner { max-width: 900px; margin: 0 auto; padding: 0 2rem; text-align: center; }
+        .final-cta h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1.1; color: var(--paper); letter-spacing: -0.025em; margin: 0 0 1rem; }
+        .final-cta p.sub { color: var(--n-400); font-size: var(--text-lg); margin: 0 0 2rem; }
+        .calendly-wrap { position: relative; margin-top: 2rem; background: var(--paper); border-radius: var(--radius-3xl); overflow: hidden; }
+        .calendly-wrap iframe { width: 100%; height: 700px; border: 0; display: block; }
 
-        /* Footer */
-        .site-footer{background:var(--background-dark);color:var(--text-muted);padding:3rem 2rem 2rem;border-top:1px solid #2a2a2c;text-align:left}
-        .site-footer-inner{max-width:980px;margin:0 auto}
-        .footer-email-main{color:#f5f5f7;font-size:1rem;margin-bottom:2rem;display:inline-block;font-weight:400;letter-spacing:-0.01em}
-        .footer-email-main:hover{opacity:0.7;color:#f5f5f7}
-        .footer-columns{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-bottom:2.5rem;padding-top:1.5rem;border-top:0.5px solid rgba(255,255,255,0.1)}
-        .footer-col h4{font-size:0.75rem;font-weight:500;color:#f5f5f7;letter-spacing:0;margin-bottom:1rem}
-        .footer-col ul{list-style:none}
-        .footer-col li{margin-bottom:0.5rem}
-        .footer-col a{color:#86868b;font-size:0.8125rem;text-decoration:none;font-weight:400}
-        .footer-col a:hover{color:#f5f5f7;opacity:1}
-        .footer-bottom{padding-top:1.5rem;border-top:0.5px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
-        .footer-bottom p{font-size:0.6875rem;line-height:1.5;color:#86868b;margin:0 0 4px}
-        .footer-status{display:flex;align-items:center;gap:0.4rem;font-size:0.6875rem;color:#86868b}
-        .footer-status .dot{width:6px;height:6px;background:#22c55e;border-radius:50%;display:inline-block}
-
-        /* Responsive */
-        @media(max-width:900px){
-            .grid-4{grid-template-columns:repeat(2,1fr)}
-        }
-        @media(max-width:768px){
-            .site-header{padding:12px 18px}
-            .header-nav{gap:1rem}
-            .header-nav a{font-size:0.75rem}
-            .section{padding:3.5rem 1.25rem}
-            .section.dark{padding:4rem 1.25rem}
-            .hero{padding:4.5rem 1.25rem 2rem}
-            .hero h1.display{margin:0 0 1.75rem}
-            .grid-3,.grid-4,.review-grid{grid-template-columns:1fr;margin-top:2.5rem}
-            .stat-row{grid-template-columns:1fr;margin-top:2rem}
-            .capability-row{grid-template-columns:1fr;gap:0.5rem;padding:1.5rem 0.25rem}
-            .capability-num{margin-bottom:4px}
-            .featured-case{flex-direction:column;align-items:flex-start;padding:1.75rem}
-            .about-block{flex-direction:column;text-align:center;padding:2rem 1.5rem}
-            .footer-columns{grid-template-columns:1fr 1fr;gap:1.5rem}
-            .footer-bottom{flex-direction:column}
-        }
-        @media(max-width:480px){
-            .ctas{flex-direction:column;width:100%}
-            .ctas .btn-primary,.ctas .btn-secondary{width:100%;justify-content:center;text-align:center}
-            .footer-columns{grid-template-columns:1fr}
-        }
-
-        /* DARK MODE: Apple warm-gray spec (not pure black) */
-        [data-theme="dark"]{
-            --text-primary:#f5f5f7;
-            --text-secondary:#a1a1a6;
-            --text-muted:#86868b;
-            --accent:#4ab5ed;
-            --accent-hover:#0088DB;
-            --accent-warm:#0088DB;
-            --accent-tint:rgba(74,181,237,0.14);
-            --background:#1d1d1f;
-            --background-alt:#000000;
-            --card-bg:#2a2a2c;
-            --background-dark:#000000;
-            --border:rgba(255,255,255,0.10);
-            --border-strong:rgba(255,255,255,0.16);
-            --on-accent:#0b0b0c;
-        }
-        [data-theme="dark"] body{background-color:var(--background);color:var(--text-primary)}
-        [data-theme="dark"] .site-header{background:rgba(29,29,31,0.85);border-bottom-color:rgba(255,255,255,0.10)}
-        [data-theme="dark"] .header-nav a{color:#f5f5f7}
-        [data-theme="dark"] .header-nav a.active{color:#4ab5ed;font-weight:600;background:rgba(74,181,237,0.14);padding:0.35rem 0.7rem;border-radius:6px}
-        [data-theme="dark"] .section.tinted{background:#1d1d1f}
-        [data-theme="dark"] .section.white{background:#2a2a2c}
-        [data-theme="dark"] .section.dark{background:#000000}
-        [data-theme="dark"] .trusted-strip{background:#1d1d1f}
-        [data-theme="dark"] .service-card,
-        [data-theme="dark"] .step-card,
-        [data-theme="dark"] .review-card,
-        [data-theme="dark"] .featured-case,
-        [data-theme="dark"] .about-block,
-        [data-theme="dark"] .calendly-wrap,
-        [data-theme="dark"] .stat-item{background:#2a2a2c;border-color:rgba(255,255,255,0.10)}
-        [data-theme="dark"] .section.white .service-card,
-        [data-theme="dark"] .section.white .step-card,
-        [data-theme="dark"] .section.white .review-card,
-        [data-theme="dark"] .section.white .featured-case,
-        [data-theme="dark"] .section.white .about-block{background:#3a3a3c}
-        [data-theme="dark"] .service-card:hover,
-        [data-theme="dark"] .step-card:hover,
-        [data-theme="dark"] .review-card:hover,
-        [data-theme="dark"] .featured-case:hover,
-        [data-theme="dark"] .about-block:hover,
-        [data-theme="dark"] .stat-item:hover{background:#3a3a3c;border-color:rgba(255,255,255,0.16)}
-        [data-theme="dark"] .capability-row{border-bottom-color:rgba(255,255,255,0.10)}
-        [data-theme="dark"] .capability-list{border-top-color:rgba(255,255,255,0.10)}
-        [data-theme="dark"] .capability-row:hover{background:rgba(255,255,255,0.04)}
-        [data-theme="dark"] .faq-item{border-bottom-color:rgba(255,255,255,0.10)}
-        [data-theme="dark"] .review-quote,
-        [data-theme="dark"] .featured-case-metric{color:var(--text-secondary)}
-        [data-theme="dark"] .review-author,
-        [data-theme="dark"] .featured-case-client,
-        [data-theme="dark"] .about-name{color:#f5f5f7}
-        [data-theme="dark"] .price-line{color:#f5f5f7}
-        [data-theme="dark"] .btn-primary{background:#4ab5ed;color:#1d1d1f}
-        [data-theme="dark"] .btn-primary:hover{background:#0088DB;color:#ffffff}
-        [data-theme="dark"] .btn-secondary{color:#4ab5ed}
-        [data-theme="dark"] .marquee-track span{color:#a1a1a6}
-        [data-theme="dark"] .site-footer{background:#000000;border-top-color:rgba(255,255,255,0.08)}
-        [data-theme="dark"] .footer-col h4{color:#ffffff}
-        [data-theme="dark"] .footer-col a{color:#86868b}
-        [data-theme="dark"] .footer-col a:hover{color:#ffffff}
-        [data-theme="dark"] .footer-email-main{color:#ffffff}
-        [data-theme="dark"] .footer-bottom p,
-        [data-theme="dark"] .footer-status{color:#86868b}
-
-        /* About Us video player */
-        .about-video-wrap{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;border:1px solid var(--border);background:#000}
-        .about-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-        .about-video-unmute{position:absolute;top:1rem;right:1rem;display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:980px;font-size:0.8125rem;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.35);transition:transform 0.15s ease,opacity 0.2s ease;z-index:2}
-        .about-video-unmute:hover{transform:translateY(-1px)}
-        .about-video-unmute.is-hidden{opacity:0;pointer-events:none}
-        @media(max-width:600px){.about-video-unmute{top:0.6rem;right:0.6rem;padding:0.55rem 0.7rem;font-size:0.75rem}.about-video-unmute span{display:none}}
-
-        /* FAQ accordion */
-        .faq-shell{max-width:760px;margin:2rem auto 0;text-align:left}
-        .faq-cat{margin-top:2.5rem}
-        .faq-cat:first-child{margin-top:0}
-        .faq-cat-label{display:block;font-size:0.75rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-left:2px}
-        .faq-group{background:var(--card-bg);border:1px solid var(--border-strong);border-radius:18px;overflow:hidden}
-        .faq-qa{border-top:1px solid var(--border)}
-        .faq-qa:first-child{border-top:none}
-        .faq-q{width:100%;font:inherit;text-align:left;background:none;border:none;cursor:pointer;color:var(--text-primary);font-size:1.0625rem;font-weight:500;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-        .faq-q:hover{color:var(--accent)}
-        .faq-q:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:12px}
-        .faq-chev{flex:none;width:18px;height:18px;color:var(--text-muted);transition:transform 0.28s ease}
-        .faq-qa.open .faq-chev{transform:rotate(180deg);color:var(--accent)}
-        .faq-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows 0.28s ease}
-        .faq-qa.open .faq-panel{grid-template-rows:1fr}
-        .faq-panel-inner{overflow:hidden}
-        .faq-panel p{color:var(--text-secondary);font-size:1rem;line-height:1.62;padding:0 24px 24px;margin:0}
-        @media (prefers-reduced-motion:reduce){.faq-chev,.faq-panel{transition:none}}
-        @media(max-width:520px){.faq-q{padding:20px 18px;font-size:1rem}.faq-panel p{padding:0 18px 20px}}
-        /* Homepage engine visual (inline so dark mode reaches its caption). */
-        .homepage-engine{max-width:900px;margin:2.5rem auto 0;padding:0 1rem}
-        .homepage-engine svg{width:100%;height:auto;display:block}
-        @media(max-width:680px){
-            .homepage-engine{padding:0 0 0.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
-            .homepage-engine svg{min-width:680px}
-        }
-        [data-theme="dark"] .homepage-engine .cap{fill:#f5f5f7}
-        /* Homepage connected system visual (inline so dark mode reaches its caption). */
-        .homepage-connected{max-width:820px;margin:0 auto;padding:0 1rem}
-        .homepage-connected svg{width:100%;height:auto;display:block}
-        @media(max-width:680px){
-            .homepage-connected{padding:0 0 0.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
-            .homepage-connected svg{min-width:680px}
-        }
-        [data-theme="dark"] .homepage-connected .cap{fill:#f5f5f7}
-        [data-theme="dark"] .homepage-connected .subcap{fill:#a1a1a6}
-        /* LF nav normalize */
-        .header-nav{flex-wrap:nowrap;gap:0.85rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
-        .header-nav::-webkit-scrollbar{display:none}
-        .header-nav a{white-space:nowrap;font-size:0.8125rem;padding:0.4rem 0.45rem}
-        @media(max-width:768px){.header-nav{gap:0.55rem}.header-nav a{font-size:0.78rem;padding:0.35rem 0.35rem}}
-        /* ===== Tool-page style hero ===== */
-        .lf-hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#0A1220 0%,#0E1729 55%,#0A1220 100%);color:#E7EDF5;padding:96px 0 104px}
-        .lf-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 900px 520px at 30% 0%,rgba(0,136,219,.26),transparent 60%);pointer-events:none}
-        .lf-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 700px 420px at 85% 100%,rgba(74,181,237,.14),transparent 55%);pointer-events:none}
-        .lf-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at 40% 30%,#000 30%,transparent 72%);mask-image:radial-gradient(ellipse at 40% 30%,#000 30%,transparent 72%);pointer-events:none}
-        .lf-hero-inner{position:relative;max-width:1240px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;align-items:center}
-        .lf-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#7EC9F1}
-        .lf-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:#0088DB;box-shadow:0 0 12px rgba(0,136,219,.7);animation:lfpulse 2s infinite}
-        @keyframes lfpulse{0%,100%{box-shadow:0 0 10px rgba(0,136,219,.5)}50%{box-shadow:0 0 20px rgba(0,136,219,.95)}}
-        .lf-h1{font-size:clamp(38px,5.4vw,58px);line-height:1.05;letter-spacing:-.028em;font-weight:800;color:#fff;margin:22px 0 18px}
-        .lf-h1 .lf-accent{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-        .lf-sub{font-size:19px;line-height:1.55;color:#B7C4D6;max-width:40ch;margin:0 0 28px}
-        .lf-ctas{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-        .lf-cta{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%);color:#fff;font-weight:700;border:0;border-radius:12px;padding:15px 26px;font-size:16px;text-decoration:none;box-shadow:0 10px 28px rgba(0,136,219,.4);transition:transform .18s ease,box-shadow .25s}
-        .lf-cta:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(0,136,219,.5);color:#fff}
-        .lf-cta-ghost{display:inline-flex;align-items:center;gap:8px;color:#B7C4D6;font-weight:600;font-size:15px;text-decoration:none;padding:14px 4px}
-        .lf-cta-ghost:hover{color:#fff}
-        .lf-meta{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:22px;font-size:13.5px;color:#93A1B5}
-        .lf-meta span{display:inline-flex;align-items:center;gap:8px}
-        .lf-meta b{color:#B7DBF3;font-weight:600}
-        .lf-hero-visual{background:#fff;border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:10px;box-shadow:0 30px 70px rgba(0,0,0,.45)}
-        .lf-hero-visual img{width:100%;height:auto;display:block}
-        @media(max-width:900px){.lf-hero{padding:60px 0 68px}.lf-hero-inner{grid-template-columns:1fr;gap:36px}.lf-hero-visual{display:none}}
-        /* ===== Tool-page system across the whole page ===== */
-        /* Calmer light rhythm */
-        .section.white{background:#FFFFFF}
-        .section.tinted{background:#F5F7FA}
-        /* Eyebrows: plain kicker text (no badge/pill) */
-        .eyebrow{display:block;background:none;border:0;padding:0;border-radius:0;color:#0088DB !important;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.3}
-        .section.dark .eyebrow{color:#B7DBF3 !important}
-        /* Gradient accent words in headings (override inline color) */
-        h1 span[style*="var(--accent)"], h2 span[style*="var(--accent)"], h2 span[style*="--accent-warm"]{
-          background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent !important;color:#0088DB}
-        .section.dark h2 span[style*="var(--accent)"], .section.dark h2 span[style*="--accent-warm"]{
-          background:linear-gradient(180deg,#7EC9F1 0%,#4AB5ED 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent !important}
-        /* Premium primary buttons */
-        .btn-primary{background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%) !important;border-radius:12px !important;box-shadow:0 8px 22px rgba(0,136,219,.26);transition:transform .18s ease,box-shadow .25s}
-        .btn-primary:hover{box-shadow:0 12px 30px rgba(0,136,219,.4);transform:translateY(-1px)}
-        .btn-secondary{border-radius:12px}
-        /* Cards: softer, premium, lift on hover */
-        .service-card,.step-card,.capability-row,.review-card,.stat-card,.card{border-radius:16px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
-        .service-card:hover,.step-card:hover,.review-card:hover,.stat-card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(20,25,34,.10);border-color:rgba(0,136,219,.30)}
-        .capability-row:hover{background:rgba(0,136,219,.04);border-color:rgba(0,136,219,.22)}
-        /* Enrich the dark bands to match the hero */
-        .section.dark{position:relative;overflow:hidden;background:linear-gradient(180deg,#0A1220 0%,#0E1729 55%,#0A1220 100%)}
-        .section.dark::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 820px 460px at 50% -10%,rgba(0,136,219,.22),transparent 60%);pointer-events:none}
-        .section.dark .section-inner{position:relative;z-index:1}
-        /* Trusted-by strip: quiet premium */
-        .trusted-strip{background:#0E1729;color:#93A1B5;padding:24px 0}
-        .trusted-strip .trusted-label{color:#7788A0}
-        .trusted-strip .marquee-track span{color:#8fa0b6}
-        .proof-badges{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0.75rem 1.5rem;padding:0 1.25rem;margin:0 auto 1.5rem;max-width:960px}
-        .proof-badge{font-size:0.8125rem;font-weight:600;letter-spacing:0.02em;color:var(--text-secondary);padding:0.4rem 0.9rem;background:var(--card-bg);border:1px solid var(--border);border-radius:999px;white-space:nowrap}
-        [data-theme="dark"] .proof-badge{color:#B7C4D6;background:#111C33;border-color:rgba(255,255,255,.14)}
-        .proof-video{max-width:420px;margin:0 auto 1.75rem;text-align:center}
-        .proof-video .senja-embed{display:block;margin:0 auto 0.85rem}
-        .proof-video-quote{font-size:0.9375rem;line-height:1.5;color:var(--text-primary);font-style:italic;margin:0 0 0.35rem;padding:0 1rem}
-        .proof-video-attrib{font-size:0.8125rem;color:var(--text-muted);margin:0;font-weight:500}
-        .video-testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:2rem;max-width:1100px;margin-left:auto;margin-right:auto;align-items:stretch}
-        .video-testi{min-width:0;display:flex;flex-direction:column}
-        .video-testi > video,.video-testi > .senja-embed{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;border:1px solid var(--border);background:#0E1729;display:block;margin:0 0 1rem}
-        .video-testi > .senja-embed{height:auto;aspect-ratio:auto}
-        .video-testi .vt-quote{margin-top:auto}
-        @media(max-width:768px){.video-testi-grid{grid-template-columns:1fr;gap:2.5rem}}
-        /* Hero: stay light-on-dark in dark mode too */
-        [data-theme="dark"] .lf-hero .lf-h1{color:#fff}
-        [data-theme="dark"] .lf-sub{color:#B7C4D6}
-        [data-theme="dark"] .lf-eyebrow{color:#B7DBF3 !important}
-        [data-theme="dark"] .lf-cta{color:#fff !important}
-        [data-theme="dark"] .lf-cta-ghost{color:#B7C4D6 !important}
-        [data-theme="dark"] .lf-cta-ghost:hover{color:#fff !important}
-        /* Try-it-now section (restored; vars remapped to current :root) */
-        .try-grade-form{max-width:520px;margin:0 auto 2.5rem}
-        .try-grade-row{display:flex;gap:0.5rem;flex-wrap:wrap}
-        .try-grade-row input{flex:1;min-width:200px;padding:0.85rem 1.1rem;border:1px solid var(--border-strong);border-radius:980px;font-size:0.9375rem;font-family:inherit;background:var(--card-bg);color:var(--text-primary)}
-        .try-grade-row input:focus{outline:2px solid var(--accent);outline-offset:2px}
-        .try-grade-row .btn-primary{padding:0.85rem 1.5rem;white-space:nowrap}
-        .try-grade-caption{font-size:0.8125rem;color:var(--text-muted);margin:0.85rem 0 0;text-align:center}
-        .try-tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:left}
-        .try-tool-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:1.35rem 1.5rem;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:0.5rem;transition:border-color 0.2s ease,transform 0.15s ease,box-shadow 0.2s ease}
-        .try-tool-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,136,219,0.08);text-decoration:none;color:inherit}
-        .try-tool-card h3{font-size:1rem;font-weight:700;color:var(--text-primary);margin:0;letter-spacing:-0.01em;line-height:1.3}
-        .try-tool-card p{font-size:0.875rem;line-height:1.5;color:var(--text-secondary);margin:0}
-        .try-tool-time{font-size:0.75rem!important;color:var(--text-muted)!important;font-weight:500}
-        .try-tool-btn{font-size:0.8125rem;font-weight:600;color:var(--accent);margin-top:auto;padding-top:0.35rem}
-        @media(max-width:700px){.try-tools-grid{grid-template-columns:1fr;gap:0.75rem}.try-grade-row{flex-direction:column}.try-grade-row .btn-primary{width:100%}}
-        /* Featured video review (Modern Bungalow) */
-        .mb-feature{max-width:720px;margin:2.25rem auto 0;text-align:left}
-        .mb-video{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#0E1729}
-        .mb-video iframe,.mb-video video{position:absolute;inset:0;width:100%;height:100%;border:0}
-        .mb-video-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:radial-gradient(ellipse at 50% 42%,rgba(0,136,219,.28),transparent 62%),linear-gradient(180deg,#0A1220,#0E1729)}
-        .mb-video-ph svg{width:46px;height:46px;color:#fff;opacity:.92}
-        .mb-video-ph .lbl{font-weight:700;font-size:14.5px;color:#E7EDF5}
-        .mb-video-ph .small{font-size:12px;color:#7788A0}
-        .mb-quote{margin-top:18px}
-        .mb-quote blockquote{margin:0;font-size:1.0625rem;line-height:1.65;color:var(--text-primary);border-left:3px solid var(--accent);padding-left:16px}
-        .mb-attrib{font-weight:600;color:var(--text-primary);margin-top:12px}
+        /* Section helpers */
+        .section-eyebrow-block { text-align: center; margin-bottom: var(--sp-16); }
+        .section-eyebrow-block .studio-eyebrow { color: var(--n-500); }
+        .section-eyebrow-block .studio-h2 { max-width: 780px; margin: 1rem auto 0; }
+        .studio-h2 .lf-accent { color: var(--ink); border-bottom: 4px solid var(--accent); padding-bottom: 0; }
     </style>
-    <script src="/theme-toggle.js"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<header class="site-header">
-    <div class="header-container">
-        <a href="/" class="header-logo">
-            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
+<header class="studio-nav">
+    <div class="studio-grid-bg" aria-hidden="true"></div>
+    <div class="studio-nav-inner">
+        <a href="/" class="studio-logo" aria-label="Launch Forte home">
+            <img src="/images/home/launch-forte.png" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
         </a>
-                                        <nav class="header-nav">
+        <nav class="studio-nav-links" aria-label="Primary">
             <a href="/index.html" class="active">Home</a>
             <a href="/what-we-build.html">What We Build</a>
             <a href="/one-connected-system">One Connected System</a>
@@ -606,109 +336,110 @@
             <a href="/tools">Free Tools</a>
             <a href="/pricing">Pricing</a>
             <a href="/about.html">About</a>
-            <a href="/contact.html">Contact</a>
+            <a href="/contact.html" class="studio-nav-cta">Contact</a>
         </nav>
     </div>
 </header>
 
-<main>
+<main class="studio-pane">
 
     <!-- 1. HERO -->
-    <section class="lf-hero">
-        <div class="lf-hero-grid" aria-hidden="true"></div>
-        <div class="lf-hero-inner">
-            <div>
-                <span class="lf-eyebrow">Revenue and operations systems we build and run</span>
-                <h1 class="lf-h1">Every lead caught. Every follow up sent. Every dollar visible.</h1>
-                <p class="lf-sub">Launch Forte builds the system your business runs on, then runs it with you. Play the demos below and watch it work before you ever book a call.</p>
-                <div class="lf-ctas">
-                    <a href="#try-it-now" class="lf-cta" data-gtm-event="homepage_hero_grade_click">Grade my systems free</a>
-                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="lf-cta-ghost">Book the Growth Systems Audit</a>
+    <section class="studio-container">
+        <div class="hero-inner">
+            <div class="studio-reveal">
+                <span class="hero-eyebrow">Revenue and operations systems we build and run</span>
+                <h1 class="hero-h1">Every lead caught. Every follow up sent. Every dollar visible.</h1>
+                <p class="hero-sub">Launch Forte builds the system your business runs on, then runs it with you. Play the demos below and watch it work before you ever book a call.</p>
+                <div class="hero-ctas">
+                    <a href="#try-it-now" class="studio-btn studio-btn-accent" data-gtm-event="homepage_hero_grade_click">Grade my systems free</a>
+                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-ghost">Book the Growth Systems Audit</a>
                 </div>
             </div>
-            <div class="lf-hero-visual">
+            <div class="hero-visual studio-reveal">
                 <img src="/images/launchforte-homepage-connected-system.svg" alt="One connected system feeding your bottom line" width="960" height="540" loading="eager">
             </div>
         </div>
     </section>
 
     <!-- 2. PLAY -->
-    <section class="section tinted" id="try-it-now" style="padding-top:3rem;padding-bottom:3rem">
-        <div class="section-inner">
-            <div class="section-content" style="text-align:center;max-width:720px;margin-left:auto;margin-right:auto">
-                <p class="eyebrow">Try it now</p>
-                <h2 style="font-size:clamp(1.5rem,3.5vw,2rem);margin-bottom:0.85rem">See what we do before you <span style="color:var(--accent)">book anything</span>.</h2>
-                <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-secondary);margin-bottom:2rem">Nine free tools and live demos. No call, no signup, nothing touches your systems. Most visitors start with the grade.</p>
-
-                <form id="try-grade-form" class="try-grade-form" action="/grade" method="get" novalidate>
-                    <div class="try-grade-row">
-                        <input type="text" name="u" id="try-grade-input" inputmode="url" autocomplete="url" placeholder="yourwebsite.com" aria-label="Your website" required>
-                        <button type="submit" class="btn-primary" data-gtm-event="homepage_try_grade_submit">Grade my systems</button>
-                    </div>
-                    <p class="try-grade-caption">Your revenue infrastructure, graded from the outside in about a minute.</p>
-                </form>
-
-                <div class="try-tools-grid">
-                    <a href="/demo/books" class="try-tool-card" data-gtm-event="homepage_try_books_click">
-                        <h3>The Mess Maker Finder</h3>
-                        <p>Why your books keep breaking, from one transaction export.</p>
-                        <p class="try-tool-time">Under 2 minutes</p>
-                        <span class="try-tool-btn">Try it &rarr;</span>
-                    </a>
-                    <a href="/demo/leaks" class="try-tool-card" data-gtm-event="homepage_try_leaks_click">
-                        <h3>The Leak Finder</h3>
-                        <p>The gap between work performed and money collected.</p>
-                        <p class="try-tool-time">Under 2 minutes</p>
-                        <span class="try-tool-btn">Try it &rarr;</span>
-                    </a>
-                    <a href="/leads" class="try-tool-card" data-gtm-event="homepage_try_leads_click">
-                        <h3>Verified Lead Sample</h3>
-                        <p>Ten verified leads with the audit ledger, in your inbox within the hour.</p>
-                        <p class="try-tool-time">Within the hour</p>
-                        <span class="try-tool-btn">Try it &rarr;</span>
-                    </a>
-                </div>
-
-                <p style="margin-top:1.75rem;font-size:0.9375rem"><a href="/tools" data-gtm-event="homepage_try_see_all_click" style="color:var(--accent);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem">See all free tools <span aria-hidden="true">&rarr;</span></a></p>
-            </div>
+    <section class="studio-container studio-section" id="try-it-now">
+        <div class="play-intro studio-reveal">
+            <p class="studio-eyebrow">Try it now</p>
+            <h2 class="studio-h2">See what we do before you book anything.</h2>
+            <p class="studio-lead" style="margin: 1.25rem auto 0;">Nine free tools and live demos. No call, no signup, nothing touches your systems. Most visitors start with the grade.</p>
         </div>
+
+        <form id="try-grade-form" class="try-grade-form studio-reveal" action="/grade" method="get" novalidate>
+            <div class="try-grade-row">
+                <input type="text" name="u" id="try-grade-input" inputmode="url" autocomplete="url" placeholder="yourwebsite.com" aria-label="Your website" required>
+                <button type="submit" class="studio-btn studio-btn-accent" data-gtm-event="homepage_try_grade_submit">Grade my systems</button>
+            </div>
+            <p class="try-grade-caption">Your revenue infrastructure, graded from the outside in about a minute.</p>
+        </form>
+
+        <div class="try-tools-grid studio-reveal-stagger">
+            <a href="/demo/books" class="try-tool-card studio-reveal" data-gtm-event="homepage_try_books_click">
+                <h3>The Mess Maker Finder</h3>
+                <p>Why your books keep breaking, from one transaction export.</p>
+                <p class="try-tool-time">Under 2 minutes</p>
+                <span class="try-tool-btn">Try it &rarr;</span>
+            </a>
+            <a href="/demo/leaks" class="try-tool-card studio-reveal" data-gtm-event="homepage_try_leaks_click">
+                <h3>The Leak Finder</h3>
+                <p>The gap between work performed and money collected.</p>
+                <p class="try-tool-time">Under 2 minutes</p>
+                <span class="try-tool-btn">Try it &rarr;</span>
+            </a>
+            <a href="/leads" class="try-tool-card studio-reveal" data-gtm-event="homepage_try_leads_click">
+                <h3>Verified Lead Sample</h3>
+                <p>Ten verified leads with the audit ledger, in your inbox within the hour.</p>
+                <p class="try-tool-time">Within the hour</p>
+                <span class="try-tool-btn">Try it &rarr;</span>
+            </a>
+        </div>
+
+        <p style="text-align:center;margin-top:1.75rem;"><a href="/tools" class="see-all-tools" data-gtm-event="homepage_try_see_all_click">See all free tools <span aria-hidden="true">&rarr;</span></a></p>
     </section>
 
     <!-- 3. PROOF STRIP -->
-    <section class="trusted-strip">
-        <div class="proof-badges">
+    <section class="studio-container studio-section proof-strip">
+        <div class="proof-badges studio-reveal">
             <span class="proof-badge">100% Job Success across 50+ projects</span>
             <!-- REPEAT_RATE_STAT: compute from Twenty (clients with a second engagement / total clients). Render nothing until Seth supplies a real number, never estimate. -->
             <!-- BLUEPRINT_COUNTER_STAT: once /blueprint ships, render "{n} systems running" and "{d} playable demos" as two more proof-badge spans, sourced from the Blueprint's live counters. Render nothing until then. -->
         </div>
         <!-- Chelsea testimonial (senja widget, same id as the one on /results, permissioned per Seth) -->
-        <div class="proof-video">
+        <div class="proof-video studio-reveal">
             <script src="https://widget.senja.io/widget/f9608693-095f-4192-a41c-53d2c30b0fcd/platform.js" type="text/javascript" async></script>
             <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="true"></div>
             <p class="proof-video-quote">"10 out of 10 experience. Absolutely recommend."</p>
             <p class="proof-video-attrib">Chelsea Juels, 6 Months to Speech</p>
         </div>
-        <p class="trusted-label">Trusted by</p>
-        <div class="marquee-wrap">
-            <div class="marquee-track">
-                <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
-                <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
+        <div class="trusted-strip studio-reveal">
+            <p class="trusted-label">Trusted by</p>
+            <div class="marquee-wrap">
+                <div class="marquee-track">
+                    <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
+                    <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- 4. THE ENGINE (merged: connected-system graphic + The Whole Engine + Forte Method essence) -->
-    <section class="section white" id="the-engine">
-        <div class="section-inner">
-            <div class="section-content">
-                <p class="eyebrow">The whole engine</p>
-                <h2>From getting found to <span style="color:var(--accent)">getting paid</span>.</h2>
+    <section class="studio-container studio-section" id="the-engine">
+        <div class="engine-inner">
+            <div class="engine-copy studio-reveal">
+                <p class="studio-eyebrow">The whole engine</p>
+                <h2 class="studio-h2">From getting found to <span class="lf-accent">getting paid</span>.</h2>
                 <p class="sub">We build and run every step: how customers find you, how they get captured, how they convert, and how the money lands. Most businesses run that across five vendors who each hold one piece. We own the whole engine, we map what you already run before building anything new, and we report the one number that matters at month end, the revenue it produced.</p>
                 <p class="sub">The practice compounds too. Every fix, every gotcha, every timing, every lesson from every build gets recorded once and carried into the next one, so your system ships with the scar tissue of fifty builds already in it, and it reports what it caught every morning.</p>
-                <div class="ctas"><a href="/what-we-build.html" class="btn-secondary">See everything we build</a> <a href="/one-connected-system" class="btn-secondary">How The Forte Method works</a></div>
+                <div class="engine-ctas">
+                    <a href="/what-we-build.html" class="studio-btn studio-btn-primary">See everything we build</a>
+                    <a href="/one-connected-system" class="studio-btn studio-btn-ghost">How The Forte Method works</a>
+                </div>
             </div>
-            <!-- HOMEPAGE ENGINE VISUAL -->
-            <div class="homepage-engine">
+            <div class="homepage-engine studio-reveal">
                 <svg viewBox="0 0 960 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
                   <title id="title">The engine your business runs on</title>
                   <desc id="desc">Lead sources, ads and search, social and DMs, and referrals, flow into a central system made of capture, CRM, follow up, and reporting, then out to booked appointments, revenue, and repeat clients, with a retention loop feeding back to the start.</desc>
@@ -721,17 +452,17 @@
                     </filter>
                     <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="9"/></filter>
                     <style>
-                      text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
-                      .cap{fill:#0f172a;font-size:20px;font-weight:600;}
-                      .io{fill:#ffffff;stroke:#d8dce4;stroke-width:1.5;filter:url(#ns);}
-                      .iolabel{fill:#1f2733;font-size:13px;font-weight:500;}
-                      .core{fill:#ffffff;stroke:#bcd0fb;stroke-width:2;filter:url(#ns);}
-                      .coreTitle{fill:#1d4ed8;font-size:13px;font-weight:700;letter-spacing:.3px;}
-                      .pill{fill:#eff5ff;stroke:#dbe7fe;stroke-width:1;}
-                      .plabel{fill:#1f2937;font-size:12.5px;font-weight:500;}
-                      .wire{fill:none;stroke:#cfd6e1;stroke-width:1.8;}
-                      .loop{fill:none;stroke:#e0d8f5;stroke-width:1.8;stroke-dasharray:5 6;}
-                      .looplabel{fill:#a78bd4;font-size:12px;font-weight:600;}
+                      text{font-family:'Mona Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
+                      .cap{fill:#0A0A0A;font-size:20px;font-weight:600;}
+                      .io{fill:#ffffff;stroke:#E5E5E5;stroke-width:1.5;filter:url(#ns);}
+                      .iolabel{fill:#171717;font-size:13px;font-weight:500;}
+                      .core{fill:#ffffff;stroke:#0088DB;stroke-width:2;filter:url(#ns);}
+                      .coreTitle{fill:#0088DB;font-size:13px;font-weight:700;letter-spacing:.3px;}
+                      .pill{fill:#F5F5F5;stroke:#E5E5E5;stroke-width:1;}
+                      .plabel{fill:#171717;font-size:12.5px;font-weight:500;}
+                      .wire{fill:none;stroke:#D4D4D4;stroke-width:1.8;}
+                      .loop{fill:none;stroke:#D4D4D4;stroke-width:1.8;stroke-dasharray:5 6;}
+                      .looplabel{fill:#737373;font-size:12px;font-weight:600;}
                       .coreGlow{animation:breathe 3.6s ease-in-out infinite;}
                       @keyframes breathe{0%,100%{opacity:.07;}50%{opacity:.2;}}
                     </style>
@@ -750,24 +481,22 @@
                   <!-- retention loop -->
                   <path class="loop" d="M820 324 C760 398 540 398 480 398 C420 398 240 398 150 324"/>
 
-                  <!-- flowing dots in (blue) -->
-                  <circle r="3.6" fill="#2563eb" filter="url(#dg)"><animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" path="M174 119 C280 119 300 152 380 152"/></circle>
-                  <circle r="3.6" fill="#2563eb" filter="url(#dg)"><animateMotion dur="2.6s" begin=".5s" repeatCount="indefinite" path="M174 209 C300 209 300 210 380 210"/></circle>
-                  <circle r="3.6" fill="#2563eb" filter="url(#dg)"><animateMotion dur="2.6s" begin="1s" repeatCount="indefinite" path="M174 299 C280 299 300 268 380 268"/></circle>
-                  <!-- flowing dots out (green) -->
-                  <circle r="3.6" fill="#22c55e" filter="url(#dg)"><animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite" path="M580 152 C680 152 700 119 786 119"/></circle>
-                  <circle r="3.6" fill="#22c55e" filter="url(#dg)"><animateMotion dur="2.6s" begin="1.8s" repeatCount="indefinite" path="M580 210 C700 210 700 209 786 209"/></circle>
-                  <circle r="3.6" fill="#22c55e" filter="url(#dg)"><animateMotion dur="2.6s" begin="2.3s" repeatCount="indefinite" path="M580 268 C680 268 700 299 786 299"/></circle>
-                  <!-- retention dot (purple) -->
-                  <circle r="3.6" fill="#8b5cf6" filter="url(#dg)"><animateMotion dur="4.2s" begin="0s" repeatCount="indefinite" path="M820 324 C760 398 540 398 480 398 C420 398 240 398 150 324"/></circle>
+                  <!-- flowing dots -->
+                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" path="M174 119 C280 119 300 152 380 152"/></circle>
+                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="2.6s" begin=".5s" repeatCount="indefinite" path="M174 209 C300 209 300 210 380 210"/></circle>
+                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="2.6s" begin="1s" repeatCount="indefinite" path="M174 299 C280 299 300 268 380 268"/></circle>
+                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite" path="M580 152 C680 152 700 119 786 119"/></circle>
+                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="2.6s" begin="1.8s" repeatCount="indefinite" path="M580 210 C700 210 700 209 786 209"/></circle>
+                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="2.6s" begin="2.3s" repeatCount="indefinite" path="M580 268 C680 268 700 299 786 299"/></circle>
+                  <circle r="3.6" fill="#0088DB" filter="url(#dg)"><animateMotion dur="4.2s" begin="0s" repeatCount="indefinite" path="M820 324 C760 398 540 398 480 398 C420 398 240 398 150 324"/></circle>
 
                   <!-- inputs -->
-                  <g><rect class="io" x="24" y="96" width="150" height="46" rx="12"/><rect x="32" y="108" width="4" height="22" rx="2" fill="#2563eb"/><text class="iolabel" x="99" y="124" text-anchor="middle">Ads and search</text></g>
-                  <g><rect class="io" x="24" y="186" width="150" height="46" rx="12"/><rect x="32" y="198" width="4" height="22" rx="2" fill="#2563eb"/><text class="iolabel" x="99" y="214" text-anchor="middle">Social and DMs</text></g>
-                  <g><rect class="io" x="24" y="276" width="150" height="46" rx="12"/><rect x="32" y="288" width="4" height="22" rx="2" fill="#2563eb"/><text class="iolabel" x="99" y="304" text-anchor="middle">Referrals</text></g>
+                  <g><rect class="io" x="24" y="96" width="150" height="46" rx="12"/><rect x="32" y="108" width="4" height="22" rx="2" fill="#0088DB"/><text class="iolabel" x="99" y="124" text-anchor="middle">Ads and search</text></g>
+                  <g><rect class="io" x="24" y="186" width="150" height="46" rx="12"/><rect x="32" y="198" width="4" height="22" rx="2" fill="#0088DB"/><text class="iolabel" x="99" y="214" text-anchor="middle">Social and DMs</text></g>
+                  <g><rect class="io" x="24" y="276" width="150" height="46" rx="12"/><rect x="32" y="288" width="4" height="22" rx="2" fill="#0088DB"/><text class="iolabel" x="99" y="304" text-anchor="middle">Referrals</text></g>
 
                   <!-- core -->
-                  <rect class="coreGlow" x="380" y="96" width="200" height="228" rx="20" fill="#2563eb" filter="url(#soft)"/>
+                  <rect class="coreGlow" x="380" y="96" width="200" height="228" rx="20" fill="#0088DB" filter="url(#soft)"/>
                   <rect class="core" x="380" y="96" width="200" height="228" rx="18"/>
                   <text class="coreTitle" x="480" y="126" text-anchor="middle">YOUR SYSTEM</text>
                   <g><rect class="pill" x="405" y="142" width="150" height="30" rx="8"/><text class="plabel" x="480" y="162" text-anchor="middle">Capture</text></g>
@@ -776,220 +505,222 @@
                   <g><rect class="pill" x="405" y="256" width="150" height="30" rx="8"/><text class="plabel" x="480" y="276" text-anchor="middle">Reporting</text></g>
 
                   <!-- outputs -->
-                  <g><rect class="io" x="786" y="96" width="150" height="46" rx="12"/><rect x="794" y="108" width="4" height="22" rx="2" fill="#22c55e"/><text class="iolabel" x="861" y="124" text-anchor="middle">Booked</text></g>
-                  <g><rect class="io" x="786" y="186" width="150" height="46" rx="12"/><rect x="794" y="198" width="4" height="22" rx="2" fill="#22c55e"/><text class="iolabel" x="861" y="214" text-anchor="middle">Revenue</text></g>
-                  <g><rect class="io" x="786" y="276" width="150" height="46" rx="12"/><rect x="794" y="288" width="4" height="22" rx="2" fill="#22c55e"/><text class="iolabel" x="861" y="304" text-anchor="middle">Repeat clients</text></g>
+                  <g><rect class="io" x="786" y="96" width="150" height="46" rx="12"/><rect x="794" y="108" width="4" height="22" rx="2" fill="#0A0A0A"/><text class="iolabel" x="861" y="124" text-anchor="middle">Booked</text></g>
+                  <g><rect class="io" x="786" y="186" width="150" height="46" rx="12"/><rect x="794" y="198" width="4" height="22" rx="2" fill="#0A0A0A"/><text class="iolabel" x="861" y="214" text-anchor="middle">Revenue</text></g>
+                  <g><rect class="io" x="786" y="276" width="150" height="46" rx="12"/><rect x="794" y="288" width="4" height="22" rx="2" fill="#0A0A0A"/><text class="iolabel" x="861" y="304" text-anchor="middle">Repeat clients</text></g>
 
                   <text class="looplabel" x="480" y="416" text-anchor="middle">Retention and referrals</text>
-                  <text x="935" y="421" text-anchor="end" font-size="11" font-weight="700" letter-spacing="1.3"><tspan fill="#aab3c0">THE </tspan><tspan fill="#2563eb">FORTE</tspan><tspan fill="#aab3c0"> METHOD</tspan></text>
+                  <text x="935" y="421" text-anchor="end" font-size="11" font-weight="700" letter-spacing="1.3"><tspan fill="#A3A3A3">THE </tspan><tspan fill="#0088DB">FORTE</tspan><tspan fill="#A3A3A3"> METHOD</tspan></text>
                 </svg>
-                <blockquote style="max-width:720px;margin:2rem auto 0;text-align:center;font-size:1.35rem;line-height:1.5;font-weight:500;color:var(--text-primary)">One clean record on everyone who comes through your business.</blockquote>
+            </div>
+        </div>
+        <blockquote class="engine-caption studio-reveal">One clean record on everyone who comes through your business.</blockquote>
+    </section>
+
+    <!-- 5. HOW TO ENGAGE -->
+    <section class="studio-container studio-section" id="how-to-engage" style="scroll-margin-top:80px">
+        <div class="section-eyebrow-block studio-reveal">
+            <p class="studio-eyebrow">Where most engagements start</p>
+            <h2 class="studio-h2">How to engage</h2>
+        </div>
+        <div class="engage-grid studio-reveal-stagger">
+            <div class="service-card studio-reveal" id="audit">
+                <h3>Growth Systems Audit</h3>
+                <p>We find where you're losing customers and what it costs you. A written diagnostic with a fixed price on every fix, and it credits toward your first build.</p>
+                <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-primary">Book an Audit</a>
+            </div>
+            <div class="service-card studio-reveal" id="core-systems-build">
+                <h3>Core Systems Build</h3>
+                <p>The system the audit points to, built to the architecture and tested on real data before handoff. Most builds ship in 7 to 21 days.</p>
+                <a href="/what-we-build.html" class="studio-btn studio-btn-primary">See What We Build</a>
+            </div>
+            <div class="service-card studio-reveal" id="partnership">
+                <h3>Embedded Growth Systems Partner</h3>
+                <p>The engineering brain at the table after the build is live. Monthly review, async access, and a result you can read in dollars.</p>
+                <a href="/partnership.html" class="studio-btn studio-btn-primary">Learn About the Partnership</a>
             </div>
         </div>
     </section>
 
-    <!-- 5. HOW TO ENGAGE (survivor; tier cards preserve #audit, #core-systems-build, #partnership) -->
-    <section class="section white" id="how-to-engage" style="scroll-margin-top:80px">
-        <div class="section-inner">
-            <p class="eyebrow">Where most engagements start</p>
-            <h2>How to engage</h2>
-            <div class="grid-3">
-                <div class="service-card" id="audit">
-                    <h3>Growth Systems Audit</h3>
-                    <p>We find where you're losing customers and what it costs you. A written diagnostic with a fixed price on every fix, and it credits toward your first build.</p>
-                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary">Book an Audit</a>
+    <!-- 6. WHO WE BUILD FOR -->
+    <section class="studio-container studio-section" id="who-we-build-for">
+        <div class="section-eyebrow-block studio-reveal" style="text-align:left;max-width:900px;margin-left:0;margin-right:0;">
+            <p class="studio-eyebrow">Who we build for</p>
+            <h2 class="studio-h2" style="margin-left:0;">Built for the businesses <span class="lf-accent">below</span>, and many more.</h2>
+        </div>
+        <div class="capability-list studio-reveal">
+            <a href="/coaches" class="capability-row">
+                <span class="capability-num">01</span>
+                <h3 class="capability-name">Coaches and creators</h3>
+                <p class="capability-desc">The CRM and funnel that carry a lead from the first DM to a repeat client. <span style="color:var(--accent);font-weight:500">See the page</span></p>
+            </a>
+            <a href="/home-services" class="capability-row">
+                <span class="capability-num">02</span>
+                <h3 class="capability-name">Home and field services</h3>
+                <p class="capability-desc">The system that catches every call and ends the retyping across your tools. <span style="color:var(--accent);font-weight:500">See the page</span></p>
+            </a>
+            <a href="/financial-firms" class="capability-row">
+                <span class="capability-num">03</span>
+                <h3 class="capability-name">Financial and professional firms</h3>
+                <p class="capability-desc">Automated invoicing and reporting, built with the controls money work demands. <span style="color:var(--accent);font-weight:500">See the page</span></p>
+            </a>
+            <a href="/medspa" class="capability-row">
+                <span class="capability-num">04</span>
+                <h3 class="capability-name">Med spas and aesthetic practices</h3>
+                <p class="capability-desc">Bring back the lapsed patients in your list, then build the system that keeps your calendar full and your patients rebooking. <span style="color:var(--accent);font-weight:500">See the page</span></p>
+            </a>
+            <a href="/real-estate" class="capability-row">
+                <span class="capability-num">05</span>
+                <h3 class="capability-name">Real estate agents</h3>
+                <p class="capability-desc">The GoHighLevel system that captures every lead and does the follow up while you're out closing. <span style="color:var(--accent);font-weight:500">See the page</span></p>
+            </a>
+        </div>
+    </section>
+
+    <!-- 7. TESTIMONIALS -->
+    <section class="studio-container studio-section">
+        <div class="section-eyebrow-block studio-reveal">
+            <p class="studio-eyebrow">Testimonials</p>
+            <h2 class="studio-h2 testi-h2">Straight from the <span class="lf-accent">clients</span>.</h2>
+        </div>
+
+        <div class="video-testi-grid studio-reveal-stagger">
+            <div class="video-testi studio-reveal">
+                <video controls playsinline preload="metadata" poster="/videos/danielle-poster.jpg" src="/videos/danielle-review.mp4"></video>
+                <div class="vt-quote">
+                    <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He's enabled me to keep running my business with a very lean, super efficient team."</p>
+                    <div style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-sm);font-weight:600;color:var(--ink);">Danielle Sandusky, Modern Bungalow</div>
+                    <div style="font-size:var(--text-xs);color:var(--n-500);margin-top:4px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">Order and pricing automation for a furniture company</div>
                 </div>
-                <div class="service-card" id="core-systems-build">
-                    <h3>Core Systems Build</h3>
-                    <p>The system the audit points to, built to the architecture and tested on real data before handoff. Most builds ship in 7 to 21 days.</p>
-                    <a href="/what-we-build.html" class="btn-primary">See What We Build</a>
+            </div>
+            <div class="video-testi studio-reveal">
+                <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
+                <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true"></div>
+                <div class="vt-quote">
+                    <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
+                    <div style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-sm);font-weight:600;color:var(--ink);">Matt Juels, 6 Months to Speech</div>
+                    <div style="font-size:var(--text-xs);color:var(--n-500);margin-top:4px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">CRM build and automation for an online coaching program</div>
                 </div>
-                <div class="service-card" id="partnership">
-                    <h3>Embedded Growth Systems Partner</h3>
-                    <p>The engineering brain at the table after the build is live. Monthly review, async access, and a result you can read in dollars.</p>
-                    <a href="/partnership.html" class="btn-primary">Learn About the Partnership</a>
+            </div>
+        </div>
+
+        <div class="review-grid studio-reveal" style="margin-top:3rem">
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-quote">"Seth is my go to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout."</p>
+                <h3 class="review-author">Danielle, Modern Bungalow</h3>
+                <div class="review-project">Product Sync Automation</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-quote">"If you need an automation specialist, stop looking right now and hire Seth. He will blow your mind with his knowledge and his ability to take your idea and not only understand what you want to achieve but also build on it."</p>
+                <h3 class="review-author">Andrew, Kingfisher Ads</h3>
+                <div class="review-project">Automation</div>
+            </div>
+        </div>
+
+        <!-- Featured case study, folded into testimonials per runbook -->
+        <div class="studio-reveal" style="margin-top:2.5rem">
+            <p class="studio-eyebrow" style="margin-bottom:1rem;">Featured case study</p>
+            <a href="/work/between-generations-care.html" class="featured-case">
+                <div class="featured-case-content">
+                    <span class="featured-case-client">Between Generations Care</span>
+                    <span class="featured-case-metric">Full platform build from scratch inside GoHighLevel. CRM, booking calendars, email sequences, and a complete customer journey from Instagram follower to repeat client. Zero manual steps.</span>
                 </div>
+                <span class="featured-case-link">Read the full case study</span>
+            </a>
+        </div>
+
+        <div class="studio-reveal" style="margin-top:2.5rem;text-align:center;">
+            <a href="/results.html" class="studio-btn studio-btn-ghost">See more results</a>
+        </div>
+    </section>
+
+    <!-- 8. ABOUT -->
+    <section class="studio-container studio-section">
+        <div class="section-eyebrow-block studio-reveal" style="text-align:left;margin-bottom:var(--sp-10);">
+            <p class="studio-eyebrow">About</p>
+        </div>
+        <div class="about-block studio-reveal">
+            <img src="/images/about/headshot-6.jpg" alt="Seth Forte, founder of Launch Forte, automation consultant in Dallas-Fort Worth Texas" class="about-avatar" loading="lazy" decoding="async">
+            <div>
+                <p class="about-name">Seth Forte, Founder</p>
+                <p>Launch Forte builds the infrastructure growing businesses run on. I spent years as a reliability engineer keeping critical systems standing at a national bank, and now I build and run them for businesses that can't hire that in house. The reliability standards on every build come from those years.</p>
+                <p>Every engagement starts with diagnosing what the problem is costing. If the math doesn't work, we'll tell you.</p>
+                <a href="/about.html" class="studio-btn studio-btn-ghost">More about us</a>
+            </div>
+        </div>
+
+        <!-- WELCOME VIDEO (kept as founder-voice supplement inside About) -->
+        <div class="studio-reveal" style="max-width:720px;margin:2.5rem auto 0">
+            <div class="about-video-wrap">
+                <div id="about-video-player"></div>
+                <button type="button" class="about-video-unmute" aria-label="Unmute video">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                    <span>Tap to unmute</span>
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- 6. WHO WE BUILD FOR (survivor; intro line shortened per runbook) -->
-    <section class="section tinted" id="who-we-build-for">
-        <div class="section-inner">
-            <p class="eyebrow">Who we build for</p>
-            <h2>Built for the businesses <span style="color:var(--accent)">below</span>, and many more.</h2>
-            <div class="capability-list">
-                <a href="/coaches" class="capability-row">
-                    <span class="capability-num">01</span>
-                    <h3 class="capability-name">Coaches and creators</h3>
-                    <p class="capability-desc">The CRM and funnel that carry a lead from the first DM to a repeat client. <span style="color:var(--accent);font-weight:500">See the page</span></p>
-                </a>
-                <a href="/home-services" class="capability-row">
-                    <span class="capability-num">02</span>
-                    <h3 class="capability-name">Home and field services</h3>
-                    <p class="capability-desc">The system that catches every call and ends the retyping across your tools. <span style="color:var(--accent);font-weight:500">See the page</span></p>
-                </a>
-                <a href="/financial-firms" class="capability-row">
-                    <span class="capability-num">03</span>
-                    <h3 class="capability-name">Financial and professional firms</h3>
-                    <p class="capability-desc">Automated invoicing and reporting, built with the controls money work demands. <span style="color:var(--accent);font-weight:500">See the page</span></p>
-                </a>
-                <a href="/medspa" class="capability-row">
-                    <span class="capability-num">04</span>
-                    <h3 class="capability-name">Med spas and aesthetic practices</h3>
-                    <p class="capability-desc">Bring back the lapsed patients in your list, then build the system that keeps your calendar full and your patients rebooking. <span style="color:var(--accent);font-weight:500">See the page</span></p>
-                </a>
-                <a href="/real-estate" class="capability-row">
-                    <span class="capability-num">05</span>
-                    <h3 class="capability-name">Real estate agents</h3>
-                    <p class="capability-desc">The GoHighLevel system that captures every lead and does the follow up while you're out closing. <span style="color:var(--accent);font-weight:500">See the page</span></p>
-                </a>
-            </div>
+    <!-- 9. FAQ -->
+    <section class="studio-container studio-section" id="faq">
+        <div class="section-eyebrow-block studio-reveal">
+            <p class="studio-eyebrow">Common Questions</p>
+            <h2 class="studio-h2">What buyers usually ask before <span class="lf-accent">booking an audit</span>.</h2>
         </div>
-    </section>
-
-    <!-- 7. TESTIMONIALS (merged: video + Danielle + Andrew cards + featured case study; Alex + Mark already live on /results) -->
-    <section class="section white">
-        <div class="section-inner">
-            <p class="eyebrow">Testimonials</p>
-            <h2>Straight from the <span style="color:var(--accent)">clients</span>.</h2>
-
-            <!-- Video testimonials: Danielle + Matt, side by side on desktop, stacked on mobile.
-                 Cards use flex-column so the quote block pins to the bottom regardless of video height. -->
-            <div class="video-testi-grid">
-                <div class="video-testi">
-                    <video controls playsinline preload="metadata" poster="/videos/danielle-poster.jpg" src="/videos/danielle-review.mp4"></video>
-                    <div class="vt-quote">
-                        <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-primary);font-style:italic;margin-bottom:0.85rem">"He's enabled me to keep running my business with a very lean, super efficient team."</p>
-                        <div style="font-size:0.9375rem;font-weight:500;color:var(--text-primary)">Danielle Sandusky, Modern Bungalow</div>
-                        <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:4px">Order and pricing automation for a furniture company</div>
-                    </div>
+        <div class="faq-shell studio-reveal">
+            <div class="faq-group">
+                <div class="faq-qa">
+                    <button class="faq-q" aria-expanded="false"><span>What makes you different from any other automation shop?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                    <div class="faq-panel"><div class="faq-panel-inner"><p>Most shops build a workflow and leave. We run systems that keep records on themselves. Every mistake any build ever surfaced became a written rule, every fix became a pattern, and every new build starts with all of it loaded. You're not hiring one engineer's memory, you're hiring the accumulated lessons of every system we've ever run, and yours reports to you every morning while it adds to them.</p></div></div>
                 </div>
-                <div class="video-testi">
-                    <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
-                    <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true"></div>
-                    <div class="vt-quote">
-                        <p style="font-size:1.0625rem;line-height:1.55;color:var(--text-primary);font-style:italic;margin-bottom:0.85rem">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
-                        <div style="font-size:0.9375rem;font-weight:500;color:var(--text-primary)">Matt Juels, 6 Months to Speech</div>
-                        <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:4px">CRM build and automation for an online coaching program</div>
-                    </div>
+                <div class="faq-qa">
+                    <button class="faq-q" aria-expanded="false"><span>What changes once the system is in?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                    <div class="faq-panel"><div class="faq-panel-inner"><p>Leads stop slipping, you can finally see which marketing makes a customer, and the day to day stops running through you, so you can hire or step back without the wheels coming off.</p></div></div>
                 </div>
-            </div>
-
-            <div class="review-grid" style="margin-top:3rem">
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-quote">"Seth is my go to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout."</p>
-                    <h3 class="review-author">Danielle, Modern Bungalow</h3>
-                    <div class="review-project">Product Sync Automation</div>
+                <div class="faq-qa">
+                    <button class="faq-q" aria-expanded="false"><span>Do I own what you build, or am I locked in?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                    <div class="faq-panel"><div class="faq-panel-inner"><p>You own all of it. The accounts, the code, and the documentation are yours to keep. The Partnership is there because you want us running the system, and you can end it whenever you like.</p></div></div>
                 </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-quote">"If you need an automation specialist, stop looking right now and hire Seth. He will blow your mind with his knowledge and his ability to take your idea and not only understand what you want to achieve but also build on it."</p>
-                    <h3 class="review-author">Andrew, Kingfisher Ads</h3>
-                    <div class="review-project">Automation</div>
+                <div class="faq-qa">
+                    <button class="faq-q" aria-expanded="false"><span>What if the math doesn't work?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                    <div class="faq-panel"><div class="faq-panel-inner"><p>Then we tell you. The audit puts a dollar number on what the problem is costing before you commit to a build. If fixing it won't return more than it costs, that's the finding, and you keep the diagnostic.</p></div></div>
                 </div>
-            </div>
-
-            <!-- Featured case study, folded into testimonials per runbook -->
-            <div style="margin-top:2.5rem">
-                <p class="eyebrow" style="margin-bottom:0.75rem">Featured case study</p>
-                <a href="/work/between-generations-care.html" class="featured-case">
-                    <div class="featured-case-content">
-                        <span class="featured-case-client">Between Generations Care</span>
-                        <span class="featured-case-metric">Full platform build from scratch inside GoHighLevel. CRM, booking calendars, email sequences, and a complete customer journey from Instagram follower to repeat client. Zero manual steps.</span>
-                    </div>
-                    <span class="featured-case-link">Read the full case study</span>
-                </a>
-            </div>
-
-            <div style="margin-top:2.5rem"><a href="/results.html" class="btn-secondary">See more results</a></div>
-        </div>
-    </section>
-
-    <!-- 8. ABOUT AND WHY (merged: founder block absorbs "engineers that speak revenue" essence via appended sentence) -->
-    <section class="section tinted">
-        <div class="section-inner">
-            <p class="eyebrow">About</p>
-            <div class="about-block">
-                <img src="/images/about/headshot-6.jpg" alt="Seth Forte, founder of Launch Forte, automation consultant in Dallas-Fort Worth Texas" class="about-avatar" loading="lazy" decoding="async">
-                <div>
-                    <p class="about-name">Seth Forte, Founder</p>
-                    <p>Launch Forte builds the infrastructure growing businesses run on. I spent years as a reliability engineer keeping critical systems standing at a national bank, and now I build and run them for businesses that can't hire that in house. The reliability standards on every build come from those years.</p>
-                    <p style="margin-bottom:1.25rem">Every engagement starts with diagnosing what the problem is costing. If the math doesn't work, we'll tell you.</p>
-                    <a href="/about.html" class="btn-secondary">More about us</a>
+                <div class="faq-qa">
+                    <button class="faq-q" aria-expanded="false"><span>Who is this not for?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                    <div class="faq-panel"><div class="faq-panel-inner"><p>Businesses looking for the cheapest hands to run a task. We build the systems revenue and operations run on, which pays off when there's revenue to protect and a reason to scale. If you need one small fix and nothing more, we're not the fit.</p></div></div>
                 </div>
-            </div>
-
-            <!-- WELCOME VIDEO (kept as founder-voice supplement inside About) -->
-            <div style="max-width:720px;margin:2.5rem auto 0">
-                <div class="about-video-wrap">
-                    <div id="about-video-player"></div>
-                    <button type="button" class="about-video-unmute" aria-label="Unmute video">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                        <span>Tap to unmute</span>
-                    </button>
+                <div class="faq-qa">
+                    <button class="faq-q" aria-expanded="false"><span>We already have an agency running our ads. Where do you fit?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                    <div class="faq-panel"><div class="faq-panel-inner"><p>Right underneath them. Most ad agencies are strong on traffic and were never built for the systems the traffic hits, the tracking, the CRM, the follow up, and the place the money lands. We own that layer, and we work alongside ad agencies all the time.</p></div></div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section tinted" id="faq">
-        <div class="section-inner">
-            <p class="eyebrow">Common Questions</p>
-            <h2>What buyers usually ask before <span style="color:var(--accent)">booking an audit</span>.</h2>
-            <div class="faq-shell">
-                <div class="faq-group">
-                    <div class="faq-qa">
-                        <button class="faq-q" aria-expanded="false"><span>What makes you different from any other automation shop?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                        <div class="faq-panel"><div class="faq-panel-inner"><p>Most shops build a workflow and leave. We run systems that keep records on themselves. Every mistake any build ever surfaced became a written rule, every fix became a pattern, and every new build starts with all of it loaded. You're not hiring one engineer's memory, you're hiring the accumulated lessons of every system we've ever run, and yours reports to you every morning while it adds to them.</p></div></div>
-                    </div>
-                    <div class="faq-qa">
-                        <button class="faq-q" aria-expanded="false"><span>What changes once the system is in?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                        <div class="faq-panel"><div class="faq-panel-inner"><p>Leads stop slipping, you can finally see which marketing makes a customer, and the day to day stops running through you, so you can hire or step back without the wheels coming off.</p></div></div>
-                    </div>
-                    <div class="faq-qa">
-                        <button class="faq-q" aria-expanded="false"><span>Do I own what you build, or am I locked in?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                        <div class="faq-panel"><div class="faq-panel-inner"><p>You own all of it. The accounts, the code, and the documentation are yours to keep. The Partnership is there because you want us running the system, and you can end it whenever you like.</p></div></div>
-                    </div>
-                    <div class="faq-qa">
-                        <button class="faq-q" aria-expanded="false"><span>What if the math doesn't work?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                        <div class="faq-panel"><div class="faq-panel-inner"><p>Then we tell you. The audit puts a dollar number on what the problem is costing before you commit to a build. If fixing it won't return more than it costs, that's the finding, and you keep the diagnostic.</p></div></div>
-                    </div>
-                    <div class="faq-qa">
-                        <button class="faq-q" aria-expanded="false"><span>Who is this not for?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                        <div class="faq-panel"><div class="faq-panel-inner"><p>Businesses looking for the cheapest hands to run a task. We build the systems revenue and operations run on, which pays off when there's revenue to protect and a reason to scale. If you need one small fix and nothing more, we're not the fit.</p></div></div>
-                    </div>
-                    <div class="faq-qa">
-                        <button class="faq-q" aria-expanded="false"><span>We already have an agency running our ads. Where do you fit?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                        <div class="faq-panel"><div class="faq-panel-inner"><p>Right underneath them. Most ad agencies are strong on traffic and were never built for the systems the traffic hits, the tracking, the CRM, the follow up, and the place the money lands. We own that layer, and we work alongside ad agencies all the time.</p></div></div>
-                    </div>
-                </div>
-            </div>
-            <div style="margin-top:2.5rem"><a href="/faq.html" class="btn-secondary">See all questions</a></div>
+        <div class="studio-reveal" style="margin-top:2.5rem;text-align:center;">
+            <a href="/faq.html" class="studio-btn studio-btn-ghost">See all questions</a>
         </div>
     </section>
 
-    <!-- 10. FINAL CTA + CALENDLY (merged: one ask, one embed) -->
-    <section class="section dark">
-        <div class="section-inner">
-            <div class="section-content">
-                <h2>When the calendar's empty or growth has stalled, it usually traces back to the <span style="color:var(--accent-warm)">system</span>.</h2>
+    <!-- 10. FINAL CTA + CALENDLY -->
+    <section class="studio-container">
+        <div class="final-cta studio-reveal">
+            <div class="final-cta-inner">
+                <h2>When the calendar's empty or growth has stalled, it usually traces back to the <span style="color:var(--accent)">system</span>.</h2>
                 <p class="sub">Start with the audit, and we'll tell you what's worth fixing. Pick a time below.</p>
-            </div>
-            <div class="calendly-wrap" style="margin-top:2rem">
-                <iframe src="https://calendly.com/seth-launchforte/30min" title="Book a call with Seth Forte" loading="lazy"></iframe>
+                <div class="calendly-wrap">
+                    <iframe src="https://calendly.com/seth-launchforte/30min" title="Book a call with Seth Forte" loading="lazy"></iframe>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="site-footer">
-        <div class="site-footer-inner">
-            <a href="mailto:seth@launchforte.com" class="footer-email-main">seth@launchforte.com</a>
-            <div class="footer-columns">
-                <div class="footer-col">
+    <footer class="studio-footer">
+        <div class="studio-footer-inner">
+            <a href="mailto:seth@launchforte.com" class="footer-email-main" style="display:block;text-align:center;font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-2xl);font-weight:600;color:var(--ink);margin-bottom:var(--sp-16);text-decoration:none;letter-spacing:-0.015em;">seth@launchforte.com</a>
+            <div class="studio-footer-cols">
+                <div class="studio-footer-col">
                     <h4>Services</h4>
                     <ul>
                         <li><a href="/one-connected-system">One Connected System</a></li>
@@ -999,7 +730,7 @@
                         <li><a href="/what-we-build.html">What We Build</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
+                <div class="studio-footer-col">
                     <h4>Who we build for</h4>
                     <ul>
                         <li><a href="/coaches">Coaches and creators</a></li>
@@ -1009,7 +740,7 @@
                         <li><a href="/real-estate">Real estate agents</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
+                <div class="studio-footer-col">
                     <h4>Company</h4>
                     <ul>
                         <li><a href="/about.html">About</a></li>
@@ -1019,22 +750,15 @@
                         <li><a href="/writing.html">Writing</a></li>
                         <li><a href="/contact.html">Contact</a></li>
                         <li><a href="/faq.html">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Connect</h4>
-                    <ul>
                         <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
-                    <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
+                        <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
                         <li><a href="mailto:seth@launchforte.com">Email</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <div>
-                    <p>Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
-                    <p>&copy; 2026 Launch Forte. All rights reserved.</p>
-                </div>
+            <div class="studio-footer-bottom">
+                <p>Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
+                <p>&copy; 2026 Launch Forte. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1042,22 +766,6 @@
 </main>
 
 <script>
-(function(){
-    var words = ['A System','Using The Right Data','A Framework','A Process','Repeatable'];
-    var index = 0;
-    var el = document.querySelector('.rotating-word');
-    if (!el) return;
-    setInterval(function(){
-        el.style.opacity = '0';
-        el.style.transition = 'opacity 0.3s ease';
-        setTimeout(function(){
-            index = (index + 1) % words.length;
-            el.textContent = words[index];
-            el.style.opacity = '1';
-        }, 300);
-    }, 2200);
-})();
-
 // Welcome to Launch Forte video (YouTube IFrame API): autoplay muted, prominent unmute button
 (function(){
     var slot = document.getElementById('about-video-player');
@@ -1104,8 +812,8 @@
     });
 })();
 </script>
-<script src="/scroll-reveal.js"></script>
-<script src="/scroll-top.js"></script>
-<script src="/hamburger.js"></script>
+<script src="/studio-motion.js" defer></script>
+<script src="/scroll-top.js" defer></script>
+<script src="/hamburger.js" defer></script>
 </body>
 </html>
