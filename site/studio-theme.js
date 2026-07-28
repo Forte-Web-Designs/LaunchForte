@@ -14,11 +14,9 @@
   function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function persist(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
 
-  /* Apply as early as possible to avoid FOUC. This script is in <head>. */
-  var initial = saved();
-  if (!initial) {
-    initial = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-  }
+  /* Apply as early as possible to avoid FOUC. This script is in <head>.
+     Default is LIGHT; system dark preference is NOT auto-picked. User can flip. */
+  var initial = saved() || 'light';
   document.documentElement.setAttribute('data-theme', initial);
 
   var SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
@@ -39,17 +37,17 @@
 
     var css = document.createElement('style');
     css.textContent =
-      /* Inline (in the nav) — pill on the dark panel, matches Contact button rhythm */
+      /* Inline (in the nav) — floats on the paper pane, dark border matches hamburger */
       '#studio-theme-toggle{display:inline-flex;align-items:center;justify-content:center;' +
-      'width:42px;height:42px;border-radius:8px;border:1px solid rgba(255,255,255,0.24);' +
-      'background:transparent;color:#FFFFFF;cursor:pointer;padding:0;' +
+      'width:42px;height:42px;border-radius:8px;border:1px solid var(--border-strong);' +
+      'background:transparent;color:var(--ink);cursor:pointer;padding:0;' +
       'transition:transform 180ms ease,border-color 180ms ease,background 180ms ease,color 180ms ease,box-shadow 200ms ease,' +
       'position 0ms ease,top 0ms,right 0ms,bottom 0ms}' +
       '#studio-theme-toggle:hover{border-color:var(--accent);color:var(--accent)}' +
       '#studio-theme-toggle svg{width:18px;height:18px;display:block}' +
 
       /* Scrolled — floats to bottom-right, above the scroll-top arrow, styled to read on paper */
-      '#studio-theme-toggle.scrolled{position:fixed;right:2rem;bottom:8.5rem;z-index:1001;' +
+      '#studio-theme-toggle.scrolled{position:fixed;right:2rem;bottom:5rem;z-index:1001;' +
       'width:42px;height:42px;border-radius:50%;border:1px solid rgba(0,0,0,0.14);' +
       'background:#FFFFFF;color:#0A0A0A;box-shadow:0 4px 15px rgba(0,0,0,0.10)}' +
       '#studio-theme-toggle.scrolled:hover{transform:translateY(-2px);border-color:var(--accent);color:var(--accent);' +
@@ -58,7 +56,7 @@
       'border-color:rgba(255,255,255,0.18);box-shadow:0 4px 15px rgba(0,0,0,0.45)}' +
       '[data-theme="dark"] #studio-theme-toggle.scrolled:hover{border-color:var(--accent);color:var(--accent)}' +
 
-      '@media(max-width:480px){#studio-theme-toggle.scrolled{right:1.25rem;bottom:8rem;width:38px;height:38px}' +
+      '@media(max-width:480px){#studio-theme-toggle.scrolled{right:1.25rem;bottom:4.5rem;width:38px;height:38px}' +
       '#studio-theme-toggle.scrolled svg{width:16px;height:16px}}';
     document.head.appendChild(css);
 

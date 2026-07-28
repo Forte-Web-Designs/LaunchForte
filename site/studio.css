@@ -120,28 +120,8 @@
   --border-strong: rgba(255, 255, 255, 0.18);
   --ring: rgba(255, 255, 255, 0.05);
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #0A0A0A;
-    --paper-2: #171717;
-    --ink: #FAFAFA;
-    --ink-2: #E5E5E5;
-    --n-50:  #171717;
-    --n-100: #262626;
-    --n-200: #404040;
-    --n-300: #525252;
-    --n-400: #737373;
-    --n-500: #A3A3A3;
-    --n-600: #D4D4D4;
-    --n-700: #E5E5E5;
-    --n-800: #F5F5F5;
-    --n-900: #FAFAFA;
-    --n-950: #FFFFFF;
-    --border: rgba(255, 255, 255, 0.10);
-    --border-strong: rgba(255, 255, 255, 0.18);
-    --ring: rgba(255, 255, 255, 0.05);
-  }
-}
+/* No prefers-color-scheme auto-switch: light is the default and stays put
+   unless the user flips the theme toggle. */
 
 /* ============================================================
    3. Base
@@ -150,7 +130,10 @@
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  background: #0A0A0A;   /* the black nav panel is fixed in both themes; the pane inside inverts */
+  /* Studio's shell: a thin dark strip peeks above the rounded top corners of
+     the pane. Body background is the dark peek; the pane is paper. Both flip
+     in dark mode: the peek stays dark-ish, the pane becomes ink. */
+  background: #0A0A0A;
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 1rem;
@@ -166,14 +149,22 @@ body {
    4. Shell: black nav panel + white content pane with rounded top
    ============================================================ */
 .studio-nav {
-  position: relative;
-  /* Nav panel is ALWAYS dark, in both themes, mirroring Studio's shell.
-     Only the pane inside .studio-pane inverts by theme. */
-  background: #0A0A0A;
-  color: #FFFFFF;
-  padding: 3.5rem 0 4rem;   /* Studio uses pt-14 pb-16 */
+  /* Studio's shell: the header is absolutely positioned OVER the pane, not
+     a big dark block. The dark peek at the very top is the body background
+     showing through above the pane's rounded top corners (about 0.5rem). */
+  position: absolute;
+  top: 3.5rem;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  color: var(--ink);   /* text on the paper pane below the peek */
+  padding: 0;
 }
-.studio-nav .studio-logo img { filter: brightness(0) invert(1); }
+.studio-nav .studio-logo img {
+  /* Logo reads on the paper pane in light mode. Invert only in dark mode. */
+  filter: none;
+}
+[data-theme="dark"] .studio-nav .studio-logo img { filter: brightness(0) invert(1); }
 .studio-nav-inner {
   max-width: var(--max-wide);
   margin: 0 auto;
@@ -185,23 +176,23 @@ body {
 }
 .studio-logo { display: inline-flex; align-items: center; text-decoration: none; }
 .studio-logo img { height: 32px; width: auto; display: block; filter: brightness(0) invert(1); }
-.studio-nav-right { display: flex; align-items: center; gap: 1rem; }
+.studio-nav-right { display: flex; align-items: center; gap: 0.75rem; }
 .studio-nav-cta {
   display: inline-flex; align-items: center; gap: 0.5rem;
   padding: 0.55rem 1.25rem;
-  background: #FFFFFF;
-  color: #0A0A0A;
+  background: var(--ink);
+  color: var(--paper);
   border-radius: 999px;
   font-size: var(--text-sm);
   font-weight: 600;
   text-decoration: none;
   transition: transform var(--dur-hover) var(--ease-out), background var(--dur-hover);
 }
-.studio-nav-cta:hover { transform: translateY(-1px); background: #F5F5F5; color: #0A0A0A; }
-/* Hamburger sits on the black panel; override the script's default border/bg colors so it reads */
-.studio-nav #hamburger { border-color: rgba(255,255,255,0.24); background: transparent; }
+.studio-nav-cta:hover { transform: translateY(-1px); background: var(--n-800); color: var(--paper); }
+/* Hamburger on the paper pane: dark border, dark stripes; inverts in dark mode */
+.studio-nav #hamburger { border-color: var(--border-strong); background: transparent; }
 .studio-nav #hamburger:hover { border-color: var(--accent); }
-.studio-nav #hamburger span { background: #FFFFFF; }
+.studio-nav #hamburger span { background: var(--ink); }
 
 /* Grid pattern that lives behind the rounded pane */
 .studio-grid-bg {
@@ -221,7 +212,8 @@ body {
   background: var(--paper);
   border-top-left-radius: var(--radius-4xl);
   border-top-right-radius: var(--radius-4xl);
-  padding-top: 2rem;
+  margin-top: 0.5rem;          /* the small dark peek above the rounded corners */
+  padding-top: 9rem;             /* room for the floating header */
   overflow: hidden;
   isolation: isolate;
   min-height: 60vh;
