@@ -16,18 +16,17 @@
         '#hamburger.open span:nth-child(2){opacity:0}',
         '#hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}',
 
-        '#mobile-nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:199;background:var(--background,#0a0e17);padding:100px 2rem 2rem;overflow-y:auto;flex-direction:column;gap:0;opacity:0;transition:opacity 0.3s ease}',
+        /* Overlay is always dark, both themes (matches Studio: nav overlay is a black panel). */
+        '#mobile-nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:199;background:#0A0A0A;padding:100px 2rem 2rem;overflow-y:auto;flex-direction:column;gap:0;opacity:0;transition:opacity 0.3s ease}',
         '#mobile-nav.open{display:flex;opacity:1}',
-        '#mobile-nav a{display:block;color:var(--text-secondary,#94a3b8);font-size:1.15rem;font-weight:500;font-family:"Inter",system-ui,sans-serif;text-decoration:none;padding:1.1rem 0;border-bottom:1px solid var(--border,#1e293b);transition:color 0.2s ease,padding-left 0.2s ease}',
-        '#mobile-nav a:hover{color:var(--text-primary,#f0f4f8);padding-left:0.5rem}',
-        /* Mobile active tab: brand blue + heavier weight, no underline since the overlay layout is different */
-        '#mobile-nav a.active{color:var(--accent,#0088DB)!important;opacity:1!important;font-weight:600!important}',
-        '[data-theme="dark"] #mobile-nav a.active{color:#4ab5ed!important}',
+        '#mobile-nav a{display:block;color:#FFFFFF;font-size:1.35rem;font-weight:600;font-family:"Mona Sans",-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;letter-spacing:-0.015em;text-decoration:none;padding:1.15rem 0;border-bottom:1px solid rgba(255,255,255,0.10);transition:color 0.2s ease,padding-left 0.2s ease}',
+        '#mobile-nav a:hover{color:var(--accent,#4AB5ED);padding-left:0.5rem}',
+        '#mobile-nav a.active{color:var(--accent,#4AB5ED)!important;opacity:1!important;font-weight:600!important}',
         '#mobile-nav a:last-child{border-bottom:none}',
 
-        /* Close (X) button inside the open overlay */
-        '#mobile-nav-close{position:absolute;top:1.25rem;right:1.5rem;width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--border,#1e293b);border-radius:8px;cursor:pointer;padding:0;color:var(--text-primary,#f0f4f8);transition:border-color 0.2s ease,color 0.2s ease}',
-        '#mobile-nav-close:hover{border-color:var(--accent,#0088DB);color:var(--accent,#0088DB)}',
+        /* Close (X) button — always on the dark overlay */
+        '#mobile-nav-close{position:absolute;top:1.25rem;right:1.5rem;width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(255,255,255,0.24);border-radius:8px;cursor:pointer;padding:0;color:#FFFFFF;transition:border-color 0.2s ease,color 0.2s ease}',
+        '#mobile-nav-close:hover{border-color:var(--accent,#4AB5ED);color:var(--accent,#4AB5ED)}',
         '#mobile-nav-close svg{width:18px;height:18px;display:block}',
 
         /* Always hamburger, regardless of screen size. */
