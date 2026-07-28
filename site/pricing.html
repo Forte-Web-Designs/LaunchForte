@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="preload" as="image" href="/images/home/launch-forte.png" fetchpriority="high">
+    <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing | Launch Forte</title>
@@ -16,11 +17,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Pricing | Launch Forte">
     <meta name="twitter:description" content="Fixed prices for the audit, the builds, and the ongoing partnership. What each engagement includes, in outcome language, no hourly rates.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+    <link rel="stylesheet" href="/studio.css?v=p8m">
+    <script src="/studio-theme.js?v=p8m"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: WebPage -->
@@ -50,272 +48,258 @@
     }
     </script>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{--text-primary:#1d1d1f;--text-secondary:#515154;--text-muted:#86868b;--accent:#0088DB;--accent-warm:#4ab5ed;--accent-hover:#4ab5ed;--accent-tint:rgba(0,136,219,0.10);--background:#f5f5f7;--background-alt:#ffffff;--card-bg:#ffffff;--background-dark:#1d1d1f;--border:rgba(0,0,0,0.08);--border-strong:rgba(0,0,0,0.12);--on-accent:#ffffff;--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-pill:980px}
-        [data-theme="dark"]{--text-primary:#f5f5f7;--text-secondary:#a1a1a6;--text-muted:#86868b;--accent:#4ab5ed;--accent-hover:#0088DB;--accent-warm:#0088DB;--accent-tint:rgba(74,181,237,0.14);--background:#1d1d1f;--background-alt:#000000;--card-bg:#2a2a2c;--background-dark:#000000;--border:rgba(255,255,255,0.10);--border-strong:rgba(255,255,255,0.16);--on-accent:#0b0b0c}
-        html,body{overflow-x:clip}
-        body{font-family:'Inter','-apple-system',BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:17px;line-height:1.7;color:var(--text-primary);background:var(--background);-webkit-font-smoothing:antialiased}
-        a{color:var(--accent);text-decoration:none;transition:color 0.2s ease}
-        a:hover{color:var(--accent-hover)}
+      /* Page-specific: pricing. Tokens + shell come from /studio.css. */
+      .pricing-hero { text-align: left; max-width: 820px; margin: 0 0 var(--sp-16); }
+      .pricing-hero .studio-h1 { font-size: clamp(2.25rem, 5.5vw, 4rem); }
+      .pricing-hero .studio-lead { margin-top: 1.25rem; }
 
-        /* header */
-        .site-header{position:sticky;top:0;z-index:100;background:rgba(245,245,247,0.85);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5)}
-        [data-theme="dark"] .site-header{background:rgba(29,29,31,0.85)}
-        .site-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent-warm),var(--accent),transparent);opacity:0.4}
-        .header-container{max-width:1100px;margin:0 auto;padding:0.875rem 2rem;display:flex;align-items:center;justify-content:space-between;height:52px}
-        .header-logo{display:flex;align-items:center}
-        .logo-img{height:28px;width:auto;display:block}
-        [data-theme="dark"] .logo-img{filter:brightness(0) invert(1)}
-        .header-nav{display:flex;gap:0.25rem;align-items:center}
-        .header-nav a{color:var(--text-secondary);font-size:0.875rem;font-weight:500;padding:0.5rem 0.875rem;border-radius:var(--radius-sm);transition:color 0.2s ease,background 0.2s ease}
-        .header-nav a:hover{color:var(--text-primary);background:rgba(0,0,0,0.04)}
-        [data-theme="dark"] .header-nav a:hover{background:rgba(255,255,255,0.06)}
-        .header-nav a.active{color:var(--accent);background:var(--accent-tint);font-weight:600}
-        @media(max-width:820px){.header-nav{display:none}}
+      /* Proof strip: monochrome per Section 3 "the Chelsea widget reframed monochrome" */
+      .pricing-proof { display: grid; grid-template-columns: 1fr; gap: var(--sp-10); padding: 2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+      @media(min-width: 900px) { .pricing-proof { grid-template-columns: 1fr 1fr; align-items: center; gap: var(--sp-16); } }
+      .pricing-badges { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center; }
+      .pricing-badge { font-size: var(--text-sm); font-weight: 600; color: var(--n-700); padding: 0.4rem 0.9rem; background: var(--paper); border: 1px solid var(--border); border-radius: 999px; white-space: nowrap; }
+      .pricing-chelsea { max-width: 360px; margin: 0; text-align: left; filter: grayscale(100%); transition: filter var(--dur-hover); }
+      .pricing-chelsea:hover { filter: grayscale(0); }
+      .pricing-chelsea .senja-embed { display: block; margin: 0 0 0.85rem; max-width: 360px; }
+      .pricing-chelsea-quote { font-size: var(--text-base); line-height: 1.5; color: var(--ink); font-style: italic; margin: 0 0 0.35rem; }
+      .pricing-chelsea-attrib { font-size: var(--text-sm); color: var(--n-500); margin: 0; font-weight: 500; }
 
-        main{max-width:1000px;margin:0 auto;padding:0 2rem 6rem}
+      /* Studio list grammar: each block is a labeled group of offers rendered as clean list rows */
+      .pricing-block { margin-top: var(--sp-24); }
+      .pricing-block-head { max-width: 820px; margin: 0 0 var(--sp-10); }
+      .pricing-block-label { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--n-500); margin: 0 0 0.85rem; }
+      .pricing-block .studio-h2 { font-size: clamp(1.75rem, 3.6vw, 2.75rem); }
+      .pricing-block-lede { color: var(--n-600); font-size: var(--text-lg); line-height: 1.5; margin-top: 1rem; max-width: 60ch; }
 
-        /* hero */
-        .p-hero{padding:5rem 0 3rem;text-align:center}
-        .eyebrow{display:inline-block;font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem}
-        .p-hero h1{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:1.25rem}
-        .p-hero p.sub{font-size:1.0625rem;line-height:1.55;color:var(--text-secondary);max-width:640px;margin:0 auto 2rem}
+      /* Offer row: Studio's editorial list treatment */
+      .pricing-offer { display: grid; grid-template-columns: 1fr; gap: 1rem; padding: 2rem 0; border-top: 1px solid var(--border); }
+      .pricing-offer:last-child { border-bottom: 1px solid var(--border); }
+      @media(min-width: 900px) { .pricing-offer { grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: baseline; } }
+      .pricing-offer-lead .pricing-offer-name { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: var(--text-2xl); letter-spacing: -0.015em; color: var(--ink); margin: 0 0 0.35rem; }
+      .pricing-offer-lead .pricing-offer-sub { color: var(--n-500); font-size: var(--text-sm); font-weight: 500; margin: 0 0 0.85rem; }
+      .pricing-offer-price { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 700; font-size: var(--text-2xl); letter-spacing: -0.015em; color: var(--ink); }
+      .pricing-offer-price .real { color: var(--accent); }
+      .pricing-offer-price .band { color: var(--n-500); font-weight: 600; font-size: var(--text-base); letter-spacing: 0; }
+      .pricing-offer-body { color: var(--n-700); font-size: var(--text-base); line-height: 1.65; margin: 0 0 1.25rem; }
+      .pricing-offer-actions { display: flex; flex-wrap: wrap; gap: 1rem 1.25rem; align-items: center; }
+      .pricing-offer-demo { font-size: var(--text-sm); color: var(--accent); font-weight: 600; }
 
-        /* proof strip on /pricing */
-        .p-proof{margin:0 0 4rem;padding:1.75rem 1.25rem;background:var(--card-bg);border:1px solid var(--border);border-radius:16px;text-align:center}
-        .p-proof-badges{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0.75rem 1.5rem;margin-bottom:1.25rem}
-        .p-proof-badge{font-size:0.8125rem;font-weight:600;color:var(--text-secondary);padding:0.4rem 0.9rem;background:var(--background);border:1px solid var(--border);border-radius:999px;white-space:nowrap}
-        [data-theme="dark"] .p-proof-badge{background:#111C33;color:#B7C4D6;border-color:rgba(255,255,255,.14)}
-        .p-proof-video{max-width:420px;margin:0 auto}
-        .p-proof-video .senja-embed{display:block;margin:0 auto 0.85rem}
-        .p-proof-video-quote{font-size:0.9375rem;line-height:1.5;color:var(--text-primary);font-style:italic;margin:0 0 0.35rem}
-        .p-proof-video-attrib{font-size:0.8125rem;color:var(--text-muted);margin:0;font-weight:500}
-
-        /* block */
-        .p-block{margin:0 0 4rem}
-        .p-block-label{font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem}
-        .p-block h2{font-size:clamp(1.5rem,3.5vw,2rem);font-weight:800;letter-spacing:-0.02em;line-height:1.15;margin-bottom:0.5rem}
-        .p-block .block-lede{color:var(--text-secondary);font-size:1rem;line-height:1.55;margin-bottom:1.75rem;max-width:640px}
-
-        /* offer card */
-        .p-offer{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:1.75rem;margin-bottom:1rem;transition:border-color 0.2s ease,transform 0.15s ease,box-shadow 0.2s ease}
-        .p-offer:hover{border-color:rgba(0,136,219,0.3);transform:translateY(-1px);box-shadow:0 8px 24px rgba(20,25,34,0.06)}
-        .p-offer-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:0.35rem}
-        .p-offer-name{font-size:1.125rem;font-weight:700;letter-spacing:-0.01em;color:var(--text-primary);margin:0}
-        .p-offer-price{font-size:0.9375rem;font-weight:700;color:var(--accent);white-space:nowrap;letter-spacing:-0.01em}
-        .p-offer-price .real{color:var(--text-primary)}
-        .p-offer-sub{color:var(--text-muted);font-size:0.8125rem;margin:0 0 1rem;font-weight:500}
-        .p-offer-body{color:var(--text-secondary);font-size:0.9375rem;line-height:1.65;margin:0 0 1.25rem}
-        .p-offer-actions{display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center}
-        .p-offer-cta{display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.25rem;background:var(--accent);color:var(--on-accent);border-radius:var(--radius-pill);font-size:0.875rem;font-weight:600;transition:transform 0.15s ease,box-shadow 0.2s ease}
-        .p-offer-cta:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,136,219,0.28);color:var(--on-accent)}
-        .p-offer-demo{font-size:0.8125rem;color:var(--accent);font-weight:600}
-
-        /* closer */
-        .p-closer{margin-top:5rem;padding:2.5rem 2rem;background:var(--card-bg);border:1px solid var(--border);border-radius:16px;text-align:center}
-        .p-closer h2{font-size:clamp(1.35rem,3vw,1.75rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:0.85rem}
-        .p-closer p{color:var(--text-secondary);font-size:1rem;line-height:1.6;max-width:520px;margin:0 auto 1.5rem}
-        .btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.9rem 1.75rem;background:var(--accent);color:var(--on-accent);border-radius:var(--radius-pill);font-size:0.9375rem;font-weight:600;transition:transform 0.15s ease,box-shadow 0.2s ease}
-        .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(0,136,219,0.3);color:var(--on-accent)}
-
-        /* footer */
-        .footer-section{background:var(--background-dark);color:#86868b;padding:3rem 2rem 2rem;margin-top:6rem}
-        .footer-section a{color:#86868b}
-        .footer-section a:hover{color:#ffffff}
-        .footer-email-main{display:block;text-align:center;color:#ffffff;font-size:1.125rem;font-weight:600;margin-bottom:2.5rem;text-decoration:none}
-        .footer-columns{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem}
-        .footer-col h4{color:#f5f5f7;font-size:0.875rem;font-weight:700;letter-spacing:0.02em;margin-bottom:0.85rem}
-        .footer-col ul{list-style:none}
-        .footer-col li{margin-bottom:0.4rem;font-size:0.875rem}
-        .footer-bottom{max-width:1000px;margin:2.5rem auto 0;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.08);font-size:0.8125rem;text-align:center}
-        .footer-bottom p{margin:0.25rem 0}
-
-        @media(max-width:640px){main{padding:0 1.25rem 4rem}.footer-columns{grid-template-columns:1fr;gap:1.75rem}}
+      /* Closer */
+      .pricing-closer { margin-top: var(--sp-32); padding: var(--sp-20) 2rem; background: var(--ink); color: var(--paper); border-radius: var(--radius-4xl); text-align: center; }
+      .pricing-closer h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.75rem, 3.6vw, 2.75rem); line-height: 1.15; letter-spacing: -0.025em; color: var(--paper); margin: 0 0 1rem; }
+      .pricing-closer p { color: var(--n-400); font-size: var(--text-lg); line-height: 1.5; max-width: 640px; margin: 0 auto 2rem; }
+      .pricing-closer .studio-btn-accent { color: #fff; }
     </style>
-    <script src="/theme-toggle.js"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<header class="site-header">
-    <div class="header-container">
-        <a href="/" class="header-logo">
+<header class="studio-nav site-header">
+    <div class="studio-nav-inner">
+        <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
             <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
         </a>
-        <nav class="header-nav">
-            <a href="/index.html">Home</a>
-            <a href="/what-we-build.html">What We Build</a>
-            <a href="/one-connected-system">One Connected System</a>
-            <a href="/#who-we-build-for">Who We Build For</a>
-            <a href="/results.html">Results</a>
-            <a href="/tools">Free Tools</a>
-            <a href="/pricing" class="active">Pricing</a>
-            <a href="/about.html">About</a>
-            <a href="/contact.html">Contact</a>
-        </nav>
+        <div class="studio-nav-right">
+            <a href="/contact.html" class="studio-nav-cta">Contact</a>
+            <nav class="header-nav" aria-label="Primary" style="display:none">
+                <a href="/index.html">Home</a>
+                <a href="/what-we-build.html">What We Build</a>
+                <a href="/one-connected-system">One Connected System</a>
+                <a href="/#who-we-build-for">Who We Build For</a>
+                <a href="/results.html">Results</a>
+                <a href="/tools">Free Tools</a>
+                <a href="/pricing" class="active">Pricing</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </nav>
+        </div>
     </div>
 </header>
 
-<main>
+<main class="studio-pane">
 
     <!-- HERO -->
-    <section class="p-hero">
-        <span class="eyebrow">Pricing</span>
-        <h1>Fixed prices, in three shapes.</h1>
-        <p class="sub">The front door starts small and paid so you can see what a real diagnostic looks like before anything is built. The builds ship at a fixed number scoped from the audit. The ongoing keeps the engineer at the table after the build is live.</p>
+    <section class="studio-container">
+        <div class="pricing-hero studio-reveal">
+            <p class="studio-eyebrow">Pricing</p>
+            <h1 class="studio-h1">Fixed prices, in three shapes.</h1>
+            <p class="studio-lead">The front door starts small and paid so you can see what a real diagnostic looks like before anything is built. The builds ship at a fixed number scoped from the audit. The ongoing keeps the engineer at the table after the build is live.</p>
+        </div>
     </section>
 
     <!-- PROOF STRIP -->
-    <section class="p-proof">
-        <div class="p-proof-badges">
-            <span class="p-proof-badge">100% Job Success across 50+ projects</span>
-            <!-- REPEAT_RATE_STAT: compute from Twenty (clients with a second engagement / total clients). Render nothing until Seth supplies a real number, never estimate. -->
-            <!-- BLUEPRINT_COUNTER_STAT: once /blueprint ships, render "{n} systems running" and "{d} playable demos" as two more p-proof-badge spans, sourced from the Blueprint's live counters. Render nothing until then. -->
-        </div>
-        <div class="p-proof-video">
-            <script src="https://widget.senja.io/widget/f9608693-095f-4192-a41c-53d2c30b0fcd/platform.js" type="text/javascript" async></script>
-            <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="true"></div>
-            <p class="p-proof-video-quote">"10 out of 10 experience. Absolutely recommend."</p>
-            <p class="p-proof-video-attrib">Chelsea Juels, 6 Months to Speech</p>
+    <section class="studio-container">
+        <div class="pricing-proof studio-reveal">
+            <div class="pricing-badges">
+                <span class="pricing-badge">100% Job Success across 50+ projects</span>
+                <!-- REPEAT_RATE_STAT: compute from Twenty (clients with a second engagement / total clients). Render nothing until Seth supplies a real number, never estimate. -->
+                <!-- BLUEPRINT_COUNTER_STAT: once /blueprint ships, render "{n} systems running" and "{d} playable demos" as two more p-proof-badge spans, sourced from the Blueprint's live counters. Render nothing until then. -->
+            </div>
+            <div class="pricing-chelsea">
+                <script src="https://widget.senja.io/widget/f9608693-095f-4192-a41c-53d2c30b0fcd/platform.js" type="text/javascript" async></script>
+                <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="true"></div>
+                <p class="pricing-chelsea-quote">"10 out of 10 experience. Absolutely recommend."</p>
+                <p class="pricing-chelsea-attrib">Chelsea Juels, 6 Months to Speech</p>
+            </div>
         </div>
     </section>
 
     <!-- BLOCK 1: THE FRONT DOOR -->
-    <section class="p-block">
-        <p class="p-block-label">The front door</p>
-        <h2>Start paid, start small.</h2>
-        <p class="block-lede">A low friction paid entry is the fastest way to see what a real diagnostic looks like without committing to a build. The number here is the one exact figure on the site because transparency at the door earns the rest.</p>
+    <section class="studio-container pricing-block">
+        <div class="pricing-block-head studio-reveal">
+            <p class="pricing-block-label">The front door</p>
+            <h2 class="studio-h2">Start paid, start small.</h2>
+            <p class="pricing-block-lede">A low friction paid entry is the fastest way to see what a real diagnostic looks like without committing to a build. The number here is the one exact figure on the site because transparency at the door earns the rest.</p>
+        </div>
 
-        <div class="p-offer">
-            <div class="p-offer-head">
-                <h3 class="p-offer-name">System Health Check</h3>
-                <span class="p-offer-price"><span class="real">$395</span></span>
+        <div class="pricing-offer studio-reveal">
+            <div class="pricing-offer-lead">
+                <h3 class="pricing-offer-name">System Health Check</h3>
+                <p class="pricing-offer-sub">Fast diagnostic, jumpstart shape</p>
+                <div class="pricing-offer-price"><span class="real">$395</span></div>
             </div>
-            <p class="p-offer-sub">Fast diagnostic, jumpstart shape</p>
-            <p class="p-offer-body">Your systems mapped end to end, three quick fixes shipped in the same week, and the architecture map for whatever gets built next. You keep the diagnostic either way. It credits toward your first build.</p>
-            <div class="p-offer-actions">
-                <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="p-offer-cta">Book the Health Check</a>
-                <a href="/grade" class="p-offer-demo">Play the free grader first</a>
+            <div class="pricing-offer-detail">
+                <p class="pricing-offer-body">Your systems mapped end to end, three quick fixes shipped in the same week, and the architecture map for whatever gets built next. You keep the diagnostic either way. It credits toward your first build.</p>
+                <div class="pricing-offer-actions">
+                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-primary">Book the Health Check</a>
+                    <a href="/grade" class="pricing-offer-demo">Play the free grader first</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- BLOCK 2: THE BUILDS -->
-    <section class="p-block">
-        <p class="p-block-label">The builds</p>
-        <h2>Fixed scope, fixed number, tested on real data.</h2>
-        <p class="block-lede">Every build is priced from the Health Check so the number and the timeline are set before any work starts. Most builds ship in 7 to 21 days. The floors below are where each shape starts.</p>
+    <section class="studio-container pricing-block">
+        <div class="pricing-block-head studio-reveal">
+            <p class="pricing-block-label">The builds</p>
+            <h2 class="studio-h2">Fixed scope, fixed number, tested on real data.</h2>
+            <p class="pricing-block-lede">Every build is priced from the Health Check so the number and the timeline are set before any work starts. Most builds ship in 7 to 21 days. The floors below are where each shape starts.</p>
+        </div>
 
-        <div class="p-offer">
-            <div class="p-offer-head">
-                <h3 class="p-offer-name">Paid List</h3>
-                <span class="p-offer-price">Starting at $[BAND]</span>
+        <div class="pricing-offer studio-reveal">
+            <div class="pricing-offer-lead">
+                <h3 class="pricing-offer-name">Paid List</h3>
+                <p class="pricing-offer-sub">A calendar that fills with the buyers you name</p>
+                <div class="pricing-offer-price"><span class="band">Starting at $[BAND]</span></div>
             </div>
-            <p class="p-offer-sub">A calendar that fills with the buyers you name</p>
-            <p class="p-offer-body">A verified list of qualified companies scoped to your ICP, delivered with the audit ledger so you know how every row was checked. Ships with the outreach system that carries the first touches, and the reporting that shows what worked.</p>
-            <div class="p-offer-actions">
-                <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="p-offer-cta">Talk to Seth</a>
-                <a href="/leads" class="p-offer-demo">Play the Verified Lead Sample</a>
+            <div class="pricing-offer-detail">
+                <p class="pricing-offer-body">A verified list of qualified companies scoped to your ICP, delivered with the audit ledger so you know how every row was checked. Ships with the outreach system that carries the first touches, and the reporting that shows what worked.</p>
+                <div class="pricing-offer-actions">
+                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-primary">Talk to Seth</a>
+                    <a href="/leads" class="pricing-offer-demo">Play the Verified Lead Sample</a>
+                </div>
             </div>
         </div>
 
-        <div class="p-offer">
-            <div class="p-offer-head">
-                <h3 class="p-offer-name">Campaign in a Box</h3>
-                <span class="p-offer-price">Starting at $[BAND]</span>
+        <div class="pricing-offer studio-reveal">
+            <div class="pricing-offer-lead">
+                <h3 class="pricing-offer-name">Campaign in a Box</h3>
+                <p class="pricing-offer-sub">The whole outbound engine, wired end to end</p>
+                <div class="pricing-offer-price"><span class="band">Starting at $[BAND]</span></div>
             </div>
-            <p class="p-offer-sub">The whole outbound engine, wired end to end</p>
-            <p class="p-offer-body">The full outbound engine: list, sending infrastructure, sequences, reply handling, and the pipeline that catches every reply and books the meeting. Everything a lead touches on the way from a cold row to a booked call, run for you.</p>
-            <div class="p-offer-actions">
-                <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="p-offer-cta">Talk to Seth</a>
-                <a href="/demo/pipeline" class="p-offer-demo">Play the pipeline demo</a>
+            <div class="pricing-offer-detail">
+                <p class="pricing-offer-body">The full outbound engine: list, sending infrastructure, sequences, reply handling, and the pipeline that catches every reply and books the meeting. Everything a lead touches on the way from a cold row to a booked call, run for you.</p>
+                <div class="pricing-offer-actions">
+                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-primary">Talk to Seth</a>
+                    <a href="/demo/pipeline" class="pricing-offer-demo">Play the pipeline demo</a>
+                </div>
             </div>
         </div>
 
-        <div class="p-offer">
-            <div class="p-offer-head">
-                <h3 class="p-offer-name">Assurance Starter</h3>
-                <span class="p-offer-price">Starting at $[BAND]</span>
+        <div class="pricing-offer studio-reveal">
+            <div class="pricing-offer-lead">
+                <h3 class="pricing-offer-name">Assurance Starter</h3>
+                <p class="pricing-offer-sub">The layer that catches what breaks before customers do</p>
+                <div class="pricing-offer-price"><span class="band">Starting at $[BAND]</span></div>
             </div>
-            <p class="p-offer-sub">The layer that catches what breaks before customers do</p>
-            <p class="p-offer-body">The reliability layer under whatever you already run. Alerts wired to what fails in practice, dashboards that show what caught what, and a documented handoff. The system your team will trust when volume doubles.</p>
-            <div class="p-offer-actions">
-                <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="p-offer-cta">Talk to Seth</a>
-                <a href="/demo/assurance" class="p-offer-demo">Play the assurance demo</a>
+            <div class="pricing-offer-detail">
+                <p class="pricing-offer-body">The reliability layer under whatever you already run. Alerts wired to what fails in practice, dashboards that show what caught what, and a documented handoff. The system your team will trust when volume doubles.</p>
+                <div class="pricing-offer-actions">
+                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-primary">Talk to Seth</a>
+                    <a href="/demo/assurance" class="pricing-offer-demo">Play the assurance demo</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- BLOCK 3: THE ONGOING -->
-    <section class="p-block">
-        <p class="p-block-label">The ongoing</p>
-        <h2>The engineer stays at the table.</h2>
-        <p class="block-lede">Once the build is live, someone has to run it. The ongoing keeps the engineer at the table month over month, at a fixed monthly number, so nothing on your team has to touch the system to keep it standing.</p>
+    <section class="studio-container pricing-block">
+        <div class="pricing-block-head studio-reveal">
+            <p class="pricing-block-label">The ongoing</p>
+            <h2 class="studio-h2">The engineer stays at the table.</h2>
+            <p class="pricing-block-lede">Once the build is live, someone has to run it. The ongoing keeps the engineer at the table month over month, at a fixed monthly number, so nothing on your team has to touch the system to keep it standing.</p>
+        </div>
 
-        <div class="p-offer">
-            <div class="p-offer-head">
-                <h3 class="p-offer-name">Monitoring and Managed Automation</h3>
-                <span class="p-offer-price">Starting at $[BAND]/month</span>
+        <div class="pricing-offer studio-reveal">
+            <div class="pricing-offer-lead">
+                <h3 class="pricing-offer-name">Monitoring and Managed Automation</h3>
+                <p class="pricing-offer-sub">The system stays yours, we stay on it</p>
+                <div class="pricing-offer-price"><span class="band">Starting at $[BAND]/month</span></div>
             </div>
-            <p class="p-offer-sub">The system stays yours, we stay on it</p>
-            <p class="p-offer-body">Ongoing monitoring, managed automation runs, monthly review with the numbers that matter, and async access to the engineer who built it. New builds off the roadmap come in at partner pricing. You can end it at any time.</p>
-            <div class="p-offer-actions">
-                <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="p-offer-cta">Talk to Seth</a>
-                <a href="/demo/watcher" class="p-offer-demo">Play the 2am Alert demo</a>
+            <div class="pricing-offer-detail">
+                <p class="pricing-offer-body">Ongoing monitoring, managed automation runs, monthly review with the numbers that matter, and async access to the engineer who built it. New builds off the roadmap come in at partner pricing. You can end it at any time.</p>
+                <div class="pricing-offer-actions">
+                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-primary">Talk to Seth</a>
+                    <a href="/demo/watcher" class="pricing-offer-demo">Play the 2am Alert demo</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- CLOSER -->
-    <section class="p-closer">
-        <h2>Not sure which shape fits yet?</h2>
-        <p>Book the Health Check. It puts a written number on what each fix is worth before you commit to a build. If the math doesn't work, we'll tell you.</p>
-        <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary">Book the Health Check</a>
+    <section class="studio-container">
+        <div class="pricing-closer studio-reveal">
+            <h2>Not sure which shape fits yet?</h2>
+            <p>Book the Health Check. It puts a written number on what each fix is worth before you commit to a build. If the math doesn't work, we'll tell you.</p>
+            <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-accent">Book the Health Check</a>
+        </div>
     </section>
 
     <!-- FOOTER -->
-    <div class="footer-section">
-        <a href="mailto:seth@launchforte.com" class="footer-email-main">seth@launchforte.com</a>
-        <div class="footer-columns">
-            <div class="footer-col">
-                <h4>Services</h4>
-                <ul>
-                    <li><a href="/one-connected-system">One Connected System</a></li>
-                    <li><a href="/#audit">Audit</a></li>
-                    <li><a href="/#core-systems-build">Build</a></li>
-                    <li><a href="/partnership.html">Partnership</a></li>
-                    <li><a href="/what-we-build.html">What We Build</a></li>
-                </ul>
+    <footer class="studio-footer">
+        <div class="studio-footer-inner">
+            <a href="mailto:seth@launchforte.com" class="footer-email-main" style="display:block;text-align:center;font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-2xl);font-weight:600;color:var(--ink);margin-bottom:var(--sp-16);text-decoration:none;letter-spacing:-0.015em;">seth@launchforte.com</a>
+            <div class="studio-footer-cols">
+                <div class="studio-footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="/one-connected-system">One Connected System</a></li>
+                        <li><a href="/#audit">Audit</a></li>
+                        <li><a href="/#core-systems-build">Build</a></li>
+                        <li><a href="/partnership.html">Partnership</a></li>
+                        <li><a href="/what-we-build.html">What We Build</a></li>
+                    </ul>
+                </div>
+                <div class="studio-footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about.html">About</a></li>
+                        <li><a href="/results.html">Results</a></li>
+                        <li><a href="/tools">Free Tools</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                        <li><a href="/faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="studio-footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
+                        <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
+                        <li><a href="mailto:seth@launchforte.com">Email</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-col">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="/about.html">About</a></li>
-                    <li><a href="/results.html">Results</a></li>
-                    <li><a href="/tools">Free Tools</a></li>
-                    <li><a href="/contact.html">Contact</a></li>
-                    <li><a href="/faq.html">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Connect</h4>
-                <ul>
-                    <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
-                    <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
-                    <li><a href="mailto:seth@launchforte.com">Email</a></li>
-                </ul>
+            <div class="studio-footer-bottom">
+                <p>Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
+                <p>&copy; 2026 Launch Forte. All rights reserved.</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
-            <p>&copy; 2026 Launch Forte. All rights reserved.</p>
-        </div>
-    </div>
+    </footer>
 
 </main>
 
-<script src="/scroll-reveal.js"></script>
-<script src="/scroll-top.js"></script>
-<script src="/hamburger.js"></script>
+<script src="/studio-motion.js?v=p8m" defer></script>
+<script src="/scroll-top.js?v=p8m" defer></script>
+<script src="/hamburger.js?v=p8m" defer></script>
 </body>
 </html>
