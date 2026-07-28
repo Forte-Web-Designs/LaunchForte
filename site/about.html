@@ -73,8 +73,43 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=p8p">
-    <script src="/studio-theme.js?v=p8p"></script>
+    <link rel="stylesheet" href="/studio.css?v=p8q">
+    <script src="/studio-theme.js?v=p8q"></script>
+    <style>
+        /* Cinematic hero for About — same rotating video pattern as homepage.
+           Runbook §8 declares one dark zone per site (the homepage) but the
+           About page is the founder story, so it gets a matching dark zone
+           to introduce Seth in the same visual language. */
+        .hero-zone { position: relative; background: #0A0A0A; color: #FFFFFF; overflow: hidden; padding-bottom: 3rem; }
+        main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
+        main.studio-pane.hero-follows::before { display: none; }
+        .hero-video { position: absolute; top: 0; right: 0; width: 65%; height: 100%; object-fit: cover; object-position: center; z-index: 0; }
+        @media(max-width: 900px) { .hero-video { width: 100%; opacity: 0.55; } }
+        @media(prefers-reduced-motion: reduce) { .hero-video { display: none; } }
+        .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+        .hero-overlay-lr { background: linear-gradient(90deg, #0A0A0A 0%, rgba(10,10,10,0.85) 35%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.25) 100%); }
+        .hero-overlay-btm { background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #FFFFFF 100%); }
+        [data-theme="dark"] .hero-overlay-btm { background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #0A0A0A 100%); }
+        /* Nav overrides for the dark hero — same as homepage .hero-nav */
+        .hero-nav { position: sticky; top: 0; z-index: 40; padding: 0.75rem 0; background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-bottom: 1px solid transparent !important; transition: background 0.2s ease, border-color 0.2s ease; }
+        .hero-nav.is-scrolled { background: rgba(10, 10, 10, 0.82) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; backdrop-filter: saturate(180%) blur(20px) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
+        .hero-nav .studio-nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+        .hero-nav .studio-logo img { filter: brightness(0) invert(1); height: 28px; width: auto; display: block; }
+        .hero-nav .studio-nav-cta { background: #FFFFFF; color: #0A0A0A; }
+        .hero-nav .studio-nav-cta:hover { background: #F5F5F5; color: #0A0A0A; }
+        .hero-nav #hamburger { border-color: rgba(255,255,255,0.24); }
+        .hero-nav #hamburger span { background: #FFFFFF; }
+        /* Hero content — About's H1 sits centered */
+        .hero-content { position: relative; z-index: 20; padding: 5rem 0 3rem; }
+        .hero-content-inner { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; text-align: center; }
+        @media(min-width: 640px) { .hero-content-inner { padding: 0 2rem; } }
+        .hero-eyebrow-line { display: inline-flex; align-items: center; gap: 0.85rem; margin: 0 0 1.5rem; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #FFFFFF; }
+        .hero-eyebrow-line .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(0,136,219,0.18); flex: none; }
+        .hero-h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.06; letter-spacing: -0.03em; margin: 0 auto 1.5rem; max-width: 22ch; }
+        .hero-h1 .hero-h1-line-1 { display: block; background: linear-gradient(90deg, #FFFFFF 0%, #4AB5ED 55%, #0088DB 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+        .hero-h1 .hero-h1-line-2 { display: block; color: #FFFFFF; }
+        .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 52ch; }
+    </style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -100,30 +135,28 @@
     </div>
 </header>
 
-<main class="studio-pane">
+<!-- CINEMATIC HERO — same rotating video as homepage. Rotates through
+     /media/hero-1.mp4, hero-2.mp4, hero-4.mp4 via the JS at page bottom. -->
+<div class="hero-zone">
+    <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="/media/hero-1.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
+    <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
 
-    <!-- HERO -->
-    <!-- HERO (lf-hero pattern per redesign md) -->
-    <section class="lf-hero">
-      <div class="lf-hero-grid" aria-hidden="true"></div>
-      <div class="lf-hero-inner centered">
-        <span class="lf-eyebrow">About Launch Forte</span>
-        <h1 class="lf-h1">We start with<br><span class="lf-accent">what the problem costs</span>.</h1>
-      </div>
-    </section>
-
-    <!-- ABOUT US VIDEO -->
-    <div class="section reveal" style="padding-top:1rem;padding-bottom:2rem">
-        <div style="max-width:720px;margin:0 auto">
-            <div class="about-video-wrap">
-                <div id="about-video-player"></div>
-                <button type="button" class="about-video-unmute" aria-label="Unmute video">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                    <span>Tap to unmute</span>
-                </button>
-            </div>
+    <div class="hero-content">
+        <div class="hero-content-inner">
+            <span class="hero-eyebrow-line"><span class="dot"></span><span class="mark">About Launch Forte</span></span>
+            <h1 class="hero-h1">
+                <span class="hero-h1-line-1">We start with</span>
+                <span class="hero-h1-line-2">what the problem costs.</span>
+            </h1>
+            <p class="hero-sub-dark">Solo engineering practice. The architect, builder, and partner you talk to during the audit is the same person who ships the build.</p>
         </div>
     </div>
+</div>
+
+<main class="studio-pane hero-follows">
 
     <!-- PROFILE -->
     <div class="section reveal">
@@ -285,42 +318,34 @@
 </main>
 
 <script>
-// About Us video (YouTube IFrame API): autoplay muted, prominent unmute button
+// Cinematic hero: rotate through /media/hero-1.mp4 .. hero-4.mp4 back-to-back
+// (same as homepage). Reduced motion honors the poster and skips rotation.
 (function(){
-    var slot = document.getElementById('about-video-player');
-    var btn = document.querySelector('.about-video-unmute');
-    if (!slot || !btn) return;
-
-    if (!window.YT || !window.YT.Player) {
-        var tag = document.createElement('script');
-        tag.src = 'https://www.youtube.com/iframe_api';
-        document.head.appendChild(tag);
+    var v = document.getElementById('hero-video');
+    if (!v) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var sources = [
+        { src: '/media/hero-1.mp4', pos: 'center center' },
+        { src: '/media/hero-2.mp4', pos: 'center 30%' },
+        { src: '/media/hero-4.mp4', pos: 'center center' }
+    ];
+    var i = 0;
+    function playNext(){
+        i = (i + 1) % sources.length;
+        v.src = sources[i].src;
+        v.style.objectPosition = sources[i].pos;
+        v.load();
+        v.play().catch(function(){});
     }
-
-    var player = null;
-    window.onYouTubeIframeAPIReady = function(){
-        player = new YT.Player('about-video-player', {
-            videoId: '7YxCIPU1Jd0',
-            playerVars: {
-                autoplay: 1, mute: 1, controls: 1, modestbranding: 1,
-                rel: 0, playsinline: 1, loop: 1, playlist: '7YxCIPU1Jd0'
-            },
-            events: {
-                onReady: function(e){ try { e.target.mute(); e.target.playVideo(); } catch(_){} }
-            }
-        });
-    };
-
-    btn.addEventListener('click', function(){
-        if (player && typeof player.unMute === 'function') {
-            try { player.unMute(); player.setVolume(100); player.playVideo(); } catch(_){}
-        }
-        btn.classList.add('is-hidden');
-    });
+    v.style.objectPosition = sources[0].pos;
+    v.addEventListener('ended', playNext);
+    // Some browsers won't autoplay until loaddata; kick it explicitly
+    v.addEventListener('loadeddata', function(){ v.play().catch(function(){}); });
+    v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=p8p" defer></script>
-<script src="/scroll-top.js?v=p8p" defer></script>
-<script src="/hamburger.js?v=p8p" defer></script>
+<script src="/studio-motion.js?v=p8q" defer></script>
+<script src="/scroll-top.js?v=p8q" defer></script>
+<script src="/hamburger.js?v=p8q" defer></script>
 </body>
 </html>

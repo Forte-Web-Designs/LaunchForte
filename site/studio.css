@@ -97,6 +97,21 @@
   --max-narrow: 720px;
   --max-content: 1120px;
   --max-wide: 1280px;
+
+  /* Legacy compat aliases (Pass 8, Phase 6h). Shell-swapped pages carry
+     hundreds of style="color:var(--text-primary)" inline attributes from
+     the pre-Pass-8 body markup. Map them to Studio tokens so the copy
+     stays visible without editing every element inline. */
+  --text-primary: var(--ink);
+  --text-secondary: var(--n-600);
+  --text-muted: var(--n-500);
+  --background: var(--paper);
+  --surface: var(--paper);
+  --border-light: var(--border);
+  --accent-subtle: var(--accent-tint);
+  /* Extra type-scale aliases used by legacy body styles */
+  --body-color: var(--ink);
+  --body-color-secondary: var(--n-600);
 }
 
 /* Dark mode: ink and paper swap, blue is constant */
@@ -119,6 +134,10 @@
   --border: rgba(255, 255, 255, 0.10);
   --border-strong: rgba(255, 255, 255, 0.18);
   --ring: rgba(255, 255, 255, 0.05);
+  /* Legacy aliases re-computed for dark (var() references above resolve
+     to the dark tokens automatically, but --border-light needs an explicit
+     dark value to match how legacy pages assumed a light-mode look). */
+  --border-light: var(--border);
 }
 /* No prefers-color-scheme auto-switch: light is the default and stays put
    unless the user flips the theme toggle. */
@@ -568,6 +587,12 @@ a:hover { color: var(--accent-hover); }
 /* ---- Section rhythm ---- */
 .section, .section-inner, .section-content { max-width: 860px; margin: 0 auto; padding: var(--sp-16) var(--sp-6); }
 .section-label { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--n-500); margin-bottom: var(--sp-6); }
+/* Standard body copy class used across about/writing/tools/free-tools */
+.body-text { color: var(--n-600); font-size: 1.0625rem; line-height: 1.7; margin: 0 0 1.25rem; }
+.body-text:last-child { margin-bottom: 0; }
+.body-text strong { color: var(--ink); font-weight: 600; }
+.body-text a { color: var(--accent); font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent-tint); text-underline-offset: 0.15em; }
+.body-text a:hover { text-decoration-color: var(--accent); }
 
 /* ---- CTA banner (partnership, results, lead-systems, one-connected) ---- */
 .cta-banner, .cta-block { padding: var(--sp-16); background: var(--ink); color: var(--paper); border-radius: var(--radius-4xl); margin: var(--sp-16) auto; max-width: 900px; text-align: center; }
