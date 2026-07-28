@@ -17,8 +17,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p8f">
-    <script src="/studio-theme.js?v=p8f"></script>
+    <link rel="stylesheet" href="/studio.css?v=p8g">
+    <script src="/studio-theme.js?v=p8g"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -183,14 +183,153 @@
     <style>
         /* Page-specific: homepage. Tokens + shell come from /studio.css. */
 
-        /* Hero: two column, huge display type, restraint on visual side */
-        .hero-inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3.5rem; align-items: center; padding-top: 3rem; padding-bottom: 4rem; }
-        @media(max-width: 900px) { .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 2rem; padding-bottom: 2.5rem; } }
-        .hero-eyebrow { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-sm); font-weight: 600; color: var(--n-500); letter-spacing: 0.04em; margin-bottom: 1.5rem; text-transform: none; }
-        .hero-h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(2.25rem, 6vw, 4.5rem); line-height: 1.02; letter-spacing: -0.035em; color: var(--ink); margin: 0 0 1.5rem; }
-        .hero-sub { font-size: var(--text-xl); line-height: 1.5; color: var(--n-600); max-width: 46ch; margin: 0 0 2rem; }
-        .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.85rem; align-items: center; }
-        .hero-visual img { display: block; width: 100%; height: auto; border-radius: var(--radius-3xl); }
+        /* ============================================================
+           SECTION 8: cinematic hero (dark zone, one on the whole site)
+           ============================================================ */
+        .hero-zone {
+            position: relative;
+            background: #0A0A0A;
+            color: #FFFFFF;
+            overflow: hidden;
+            /* No rounded corners at top; rounded fade at bottom via the overlay */
+            padding-bottom: 3rem;
+        }
+        /* The paper pane that follows the hero doesn't need its own peek/top padding */
+        main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
+        main.studio-pane.hero-follows::before { display: none; }
+
+        /* The rotating video layer */
+        .hero-video {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 65%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+        }
+        @media(max-width: 900px) {
+            .hero-video { width: 100%; opacity: 0.55; }
+        }
+        @media(prefers-reduced-motion: reduce) {
+            .hero-video { display: none; }
+        }
+
+        /* Two overlays for legibility */
+        .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+        .hero-overlay-lr {
+            background: linear-gradient(90deg, #0A0A0A 0%, rgba(10,10,10,0.85) 35%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.25) 100%);
+        }
+        .hero-overlay-btm {
+            /* Fades bottom of the hero into the paper pane below via a dark-to-paper gradient */
+            background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #FFFFFF 100%);
+        }
+        [data-theme="dark"] .hero-overlay-btm {
+            background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #0A0A0A 100%);
+        }
+
+        /* Nav sits ON the hero ground */
+        .hero-nav { position: relative; z-index: 40; padding: 2rem 0 0; background: transparent; }
+        .hero-nav .studio-nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+        .hero-nav .studio-logo img { filter: brightness(0) invert(1); height: 28px; width: auto; display: block; }
+        .hero-nav .studio-nav-cta { background: #FFFFFF; color: #0A0A0A; }
+        .hero-nav .studio-nav-cta:hover { background: #F5F5F5; color: #0A0A0A; }
+        .hero-nav #hamburger { border-color: rgba(255,255,255,0.24); }
+        .hero-nav #hamburger span { background: #FFFFFF; }
+
+        /* Hero content: eyebrow + gradient H1 + Ask Forte field + stats */
+        .hero-content { position: relative; z-index: 20; padding: 5rem 0 3rem; }
+        .hero-content-inner { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+        @media(min-width: 640px) { .hero-content-inner { padding: 0 2rem; } }
+
+        /* Eyebrow: dot + LAUNCH FORTE + thin rule */
+        .hero-eyebrow-line { display: inline-flex; align-items: center; gap: 0.85rem; margin: 0 0 2rem; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #FFFFFF; }
+        .hero-eyebrow-line .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(0,136,219,0.18); flex: none; }
+        .hero-eyebrow-line .mark { color: #FFFFFF; }
+        .hero-eyebrow-line .rule { display: inline-block; width: 40px; height: 1px; background: rgba(255,255,255,0.32); flex: none; }
+
+        /* H1: two lines. Line 1 is the ONE permitted gradient (ink to accent blue) — the hero's signature. */
+        .hero-h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(2rem, 4.8vw, 4rem); line-height: 1.06; letter-spacing: -0.03em; margin: 0 0 2.25rem; max-width: 22ch; }
+        .hero-h1 .hero-h1-line-1,
+        .hero-h1 .hero-h1-line-2 { display: block; }
+        .hero-h1 .hero-h1-line-1 {
+            background: linear-gradient(90deg, #FFFFFF 0%, #4AB5ED 55%, #0088DB 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+        .hero-h1 .hero-h1-line-2 { color: #FFFFFF; }
+
+        /* Ask Forte field: paper field on dark ground */
+        .ask-forte-hero {
+            display: flex; align-items: center; gap: 0.5rem;
+            background: #FFFFFF;
+            border-radius: 999px;
+            padding: 0.5rem 0.5rem 0.5rem 1rem;
+            max-width: 640px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+            margin: 0 0 1rem;
+        }
+        .ask-forte-hero input {
+            flex: 1;
+            border: 0;
+            background: transparent;
+            font-family: inherit;
+            font-size: var(--text-base);
+            color: var(--ink);
+            padding: 0.65rem 0.35rem;
+            outline: none;
+            min-width: 0;
+        }
+        .ask-forte-hero input::placeholder { color: var(--n-500); }
+        .ask-mic {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px;
+            background: transparent;
+            border: 1px solid var(--border-strong);
+            border-radius: 50%;
+            color: var(--ink);
+            cursor: pointer;
+            padding: 0;
+            flex: none;
+            transition: border-color var(--dur-hover) var(--ease-out), color var(--dur-hover);
+        }
+        .ask-mic:hover { border-color: var(--accent); color: var(--accent); }
+        .ask-mic svg { width: 18px; height: 18px; display: block; }
+        .ask-submit {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: #FFFFFF;
+            border: 0;
+            border-radius: 999px;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: var(--text-sm);
+            cursor: pointer;
+            flex: none;
+            transition: transform var(--dur-hover) var(--ease-out), background var(--dur-hover);
+        }
+        .ask-submit:hover { transform: translateY(-1px); background: var(--accent-hover); color: #FFFFFF; }
+
+        .hero-quiet-links { margin: 0.75rem 0 3rem; font-size: var(--text-sm); color: rgba(255,255,255,0.72); display: flex; flex-wrap: wrap; gap: 0.5rem 0.85rem; align-items: center; }
+        .hero-quiet-links a { color: #FFFFFF; text-decoration: underline; text-underline-offset: 0.25em; text-decoration-color: rgba(255,255,255,0.32); font-weight: 500; }
+        .hero-quiet-links a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+        /* Stats row */
+        .hero-stats { margin-top: 2rem; max-width: 780px; }
+        .hero-stats-rule { border: 0; border-top: 1px solid rgba(255,255,255,0.20); margin: 0 0 1.5rem; }
+        .hero-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        @media(max-width: 640px) { .hero-stats-row { grid-template-columns: 1fr; gap: 1.25rem; } }
+        .hero-stat-label { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 0.35rem; }
+        .hero-stat-value { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-2xl); font-weight: 700; letter-spacing: -0.015em; color: #FFFFFF; }
+        .hero-stat-value .num { color: var(--accent); }
+        @media(min-width: 640px) { .hero-stat-value { font-size: var(--text-3xl); } }
+
+        /* Legacy hero styles kept for downstream unused CSS but no longer referenced by the section */
+        .hero-inner { display: none; }
 
         /* Try it now (PLAY) */
         .play-intro { text-align: center; max-width: 720px; margin: 0 auto var(--sp-16); }
@@ -326,49 +465,96 @@
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<header class="studio-nav site-header">
-    <div class="studio-grid-bg" aria-hidden="true"></div>
-    <div class="studio-nav-inner">
-        <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
-            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
-        </a>
-        <div class="studio-nav-right">
-            <a href="/contact.html" class="studio-nav-cta">Contact</a>
-            <!-- header-nav is cloned into the hamburger overlay by hamburger.js; hidden on the header itself -->
-            <nav class="header-nav" aria-label="Primary" style="display:none">
-                <a href="/index.html" class="active">Home</a>
-                <a href="/what-we-build.html">What We Build</a>
-                <a href="/one-connected-system">One Connected System</a>
-                <a href="/#who-we-build-for">Who We Build For</a>
-                <a href="/results.html">Results</a>
-                <a href="/tools">Free Tools</a>
-                <a href="/pricing">Pricing</a>
-                <a href="/about.html">About</a>
-                <a href="/contact.html">Contact</a>
-            </nav>
+<!-- ============================================================
+     PASS 8 SECTION 8 — CINEMATIC HERO (homepage only, one dark zone)
+     Black nav bleeds into a full-bleed dark hero. Video plays ambient
+     behind two overlays. White rounded-top pane begins below the hero.
+     ============================================================ -->
+<div class="hero-zone">
+    <!-- Rotating ambient video (muted, autoplay, back-to-back). Poster shows first paint.
+         The JS at the bottom of the page cycles through /media/hero-1.mp4 .. hero-4.mp4. -->
+    <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="metadata" poster="/images/home/launch-forte.png" aria-hidden="true">
+        <source src="/media/hero-1.mp4" type="video/mp4">
+    </video>
+    <!-- Two overlays: left-to-right dark gradient for text legibility, bottom fade dissolving into the pane's rounded top -->
+    <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
+    <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
+
+    <!-- Nav sits ON the dark hero ground, not a separate peek -->
+    <header class="studio-nav site-header hero-nav">
+        <div class="studio-nav-inner">
+            <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
+                <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
+            </a>
+            <div class="studio-nav-right">
+                <a href="/contact.html" class="studio-nav-cta">Contact</a>
+                <!-- header-nav is cloned into the hamburger overlay by hamburger.js; hidden on the header itself -->
+                <nav class="header-nav" aria-label="Primary" style="display:none">
+                    <a href="/index.html" class="active">Home</a>
+                    <a href="/what-we-build.html">What We Build</a>
+                    <a href="/one-connected-system">One Connected System</a>
+                    <a href="/#who-we-build-for">Who We Build For</a>
+                    <a href="/results.html">Results</a>
+                    <a href="/tools">Free Tools</a>
+                    <a href="/pricing">Pricing</a>
+                    <a href="/about.html">About</a>
+                    <a href="/contact.html">Contact</a>
+                </nav>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<main class="studio-pane">
+    <!-- Hero content: eyebrow, H1 with gradient line 1, Ask Forte field, stats row -->
+    <div class="hero-content">
+        <div class="hero-content-inner">
+            <p class="hero-eyebrow-line">
+                <span class="dot" aria-hidden="true"></span>
+                <span class="mark">LAUNCH FORTE</span>
+                <span class="rule" aria-hidden="true"></span>
+            </p>
+            <h1 class="hero-h1">
+                <span class="hero-h1-line-1">Every lead caught.</span>
+                <span class="hero-h1-line-2">Every follow up sent. Every dollar visible.</span>
+            </h1>
 
-    <!-- 1. HERO -->
-    <section class="studio-container">
-        <div class="hero-inner">
-            <div class="studio-reveal">
-                <span class="hero-eyebrow">Revenue and operations systems we build and run</span>
-                <h1 class="hero-h1">Every lead caught. Every follow up sent. Every dollar visible.</h1>
-                <p class="hero-sub">Launch Forte builds the system your business runs on, then runs it with you. Play the demos below and watch it work before you ever book a call.</p>
-                <div class="hero-ctas">
-                    <a href="#try-it-now" class="studio-btn studio-btn-accent" data-gtm-event="homepage_hero_grade_click">Grade my systems free</a>
-                    <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-ghost">Book the Growth Systems Audit</a>
+            <!-- Ask Forte field: primary interaction in the hero (Section 7).
+                 Submits to /ask?q=<message> for prefill; the /ask page handles the rest. -->
+            <form class="ask-forte-hero" action="/ask" method="get" role="search" aria-label="Ask Forte">
+                <button type="button" class="ask-mic" id="ask-mic" aria-label="Speak your question">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                </button>
+                <input type="text" name="q" id="ask-forte-input" placeholder="Got an automation idea or a pain point? Ask Forte." aria-label="Ask Forte">
+                <button type="submit" class="ask-submit" data-gtm-event="homepage_hero_ask_submit">Ask</button>
+            </form>
+            <p class="hero-quiet-links">
+                <a href="#try-it-now" data-gtm-event="homepage_hero_grade_link">Grade my systems free</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" data-gtm-event="homepage_hero_audit_link">Book the Growth Systems Audit</a>
+            </p>
+
+            <!-- Stats row: retires the standalone PROOF STRIP section per Section 8.4 -->
+            <div class="hero-stats">
+                <hr class="hero-stats-rule">
+                <div class="hero-stats-row">
+                    <div class="hero-stat">
+                        <div class="hero-stat-label">Upwork</div>
+                        <div class="hero-stat-value">Top Rated</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-label">Job Success</div>
+                        <div class="hero-stat-value"><span class="num">100</span>%</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-label">Projects delivered</div>
+                        <div class="hero-stat-value"><span class="num">50</span>+</div>
+                    </div>
                 </div>
             </div>
-            <div class="hero-visual studio-reveal">
-                <img src="/images/launchforte-homepage-connected-system.svg" alt="One connected system feeding your bottom line" width="960" height="540" loading="eager">
-            </div>
         </div>
-    </section>
+    </div>
+</div>
+
+<main class="studio-pane hero-follows">
 
     <!-- 2. PLAY -->
     <section class="studio-container studio-section" id="try-it-now">
@@ -410,25 +596,9 @@
         <p style="text-align:center;margin-top:1.75rem;"><a href="/tools" class="see-all-tools" data-gtm-event="homepage_try_see_all_click">See all free tools <span aria-hidden="true">&rarr;</span></a></p>
     </section>
 
-    <!-- 3. PROOF STRIP -->
-    <section class="studio-container studio-section proof-strip">
-        <div class="proof-badges studio-reveal">
-            <span class="proof-badge">100% Job Success across 50+ projects</span>
-            <!-- REPEAT_RATE_STAT: compute from Twenty (clients with a second engagement / total clients). Render nothing until Seth supplies a real number, never estimate. -->
-            <!-- BLUEPRINT_COUNTER_STAT: once /blueprint ships, render "{n} systems running" and "{d} playable demos" as two more proof-badge spans, sourced from the Blueprint's live counters. Render nothing until then. -->
-        </div>
-        <div class="trusted-strip studio-reveal">
-            <p class="trusted-label">Trusted by</p>
-            <div class="marquee-wrap">
-                <div class="marquee-track">
-                    <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
-                    <span>Revolut</span><span>Eden Medical</span><span>Modern Bungalow</span><span>CR Deals</span><span>San Florida</span><span>Kingfisher Ads</span><span>KlnBros Agency</span><span>UDI Group</span><span>Hollow Bamboo</span><span>Six Months to Speech</span>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- PROOF STRIP retired per Pass 8 Section 8.4: stats moved into the cinematic hero above. -->
 
-    <!-- 4. THE ENGINE (merged: connected-system graphic + The Whole Engine + Forte Method essence) -->
+    <!-- 3. THE ENGINE (merged: connected-system graphic + The Whole Engine + Forte Method essence) -->
     <section class="studio-container studio-section" id="the-engine">
         <div class="engine-inner">
             <div class="engine-copy studio-reveal">
@@ -817,9 +987,57 @@
         });
     });
 })();
+
+// Cinematic hero: rotate through /media/hero-1.mp4 .. hero-4.mp4 back-to-back
+(function(){
+    var v = document.getElementById('hero-video');
+    if (!v) return;
+    // Reduced motion honors the poster; skip rotation
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var sources = ['/media/hero-1.mp4','/media/hero-4.mp4'];
+    var i = 0;
+    v.removeAttribute('loop'); // We rotate instead of looping a single file
+    v.addEventListener('ended', function(){
+        i = (i + 1) % sources.length;
+        var src = sources[i];
+        v.src = src;
+        v.play().catch(function(){});
+    });
+    // Kick-off: some browsers won't autoplay unless we call play() after user gesture; muted+playsinline should be enough
+    v.play().catch(function(){});
+})();
+
+// Ask Forte hero mic: browser Web Speech API, tap to talk, live transcript fills the field
+(function(){
+    var mic = document.getElementById('ask-mic');
+    var input = document.getElementById('ask-forte-input');
+    if (!mic || !input) return;
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { mic.style.display = 'none'; return; }
+    var rec = null;
+    var listening = false;
+    function start(){
+        rec = new SR();
+        rec.lang = 'en-US';
+        rec.interimResults = true;
+        rec.continuous = false;
+        rec.onresult = function(e){
+            var t = '';
+            for (var k = e.resultIndex; k < e.results.length; k++) t += e.results[k][0].transcript;
+            input.value = t;
+        };
+        rec.onend = function(){ listening = false; mic.style.borderColor = ''; mic.style.color = ''; };
+        rec.onerror = function(){ listening = false; mic.style.borderColor = ''; mic.style.color = ''; };
+        try { rec.start(); listening = true; mic.style.borderColor = 'var(--accent)'; mic.style.color = 'var(--accent)'; } catch(_) {}
+    }
+    function stop(){ if (rec && listening) { try { rec.stop(); } catch(_) {} } }
+    mic.addEventListener('click', function(){
+        if (listening) stop(); else start();
+    });
+})();
 </script>
-<script src="/studio-motion.js?v=p8f" defer></script>
-<script src="/scroll-top.js?v=p8f" defer></script>
-<script src="/hamburger.js?v=p8f" defer></script>
+<script src="/studio-motion.js?v=p8g" defer></script>
+<script src="/scroll-top.js?v=p8g" defer></script>
+<script src="/hamburger.js?v=p8g" defer></script>
 </body>
 </html>

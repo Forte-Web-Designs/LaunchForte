@@ -5,7 +5,7 @@
    dark, both themes. */
 (function () {
     var css = [
-        '.site-header{z-index:200!important}',
+        '.site-header{z-index:100}',
 
         /* Hamburger button — sits on the paper pane */
         '#hamburger{display:flex!important;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:transparent;border:1px solid var(--border-strong,rgba(0,0,0,0.16));border-radius:8px;cursor:pointer;padding:0;flex-shrink:0;transition:border-color 0.2s ease}',
@@ -20,8 +20,9 @@
         '.header-nav{display:none!important}',
 
         /* ============= Overlay ============= */
-        /* Always dark, both themes. Studio's approach: black panel, no gradient. */
-        '#mobile-nav{position:fixed;inset:0;z-index:199;background:#0A0A0A;color:#FFFFFF;display:none;flex-direction:column;overflow-y:auto;opacity:0;transition:opacity 0.3s ease}',
+        /* Always dark, both themes. Studio's approach: black panel, no gradient.
+           z-index above the header so the header's own logo/Contact/hamburger don't peek through. */
+        '#mobile-nav{position:fixed;inset:0;z-index:9999;background:#0A0A0A;color:#FFFFFF;display:none;flex-direction:column;overflow-y:auto;opacity:0;transition:opacity 0.3s ease}',
         '#mobile-nav.open{display:flex;opacity:1}',
 
         /* Top bar inside the overlay: logo left, close X right */
