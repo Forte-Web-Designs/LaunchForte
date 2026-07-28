@@ -115,13 +115,30 @@
     });
     overlay.appendChild(grid);
 
-    /* Footer: email + social */
+    /* Footer: email + social + theme toggle */
     var foot = document.createElement('div');
     foot.className = 'mn-foot';
     foot.innerHTML =
         '<div><a href="mailto:seth@launchforte.com">seth@launchforte.com</a></div>' +
-        '<div><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></div>';
+        '<div><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></div>' +
+        '<div><button type="button" id="mn-theme-toggle" style="background:transparent;border:1px solid rgba(255,255,255,0.24);color:#fff;border-radius:8px;padding:0.5rem 0.9rem;font:inherit;font-size:0.8125rem;font-weight:600;cursor:pointer">Toggle dark mode</button></div>';
     overlay.appendChild(foot);
+
+    /* Wire the theme toggle inside the overlay to flip the data-theme attr
+       (studio-theme.js listens by reading current attr and persisting). */
+    foot.querySelector('#mn-theme-toggle').addEventListener('click', function(){
+        var cur = document.documentElement.getAttribute('data-theme') || 'light';
+        var next = (cur === 'dark') ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('lf-theme', next); } catch(e){}
+        /* Also update the floating toggle icon if it exists */
+        var floating = document.getElementById('studio-theme-toggle');
+        if (floating) {
+            var sun = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+            var moon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+            floating.innerHTML = next === 'dark' ? sun : moon;
+        }
+    });
 
     /* Prefer the Studio nav host when present (Pass 8), otherwise the legacy header container. */
     var headerContainer = document.querySelector('.studio-nav-right') || document.querySelector('.header-container');
