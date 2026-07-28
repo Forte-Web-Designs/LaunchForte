@@ -17,8 +17,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p8e">
-    <script src="/studio-theme.js?v=p8e"></script>
+    <link rel="stylesheet" href="/studio.css?v=p8f">
+    <script src="/studio-theme.js?v=p8f"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -257,20 +257,15 @@
 
         /* Testimonials */
         .testi-h2 { margin-bottom: 3rem; }
-        /* Video testimonials: Danielle is a native <video>, Matt is a senja
-           widget with data-mode="light" so my CSS reaches inside. Both frames
-           cap at 420px wide; height flows naturally per each video's aspect. */
+        /* Video testimonials. Danielle is a native <video> capped to 420px.
+           Matt is a senja widget with data-mode="shadow" (senja's default) so
+           it renders in its own shadow root; my CSS can't reach inside so I
+           only style the outer wrapper. The widget's inline style caps its
+           own max-width at 420px, matching Danielle's frame width. */
         .video-testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; margin-top: var(--sp-8); align-items: start; max-width: 960px; margin-left: auto; margin-right: auto; }
         .video-testi { min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .video-testi .video-frame { width: 100%; max-width: 420px; margin: 0 auto 1.25rem; display: block; }
         .video-testi .video-frame video { display: block; width: 100%; height: auto; max-width: 100%; border-radius: var(--radius-3xl); background: var(--ink); }
-        /* Matt's senja widget in light mode: cap the outer + all descendants; borders on senja's own card get flattened to match Studio's rounded paper look */
-        .video-testi .senja-frame .senja-embed { display: block; width: 100% !important; max-width: 420px !important; margin: 0 auto !important; }
-        .video-testi .senja-frame .senja-embed *,
-        .video-testi .senja-frame .senja-embed *::before,
-        .video-testi .senja-frame .senja-embed *::after { max-width: 100% !important; box-sizing: border-box !important; }
-        .video-testi .senja-frame .senja-embed video,
-        .video-testi .senja-frame .senja-embed img { max-width: 100% !important; height: auto !important; display: block !important; }
         .video-testi .vt-quote { margin-top: 0.5rem; max-width: 420px; }
         @media(max-width: 768px) { .video-testi-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
 
@@ -605,7 +600,7 @@
             <div class="video-testi studio-reveal">
                 <div class="video-frame senja-frame">
                     <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
-                    <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="light" data-lazyload="true"></div>
+                    <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true" style="display:block;max-width:420px;margin:0 auto"></div>
                 </div>
                 <div class="vt-quote">
                     <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
@@ -823,8 +818,8 @@
     });
 })();
 </script>
-<script src="/studio-motion.js?v=p8e" defer></script>
-<script src="/scroll-top.js?v=p8e" defer></script>
-<script src="/hamburger.js?v=p8e" defer></script>
+<script src="/studio-motion.js?v=p8f" defer></script>
+<script src="/scroll-top.js?v=p8f" defer></script>
+<script src="/hamburger.js?v=p8f" defer></script>
 </body>
 </html>
