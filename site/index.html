@@ -19,8 +19,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p8k">
-    <script src="/studio-theme.js?v=p8k"></script>
+    <link rel="stylesheet" href="/studio.css?v=p8m">
+    <script src="/studio-theme.js?v=p8m"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -319,9 +319,65 @@
         }
         .ask-submit:hover { transform: translateY(-1px); background: var(--accent-hover); color: #FFFFFF; }
 
-        .hero-quiet-links { margin: 0.75rem 0 3rem; font-size: var(--text-sm); color: rgba(255,255,255,0.72); display: flex; flex-wrap: wrap; gap: 0.5rem 0.85rem; align-items: center; }
+        .hero-quiet-links { margin: 1.25rem 0 3rem; font-size: var(--text-base); color: rgba(255,255,255,0.72); display: flex; flex-wrap: wrap; gap: 0.5rem 0.85rem; align-items: center; }
         .hero-quiet-links a { color: #FFFFFF; text-decoration: underline; text-underline-offset: 0.25em; text-decoration-color: rgba(255,255,255,0.32); font-weight: 500; }
         .hero-quiet-links a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+        /* ============================================================
+           SECTION 9 + 10 + 11.1: Ask Forte section (in the paper pane)
+           ============================================================ */
+        .askf-intro { text-align: center; max-width: 780px; margin: 0 auto var(--sp-10); }
+        .askf-intro .studio-h2 { margin: 0.75rem auto 0; }
+        .askf-intro .studio-lead { color: var(--n-600); }
+
+        /* Ghost napkin — the wow, zero API calls */
+        .ghost-napkin { max-width: 720px; margin: 0 auto var(--sp-10); }
+        .ghost-frame { position: relative; background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-3xl); padding: 1.5rem 1.5rem 1.75rem; box-shadow: 0 8px 30px rgba(10,10,10,0.05); }
+        .ghost-label { position: absolute; top: 0.9rem; right: 1.25rem; font-size: 11px; color: var(--n-500); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; }
+        .ghost-thread { display: flex; flex-direction: column; gap: 0.65rem; margin: 0.5rem 0 1.25rem; min-height: 90px; }
+        .ghost-bubble { padding: 0.6rem 0.85rem; border-radius: 14px; font-size: 0.9375rem; line-height: 1.45; max-width: 82%; }
+        .ghost-bubble-user { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 4px; }
+        .ghost-bubble-bot { align-self: flex-start; background: var(--n-100); color: var(--ink); border-bottom-left-radius: 4px; }
+        .ghost-caret { display: inline-block; width: 2px; height: 1.05em; background: currentColor; vertical-align: middle; margin-left: 2px; animation: gh-caret 900ms steps(2) infinite; }
+        @keyframes gh-caret { 50% { opacity: 0; } }
+        .ghost-sketch-wrap { background: var(--paper-2); border-radius: var(--radius-2xl); padding: 1rem; min-height: 160px; }
+        .ghost-sketch { width: 100%; height: auto; display: block; max-height: 240px; }
+        @media(prefers-reduced-motion: reduce) {
+          .ghost-sketch .g-line, .ghost-sketch .g-node-path { stroke-dashoffset: 0; }
+          .ghost-sketch .g-text-fade { opacity: 1; }
+          .ghost-caret { animation: none; opacity: 0; }
+        }
+
+        /* Massive chat bar */
+        .askf-bar { display: flex; align-items: center; gap: 0.5rem; background: var(--paper); border: 1px solid var(--border-strong); border-radius: 999px; padding: 0.6rem 0.6rem 0.6rem 1.25rem; max-width: 820px; margin: 0 auto; box-shadow: 0 12px 40px rgba(10,10,10,0.08); transition: border-color var(--dur-hover), box-shadow var(--dur-hover); }
+        .askf-bar:focus-within { border-color: var(--accent); box-shadow: 0 12px 40px rgba(0,136,219,0.18); }
+        .askf-mic { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; background: transparent; border: 1px solid var(--border-strong); border-radius: 50%; color: var(--ink); cursor: pointer; padding: 0; flex: none; transition: border-color var(--dur-hover), color var(--dur-hover); }
+        .askf-mic:hover { border-color: var(--accent); color: var(--accent); }
+        .askf-mic svg { width: 20px; height: 20px; display: block; }
+        .askf-bar input { flex: 1; border: 0; background: transparent; font-family: inherit; font-size: var(--text-lg); color: var(--ink); padding: 0.85rem 0.5rem; outline: none; min-width: 0; }
+        .askf-bar input::placeholder { color: var(--n-500); }
+        .askf-submit { display: inline-flex; align-items: center; justify-content: center; padding: 0.85rem 1.75rem; background: var(--accent); color: #fff; border: 0; border-radius: 999px; font-family: inherit; font-weight: 700; font-size: var(--text-base); cursor: pointer; flex: none; transition: transform var(--dur-hover), background var(--dur-hover); }
+        .askf-submit:hover { transform: translateY(-1px); background: var(--accent-hover); color: #fff; }
+        @media(max-width: 640px) {
+          .askf-bar { padding: 0.5rem; border-radius: 22px; flex-wrap: wrap; }
+          .askf-bar input { width: 100%; padding: 0.75rem 0.35rem; font-size: var(--text-base); order: 2; flex: 1 0 100%; }
+          .askf-mic { order: 1; }
+          .askf-submit { order: 3; width: 100%; margin-top: 0.5rem; border-radius: 999px; }
+        }
+
+        /* Three-beat promise strip */
+        .askf-promise { list-style: none; margin: 1.5rem auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 2rem; max-width: 820px; color: var(--n-600); font-size: var(--text-sm); font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; }
+        .askf-promise li { display: inline-flex; align-items: center; gap: 0.5rem; }
+        .askf-arrow { display: inline-block; font-size: 1.15em; color: var(--accent); transform: rotate(15deg); }
+
+        /* Compressed tools line */
+        .askf-tools-line { margin: 2rem auto 0; text-align: center; color: var(--n-500); font-size: var(--text-sm); }
+        .askf-tools-line a { color: var(--accent); font-weight: 600; }
+
+        /* WHO WE BUILD FOR one-liner (Section 11.3) */
+        .who-line { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.5rem, 3.2vw, 2rem); line-height: 1.25; letter-spacing: -0.02em; color: var(--ink); margin: 1rem 0 0; max-width: 900px; }
+        .who-line a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 0.2em; transition: color var(--dur-hover); }
+        .who-line a:hover { color: var(--accent); }
 
         /* Stats row */
         .hero-stats { margin-top: 2rem; max-width: 780px; }
@@ -510,7 +566,10 @@
         </div>
     </header>
 
-    <!-- Hero content: eyebrow, H1 with gradient line 1, Ask Forte field, stats row -->
+    <!-- Hero content: H1, quiet CTA pair, stats row.
+         Section 9 supersedes the hero field: the massive Ask Forte bar lives
+         at the top of the pane below. The hero's primary action becomes a
+         scroll cue into that bar. -->
     <div class="hero-content">
         <div class="hero-content-inner">
             <h1 class="hero-h1">
@@ -518,17 +577,10 @@
                 <span class="hero-h1-line-2">Every follow up sent. Every dollar visible.</span>
             </h1>
 
-            <!-- Ask Forte field: primary interaction in the hero (Section 7).
-                 Submits to /ask?q=<message> for prefill; the /ask page handles the rest. -->
-            <form class="ask-forte-hero" action="/ask" method="get" role="search" aria-label="Ask Forte">
-                <button type="button" class="ask-mic" id="ask-mic" aria-label="Speak your question">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-                </button>
-                <input type="text" name="q" id="ask-forte-input" placeholder="Got an automation idea or a pain point? Ask Forte." aria-label="Ask Forte">
-                <button type="submit" class="ask-submit" data-gtm-event="homepage_hero_ask_submit">Ask</button>
-            </form>
             <p class="hero-quiet-links">
-                <a href="#try-it-now" data-gtm-event="homepage_hero_grade_link">Grade my systems free</a>
+                <a href="#ask-forte" data-gtm-event="homepage_hero_ask_link">Ask Forte</a>
+                <span aria-hidden="true">·</span>
+                <a href="/grade" data-gtm-event="homepage_hero_grade_link">Grade my systems free</a>
                 <span aria-hidden="true">·</span>
                 <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" data-gtm-event="homepage_hero_audit_link">Book the Growth Systems Audit</a>
             </p>
@@ -560,47 +612,87 @@
 
 <main class="studio-pane hero-follows">
 
-    <!-- 2. PLAY -->
-    <section class="studio-container studio-section" id="try-it-now">
-        <div class="play-intro studio-reveal">
-            <p class="studio-eyebrow">Try it now</p>
-            <h2 class="studio-h2">See what we do before you book anything.</h2>
-            <p class="studio-lead" style="margin: 1.25rem auto 0;">Nine free tools and live demos. Most visitors start with the grade.</p>
+    <!-- 2. ASK FORTE (Sections 9, 10, 11.1)
+         The white pane opens with Ask Forte as its first section. Ghost napkin
+         above the massive bar shows a stranger exactly what typing buys, with
+         zero API calls. Bar submits to /ask?q=<message> for prefill (the LIVE
+         flag governs whether the pane-mount conversation happens in place; for
+         now this is prefill-only). The old PLAY section retires per Section
+         11.1; the tools compress to one quiet line beneath the bar. -->
+    <section class="studio-container studio-section" id="ask-forte" style="scroll-margin-top:1rem">
+        <div class="askf-intro studio-reveal">
+            <p class="studio-eyebrow">Ask Forte</p>
+            <h2 class="studio-h2">Tell us what's broken. Watch us draw the fix.</h2>
+            <p class="studio-lead" style="margin:1.25rem auto 0;">Free. About sixty seconds. A hand drawn sketch of your system, emailed to you.</p>
         </div>
 
-        <form id="try-grade-form" class="try-grade-form studio-reveal" action="/grade" method="get" novalidate>
-            <div class="try-grade-row">
-                <input type="text" name="u" id="try-grade-input" inputmode="url" autocomplete="url" placeholder="yourwebsite.com" aria-label="Your website" required>
-                <button type="submit" class="studio-btn studio-btn-accent" data-gtm-event="homepage_try_grade_submit">Grade my systems</button>
+        <!-- Ghost napkin: canned sample conversation typing itself, then the sketch draws itself
+             stroke by stroke. Pre-rendered, zero API calls, ships today. The magic they watch
+             here is the same magic they'll get when the real flows go live. -->
+        <div class="ghost-napkin studio-reveal" aria-hidden="true">
+            <div class="ghost-frame">
+                <div class="ghost-label">watch a sample</div>
+                <div class="ghost-thread">
+                    <div class="ghost-bubble ghost-bubble-user" data-role="user"><span class="ghost-typed"></span><span class="ghost-caret"></span></div>
+                    <div class="ghost-bubble ghost-bubble-bot" data-role="bot"><span class="ghost-typed"></span><span class="ghost-caret"></span></div>
+                </div>
+                <div class="ghost-sketch-wrap">
+                    <svg class="ghost-sketch" viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sample napkin sketch">
+                        <defs>
+                            <style>
+                                .g-node{fill:#FFFFFF;stroke:#0A0A0A;stroke-width:2}
+                                .g-label{fill:#0A0A0A;font-family:'Mona Sans',sans-serif;font-size:14px;font-weight:600}
+                                .g-line{fill:none;stroke:#0A0A0A;stroke-width:2;stroke-linecap:round;stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 900ms ease-out}
+                                .g-node-path{stroke-dasharray:400;stroke-dashoffset:400;transition:stroke-dashoffset 700ms ease-out}
+                                .g-text-fade{opacity:0;transition:opacity 400ms ease-out 200ms}
+                                .g-decide{fill:#0088DB}
+                                .ghost-sketch.g-play .g-line,.ghost-sketch.g-play .g-node-path{stroke-dashoffset:0}
+                                .ghost-sketch.g-play .g-text-fade{opacity:1}
+                                .g-line-1{transition-delay:0ms}.g-line-2{transition-delay:400ms}.g-line-3{transition-delay:800ms}.g-line-4{transition-delay:1200ms}
+                                .g-node-1{transition-delay:200ms}.g-node-2{transition-delay:600ms}.g-node-3{transition-delay:1000ms}.g-node-4{transition-delay:1400ms}
+                                .g-text-1{transition-delay:600ms}.g-text-2{transition-delay:1000ms}.g-text-3{transition-delay:1400ms}.g-text-4{transition-delay:1800ms}
+                            </style>
+                        </defs>
+                        <!-- Wire lines drawn stroke-by-stroke -->
+                        <path class="g-line g-line-1" d="M110 130 L245 130"/>
+                        <path class="g-line g-line-2" d="M380 130 L510 130"/>
+                        <path class="g-line g-line-3" d="M310 180 L310 220"/>
+                        <path class="g-line g-line-4" d="M310 90 L310 50"/>
+                        <!-- Nodes (rects drawn with dashoffset for that hand-drawn feel) -->
+                        <rect class="g-node g-node-path g-node-1" x="30" y="100" width="80" height="60" rx="6"/>
+                        <rect class="g-node g-node-path g-node-2 g-decide" x="245" y="100" width="130" height="60" rx="6" fill="#0088DB" stroke="#0088DB"/>
+                        <rect class="g-node g-node-path g-node-3" x="510" y="100" width="100" height="60" rx="6"/>
+                        <rect class="g-node g-node-path g-node-4" x="250" y="220" width="120" height="30" rx="6"/>
+                        <!-- Labels fade in with the strokes -->
+                        <text class="g-label g-text-fade g-text-1" x="70" y="135" text-anchor="middle">missed call</text>
+                        <text class="g-label g-text-fade g-text-2" x="310" y="128" text-anchor="middle" fill="#FFFFFF">DECIDE</text>
+                        <text class="g-label g-text-fade g-text-2" x="310" y="147" text-anchor="middle" fill="#FFFFFF" style="font-size:10px;font-weight:500">buyer? existing?</text>
+                        <text class="g-label g-text-fade g-text-3" x="560" y="135" text-anchor="middle">text back</text>
+                        <text class="g-label g-text-fade g-text-4" x="310" y="240" text-anchor="middle" style="font-size:12px">book on calendar</text>
+                    </svg>
+                </div>
             </div>
-            <p class="try-grade-caption">Your revenue infrastructure, graded from the outside in about a minute.</p>
+        </div>
+
+        <!-- The massive chat bar -->
+        <form class="askf-bar studio-reveal" action="/ask" method="get" role="search" aria-label="Ask Forte">
+            <button type="button" class="askf-mic" id="ask-mic" aria-label="Speak your question">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            </button>
+            <input type="text" name="q" id="ask-forte-input" placeholder="Got an automation idea or a pain point? Ask Forte." aria-label="Ask Forte">
+            <button type="submit" class="askf-submit" data-gtm-event="homepage_ask_submit">Ask</button>
         </form>
 
-        <div class="try-tools-grid studio-reveal-stagger">
-            <a href="/demo/books" class="try-tool-card studio-reveal" data-gtm-event="homepage_try_books_click">
-                <h3>The Mess Maker Finder</h3>
-                <p>Why your books keep breaking, from one transaction export.</p>
-                <p class="try-tool-time">Under 2 minutes</p>
-                <span class="try-tool-btn">Try it &rarr;</span>
-            </a>
-            <a href="/demo/leaks" class="try-tool-card studio-reveal" data-gtm-event="homepage_try_leaks_click">
-                <h3>The Leak Finder</h3>
-                <p>The gap between work performed and money collected.</p>
-                <p class="try-tool-time">Under 2 minutes</p>
-                <span class="try-tool-btn">Try it &rarr;</span>
-            </a>
-            <a href="/leads" class="try-tool-card studio-reveal" data-gtm-event="homepage_try_leads_click">
-                <h3>Verified Lead Sample</h3>
-                <p>Ten verified leads with the audit ledger, in your inbox within the hour.</p>
-                <p class="try-tool-time">Within the hour</p>
-                <span class="try-tool-btn">Try it &rarr;</span>
-            </a>
-        </div>
+        <!-- Three-beat promise strip -->
+        <ul class="askf-promise studio-reveal" aria-label="What happens">
+            <li><span class="askf-arrow" aria-hidden="true">↷</span>say it</li>
+            <li><span class="askf-arrow" aria-hidden="true">↷</span>we draw it</li>
+            <li><span class="askf-arrow" aria-hidden="true">↷</span>it's yours by email</li>
+        </ul>
 
-        <p style="text-align:center;margin-top:1.75rem;"><a href="/tools" class="see-all-tools" data-gtm-event="homepage_try_see_all_click">See all free tools <span aria-hidden="true">&rarr;</span></a></p>
+        <!-- Compressed tools line per Section 11.1: the tool cards leave; /tools keeps them all -->
+        <p class="askf-tools-line studio-reveal">Prefer the classics? <a href="/grade" data-gtm-event="homepage_ask_grade_link">Grade my systems free</a> · <a href="/tools" data-gtm-event="homepage_ask_all_tools_link">all nine tools</a></p>
     </section>
-
-    <!-- PROOF STRIP retired per Pass 8 Section 8.4: stats moved into the cinematic hero above. -->
 
     <!-- 3. THE ENGINE (merged: connected-system graphic + The Whole Engine + Forte Method essence) -->
     <section class="studio-container studio-section" id="the-engine">
@@ -608,11 +700,10 @@
             <div class="engine-copy studio-reveal">
                 <p class="studio-eyebrow">The whole engine</p>
                 <h2 class="studio-h2">From getting found to <span class="lf-accent">getting paid</span>.</h2>
-                <p class="sub">We build and run every step: how customers find you, how they get captured, how they convert, and how the money lands. Most businesses run that across five vendors who each hold one piece. We own the whole engine, we map what you already run before building anything new, and we report the one number that matters at month end, the revenue it produced.</p>
-                <p class="sub">The practice compounds too. Every fix, every gotcha, every timing, every lesson from every build gets recorded once and carried into the next one, so your system ships with the scar tissue of fifty builds already in it, and it reports what it caught every morning.</p>
+                <p class="sub">We build and run every step: how customers find you, how they get captured, how they convert, and how the money lands. One connected system, and one number at month end: the revenue it produced.</p>
+                <p class="sub">The practice compounds too. Every lesson from every build gets recorded once and carried into the next, and your system reports what it caught every morning.</p>
                 <div class="engine-ctas">
                     <a href="/what-we-build.html" class="studio-btn studio-btn-primary">See everything we build</a>
-                    <a href="/one-connected-system" class="studio-btn studio-btn-ghost">How The Forte Method works</a>
                 </div>
             </div>
             <div class="homepage-engine studio-reveal">
@@ -718,39 +809,10 @@
         </div>
     </section>
 
-    <!-- 6. WHO WE BUILD FOR -->
+    <!-- 6. WHO WE BUILD FOR (Section 11.3: one line, no rows; vertical pages keep the depth) -->
     <section class="studio-container studio-section" id="who-we-build-for">
-        <div class="section-eyebrow-block studio-reveal" style="text-align:left;max-width:900px;margin-left:0;margin-right:0;">
-            <p class="studio-eyebrow">Who we build for</p>
-            <h2 class="studio-h2" style="margin-left:0;">Built for the businesses <span class="lf-accent">below</span>, and many more.</h2>
-        </div>
-        <div class="capability-list studio-reveal">
-            <a href="/coaches" class="capability-row">
-                <span class="capability-num">01</span>
-                <h3 class="capability-name">Coaches and creators</h3>
-                <p class="capability-desc">The CRM and funnel that carry a lead from the first DM to a repeat client. <span style="color:var(--accent);font-weight:500">See the page</span></p>
-            </a>
-            <a href="/home-services" class="capability-row">
-                <span class="capability-num">02</span>
-                <h3 class="capability-name">Home and field services</h3>
-                <p class="capability-desc">The system that catches every call and ends the retyping across your tools. <span style="color:var(--accent);font-weight:500">See the page</span></p>
-            </a>
-            <a href="/financial-firms" class="capability-row">
-                <span class="capability-num">03</span>
-                <h3 class="capability-name">Financial and professional firms</h3>
-                <p class="capability-desc">Automated invoicing and reporting, built with the controls money work demands. <span style="color:var(--accent);font-weight:500">See the page</span></p>
-            </a>
-            <a href="/medspa" class="capability-row">
-                <span class="capability-num">04</span>
-                <h3 class="capability-name">Med spas and aesthetic practices</h3>
-                <p class="capability-desc">Bring back the lapsed patients in your list, then build the system that keeps your calendar full and your patients rebooking. <span style="color:var(--accent);font-weight:500">See the page</span></p>
-            </a>
-            <a href="/real-estate" class="capability-row">
-                <span class="capability-num">05</span>
-                <h3 class="capability-name">Real estate agents</h3>
-                <p class="capability-desc">The GoHighLevel system that captures every lead and does the follow up while you're out closing. <span style="color:var(--accent);font-weight:500">See the page</span></p>
-            </a>
-        </div>
+        <p class="studio-eyebrow studio-reveal">Who we build for</p>
+        <p class="who-line studio-reveal">Built for <a href="/coaches">coaches</a>, <a href="/home-services">home services</a>, <a href="/financial-firms">financial firms</a>, <a href="/medspa">med spas</a>, <a href="/real-estate">real estate</a>, and plenty more.</p>
     </section>
 
     <!-- 7. TESTIMONIALS -->
@@ -825,20 +887,8 @@
             <img src="/images/about/headshot-6.jpg" alt="Seth Forte, founder of Launch Forte, automation consultant in Dallas-Fort Worth Texas" class="about-avatar" loading="lazy" decoding="async">
             <div>
                 <p class="about-name">Seth Forte, Founder</p>
-                <p>Launch Forte builds the infrastructure growing businesses run on. I spent years as a reliability engineer keeping critical systems standing at a national bank, and now I build and run them for businesses that can't hire that in house. The reliability standards on every build come from those years.</p>
-                <p>Every engagement starts with diagnosing what the problem is costing. If the math doesn't work, we'll tell you.</p>
+                <p>Launch Forte builds the infrastructure growing businesses run on. I spent years as a reliability engineer keeping critical systems standing at a national bank, and now I build and run them for businesses that can't hire that in house.</p>
                 <a href="/about.html" class="studio-btn studio-btn-ghost">More about us</a>
-            </div>
-        </div>
-
-        <!-- WELCOME VIDEO (kept as founder-voice supplement inside About) -->
-        <div class="studio-reveal" style="max-width:720px;margin:2.5rem auto 0">
-            <div class="about-video-wrap">
-                <div id="about-video-player"></div>
-                <button type="button" class="about-video-unmute" aria-label="Unmute video">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                    <span>Tap to unmute</span>
-                </button>
             </div>
         </div>
     </section>
@@ -866,14 +916,6 @@
                 <div class="faq-qa">
                     <button class="faq-q" aria-expanded="false"><span>What if the math doesn't work?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                     <div class="faq-panel"><div class="faq-panel-inner"><p>Then we tell you. The audit puts a dollar number on what the problem is costing before you commit to a build. If fixing it won't return more than it costs, that's the finding, and you keep the diagnostic.</p></div></div>
-                </div>
-                <div class="faq-qa">
-                    <button class="faq-q" aria-expanded="false"><span>Who is this not for?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                    <div class="faq-panel"><div class="faq-panel-inner"><p>Businesses looking for the cheapest hands to run a task. We build the systems revenue and operations run on, which pays off when there's revenue to protect and a reason to scale. If you need one small fix and nothing more, we're not the fit.</p></div></div>
-                </div>
-                <div class="faq-qa">
-                    <button class="faq-q" aria-expanded="false"><span>We already have an agency running our ads. Where do you fit?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                    <div class="faq-panel"><div class="faq-panel-inner"><p>Right underneath them. Most ad agencies are strong on traffic and were never built for the systems the traffic hits, the tracking, the CRM, the follow up, and the place the money lands. We own that layer, and we work alongside ad agencies all the time.</p></div></div>
                 </div>
             </div>
         </div>
@@ -1025,7 +1067,99 @@
     });
 })();
 
-// Ask Forte hero mic: browser Web Speech API, tap to talk, live transcript fills the field
+// Ghost napkin (Section 10): canned sample typing + sketch drawing itself. Zero API calls, pre-rendered.
+(function(){
+    var frame = document.querySelector('.ghost-napkin');
+    if (!frame) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var thread = frame.querySelector('.ghost-thread');
+    var svg = frame.querySelector('.ghost-sketch');
+    var bubbleUser = thread.querySelector('.ghost-bubble-user');
+    var bubbleBot = thread.querySelector('.ghost-bubble-bot');
+    var typedUser = bubbleUser.querySelector('.ghost-typed');
+    var typedBot = bubbleBot.querySelector('.ghost-typed');
+    var caretUser = bubbleUser.querySelector('.ghost-caret');
+    var caretBot = bubbleBot.querySelector('.ghost-caret');
+
+    // Two canned examples to alternate
+    var examples = [
+        {
+            user: "we miss calls all day",
+            bot: "Sounds like a missed call texter with a decision routing under it. Sketching."
+        },
+        {
+            user: "my books are always a mess",
+            bot: "Sounds like a nightly reconciliation pattern with a review queue. Sketching."
+        }
+    ];
+    var idx = 0;
+
+    function reset() {
+        typedUser.textContent = '';
+        typedBot.textContent = '';
+        bubbleUser.style.opacity = '0';
+        bubbleBot.style.opacity = '0';
+        caretUser.style.display = 'inline-block';
+        caretBot.style.display = 'none';
+        svg.classList.remove('g-play');
+    }
+
+    function typeInto(el, caret, text, speed, done) {
+        el.textContent = '';
+        var i = 0;
+        var iv = setInterval(function(){
+            i++;
+            el.textContent = text.slice(0, i);
+            if (i >= text.length) {
+                clearInterval(iv);
+                caret.style.display = 'none';
+                done && done();
+            }
+        }, speed);
+    }
+
+    function runOnce() {
+        reset();
+        // Fade in user bubble, then type
+        bubbleUser.style.transition = 'opacity 240ms ease-out';
+        bubbleUser.style.opacity = '1';
+        setTimeout(function(){
+            typeInto(typedUser, caretUser, examples[idx].user, 55, function(){
+                // Pause, then bot bubble
+                setTimeout(function(){
+                    bubbleBot.style.transition = 'opacity 240ms ease-out';
+                    bubbleBot.style.opacity = '1';
+                    caretBot.style.display = 'inline-block';
+                    typeInto(typedBot, caretBot, examples[idx].bot, 28, function(){
+                        // Kick the sketch drawing
+                        setTimeout(function(){ svg.classList.add('g-play'); }, 250);
+                        // Loop after the sketch finishes (~2.4s draw + 1.5s hold)
+                        setTimeout(function(){
+                            idx = (idx + 1) % examples.length;
+                            runOnce();
+                        }, 5400);
+                    });
+                }, 450);
+            });
+        }, 250);
+    }
+
+    // Kick off once the section is in view
+    if ('IntersectionObserver' in window) {
+        var seen = false;
+        var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+                if (e.isIntersecting && !seen) { seen = true; runOnce(); io.disconnect(); }
+            });
+        }, { threshold: 0.25 });
+        io.observe(frame);
+    } else {
+        runOnce();
+    }
+})();
+
+// Ask Forte mic: browser Web Speech API, tap to talk, live transcript fills the field
 (function(){
     var mic = document.getElementById('ask-mic');
     var input = document.getElementById('ask-forte-input');
@@ -1054,8 +1188,8 @@
     });
 })();
 </script>
-<script src="/studio-motion.js?v=p8k" defer></script>
-<script src="/scroll-top.js?v=p8k" defer></script>
-<script src="/hamburger.js?v=p8k" defer></script>
+<script src="/studio-motion.js?v=p8m" defer></script>
+<script src="/scroll-top.js?v=p8m" defer></script>
+<script src="/hamburger.js?v=p8m" defer></script>
 </body>
 </html>
