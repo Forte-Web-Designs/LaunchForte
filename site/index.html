@@ -257,11 +257,12 @@
 
         /* Testimonials */
         .testi-h2 { margin-bottom: 3rem; }
-        .video-testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; margin-top: var(--sp-8); align-items: stretch; max-width: 900px; margin-left: auto; margin-right: auto; }
+        .video-testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; margin-top: var(--sp-8); align-items: stretch; max-width: 1080px; margin-left: auto; margin-right: auto; }
         .video-testi { min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .video-testi .video-frame { width: 100%; max-width: 380px; margin: 0 auto 1.25rem; display: flex; align-items: center; justify-content: center; }
-        .video-testi .video-frame video, .video-testi .video-frame .senja-embed { display: block; width: 100%; height: auto; max-width: 380px; border-radius: var(--radius-3xl); overflow: hidden; }
-        .video-testi .vt-quote { margin-top: auto; max-width: 380px; }
+        .video-testi .video-frame { width: 100%; max-width: 500px; margin: 0 auto 1.25rem; display: block; }
+        .video-testi .video-frame video { display: block; width: 100%; height: auto; max-width: 500px; border-radius: var(--radius-3xl); }
+        .video-testi .video-frame .senja-embed { display: block; width: 100%; max-width: 500px; margin: 0 auto; }
+        .video-testi .vt-quote { margin-top: auto; max-width: 500px; }
         @media(max-width: 768px) { .video-testi-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
 
         .review-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }

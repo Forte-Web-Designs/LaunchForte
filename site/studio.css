@@ -150,7 +150,7 @@
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  background: var(--ink);   /* the black nav panel shows through behind the pane */
+  background: #0A0A0A;   /* the black nav panel is fixed in both themes; the pane inside inverts */
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 1rem;
@@ -167,10 +167,13 @@ body {
    ============================================================ */
 .studio-nav {
   position: relative;
-  background: var(--ink);
-  color: var(--paper);
+  /* Nav panel is ALWAYS dark, in both themes, mirroring Studio's shell.
+     Only the pane inside .studio-pane inverts by theme. */
+  background: #0A0A0A;
+  color: #FFFFFF;
   padding: 3.5rem 0 4rem;   /* Studio uses pt-14 pb-16 */
 }
+.studio-nav .studio-logo img { filter: brightness(0) invert(1); }
 .studio-nav-inner {
   max-width: var(--max-wide);
   margin: 0 auto;
