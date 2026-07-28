@@ -249,22 +249,38 @@ body {
   font-weight: 600;
   letter-spacing: -0.02em;
 }
+/* Site-wide eyebrow, Pass 8 Section 8 grammar (adopted from the cinematic hero):
+   [blue dot] LABEL [thin rule]. Reuses the plain <p class="studio-eyebrow">TEXT</p>
+   markup already on every page — no per-page edit needed. */
 .studio-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0 0 1rem;
   font-family: var(--font-display);
   font-variation-settings: var(--font-display-vars);
-  font-size: var(--text-base);
-  font-weight: 600;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--ink);
+  line-height: 1.2;
 }
 .studio-eyebrow::before {
   content: "";
-  display: inline-block;
-  width: 2rem;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-tint);
+}
+.studio-eyebrow::after {
+  content: "";
+  flex: none;
+  width: 40px;
   height: 1px;
-  background: var(--ink);
-  vertical-align: middle;
-  margin-right: 0.85rem;
-  transform: translateY(-2px);
+  background: var(--border-strong);
 }
 .studio-h1 {
   font-family: var(--font-display);

@@ -25,27 +25,27 @@
         '#mobile-nav{position:fixed;inset:0;z-index:9999;background:#0A0A0A;color:#FFFFFF;display:none;flex-direction:column;overflow-y:auto;opacity:0;transition:opacity 0.3s ease}',
         '#mobile-nav.open{display:flex;opacity:1}',
 
-        /* Top bar inside the overlay: logo left, close X right */
-        '#mobile-nav .mn-top{display:flex;align-items:center;justify-content:space-between;padding:3.5rem 2rem 4rem;max-width:1280px;margin:0 auto;width:100%}',
+        /* Top bar inside the overlay: logo left, close X right. STICKY so the X is always reachable. */
+        '#mobile-nav .mn-top{position:sticky;top:0;z-index:2;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:1.5rem 2rem;max-width:1280px;margin:0 auto;width:100%}',
         '#mobile-nav .mn-logo{display:inline-flex;align-items:center}',
         '#mobile-nav .mn-logo img{height:28px;width:auto;display:block;filter:brightness(0) invert(1)}',
         '#mobile-nav-close{width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(255,255,255,0.24);border-radius:8px;cursor:pointer;padding:0;color:#FFFFFF;transition:border-color 0.2s ease,color 0.2s ease}',
         '#mobile-nav-close:hover{border-color:var(--accent,#4AB5ED);color:var(--accent,#4AB5ED)}',
         '#mobile-nav-close svg{width:18px;height:18px;display:block}',
 
-        /* The nav grid: 2 columns of huge editorial cells (Studio\'s exact treatment) */
-        '#mobile-nav .mn-links{display:grid;grid-template-columns:1fr;gap:1px;background:#262626;max-width:1280px;margin:0 auto;width:100%;padding:0 2rem}',
+        /* The nav grid: compact cells so every link + the X fit without scrolling */
+        '#mobile-nav .mn-links{display:grid;grid-template-columns:1fr;gap:1px;background:#262626;max-width:960px;margin:1rem auto 0;width:100%;padding:0 2rem}',
         '@media(min-width:640px){#mobile-nav .mn-links{grid-template-columns:1fr 1fr;padding:0}}',
 
-        '#mobile-nav .mn-cell{position:relative;isolate:isolate;display:block;background:#0A0A0A;padding:2.5rem 1.5rem;font-family:"Mona Sans",-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;font-weight:500;font-size:clamp(1.75rem,4vw,2.75rem);letter-spacing:-0.025em;line-height:1.05;color:#FFFFFF;text-decoration:none;overflow:hidden;transition:color 0.2s ease}',
-        '@media(min-width:640px){#mobile-nav .mn-cell{padding:4rem 3rem}#mobile-nav .mn-cell:nth-child(even){border-left:1px solid #262626}}',
+        '#mobile-nav .mn-cell{position:relative;isolate:isolate;display:block;background:#0A0A0A;padding:1rem 1.5rem;font-family:"Mona Sans",-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;font-weight:500;font-size:1.15rem;letter-spacing:-0.01em;line-height:1.3;color:#FFFFFF;text-decoration:none;overflow:hidden;transition:color 0.2s ease}',
+        '@media(min-width:640px){#mobile-nav .mn-cell{padding:1.25rem 1.75rem;font-size:1.25rem}#mobile-nav .mn-cell:nth-child(even){border-left:1px solid #262626}}',
         '#mobile-nav .mn-cell::before{content:"";position:absolute;inset:0;z-index:-1;background:#171717;opacity:0;transition:opacity 0.2s ease}',
         '#mobile-nav .mn-cell:hover{color:var(--accent,#4AB5ED)}',
         '#mobile-nav .mn-cell:hover::before{opacity:1}',
         '#mobile-nav .mn-cell.active{color:var(--accent,#4AB5ED)}',
 
-        /* Bottom of overlay — a subtle contact/social strip like Studio */
-        '#mobile-nav .mn-foot{margin-top:auto;padding:3rem 2rem;max-width:1280px;margin-left:auto;margin-right:auto;width:100%;border-top:1px solid #262626;display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;color:#A3A3A3;font-size:0.875rem}',
+        /* Bottom of overlay — subtle contact/social strip */
+        '#mobile-nav .mn-foot{margin-top:auto;padding:1.5rem 2rem 2rem;max-width:960px;margin-left:auto;margin-right:auto;width:100%;border-top:1px solid #262626;display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;color:#A3A3A3;font-size:0.8125rem}',
         '#mobile-nav .mn-foot a{color:#FFFFFF;text-decoration:none;font-weight:600}',
         '#mobile-nav .mn-foot a:hover{color:var(--accent,#4AB5ED)}'
     ].join('');
