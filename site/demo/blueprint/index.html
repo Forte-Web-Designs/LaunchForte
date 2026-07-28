@@ -2,899 +2,498 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Instant Systems Blueprint. Five Answers, One Map | Launch Forte</title>
-<meta name="description" content="Answer five plain questions and watch a map of your operation draw itself, with the leaks marked in red. Nothing connects to anything.">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Forte Bot: Sketch a System With Us | Launch Forte</title>
+<meta name="description" content="Type your automation pain into one box. The bot recognizes the shape, asks the veteran question, and sketches your system in the chat. Free, no signup.">
 <link rel="canonical" href="https://launchforte.com/demo/blueprint/">
+<meta property="og:title" content="Forte Bot: Sketch a System With Us | Launch Forte">
+<meta property="og:description" content="Type your automation pain into one box. The bot recognizes the shape, asks the veteran question, and sketches your system in the chat.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://launchforte.com/demo/blueprint/">
+<meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
+<link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
+<!-- GTM -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
 <style>
 :root{
-  --brand:#0088DB; --brand-soft:#E6F2FA; --brand-ink:#075A8F; --brand-glow:rgba(0,136,219,.35);
+  --brand:#0088DB; --brand-warm:#4AB5ED; --brand-ink:#075A8F; --brand-tint:rgba(0,136,219,.10);
   --ink:#0B1220; --ink-soft:#141922; --muted:#5A6472; --muted-2:#8892A0;
-  --line:#E4E8EE; --line-strong:#D5DBE3;
+  --line:#E4E8EE; --line-2:#D5DBE3;
   --bg:#F5F7FA; --card:#FFFFFF; --paper:#FFFFFF;
-  --dark-bg:#0A1220; --dark-bg-2:#0E1729; --dark-card:#111C33; --dark-line:rgba(255,255,255,.08); --dark-line-2:rgba(255,255,255,.14);
-  --dark-text:#E7EDF5; --dark-muted:#93A1B5;
-  --ok:#1E7A4F; --warn:#B4541B; --danger:#C23B3B; --err:#C23B3B; --red:#C23B3B;
+  --bot-bubble:#EFF3F8; --bot-bubble-ink:#141922;
+  --user-bubble:#0088DB; --user-bubble-ink:#FFFFFF;
   --radius:16px; --radius-lg:22px;
   --shadow:0 1px 2px rgba(20,25,34,.05),0 8px 24px rgba(20,25,34,.06);
-  --shadow-lg:0 1px 2px rgba(20,25,34,.06),0 20px 60px rgba(20,25,34,.1);
   --font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ink:#E7EDF5; --ink-soft:#B7C4D6; --muted:#93A1B5; --muted-2:#6E7F96;
+    --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.14);
+    --bg:#0A1220; --card:#111C33; --paper:#0E1729;
+    --bot-bubble:#182238; --bot-bubble-ink:#E7EDF5;
+    --brand:#4AB5ED; --brand-warm:#0088DB; --brand-tint:rgba(74,181,237,.14);
+    --user-bubble:#4AB5ED; --user-bubble-ink:#0A1220;
+    --shadow:0 1px 2px rgba(0,0,0,.45),0 10px 30px rgba(0,0,0,.35);
+  }
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-size:16px}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-.wrap-narrow{max-width:760px;margin:0 auto;padding:0 24px}
-:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:4px}
-a{color:var(--brand)}
-button{font-family:var(--font)}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;padding:0 16px 32px;padding-bottom:calc(32px + env(safe-area-inset-bottom))}
+.wrap{max-width:760px;margin:0 auto}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
 
-/* NAV */
-.nav{position:sticky;top:0;z-index:30;background:rgba(10,18,32,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--dark-line)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}
-.nav-logo{font-weight:800;font-size:19px;letter-spacing:-.02em;color:#fff;text-decoration:none}
-.nav-logo b{color:var(--brand)}
-.nav-links{display:flex;gap:28px;font-size:14px;font-weight:500}
-.nav-links a{color:var(--dark-muted);text-decoration:none;transition:color .15s}
-.nav-links a:hover{color:#fff}
-.nav-cta{background:#fff;color:var(--ink);padding:8px 16px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;transition:transform .15s}
-.nav-cta:hover{transform:translateY(-1px)}
-@media(max-width:720px){.nav-links{display:none}}
+/* header */
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 4px 8px}
+.mark{font-weight:800;letter-spacing:-.02em;font-size:17px;color:var(--ink);text-decoration:none}
+.mark span{color:var(--brand)}
+.header-links{display:flex;gap:18px;font-size:13.5px}
+.header-links a{color:var(--muted);font-weight:500}
+.header-links a:hover{color:var(--ink)}
+@media(max-width:540px){.header-links a:not(.primary){display:none}}
 
-/* HERO */
-.hero-section{position:relative;background:linear-gradient(180deg,#0A1220 0%,#0E1729 55%,#0A1220 100%);color:var(--dark-text);overflow:hidden;padding:88px 0 100px}
-.hero-section::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 900px 500px at 50% 0%,rgba(0,136,219,.24),transparent 60%);pointer-events:none}
-.hero-section::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 700px 400px at 80% 100%,rgba(74,181,237,.14),transparent 55%);pointer-events:none}
-.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);pointer-events:none}
-.hero-inner{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;max-width:1120px;margin:0 auto;padding:0 24px}
-@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:44px}.hero-section{padding:60px 0 72px}}
+/* hero */
+.hero{padding:28px 4px 22px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:12px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 4px var(--brand-tint)}
+h1{font-size:clamp(28px,5.6vw,40px);line-height:1.08;letter-spacing:-.025em;font-weight:800;color:var(--ink);margin:0 0 12px}
+.sub{font-size:1.0625rem;line-height:1.55;color:var(--muted);margin:0;max-width:56ch}
 
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#B7DBF3;background:rgba(0,136,219,.14);border:1px solid rgba(0,136,219,.28);padding:7px 14px;border-radius:999px}
-.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);box-shadow:0 0 12px var(--brand-glow);animation:heropulse 2s infinite}
-@keyframes heropulse{0%,100%{box-shadow:0 0 12px var(--brand-glow)}50%{box-shadow:0 0 20px var(--brand-glow)}}
+/* chat panel */
+.chat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);margin-top:22px;overflow:hidden;display:flex;flex-direction:column;min-height:520px}
+.chat-log{padding:22px 20px 12px;flex:1;overflow-y:auto;max-height:640px;scroll-behavior:smooth}
 
-#hero{font-size:clamp(36px,5.4vw,56px);line-height:1.06;letter-spacing:-.028em;margin:22px 0 20px;font-weight:800;color:#fff}
-h1{font-size:clamp(36px,5.4vw,56px);line-height:1.06;letter-spacing:-.028em;margin:22px 0 20px;font-weight:800;color:#fff}
-h1 .accent,#hero .accent{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero-sub{font-size:19px;color:#B7C4D6;margin:0 0 28px;max-width:38ch;line-height:1.55}
-.hero-meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:8px}
-.hero-meta-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--dark-muted)}
-.hero-meta-item svg{color:var(--brand);flex:0 0 auto}
+/* bubbles */
+.turn{margin-bottom:14px;display:flex}
+.turn.bot{justify-content:flex-start}
+.turn.user{justify-content:flex-end}
+.bubble{max-width:78%;padding:12px 15px;border-radius:18px;font-size:15.5px;line-height:1.55;word-wrap:break-word;white-space:pre-wrap}
+.turn.bot .bubble{background:var(--bot-bubble);color:var(--bot-bubble-ink);border-bottom-left-radius:5px}
+.turn.user .bubble{background:var(--user-bubble);color:var(--user-bubble-ink);border-bottom-right-radius:5px;font-weight:500}
+.bubble .accent{color:var(--brand);font-weight:600}
+.bubble .quiet{color:var(--muted);font-size:14px;display:block;margin-top:6px}
+[data-theme] .turn.bot .bubble a,.turn.bot .bubble a{color:var(--brand-ink);font-weight:600}
+@media (prefers-color-scheme:dark){.turn.bot .bubble a{color:var(--brand-warm)}}
 
-/* Hero SVG */
-.hero-illo{position:relative;aspect-ratio:1/1;max-width:460px;margin:0 auto;width:100%}
-.hero-illo svg{width:100%;height:100%;filter:drop-shadow(0 20px 60px rgba(0,136,219,.25))}
+/* sketch bubble */
+.turn.bot .bubble.sketch{max-width:100%;padding:14px;background:var(--bot-bubble)}
+.sketch-frame{background:var(--paper);border:1px solid var(--line-2);border-radius:12px;padding:8px;overflow:hidden}
+.sketch-frame svg,.sketch-frame img{width:100%;height:auto;display:block;border-radius:8px}
 
-/* Section scaffold */
-.section{padding:88px 0}
-.section-head{text-align:center;max-width:640px;margin:0 auto 48px}
-.kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:14px}
-h2{font-size:clamp(30px,3.6vw,42px);line-height:1.12;letter-spacing:-.02em;margin:0 0 14px;font-weight:800;color:var(--ink)}
-.section-sub{font-size:18px;color:var(--muted);margin:0}
-p{margin:0 0 14px}
-.muted{color:var(--muted)}
-.small{font-size:13.5px}
+/* typing indicator */
+.typing{display:inline-flex;align-items:center;gap:5px;padding:12px 15px;background:var(--bot-bubble);border-radius:18px;border-bottom-left-radius:5px}
+.typing span{width:7px;height:7px;background:var(--muted-2);border-radius:50%;display:inline-block;animation:blink 1.3s infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-2px)}}
 
-/* HOW IT WORKS */
-.hiw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-@media(max-width:820px){.hiw-grid{grid-template-columns:1fr;gap:14px}}
-.hiw-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:28px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
-.hiw-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
-.hiw-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--brand-soft);color:var(--brand-ink);font-weight:800;font-size:15px;margin-bottom:16px}
-.hiw-title{font-size:18px;font-weight:700;color:var(--ink);margin:0 0 8px;letter-spacing:-.01em}
-.hiw-body{font-size:15px;color:var(--muted);line-height:1.6;margin:0}
-.hiw-card::after{content:"";position:absolute;inset:auto -30% -60% auto;width:180px;height:180px;background:radial-gradient(circle,rgba(0,136,219,.05),transparent 70%);pointer-events:none}
+/* composer */
+.composer{border-top:1px solid var(--line);padding:14px 16px 16px;background:var(--card)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chip{font-size:12.5px;padding:6px 12px;border-radius:999px;background:transparent;border:1px solid var(--line-2);color:var(--muted);cursor:pointer;font-family:inherit;transition:border-color .15s,color .15s,background .15s}
+.chip:hover{border-color:var(--brand);color:var(--brand)}
+.chip.on{background:var(--brand-tint);border-color:var(--brand);color:var(--brand);font-weight:600}
+.chip[disabled]{opacity:.4;cursor:default}
 
-/* FORM SECTION */
-.form-section{background:linear-gradient(180deg,#F5F7FA 0%,#EEF2F7 100%);padding:88px 0 100px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.form-head{text-align:center;max-width:640px;margin:0 auto 40px}
-.frame{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:13.5px;color:var(--muted);margin:14px auto;box-shadow:var(--shadow)}
-.frame .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none;animation:pulseok 2s infinite}
-@keyframes pulseok{0%,100%{opacity:1}50%{opacity:.5}}
+.input-row{display:flex;gap:10px;align-items:flex-end}
+textarea{flex:1;min-height:44px;max-height:180px;padding:12px 14px;border:1px solid var(--line-2);border-radius:14px;font:inherit;font-size:15.5px;line-height:1.5;resize:none;background:var(--paper);color:var(--ink);outline:none;transition:border-color .15s}
+textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-tint)}
+textarea::placeholder{color:var(--muted-2)}
+.send{background:var(--brand);color:#fff;border:0;border-radius:14px;padding:12px 18px;font-weight:700;font-size:14.5px;cursor:pointer;white-space:nowrap;transition:transform .15s,box-shadow .2s,opacity .2s}
+.send:hover:not([disabled]){transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,136,219,.3)}
+.send[disabled]{opacity:.4;cursor:default}
+.char-count{font-size:11.5px;color:var(--muted-2);margin:6px 4px 0;text-align:right}
+.char-count.warn{color:#B4541B}
 
-/* Question cards */
-.q{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px 26px 20px;margin:18px 0;box-shadow:var(--shadow);transition:box-shadow .2s,border-color .2s}
-.q:focus-within{border-color:var(--brand);box-shadow:0 1px 2px rgba(20,25,34,.05),0 12px 40px rgba(0,136,219,.12)}
-.q .qn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--brand);background:var(--brand-soft);padding:5px 11px;border-radius:999px;letter-spacing:.06em;font-weight:700}
-.q .qn::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand)}
-.q .qt{font-weight:700;font-size:20px;margin:12px 0 14px;color:var(--ink);letter-spacing:-.01em}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{border:1.5px solid var(--line-strong);background:var(--card);color:var(--ink);border-radius:12px;padding:11px 16px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;position:relative}
-.chip:hover{border-color:var(--brand);color:var(--brand-ink);transform:translateY(-1px)}
-.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 6px 20px rgba(0,136,219,.28)}
-.chip.sec[aria-pressed="true"]{background:var(--brand-soft);border-color:var(--brand);color:var(--brand-ink);box-shadow:0 4px 14px rgba(0,136,219,.15)}
-.otherwrap{margin-top:12px;display:none}
-.otherwrap.show{display:block}
-.otherwrap input{width:100%;padding:12px 14px;border:1.5px solid var(--line-strong);border-radius:10px;font-size:14.5px;font-family:var(--font);background:#fff;transition:border-color .15s}
-.otherwrap input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px rgba(0,136,219,.12)}
-.hint{font-size:13px;color:var(--muted);margin:12px 0 0}
+/* email gate (close state) */
+.gate{padding:14px 16px 16px}
+.gate-row{display:flex;gap:8px}
+.gate input[type=email]{flex:1;padding:12px 14px;border:1px solid var(--line-2);border-radius:14px;font:inherit;font-size:15.5px;background:var(--paper);color:var(--ink);outline:none}
+.gate input:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-tint)}
 
-/* Map card */
-.mapcard{background:var(--card);border:1.5px solid var(--brand);border-radius:var(--radius-lg);padding:24px;margin:24px 0;box-shadow:0 1px 2px rgba(20,25,34,.05),0 20px 60px rgba(0,136,219,.15)}
-.mapcard .mh{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--brand);background:var(--brand-soft);padding:5px 11px;border-radius:999px;letter-spacing:.06em;font-weight:700;margin-bottom:12px}
-.mapcard .mh::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand);animation:pulseok 2s infinite}
-.leakline{font-size:24px;font-weight:800;color:var(--brand);margin:4px 0 12px;letter-spacing:-.01em;line-height:1.2}
-.leakline .n{color:var(--red)}
-.leakline.zero .n{color:var(--ok)}
-#map svg{width:100%;height:auto;display:block}
-/* SVG classes the JS engine writes into innerHTML — MUST match the token vocabulary */
-.hd{font-family:var(--mono);font-size:9px;fill:var(--muted);text-anchor:middle;letter-spacing:.1em}
-.bn{fill:var(--brand-soft);stroke:var(--line);stroke-width:1}
-.bt{font-family:var(--mono);font-size:10.5px;fill:var(--ink);text-anchor:middle}
-.bx{fill:var(--card);stroke:var(--brand);stroke-width:1.5}
-.bx.red{stroke:var(--red)}
-.bl{font-family:var(--mono);font-size:9.5px;fill:var(--muted);text-anchor:middle;letter-spacing:.08em}
-.bl.rl{fill:var(--red)}
-.bt2{font-family:var(--font);font-size:12.5px;font-weight:600;fill:var(--ink);text-anchor:middle}
-.eg{fill:none;stroke:var(--brand);stroke-width:1.5;opacity:.5}
-.eg.red{stroke:var(--red);stroke-dasharray:5 4;opacity:.95;stroke-width:2}
-.own{fill:var(--card);stroke:var(--red);stroke-width:2;stroke-dasharray:5 4}
-.ownt{font-family:var(--mono);font-size:11px;font-weight:700;fill:var(--red);text-anchor:middle}
-.bdg{fill:#FDF0EE;stroke:var(--red);stroke-width:1}
-.bdgc{fill:var(--red)}
-.bdgx{font-family:var(--mono);font-size:9px;font-weight:700;fill:#fff;text-anchor:middle}
-.bdgt{font-family:var(--mono);font-size:9.5px;fill:var(--red)}
+/* holding state (LIVE=false) */
+.holding{padding:36px 24px 34px;text-align:center}
+.holding h2{font-size:19px;margin:0 0 6px;color:var(--ink);letter-spacing:-.01em}
+.holding p{color:var(--muted);font-size:14.5px;margin:0 0 22px;line-height:1.55}
+.holding-tools{display:grid;gap:10px;grid-template-columns:repeat(3,1fr);max-width:600px;margin:0 auto}
+.holding-tool{display:block;padding:14px;background:var(--paper);border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
+.holding-tool:hover{border-color:var(--brand);transform:translateY(-1px);text-decoration:none}
+.holding-tool b{display:block;font-size:14.5px;letter-spacing:-.01em;margin-bottom:2px}
+.holding-tool span{color:var(--muted);font-size:12.5px}
+@media(max-width:520px){.holding-tools{grid-template-columns:1fr}}
 
-/* Gate / break */
-.break{background:linear-gradient(180deg,#fff 0%,#F9FBFD 100%);border:1.5px solid var(--brand);border-radius:var(--radius-lg);padding:28px;margin:22px 0;box-shadow:0 1px 2px rgba(20,25,34,.05),0 20px 60px rgba(0,136,219,.15)}
-.break h2{margin-top:0;font-size:24px;color:var(--ink)}
-label{display:block;font-size:13px;font-weight:600;margin:14px 0 8px;color:var(--ink)}
-input[type=email],input[type=text]{width:100%;padding:14px 16px;border:1.5px solid var(--line-strong);border-radius:12px;font-size:15px;font-family:var(--font);background:#fff;transition:border-color .15s,box-shadow .15s}
-input[type=email]:focus,input[type=text]:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px rgba(0,136,219,.12)}
-.consent{display:flex;gap:12px;align-items:flex-start;margin:16px 0;font-size:14px;color:var(--muted);line-height:1.5}
-.consent input{margin-top:2px;width:18px;height:18px;flex:none;accent-color:var(--brand)}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(180deg,var(--brand) 0%,#0077C4 100%);color:#fff;border:0;border-radius:12px;padding:17px 24px;font-size:16px;font-weight:700;cursor:pointer;width:100%;font-family:inherit;transition:transform .12s,box-shadow .2s;box-shadow:0 8px 24px rgba(0,136,219,.35)}
-.btn:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(0,136,219,.42)}
-.btn[disabled]{opacity:.55;cursor:default;transform:none}
-.err{color:var(--err);font-size:14px;margin:14px 0 0;display:none;background:#FCEDED;border:1px solid #F3CFCF;border-radius:10px;padding:11px 13px;font-weight:500}
-.err.show{display:block}
-.hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+/* below the chat */
+.meta{margin:22px 4px 0;font-size:13px;color:var(--muted-2);text-align:center}
+.meta a{color:var(--muted);font-weight:500}
+.hide{display:none !important}
 
-/* WHAT THIS IS (dark band) */
-.explain{background:linear-gradient(180deg,#0A1220 0%,#0E1729 100%);color:var(--dark-text);padding:96px 0;position:relative;overflow:hidden}
-.explain::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 800px 400px at 50% 0%,rgba(0,136,219,.15),transparent 60%);pointer-events:none}
-.explain .kicker{color:#4AB5ED}
-.explain h2{color:#fff}
-.explain-body{position:relative;max-width:760px;margin:0 auto}
-.explain-body p{font-size:17px;color:#C4CFDD;line-height:1.7;margin:0 0 20px}
-.explain-body strong{color:#fff;font-weight:700}
-
-/* FOOTER */
-footer.site{background:#0A1220;color:#93A1B5;padding:48px 0 40px;font-size:14px}
-footer.site .foot-inner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:center;max-width:1120px;margin:0 auto;padding:0 24px}
-footer.site a{color:#4AB5ED;text-decoration:none;font-weight:500;transition:color .15s}
-footer.site a:hover{color:#7BCCF7}
-footer.site .foot-brand{font-weight:700;color:#fff;font-size:15px}
-footer.site .foot-brand b{color:var(--brand)}
-
-@media(max-width:520px){
-  #hero,h1{font-size:34px}
-  .hero-section{padding:56px 0 64px}
-  .section{padding:64px 0}
-  .form-section{padding:64px 0 72px}
-  .explain{padding:72px 0}
-  .q{padding:22px}
-  .break{padding:22px}
-}
-@media (prefers-reduced-motion:no-preference){
-  .chip{transition:background .12s,border-color .12s,transform .08s,box-shadow .15s,color .12s}
-  .chip:active{transform:scale(.97)}
-}
-
-/* ===== INTERACTIVE KIT ===== */
-.hero-illo{transition:transform .18s cubic-bezier(.2,.7,.3,1.2)}
-.hero-illo svg{transition:transform .3s cubic-bezier(.2,.7,.3,1)}
-.hero-illo:hover svg{filter:drop-shadow(0 20px 80px rgba(0,136,219,.4))}
-.q,.hiw-card,.chip{position:relative;overflow:hidden}
-.q::before,.hiw-card::before,.chip::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,136,219,.08),transparent 55%);opacity:0;transition:opacity .3s;pointer-events:none;border-radius:inherit;z-index:0}
-.q:hover::before,.hiw-card:hover::before,.chip:hover::before{opacity:1}
-.q > *{position:relative;z-index:1}
-.chip:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 22px rgba(0,136,219,.18)}
-.chip[aria-pressed="true"]{animation:chipPopBP .45s cubic-bezier(.2,.9,.3,1.5)}
-@keyframes chipPopBP{0%{transform:scale(.9)}55%{transform:scale(1.08)}100%{transform:scale(1)}}
-.ripple-el{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);transform:translate(-50%,-50%) scale(0);pointer-events:none;animation:ripple .55s ease-out forwards}
-@keyframes ripple{0%{transform:translate(-50%,-50%) scale(0);opacity:.7}100%{transform:translate(-50%,-50%) scale(3);opacity:0}}
-
-/* Ask Pill */
-.ask-pill{position:fixed;bottom:22px;right:22px;z-index:50;display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%);color:#fff;padding:14px 20px;border-radius:999px;font-family:inherit;font-weight:700;font-size:15px;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(0,136,219,.45),0 0 0 6px rgba(0,136,219,.08);transition:transform .18s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s;animation:askFloat 3s ease-in-out infinite}
-.ask-pill:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 40px rgba(0,136,219,.55),0 0 0 8px rgba(0,136,219,.1)}
-.ask-pill:active{transform:translateY(-1px) scale(.98)}
-.ask-pill svg{flex:none}
-.ask-pill .pulse-ask{position:absolute;top:12px;right:14px;width:10px;height:10px;border-radius:50%;background:#4AB5ED;box-shadow:0 0 12px #4AB5ED;animation:askPulseK 1.8s ease-in-out infinite}
-@keyframes askFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@keyframes askPulseK{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
-.ask-panel{position:fixed;bottom:22px;right:22px;z-index:51;width:min(360px,calc(100vw - 44px));background:#fff;border:1px solid #E4E8EE;border-radius:20px;box-shadow:0 30px 80px rgba(10,18,32,.25),0 0 0 1px rgba(0,136,219,.06);padding:20px;transform:translateY(20px) scale(.9);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.2,.9,.3,1.3);font-family:inherit}
-.ask-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
-.ask-panel h4{margin:0 0 6px;font-size:17px;font-weight:800;color:#0B1220;letter-spacing:-.01em}
-.ask-panel p{margin:0 0 14px;font-size:13.5px;color:#5A6472;line-height:1.5}
-.ask-panel input,.ask-panel textarea{width:100%;padding:11px 13px;border:1.5px solid #E4E8EE;border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:#0B1220;margin:0 0 8px;transition:border-color .15s,box-shadow .15s}
-.ask-panel input:focus,.ask-panel textarea:focus{outline:none;border-color:#0088DB;box-shadow:0 0 0 3px rgba(0,136,219,.12)}
-.ask-panel textarea{min-height:74px;resize:vertical}
-.ask-panel .ask-send{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%);color:#fff;border:none;border-radius:10px;padding:12px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .12s,box-shadow .25s;box-shadow:0 6px 18px rgba(0,136,219,.32);margin-top:4px}
-.ask-panel .ask-send:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,136,219,.42)}
-.ask-panel .ask-close{position:absolute;top:12px;right:12px;background:none;border:none;color:#8892A0;cursor:pointer;padding:4px;line-height:1;font-family:inherit}
-.ask-panel .ask-close:hover{color:#0B1220}
-.ask-panel .ask-ok{display:none;text-align:center;font-size:14px;color:#1E7A4F;padding:12px 8px;background:rgba(30,122,79,.08);border-radius:10px;margin-top:8px;font-weight:600}
-.ask-panel.sent .ask-ok{display:block}
-.ask-panel.sent input,.ask-panel.sent textarea,.ask-panel.sent .ask-send{display:none}
-@media(prefers-reduced-motion:reduce){.ask-pill,.hero-illo{animation:none!important;transition:none!important}}
-
-/* ===== HOMEPAGE HEADER + FOOTER CSS (from index.html) ===== */
-:root{
-  --text-primary:#1d1d1f;
-  --text-secondary:#515154;
-  --text-muted:#86868b;
-  --accent:#0088DB;
-  --accent-warm:#4ab5ed;
-  --accent-subtle:rgba(0,136,219,0.10);
-  --border-lf:rgba(0,0,0,0.08);
-  --background-lf:#f5f5f7;
-  --background-dark-lf:#1d1d1f;
-  --card-bg-lf:#ffffff;
-}
-.site-header{background:rgba(245,245,247,0.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:0.5px solid var(--border-lf);padding:0 2rem;height:64px;position:sticky;top:0;z-index:100;display:flex;align-items:center;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif}
-.site-header .header-container{max-width:1100px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-.site-header .header-logo{text-decoration:none;display:flex;align-items:center;transition:opacity 0.2s ease}
-.site-header .header-logo:hover{opacity:0.85}
-.site-header .logo-img{height:28px;width:auto;display:block}
-.site-header .header-nav{display:flex;gap:1.5rem;align-items:center}
-.site-header .header-nav a{font-size:0.8125rem;color:var(--text-primary);opacity:0.85;text-decoration:none;font-weight:400}
-.site-header .header-nav a:hover{opacity:1;text-decoration:none;color:var(--accent)}
-.site-header .header-nav a.active{opacity:1;font-weight:600;background:var(--accent-subtle);color:var(--accent);padding:0.35rem 0.7rem;border-radius:6px}
-@media(max-width:900px){
-  .site-header{padding:12px 18px}
-  .site-header .header-nav{gap:1rem;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
-  .site-header .header-nav::-webkit-scrollbar{display:none}
-  .site-header .header-nav a{white-space:nowrap;font-size:0.75rem;padding:0.35rem 0.35rem}
-}
-
-.site-footer{background:var(--background-dark-lf);color:var(--text-muted);padding:3rem 2rem 2rem;border-top:1px solid #2a2a2c;text-align:left;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif}
-.site-footer .site-footer-inner{max-width:980px;margin:0 auto}
-.site-footer .footer-email-main{color:#f5f5f7;font-size:1rem;margin-bottom:2rem;display:inline-block;font-weight:400;letter-spacing:-0.01em;text-decoration:none}
-.site-footer .footer-email-main:hover{opacity:0.7;color:#f5f5f7}
-.site-footer .footer-columns{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-bottom:2.5rem;padding-top:1.5rem;border-top:0.5px solid rgba(255,255,255,0.1)}
-.site-footer .footer-col h4{font-size:0.75rem;font-weight:500;color:#f5f5f7;letter-spacing:0;margin:0 0 1rem;text-transform:none}
-.site-footer .footer-col ul{list-style:none;padding:0;margin:0}
-.site-footer .footer-col li{margin-bottom:0.5rem}
-.site-footer .footer-col a{color:#86868b;font-size:0.8125rem;text-decoration:none;font-weight:400}
-.site-footer .footer-col a:hover{color:#f5f5f7;opacity:1}
-.site-footer .footer-bottom{padding-top:1.5rem;border-top:0.5px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
-.site-footer .footer-bottom p{font-size:0.6875rem;line-height:1.5;color:#86868b;margin:0 0 4px}
-@media(max-width:768px){
-  .site-footer .footer-columns{grid-template-columns:1fr 1fr;gap:1.5rem}
-  .site-footer .footer-bottom{flex-direction:column}
-}
-@media(max-width:480px){
-  .site-footer .footer-columns{grid-template-columns:1fr}
+/* motion preferences */
+@media (prefers-reduced-motion:reduce){
+  .typing span{animation:none}
+  .send{transition:none}
+  .chat-log{scroll-behavior:auto}
 }
 </style>
 </head>
 <body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
+<div class="wrap">
 
-<header class="site-header">
-  <div class="header-container">
-    <a href="/" class="header-logo">
-      <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
-    </a>
-    <nav class="header-nav">
-      <a href="/">Home</a>
-      <a href="/what-we-build.html">What We Build</a>
-      <a href="/one-connected-system">One Connected System</a>
-      <a href="/#who-we-build-for">Who We Build For</a>
-      <a href="/results.html">Results</a>
-      <a href="/tools" class="active">Free Tools</a>
-      <a href="/pricing">Pricing</a>
-      <a href="/about.html">About</a>
-      <a href="/contact.html">Contact</a>
+  <header>
+    <a href="/" class="mark">LAUNCH <span>FORTE</span></a>
+    <nav class="header-links">
+      <a href="/what-we-build">What we build</a>
+      <a href="/tools">Free tools</a>
+      <a href="/pricing" class="primary">Pricing</a>
     </nav>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span>Forte Bot</span>
+    <h1>Got an automation idea or a pain point? Ask.</h1>
+    <p class="sub">One box, one veteran question back, then the bot sketches your system in the chat. Free. No signup to see the sketch.</p>
+  </section>
+
+  <div class="chat" id="chat">
+
+    <!-- HOLDING STATE (rendered when LIVE=false, hidden when true) -->
+    <div class="holding" id="holding">
+      <h2>The bot's warming up.</h2>
+      <p>The flows behind it land shortly. In the meantime, three tools that already answer live.</p>
+      <div class="holding-tools">
+        <a class="holding-tool" href="/grade" data-gtm-event="fortebot_holding_grade">
+          <b>Grade my systems</b>
+          <span>Free grader, about a minute.</span>
+        </a>
+        <a class="holding-tool" href="/demo/books" data-gtm-event="fortebot_holding_books">
+          <b>The Mess Maker Finder</b>
+          <span>Why your books keep breaking.</span>
+        </a>
+        <a class="holding-tool" href="/leads" data-gtm-event="fortebot_holding_leads">
+          <b>Verified Lead Sample</b>
+          <span>Ten leads in your inbox within the hour.</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- LIVE CHAT (rendered when LIVE=true) -->
+    <div class="chat-log hide" id="log" role="log" aria-live="polite" aria-label="Chat with Forte Bot"></div>
+
+    <div class="composer hide" id="composer">
+      <div class="chips" id="chips">
+        <button type="button" class="chip" data-group="biz" data-value="coaching">Coaching or creator</button>
+        <button type="button" class="chip" data-group="biz" data-value="services">Home or field services</button>
+        <button type="button" class="chip" data-group="biz" data-value="financial">Financial or professional firm</button>
+        <button type="button" class="chip" data-group="biz" data-value="medspa">Med spa or aesthetic</button>
+        <button type="button" class="chip" data-group="matters" data-value="leads">Leads matter most</button>
+        <button type="button" class="chip" data-group="matters" data-value="ops">Operations matter most</button>
+        <button type="button" class="chip" data-group="matters" data-value="reporting">Reporting matters most</button>
+      </div>
+      <div class="input-row">
+        <textarea id="input" placeholder="Describe your build or pain in plain words. What runs today, what should happen instead." maxlength="500" rows="1" aria-label="Your message" autocomplete="off" spellcheck="true"></textarea>
+        <button type="button" class="send" id="send">Send</button>
+      </div>
+      <div class="char-count" id="charcount">0 / 500</div>
+    </div>
+
+    <div class="gate hide" id="gate">
+      <div class="input-row">
+        <input type="email" id="gate-email" placeholder="you@company.com" aria-label="Your email" autocomplete="email" required>
+        <button type="button" class="send" id="gate-send">Email me the sketch</button>
+      </div>
+      <p class="char-count" id="gate-msg" style="min-height:14px"></p>
+    </div>
+
   </div>
-</header>
 
-<!-- NAV -->
-<!-- HERO -->
-<section class="hero-section">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-inner">
-    <div class="hero-copy">
-      <span class="eyebrow"><span class="dot"></span>Free · Five questions · About two minutes</span>
-      <h1 id="hero">Five answers. A map of your operation, leaks marked in <span class="accent">red</span>.</h1>
-      <p class="hero-sub">The grader looks at your business from the outside. This is the inside view: tell us how work actually moves, watch the map draw itself while you answer.</p>
-      <div class="hero-meta">
-        <div class="hero-meta-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/><path d="M17 3h4v4"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          <span>Live map as you answer</span>
-        </div>
-        <div class="hero-meta-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>Nothing connects to anything</span>
-        </div>
-        <div class="hero-meta-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>Deterministic, from your answers</span>
-        </div>
-      </div>
-    </div>
+  <p class="meta">
+    Forte Bot is a demo. It sketches, it doesn't build. The audit is <a href="/pricing">how a real one gets scoped</a>.
+  </p>
 
-    <!-- HERO SVG: system map -->
-    <div class="hero-illo" id="heroIllo">
-      <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#0088DB" stop-opacity=".4"/>
-            <stop offset="100%" stop-color="#0088DB" stop-opacity="0"/>
-          </radialGradient>
-          <linearGradient id="node" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#132A44"/>
-            <stop offset="100%" stop-color="#0A1930"/>
-          </linearGradient>
-          <linearGradient id="brand" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#4AB5ED"/>
-            <stop offset="100%" stop-color="#0088DB"/>
-          </linearGradient>
-          <linearGradient id="alert" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FF6B57"/>
-            <stop offset="100%" stop-color="#C23B3B"/>
-          </linearGradient>
-        </defs>
-        <circle cx="250" cy="250" r="240" fill="url(#glow)"/>
-
-        <!-- CUSTOMERS COME FROM (row of small nodes) -->
-        <text x="250" y="66" text-anchor="middle" fill="#7788A0" font-size="10" font-weight="700" font-family="ui-monospace,SFMono-Regular,monospace" letter-spacing="1.2">SOURCES</text>
-        <g>
-          <rect x="80" y="80" width="70" height="26" rx="6" fill="url(#node)" stroke="#4AB5ED" stroke-width="1"/>
-          <text x="115" y="97" text-anchor="middle" fill="#B7DBF3" font-size="10" font-weight="600" font-family="-apple-system,Inter,sans-serif">Ads</text>
-          <rect x="165" y="80" width="80" height="26" rx="6" fill="url(#node)" stroke="#4AB5ED" stroke-width="1"/>
-          <text x="205" y="97" text-anchor="middle" fill="#B7DBF3" font-size="10" font-weight="600" font-family="-apple-system,Inter,sans-serif">Referrals</text>
-          <rect x="260" y="80" width="90" height="26" rx="6" fill="url(#node)" stroke="#4AB5ED" stroke-width="1"/>
-          <text x="305" y="97" text-anchor="middle" fill="#B7DBF3" font-size="10" font-weight="600" font-family="-apple-system,Inter,sans-serif">Social + DMs</text>
-          <rect x="360" y="80" width="60" height="26" rx="6" fill="url(#node)" stroke="#4AB5ED" stroke-width="1"/>
-          <text x="390" y="97" text-anchor="middle" fill="#B7DBF3" font-size="10" font-weight="600" font-family="-apple-system,Inter,sans-serif">Search</text>
-        </g>
-
-        <!-- edges to capture layer -->
-        <g stroke="rgba(74,181,237,.35)" stroke-width="1" fill="none">
-          <path d="M115 106 Q160 130 175 175"/>
-          <path d="M205 106 Q220 140 205 175"/>
-          <path d="M305 106 Q280 140 265 175" stroke="rgba(255,107,87,.8)" stroke-dasharray="4 3" stroke-width="1.5"/>
-          <path d="M390 106 Q350 140 320 175"/>
-        </g>
-
-        <!-- CAPTURE row -->
-        <text x="250" y="192" text-anchor="middle" fill="#7788A0" font-size="10" font-weight="700" font-family="ui-monospace,SFMono-Regular,monospace" letter-spacing="1.2">CATCH</text>
-        <g>
-          <rect x="130" y="205" width="90" height="30" rx="8" fill="#0E1729" stroke="#4AB5ED" stroke-width="1.5"/>
-          <text x="175" y="224" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="-apple-system,Inter,sans-serif">Forms</text>
-          <rect x="230" y="205" width="130" height="30" rx="8" fill="#1a1015" stroke="#FF6B57" stroke-width="1.5"/>
-          <text x="295" y="224" text-anchor="middle" fill="#FF9885" font-size="11" font-weight="700" font-family="-apple-system,Inter,sans-serif">DMs by hand</text>
-        </g>
-
-        <!-- edges down to middle -->
-        <g stroke="rgba(74,181,237,.35)" stroke-width="1" fill="none">
-          <path d="M175 235 Q220 260 240 275"/>
-          <path d="M295 235 Q270 258 260 275" stroke="rgba(255,107,87,.8)" stroke-dasharray="4 3" stroke-width="1.5"/>
-        </g>
-
-        <!-- YOU node (owner router) -->
-        <g>
-          <circle cx="250" cy="290" r="26" fill="none" stroke="#FF6B57" stroke-width="2" stroke-dasharray="4 3"/>
-          <text x="250" y="295" text-anchor="middle" fill="#FF6B57" font-size="12" font-weight="800" font-family="ui-monospace,SFMono-Regular,monospace">YOU</text>
-        </g>
-
-        <!-- MIDDLE box (red = memory/spreadsheets) -->
-        <g>
-          <rect x="130" y="345" width="240" height="46" rx="10" fill="#1a1015" stroke="#FF6B57" stroke-width="2"/>
-          <text x="250" y="362" text-anchor="middle" fill="#FF9885" font-size="9" font-weight="700" font-family="ui-monospace,SFMono-Regular,monospace" letter-spacing="1.2">THE MIDDLE</text>
-          <text x="250" y="380" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="-apple-system,Inter,sans-serif">Spreadsheets + memory</text>
-        </g>
-
-        <line x1="250" y1="316" x2="250" y2="345" stroke="rgba(255,107,87,.8)" stroke-width="1.5" stroke-dasharray="4 3"/>
-
-        <!-- MONEY box (red = disconnected) -->
-        <g>
-          <rect x="130" y="420" width="240" height="46" rx="10" fill="#1a1015" stroke="#FF6B57" stroke-width="2"/>
-          <text x="250" y="437" text-anchor="middle" fill="#FF9885" font-size="9" font-weight="700" font-family="ui-monospace,SFMono-Regular,monospace" letter-spacing="1.2">MONEY</text>
-          <text x="250" y="455" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="-apple-system,Inter,sans-serif">Not connected</text>
-        </g>
-        <line x1="250" y1="391" x2="250" y2="420" stroke="rgba(255,107,87,.8)" stroke-width="1.5" stroke-dasharray="4 3"/>
-
-        <!-- alert badge -->
-        <g>
-          <rect x="380" y="330" width="90" height="22" rx="11" fill="#3d1218" stroke="#FF6B57" stroke-width="1"/>
-          <circle cx="393" cy="341" r="6" fill="#FF6B57"/>
-          <text x="393" y="345" text-anchor="middle" fill="#fff" font-size="9" font-weight="700" font-family="ui-monospace,SFMono-Regular,monospace">!</text>
-          <text x="404" y="345" fill="#FF9885" font-size="9" font-family="ui-monospace,SFMono-Regular,monospace">leak found</text>
-        </g>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">How it works</div>
-      <h2>Sources feed capture. Capture feeds the middle. The middle feeds money.</h2>
-      <p class="section-sub">When a step runs by hand, on memory, or through one person, the map draws it in red. That red is where leads, invoices, and hours quietly leak.</p>
-    </div>
-    <div class="hiw-grid">
-      <div class="hiw-card">
-        <div class="hiw-num">1</div>
-        <h3 class="hiw-title">Answer five questions</h3>
-        <p class="hiw-body">Sources, catch points, middle, money, mover. Chips, not essays. About two minutes.</p>
-      </div>
-      <div class="hiw-card">
-        <div class="hiw-num">2</div>
-        <h3 class="hiw-title">Watch the map draw</h3>
-        <p class="hiw-body">The map rebuilds every time you pick an answer. Leaks appear in red as the pattern reveals itself.</p>
-      </div>
-      <div class="hiw-card">
-        <div class="hiw-num">3</div>
-        <h3 class="hiw-title">Get the read on your map</h3>
-        <p class="hiw-body">A plain-English write-up, plus a link that keeps the map. Emailed. Yours to share with anyone.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FORM SECTION -->
-<section class="form-section">
-  <div class="wrap-narrow">
-    <div class="form-head">
-      <div class="kicker">Try it</div>
-      <h2>Five questions. One map.</h2>
-      <p class="section-sub">Pick the answers that describe how your operation actually works.</p>
-      <div style="text-align:center"><span class="frame"><span class="dot"></span>Nothing connects to anything. This reads your answers and touches nothing.</span></div>
-    </div>
-
-    <section class="q" id="q1">
-      <div class="qn">QUESTION 1 OF 5</div>
-      <div class="qt">Where do customers come from?</div>
-      <div class="chips" data-q="sources" data-multi="1">
-        <button type="button" class="chip" data-v="ads" aria-pressed="false">Ads</button>
-        <button type="button" class="chip" data-v="search" aria-pressed="false">Google search</button>
-        <button type="button" class="chip" data-v="social" aria-pressed="false">Social + DMs</button>
-        <button type="button" class="chip" data-v="referrals" aria-pressed="false">Referrals</button>
-        <button type="button" class="chip" data-v="walkins" aria-pressed="false">Walk ins + calls</button>
-        <button type="button" class="chip" data-v="other" aria-pressed="false">Other</button>
-      </div>
-      <div class="otherwrap" id="ow-sources"><input type="text" id="other-sources" maxlength="60" placeholder="Tell us in a few words" aria-label="Other customer source"></div>
-      <p class="hint">Pick everything that applies.</p>
-    </section>
-
-    <section class="q" id="q2">
-      <div class="qn">QUESTION 2 OF 5</div>
-      <div class="qt">What catches them when they show up?</div>
-      <div class="chips" data-q="capture" data-multi="1">
-        <button type="button" class="chip" data-v="forms" aria-pressed="false">Website forms</button>
-        <button type="button" class="chip" data-v="phone" aria-pressed="false">Phone</button>
-        <button type="button" class="chip" data-v="dms_hand" aria-pressed="false">DMs answered by hand</button>
-        <button type="button" class="chip" data-v="inbox" aria-pressed="false">Email inbox</button>
-        <button type="button" class="chip" data-v="nothing" aria-pressed="false">Nothing consistent</button>
-        <button type="button" class="chip" data-v="other" aria-pressed="false">Other</button>
-      </div>
-      <div class="otherwrap" id="ow-capture"><input type="text" id="other-capture" maxlength="60" placeholder="Tell us in a few words" aria-label="Other capture method"></div>
-      <p class="hint">Pick everything that applies.</p>
-    </section>
-
-    <section class="q" id="q3">
-      <div class="qn">QUESTION 3 OF 5</div>
-      <div class="qt">What runs the middle of the business?</div>
-      <div class="chips" data-q="middlePrimary">
-        <button type="button" class="chip" data-v="crm_allinone" aria-pressed="false">An all in one CRM</button>
-        <button type="button" class="chip" data-v="crm_sales" aria-pressed="false">A sales CRM</button>
-        <button type="button" class="chip" data-v="spreadsheets" aria-pressed="false">Spreadsheets</button>
-        <button type="button" class="chip" data-v="memory" aria-pressed="false">Someone's memory</button>
-        <button type="button" class="chip" data-v="industry_tool" aria-pressed="false">An industry tool</button>
-        <button type="button" class="chip" data-v="other" aria-pressed="false">Other</button>
-      </div>
-      <div class="otherwrap" id="ow-middle"><input type="text" id="other-middle" maxlength="60" placeholder="Tell us in a few words" aria-label="Other middle system"></div>
-      <p class="hint" style="margin-top:14px">Anything else helping out? Optional.</p>
-      <div class="chips" data-q="middleSecondary" style="margin-top:8px">
-        <button type="button" class="chip sec" data-v="crm_allinone" aria-pressed="false">An all in one CRM</button>
-        <button type="button" class="chip sec" data-v="crm_sales" aria-pressed="false">A sales CRM</button>
-        <button type="button" class="chip sec" data-v="spreadsheets" aria-pressed="false">Spreadsheets</button>
-        <button type="button" class="chip sec" data-v="memory" aria-pressed="false">Someone's memory</button>
-        <button type="button" class="chip sec" data-v="industry_tool" aria-pressed="false">An industry tool</button>
-      </div>
-    </section>
-
-    <section class="q" id="q4">
-      <div class="qn">QUESTION 4 OF 5</div>
-      <div class="qt">How does money get billed and reconciled?</div>
-      <div class="chips" data-q="money">
-        <button type="button" class="chip" data-v="acct_connected" aria-pressed="false">Accounting software, connected to the middle</button>
-        <button type="button" class="chip" data-v="acct_not_connected" aria-pressed="false">Accounting software, not connected</button>
-        <button type="button" class="chip" data-v="invoices_hand" aria-pressed="false">Invoices by hand</button>
-        <button type="button" class="chip" data-v="check_bank" aria-pressed="false">I check the bank</button>
-      </div>
-    </section>
-
-    <section class="q" id="q5">
-      <div class="qn">QUESTION 5 OF 5</div>
-      <div class="qt">Who moves information between these by hand?</div>
-      <div class="chips" data-q="mover">
-        <button type="button" class="chip" data-v="nobody" aria-pressed="false">Nobody, it flows</button>
-        <button type="button" class="chip" data-v="team_member" aria-pressed="false">A team member</button>
-        <button type="button" class="chip" data-v="owner" aria-pressed="false">Mostly me, the owner</button>
-        <button type="button" class="chip" data-v="missed" aria-pressed="false">Things just get missed</button>
-      </div>
-    </section>
-
-    <section class="mapcard" id="mapcard" hidden>
-      <div class="mh">YOUR MAP, DRAWN FROM YOUR ANSWERS</div>
-      <div class="leakline" id="leakline"></div>
-      <div id="map" aria-live="polite"></div>
-    </section>
-
-    <section class="break" id="gate">
-      <h2>Get the read on your map</h2>
-      <p class="muted small">We'll generate a short plain English read of what the map shows, written only from your five answers, and give you a link that keeps the map.</p>
-      <label for="fn">First name <span class="muted" style="font-weight:400">(optional)</span></label>
-      <input type="text" id="fn" maxlength="60" autocomplete="given-name" placeholder="What we should call you">
-      <label for="email">Email</label>
-      <input type="email" id="email" required autocomplete="email" inputmode="email" placeholder="you@company.com">
-      <div class="hp" aria-hidden="true"><label>Website<input type="text" id="hp" tabindex="-1" autocomplete="off"></label></div>
-      <div class="consent"><input type="checkbox" id="consent"><label for="consent" style="margin:0;font-weight:400">Email me my Blueprint and occasional notes on fixing systems like this. One run per email per day.</label></div>
-      <button type="button" class="btn" id="go">
-        Draw my Blueprint
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
-      <p class="err" id="err"></p>
-    </section>
-  </div>
-</section>
-
-<!-- WHAT THIS IS (dark band) -->
-<section class="explain">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">What this is</div>
-      <h2>Most owners have never seen their operation as a system.</h2>
-    </div>
-    <div class="explain-body">
-      <p>Sources feed capture. Capture feeds the middle. The middle feeds money. When a step runs by hand, on memory, or through one person, the map shows it in red. That red is where leads, invoices, and hours quietly leak.</p>
-      <p>This demo reads five answers and touches nothing. <strong>The after version of this map is the System Health Check</strong>: your systems mapped for real, leaks priced, fixes prioritized.</p>
-    </div>
-  </div>
-</section>
-
-
-<footer class="site-footer">
-  <div class="site-footer-inner">
-    <a href="mailto:seth@launchforte.com" class="footer-email-main">seth@launchforte.com</a>
-    <div class="footer-columns">
-      <div class="footer-col">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="/one-connected-system">One Connected System</a></li>
-          <li><a href="/#audit">Audit</a></li>
-          <li><a href="/#core-systems-build">Build</a></li>
-          <li><a href="/#partnership">Partnership</a></li>
-          <li><a href="/what-we-build.html">What We Build</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Who we build for</h4>
-        <ul>
-          <li><a href="/coaches">Coaches and creators</a></li>
-          <li><a href="/home-services">Home and field services</a></li>
-          <li><a href="/financial-firms">Financial and professional firms</a></li>
-          <li><a href="/medspa">Med spas and aesthetic practices</a></li>
-          <li><a href="/real-estate">Real estate agents</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="/about.html">About</a></li>
-          <li><a href="/results.html">Results</a></li>
-          <li><a href="/tools">Free Tools</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="/faq.html">FAQ</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <ul>
-          <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
-          <li><a href="mailto:seth@launchforte.com">Email</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div>
-        <p>Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
-        <p>&copy; 2026 Launch Forte. All rights reserved.</p>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- ASK PILL -->
-<button type="button" class="ask-pill" id="askPill" aria-label="Ask us anything">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-  <span>Ask us anything</span>
-  <span class="pulse-ask"></span>
-</button>
-<div class="ask-panel" id="askPanel" role="dialog" aria-labelledby="askTitle" aria-hidden="true">
-  <button type="button" class="ask-close" id="askClose" aria-label="Close">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-  </button>
-  <h4 id="askTitle">Ask us anything</h4>
-  <p>What are you trying to figure out? I'll get back to you personally.</p>
-  <input type="text" id="askName" placeholder="Your name" autocomplete="name">
-  <input type="email" id="askEmail" placeholder="Your email" autocomplete="email">
-  <textarea id="askMsg" placeholder="What's on your mind?"></textarea>
-  <button type="button" class="ask-send" id="askSend">
-    Send it over
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-  </button>
-  <div class="ask-ok">Got it. Reply landing in your inbox soon.</div>
 </div>
 
 <script>
 (function(){
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var illo = document.getElementById('heroIllo');
-  if(illo && !reduce){
-    var raf = null;
-    illo.addEventListener('mousemove', function(e){
-      var r = illo.getBoundingClientRect();
-      var tx = ((e.clientX - r.left) / r.width - .5) * 14;
-      var ty = ((e.clientY - r.top) / r.height - .5) * 14;
-      if(raf) return;
-      raf = requestAnimationFrame(function(){ illo.style.transform = 'translate(' + tx + 'px,' + ty + 'px)'; raf = null; });
-    });
-    illo.addEventListener('mouseleave', function(){ illo.style.transform = ''; });
-  }
-  document.querySelectorAll('.q, .hiw-card, .chip').forEach(function(card){
-    card.addEventListener('mousemove', function(e){
-      var r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
-      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
-    });
-  });
-  document.querySelectorAll('.chip, .btn, .ask-send').forEach(function(el){
-    el.addEventListener('pointerdown', function(e){
-      if(reduce) return;
-      var r = el.getBoundingClientRect();
-      var ripple = document.createElement('span');
-      ripple.className = 'ripple-el';
-      var size = Math.max(r.width, r.height) * 1.6;
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = (e.clientX - r.left) + 'px';
-      ripple.style.top  = (e.clientY - r.top) + 'px';
-      if(getComputedStyle(el).position === 'static') el.style.position = 'relative';
-      el.appendChild(ripple);
-      setTimeout(function(){ ripple.remove(); }, 600);
-    });
-  });
-  var pill = document.getElementById('askPill'); var panel = document.getElementById('askPanel');
-  if(pill && panel){
-    pill.addEventListener('click', function(){ panel.classList.add('open'); pill.style.display='none'; panel.setAttribute('aria-hidden','false'); setTimeout(function(){ document.getElementById('askName').focus(); }, 250); });
-    document.getElementById('askClose').addEventListener('click', function(){ panel.classList.remove('open'); panel.setAttribute('aria-hidden','true'); setTimeout(function(){ pill.style.display=''; }, 250); });
-    document.getElementById('askSend').addEventListener('click', function(){
-    var name = (document.getElementById('askName').value || '').trim();
-    var email = (document.getElementById('askEmail').value || '').trim();
-    var msg = (document.getElementById('askMsg').value || '').trim();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || msg.length < 3){ document.getElementById('askEmail').style.borderColor='#C23B3B'; return; }
-    var send = document.getElementById('askSend'); send.disabled=true; send.textContent='Sending...';
-    var payload = {name:name, email:email, message:msg, sourcePath:location.pathname};
-    var fallback = function(){
-      var body = encodeURIComponent('From: ' + (name||'anonymous') + ' <' + email + '>\n\nPage: ' + location.href + '\n\n' + msg);
-      var subject = encodeURIComponent('Question from ' + location.pathname);
-      var a = document.createElement('a'); a.href='mailto:seth@launchforte.com?subject=' + subject + '&body=' + body; a.target='_blank';
-      document.body.appendChild(a); a.click(); a.remove();
-    };
-    fetch('https://launchforte.app.n8n.cloud/webhook/ask-anything', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)})
-      .then(function(r){ if(!r.ok) throw new Error('http'); return r.json(); })
-      .then(function(){ panel.classList.add('sent'); })
-      .catch(function(){ fallback(); setTimeout(function(){ panel.classList.add('sent'); }, 300); });
-  });
-  }
-})();
-</script>
+  /* ------------------------------ config ------------------------------ */
+  /* LIVE gates whether the chat surface appears. Set to true the day the
+     n8n flows chat ships the classify and draw webhooks. When false, the
+     holding state renders and no network is called. This is the single
+     switch. */
+  var LIVE = false;
 
-<script>
-/* Blueprint map engine. Deterministic: answers in, leaks + SVG out. */
-var BP_LABELS = {
-  sources:{ads:'Ads', search:'Google search', social:'Social + DMs', referrals:'Referrals', walkins:'Walk ins + calls', other:'Other'},
-  capture:{forms:'Website forms', phone:'Phone', dms_hand:'DMs by hand', inbox:'Email inbox', nothing:'Nothing consistent', other:'Other'},
-  middle:{crm_allinone:'All in one CRM', crm_sales:'Sales CRM', spreadsheets:'Spreadsheets', memory:"Someone's memory", industry_tool:'Industry tool', other:'Other'},
-  money:{acct_connected:'Accounting, connected', acct_not_connected:'Accounting, not connected', invoices_hand:'Invoices by hand', check_bank:'Checking the bank'},
-  mover:{nobody:'Nobody, it flows', team_member:'A team member', owner:'Mostly the owner', missed:'Things get missed'}
-};
-function bpLeaks(a){
-  var leaks=[];
-  var add=function(id,label,line){leaks.push({id:id,label:label,line:line});};
-  if(a.capture.indexOf('dms_hand')>=0) add('dms','DMs answered by hand','You told us DMs are answered by hand. Anything answered by hand can sit unanswered, and there is no record when it does.');
-  if(a.capture.indexOf('nothing')>=0) add('no_capture','No consistent catch point','You told us nothing catches new customers consistently. Leads that arrive without a catch point are possible losses that never show up anywhere.');
-  if(a.money==='acct_not_connected') add('money_disconnected','Accounting not connected','Your accounting software is not connected to the middle of the business. The same work gets entered twice, and the two systems can disagree.');
-  if(a.money==='invoices_hand') add('invoices_hand','Invoices by hand','Invoices go out by hand. Work that finishes without a triggered invoice is possible unbilled work.');
-  if(a.money==='check_bank') add('check_bank','Reconciled by checking the bank','Reconciliation happens by checking the bank. That measures what arrived, not what should have arrived.');
-  if(a.middle.primary==='memory') add('memory_middle','Runs on memory',"The middle of the operation runs on someone's memory. Memory does not scale and does not hand off.");
-  if(a.middle.primary==='spreadsheets') add('spreadsheet_middle','Middle lives in spreadsheets','The middle of the operation lives in spreadsheets. Spreadsheets hold information but do not move it.');
-  if(a.mover==='owner') add('owner_router','Owner is the router','You told us mostly you move information between these by hand. On this map, you are the router: every flow passes through you.');
-  if(a.mover==='missed') add('dropped','Things get missed','You told us things just get missed. The map shows flows with no clear owner, which is where dropped items live.');
-  return leaks;
-}
-function bpEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-/* Renders the map as an SVG string. Width fixed 360 units, height computed. */
-function bpMap(a){
-  var leaks=bpLeaks(a);
-  var has=function(id){return leaks.some(function(l){return l.id===id;});};
-  var owner=a.mover==='owner';
-  var W=360, cx=W/2;
-  var sN=a.sources.map(function(k){return BP_LABELS.sources[k];});
-  var cN=a.capture.map(function(k){return BP_LABELS.capture[k];});
-  var midLabel=BP_LABELS.middle[a.middle.primary]+(a.middle.secondary?(' + '+BP_LABELS.middle[a.middle.secondary]):'');
-  var monLabel=BP_LABELS.money[a.money];
-  /* vertical layout */
-  var rowY=function(items,y){ /* chip row centered */
-    var g='', pad=6, chW=Math.min(104,(W-16-(items.length-1)*pad)/items.length), h=30;
-    var total=items.length*chW+(items.length-1)*pad, x0=(W-total)/2;
-    var centers=[];
-    items.forEach(function(t,i){
-      var x=x0+i*(chW+pad); centers.push(x+chW/2);
-      g+='<rect x="'+x+'" y="'+y+'" width="'+chW+'" height="'+h+'" rx="8" class="bn"/>';
-      g+='<text x="'+(x+chW/2)+'" y="'+(y+19)+'" class="bt" textLength="'+Math.min(chW-10, t.length*6.2)+'" lengthAdjust="spacingAndGlyphs">'+bpEsc(t)+'</text>';
-    });
-    return {svg:g, centers:centers, h:h};
-  };
-  var box=function(label,y,red,tag){
-    var h=40, x=30, w=W-60;
-    var cls=red?'bx red':'bx';
-    var g='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="10" class="'+cls+'"/>';
-    g+='<text x="'+cx+'" y="'+(y+18)+'" class="bl'+(red?' rl':'')+'">'+bpEsc(tag)+'</text>';
-    g+='<text x="'+cx+'" y="'+(y+33)+'" class="bt2">'+bpEsc(label)+'</text>';
-    return {svg:g, h:h};
-  };
-  var edge=function(x1,y1,x2,y2,red){
-    return '<path d="M'+x1+' '+y1+' C '+x1+' '+((y1+y2)/2)+', '+x2+' '+((y1+y2)/2)+', '+x2+' '+y2+'" class="'+(red?'eg red':'eg')+'"/>';
-  };
-  var badge=function(x,y,txt){
-    var w=Math.min(200, txt.length*6.4+26);
-    return '<g><rect x="'+(x-w/2)+'" y="'+(y-11)+'" width="'+w+'" height="22" rx="11" class="bdg"/>'+
-      '<circle cx="'+(x-w/2+12)+'" cy="'+y+'" r="6" class="bdgc"/><text x="'+(x-w/2+12)+'" y="'+(y+3.5)+'" class="bdgx">!</text>'+
-      '<text x="'+(x-w/2+24)+'" y="'+(y+3.5)+'" class="bdgt">'+bpEsc(txt)+'</text></g>';
-  };
-  var y=18, out='', edges='', badges='';
-  out+='<text x="'+cx+'" y="'+y+'" class="hd">CUSTOMERS COME FROM</text>'; y+=10;
-  var s=rowY(sN,y); out+=s.svg; var sBot=y+s.h; y=sBot;
-  var gap1=has('no_capture')?58:44;
-  var capY=y+gap1;
-  out+='<text x="'+cx+'" y="'+(capY-8)+'" class="hd">WHAT CATCHES THEM</text>';
-  var c=rowY(cN,capY); var cBot=capY+c.h;
-  /* edges sources -> capture */
-  var noCap=has('no_capture');
-  s.centers.forEach(function(x1){ edges+=edge(x1,sBot,cx,capY-12,noCap); });
-  c.centers.forEach(function(x2){ edges+=edge(cx,capY-12,x2,capY,noCap); });
-  if(noCap) badges+=badge(cx, sBot+Math.floor(gap1/2), 'no consistent catch point');
-  out+=c.svg; y=cBot;
-  /* owner router */
-  var oy=0;
-  if(owner){
-    oy=y+58;
-    out+='<circle cx="'+cx+'" cy="'+oy+'" r="26" class="own"/>';
-    out+='<text x="'+cx+'" y="'+(oy+4)+'" class="ownt">YOU</text>';
-    badges+=badge(cx, oy+40, 'every flow passes through the owner');
-    y=oy+56;
-  } else { y=y+44; }
-  /* middle */
-  var midRed=has('memory_middle')||has('spreadsheet_middle');
-  var midY=y+14;
-  var m=box(midLabel, midY, midRed, 'THE MIDDLE');
-  var dmsIdx=a.capture.indexOf('dms_hand');
-  c.centers.forEach(function(x1,i){
-    var red=(i===dmsIdx);
-    if(owner){ edges+=edge(x1,cBot,cx,oy-26,red); }
-    else { edges+=edge(x1,cBot,cx,midY,red); }
-  });
-  if(owner){ edges+=edge(cx,oy+26,cx,midY,false); }
-  if(dmsIdx>=0) badges+=badge(Math.min(W-104,Math.max(104,c.centers[dmsIdx])), cBot+16, 'answered by hand, no record');
-  out+=m.svg; y=midY+m.h;
-  if(midRed) badges+=badge(cx, midY+m.h+14, has('memory_middle')?'runs on memory':'lives in spreadsheets');
-  /* money */
-  var monRed=has('money_disconnected')||has('invoices_hand')||has('check_bank');
-  var monGap=(midRed||owner)?62:48;
-  var monY=y+monGap;
-  var mo=box(monLabel, monY, monRed, 'MONEY');
-  if(owner){
-    edges+=edge(cx-40,y,cx-40,oy+18,false);
-    edges+=edge(cx,oy+26,cx,monY,monRed);
-  } else {
-    edges+=edge(cx,y,cx,monY,monRed);
-  }
-  if(monRed && !midRed) badges+=badge(cx, y+Math.floor(monGap/2), has('money_disconnected')?'not connected':(has('invoices_hand')?'billed by hand':'reconciled at the bank'));
-  if(monRed && midRed) badges+=badge(cx, monY+mo.h+14, has('money_disconnected')?'accounting not connected':(has('invoices_hand')?'billed by hand':'reconciled at the bank'));
-  out+=mo.svg; y=monY+mo.h;
-  if(monRed && midRed) y+=26;
-  if(has('dropped')){ badges+=badge(cx, y+22, 'flows with no owner, items get dropped'); y+=36; }
-  var H=y+22;
-  return {svg:'<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of your operation">'+edges+out+badges+'</svg>', leaks:leaks, leakCount:leaks.length};
-}
+  /* The webhook contract is a fixed seam. The flows chat writes these
+     endpoints to the same shape, and this page reads them without change.
+     Do not fold the classify and draw responses into the front end;
+     the draw endpoint returns finished SVG so the hand drawn language
+     stays owned by one renderer, n8n side. */
+  var API_BASE  = "https://launchforte.app.n8n.cloud/webhook";
+  var CLASSIFY  = API_BASE + "/forte-bot-classify";  /* { message, biz?, matters? } -> { recognition, question, chips?[], session_id } */
+  var DRAW      = API_BASE + "/forte-bot-draw";      /* { session_id, answer }      -> { sketch_svg, scar, mapped_demo?, mapped_demo_label? } */
+  var GATE      = API_BASE + "/gate-request";        /* { tool_key:"bot", email, session_id } */
 
-(function(){
-  var state={sources:[],capture:[],middlePrimary:null,middleSecondary:null,money:null,mover:null};
-  var qs=function(s,r){return (r||document).querySelector(s);};
-  var qsa=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
-  function answers(){
-    return {sources:state.sources.slice(),capture:state.capture.slice(),
-      middle:{primary:state.middlePrimary,secondary:state.middleSecondary},
-      money:state.money,mover:state.mover};
+  /* Deflection line for off script input (kept literally in one place
+     so the voice scan can find it). */
+  var DEFLECT = "I only sketch business systems. Describe yours and I'll draw it.";
+
+  /* Character cap on the free text box. Runbook says 500. */
+  var CHAR_CAP = 500;
+
+  /* ------------------------------ helpers ------------------------------ */
+  var $ = function(id){ return document.getElementById(id); };
+  function el(tag, cls, txt){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (txt !== undefined && txt !== null) n.textContent = txt;
+    return n;
   }
-  function complete(){return state.sources.length>0&&state.capture.length>0&&!!state.middlePrimary&&!!state.money&&!!state.mover;}
-  function render(){
-    var card=qs('#mapcard');
-    if(!complete()){card.hidden=true;return;}
-    var res=bpMap(answers());
-    var ll=qs('#leakline');
-    if(res.leakCount===0){ll.className='leakline zero';ll.innerHTML='We can see <span class="n">0</span> leaks from five answers.';}
-    else {ll.className='leakline';ll.innerHTML='We can see <span class="n">'+res.leakCount+'</span> leak'+(res.leakCount===1?'':'s')+' from five answers.';}
-    qs('#map').innerHTML=res.svg;
-    card.hidden=false;
+  function scrollLog(){
+    var log = $("log");
+    if (log) log.scrollTop = log.scrollHeight;
   }
-  qsa('.chips').forEach(function(group){
-    var key=group.getAttribute('data-q'), multi=group.getAttribute('data-multi')==='1';
-    group.addEventListener('click',function(ev){
-      var b=ev.target.closest('.chip'); if(!b) return;
-      var v=b.getAttribute('data-v');
-      if(multi){
-        var i=state[key].indexOf(v);
-        if(i>=0){state[key].splice(i,1);b.setAttribute('aria-pressed','false');}
-        else {state[key].push(v);b.setAttribute('aria-pressed','true');}
-      } else {
-        if(state[key]===v && key==='middleSecondary'){state[key]=null;b.setAttribute('aria-pressed','false');}
-        else{
-          state[key]=v;
-          qsa('.chip',group).forEach(function(c){c.setAttribute('aria-pressed', c===b?'true':'false');});
-        }
-      }
-      var ow={sources:'ow-sources',capture:'ow-capture',middlePrimary:'ow-middle'}[key];
-      if(ow){
-        var showOther = multi ? state[key].indexOf('other')>=0 : state[key]==='other';
-        qs('#'+ow).className='otherwrap'+(showOther?' show':'');
-      }
-      render();
+
+  /* prefill support: /demo/blueprint/?q=paste+text&biz=coaching&matters=leads
+     lets a campaign link land someone with the box already primed. */
+  function prefill(){
+    var q = new URLSearchParams(location.search);
+    var qval = q.get("q");
+    if (qval) $("input").value = qval.slice(0, CHAR_CAP);
+    ["biz","matters"].forEach(function(g){
+      var v = q.get(g);
+      if (!v) return;
+      var btn = document.querySelector('.chip[data-group="' + g + '"][data-value="' + v.replace(/[^\w-]/g,'') + '"]');
+      if (btn) btn.classList.add("on");
     });
-  });
-  /* prefill */
-  try{
-    var p=new URLSearchParams(location.search);
-    if(p.get('fn')) qs('#fn').value=p.get('fn').slice(0,60);
-    if(p.get('e')) qs('#email').value=p.get('e').slice(0,120);
-  }catch(e){}
-  var busy=false;
-  qs('#go').addEventListener('click',function(){
-    if(busy) return;
-    var err=qs('#err'); err.className='err'; err.textContent='';
-    if(!complete()){err.textContent='Answer all five questions first. The map needs every layer.';err.className='err show';return;}
-    var email=qs('#email').value.trim();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent='Enter a working email so we can send your Blueprint.';err.className='err show';return;}
-    if(!qs('#consent').checked){err.textContent='Check the consent box so we can email your Blueprint.';err.className='err show';return;}
-    busy=true; var btn=qs('#go'); btn.disabled=true; btn.textContent='Drawing your Blueprint...';
-    var a=answers();
-    var body={email:email,firstName:qs('#fn').value.trim(),consent:true,hp:qs('#hp').value,
-      answers:{sources:a.sources,capture:a.capture,middle:a.middle,money:a.money,mover:a.mover,
-        sourcesOther:qs('#other-sources').value.trim(),captureOther:qs('#other-capture').value.trim(),middleOther:qs('#other-middle').value.trim()}};
-    fetch('https://launchforte.app.n8n.cloud/webhook/blueprint-submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
-    .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
-    .then(function(res){
-      if(res.j && res.j.ok && res.j.id){location.href='/demo/blueprint/report/?id='+encodeURIComponent(res.j.id);return;}
-      busy=false; btn.disabled=false; btn.textContent='Draw my Blueprint';
-      var reason=res.j&&res.j.reason;
-      if(reason==='repeat_1d'){err.textContent='This email already ran a Blueprint today. One run per email per day. Come back tomorrow, or use the report link from your inbox.';}
-      else if(reason==='daily_cap'){err.textContent='The demo hit its daily limit. It resets overnight. Come back tomorrow and your run is waiting.';}
-      else{err.textContent='Something did not go through. Check the answers and try again.';}
-      err.className='err show';
+    updateCharCount();
+  }
+
+  function updateCharCount(){
+    var v = $("input").value;
+    var el = $("charcount");
+    el.textContent = v.length + " / " + CHAR_CAP;
+    if (v.length >= CHAR_CAP) el.classList.add("warn"); else el.classList.remove("warn");
+    $("send").disabled = v.trim().length < 6 || busy;
+  }
+
+  /* ------------------------------ state ------------------------------- */
+  var TURN_OPENING = 0;
+  var TURN_ANSWER  = 1;   /* visitor answers the veteran question */
+  var TURN_SKETCH  = 2;   /* sketch has been drawn */
+  var TURN_CLOSE   = 3;   /* email gate open */
+  var TURN_DONE    = 4;
+  var turn = TURN_OPENING;
+  var busy = false;
+  var session = { id: null, mapped_demo: null, mapped_demo_label: null };
+
+  /* ------------------------------ render ----------------------------- */
+  function bubble(who, text){
+    var t = el("div","turn " + who);
+    var b = el("div","bubble");
+    /* keep it text only for user; bot bubbles can include one accent span,
+       so we render a light template */
+    if (who === "user"){
+      b.textContent = text;
+    } else {
+      b.innerHTML = text;
+    }
+    t.appendChild(b);
+    $("log").appendChild(t);
+    scrollLog();
+    return t;
+  }
+  function sketchBubble(svgOrImg, scar){
+    var t = el("div","turn bot");
+    var b = el("div","bubble sketch");
+    var frame = el("div","sketch-frame");
+    frame.innerHTML = svgOrImg;   /* the renderer's finished SVG string, or an <img> tag */
+    b.appendChild(frame);
+    if (scar){
+      var s = el("span","quiet");
+      s.textContent = "checks and gotchas: " + scar + ". we've hit this one before.";
+      b.appendChild(s);
+    }
+    t.appendChild(b);
+    $("log").appendChild(t);
+    scrollLog();
+    return t;
+  }
+  function typing(){
+    var t = el("div","turn bot");
+    var b = el("div","typing");
+    b.appendChild(el("span")); b.appendChild(el("span")); b.appendChild(el("span"));
+    t.appendChild(b);
+    $("log").appendChild(t);
+    scrollLog();
+    return t;
+  }
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  /* ------------------------------ opening ----------------------------- */
+  function opening(){
+    bubble("bot",
+      "Hi. I'm Forte Bot. Tell me what you're trying to automate, or where the pain is, in your own words. "
+      + '<span class="quiet">The chips below sharpen the answer if you want to pick two.</span>'
+    );
+  }
+
+  /* ------------------------------ turn 1 ------------------------------ */
+  function classify(msg, biz, matters){
+    var t = typing();
+    var payload = { message: msg };
+    if (biz) payload.biz = biz;
+    if (matters) payload.matters = matters;
+    return fetch(CLASSIFY, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload)
     })
-    .catch(function(){busy=false;btn.disabled=false;btn.textContent='Draw my Blueprint';err.textContent='The connection did not go through. Try again in a moment.';err.className='err show';});
-  });
+    .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(function(j){
+      t.remove();
+      session.id = j.session_id || null;
+      /* recognition line then the veteran question, one bubble */
+      var line = "";
+      if (j.recognition) line += esc(j.recognition);
+      if (j.question)    line += (line ? "<br><br>" : "") + esc(j.question);
+      if (!line) line = DEFLECT;
+      bubble("bot", line);
+      turn = TURN_ANSWER;
+    })
+    .catch(function(){ t.remove(); bubble("bot", DEFLECT); });
+  }
+
+  /* ------------------------------ turn 2: DRAW ------------------------ */
+  function draw(answer){
+    bubble("bot", "give me a second, sketching it");
+    var t = typing();
+    return fetch(DRAW, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ session_id: session.id, answer: answer })
+    })
+    .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(function(j){
+      t.remove();
+      /* the draw endpoint returns finished markup; the front end never
+         attempts a sketch renderer of its own. If flows returns svg_url
+         instead of sketch_svg, an <img> is equally welcome. */
+      var body = j.sketch_svg || (j.sketch_url ? '<img alt="Your system, sketched." src="' + esc(j.sketch_url) + '">' : '');
+      if (!body){ bubble("bot", DEFLECT); return; }
+      sketchBubble(body, j.scar || null);
+      session.mapped_demo = j.mapped_demo || null;
+      session.mapped_demo_label = j.mapped_demo_label || null;
+      turn = TURN_SKETCH;
+      /* one closing bubble then swap composer for the email gate */
+      setTimeout(function(){
+        var line = "Want it as a PDF, plus which of our live demos matches your build? Drop your email.";
+        bubble("bot", line);
+        openGate();
+      }, 700);
+    })
+    .catch(function(){ t.remove(); bubble("bot", DEFLECT); });
+  }
+
+  /* ------------------------------ close ------------------------------- */
+  function openGate(){
+    $("composer").classList.add("hide");
+    $("gate").classList.remove("hide");
+    turn = TURN_CLOSE;
+    setTimeout(function(){ var e = $("gate-email"); if (e) e.focus(); }, 100);
+  }
+  function submitGate(){
+    var email = $("gate-email").value.trim();
+    var msg = $("gate-msg");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      msg.textContent = "That email doesn't look right, try again.";
+      return;
+    }
+    $("gate-send").disabled = true;
+    msg.textContent = "Sending.";
+    fetch(GATE, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        tool_key: "bot",
+        email: email,
+        session_id: session.id,
+        mapped_demo: session.mapped_demo
+      })
+    })
+    .then(function(r){ return r.json().catch(function(){ return {}; }); })
+    .then(function(j){
+      if (j.ok === false){ msg.textContent = j.message || "That didn't go through, try again in a minute."; $("gate-send").disabled = false; return; }
+      $("gate").classList.add("hide");
+      /* the paywall line ends the thread in the bot's own voice, per runbook */
+      bubble("bot",
+        "Sent. The sketch and the matched demo are on their way to " + esc(email) + "."
+      );
+      setTimeout(function(){
+        bubble("bot",
+          "The full picture, the phases, the hours, the plan: that's what the audit buys. This sketch is me thinking; the audit is me measuring."
+          + '<br><br><a href="/pricing">See what the audit costs and what it opens.</a>'
+        );
+        turn = TURN_DONE;
+      }, 900);
+    })
+    .catch(function(){ msg.textContent = "Network hiccup, try again in a minute."; $("gate-send").disabled = false; });
+  }
+
+  /* ------------------------------ send -------------------------------- */
+  function pickedChip(group){
+    var b = document.querySelector('.chip[data-group="' + group + '"].on');
+    return b ? b.getAttribute("data-value") : null;
+  }
+  function onSend(){
+    if (busy || turn > TURN_ANSWER) return;
+    var input = $("input");
+    var msg = input.value.trim();
+    if (msg.length < 6) return;
+    busy = true;
+    bubble("user", msg);
+    input.value = "";
+    updateCharCount();
+    /* disable chips after first turn so the classify context stays honest */
+    if (turn === TURN_OPENING){
+      var biz = pickedChip("biz");
+      var matters = pickedChip("matters");
+      document.querySelectorAll(".chip").forEach(function(c){ c.disabled = true; });
+      classify(msg, biz, matters).then(function(){ busy = false; updateCharCount(); });
+    } else if (turn === TURN_ANSWER){
+      draw(msg).then(function(){ busy = false; updateCharCount(); });
+    }
+  }
+
+  /* ------------------------------ boot -------------------------------- */
+  function boot(){
+    if (!LIVE) return;   /* holding state stays, no wire up */
+    $("holding").classList.add("hide");
+    $("log").classList.remove("hide");
+    $("composer").classList.remove("hide");
+    prefill();
+    opening();
+
+    $("input").addEventListener("input", updateCharCount);
+    $("input").addEventListener("keydown", function(e){
+      if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); onSend(); }
+    });
+    $("send").addEventListener("click", onSend);
+
+    document.querySelectorAll(".chip").forEach(function(c){
+      c.addEventListener("click", function(){
+        if (c.disabled) return;
+        var g = c.getAttribute("data-group");
+        document.querySelectorAll('.chip[data-group="' + g + '"]').forEach(function(o){ o.classList.remove("on"); });
+        c.classList.add("on");
+      });
+    });
+
+    $("gate-send").addEventListener("click", submitGate);
+    $("gate-email").addEventListener("keydown", function(e){
+      if (e.key === "Enter"){ e.preventDefault(); submitGate(); }
+    });
+  }
+  window.addEventListener("load", boot);
 })();
 </script>
 </body>

@@ -5,6 +5,13 @@
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
+# Forte Bot alias 2026-07-28. /ask is a campaign-friendly shortcut to the bot page.
+[[redirects]]
+  from = "/ask"
+  to = "/demo/blueprint/"
+  status = 301
+  force = true
+
 # Services page retired 2026-05-09. Old stage-based framing collapsed into /what-we-build.
 [[redirects]]
   from = "/services.html"
