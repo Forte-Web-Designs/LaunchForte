@@ -501,12 +501,17 @@
         .faq-group { border-top: 1px solid var(--border); }
         .faq-qa { border-bottom: 1px solid var(--border); }
         .faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.5rem 0; background: transparent; border: 0; text-align: left; cursor: pointer; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-lg); font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
-        .faq-chev { width: 20px; height: 20px; color: var(--n-500); transition: transform 0.25s var(--ease-out), color var(--dur-hover); flex: none; }
+        .faq-chev { width: 20px; height: 20px; color: var(--n-500); transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1), color var(--dur-hover); flex: none; }
         .faq-qa.open .faq-chev { transform: rotate(180deg); color: var(--accent); }
-        .faq-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s var(--ease-out); }
+        /* Section 14 accordion ease: 0.42s quart-out (cubic-bezier(0.16,1,0.3,1)) — silky height + opacity fade */
+        .faq-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1); }
         .faq-qa.open .faq-panel { grid-template-rows: 1fr; }
-        .faq-panel-inner { overflow: hidden; }
+        .faq-panel-inner { overflow: hidden; opacity: 0; transition: opacity 0.28s ease-out; }
+        .faq-qa.open .faq-panel-inner { opacity: 1; transition: opacity 0.32s ease-out 0.12s; }
         .faq-panel p { color: var(--n-600); font-size: var(--text-base); line-height: 1.7; padding: 0 0 1.5rem; margin: 0; }
+        @media(prefers-reduced-motion: reduce) {
+            .faq-panel, .faq-chev, .faq-panel-inner { transition: none !important; }
+        }
 
         /* Final CTA (dark) */
         .final-cta { padding: var(--sp-24) 0; background: var(--ink); color: var(--paper); border-radius: var(--radius-4xl); margin-top: var(--sp-24); }
@@ -1082,6 +1087,45 @@
             btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
     });
+})();
+
+// Section 14: hero stat count-up — animate .num spans from 0 to final on first reveal.
+// 900ms ease-out cubic. Reduced motion skips the animation and shows finals.
+(function(){
+    var nums = document.querySelectorAll('.hero-stat-value .num');
+    if (!nums.length) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var finals = [];
+    nums.forEach(function(el){
+        var target = parseInt(el.textContent, 10);
+        finals.push(target);
+        if (reduce) return;
+        el.textContent = '0';
+    });
+    if (reduce || !('IntersectionObserver' in window)) return;
+    var host = nums[0].closest('.hero-stats') || nums[0];
+    var done = false;
+    var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+            if (!entry.isIntersecting || done) return;
+            done = true;
+            io.disconnect();
+            var start = performance.now();
+            var dur = 900;
+            function tick(now){
+                var t = Math.min(1, (now - start) / dur);
+                var eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+                nums.forEach(function(el, i){
+                    var v = Math.round(finals[i] * eased);
+                    el.textContent = v;
+                });
+                if (t < 1) requestAnimationFrame(tick);
+                else nums.forEach(function(el, i){ el.textContent = finals[i]; });
+            }
+            requestAnimationFrame(tick);
+        });
+    }, { threshold: 0.4 });
+    io.observe(host);
 })();
 
 // Cinematic hero: rotate through /media/hero-1.mp4 .. hero-4.mp4 back-to-back
