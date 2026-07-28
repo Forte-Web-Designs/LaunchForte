@@ -237,35 +237,56 @@
        Ask Forte OPEN — Phase 7 frontend
        Runbook: forte_bot_runbook.md § "ASK FORTE, OPEN"
        ============================================================
-       The frontend defines the contract; n8n implements to match.
+       Contract v2 (per flows-session handoff): n8n streams raw text (not SSE)
+       because the AI Agent node writes the model's tokens straight to the
+       response body. Control frames ride INSIDE the stream as bracketed
+       sentinels; the adapter (parseSentinels) strips them and converts them
+       to the same frame objects the UI already handles. Everything downstream
+       of the adapter is unchanged.
 
-       Endpoint 1 — the open conversation (streaming):
+       Endpoint 1 — the open conversation (streaming, raw bytes with sentinels):
          POST /forte-ask
-         body: { session_id, message, history:[{role,text},...], meta:{referrer, prefill?} }
-         response: text/event-stream, each line 'data: <json>\n\n'
-           frames:
-             { type:"token",  text:"..." }          // append to current bot bubble
-             { type:"shape",  name:"...", count:12 } // fires when a shape is recognized
-             { type:"card",   kind:"SHAPE|SEEN|GOTCHA|NEXT", body:"..." } // spec-card materializes
-             { type:"offer_napkin" }                 // renders the "Sketch this" button under the last bubble
-             { type:"suggest_close" }                // hint that the door line just went out
-             { type:"deflect" }                      // off-script probe; UI shows the canonical deflection
-             { type:"done" }                         // stream complete
+         body: { session_id?, message, meta:{referrer, prefill?} }
+           - session_id: omit on first turn; server mints & returns it
+           - history is NOT sent — server keeps it, keyed by session_id
+             (client-fed history is attacker-controllable)
+         response: raw token stream. Sentinels in-stream:
+           [[SHAPE|<slug>]]  -> { type:"shape", name:"<slug>" }
+                              -> triggers /forte-shape lookup for count/plain/seen
+           [[NAPKIN]]        -> { type:"offer_napkin" }
+           [[CLOSE]]         -> { type:"suggest_close" }
+           [[DEFLECT]]       -> { type:"deflect" }
+         Anything else is a token frame. Sentinels NEVER reach the screen.
+         Partial-tail sentinels are buffered across chunks.
 
-       Endpoint 2 — the napkin (finished SVG, one shot):
+       Endpoint 2 — shape lookup (called from the adapter when [[SHAPE|slug]] fires):
+         POST /forte-shape
+         body: { session_id, shape }
+         response: { shape, plain, count, seen }
+           - count may be null (below-floor shape); render `seen` verbatim
+           - The number never comes from the model — grounded from upwork_jobs
+
+       Endpoint 3 — the napkin (one-shot, triggered by the offer button):
          POST /forte-draw
          body: { session_id }
-         response: JSON { sketch_svg:"<svg...>", scar?:"...", mapped_demo?:"...", mapped_demo_label?:"..." }
+         response: { sketch_svg, scar, mapped_demo, mapped_demo_label }
+           - scar and mapped_demo are BOTH nullable — render nothing when null
+           - scar renders VERBATIM (already contains closer when earned)
+           - SVG has <g data-beat="0..6"> groups; animate in ascending order
+             with a pause before beat 6 (scar last).
+             Every <path> carries pathLength="1"; animate stroke-dashoffset
+             from 1 to 0 with stroke-dasharray:1. Fade <text> in.
 
-       Endpoint 3 — the email close (existing gate):
+       Endpoint 4 — the email close (existing gate, unchanged):
          POST /gate-request
          body: { tool_key:"bot", email, session_id }
     */
 
     /* -------------------- config -------------------- */
-    var LIVE = false;                               // flip when n8n side ships
+    var LIVE = false;                               // flip when ALL FOUR endpoints answer
     var API_BASE  = "https://launchforte.app.n8n.cloud/webhook";
     var ASK       = API_BASE + "/forte-ask";
+    var SHAPE     = API_BASE + "/forte-shape";
     var DRAW      = API_BASE + "/forte-draw";
     var GATE      = API_BASE + "/gate-request";
 
@@ -273,6 +294,10 @@
     var DOOR_HINT_AT       = 7;                     // message # where the bot naturally mentions the door
     var CHAR_CAP           = 1000;                  // open conversation gets a bigger cap than the old 500
     var DEFLECT            = "I only sketch business systems. Describe yours and I'll draw it.";
+
+    /* Napkin reveal choreography — beat durations in ms; scar (beat 6) plays last after PAUSE_BEFORE_SCAR. */
+    var BEATS = [[0,400],[1,900],[2,500],[3,700],[4,500],[5,600],[6,900]];
+    var PAUSE_BEFORE_SCAR = 400;
 
     /* -------------------- helpers -------------------- */
     var $ = function(id){ return document.getElementById(id); };
@@ -284,8 +309,12 @@
     }
     function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 
-    /* -------------------- state -------------------- */
-    var session = { id: uuid(), history: [], messageCount: 0, closed: false, currentBotBubble: null, currentBotText: "" };
+    /* -------------------- state --------------------
+       session.id is null on the first turn; server mints and returns it,
+       then we send it on every subsequent turn. NO history tracked here —
+       the server keeps the transcript keyed by session_id, per the
+       containment doctrine (client-fed history is attacker-controllable). */
+    var session = { id: null, messageCount: 0, closed: false };
     var busy = false;
     var cardsSeen = { SHAPE: false, SEEN: false, GOTCHA: false, NEXT: false };
 
@@ -442,11 +471,13 @@
         var frame = el("div","askf-napkin-frame");
         frame.innerHTML = svg;
         b.appendChild(frame);
+        // scar renders VERBATIM (already contains the closer when earned) — nullable
         if (scar){
             var cap = el("div","askf-napkin-caption");
-            cap.textContent = "checks and gotchas: " + scar + " — we've hit this one before.";
+            cap.textContent = scar;
             b.appendChild(cap);
         }
+        // mapped_demo is nullable — render nothing when null; do NOT default
         if (mappedDemo){
             var link = el("div","askf-napkin-caption");
             link.innerHTML = 'Live demo of this shape: <a href="' + esc(mappedDemo) + '">' + esc(mappedLabel || "See it running") + '</a>';
@@ -455,6 +486,62 @@
         t.appendChild(b);
         $("askf-log").appendChild(t);
         scrollLog();
+        // Play the reveal choreography on the freshly-mounted SVG
+        playNapkinChoreography(frame.querySelector("svg"));
+    }
+
+    /* Reveal choreography — the SVG has <g data-beat="0..6"> groups.
+       Beat 6 is the scar and lands last after PAUSE_BEFORE_SCAR.
+       Every <path> carries pathLength="1"; we prime stroke-dasharray/offset
+       to 1/1 then transition to 0 so the pen "draws". Text fades in. */
+    function playNapkinChoreography(svg){
+        if (!svg) return;
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var groups = {};
+        svg.querySelectorAll('g[data-beat]').forEach(function(g){
+            var idx = parseInt(g.getAttribute('data-beat'), 10);
+            if (isNaN(idx)) return;
+            (groups[idx] = groups[idx] || []).push(g);
+        });
+        // Prime: hide everything, set up path draw state
+        Object.keys(groups).forEach(function(k){
+            groups[k].forEach(function(g){
+                g.style.opacity = '0';
+                g.querySelectorAll('path').forEach(function(p){
+                    p.style.strokeDasharray = '1';
+                    p.style.strokeDashoffset = '1';
+                });
+            });
+        });
+        if (reduce){
+            // Just show everything at once
+            Object.keys(groups).forEach(function(k){
+                groups[k].forEach(function(g){
+                    g.style.opacity = '1';
+                    g.querySelectorAll('path').forEach(function(p){
+                        p.style.strokeDashoffset = '0';
+                    });
+                });
+            });
+            return;
+        }
+        var elapsed = 0;
+        BEATS.forEach(function(pair, i){
+            var beatIdx = pair[0], durMs = pair[1];
+            var pre = (beatIdx === 6) ? PAUSE_BEFORE_SCAR : 0;
+            setTimeout(function(){
+                var gs = groups[beatIdx] || [];
+                gs.forEach(function(g){
+                    g.style.transition = 'opacity ' + Math.min(durMs, 500) + 'ms ease-out';
+                    g.style.opacity = '1';
+                    g.querySelectorAll('path').forEach(function(p){
+                        p.style.transition = 'stroke-dashoffset ' + durMs + 'ms ease-out';
+                        p.style.strokeDashoffset = '0';
+                    });
+                });
+            }, elapsed + pre);
+            elapsed += pre + durMs;
+        });
     }
 
     /* -------------------- allowance / close -------------------- */
@@ -503,61 +590,131 @@
         });
     }
 
+    /* -------------------- sentinel adapter --------------------
+       Turns raw byte chunks off the n8n stream into the same frame objects
+       the UI already handles. Sentinels in-stream: [[SHAPE|slug]], [[NAPKIN]],
+       [[CLOSE]], [[DEFLECT]]. Everything else is emitted as a token frame.
+
+       RULES:
+       1. Buffer partial tails. If a chunk ends mid-sentinel (e.g. "...here is [[NAP"),
+          hold that tail and prepend it to the next chunk. Sentinels never appear on screen.
+       2. Ignore unknown/malformed sentinels silently. The model will occasionally
+          get it wrong; the visitor must not learn that.
+    */
+    function parseSentinels(chunkText, carry){
+        var buf = (carry || "") + chunkText;
+        var frames = [];
+        var re = /\[\[([^\[\]]+)\]\]/g; // matches [[...]] with no nested brackets
+        var lastIndex = 0;
+        var m;
+        while ((m = re.exec(buf)) !== null){
+            // Emit any plain text before the sentinel as a token frame
+            var pre = buf.slice(lastIndex, m.index);
+            if (pre) frames.push({ type: "token", text: pre });
+            var body = m[1].trim();
+            // Recognize sentinels; silently drop unknowns
+            if (body.indexOf("SHAPE|") === 0){
+                var slug = body.slice(6).trim();
+                if (slug) frames.push({ type: "shape", name: slug });
+            } else if (body === "NAPKIN"){
+                frames.push({ type: "offer_napkin" });
+            } else if (body === "CLOSE"){
+                frames.push({ type: "suggest_close" });
+            } else if (body === "DEFLECT"){
+                frames.push({ type: "deflect" });
+            } // else: unknown sentinel, silently ignored
+            lastIndex = re.lastIndex;
+        }
+        // Check the tail for a possible partial sentinel to buffer for next chunk
+        var tail = buf.slice(lastIndex);
+        var openIdx = tail.lastIndexOf("[[");
+        var carryOut = "";
+        var emitTail = tail;
+        if (openIdx !== -1 && tail.indexOf("]]", openIdx) === -1){
+            // Partial: from openIdx onward is buffered
+            emitTail = tail.slice(0, openIdx);
+            carryOut = tail.slice(openIdx);
+        }
+        // Also guard against a lone '[' at the very end — could be start of "[["
+        if (!carryOut && emitTail.charAt(emitTail.length - 1) === "["){
+            carryOut = "[";
+            emitTail = emitTail.slice(0, -1);
+        }
+        if (emitTail) frames.push({ type: "token", text: emitTail });
+        return { frames: frames, carry: carryOut };
+    }
+
     /* -------------------- streaming send -------------------- */
     function sendMessage(text, opts){
         opts = opts || {};
         if (session.closed || busy) return;
         busy = true; $("askf-send").disabled = true;
         renderUserBubble(text);
-        session.history.push({ role: "user", text: text });
         session.messageCount += 1;
         updateAllowance();
 
         var typing = renderTypingIndicator();
         var botHolder = null;
         var accumulated = "";
+        var wasDeflected = false;
 
-        var payload = { session_id: session.id, message: text, history: session.history, meta: { referrer: document.referrer, prefill: !!opts.prefill } };
+        // No history[] — server keeps it, keyed by session_id.
+        // session_id is omitted on the first turn; server mints and returns it.
+        var payload = { message: text, meta: { referrer: document.referrer, prefill: !!opts.prefill } };
+        if (session.id) payload.session_id = session.id;
 
         fetch(ASK, {
             method: "POST",
-            headers: { "Content-Type": "application/json", "Accept": "text/event-stream" },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         }).then(function(resp){
             if (!resp.ok) throw new Error("ask " + resp.status);
+            // Server may return a fresh session_id in a header on the first turn
+            var newId = resp.headers.get("X-Forte-Session") || resp.headers.get("x-forte-session");
+            if (newId && !session.id) session.id = newId;
+
             var reader = resp.body.getReader();
             var decoder = new TextDecoder();
-            var buffer = "";
+            var carry = "";
+
             function pump(){
                 return reader.read().then(function(res){
-                    if (res.done){ finish(); return; }
-                    buffer += decoder.decode(res.value, { stream: true });
-                    // Parse SSE frames: 'data: <json>\n\n'
-                    var chunks = buffer.split("\n\n");
-                    buffer = chunks.pop();
-                    for (var i = 0; i < chunks.length; i++){
-                        var line = chunks[i].trim();
-                        if (!line.indexOf("data:")) line = line.slice(5).trim();
-                        if (!line) continue;
-                        try { handleFrame(JSON.parse(line)); } catch(_){}
+                    if (res.done){
+                        // Flush any remaining buffered tail (in case stream ended mid-sentinel-ish)
+                        if (carry){
+                            handleFrame({ type: "token", text: carry });
+                            carry = "";
+                        }
+                        finish();
+                        return;
                     }
+                    var chunkText = decoder.decode(res.value, { stream: true });
+                    var out = parseSentinels(chunkText, carry);
+                    carry = out.carry;
+                    for (var i = 0; i < out.frames.length; i++) handleFrame(out.frames[i]);
                     return pump();
                 });
             }
+
             function handleFrame(f){
                 if (f.type === "token"){
-                    if (!botHolder){ if (typing && typing.parentNode) typing.parentNode.removeChild(typing); typing = null; botHolder = renderBotBubble("", {}); }
+                    if (wasDeflected) return; // deflection bubble is final for this turn
+                    if (!botHolder){
+                        if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
+                        typing = null;
+                        botHolder = renderBotBubble("", {});
+                    }
                     accumulated += f.text;
                     botHolder.bubble.textContent = accumulated;
                     scrollLog();
                 }
                 else if (f.type === "shape"){
-                    // The recognition beat — record for history and drive spec cards
-                    if (f.name) renderCard("SHAPE", f.name);
-                    if (f.count) renderCard("SEEN", f.count + " businesses this month");
-                }
-                else if (f.type === "card"){
-                    renderCard(f.kind, f.body);
+                    // Fill SHAPE card with the slug immediately, then hit /forte-shape
+                    // for the grounded plain-english label + count + seen line.
+                    if (f.name){
+                        renderCard("SHAPE", f.name);
+                        lookupShape(f.name);
+                    }
                 }
                 else if (f.type === "offer_napkin"){
                     if (botHolder) renderOfferButton(botHolder.turn);
@@ -566,21 +723,23 @@
                     renderCard("NEXT", "The audit is how a real one gets scoped.");
                 }
                 else if (f.type === "deflect"){
-                    if (!botHolder){ if (typing && typing.parentNode) typing.parentNode.removeChild(typing); typing = null; botHolder = renderBotBubble("", {}); }
+                    if (!botHolder){
+                        if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
+                        typing = null;
+                        botHolder = renderBotBubble("", {});
+                    }
+                    // Deflection replaces whatever bubble content was building
                     accumulated = DEFLECT;
                     botHolder.bubble.textContent = accumulated;
+                    wasDeflected = true;
                     scrollLog();
                 }
-                else if (f.type === "done"){ /* pump will end */ }
             }
             function finish(){
                 if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
-                if (accumulated) session.history.push({ role: "assistant", text: accumulated });
                 busy = false;
                 updateCharCount();
-                // Door hint at DOOR_HINT_AT (the bot's own copy handles this, but we surface the NEXT card too)
                 if (session.messageCount >= DOOR_HINT_AT) renderCard("NEXT", "The audit is how a real one gets scoped.");
-                // Hard cap
                 if (session.messageCount >= ALLOWANCE_MESSAGES) closeSession("cap");
             }
             return pump();
@@ -592,7 +751,28 @@
         });
     }
 
-    /* -------------------- napkin draw (one shot) -------------------- */
+    /* /forte-shape lookup: the count and 'seen' line are grounded server-side
+       from upwork_jobs (never invented by the model). Render `seen` verbatim. */
+    function lookupShape(slug){
+        if (!LIVE || !session.id) return;
+        fetch(SHAPE, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ session_id: session.id, shape: slug })
+        }).then(function(r){ return r.json(); })
+          .then(function(data){
+              if (!data) return;
+              if (data.plain) renderCard("SHAPE", data.plain);
+              if (data.seen) renderCard("SEEN", data.seen);
+          })
+          .catch(function(){});
+    }
+
+    /* -------------------- napkin draw (one shot) --------------------
+       scar and mapped_demo are BOTH nullable; render nothing when null.
+       Do NOT fabricate a GOTCHA card from a missing scar — a shape with
+       no locked scar pair draws a napkin without a scar block rather
+       than an invented one. */
     function drawNapkin(){
         if (!LIVE) return;
         fetch(DRAW, {
@@ -603,7 +783,7 @@
           .then(function(data){
               if (!data || !data.sketch_svg) throw new Error("no svg");
               renderNapkin(data.sketch_svg, data.scar, data.mapped_demo, data.mapped_demo_label);
-              renderCard("GOTCHA", data.scar || "the scar for this shape");
+              if (data.scar) renderCard("GOTCHA", data.scar);
               if (window.dataLayer) window.dataLayer.push({ event: "fortebot_napkin_drawn" });
           })
           .catch(function(){
