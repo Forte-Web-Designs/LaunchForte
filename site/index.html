@@ -17,8 +17,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css">
-    <script src="/studio-theme.js"></script>
+    <link rel="stylesheet" href="/studio.css?v=p8d">
+    <script src="/studio-theme.js?v=p8d"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -257,21 +257,16 @@
 
         /* Testimonials */
         .testi-h2 { margin-bottom: 3rem; }
-        /* Video testimonials: both capped to the SAME 420px width so Matt's
-           senja widget and Danielle's <video> visually match. Firm max-width
-           on the frame, and force the same on senja's descendants via a
-           :where() rule that pierces the widget's inline sizing without
-           touching its shadow DOM. */
+        /* Video testimonials: both are now native <video> elements, capped to
+           the same visual height so a landscape (Danielle 16:9) and a portrait
+           (Matt 3:4) sit balanced side-by-side. Each frame is a fixed-height
+           box that lets each video render at its own aspect ratio inside. */
         .video-testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; margin-top: var(--sp-8); align-items: start; max-width: 960px; margin-left: auto; margin-right: auto; }
         .video-testi { min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .video-testi .video-frame { width: 100%; max-width: 420px; margin: 0 auto 1.25rem; display: block; }
-        .video-testi .video-frame video { display: block; width: 100%; height: auto; border-radius: var(--radius-3xl); }
-        .video-testi .video-frame .senja-embed { display: block; width: 100% !important; max-width: 420px !important; margin: 0 auto !important; }
-        .video-testi .video-frame .senja-embed iframe,
-        .video-testi .video-frame .senja-embed img,
-        .video-testi .video-frame .senja-embed video { max-width: 100% !important; height: auto !important; }
+        .video-testi .video-frame { width: 100%; max-width: 420px; height: 320px; margin: 0 auto 1.25rem; display: flex; align-items: center; justify-content: center; background: var(--paper-2); border-radius: var(--radius-3xl); overflow: hidden; }
+        .video-testi .video-frame video { display: block; max-width: 100%; max-height: 100%; width: auto; height: 100%; border-radius: var(--radius-3xl); background: var(--ink); }
         .video-testi .vt-quote { margin-top: 0.5rem; max-width: 420px; }
-        @media(max-width: 768px) { .video-testi-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+        @media(max-width: 768px) { .video-testi-grid { grid-template-columns: 1fr; gap: 2.5rem; } .video-testi .video-frame { height: 280px; } }
 
         .review-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         @media(min-width: 700px) { .review-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -603,8 +598,7 @@
             </div>
             <div class="video-testi studio-reveal">
                 <div class="video-frame">
-                    <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
-                    <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true"></div>
+                    <video controls playsinline preload="metadata" poster="/videos/matt-poster.jpg" src="/videos/video-1.mp4"></video>
                 </div>
                 <div class="vt-quote">
                     <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
@@ -822,8 +816,8 @@
     });
 })();
 </script>
-<script src="/studio-motion.js" defer></script>
-<script src="/scroll-top.js" defer></script>
-<script src="/hamburger.js" defer></script>
+<script src="/studio-motion.js?v=p8d" defer></script>
+<script src="/scroll-top.js?v=p8d" defer></script>
+<script src="/hamburger.js?v=p8d" defer></script>
 </body>
 </html>
