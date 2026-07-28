@@ -379,6 +379,26 @@
         .askf-tools-line { margin: 2rem auto 0; text-align: center; color: var(--n-500); font-size: var(--text-sm); }
         .askf-tools-line a { color: var(--accent); font-weight: 600; }
 
+        /* Inline Ask Forte panel — expands under the bar on submit. Section 16:
+           URL never changes; the visitor never leaves the homepage. */
+        .askf-inline { max-width: 820px; margin: 1rem auto 0; display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1); }
+        .askf-inline.is-open { grid-template-rows: 1fr; }
+        .askf-inline-panel { overflow: hidden; opacity: 0; transition: opacity 0.28s ease-out; }
+        .askf-inline.is-open .askf-inline-panel { opacity: 1; transition: opacity 0.32s ease-out 0.12s; }
+        .askf-inline-inner { background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-3xl); padding: 1.5rem 1.5rem 1.25rem; box-shadow: 0 12px 40px rgba(10,10,10,0.06); }
+        .askf-inline .askf-close { float: right; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 0; color: var(--n-500); cursor: pointer; border-radius: 50%; transition: color 0.2s ease, background 0.2s ease; }
+        .askf-inline .askf-close:hover { color: var(--ink); background: var(--n-100); }
+        .askf-inline .askf-close svg { width: 16px; height: 16px; display: block; }
+        .askf-inline h3 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1.125rem; font-weight: 600; color: var(--ink); margin: 0 0 0.35rem; letter-spacing: -0.01em; }
+        .askf-inline .quoted-q { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-style: italic; color: var(--n-600); margin: 0 0 1rem; font-size: 0.9375rem; }
+        .askf-inline p { color: var(--n-600); font-size: 0.9375rem; line-height: 1.55; margin: 0 0 1rem; }
+        .askf-warm-tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+        @media(max-width: 560px) { .askf-warm-tools { grid-template-columns: 1fr; } }
+        .askf-warm-tool { display: block; padding: 0.9rem 1rem; background: var(--paper); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--ink); transition: border-color 0.2s ease, transform 0.2s ease; }
+        .askf-warm-tool:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .askf-warm-tool b { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.9375rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
+        .askf-warm-tool span { display: block; font-size: 0.8125rem; color: var(--n-500); }
+
         /* WHO WE BUILD FOR one-liner (Section 11.3) */
         .who-line { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.5rem, 3.2vw, 2rem); line-height: 1.25; letter-spacing: -0.02em; color: var(--ink); margin: 1rem 0 0; max-width: 900px; }
         .who-line a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 0.2em; transition: color var(--dur-hover); }
@@ -762,14 +782,25 @@
             </div>
         </div>
 
-        <!-- The massive chat bar -->
-        <form class="askf-bar studio-reveal" action="/ask" method="get" role="search" aria-label="Ask Forte">
+        <!-- The massive chat bar. Section 16 ruling: NEVER navigates.
+             submit is intercepted; conversation expands in place, in the browser.
+             /ask stays a second mount address (bookmarks/campaigns), never a
+             destination the homepage sends anyone to. -->
+        <form class="askf-bar studio-reveal" id="askf-hero-form" role="search" aria-label="Ask Forte">
             <button type="button" class="askf-mic" id="ask-mic" aria-label="Speak your question">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
             </button>
-            <input type="text" name="q" id="ask-forte-input" placeholder="Got an automation idea or a pain point? Ask Forte." aria-label="Ask Forte">
+            <input type="text" name="q" id="ask-forte-input" placeholder="Got an automation idea or a pain point? Ask Forte." aria-label="Ask Forte" autocomplete="off">
             <button type="submit" class="askf-submit" data-gtm-event="homepage_ask_submit">Ask</button>
         </form>
+
+        <!-- Inline expansion panel — mounts under the bar, never navigates.
+             Flag OFF (today): renders the "warming up" state with three tool links.
+             Flag ON (when flows ship): the full Ask Forte component mounts here.
+             Aria-hidden until opened; JS toggles .is-open. -->
+        <div class="askf-inline" id="askf-inline" aria-hidden="true">
+            <div class="askf-inline-panel" id="askf-inline-panel" role="region" aria-label="Ask Forte" aria-live="polite"></div>
+        </div>
 
         <!-- Three-beat promise strip -->
         <ul class="askf-promise studio-reveal" aria-label="What happens">
@@ -1357,6 +1388,101 @@
     function apply(){ input.setAttribute('placeholder', window.innerWidth < 480 ? SHORT : LONG); }
     apply();
     window.addEventListener('resize', apply, { passive: true });
+})();
+
+/* Section 16 ruling 2: the homepage bar NEVER navigates. Intercept submit
+   and expand the conversation IN PLACE under the bar. The URL never changes.
+
+   FLAG_LIVE gate: when the n8n flows land, this flips to true and the
+   full Ask Forte component mounts here (bubbles, napkin, spec cards,
+   email gate — the same experience /demo/blueprint/ hosts, in a second
+   mount). Until then, submitting expands a soft "warming up" panel with
+   the three tool links; still no navigation, ever.
+
+   /ask remains a redirect to /demo/blueprint for people arriving via
+   bookmark or campaign link, but the homepage bar routes NOTHING to it. */
+(function(){
+    var FLAG_LIVE = false;
+
+    var form = document.getElementById('askf-hero-form');
+    var input = document.getElementById('ask-forte-input');
+    var inline = document.getElementById('askf-inline');
+    var panel = document.getElementById('askf-inline-panel');
+    if (!form || !input || !inline || !panel) return;
+
+    function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+    function closeBtn(){
+        return '<button type="button" class="askf-close" id="askf-close-btn" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
+    }
+
+    function renderWarmingUp(q){
+        var qHtml = q ? '<p class="quoted-q">"' + esc(q) + '"</p>' : '';
+        panel.innerHTML =
+            '<div class="askf-inline-inner">' +
+                closeBtn() +
+                '<h3>Ask Forte is warming up.</h3>' +
+                qHtml +
+                '<p>The flows behind the conversation land shortly. In the meantime, three tools that already answer live:</p>' +
+                '<div class="askf-warm-tools">' +
+                    '<a class="askf-warm-tool" href="/grade" data-gtm-event="homepage_ask_warm_grade"><b>Grade my systems</b><span>Free grader, about a minute.</span></a>' +
+                    '<a class="askf-warm-tool" href="/demo/books" data-gtm-event="homepage_ask_warm_books"><b>The Mess Maker Finder</b><span>Why your books keep breaking.</span></a>' +
+                    '<a class="askf-warm-tool" href="/leads" data-gtm-event="homepage_ask_warm_leads"><b>Verified Lead Sample</b><span>Ten leads in your inbox within the hour.</span></a>' +
+                '</div>' +
+            '</div>';
+    }
+
+    /* When FLAG_LIVE is true the full Ask Forte component mounts here.
+       For now this is a placeholder so the mount hook is proven; the
+       n8n side ships the streaming + sentinel adapter first, then a
+       later commit ports the /demo/blueprint component into this mount. */
+    function renderLiveMount(q){
+        var qHtml = q ? '<p class="quoted-q">"' + esc(q) + '"</p>' : '';
+        panel.innerHTML =
+            '<div class="askf-inline-inner">' +
+                closeBtn() +
+                '<h3>Ask Forte</h3>' +
+                qHtml +
+                '<p>Loading the conversation...</p>' +
+            '</div>';
+        /* Component mount lands here when the flows-session porting commit ships. */
+    }
+
+    function openPanel(q){
+        (FLAG_LIVE ? renderLiveMount : renderWarmingUp)(q);
+        inline.classList.add('is-open');
+        inline.setAttribute('aria-hidden', 'false');
+        var closeBtnEl = document.getElementById('askf-close-btn');
+        if (closeBtnEl) closeBtnEl.addEventListener('click', closePanel);
+        /* Bring the panel into view without leaving the page */
+        setTimeout(function(){
+            var rect = inline.getBoundingClientRect();
+            if (rect.bottom > window.innerHeight) inline.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+    }
+
+    function closePanel(){
+        inline.classList.remove('is-open');
+        inline.setAttribute('aria-hidden', 'true');
+        /* Delay clearing markup until animation ends so the collapse looks clean */
+        setTimeout(function(){ if (!inline.classList.contains('is-open')) panel.innerHTML = ''; }, 500);
+    }
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var q = (input.value || '').trim();
+        openPanel(q);
+        /* Analytics — track that the visitor pressed Ask, capture the query */
+        if (window.dataLayer) window.dataLayer.push({ event: 'homepage_ask_open', query_length: q.length });
+    });
+
+    /* Also handle bare Enter in the input (extra safety belt) */
+    input.addEventListener('keydown', function(e){
+        if (e.key === 'Enter'){
+            e.preventDefault();
+            form.dispatchEvent(new Event('submit', { cancelable: true }));
+        }
+    });
 })();
 </script>
 <script src="/studio-motion.js?v=p8p" defer></script>
