@@ -19,9 +19,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p9p">
-    <link rel="stylesheet" href="/ask-forte.css?v=p9p">
-    <script src="/studio-theme.js?v=p9p"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9q">
+    <link rel="stylesheet" href="/ask-forte.css?v=p9q">
+    <script src="/studio-theme.js?v=p9q"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -806,7 +806,7 @@
 
                 <div class="askf-composer" id="askf-composer">
                     <div class="askf-input-row">
-                        <textarea class="askf-input" id="askf-input" placeholder="Got an automation idea or a pain point? Ask Forte." rows="1" maxlength="1000" aria-label="Your message to Ask Forte" autocomplete="off" spellcheck="true"></textarea>
+                        <textarea class="askf-input" id="askf-input" placeholder="Ask Forte." rows="1" maxlength="1000" aria-label="Your message to Ask Forte" autocomplete="off" spellcheck="true"></textarea>
                         <button type="button" class="askf-mic" id="askf-mic" aria-label="Speak your message">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
                         </button>
@@ -1367,17 +1367,9 @@
     }, 2200);
 })();
 
-// Section 13: mobile placeholder swap for Ask bar (under 480px).
-// Truncation is FORBIDDEN — the long placeholder gets clipped on tiny screens, so we swap to a shorter one.
-(function(){
-    var input = document.getElementById('ask-forte-input');
-    if (!input) return;
-    var LONG = 'Got an automation idea or a pain point? Ask Forte.';
-    var SHORT = "What's broken? Ask Forte.";
-    function apply(){ input.setAttribute('placeholder', window.innerWidth < 480 ? SHORT : LONG); }
-    apply();
-    window.addEventListener('resize', apply, { passive: true });
-})();
+/* Section 13 mobile placeholder swap for the Ask bar is now inside
+   /ask-forte.js — it owns #askf-input at both mounts, so responsive
+   copy for the shared partial belongs with the component. */
 
 /* Homepage Ask Forte mount: NO inline JS here. The shared partial
    (markup above) is initialized by /ask-forte.js (loaded at end of body).
@@ -1697,9 +1689,9 @@
     else boot();
 })();
 </script>
-<script src="/ask-forte.js?v=p9p" defer></script>
-<script src="/studio-motion.js?v=p9p" defer></script>
-<script src="/scroll-top.js?v=p9p" defer></script>
-<script src="/hamburger.js?v=p9p" defer></script>
+<script src="/ask-forte.js?v=p9q" defer></script>
+<script src="/studio-motion.js?v=p9q" defer></script>
+<script src="/scroll-top.js?v=p9q" defer></script>
+<script src="/hamburger.js?v=p9q" defer></script>
 </body>
 </html>

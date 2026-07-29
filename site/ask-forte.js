@@ -85,9 +85,28 @@
     }
 
     /* -------------------- input UX -------------------- */
+    /* Responsive placeholder: the long form is fine on desktop but gets
+       clipped on phones. Three tiers so it never truncates:
+         >= 640px : full "Got an automation idea or a pain point? Ask Forte."
+         480–639  : "What's broken? Ask Forte."
+         < 480    : "Ask Forte." */
+    var PH_LONG = "Got an automation idea or a pain point? Ask Forte.";
+    var PH_MED  = "What's broken? Ask Forte.";
+    var PH_SHORT = "Ask Forte.";
+    function applyPlaceholder(){
+        var input = $("askf-input"); if (!input) return;
+        var w = window.innerWidth;
+        input.setAttribute("placeholder", w < 480 ? PH_SHORT : w < 640 ? PH_MED : PH_LONG);
+    }
     function wireInput(){
         var input = $("askf-input");
         var send = $("askf-send");
+        applyPlaceholder();
+        var ph_t;
+        window.addEventListener("resize", function(){
+            clearTimeout(ph_t);
+            ph_t = setTimeout(applyPlaceholder, 100);
+        }, { passive: true });
         input.addEventListener("input", function(){
             autoGrow(input);
             updateCharCount();
