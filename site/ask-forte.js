@@ -67,13 +67,13 @@
         wireInput();
         wireMic();
         wireGate();
-        // First bot bubble on arrival (or after prefill turn one)
+        // Empty thread by default. The ghost sample above sells, the input
+        // placeholder invites — a bot introducing itself before being spoken
+        // to reads as needy. Visitor speaks first.
+        // Approved fallback if a first bubble ever comes back:
+        // "What's eating your week? Say it plain and I'll draw it."
         var pre = new URLSearchParams(location.search).get("q");
-        if (pre) {
-            sendMessage(pre.slice(0, CHAR_CAP), { prefill: true });
-        } else {
-            renderBotBubble("Got an automation idea or a pain point? Ask Forte. I answer in Seth's voice and sketch the napkin when I see the shape.", { instant: true });
-        }
+        if (pre) sendMessage(pre.slice(0, CHAR_CAP), { prefill: true });
         updateAllowance();
     }
 
