@@ -14,9 +14,15 @@
   function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function persist(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
 
+  /* Demo pages carry their own in-character brand palettes (e.g. Summit
+     Roofing's deep green + light paper) and would break in dark mode
+     because studio.css's [data-theme="dark"] block overrides --ink/--paper.
+     Opt out via <html data-theme-lock="light">: force-light, no toggle. */
+  var LOCK = document.documentElement.getAttribute('data-theme-lock');
+
   /* Apply as early as possible to avoid FOUC. This script is in <head>.
      Default is LIGHT; system dark preference is NOT auto-picked. User can flip. */
-  var initial = saved() || 'light';
+  var initial = LOCK || saved() || 'light';
   document.documentElement.setAttribute('data-theme', initial);
 
   var SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
@@ -34,6 +40,17 @@
 
   function inject() {
     if (document.getElementById('studio-theme-toggle')) return;
+    /* Theme-locked pages (demos): don't inject the toggle. Nav scroll
+       behaviour still runs below so the hero-nav frost effect works. */
+    if (LOCK) {
+      var navElOnly = document.querySelector('header.studio-nav, header.hero-nav');
+      if (navElOnly) {
+        window.addEventListener('scroll', function(){
+          navElOnly.classList.toggle('is-scrolled', window.scrollY > SCROLL_TRIGGER);
+        }, { passive: true });
+      }
+      return;
+    }
 
     var css = document.createElement('style');
     css.textContent =
