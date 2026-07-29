@@ -53,16 +53,19 @@
       .pricing-hero .studio-h1 { font-size: clamp(2.25rem, 5.5vw, 4rem); }
       .pricing-hero .studio-lead { margin-top: 1.25rem; }
 
-      /* Proof strip: monochrome per Section 3 "the Chelsea widget reframed monochrome" */
-      .pricing-proof { display: grid; grid-template-columns: 1fr; gap: var(--sp-10); padding: 2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-      @media(min-width: 900px) { .pricing-proof { grid-template-columns: 1fr 1fr; align-items: center; gap: var(--sp-16); } }
-      .pricing-badges { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center; }
-      .pricing-badge { font-size: var(--text-sm); font-weight: 600; color: var(--n-700); padding: 0.4rem 0.9rem; background: var(--paper); border: 1px solid var(--border); border-radius: 999px; white-space: nowrap; }
-      .pricing-chelsea { max-width: 360px; margin: 0; text-align: left; filter: grayscale(100%); transition: filter var(--dur-hover); }
-      .pricing-chelsea:hover { filter: grayscale(0); }
-      .pricing-chelsea .senja-embed { display: block; margin: 0 0 0.85rem; max-width: 360px; }
-      .pricing-chelsea-quote { font-size: var(--text-base); line-height: 1.5; color: var(--ink); font-style: italic; margin: 0 0 0.35rem; }
-      .pricing-chelsea-attrib { font-size: var(--text-sm); color: var(--n-500); margin: 0; font-weight: 500; }
+      /* Proof strip: two video testimonials side by side. Full color (no
+         grayscale) per Seth 2026-07-28: "on pricing don't do black and white". */
+      .pricing-proof { display: grid; grid-template-columns: 1fr; gap: var(--sp-8); padding: 2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); align-items: start; }
+      @media(min-width: 900px) { .pricing-proof { grid-template-columns: 1fr 1fr; gap: var(--sp-12); } }
+      /* Each senja widget in shadow DOM (matches the pattern on homepage +
+         SethForte). Wrapper enforces a 3/4 portrait aspect + width cap so
+         the widget lays out at the right visual size. */
+      .pricing-video { max-width: 360px; margin: 0 auto; text-align: center; }
+      .pricing-video-frame { position: relative; width: 100%; max-width: 360px; aspect-ratio: 3 / 4; border-radius: var(--radius-3xl); overflow: hidden; background: var(--n-100); margin: 0 auto var(--sp-3); }
+      [data-theme="dark"] .pricing-video-frame { background: var(--n-800); }
+      .pricing-video-frame .senja-embed { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); display: block; }
+      .pricing-video-quote { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-base); line-height: 1.5; color: var(--ink); font-weight: 500; font-style: italic; margin: 0 0 0.4rem; }
+      .pricing-video-attrib { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.875rem; color: var(--n-500); margin: 0; font-weight: 600; }
 
       /* Studio list grammar: each block is a labeled group of offers rendered as clean list rows */
       .pricing-block { margin-top: var(--sp-24); }
@@ -125,19 +128,24 @@
         </div>
     </section>
 
-    <!-- PROOF STRIP -->
+    <!-- PROOF STRIP: two video testimonials side by side, full color -->
     <section class="studio-container">
         <div class="pricing-proof studio-reveal">
-            <div class="pricing-badges">
-                <span class="pricing-badge">100% Job Success across 50+ projects</span>
-                <!-- REPEAT_RATE_STAT: compute from Twenty (clients with a second engagement / total clients). Render nothing until Seth supplies a real number, never estimate. -->
-                <!-- BLUEPRINT_COUNTER_STAT: once /blueprint ships, render "{n} systems running" and "{d} playable demos" as two more p-proof-badge spans, sourced from the Blueprint's live counters. Render nothing until then. -->
+            <div class="pricing-video">
+                <div class="pricing-video-frame">
+                    <script src="https://widget.senja.io/widget/f9608693-095f-4192-a41c-53d2c30b0fcd/platform.js" type="text/javascript" async></script>
+                    <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="false" style="display:block;width:100%"></div>
+                </div>
+                <p class="pricing-video-quote">"10 out of 10 experience. Absolutely recommend."</p>
+                <p class="pricing-video-attrib">Chelsea Juels, 6 Months to Speech</p>
             </div>
-            <div class="pricing-chelsea">
-                <script src="https://widget.senja.io/widget/f9608693-095f-4192-a41c-53d2c30b0fcd/platform.js" type="text/javascript" async></script>
-                <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="true"></div>
-                <p class="pricing-chelsea-quote">"10 out of 10 experience. Absolutely recommend."</p>
-                <p class="pricing-chelsea-attrib">Chelsea Juels, 6 Months to Speech</p>
+            <div class="pricing-video">
+                <div class="pricing-video-frame">
+                    <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
+                    <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="false" style="display:block;width:100%"></div>
+                </div>
+                <p class="pricing-video-quote">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
+                <p class="pricing-video-attrib">Matt Juels, 6 Months to Speech</p>
             </div>
         </div>
     </section>
