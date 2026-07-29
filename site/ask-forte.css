@@ -62,10 +62,38 @@
 
 /* ---- Composer (the bar sticking as the input at the bottom) ---- */
 .askf-composer { border-top: 1px solid var(--border); padding: 1rem 1.25rem 1.25rem; background: var(--paper); }
-.askf-input-row { display: flex; gap: 0.5rem; align-items: flex-end; }
-.askf-input { flex: 1; min-width: 0; padding: 0.85rem 1rem; font-family: inherit; font-size: 1rem; line-height: 1.5; color: var(--ink); background: transparent; border: 1px solid var(--border); border-radius: 12px; resize: none; outline: none; transition: border-color 0.2s ease; max-height: 140px; }
+.askf-input-row { display: flex; gap: 0.5rem; align-items: center; }
+.askf-input {
+    flex: 1; min-width: 0;
+    padding: 0.7rem 1rem;
+    font-family: inherit; font-size: 1rem; line-height: 1.4;
+    color: var(--ink); background: transparent;
+    border: 1px solid var(--border); border-radius: 12px;
+    resize: none; outline: none;
+    transition: border-color 0.2s ease;
+    /* Single line by default. autoGrow() in ask-forte.js expands to
+       max 140px when the user types multi-line. No scrollbar visible
+       until content actually overflows the max-height. */
+    height: 44px;
+    max-height: 140px;
+    overflow-y: auto;
+    /* Hide scrollbar until overflow happens (single-line default = no bar).
+       Firefox uses scrollbar-width; WebKit uses ::-webkit-scrollbar. */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+.askf-input::-webkit-scrollbar { width: 4px; }
+.askf-input::-webkit-scrollbar-thumb { background: transparent; border-radius: 2px; }
+.askf-input:hover::-webkit-scrollbar-thumb,
+.askf-input:focus::-webkit-scrollbar-thumb { background: var(--border-strong, rgba(0,0,0,0.16)); }
 .askf-input:focus { border-color: var(--accent); }
 .askf-input::placeholder { color: var(--n-500); }
+/* Mobile tighter: smaller padding, bar stays comfortably tappable */
+@media (max-width: 640px) {
+    .askf-composer { padding: 0.75rem 0.85rem 0.9rem; }
+    .askf-input-row { gap: 0.4rem; }
+    .askf-input { height: 42px; padding: 0.55rem 0.85rem; font-size: 0.9375rem; }
+}
 .askf-mic { flex-shrink: 0; width: 44px; height: 44px; display: none; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--border); border-radius: 12px; color: var(--n-600); cursor: pointer; transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
 .askf-mic.available { display: inline-flex; }
 .askf-mic:hover { color: var(--accent); border-color: var(--accent); }

@@ -97,7 +97,15 @@
         });
         send.addEventListener("click", trySend);
     }
-    function autoGrow(t){ t.style.height = 'auto'; t.style.height = Math.min(140, t.scrollHeight) + 'px'; }
+    /* Single-line by default. Only grow past 44px when text actually wraps
+       so the composer never shows a scrollbar for a one-line message. */
+    function autoGrow(t){
+        t.style.height = 'auto';
+        var natural = t.scrollHeight;
+        // 44px is the single-line height; if content fits, stay there.
+        var target = natural <= 48 ? 44 : Math.min(140, natural);
+        t.style.height = target + 'px';
+    }
     function updateCharCount(){
         var v = $("askf-input").value;
         var el = $("askf-charcount");
