@@ -574,19 +574,20 @@
             }
 
             /* ---- Token pacer ----
-               n8n streams tokens in bursts (sometimes many words in a single
-               chunk). Appending each burst instantly reads as jerky. Instead,
-               push incoming characters into a queue and let a rAF-driven pump
-               reveal them at a smooth cadence. When the stream ends, the pump
-               keeps draining until the queue is empty. */
+               n8n streams tokens in bursts (sometimes many words per chunk).
+               Rendering each burst instantly reads as jerky. Instead, push
+               incoming characters into a queue and drain them at a slow,
+               human-readable pace using setTimeout with a per-character delay.
+               When the stream ends, the pump keeps draining until empty. */
             var pendingChars = [];   // characters waiting to render
-            var streamDone = false;  // set true when server closes
-            var pacing = false;      // rAF loop running?
-            var lastTick = 0;
-            // Characters per second — tune for readable pace. n8n often emits
-            // tokens at ~40-80 char/s; we render at ~90 so we drain the queue
-            // without stalling, but each char has a visible per-frame beat.
-            var CHARS_PER_SEC = 90;
+            var streamDone = false;
+            var pacing = false;
+            // Base per-character delay in ms. ~28ms = ~35 chars/sec, a
+            // comfortable reading-along-as-it-types pace. Sentence-ending
+            // punctuation gets a slightly longer beat so the reply reads
+            // like natural speech instead of an even conveyor.
+            var CHAR_DELAY_MS = 28;
+            var PUNCT_EXTRA_MS = 140;
 
             function ensureBotBubble(){
                 if (!botHolder){
@@ -598,23 +599,21 @@
             function startPacer(){
                 if (pacing) return;
                 pacing = true;
-                lastTick = performance.now();
-                requestAnimationFrame(pace);
+                pace();
             }
-            function pace(now){
+            function pace(){
                 if (!botHolder){ pacing = false; return; }
-                var dt = Math.min(now - lastTick, 100);  // clamp to avoid huge dumps on tab-switch
-                lastTick = now;
-                var target = Math.max(1, Math.round((dt / 1000) * CHARS_PER_SEC));
                 if (pendingChars.length){
-                    var take = Math.min(target, pendingChars.length);
-                    accumulated += pendingChars.splice(0, take).join('');
+                    var ch = pendingChars.shift();
+                    accumulated += ch;
                     botHolder.bubble.textContent = accumulated;
                     scrollLog();
+                    // Pause slightly on sentence-ending punctuation for cadence.
+                    var extra = (ch === '.' || ch === '?' || ch === '!' || ch === '\n') ? PUNCT_EXTRA_MS : 0;
+                    setTimeout(pace, CHAR_DELAY_MS + extra);
+                    return;
                 }
-                if (pendingChars.length > 0){
-                    requestAnimationFrame(pace);
-                } else if (streamDone){
+                if (streamDone){
                     pacing = false;
                     finalizeReply();
                 } else {
