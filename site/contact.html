@@ -21,8 +21,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=p9v">
-    <script src="/studio-theme.js?v=p9v"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9w">
+    <script src="/studio-theme.js?v=p9w"></script>
     <style>
         /* Cinematic hero — same rotating video pattern as homepage + About + Results. */
         .hero-zone { position: relative; background: #0A0A0A; color: #FFFFFF; overflow: hidden; padding-bottom: 3rem; }
@@ -81,7 +81,7 @@
 <!-- CINEMATIC HERO — same rotating video as homepage + About + Results. -->
 <div class="hero-zone">
     <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4?v=p9v" type="video/mp4">
+        <source src="/media/hero-1.mp4?v=p9w" type="video/mp4">
     </video>
     <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
@@ -260,14 +260,14 @@
 })();
 </script>
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=p9v .. hero-2.mp4 (same as homepage).
+// Cinematic hero: rotate through /media/hero-1.mp4?v=p9w .. hero-2.mp4 (same as homepage).
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=p9v', pos: 'center center' }
-        // { src: '/media/hero-2.mp4', pos: 'center 30%' }   // paused per Seth 2026-07-29 (keep file, hide from rotation)
+        { src: '/media/hero-1.mp4?v=p9w', pos: 'center center' },
+        { src: '/media/hero-2.mp4?v=p9w', pos: 'center center' }
     ];
     var i = 0;
     function playNext(){
@@ -283,8 +283,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=p9v" defer></script>
-<script src="/scroll-top.js?v=p9v" defer></script>
-<script src="/hamburger.js?v=p9v" defer></script>
+<script src="/studio-motion.js?v=p9w" defer></script>
+<script src="/scroll-top.js?v=p9w" defer></script>
+<script src="/hamburger.js?v=p9w" defer></script>
 </body>
 </html>

@@ -1,15 +1,15 @@
-/* Cinematic hero — Seth 2026-07-29: play hero-1.mp4 ONLY for now.
-   hero-2.mp4 stays in /media/ but doesn't rotate in. Single source
-   just loops; when we want the second video back, add it to `sources`
-   below and the rotation logic returns automatically.
+/* Cinematic hero — rotates through hero-1 → hero-2 back-to-back.
+   Add or remove entries in `sources` to change the rotation; the
+   rotation code below toggles between native loop (single source)
+   and back-to-back rotation (multi-source) automatically.
    No-op if no #hero-video on page. Reduced motion skips entirely. */
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=p9v', pos: 'center center' }
-        // { src: '/media/hero-2.mp4', pos: 'center 30%' }   // paused
+        { src: '/media/hero-1.mp4?v=p9w', pos: 'center center' },
+        { src: '/media/hero-2.mp4?v=p9w', pos: 'center center' }
     ];
     var i = 0;
     if (sources.length > 1) {
