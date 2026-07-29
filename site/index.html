@@ -19,9 +19,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p9i">
-    <link rel="stylesheet" href="/ask-forte.css?v=p9i">
-    <script src="/studio-theme.js?v=p9i"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9j">
+    <link rel="stylesheet" href="/ask-forte.css?v=p9j">
+    <script src="/studio-theme.js?v=p9j"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -385,31 +385,19 @@
         .ghost-frame { transition: opacity 500ms ease-out; }
         .ghost-frame.gh-fading { opacity: 0.3; }
         @keyframes gh-caret { 50% { opacity: 0; } }
-        /* Canvas: wrap is always visible; JS reveals internal shapes one
-           at a time. If the JS ever fails, the SVG still shows the finished
-           sample (elements default to opacity:1 in fallback). */
-        .ghost-sketch-wrap { background: var(--paper-2); border-radius: var(--radius-2xl); padding: 1rem; min-height: 200px; opacity: 0; transition: opacity 400ms ease-out; }
-        .ghost-sketch-wrap.gh-canvas-in { opacity: 1; }
+        /* Canvas + drawable elements: no CSS gating. JS sets initial opacity:0
+           inline on every element it creates, then flips to 1 on the beat.
+           If JS never runs, everything has default opacity:1 and renders
+           the finished sample as a visible fallback. */
+        .ghost-sketch-wrap { background: var(--paper-2); border-radius: var(--radius-2xl); padding: 1rem; min-height: 200px; }
         .ghost-sketch { width: 100%; height: auto; display: block; max-height: 260px; }
-        /* Drawable elements: default to hidden ONLY when the sketch has been
-           armed by JS (indicated by .gh-armed on the SVG). Fallback = fully
-           visible so a JS failure still shows the finished sample. */
-        .ghost-sketch.gh-armed .g-node,
-        .ghost-sketch.gh-armed .g-decide,
-        .ghost-sketch.gh-armed .g-line,
-        .ghost-sketch.gh-armed .g-label,
-        .ghost-sketch.gh-armed .g-scar { opacity: 0; transition: opacity 500ms ease-out; }
-        .ghost-sketch.gh-armed .g-node.gh-in,
-        .ghost-sketch.gh-armed .g-decide.gh-in,
-        .ghost-sketch.gh-armed .g-line.gh-in,
-        .ghost-sketch.gh-armed .g-label.gh-in,
-        .ghost-sketch.gh-armed .g-scar.gh-in { opacity: 1; }
-        .ghost-sketch.gh-armed .g-line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: opacity 250ms ease-out, stroke-dashoffset 700ms ease-out; }
-        .ghost-sketch.gh-armed .g-line.gh-in { stroke-dashoffset: 0; }
+        .ghost-sketch .g-node,
+        .ghost-sketch .g-decide,
+        .ghost-sketch .g-line,
+        .ghost-sketch .g-label,
+        .ghost-sketch .g-scar { transition: opacity 500ms ease-out; }
+        .ghost-sketch .g-line { transition: opacity 250ms ease-out, stroke-dashoffset 700ms ease-out; }
         @media(prefers-reduced-motion: reduce) {
-          .ghost-sketch.gh-armed .g-node, .ghost-sketch.gh-armed .g-decide, .ghost-sketch.gh-armed .g-line,
-          .ghost-sketch.gh-armed .g-label, .ghost-sketch.gh-armed .g-scar { opacity: 1; transition: none; }
-          .ghost-sketch.gh-armed .g-line { stroke-dashoffset: 0; }
           .ghost-caret { animation: none; opacity: 0; }
         }
 
@@ -1605,7 +1593,21 @@
         return 'M' + x1 + ' ' + y1 + ' L' + x2 + ' ' + y2;
     }
 
-    function buildSample(sample){
+    // Hide an element for animated reveal (inline style so it works
+    // regardless of CSS gating; JS reveals by flipping opacity to '1').
+    function hide(el, isLine){
+        el.style.opacity = '0';
+        if (isLine){
+            el.style.strokeDasharray = '1';
+            el.style.strokeDashoffset = '1';
+        }
+    }
+    function show(el, isLine){
+        el.style.opacity = '1';
+        if (isLine) el.style.strokeDashoffset = '0';
+    }
+
+    function buildSample(sample, hideForAnimation){
         var style = sketch.querySelector('style');
         while (sketch.firstChild) sketch.removeChild(sketch.firstChild);
         if (style) sketch.appendChild(style);
@@ -1615,18 +1617,16 @@
 
         var els = { edges: [], nodes: [], labels: [], decide: [], decideLabels: [], scar: null, decideId: null };
 
-        // Edges FIRST in DOM (below nodes at paint time), but revealed after
-        // both endpoints land. Orphan edges dropped by the audit.
         sample.edges.forEach(function(edge){
             if (!auditEdge(edge, nodesById)) return;
             var a = nodesById[edge.from], b = nodesById[edge.to];
             var path = svgEl('path', { class: 'g-line', d: edgePath(a, b), pathLength: '1' });
             path.dataset.from = edge.from; path.dataset.to = edge.to;
             sketch.appendChild(path);
+            if (hideForAnimation) hide(path, true);
             els.edges.push({ el: path, from: edge.from, to: edge.to });
         });
 
-        // Nodes + labels
         sample.nodes.forEach(function(n){
             var isDecide = n.kind === 'decide';
             var rect = svgEl('rect', {
@@ -1634,6 +1634,7 @@
                 x: n.x, y: n.y, width: n.w, height: n.h, rx: 8
             });
             sketch.appendChild(rect);
+            if (hideForAnimation) hide(rect);
             (isDecide ? els.decide : els.nodes).push({ el: rect, id: n.id });
             if (isDecide) els.decideId = n.id;
 
@@ -1642,11 +1643,13 @@
             var label = svgEl('text', { class: labelClass, x: b.cx, y: b.cy + (n.sub ? -2 : 5), 'text-anchor': 'middle' });
             label.textContent = n.label;
             sketch.appendChild(label);
+            if (hideForAnimation) hide(label);
             (isDecide ? els.decideLabels : els.labels).push({ el: label, nodeId: n.id });
             if (n.sub){
                 var sub = svgEl('text', { class: labelClass + ' g-label-sm', x: b.cx, y: b.cy + 13, 'text-anchor': 'middle' });
                 sub.textContent = n.sub;
                 sketch.appendChild(sub);
+                if (hideForAnimation) hide(sub);
                 (isDecide ? els.decideLabels : els.labels).push({ el: sub, nodeId: n.id });
             }
         });
@@ -1654,6 +1657,7 @@
         var scar = svgEl('text', { class: 'g-scar', x: 30, y: 240, 'text-anchor': 'start' });
         scar.textContent = sample.scar;
         sketch.appendChild(scar);
+        if (hideForAnimation) hide(scar);
         els.scar = scar;
         return els;
     }
@@ -1695,13 +1699,9 @@
         clearAll();
         var sample = SAMPLES[idx];
 
-        // t=0: RESET
+        // t=0: RESET — thread empty, canvas visible but empty paper
         thread.innerHTML = '';
-        wrap.classList.remove('gh-canvas-in');
-        var els = buildSample(sample);
-        // ARM the sketch: this switches on the opacity:0 -> gh-in behavior.
-        // Without this class, all elements stay visible (fallback safety).
-        sketch.classList.add('gh-armed');
+        var els = buildSample(sample, /* hideForAnimation */ true);
         frame.classList.remove('gh-fading');
         frame.classList.add('gh-active');
 
@@ -1717,98 +1717,63 @@
             typeInto(b, sample.bot, 15, null);
         });
 
-        // t=4s: canvas fades in as blank paper
-        schedule(4000, function(){
-            wrap.classList.add('gh-canvas-in');
-        });
+        // t=4s: canvas has been visible since paint — nothing to fade
+        // (kept the beat for pacing but no DOM change here)
 
-        // t=4.3s onward: strokes draw in choreography, ~6s window (4.3 → 10.3)
-        // Beat schedule (offsets from t=0):
-        //   4300: node 1 (in)
-        //   4900: edge 1 (in -> decide)
-        //   5300: node label 1
-        //   5700: node 2 (out) — right-side non-decide
-        //   6100: edge 2 (decide -> out)
-        //   6500: node label 2
-        //   6900: node 3 (bk) — bottom non-decide
-        //   7300: edge 3 (decide -> bk)
-        //   7700: node label 3
-        //   8300: BLUE decide node arrives at its own beat
-        //   8700: decide labels
-        //   9900: scar note LAST
-        // (Total: within the ~6s sketching window; scar lands at 9.9s, well before t=11s stillness)
+        // t=4.3s onward: strokes draw in choreography over ~6s.
         var nonDecideNodes  = els.nodes;
         var nonDecideLabels = els.labels;
         var edges           = els.edges;
 
-        // Reveal the first non-decide node (usually the input), then interleave
-        // remaining nodes with edges + labels for a natural stroke order.
-        // For a 4-node shape (3 non-decide + 1 decide + 3 edges + 3 labels):
         var t = 4300;
-        var STEP_A = 400; // between related elements
-        var STEP_B = 200; // small settle after label
+        var STEP_A = 400;
+        var STEP_B = 200;
 
         function beat(delay, fn){ schedule(delay, fn); }
 
-        // Interleave non-decide nodes with their outgoing edge (if any) + label
-        var nodeIndex = 0;
         function revealNodeAt(idx, offset){
             var n = nonDecideNodes[idx];
             if (!n) return offset;
-            beat(offset, function(){ n.el.classList.add('gh-in'); });
-            // Reveal any edge from this node whose target is ALREADY revealed
-            // or is the decide node (decide reveals later, but the edge into
-            // decide can precede decide's own visibility since strokes touch
-            // the DECIDE box position from t=0 regardless of its opacity).
+            beat(offset, function(){ show(n.el); });
             var afterNode = offset + STEP_A;
-            // Reveal the ONE edge that leaves from this node (if any)
             var outEdge = edges.filter(function(e){ return e.from === n.id; })[0];
             if (outEdge){
-                beat(afterNode, function(){ outEdge.el.classList.add('gh-in'); });
+                beat(afterNode, function(){ show(outEdge.el, true); });
                 afterNode += STEP_A;
             }
-            // Reveal this node's label
             var lb = nonDecideLabels.filter(function(l){ return l.nodeId === n.id; })[0];
             if (lb){
-                beat(afterNode, function(){ lb.el.classList.add('gh-in'); });
+                beat(afterNode, function(){ show(lb.el); });
                 afterNode += STEP_B;
             }
             return afterNode;
         }
 
-        // Order: input node, then edge into decide, then labels; then other
-        // non-decide nodes with their incoming edge from decide.
-        // For our shape: 'in' first (0), then 'out' or 'bk' order per array.
         var offset = t;
         for (var i = 0; i < nonDecideNodes.length; i++){
             offset = revealNodeAt(i, offset) + 80;
         }
 
-        // Also reveal any edges that are INCOMING from decide (decide->x)
-        // for nodes we've already shown but whose incoming edge didn't get
-        // scheduled by the outgoing-from-node loop.
         var laterEdgesTime = offset;
         edges.forEach(function(e){
-            var already = false;
-            // Was this edge revealed above? (only edges FROM non-decide nodes were)
             var fromNonDecide = nonDecideNodes.some(function(n){ return n.id === e.from; });
             if (fromNonDecide) return;
-            beat(laterEdgesTime, function(){ e.el.classList.add('gh-in'); });
+            beat(laterEdgesTime, function(){ show(e.el, true); });
             laterEdgesTime += 300;
         });
 
         // BLUE decide node arrives at its OWN beat
         var decideT = Math.max(offset, laterEdgesTime) + 300;
         beat(decideT, function(){
-            els.decide.forEach(function(d){ d.el.classList.add('gh-in'); });
+            els.decide.forEach(function(d){ show(d.el); });
         });
         beat(decideT + STEP_A, function(){
-            els.decideLabels.forEach(function(lb){ lb.el.classList.add('gh-in'); });
+            els.decideLabels.forEach(function(lb){ show(lb.el); });
         });
 
         // Scar note LAST
         var scarT = decideT + 1400;
-        beat(scarT, function(){ els.scar.classList.add('gh-in'); });
+        beat(scarT, function(){ show(els.scar); });
 
         // t=11s: one beat of stillness
         // t=12.5s: fade, then swap to the OTHER sample
@@ -1819,34 +1784,40 @@
         });
     }
 
-    /* --------- Reduced-motion static state ---------
-       Render the finished first sample all at once, no loop. */
+    /* --------- Reduced-motion / fallback static state ---------
+       Render the finished first sample all at once. Since buildSample
+       with hideForAnimation=false doesn't set opacity:0 on anything,
+       everything's visible immediately. */
     function renderStatic(){
         var sample = SAMPLES[0];
-        var els = buildSample(sample);
-        wrap.classList.add('gh-canvas-in');
+        buildSample(sample, /* hideForAnimation */ false);
         frame.classList.add('gh-active');
-        // Show typed conversation as-is (no typewriter)
         var u = makeBubble('user');  u.typed.textContent = sample.user; u.caret.classList.add('gh-off'); u.el.classList.add('gh-visible');
         var b = makeBubble('bot');   b.typed.textContent = sample.bot;  b.caret.classList.add('gh-off'); b.el.classList.add('gh-visible');
-        // Reveal everything on the canvas
-        [].concat(els.nodes, els.decide).forEach(function(o){ o.el.classList.add('gh-in'); });
-        els.edges.forEach(function(e){ e.el.classList.add('gh-in'); });
-        [].concat(els.labels, els.decideLabels).forEach(function(l){ l.el.classList.add('gh-in'); });
-        els.scar.classList.add('gh-in');
     }
 
     function boot(){
-        if (reduce) renderStatic();
-        else playSample(0);
+        try {
+            if (reduce) renderStatic();
+            else playSample(0);
+        } catch (err) {
+            // If ANYTHING in the loop breaks, at least show the finished
+            // static sample so the visitor doesn't stare at a blank frame.
+            try { renderStatic(); } catch (_) {
+                // Last-resort: strip the .gh-armed gate so everything just shows.
+                if (sketch) sketch.classList.remove('gh-armed');
+                if (wrap) wrap.classList.add('gh-canvas-in');
+                if (frame) frame.classList.add('gh-active');
+            }
+        }
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
     else boot();
 })();
 </script>
-<script src="/ask-forte.js?v=p9i" defer></script>
-<script src="/studio-motion.js?v=p9i" defer></script>
-<script src="/scroll-top.js?v=p9i" defer></script>
-<script src="/hamburger.js?v=p9i" defer></script>
+<script src="/ask-forte.js?v=p9j" defer></script>
+<script src="/studio-motion.js?v=p9j" defer></script>
+<script src="/scroll-top.js?v=p9j" defer></script>
+<script src="/hamburger.js?v=p9j" defer></script>
 </body>
 </html>
