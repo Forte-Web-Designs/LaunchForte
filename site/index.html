@@ -19,9 +19,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p9c">
-    <link rel="stylesheet" href="/ask-forte.css?v=p9c">
-    <script src="/studio-theme.js?v=p9c"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9e">
+    <link rel="stylesheet" href="/ask-forte.css?v=p9e">
+    <script src="/studio-theme.js?v=p9e"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -262,17 +262,46 @@
         .hero-eyebrow-line .rule { display: inline-block; width: 40px; height: 1px; background: rgba(255,255,255,0.32); flex: none; }
 
         /* H1: two lines. Line 1 is the ONE permitted gradient (ink to accent blue) — the hero's signature. */
-        .hero-h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(2rem, 4.8vw, 4rem); line-height: 1.06; letter-spacing: -0.03em; margin: 0 0 2.25rem; max-width: 22ch; }
+        .hero-h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(2rem, 4.8vw, 4rem); line-height: 1.15; letter-spacing: -0.03em; margin: 0 0 2.25rem; max-width: 22ch; }
         .hero-h1 .hero-h1-line-1,
         .hero-h1 .hero-h1-line-2 { display: block; }
-        .hero-h1 .hero-h1-line-1 {
+        .hero-h1 .hero-h1-line-1 { color: #FFFFFF; }
+        .hero-h1 .hero-h1-line-2 { color: #FFFFFF; }
+        /* Rotating word: gradient blue text that cycles through terms. The
+           slot reserves the widest word's width so the page never jumps
+           when the word changes length. All variants stack in the same
+           position (position: absolute); only .is-active is visible. */
+        .hero-rotator { display: inline-block; vertical-align: baseline; position: relative; }
+        .hero-rotator-slot { display: inline-block; position: relative; min-width: 0; }
+        .hero-rotator-word {
+            display: inline-block;
             background: linear-gradient(90deg, #FFFFFF 0%, #4AB5ED 55%, #0088DB 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             color: transparent;
+            font-weight: 600;
+            font-style: italic;
         }
-        .hero-h1 .hero-h1-line-2 { color: #FFFFFF; }
+        /* All variants after the first stack over the first via absolute positioning.
+           JS toggles .is-active to swap which one is visible. The FIRST child sits
+           in normal flow and dictates the slot's width — JS measures every word and
+           picks the widest as the initial visible one so nothing ever expands past it. */
+        .hero-rotator-word:not(:first-child) {
+            position: absolute; top: 0; left: 0;
+            opacity: 0; visibility: hidden;
+            transition: opacity 350ms ease-out;
+        }
+        .hero-rotator-word:first-child {
+            opacity: 0; visibility: hidden;
+            transition: opacity 350ms ease-out;
+        }
+        .hero-rotator-word.is-active {
+            opacity: 1; visibility: visible;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-rotator-word { transition: none; }
+        }
 
         /* Ask Forte field: paper field on dark ground */
         .ask-forte-hero {
@@ -356,7 +385,10 @@
         .ghost-frame { transition: opacity 500ms ease-out; }
         .ghost-frame.gh-fading { opacity: 0.3; }
         @keyframes gh-caret { 50% { opacity: 0; } }
-        .ghost-sketch-wrap { background: var(--paper-2); border-radius: var(--radius-2xl); padding: 1rem; min-height: 200px; }
+        /* Canvas starts hidden per Seth's timeline (t=0). JS adds .gh-canvas-in
+           at t=4s to reveal the blank paper before the pen touches it. */
+        .ghost-sketch-wrap { background: var(--paper-2); border-radius: var(--radius-2xl); padding: 1rem; min-height: 200px; opacity: 0; transition: opacity 400ms ease-out; }
+        .ghost-sketch-wrap.gh-canvas-in { opacity: 1; }
         .ghost-sketch { width: 100%; height: auto; display: block; max-height: 260px; }
         /* Every drawable element starts INVISIBLE per runbook — paper only.
            JS toggles .gh-in in strict beat order to reveal each piece. */
@@ -678,10 +710,13 @@
          scroll cue into that bar. -->
     <div class="hero-content">
         <div class="hero-content-inner">
-            <!-- Section 12: quad H1, two lines of two. Line one carries the gradient. -->
+            <!-- Hero: fixed line 1, rotating word on line 2 in the gradient color.
+                 The rotator sits in an inline-block wrapper that reserves the
+                 widest word's width, so cycling through terms of different
+                 length never jumps the page up or down. -->
             <h1 class="hero-h1">
-                <span class="hero-h1-line-1">Every lead caught. Every follow up sent.</span>
-                <span class="hero-h1-line-2">Every system watched. Every dollar visible.</span>
+                <span class="hero-h1-line-1">Business growth isn't luck.</span>
+                <span class="hero-h1-line-2">It's a <span class="hero-rotator" aria-live="polite"><span class="hero-rotator-slot"><span class="hero-rotator-word is-active">system</span><span class="hero-rotator-word">process</span><span class="hero-rotator-word">blueprint</span><span class="hero-rotator-word">machine</span><span class="hero-rotator-word">discipline</span><span class="hero-rotator-word">playbook</span></span></span>.</span>
             </h1>
 
             <p class="hero-quiet-links">
@@ -736,7 +771,7 @@
         <!-- Ghost napkin: canned sample conversation typing itself, then the sketch draws itself
              stroke by stroke. Pre-rendered, zero API calls, ships today. The magic they watch
              here is the same magic they'll get when the real flows go live. -->
-        <div class="ghost-napkin studio-reveal" aria-hidden="true">
+        <div class="ghost-napkin" aria-hidden="true">
             <div class="ghost-frame" id="ghost-frame">
                 <div class="ghost-label">watch a sample</div>
                 <div class="ghost-thread" id="ghost-thread"></div>
@@ -1395,6 +1430,67 @@
     });
 })();
 
+/* Hero rotator: cycle "system / process / blueprint / machine / discipline
+   / playbook" without jumping the page. The slot's width is fixed to the
+   widest word at boot; every other variant is absolutely positioned at
+   0,0 and toggled via .is-active. Cross-fade on swap, 2.4s cadence. */
+(function(){
+    var slot = document.querySelector('.hero-rotator-slot');
+    if (!slot) return;
+    var words = Array.prototype.slice.call(slot.querySelectorAll('.hero-rotator-word'));
+    if (words.length < 2) return;
+
+    // Measure widest word (they're all in the DOM already; the non-first
+    // are absolute so they don't contribute to slot width by default).
+    // Temporarily un-hide each to measure, then restore.
+    function measureAndPin(){
+        var maxW = 0;
+        words.forEach(function(w){
+            var prev = { opacity: w.style.opacity, visibility: w.style.visibility, position: w.style.position };
+            w.style.visibility = 'hidden';
+            w.style.opacity = '0';
+            w.style.position = 'static';
+            var rect = w.getBoundingClientRect();
+            if (rect.width > maxW) maxW = rect.width;
+            w.style.opacity = prev.opacity;
+            w.style.visibility = prev.visibility;
+            w.style.position = prev.position;
+        });
+        // Pin the slot to the widest measured word so no cycle ever expands
+        // it. Add a tiny buffer for sub-pixel rendering.
+        slot.style.width = Math.ceil(maxW + 2) + 'px';
+        slot.style.display = 'inline-block';
+        slot.style.minHeight = '1em';
+    }
+
+    // Wait for font to load so the width is measured with Mona Sans rendered,
+    // not the fallback face (otherwise the pin can be tight after swap).
+    if (document.fonts && document.fonts.ready){
+        document.fonts.ready.then(measureAndPin);
+    } else {
+        window.addEventListener('load', measureAndPin);
+    }
+    // Also re-measure on resize (font-size changes across breakpoints).
+    var resizeT;
+    window.addEventListener('resize', function(){
+        clearTimeout(resizeT);
+        resizeT = setTimeout(measureAndPin, 120);
+    }, { passive: true });
+
+    // Reduced motion: just leave the first word visible and don't cycle.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        words.forEach(function(w, i){ w.classList.toggle('is-active', i === 0); });
+        return;
+    }
+
+    var idx = 0;
+    setInterval(function(){
+        words[idx].classList.remove('is-active');
+        idx = (idx + 1) % words.length;
+        words[idx].classList.add('is-active');
+    }, 2400);
+})();
+
 // Section 13: mobile placeholder swap for Ask bar (under 480px).
 // Truncation is FORBIDDEN — the long placeholder gets clipped on tiny screens, so we swap to a shorter one.
 (function(){
@@ -1413,36 +1509,43 @@
    no page-in-page. See /site/ask-forte.js and /site/ask-forte.css. */
 
 /* ============================================================
-   Ghost napkin loop (homepage only). Runbook:
-   - Canvas starts EMPTY paper. Elements appear only as the pen reaches them.
-   - Strict beat order: user bubble types -> bot bubble types -> sketching beat
-     -> nodes appear in order -> arrows between them -> labels -> blue decision
-     node arrives at its own beat -> scar note last -> beat of stillness ->
-     fade -> loop restarts from empty with the SECOND canned example.
-   - Renderer rule: every line's two endpoints must touch drawn node bounds.
-     Self-audit drops any orphan edge before revealing it.
+   Ghost napkin loop (homepage only). AUTOPLAYS on load, unattended, forever.
+   Zero API calls, pure CSS/JS.
+
+   TIMELINE (locked per Seth):
+     t=0.0s   thread empty, canvas hidden
+     t=0.5s   visitor bubble types char by char
+     t=2.5s   recognition bubble appears
+     t=4.0s   canvas fades in as blank paper, strokes draw over ~6s in order:
+              first node -> arrows -> next nodes -> labels writing themselves ->
+              BLUE decide node arrives at its own beat -> scar note last
+     t=11.0s  one beat of stillness
+     t=12.5s  everything fades, loop restarts from empty with the OTHER sample
+
+   RENDERER RULE: every edge terminates in a drawn node at BOTH ends.
+   Self-audit drops any orphan edge before drawing.
+
+   REDUCED MOTION: no loop; renders the finished first sample as a static frame.
    ============================================================ */
 (function(){
     var frame = document.getElementById('ghost-frame');
     var thread = document.getElementById('ghost-thread');
     var sketch = document.getElementById('ghost-sketch');
-    if (!frame || !thread || !sketch) return;
+    var wrap = document.querySelector('.ghost-sketch-wrap');
+    if (!frame || !thread || !sketch || !wrap) return;
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Two canned samples. Each defines the user's typed question, Forte's
-    // reply, and the sketch shape (nodes + edges + scar). Node ids are used
-    // by edges to reference endpoints, so the auditor can verify both ends
-    // resolve before revealing an edge.
+    // Two canned samples. Copy per Seth's timeline. Every edge terminates in
+    // a drawn node — the audit below verifies both endpoints resolve.
     var SAMPLES = [
         {
             user: "we miss calls all day",
-            bot: "Sounds like inbound is landing when nobody's watching. Here's the shape.",
-            title: "Missed calls, handled while you sleep",
+            bot: "Sounds like a missed call texter with a decision routing under it. Sketching.",
             nodes: [
-                { id: 'in',  x: 30,  y: 100, w: 140, h: 60, kind: 'node',   label: 'missed call' },
-                { id: 'dec', x: 250, y: 100, w: 140, h: 60, kind: 'decide', label: 'DECIDE', sub: 'buyer? existing?' },
-                { id: 'out', x: 470, y: 100, w: 140, h: 60, kind: 'node',   label: 'text back' },
-                { id: 'bk',  x: 250, y: 200, w: 140, h: 44, kind: 'node',   label: 'book on calendar' }
+                { id: 'in',  x: 30,  y: 30,  w: 140, h: 60, kind: 'node',   label: 'missed call' },
+                { id: 'dec', x: 250, y: 30,  w: 140, h: 60, kind: 'decide', label: 'DECIDE', sub: 'buyer? existing?' },
+                { id: 'out', x: 470, y: 30,  w: 140, h: 60, kind: 'node',   label: 'text back' },
+                { id: 'bk',  x: 250, y: 140, w: 140, h: 50, kind: 'node',   label: 'book on calendar' }
             ],
             edges: [
                 { from: 'in',  to: 'dec' },
@@ -1452,21 +1555,20 @@
             scar: "checks and gotchas: the after-hours voicemail gap — we've hit this one before."
         },
         {
-            user: "leads pile up but nothing ever gets qualified",
-            bot: "Classic scoring gap. Here's what the shape looks like when it works.",
-            title: "Leads sorted before anyone touches them",
+            user: "my books are always off",
+            bot: "Sounds like a books-shaped napkin: reconciliation with a review branch. Sketching.",
             nodes: [
-                { id: 'in',  x: 30,  y: 100, w: 140, h: 60, kind: 'node',   label: 'new lead' },
-                { id: 'sc',  x: 250, y: 100, w: 140, h: 60, kind: 'decide', label: 'SCORE',  sub: 'hot? cold?' },
-                { id: 'sal', x: 470, y: 100, w: 140, h: 60, kind: 'node',   label: 'hand to sales' },
-                { id: 'nur', x: 250, y: 200, w: 140, h: 44, kind: 'node',   label: 'nurture drip' }
+                { id: 'txn', x: 30,  y: 30,  w: 140, h: 60, kind: 'node',   label: 'transactions' },
+                { id: 'rec', x: 250, y: 30,  w: 140, h: 60, kind: 'decide', label: 'RECONCILE', sub: 'match? flag?' },
+                { id: 'cln', x: 470, y: 30,  w: 140, h: 60, kind: 'node',   label: 'clean books' },
+                { id: 'rev', x: 250, y: 140, w: 140, h: 50, kind: 'node',   label: 'review pile' }
             ],
             edges: [
-                { from: 'in',  to: 'sc' },
-                { from: 'sc',  to: 'sal' },
-                { from: 'sc',  to: 'nur' }
+                { from: 'txn', to: 'rec' },
+                { from: 'rec', to: 'cln' },
+                { from: 'rec', to: 'rev' }
             ],
-            scar: "checks and gotchas: the 'maybe' pile that ages out — we've hit this one before."
+            scar: "checks and gotchas: the duplicate-fee category — we've hit this one before."
         }
     ];
 
@@ -1477,29 +1579,21 @@
         if (attrs) Object.keys(attrs).forEach(function(k){ n.setAttribute(k, attrs[k]); });
         return n;
     }
-
-    // Compute a node's center + bounds so edges can be checked and connected.
     function nodeBounds(n){
         return { cx: n.x + n.w/2, cy: n.y + n.h/2, x1: n.x, y1: n.y, x2: n.x + n.w, y2: n.y + n.h };
     }
-    // Renderer rule: every edge terminates in a drawn node at BOTH ends.
-    // Return true only if both node ids resolve.
+    // Renderer rule: verify both endpoints resolve.
     function auditEdge(edge, nodesById){
         return !!(nodesById[edge.from] && nodesById[edge.to]);
     }
-    // Compute a straight line from the edge of one node's bounds to the
-    // edge of another's, so the line visually terminates ON the box.
     function edgePath(a, b){
         var A = nodeBounds(a), B = nodeBounds(b);
-        // Horizontal or vertical? Pick the axis with the bigger delta.
         var dx = B.cx - A.cx, dy = B.cy - A.cy;
         var x1, y1, x2, y2;
         if (Math.abs(dx) >= Math.abs(dy)){
-            // Horizontal edge — leave A on the right/left side, arrive at B on the opposite side
             if (dx >= 0) { x1 = A.x2; x2 = B.x1; } else { x1 = A.x1; x2 = B.x2; }
             y1 = A.cy; y2 = B.cy;
         } else {
-            // Vertical edge
             if (dy >= 0) { y1 = A.y2; y2 = B.y1; } else { y1 = A.y1; y2 = B.y2; }
             x1 = A.cx; x2 = B.cx;
         }
@@ -1507,162 +1601,244 @@
     }
 
     function buildSample(sample){
-        // Clear the SVG (keep the <style> child)
         var style = sketch.querySelector('style');
         while (sketch.firstChild) sketch.removeChild(sketch.firstChild);
         if (style) sketch.appendChild(style);
 
         var nodesById = {};
-        var els = { edges: [], nodes: [], labels: [], decide: null, scar: null };
+        sample.nodes.forEach(function(n){ nodesById[n.id] = n; });
 
-        // 1. Edges FIRST in the DOM (so nodes render on top), but revealed
-        //    AFTER the nodes they connect land per the runbook beat order.
+        var els = { edges: [], nodes: [], labels: [], decide: [], decideLabels: [], scar: null, decideId: null };
+
+        // Edges FIRST in DOM (below nodes at paint time), but revealed after
+        // both endpoints land. Orphan edges dropped by the audit.
         sample.edges.forEach(function(edge){
-            if (!sample.nodes.some(function(n){ return n.id === edge.from; }) ||
-                !sample.nodes.some(function(n){ return n.id === edge.to;   })) return;  // audit drops orphans
-            var a = sample.nodes.filter(function(n){ return n.id === edge.from; })[0];
-            var b = sample.nodes.filter(function(n){ return n.id === edge.to;   })[0];
+            if (!auditEdge(edge, nodesById)) return;
+            var a = nodesById[edge.from], b = nodesById[edge.to];
             var path = svgEl('path', { class: 'g-line', d: edgePath(a, b), pathLength: '1' });
             path.dataset.from = edge.from; path.dataset.to = edge.to;
             sketch.appendChild(path);
             els.edges.push({ el: path, from: edge.from, to: edge.to });
         });
-        // 2. Nodes + labels
+
+        // Nodes + labels
         sample.nodes.forEach(function(n){
-            nodesById[n.id] = n;
             var isDecide = n.kind === 'decide';
             var rect = svgEl('rect', {
                 class: isDecide ? 'g-decide' : 'g-node',
                 x: n.x, y: n.y, width: n.w, height: n.h, rx: 8
             });
             sketch.appendChild(rect);
-            (isDecide ? (els.decide = els.decide || []) : els.nodes).push({ el: rect, id: n.id });
+            (isDecide ? els.decide : els.nodes).push({ el: rect, id: n.id });
             if (isDecide) els.decideId = n.id;
 
-            // Label + optional sub
             var b = nodeBounds(n);
             var labelClass = 'g-label' + (isDecide ? ' g-label-white' : '');
-            var label = svgEl('text', { class: labelClass, x: b.cx, y: b.cy + (n.sub ? -4 : 5), 'text-anchor': 'middle' });
+            var label = svgEl('text', { class: labelClass, x: b.cx, y: b.cy + (n.sub ? -2 : 5), 'text-anchor': 'middle' });
             label.textContent = n.label;
             sketch.appendChild(label);
-            els.labels.push({ el: label, nodeId: n.id });
+            (isDecide ? els.decideLabels : els.labels).push({ el: label, nodeId: n.id });
             if (n.sub){
-                var sub = svgEl('text', { class: labelClass + ' g-label-sm', x: b.cx, y: b.cy + 12, 'text-anchor': 'middle' });
+                var sub = svgEl('text', { class: labelClass + ' g-label-sm', x: b.cx, y: b.cy + 13, 'text-anchor': 'middle' });
                 sub.textContent = n.sub;
                 sketch.appendChild(sub);
-                els.labels.push({ el: sub, nodeId: n.id });
+                (isDecide ? els.decideLabels : els.labels).push({ el: sub, nodeId: n.id });
             }
         });
-        // 3. Scar note (bottom of canvas)
-        var scar = svgEl('text', { class: 'g-scar', x: 30, y: 250, 'text-anchor': 'start' });
+
+        var scar = svgEl('text', { class: 'g-scar', x: 30, y: 240, 'text-anchor': 'start' });
         scar.textContent = sample.scar;
         sketch.appendChild(scar);
         els.scar = scar;
-
-        return { els: els, decideId: els.decideId, sample: sample };
+        return els;
     }
 
-    // ---- Bubble typewriter ----------------------------------------------
-    function makeBubble(role, text){
+    // Typewriter — types text into an already-appended bubble.
+    function typeInto(bubble, text, perChar, done){
+        bubble.el.classList.add('gh-visible');
+        var i = 0;
+        (function step(){
+            bubble.typed.textContent = text.slice(0, i);
+            if (i >= text.length){
+                bubble.caret.classList.add('gh-off');
+                return done && done();
+            }
+            i++;
+            setTimeout(step, perChar);
+        })();
+    }
+    function makeBubble(role){
         var b = document.createElement('div');
         b.className = 'ghost-bubble ghost-bubble-' + role;
         var typed = document.createElement('span'); typed.className = 'ghost-typed';
         var caret = document.createElement('span'); caret.className = 'ghost-caret';
         b.appendChild(typed); b.appendChild(caret);
         thread.appendChild(b);
-        return { el: b, typed: typed, caret: caret, text: text };
-    }
-    function typeInto(bubble, done){
-        bubble.el.classList.add('gh-visible');
-        var i = 0;
-        var perChar = reduce ? 0 : 22;
-        (function step(){
-            if (i > bubble.text.length){ bubble.caret.classList.add('gh-off'); return done(); }
-            bubble.typed.textContent = bubble.text.slice(0, i++);
-            if (i > bubble.text.length){ setTimeout(step, 200); }
-            else setTimeout(step, perChar);
-        })();
+        return { el: b, typed: typed, caret: caret };
     }
 
-    // ---- Choreography ---------------------------------------------------
+    /* --------- SINGLE PLAY on the locked timeline --------- */
+    // Timeline is absolute from playSample start. Every step uses setTimeout
+    // with fixed offsets, so drift doesn't accumulate across loop iterations.
+    var timeouts = [];
+    function schedule(ms, fn){ timeouts.push(setTimeout(fn, ms)); }
+    function clearAll(){ timeouts.forEach(clearTimeout); timeouts = []; }
+
     var currentSample = 0;
+
     function playSample(idx){
+        clearAll();
         var sample = SAMPLES[idx];
-        // Reset: clear thread, clear sketch (buildSample rebuilds it)
+
+        // t=0: RESET
         thread.innerHTML = '';
-        var mount = buildSample(sample);
+        wrap.classList.remove('gh-canvas-in');
+        var els = buildSample(sample);
         frame.classList.remove('gh-fading');
         frame.classList.add('gh-active');
 
-        // Type user bubble
-        var userB = makeBubble('user', sample.user);
-        typeInto(userB, function(){
-            // Small pause, then bot bubble types
-            setTimeout(function(){
-                var botB = makeBubble('bot', sample.bot);
-                typeInto(botB, function(){
-                    // Sketching beat: reveal in strict order
-                    // 1. non-decide nodes (in order they appear)
-                    // 2. edges (already audited)
-                    // 3. labels
-                    // 4. decision node (its own beat)
-                    // 5. scar note (last)
-                    var step = 0;
-                    var seq = [];
-                    // (a) non-decide nodes
-                    mount.els.nodes.forEach(function(n){
-                        seq.push(function(){ n.el.classList.add('gh-in'); });
-                    });
-                    // (b) edges — reveal in order too
-                    mount.els.edges.forEach(function(e){
-                        seq.push(function(){ e.el.classList.add('gh-in'); });
-                    });
-                    // (c) labels for non-decide nodes
-                    mount.els.labels.forEach(function(lb){
-                        if (lb.nodeId !== mount.decideId){
-                            seq.push(function(){ lb.el.classList.add('gh-in'); });
-                        }
-                    });
-                    // (d) BLUE decision node arrives at its own beat
-                    if (mount.els.decide){
-                        seq.push(function(){
-                            mount.els.decide.forEach(function(d){ d.el.classList.add('gh-in'); });
-                        });
-                        // decide labels
-                        mount.els.labels.forEach(function(lb){
-                            if (lb.nodeId === mount.decideId){
-                                seq.push(function(){ lb.el.classList.add('gh-in'); });
-                            }
-                        });
-                    }
-                    // (e) scar last
-                    seq.push(function(){ mount.els.scar.classList.add('gh-in'); });
+        // t=0.5s: visitor bubble types character by character (~1500ms)
+        schedule(500, function(){
+            var u = makeBubble('user');
+            typeInto(u, sample.user, 42, null);
+        });
 
-                    var beatMs = reduce ? 0 : 380;
-                    seq.forEach(function(fn, i){ setTimeout(fn, i * beatMs); });
-                    var totalMs = seq.length * beatMs;
+        // t=2.5s: bot bubble types (~1200ms)
+        schedule(2500, function(){
+            var b = makeBubble('bot');
+            typeInto(b, sample.bot, 15, null);
+        });
 
-                    // One beat of stillness, then fade + loop with the OTHER sample
-                    setTimeout(function(){
-                        frame.classList.add('gh-fading');
-                        setTimeout(function(){
-                            currentSample = (currentSample + 1) % SAMPLES.length;
-                            playSample(currentSample);
-                        }, 700);
-                    }, totalMs + 2200);
-                });
-            }, 350);
+        // t=4s: canvas fades in as blank paper
+        schedule(4000, function(){
+            wrap.classList.add('gh-canvas-in');
+        });
+
+        // t=4.3s onward: strokes draw in choreography, ~6s window (4.3 → 10.3)
+        // Beat schedule (offsets from t=0):
+        //   4300: node 1 (in)
+        //   4900: edge 1 (in -> decide)
+        //   5300: node label 1
+        //   5700: node 2 (out) — right-side non-decide
+        //   6100: edge 2 (decide -> out)
+        //   6500: node label 2
+        //   6900: node 3 (bk) — bottom non-decide
+        //   7300: edge 3 (decide -> bk)
+        //   7700: node label 3
+        //   8300: BLUE decide node arrives at its own beat
+        //   8700: decide labels
+        //   9900: scar note LAST
+        // (Total: within the ~6s sketching window; scar lands at 9.9s, well before t=11s stillness)
+        var nonDecideNodes  = els.nodes;
+        var nonDecideLabels = els.labels;
+        var edges           = els.edges;
+
+        // Reveal the first non-decide node (usually the input), then interleave
+        // remaining nodes with edges + labels for a natural stroke order.
+        // For a 4-node shape (3 non-decide + 1 decide + 3 edges + 3 labels):
+        var t = 4300;
+        var STEP_A = 400; // between related elements
+        var STEP_B = 200; // small settle after label
+
+        function beat(delay, fn){ schedule(delay, fn); }
+
+        // Interleave non-decide nodes with their outgoing edge (if any) + label
+        var nodeIndex = 0;
+        function revealNodeAt(idx, offset){
+            var n = nonDecideNodes[idx];
+            if (!n) return offset;
+            beat(offset, function(){ n.el.classList.add('gh-in'); });
+            // Reveal any edge from this node whose target is ALREADY revealed
+            // or is the decide node (decide reveals later, but the edge into
+            // decide can precede decide's own visibility since strokes touch
+            // the DECIDE box position from t=0 regardless of its opacity).
+            var afterNode = offset + STEP_A;
+            // Reveal the ONE edge that leaves from this node (if any)
+            var outEdge = edges.filter(function(e){ return e.from === n.id; })[0];
+            if (outEdge){
+                beat(afterNode, function(){ outEdge.el.classList.add('gh-in'); });
+                afterNode += STEP_A;
+            }
+            // Reveal this node's label
+            var lb = nonDecideLabels.filter(function(l){ return l.nodeId === n.id; })[0];
+            if (lb){
+                beat(afterNode, function(){ lb.el.classList.add('gh-in'); });
+                afterNode += STEP_B;
+            }
+            return afterNode;
+        }
+
+        // Order: input node, then edge into decide, then labels; then other
+        // non-decide nodes with their incoming edge from decide.
+        // For our shape: 'in' first (0), then 'out' or 'bk' order per array.
+        var offset = t;
+        for (var i = 0; i < nonDecideNodes.length; i++){
+            offset = revealNodeAt(i, offset) + 80;
+        }
+
+        // Also reveal any edges that are INCOMING from decide (decide->x)
+        // for nodes we've already shown but whose incoming edge didn't get
+        // scheduled by the outgoing-from-node loop.
+        var laterEdgesTime = offset;
+        edges.forEach(function(e){
+            var already = false;
+            // Was this edge revealed above? (only edges FROM non-decide nodes were)
+            var fromNonDecide = nonDecideNodes.some(function(n){ return n.id === e.from; });
+            if (fromNonDecide) return;
+            beat(laterEdgesTime, function(){ e.el.classList.add('gh-in'); });
+            laterEdgesTime += 300;
+        });
+
+        // BLUE decide node arrives at its OWN beat
+        var decideT = Math.max(offset, laterEdgesTime) + 300;
+        beat(decideT, function(){
+            els.decide.forEach(function(d){ d.el.classList.add('gh-in'); });
+        });
+        beat(decideT + STEP_A, function(){
+            els.decideLabels.forEach(function(lb){ lb.el.classList.add('gh-in'); });
+        });
+
+        // Scar note LAST
+        var scarT = decideT + 1400;
+        beat(scarT, function(){ els.scar.classList.add('gh-in'); });
+
+        // t=11s: one beat of stillness
+        // t=12.5s: fade, then swap to the OTHER sample
+        schedule(12500, function(){ frame.classList.add('gh-fading'); });
+        schedule(13200, function(){
+            currentSample = (currentSample + 1) % SAMPLES.length;
+            playSample(currentSample);
         });
     }
 
-    // Kick off after first paint so nothing races the reveal-on-scroll observer.
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ playSample(0); });
-    else playSample(0);
+    /* --------- Reduced-motion static state ---------
+       Render the finished first sample all at once, no loop. */
+    function renderStatic(){
+        var sample = SAMPLES[0];
+        var els = buildSample(sample);
+        wrap.classList.add('gh-canvas-in');
+        frame.classList.add('gh-active');
+        // Show typed conversation as-is (no typewriter)
+        var u = makeBubble('user');  u.typed.textContent = sample.user; u.caret.classList.add('gh-off'); u.el.classList.add('gh-visible');
+        var b = makeBubble('bot');   b.typed.textContent = sample.bot;  b.caret.classList.add('gh-off'); b.el.classList.add('gh-visible');
+        // Reveal everything on the canvas
+        [].concat(els.nodes, els.decide).forEach(function(o){ o.el.classList.add('gh-in'); });
+        els.edges.forEach(function(e){ e.el.classList.add('gh-in'); });
+        [].concat(els.labels, els.decideLabels).forEach(function(l){ l.el.classList.add('gh-in'); });
+        els.scar.classList.add('gh-in');
+    }
+
+    function boot(){
+        if (reduce) renderStatic();
+        else playSample(0);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+    else boot();
 })();
 </script>
-<script src="/ask-forte.js?v=p9c" defer></script>
-<script src="/studio-motion.js?v=p9c" defer></script>
-<script src="/scroll-top.js?v=p9c" defer></script>
-<script src="/hamburger.js?v=p9c" defer></script>
+<script src="/ask-forte.js?v=p9e" defer></script>
+<script src="/studio-motion.js?v=p9e" defer></script>
+<script src="/scroll-top.js?v=p9e" defer></script>
+<script src="/hamburger.js?v=p9e" defer></script>
 </body>
 </html>
