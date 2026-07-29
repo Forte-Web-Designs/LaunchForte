@@ -27,7 +27,7 @@
     var ALLOWANCE_MESSAGES = 10;
     var DOOR_HINT_AT       = 7;
     var CHAR_CAP           = 1000;
-    var DEFLECT            = "I only sketch business systems. Describe yours and I'll draw it.";
+    var DEFLECT            = "I only sketch business systems... describe yours and I'll draw it.";
 
     var BEATS = [[0,400],[1,900],[2,500],[3,700],[4,500],[5,600],[6,900]];
     var PAUSE_BEFORE_SCAR = 400;
@@ -251,12 +251,15 @@
        with the real one, so the strokes appear to draw over the ghost. The
        ghost fades as the real strokes land. If no ghost exists (shouldn't
        happen post-runbook), create a fresh bubble. */
+    /* Renders the real napkin over the ghost. Per runbook "see free, keep
+       by email": napkin draws inline FREE end-to-end (all 7 beats including
+       scar). AFTER scar lands + one beat of stillness, the keep-moment
+       gate opens with the locked copy asking for email. */
     function renderNapkin(svg, scar, mappedDemo, mappedLabel, ghost){
         var bubble, frame;
         if (ghost && ghost.bubble && ghost.frame){
             bubble = ghost.bubble;
             frame = ghost.frame;
-            // Kill the loading class + status line; swap the ghost SVG for the real one
             bubble.classList.remove("askf-napkin-loading");
             frame.classList.remove("askf-napkin-frame-ghost");
             frame.innerHTML = svg;
@@ -281,21 +284,22 @@
             bubble.appendChild(link);
         }
         scrollLog();
-        playNapkinChoreography(frame.querySelector("svg"), function onScarLanded(){
-            // Runbook: one beat of stillness, then the keep-moment prompt slides in.
+        // Play ALL beats including scar. Gate opens after scar + stillness.
+        playNapkinChoreography(frame.querySelector("svg"), /* stopBeforeScar */ false, function onScarLanded(){
             setTimeout(openKeepMoment, 500);
         });
     }
 
-    /* Keep-moment prompt: after the napkin's scar lands, the gate opens with
-       the runbook line. On capture: /gate-request fires (which triggers the
-       Capture workflow server-side: PDF send + Twenty write + [ASK FORTE] notify). */
+    /* Keep-moment prompt: opens AFTER the whole napkin has drawn (per
+       runbook "see free, keep by email"). Locked copy from the runbook.
+       On capture: /gate-request fires (which triggers Capture server-side:
+       PDF send + Twenty write + [ASK FORTE] notify). */
     function openKeepMoment(){
         var gate = $("askf-gate");
         var msg = $("askf-gate-msg");
         if (!gate || gate.classList.contains("open")) return;
         gate.classList.add("open");
-        if (msg && !msg.textContent) {
+        if (msg){
             msg.textContent = "Want it as a PDF, plus which live demo matches your build? Drop your email.";
             msg.classList.add("askf-gate-prompt");
         }
@@ -303,7 +307,10 @@
         if (email) { try { email.focus({ preventScroll: false }); } catch(_){} }
     }
 
-    function playNapkinChoreography(svg, onScarLanded){
+    /* Draw the napkin one beat at a time. If stopBeforeScar=true, we play
+       beats 0..5 only and fire the callback when beat 5 lands (gate opens).
+       Beat 6 (scar) is revealed later via revealBeatSix() after email capture. */
+    function playNapkinChoreography(svg, stopBeforeScar, onLastBeat){
         if (!svg) return;
         var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var groups = {};
@@ -312,6 +319,7 @@
             if (isNaN(idx)) return;
             (groups[idx] = groups[idx] || []).push(g);
         });
+        // Prime every group hidden
         Object.keys(groups).forEach(function(k){
             groups[k].forEach(function(g){
                 g.style.opacity = '0';
@@ -322,19 +330,22 @@
             });
         });
         if (reduce){
+            // Show all beats immediately EXCEPT scar if withheld
             Object.keys(groups).forEach(function(k){
+                var beatIdx = parseInt(k, 10);
+                if (stopBeforeScar && beatIdx === 6) return;
                 groups[k].forEach(function(g){
                     g.style.opacity = '1';
                     g.querySelectorAll('path').forEach(function(p){ p.style.strokeDashoffset = '0'; });
                 });
             });
-            if (typeof onScarLanded === "function") onScarLanded();
+            if (typeof onLastBeat === "function") onLastBeat();
             return;
         }
         var elapsed = 0;
         BEATS.forEach(function(pair){
             var beatIdx = pair[0], durMs = pair[1];
-            var pre = (beatIdx === 6) ? PAUSE_BEFORE_SCAR : 0;
+            if (stopBeforeScar && beatIdx === 6) return;   // withhold scar
             setTimeout(function(){
                 var gs = groups[beatIdx] || [];
                 gs.forEach(function(g){
@@ -345,13 +356,13 @@
                         p.style.strokeDashoffset = '0';
                     });
                 });
-                // When beat 6 (scar) has landed, fire the callback so the
-                // keep-moment prompt can slide in after one beat of stillness.
-                if (beatIdx === 6 && typeof onScarLanded === "function"){
-                    setTimeout(onScarLanded, durMs);
+                // Fire callback when the LAST played beat lands
+                var isLast = stopBeforeScar ? (beatIdx === 5) : (beatIdx === 6);
+                if (isLast && typeof onLastBeat === "function"){
+                    setTimeout(onLastBeat, durMs);
                 }
-            }, elapsed + pre);
-            elapsed += pre + durMs;
+            }, elapsed);
+            elapsed += durMs;
         });
     }
 
@@ -365,8 +376,21 @@
         session.closed = true;
         $("askf-send").disabled = true;
         $("askf-input").disabled = true;
-        $("askf-input").placeholder = "This session is done. The audit is the unlimited version.";
-        $("askf-gate").classList.add("open");
+        // Locked runbook copy for the allowance cap
+        $("askf-input").placeholder = "That's my free brain for today.";
+        // Warm cap message shown in the log as one last bot bubble
+        var capMsg = "That's my free brain for today. The audit is the unlimited version. Or drop your email and take the napkin with you.";
+        var b = renderBotBubble(capMsg, { instant: true });
+        // Open the gate with the same locked copy the keep-moment uses
+        var gate = $("askf-gate");
+        var msg = $("askf-gate-msg");
+        if (gate && !gate.classList.contains("open")){
+            gate.classList.add("open");
+            if (msg){
+                msg.textContent = "Want it as a PDF, plus which live demo matches your build? Drop your email.";
+                msg.classList.add("askf-gate-prompt");
+            }
+        }
         updateAllowance();
     }
 
@@ -529,24 +553,70 @@
                 return trimmed;
             }
 
+            /* ---- Token pacer ----
+               n8n streams tokens in bursts (sometimes many words in a single
+               chunk). Appending each burst instantly reads as jerky. Instead,
+               push incoming characters into a queue and let a rAF-driven pump
+               reveal them at a smooth cadence. When the stream ends, the pump
+               keeps draining until the queue is empty. */
+            var pendingChars = [];   // characters waiting to render
+            var streamDone = false;  // set true when server closes
+            var pacing = false;      // rAF loop running?
+            var lastTick = 0;
+            // Characters per second — tune for readable pace. n8n often emits
+            // tokens at ~40-80 char/s; we render at ~90 so we drain the queue
+            // without stalling, but each char has a visible per-frame beat.
+            var CHARS_PER_SEC = 90;
+
+            function ensureBotBubble(){
+                if (!botHolder){
+                    if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
+                    typing = null;
+                    botHolder = renderBotBubble("", {});
+                }
+            }
+            function startPacer(){
+                if (pacing) return;
+                pacing = true;
+                lastTick = performance.now();
+                requestAnimationFrame(pace);
+            }
+            function pace(now){
+                if (!botHolder){ pacing = false; return; }
+                var dt = Math.min(now - lastTick, 100);  // clamp to avoid huge dumps on tab-switch
+                lastTick = now;
+                var target = Math.max(1, Math.round((dt / 1000) * CHARS_PER_SEC));
+                if (pendingChars.length){
+                    var take = Math.min(target, pendingChars.length);
+                    accumulated += pendingChars.splice(0, take).join('');
+                    botHolder.bubble.textContent = accumulated;
+                    scrollLog();
+                }
+                if (pendingChars.length > 0){
+                    requestAnimationFrame(pace);
+                } else if (streamDone){
+                    pacing = false;
+                    finalizeReply();
+                } else {
+                    // Empty queue but stream still open — wait for more bytes
+                    pacing = false;
+                }
+            }
+            function pushToken(text){
+                for (var i = 0; i < text.length; i++) pendingChars.push(text.charAt(i));
+                startPacer();
+            }
+
             function handleFrame(f){
                 if (f.type === "token"){
                     if (wasDeflected) return;
-                    if (!botHolder){
-                        if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
-                        typing = null;
-                        botHolder = renderBotBubble("", {});
-                    }
-                    accumulated += f.text;
-                    botHolder.bubble.textContent = accumulated;
-                    scrollLog();
+                    ensureBotBubble();
+                    pushToken(f.text);
                 }
                 else if (f.type === "shape"){
                     if (f.name){ renderCard("SHAPE", f.name); lookupShape(f.name); }
                 }
                 else if (f.type === "offer_napkin"){
-                    // Runbook: draw marker = immediately render ghost + fire the draw call.
-                    // No button. The ghost sits at low opacity; strokes land over it.
                     if (!$("askf-napkin-mount")){
                         var ghost = renderNapkinGhost();
                         ghost.turn.id = "askf-napkin-mount";
@@ -557,11 +627,9 @@
                     renderCard("NEXT", "The audit is how a real one gets scoped.");
                 }
                 else if (f.type === "deflect"){
-                    if (!botHolder){
-                        if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
-                        typing = null;
-                        botHolder = renderBotBubble("", {});
-                    }
+                    ensureBotBubble();
+                    // Deflection replaces whatever bubble content is queuing/rendered
+                    pendingChars.length = 0;
                     accumulated = DEFLECT;
                     botHolder.bubble.textContent = accumulated;
                     wasDeflected = true;
@@ -570,6 +638,16 @@
             }
             function finish(){
                 if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
+                // Signal the pacer that no more bytes will arrive. If it's still
+                // draining, finalizeReply() runs when it hits an empty queue.
+                streamDone = true;
+                if (pendingChars.length > 0){
+                    startPacer();
+                } else {
+                    finalizeReply();
+                }
+            }
+            function finalizeReply(){
                 busy = false;
                 updateCharCount();
                 if (session.messageCount >= DOOR_HINT_AT) renderCard("NEXT", "The audit is how a real one gets scoped.");
@@ -624,7 +702,7 @@
                   // line and retry once. Keep the ghost visible so the visitor
                   // sees the sketch is still coming.
                   if (ghost && ghost.status){
-                      ghost.status.textContent = "my pen slipped. One more shot.";
+                      ghost.status.textContent = "my pen slipped... one more shot.";
                   } else {
                       renderBotBubble("My pen slipped. One more shot.", { instant: true });
                   }
