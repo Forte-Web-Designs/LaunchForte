@@ -34,6 +34,9 @@ main.studio-pane.hero-follows::before { display: none; }
     object-fit: cover;
     object-position: center;
     z-index: 0;
+    /* B&W: editorial monochrome so accent blue is the only color in frame.
+       Drop this line to restore the color video. */
+    filter: grayscale(100%) contrast(1.05);
 }
 @media(max-width: 900px) {
     .hero-video { width: 100%; opacity: 0.55; }

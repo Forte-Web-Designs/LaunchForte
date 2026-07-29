@@ -203,7 +203,10 @@
 
         /* The video layer — full width, no seam. Overlays carry the
            left-side legibility so it reads as ONE composed image (not
-           a black slab + a video crammed to the right). */
+           a black slab + a video crammed to the right). B&W filter keeps
+           the composition editorial and makes the accent blue on the H1
+           pop as the only color in frame. Remove the filter line to
+           bring the color video back. */
         .hero-video {
             position: absolute;
             top: 0;
@@ -213,6 +216,7 @@
             object-fit: cover;
             object-position: center;
             z-index: 0;
+            filter: grayscale(100%) contrast(1.05);
         }
         @media(max-width: 900px) {
             .hero-video { opacity: 0.6; }

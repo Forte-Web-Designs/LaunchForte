@@ -28,7 +28,7 @@
         .hero-zone { position: relative; background: #0A0A0A; color: #FFFFFF; overflow: hidden; padding-bottom: 3rem; }
         main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
         main.studio-pane.hero-follows::before { display: none; }
-        .hero-video { position: absolute; top: 0; right: 0; width: 65%; height: 100%; object-fit: cover; object-position: center; z-index: 0; }
+        .hero-video { position: absolute; top: 0; right: 0; width: 65%; height: 100%; object-fit: cover; object-position: center; z-index: 0; filter: grayscale(100%) contrast(1.05); }
         @media(max-width: 900px) { .hero-video { width: 100%; opacity: 0.55; } }
         @media(prefers-reduced-motion: reduce) { .hero-video { display: none; } }
         .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
