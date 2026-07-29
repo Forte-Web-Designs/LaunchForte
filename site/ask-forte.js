@@ -17,7 +17,7 @@
 */
 (function(){
     /* -------------------- config -------------------- */
-    var LIVE = false;                               // 2026-07-29 revert: /forte-ask returns 200 with empty body (streaming-blocked path bug — flagged by flows session, still open on their side). Holding state shows until fixed.
+    var LIVE = true;                                // Live per Seth. n8n /forte-ask still returning empty body — flows session needs to fix the streaming-blocked path before real responses render.
     var API_BASE  = "https://launchforte.app.n8n.cloud/webhook";
     var ASK       = API_BASE + "/forte-ask";
     var SHAPE     = API_BASE + "/forte-shape";
