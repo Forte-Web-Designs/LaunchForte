@@ -19,9 +19,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p9e">
-    <link rel="stylesheet" href="/ask-forte.css?v=p9e">
-    <script src="/studio-theme.js?v=p9e"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9g">
+    <link rel="stylesheet" href="/ask-forte.css?v=p9g">
+    <script src="/studio-theme.js?v=p9g"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -385,29 +385,31 @@
         .ghost-frame { transition: opacity 500ms ease-out; }
         .ghost-frame.gh-fading { opacity: 0.3; }
         @keyframes gh-caret { 50% { opacity: 0; } }
-        /* Canvas starts hidden per Seth's timeline (t=0). JS adds .gh-canvas-in
-           at t=4s to reveal the blank paper before the pen touches it. */
+        /* Canvas: wrap is always visible; JS reveals internal shapes one
+           at a time. If the JS ever fails, the SVG still shows the finished
+           sample (elements default to opacity:1 in fallback). */
         .ghost-sketch-wrap { background: var(--paper-2); border-radius: var(--radius-2xl); padding: 1rem; min-height: 200px; opacity: 0; transition: opacity 400ms ease-out; }
         .ghost-sketch-wrap.gh-canvas-in { opacity: 1; }
         .ghost-sketch { width: 100%; height: auto; display: block; max-height: 260px; }
-        /* Every drawable element starts INVISIBLE per runbook — paper only.
-           JS toggles .gh-in in strict beat order to reveal each piece. */
-        .ghost-sketch .g-node,
-        .ghost-sketch .g-decide,
-        .ghost-sketch .g-line,
-        .ghost-sketch .g-label,
-        .ghost-sketch .g-scar { opacity: 0; transition: opacity 500ms ease-out; }
-        .ghost-sketch .g-node.gh-in,
-        .ghost-sketch .g-decide.gh-in,
-        .ghost-sketch .g-line.gh-in,
-        .ghost-sketch .g-label.gh-in,
-        .ghost-sketch .g-scar.gh-in { opacity: 1; }
-        .ghost-sketch .g-line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: opacity 250ms ease-out, stroke-dashoffset 700ms ease-out; }
-        .ghost-sketch .g-line.gh-in { stroke-dashoffset: 0; }
+        /* Drawable elements: default to hidden ONLY when the sketch has been
+           armed by JS (indicated by .gh-armed on the SVG). Fallback = fully
+           visible so a JS failure still shows the finished sample. */
+        .ghost-sketch.gh-armed .g-node,
+        .ghost-sketch.gh-armed .g-decide,
+        .ghost-sketch.gh-armed .g-line,
+        .ghost-sketch.gh-armed .g-label,
+        .ghost-sketch.gh-armed .g-scar { opacity: 0; transition: opacity 500ms ease-out; }
+        .ghost-sketch.gh-armed .g-node.gh-in,
+        .ghost-sketch.gh-armed .g-decide.gh-in,
+        .ghost-sketch.gh-armed .g-line.gh-in,
+        .ghost-sketch.gh-armed .g-label.gh-in,
+        .ghost-sketch.gh-armed .g-scar.gh-in { opacity: 1; }
+        .ghost-sketch.gh-armed .g-line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: opacity 250ms ease-out, stroke-dashoffset 700ms ease-out; }
+        .ghost-sketch.gh-armed .g-line.gh-in { stroke-dashoffset: 0; }
         @media(prefers-reduced-motion: reduce) {
-          .ghost-sketch .g-node, .ghost-sketch .g-decide, .ghost-sketch .g-line,
-          .ghost-sketch .g-label, .ghost-sketch .g-scar { opacity: 1; transition: none; }
-          .ghost-sketch .g-line { stroke-dashoffset: 0; }
+          .ghost-sketch.gh-armed .g-node, .ghost-sketch.gh-armed .g-decide, .ghost-sketch.gh-armed .g-line,
+          .ghost-sketch.gh-armed .g-label, .ghost-sketch.gh-armed .g-scar { opacity: 1; transition: none; }
+          .ghost-sketch.gh-armed .g-line { stroke-dashoffset: 0; }
           .ghost-caret { animation: none; opacity: 0; }
         }
 
@@ -710,14 +712,17 @@
          scroll cue into that bar. -->
     <div class="hero-content">
         <div class="hero-content-inner">
-            <!-- Hero: fixed line 1, rotating word on line 2 in the gradient color.
+            <!-- Hero: fixed line 1, rotating PHRASE on line 2 in the gradient color.
                  The rotator sits in an inline-block wrapper that reserves the
-                 widest word's width, so cycling through terms of different
-                 length never jumps the page up or down. -->
+                 widest phrase's width, so cycling through terms of different
+                 length never jumps the page up or down. Phrases from the
+                 original sethforte hero (per git history): A System, The
+                 Right Data, A Framework, A Process, Execution. -->
             <h1 class="hero-h1">
                 <span class="hero-h1-line-1">Business growth isn't luck.</span>
-                <span class="hero-h1-line-2">It's a <span class="hero-rotator" aria-live="polite"><span class="hero-rotator-slot"><span class="hero-rotator-word is-active">system</span><span class="hero-rotator-word">process</span><span class="hero-rotator-word">blueprint</span><span class="hero-rotator-word">machine</span><span class="hero-rotator-word">discipline</span><span class="hero-rotator-word">playbook</span></span></span>.</span>
+                <span class="hero-h1-line-2">It's <span class="hero-rotator" aria-live="polite"><span class="hero-rotator-slot"><span class="hero-rotator-word is-active">A System</span><span class="hero-rotator-word">The Right Data</span><span class="hero-rotator-word">A Framework</span><span class="hero-rotator-word">A Process</span><span class="hero-rotator-word">Execution</span></span></span>.</span>
             </h1>
+            <p class="hero-sub-below" style="color:rgba(255,255,255,0.65);font-size:0.9375rem;line-height:1.5;margin:0 auto 1.5rem;max-width:56ch;text-align:center;font-weight:500;letter-spacing:0.01em;">Automation infrastructure for growing businesses.</p>
 
             <p class="hero-quiet-links">
                 <a href="#ask-forte" data-gtm-event="homepage_hero_ask_link">Ask Forte</a>
@@ -1694,6 +1699,9 @@
         thread.innerHTML = '';
         wrap.classList.remove('gh-canvas-in');
         var els = buildSample(sample);
+        // ARM the sketch: this switches on the opacity:0 -> gh-in behavior.
+        // Without this class, all elements stay visible (fallback safety).
+        sketch.classList.add('gh-armed');
         frame.classList.remove('gh-fading');
         frame.classList.add('gh-active');
 
@@ -1836,9 +1844,9 @@
     else boot();
 })();
 </script>
-<script src="/ask-forte.js?v=p9e" defer></script>
-<script src="/studio-motion.js?v=p9e" defer></script>
-<script src="/scroll-top.js?v=p9e" defer></script>
-<script src="/hamburger.js?v=p9e" defer></script>
+<script src="/ask-forte.js?v=p9g" defer></script>
+<script src="/studio-motion.js?v=p9g" defer></script>
+<script src="/scroll-top.js?v=p9g" defer></script>
+<script src="/hamburger.js?v=p9g" defer></script>
 </body>
 </html>

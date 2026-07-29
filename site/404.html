@@ -10,12 +10,13 @@
     <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=p9e">
-    <script src="/studio-theme.js?v=p9e"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9g">
+    <link rel="stylesheet" href="/hero.css?v=p9g">
+    <script src="/studio-theme.js?v=p9g"></script>
 </head>
 <body>
 
-<header class="studio-nav site-header">
+<header class="studio-nav site-header hero-nav">
     <div class="studio-nav-inner">
         <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
             <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
@@ -35,7 +36,28 @@
     </div>
 </header>
 
-<main class="studio-pane">
+
+<!-- CINEMATIC HERO — shared video across every page. Rotates hero-1/2/4 via /hero.js. -->
+<div class="hero-zone">
+    <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="/media/hero-1.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
+    <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
+
+    <div class="hero-content">
+        <div class="hero-content-inner">
+            <span class="hero-eyebrow-line"><span class="dot"></span><span class="mark">404</span></span>
+            <h1 class="hero-h1">
+                <span class="hero-h1-line-1">That page moved</span>
+                <span class="hero-h1-line-2">or does not exist.</span>
+            </h1>
+            <p class="hero-sub-dark">Head back home, browse the demos, or grade your systems while you're here.</p>
+        </div>
+    </div>
+</div>
+
+<main class="studio-pane hero-follows">
     <div style="max-width:560px;margin:6rem auto;text-align:center;padding:0 var(--sp-4,1rem)">
         <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:0.875rem;font-weight:500;color:var(--accent);margin-bottom:1rem">404</p>
         <h1 style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:clamp(2rem,5vw,3rem);font-weight:500;letter-spacing:-0.025em;line-height:1.05;margin-bottom:1rem;color:var(--ink)">That page moved or does not exist.</h1>
@@ -87,8 +109,8 @@
     </div>
 </footer>
 
-<script src="/studio-motion.js?v=p9e" defer></script>
-<script src="/scroll-top.js?v=p9e" defer></script>
-<script src="/hamburger.js?v=p9e" defer></script>
+<script src="/studio-motion.js?v=p9g" defer></script>
+<script src="/scroll-top.js?v=p9g" defer></script>
+<script src="/hamburger.js?v=p9g" defer></script>
 </body>
 </html>
