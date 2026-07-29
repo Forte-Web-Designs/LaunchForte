@@ -1,0 +1,1 @@
+FORTRESS ran this job with no monitor attached.
