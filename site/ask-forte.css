@@ -1,0 +1,114 @@
+/* Ask Forte — shared partial CSS.
+   One component, two mounts: /ask (wrapped in Studio chrome) and the
+   homepage Ask Forte section (inline, no second chrome).
+   All rules scoped to .askf-* to avoid bleeding into the rest of the site.
+   Loaded on: /site/demo/blueprint/index.html (canonical /ask) and /site/index.html
+   (homepage inline mount). */
+
+/* ---- Layout: chat column + spec-card rail. Rail collapses to inline chips on mobile. */
+.askf-layout { display: grid; grid-template-columns: 1fr 280px; gap: 2rem; align-items: start; }
+@media(max-width: 900px) { .askf-layout { grid-template-columns: 1fr; } }
+
+/* ---- Chat panel (one continuous card: log + composer + gate) */
+.askf-chat { background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-3xl); box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06); overflow: hidden; display: flex; flex-direction: column; min-height: 520px; }
+.askf-log { padding: 1.5rem 1.5rem 0.5rem; flex: 1; overflow-y: auto; max-height: 640px; scroll-behavior: smooth; }
+@media(max-width: 640px) { .askf-log { padding: 1rem 1rem 0.25rem; max-height: 520px; } }
+
+.askf-turn { margin-bottom: 1rem; display: flex; }
+.askf-turn.bot { justify-content: flex-start; }
+.askf-turn.user { justify-content: flex-end; }
+.askf-bubble { max-width: 82%; padding: 0.85rem 1rem; border-radius: 18px; font-size: 1rem; line-height: 1.55; word-wrap: break-word; white-space: pre-wrap; }
+.askf-turn.bot .askf-bubble { background: var(--n-100, #f5f5f5); color: var(--ink); border-bottom-left-radius: 6px; }
+.askf-turn.user .askf-bubble { background: var(--accent); color: #fff; border-bottom-right-radius: 6px; font-weight: 500; }
+.askf-turn.bot .askf-bubble a { color: var(--accent); font-weight: 600; }
+[data-theme="dark"] .askf-turn.bot .askf-bubble { background: var(--n-800, #262626); color: var(--paper); }
+
+/* Streaming cursor */
+.askf-bubble .cursor { display: inline-block; width: 8px; height: 1.1em; vertical-align: text-bottom; background: currentColor; opacity: 0.65; margin-left: 2px; animation: askf-blink 1s steps(1) infinite; }
+@keyframes askf-blink { 50% { opacity: 0; } }
+
+/* Typing indicator (before first token) */
+.askf-typing { display: inline-flex; gap: 4px; align-items: center; padding: 0.85rem 1rem; }
+.askf-typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--n-500, #737373); opacity: 0.4; animation: askf-bob 1.2s ease-in-out infinite; }
+.askf-typing span:nth-child(2) { animation-delay: 0.15s; }
+.askf-typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes askf-bob { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-4px); opacity: 1; } }
+
+/* Napkin offer (inline action button when a shape lands) */
+.askf-offer { margin-top: 0.75rem; }
+.askf-offer-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem; background: var(--ink); color: var(--paper); border: 0; border-radius: 999px; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; }
+.askf-offer-btn:hover { transform: translateY(-1px); background: var(--accent); }
+.askf-offer-btn svg { width: 14px; height: 14px; }
+
+/* Napkin bubble — the sketch renders here */
+.askf-turn.bot .askf-bubble.napkin { max-width: 100%; padding: 1rem; background: #FFF9E6; border: 1px solid rgba(0,0,0,0.06); }
+[data-theme="dark"] .askf-turn.bot .askf-bubble.napkin { background: #2A2820; border-color: rgba(255,255,255,0.06); }
+.askf-napkin-frame { border-radius: 8px; padding: 0.5rem; overflow: hidden; transition: filter 0.4s ease-out, opacity 0.4s ease-out; }
+.askf-napkin-frame svg { display: block; width: 100%; height: auto; max-height: 400px; }
+.askf-napkin-caption { margin-top: 0.75rem; font-size: 0.875rem; color: var(--n-600); font-style: italic; }
+
+/* Napkin ghost (loading state) — faint blurred generic napkin at low opacity
+   the moment [[NAPKIN]] arrives. Real strokes draw over it; blur lifts as
+   they land (JS swaps the SVG + removes the -ghost class). */
+.askf-napkin-frame-ghost svg { opacity: 0.22; filter: blur(2.5px); }
+.askf-napkin-loading .askf-napkin-status { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--n-500); font-style: italic; }
+.askf-napkin-loading .askf-napkin-status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: askf-pulsedot 1.2s ease-in-out infinite; }
+@keyframes askf-pulsedot { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+/* Keep-moment prompt inside the gate — the runbook copy slides in after
+   scar lands, replacing the default gate label. */
+.askf-gate-msg.askf-gate-prompt { color: var(--ink); font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: 0.9375rem; font-style: normal; animation: askf-slideup 0.5s ease-out; }
+@keyframes askf-slideup { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ---- Composer (the bar sticking as the input at the bottom) ---- */
+.askf-composer { border-top: 1px solid var(--border); padding: 1rem 1.25rem 1.25rem; background: var(--paper); }
+.askf-input-row { display: flex; gap: 0.5rem; align-items: flex-end; }
+.askf-input { flex: 1; min-width: 0; padding: 0.85rem 1rem; font-family: inherit; font-size: 1rem; line-height: 1.5; color: var(--ink); background: transparent; border: 1px solid var(--border); border-radius: 12px; resize: none; outline: none; transition: border-color 0.2s ease; max-height: 140px; }
+.askf-input:focus { border-color: var(--accent); }
+.askf-input::placeholder { color: var(--n-500); }
+.askf-mic { flex-shrink: 0; width: 44px; height: 44px; display: none; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--border); border-radius: 12px; color: var(--n-600); cursor: pointer; transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
+.askf-mic.available { display: inline-flex; }
+.askf-mic:hover { color: var(--accent); border-color: var(--accent); }
+.askf-mic.recording { background: var(--accent); color: #fff; border-color: var(--accent); animation: askf-pulse 1.2s ease-in-out infinite; }
+@keyframes askf-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(0,136,219,0.4); } 50% { box-shadow: 0 0 0 8px rgba(0,136,219,0); } }
+.askf-mic svg { width: 18px; height: 18px; }
+.askf-send { flex-shrink: 0; height: 44px; padding: 0 1.25rem; background: var(--accent); color: #fff; border: 0; border-radius: 12px; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; }
+.askf-send:hover:not(:disabled) { transform: translateY(-1px); background: var(--accent-warm, #4ab5ed); }
+.askf-send:disabled { opacity: 0.5; cursor: not-allowed; }
+.askf-meta-row { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; font-size: 0.8125rem; color: var(--n-500); }
+.askf-charcount.warn { color: #dc2626; }
+.askf-allowance { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; }
+
+/* ---- Email gate (opens at allowance) ---- */
+.askf-gate { display: none; border-top: 1px solid var(--border); padding: 1.25rem; background: var(--n-50, #fafafa); }
+[data-theme="dark"] .askf-gate { background: var(--n-900, #171717); }
+.askf-gate.open { display: block; }
+.askf-gate-input { flex: 1; min-width: 0; padding: 0.85rem 1rem; font-family: inherit; font-size: 1rem; color: var(--ink); background: var(--paper); border: 1px solid var(--border); border-radius: 12px; outline: none; }
+.askf-gate-input:focus { border-color: var(--accent); }
+.askf-gate-msg { margin-top: 0.5rem; font-size: 0.8125rem; color: var(--n-500); min-height: 14px; }
+.askf-gate-msg.ok { color: #16a34a; }
+.askf-gate-msg.err { color: #dc2626; }
+
+/* ---- Spec-card rail ---- */
+.askf-cards { display: flex; flex-direction: column; gap: 0.75rem; position: sticky; top: 5rem; }
+@media(max-width: 900px) { .askf-cards { position: static; flex-direction: row; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; scrollbar-width: none; } .askf-cards::-webkit-scrollbar { display: none; } }
+.askf-card { padding: 1rem; background: var(--paper); border: 1px solid var(--border); border-radius: 14px; opacity: 0; transform: translateY(6px); transition: opacity 0.35s ease-out, transform 0.35s ease-out; }
+.askf-card.appear { opacity: 1; transform: translateY(0); }
+@media(max-width: 900px) { .askf-card { flex: 0 0 220px; } }
+.askf-card-label { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+.askf-card-body { font-size: 0.9375rem; line-height: 1.4; color: var(--ink); }
+.askf-cards-empty { padding: 1rem; border: 1px dashed var(--border); border-radius: 14px; font-size: 0.875rem; color: var(--n-500); text-align: center; }
+[data-theme="dark"] .askf-cards-empty { color: var(--n-500); }
+
+/* ---- Holding state (LIVE=false) — shown inside .askf-chat instead of the log */
+.askf-holding { padding: 2.5rem 1.75rem; text-align: center; }
+.askf-holding h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin: 0 0 0.5rem; }
+.askf-holding p { color: var(--n-600); font-size: 1rem; margin: 0 0 1.5rem; }
+.askf-holding-tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; max-width: 640px; margin: 0 auto; }
+@media(max-width: 640px) { .askf-holding-tools { grid-template-columns: 1fr; } }
+.askf-holding-tool { display: block; padding: 1rem; background: var(--paper); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--ink); text-align: left; transition: border-color 0.2s ease, transform 0.2s ease; }
+.askf-holding-tool:hover { border-color: var(--accent); transform: translateY(-2px); }
+.askf-holding-tool b { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.25rem; }
+.askf-holding-tool span { display: block; font-size: 0.8125rem; color: var(--n-500); }
+
+.askf-hide { display: none !important; }

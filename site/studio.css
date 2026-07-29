@@ -178,7 +178,10 @@ body {
   right: 0;
   z-index: 40;
   color: var(--ink);
-  padding: 0.75rem 0;
+  /* 2026-07-29: nav slightly taller per Seth (sethforte.com sizing) — from
+     0.75rem to 1.15rem so the header reads more premium. Still faded, still
+     backdrop-blur. */
+  padding: 1.15rem 0;
   background: rgba(255, 255, 255, 0.88);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
