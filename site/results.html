@@ -42,8 +42,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=p9r">
-    <script src="/studio-theme.js?v=p9r"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9s">
+    <script src="/studio-theme.js?v=p9s"></script>
     <style>
         /* Cinematic hero — same rotating video pattern as homepage + About.
            Results is the proof page; the hero introduces it in the same visual
@@ -518,15 +518,14 @@
 
 </main>
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4 .. hero-4.mp4 (same as homepage).
+// Cinematic hero: rotate through /media/hero-1.mp4 .. hero-2.mp4 (same as homepage).
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
         { src: '/media/hero-1.mp4', pos: 'center center' },
-        { src: '/media/hero-2.mp4', pos: 'center 30%' },
-        { src: '/media/hero-4.mp4', pos: 'center center' }
+        { src: '/media/hero-2.mp4', pos: 'center 30%' }   // shift up so head/torso stays in frame
     ];
     var i = 0;
     function playNext(){
@@ -542,8 +541,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=p9r" defer></script>
-<script src="/scroll-top.js?v=p9r" defer></script>
-<script src="/hamburger.js?v=p9r" defer></script>
+<script src="/studio-motion.js?v=p9s" defer></script>
+<script src="/scroll-top.js?v=p9s" defer></script>
+<script src="/hamburger.js?v=p9s" defer></script>
 </body>
 </html>
