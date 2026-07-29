@@ -201,32 +201,36 @@
         main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
         main.studio-pane.hero-follows::before { display: none; }
 
-        /* The rotating video layer */
+        /* The video layer — full width, no seam. Overlays carry the
+           left-side legibility so it reads as ONE composed image (not
+           a black slab + a video crammed to the right). */
         .hero-video {
             position: absolute;
             top: 0;
-            right: 0;
-            width: 65%;
+            left: 0;
+            width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center;
             z-index: 0;
         }
         @media(max-width: 900px) {
-            .hero-video { width: 100%; opacity: 0.55; }
+            .hero-video { opacity: 0.6; }
         }
         @media(prefers-reduced-motion: reduce) {
             .hero-video { display: none; }
         }
 
-        /* Two overlays for legibility */
+        /* Two overlays for legibility. LR gradient is heavier now that the
+           video runs full-width — keeps H1 white type legible on the left
+           without collapsing the video to a stripe on the right. */
         .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
         .hero-overlay-lr {
-            background: linear-gradient(90deg, #0A0A0A 0%, rgba(10,10,10,0.85) 35%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.25) 100%);
+            background: linear-gradient(90deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.78) 30%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.28) 78%, rgba(10,10,10,0.18) 100%);
         }
         .hero-overlay-btm {
             /* Fades bottom of the hero into the paper pane below via a dark-to-paper gradient */
-            background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #FFFFFF 100%);
+            background: linear-gradient(180deg, transparent 60%, rgba(10,10,10,0.55) 82%, #FFFFFF 100%);
         }
         [data-theme="dark"] .hero-overlay-btm {
             background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #0A0A0A 100%);
@@ -250,9 +254,11 @@
         .hero-nav #studio-theme-toggle:not(.scrolled) { color: #FFFFFF !important; border-color: rgba(255,255,255,0.24) !important; }
         .hero-nav #studio-theme-toggle:not(.scrolled):hover { color: var(--accent) !important; border-color: var(--accent) !important; }
 
-        /* Hero content: eyebrow + gradient H1 + Ask Forte field + stats */
+        /* Hero content: eyebrow + gradient H1 + Ask Forte field + stats.
+           Centered block, 960px cap so the composition reads as one focal
+           unit sitting over the video (not two panes side-by-side). */
         .hero-content { position: relative; z-index: 20; padding: 6rem 0 3rem; }
-        .hero-content-inner { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+        .hero-content-inner { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; text-align: center; }
         @media(min-width: 640px) { .hero-content-inner { padding: 0 2rem; } }
 
         /* Eyebrow: dot + LAUNCH FORTE + thin rule */
@@ -270,10 +276,14 @@
             font-weight: 500;
             letter-spacing: -0.03em;
             line-height: 1.05;
-            font-size: clamp(2.25rem, 6vw, 4.5rem);
+            font-size: clamp(2.25rem, 5.5vw, 4.25rem);
             margin: 0 auto 1.5rem;
             color: #FFFFFF;
-            max-width: 20ch;
+            /* 18ch keeps "Business Growth Isn't Luck." on one line at desktop
+               and lets line 2 balance under it without stretching the H1
+               beyond the composition center. */
+            max-width: 18ch;
+            text-wrap: balance;
             /* No-JS floor: reserve 2 lines. JS reads the tallest variant and
                replaces this with the exact tallest-rendered pixel height. */
             min-height: calc(2 * 1.05em);
@@ -345,7 +355,7 @@
         }
         .ask-submit:hover { transform: translateY(-1px); background: var(--accent-hover); color: #FFFFFF; }
 
-        .hero-quiet-links { margin: 1.25rem 0 3rem; font-size: var(--text-base); color: rgba(255,255,255,0.72); display: flex; flex-wrap: wrap; gap: 0.5rem 0.85rem; align-items: center; }
+        .hero-quiet-links { margin: 1.25rem 0 3rem; font-size: var(--text-base); color: rgba(255,255,255,0.72); display: flex; flex-wrap: wrap; gap: 0.5rem 0.85rem; align-items: center; justify-content: center; }
         .hero-quiet-links a { color: #FFFFFF; text-decoration: underline; text-underline-offset: 0.25em; text-decoration-color: rgba(255,255,255,0.32); font-weight: 500; }
         .hero-quiet-links a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
@@ -411,7 +421,7 @@
         .who-line a:hover { color: var(--accent); }
 
         /* Stats row */
-        .hero-stats { margin-top: 2rem; max-width: 780px; }
+        .hero-stats { margin: 2rem auto 0; max-width: 780px; text-align: center; }
         .hero-stats-rule { border: 0; border-top: 1px solid rgba(255,255,255,0.20); margin: 0 0 1.5rem; }
         .hero-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
         @media(max-width: 640px) { .hero-stats-row { grid-template-columns: 1fr; gap: 1.25rem; } }
@@ -1264,8 +1274,8 @@
     // Rotation order (Seth's pick): black shirt (hero-1), collared with me visible (hero-2), last (hero-4).
     // Each has a poster crop hint so I'm in view regardless of the video's own centering.
     var sources = [
-        { src: '/media/hero-1.mp4', pos: 'center center' },
-        { src: '/media/hero-2.mp4', pos: 'center 30%' }   // shift up so head/torso stays in frame
+        { src: '/media/hero-1.mp4', pos: 'center center' }
+        // { src: '/media/hero-2.mp4', pos: 'center 30%' }   // paused per Seth 2026-07-29 (keep file, hide from rotation)
     ];
     var i = 0;
     v.removeAttribute('loop'); // We rotate instead of looping a single file

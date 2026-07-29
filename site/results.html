@@ -524,8 +524,8 @@
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4', pos: 'center center' },
-        { src: '/media/hero-2.mp4', pos: 'center 30%' }   // shift up so head/torso stays in frame
+        { src: '/media/hero-1.mp4', pos: 'center center' }
+        // { src: '/media/hero-2.mp4', pos: 'center 30%' }   // paused per Seth 2026-07-29 (keep file, hide from rotation)
     ];
     var i = 0;
     function playNext(){
