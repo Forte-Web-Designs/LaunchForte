@@ -73,8 +73,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=p9a">
-    <script src="/studio-theme.js?v=p9a"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9b">
+    <script src="/studio-theme.js?v=p9b"></script>
     <style>
         /* Cinematic hero for About — same rotating video pattern as homepage.
            Runbook §8 declares one dark zone per site (the homepage) but the
@@ -93,6 +93,7 @@
         /* Nav overrides for the dark hero — same as homepage .hero-nav */
         .hero-nav { position: sticky; top: 0; z-index: 40; padding: 1.15rem 0; background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-bottom: 1px solid transparent !important; transition: background 0.2s ease, border-color 0.2s ease; }
         .hero-nav.is-scrolled { background: rgba(10, 10, 10, 0.82) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; backdrop-filter: saturate(180%) blur(20px) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
+        @media (max-width: 640px) { .hero-nav { padding: 0.7rem 0 !important; } .hero-nav .studio-nav-inner { padding: 0 1rem; gap: 0.75rem; } .hero-nav .studio-nav-cta { display: none; } .hero-nav #studio-theme-toggle:not(.scrolled) { display: none; } .hero-nav .studio-nav-right { gap: 0.5rem; } }
         .hero-nav .studio-nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
         .hero-nav .studio-logo img { filter: brightness(0) invert(1); height: 28px; width: auto; display: block; }
         .hero-nav .studio-nav-cta { background: #FFFFFF; color: #0A0A0A; }
@@ -341,8 +342,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=p9a" defer></script>
-<script src="/scroll-top.js?v=p9a" defer></script>
-<script src="/hamburger.js?v=p9a" defer></script>
+<script src="/studio-motion.js?v=p9b" defer></script>
+<script src="/scroll-top.js?v=p9b" defer></script>
+<script src="/hamburger.js?v=p9b" defer></script>
 </body>
 </html>
