@@ -1,7 +1,7 @@
 /* Cinematic hero — shared across every page that carries it.
    Structure per-page (below the sticky Studio nav):
      <div class="hero-zone">
-       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4"></video>
+       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=p9u"></video>
        <div class="hero-overlay hero-overlay-lr"></div>
        <div class="hero-overlay hero-overlay-btm"></div>
        <div class="hero-content"><div class="hero-content-inner">
@@ -34,9 +34,6 @@ main.studio-pane.hero-follows::before { display: none; }
     object-fit: cover;
     object-position: center;
     z-index: 0;
-    /* B&W: editorial monochrome so accent blue is the only color in frame.
-       Drop this line to restore the color video. */
-    filter: grayscale(100%) contrast(1.05);
 }
 @media(max-width: 900px) {
     .hero-video { width: 100%; opacity: 0.55; }

@@ -21,14 +21,14 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=p9s">
-    <script src="/studio-theme.js?v=p9s"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9u">
+    <script src="/studio-theme.js?v=p9u"></script>
     <style>
         /* Cinematic hero — same rotating video pattern as homepage + About + Results. */
         .hero-zone { position: relative; background: #0A0A0A; color: #FFFFFF; overflow: hidden; padding-bottom: 3rem; }
         main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
         main.studio-pane.hero-follows::before { display: none; }
-        .hero-video { position: absolute; top: 0; right: 0; width: 65%; height: 100%; object-fit: cover; object-position: center; z-index: 0; filter: grayscale(100%) contrast(1.05); }
+        .hero-video { position: absolute; top: 0; right: 0; width: 65%; height: 100%; object-fit: cover; object-position: center; z-index: 0; }
         @media(max-width: 900px) { .hero-video { width: 100%; opacity: 0.55; } }
         @media(prefers-reduced-motion: reduce) { .hero-video { display: none; } }
         .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
@@ -81,7 +81,7 @@
 <!-- CINEMATIC HERO — same rotating video as homepage + About + Results. -->
 <div class="hero-zone">
     <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4" type="video/mp4">
+        <source src="/media/hero-1.mp4?v=p9u" type="video/mp4">
     </video>
     <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
@@ -260,13 +260,13 @@
 })();
 </script>
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4 .. hero-2.mp4 (same as homepage).
+// Cinematic hero: rotate through /media/hero-1.mp4?v=p9u .. hero-2.mp4 (same as homepage).
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4', pos: 'center center' }
+        { src: '/media/hero-1.mp4?v=p9u', pos: 'center center' }
         // { src: '/media/hero-2.mp4', pos: 'center 30%' }   // paused per Seth 2026-07-29 (keep file, hide from rotation)
     ];
     var i = 0;
@@ -283,8 +283,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=p9s" defer></script>
-<script src="/scroll-top.js?v=p9s" defer></script>
-<script src="/hamburger.js?v=p9s" defer></script>
+<script src="/studio-motion.js?v=p9u" defer></script>
+<script src="/scroll-top.js?v=p9u" defer></script>
+<script src="/hamburger.js?v=p9u" defer></script>
 </body>
 </html>
