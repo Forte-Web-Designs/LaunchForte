@@ -17,7 +17,7 @@
 */
 (function(){
     /* -------------------- config -------------------- */
-    var LIVE = true;                                // 2026-07-29: flows session c23e95ec4265 landed; adapter + session + retry patches on this side. Ready for probe.
+    var LIVE = false;                               // 2026-07-29 revert: /forte-ask returns 200 with empty body (streaming-blocked path bug — flagged by flows session, still open on their side). Holding state shows until fixed.
     var API_BASE  = "https://launchforte.app.n8n.cloud/webhook";
     var ASK       = API_BASE + "/forte-ask";
     var SHAPE     = API_BASE + "/forte-shape";
