@@ -47,12 +47,13 @@
     <script src="../theme-toggle.js"></script>
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=p9g">
-    <script src="/studio-theme.js?v=p9g"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9h">
+    <link rel="stylesheet" href="/hero.css?v=p9h">
+    <script src="/studio-theme.js?v=p9h"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<header class="studio-nav site-header">
+<header class="studio-nav site-header hero-nav">
     <div class="studio-nav-inner">
         <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
             <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
@@ -72,19 +73,31 @@
     </div>
 </header>
 
-<main class="studio-pane">
+
+<!-- CINEMATIC HERO — shared video across every page. Rotates hero-1/2/4 via /hero.js. -->
+<div class="hero-zone">
+    <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="/media/hero-1.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
+    <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
+
+    <div class="hero-content">
+        <div class="hero-content-inner">
+            <span class="hero-eyebrow-line"><span class="dot"></span><span class="mark">Revenue Infrastructure</span></span>
+            <h1 class="hero-h1">
+                <span class="hero-h1-line-1">Most businesses don't have</span>
+                <span class="hero-h1-line-2">a sales problem. They have a plumbing problem.</span>
+            </h1>
+            <p class="hero-sub-dark">CRM, capture, follow-up, payment, and reporting engineered as one connected system. The plumbing that turns leads into paid customers on autopilot.</p>
+        </div>
+    </div>
+</div>
+
+<main class="studio-pane hero-follows">
 
     <!-- HERO -->
     <!-- HERO (lf-hero pattern per redesign md) -->
-    <section class="lf-hero">
-      <div class="lf-hero-grid" aria-hidden="true"></div>
-      <div class="lf-hero-inner centered">
-        <span class="lf-eyebrow">What we build</span>
-        <h1 class="lf-h1">Most businesses don't have a sales problem. They have a <span class="lf-accent">plumbing problem</span>.</h1>
-        <p class="lf-sub">Money moves through systems that were built for a smaller version of the company, and every dollar of growth costs more than it should. We rebuild the layer underneath. CRMs, payment flows, and onboarding architecture that turn closed deals into compounding revenue.</p>
-      </div>
-    </section>
-
     <!-- ANCHOR PILLS -->
     <div class="anchor-pills">
         <a href="#problem" class="anchor-pill">What it solves</a>
@@ -233,8 +246,8 @@
 
 <script src="../scroll-reveal.js"></script>
 <script src="../scroll-top.js"></script>
-<script src="/studio-motion.js?v=p9g" defer></script>
-<script src="/scroll-top.js?v=p9g" defer></script>
-<script src="/hamburger.js?v=p9g" defer></script>
+<script src="/studio-motion.js?v=p9h" defer></script>
+<script src="/scroll-top.js?v=p9h" defer></script>
+<script src="/hamburger.js?v=p9h" defer></script>
 </body>
 </html>
