@@ -73,7 +73,7 @@
         if (pre) {
             sendMessage(pre.slice(0, CHAR_CAP), { prefill: true });
         } else {
-            renderBotBubble("What's eating your week? Say it plain and I'll draw it.", { instant: true });
+            renderBotBubble("What's eating your week? Explain what's going on and I'll draw it.", { instant: true });
         }
         updateAllowance();
     }

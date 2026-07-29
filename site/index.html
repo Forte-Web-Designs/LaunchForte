@@ -19,9 +19,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p9k">
-    <link rel="stylesheet" href="/ask-forte.css?v=p9k">
-    <script src="/studio-theme.js?v=p9k"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9l">
+    <link rel="stylesheet" href="/ask-forte.css?v=p9l">
+    <script src="/studio-theme.js?v=p9l"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -1287,111 +1287,19 @@
     // Set initial position (source already in <source> tag so first frame paints ASAP)
     v.style.objectPosition = sources[0].pos;
     // Kick playback the moment enough data arrives
-    v.addEventListener('loadeddata', function(){ v.play().catch(function(){}); }, { once: true });
-    v.play().catch(function(){});
+    v.addEventListener('loadeddata', function(){ try { var _p2 = v.play(); if (_p2 && _p2.catch) _p2.catch(function(){}); } catch(_){} }, { once: true });
+    try { var _p = v.play(); if (_p && _p.catch) _p.catch(function(){}); } catch(_){}
 
     function loadIndex(k){
         var s = sources[k];
         v.style.objectPosition = s.pos;
         v.src = s.src;
-        v.play().catch(function(){});
+        try { var _p = v.play(); if (_p && _p.catch) _p.catch(function(){}); } catch(_){}
     }
     v.addEventListener('ended', function(){
         i = (i + 1) % sources.length;
         loadIndex(i);
     });
-})();
-
-// Ghost napkin (Section 10): canned sample typing + sketch drawing itself. Zero API calls, pre-rendered.
-(function(){
-    var frame = document.querySelector('.ghost-napkin');
-    if (!frame) return;
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    var thread = frame.querySelector('.ghost-thread');
-    var svg = frame.querySelector('.ghost-sketch');
-    var bubbleUser = thread.querySelector('.ghost-bubble-user');
-    var bubbleBot = thread.querySelector('.ghost-bubble-bot');
-    var typedUser = bubbleUser.querySelector('.ghost-typed');
-    var typedBot = bubbleBot.querySelector('.ghost-typed');
-    var caretUser = bubbleUser.querySelector('.ghost-caret');
-    var caretBot = bubbleBot.querySelector('.ghost-caret');
-
-    // Two canned examples to alternate
-    var examples = [
-        {
-            user: "we miss calls all day",
-            bot: "Sounds like a missed call texter with a decision routing under it. Sketching."
-        },
-        {
-            user: "my books are always a mess",
-            bot: "Sounds like a nightly reconciliation pattern with a review queue. Sketching."
-        }
-    ];
-    var idx = 0;
-
-    function reset() {
-        typedUser.textContent = '';
-        typedBot.textContent = '';
-        bubbleUser.style.opacity = '0';
-        bubbleBot.style.opacity = '0';
-        caretUser.style.display = 'inline-block';
-        caretBot.style.display = 'none';
-        svg.classList.remove('g-play');
-    }
-
-    function typeInto(el, caret, text, speed, done) {
-        el.textContent = '';
-        var i = 0;
-        var iv = setInterval(function(){
-            i++;
-            el.textContent = text.slice(0, i);
-            if (i >= text.length) {
-                clearInterval(iv);
-                caret.style.display = 'none';
-                done && done();
-            }
-        }, speed);
-    }
-
-    function runOnce() {
-        reset();
-        // Fade in user bubble, then type
-        bubbleUser.style.transition = 'opacity 240ms ease-out';
-        bubbleUser.style.opacity = '1';
-        setTimeout(function(){
-            typeInto(typedUser, caretUser, examples[idx].user, 55, function(){
-                // Pause, then bot bubble
-                setTimeout(function(){
-                    bubbleBot.style.transition = 'opacity 240ms ease-out';
-                    bubbleBot.style.opacity = '1';
-                    caretBot.style.display = 'inline-block';
-                    typeInto(typedBot, caretBot, examples[idx].bot, 28, function(){
-                        // Kick the sketch drawing
-                        setTimeout(function(){ svg.classList.add('g-play'); }, 250);
-                        // Loop after the sketch finishes (~2.4s draw + 1.5s hold)
-                        setTimeout(function(){
-                            idx = (idx + 1) % examples.length;
-                            runOnce();
-                        }, 5400);
-                    });
-                }, 450);
-            });
-        }, 250);
-    }
-
-    // Kick off once the section is in view
-    if ('IntersectionObserver' in window) {
-        var seen = false;
-        var io = new IntersectionObserver(function(entries){
-            entries.forEach(function(e){
-                if (e.isIntersecting && !seen) { seen = true; runOnce(); io.disconnect(); }
-            });
-        }, { threshold: 0.25 });
-        io.observe(frame);
-    } else {
-        runOnce();
-    }
 })();
 
 // Ask Forte mic: browser Web Speech API, tap to talk, live transcript fills the field
@@ -1814,9 +1722,9 @@
     else boot();
 })();
 </script>
-<script src="/ask-forte.js?v=p9k" defer></script>
-<script src="/studio-motion.js?v=p9k" defer></script>
-<script src="/scroll-top.js?v=p9k" defer></script>
-<script src="/hamburger.js?v=p9k" defer></script>
+<script src="/ask-forte.js?v=p9l" defer></script>
+<script src="/studio-motion.js?v=p9l" defer></script>
+<script src="/scroll-top.js?v=p9l" defer></script>
+<script src="/hamburger.js?v=p9l" defer></script>
 </body>
 </html>
