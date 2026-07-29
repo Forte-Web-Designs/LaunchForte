@@ -585,8 +585,20 @@ a:hover { color: var(--accent-hover); }
 .lf-cta-ghost:hover { background: transparent; border-color: var(--accent); color: var(--accent); }
 
 /* ---- Section rhythm ---- */
-.section, .section-inner, .section-content { max-width: 860px; margin: 0 auto; padding: var(--sp-16) var(--sp-6); }
+.section { max-width: 860px; margin: 0 auto; padding: var(--sp-16) var(--sp-6); }
+/* .section-inner / .section-content are wrappers used inside .section — no
+   extra padding, just a max-width center. FAQ page nests .section > .section-inner
+   > .section-content, so the outer .section provides all the spacing. */
+.section-inner, .section-content { max-width: 860px; margin: 0 auto; }
+.section.tinted { background: var(--paper-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.section > h1, .section-content h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.1; color: var(--ink); margin: 0.5rem 0 1rem; }
+.section > h2, .section-content h2, .section-inner h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: clamp(1.5rem, 3.5vw, 2.25rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; color: var(--ink); margin: 0 0 1.25rem; }
+.section > p, .section-content p, .section-inner p { color: var(--n-600); font-size: 1.0625rem; line-height: 1.7; margin: 0 0 1rem; }
 .section-label { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--n-500); margin-bottom: var(--sp-6); }
+/* .eyebrow pattern (older synonym for section-label used on FAQ + a few others) */
+.eyebrow { display: inline-block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--sp-3); }
+/* CTA button row used on FAQ + verticals */
+.ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: var(--sp-4) 0; }
 /* Standard body copy class used across about/writing/tools/free-tools */
 .body-text { color: var(--n-600); font-size: 1.0625rem; line-height: 1.7; margin: 0 0 1.25rem; }
 .body-text:last-child { margin-bottom: 0; }
@@ -736,17 +748,13 @@ a:hover { color: var(--accent-hover); }
 .featured-link::after { content: " →"; }
 
 /* ---- Additional case studies list (results, compact list under featured) ---- */
-.additional-list { display: flex; flex-direction: column; max-width: 1120px; margin: var(--sp-6) auto 0; padding: 0 var(--sp-6); }
-.additional-item { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-4); align-items: baseline; padding: var(--sp-5) 0; border-top: 1px solid var(--border); text-decoration: none; color: inherit; transition: background 0.2s ease; }
-.additional-item:last-child { border-bottom: 1px solid var(--border); }
-.additional-item:hover { background: var(--paper-2); }
-[data-theme="dark"] .additional-item:hover { background: var(--n-900); }
-.additional-item h3, .additional-item .additional-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); margin: 0 0 0.25rem; }
-.additional-item:hover h3, .additional-item:hover .additional-title { color: var(--accent); }
-.additional-client { font-size: 0.8125rem; color: var(--n-600); font-weight: 500; }
-.additional-context { font-size: 0.75rem; color: var(--n-500); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
-.additional-desc { font-size: 0.9375rem; line-height: 1.5; color: var(--n-600); margin: 0.35rem 0 0; grid-column: 1 / -1; }
-@media (max-width: 640px) { .additional-item { grid-template-columns: 1fr; } }
+.additional-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--sp-4); max-width: 1120px; margin: var(--sp-6) auto 0; padding: 0 var(--sp-6); }
+.additional-item { display: flex; flex-direction: column; gap: 0.5rem; padding: var(--sp-5); background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-3xl); transition: border-color 0.2s ease, transform 0.2s ease; }
+.additional-item:hover { border-color: var(--accent); transform: translateY(-2px); }
+.additional-item h3, .additional-item .additional-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1.125rem; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); margin: 0 0 0.25rem; line-height: 1.3; }
+.additional-client { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.15rem; }
+.additional-context { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 0.75rem; }
+.additional-desc { font-size: 0.9375rem; line-height: 1.55; color: var(--n-600); margin: 0; }
 
 /* ---- Free Tools body ---- */
 .intro-block { max-width: 780px; margin: var(--sp-8) auto var(--sp-12); padding: 0 var(--sp-6); }

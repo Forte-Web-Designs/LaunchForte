@@ -16,8 +16,8 @@
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
 
 <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/studio.css?v=p8v">
-<script src="/studio-theme.js?v=p8v"></script>
+<link rel="stylesheet" href="/studio.css?v=p8w">
+<script src="/studio-theme.js?v=p8w"></script>
 
 <style>
     /* Ask Forte OPEN — Phase 7 rewrite.
@@ -277,7 +277,7 @@
     */
 
     /* -------------------- config -------------------- */
-    var LIVE = true;                                // 2026-07-28: all four endpoints live per flows session (ask streaming, shape grounded, draw Y3bLu8bMOlu3aOtr, gate wired)
+    var LIVE = false;                               // 2026-07-28 revert: flows session flagged Capture missing. Until Capture ships (PDF send + Twenty write + inbox notify), a submitted email goes nowhere. Holding state stays.
     var API_BASE  = "https://launchforte.app.n8n.cloud/webhook";
     var ASK       = API_BASE + "/forte-ask";
     var SHAPE     = API_BASE + "/forte-shape";
@@ -669,45 +669,44 @@
 
             var reader = resp.body.getReader();
             var decoder = new TextDecoder();
-            // Two buffers: lineBuf holds partial newline-delimited JSON lines
-            // from n8n, carry holds partial sentinels once we've concatenated
-            // the model's actual content text. Per flows-session note: n8n
-            // emits {"content":"..."}\n envelopes and the model breaks text
-            // wherever it likes, so "[[SHAPE|lead-routing]]" can arrive as
-            // "[[" + "SHAPE" + "|lead" + "-routing" + "]]" across 5 envelopes.
-            // Concatenate content first, then scan for sentinels.
+            // TWO BUFFERS per flows-session PAGE-HANDOFF.md §0:
+            //   lineBuf: bytes-side, holds a partial JSON line across chunk boundaries
+            //   carry:   text-side, holds a partial sentinel across concatenated content
+            // Envelope format from n8n: newline-delimited JSON, one object per line,
+            //   {"type":"begin",...}   -> stream started (ignored)
+            //   {"type":"item","content":"..."}  -> tokens; concatenate content
+            //   {"type":"end",...}     -> stream complete; treat as done
+            // The model splits text anywhere, so "[[SHAPE|lead-routing]]" can arrive
+            // as 5 separate items carrying [[, SHAPE, |lead, -routing, ]]. That's
+            // why we concatenate content BEFORE running parseSentinels.
             var lineBuf = "";
             var carry = "";
+            var streamEnded = false;
 
             function pump(){
                 return reader.read().then(function(res){
                     if (res.done){
-                        // Flush any partial trailing line as content
+                        // Flush any partial trailing line as one final envelope
                         if (lineBuf){
-                            var extra = extractContent(lineBuf);
-                            if (extra){
-                                var out = parseSentinels(extra, carry);
-                                carry = out.carry;
-                                for (var i = 0; i < out.frames.length; i++) handleFrame(out.frames[i]);
-                            }
+                            processLine(lineBuf);
                             lineBuf = "";
                         }
                         if (carry){
+                            // Any leftover text after the final envelope goes out as tokens
                             handleFrame({ type: "token", text: carry });
                             carry = "";
                         }
                         finish();
                         return;
                     }
+                    if (streamEnded){ finish(); return; }  // saw {"type":"end"}, wrap up
                     lineBuf += decoder.decode(res.value, { stream: true });
-                    // Split on newlines; keep the last partial line in buffer
                     var lines = lineBuf.split("\n");
-                    lineBuf = lines.pop();
-                    // Extract .content from each complete line and concatenate
+                    lineBuf = lines.pop();  // last element is a partial (or empty) line
                     var textOut = "";
                     for (var i = 0; i < lines.length; i++){
-                        var c = extractContent(lines[i]);
-                        if (c) textOut += c;
+                        var contentPart = processLine(lines[i]);
+                        if (contentPart) textOut += contentPart;
                     }
                     if (textOut){
                         var out = parseSentinels(textOut, carry);
@@ -718,23 +717,28 @@
                 });
             }
 
-            // Unwrap one n8n stream line -> return the content field, or
-            // treat as-is if the line isn't JSON (backward compat with plain-text
-            // streams). Empty/whitespace lines return empty string.
-            function extractContent(line){
+            // Parse one complete line. If it's a JSON envelope, dispatch by type
+            // and return .content (if item) so the caller can accumulate it.
+            // If the line isn't JSON, fall back to treating it as raw text
+            // (backward compat with plain-text streams).
+            function processLine(line){
                 var trimmed = line.replace(/^data:\s*/, "").trim();
                 if (!trimmed) return "";
                 if (trimmed.charAt(0) === "{"){
                     try {
                         var obj = JSON.parse(trimmed);
+                        // Type-aware dispatch per PAGE-HANDOFF.md
+                        if (obj.type === "begin") return "";           // ignore start marker
+                        if (obj.type === "end"){ streamEnded = true; return ""; }
+                        if (obj.type === "item") return typeof obj.content === "string" ? obj.content : "";
+                        // Type absent but a text-ish field is present — use that
                         if (typeof obj.content === "string") return obj.content;
                         if (typeof obj.text === "string") return obj.text;
                         if (typeof obj.token === "string") return obj.token;
                         if (typeof obj.delta === "string") return obj.delta;
                         return "";
                     } catch(_){
-                        // Not valid JSON — return raw
-                        return trimmed;
+                        return trimmed;  // not valid JSON, treat as raw
                     }
                 }
                 return trimmed;
@@ -880,8 +884,8 @@
     </div>
 </footer>
 
-<script src="/studio-motion.js?v=p8v" defer></script>
-<script src="/scroll-top.js?v=p8v" defer></script>
-<script src="/hamburger.js?v=p8v" defer></script>
+<script src="/studio-motion.js?v=p8w" defer></script>
+<script src="/scroll-top.js?v=p8w" defer></script>
+<script src="/hamburger.js?v=p8w" defer></script>
 </body>
 </html>

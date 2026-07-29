@@ -19,8 +19,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p8v">
-    <script src="/studio-theme.js?v=p8v"></script>
+    <link rel="stylesheet" href="/studio.css?v=p8w">
+    <script src="/studio-theme.js?v=p8w"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -475,7 +475,11 @@
             --lf-accent: var(--accent);
         }
         [data-theme="dark"] .homepage-engine {
-            --lf-chipbg: var(--n-800);
+            /* In dark mode the neutral scale INVERTS: --n-100 becomes light-ish,
+               so re-pick chipbg as paper-2 (a dark surface a step above the pane)
+               and let --lf-ink (var(--ink)=#FAFAFA) read cleanly on top. */
+            --lf-chipbg: var(--paper-2);
+            --lf-line: rgba(255,255,255,0.16);
         }
         .homepage-engine svg { width: 100%; height: auto; display: block; border-radius: var(--radius-3xl); background: var(--paper-2); padding: 1.25rem; box-shadow: inset 0 0 0 1px var(--border); }
         .homepage-engine .the-engine-svg { max-width: 1160px; margin: 0 auto; }
@@ -1407,7 +1411,7 @@
     // Homepage bar mounts the full Ask Forte component inline via iframe
     // pointed at /demo/blueprint/?q=<query>. Two mounts, one implementation.
     // URL never changes (per Section 16); iframe carries the conversation.
-    var FLAG_LIVE = true;
+    var FLAG_LIVE = false;                          // 2026-07-28 revert: matches /demo/blueprint LIVE. Homepage bar shows the warming-up state until Capture ships.
 
     var form = document.getElementById('askf-hero-form');
     var input = document.getElementById('ask-forte-input');
@@ -1488,8 +1492,8 @@
     });
 })();
 </script>
-<script src="/studio-motion.js?v=p8v" defer></script>
-<script src="/scroll-top.js?v=p8v" defer></script>
-<script src="/hamburger.js?v=p8v" defer></script>
+<script src="/studio-motion.js?v=p8w" defer></script>
+<script src="/scroll-top.js?v=p8w" defer></script>
+<script src="/hamburger.js?v=p8w" defer></script>
 </body>
 </html>
