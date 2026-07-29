@@ -17,7 +17,7 @@
 */
 (function(){
     /* -------------------- config -------------------- */
-    var LIVE = true;                                // Live per Seth. n8n /forte-ask still returning empty body — flows session needs to fix the streaming-blocked path before real responses render.
+    var LIVE = true;                                // LIVE 2026-07-29: n8n verified end-to-end. /forte-ask streams first token at 1,753ms, emits [[SHAPE|slug]] and [[NAPKIN]] correctly. /forte-shape + /forte-draw up. Caps at prod values. /gate-request has no Capture workflow yet — errors handled honestly below.
     var API_BASE  = "https://launchforte.app.n8n.cloud/webhook";
     var ASK       = API_BASE + "/forte-ask";
     var SHAPE     = API_BASE + "/forte-shape";
@@ -419,7 +419,8 @@
                 if (window.dataLayer) window.dataLayer.push({ event: "fortebot_email_sent" });
             }).catch(function(){
                 msg.classList.add("err");
-                msg.textContent = "Couldn't send. Try seth@launchforte.com instead.";
+                // Capture workflow isn't built yet — honest fallback, no false promise of email.
+                msg.textContent = "I can't email it just yet, but the napkin is yours on screen.";
                 btn.disabled = false;
             });
         });
