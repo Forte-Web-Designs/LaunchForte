@@ -16,8 +16,8 @@
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
 
 <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/studio.css?v=p8u">
-<script src="/studio-theme.js?v=p8u"></script>
+<link rel="stylesheet" href="/studio.css?v=p8v">
+<script src="/studio-theme.js?v=p8v"></script>
 
 <style>
     /* Ask Forte OPEN — Phase 7 rewrite.
@@ -277,7 +277,7 @@
     */
 
     /* -------------------- config -------------------- */
-    var LIVE = false;                               // flip when ALL FOUR endpoints answer
+    var LIVE = true;                                // 2026-07-28: all four endpoints live per flows session (ask streaming, shape grounded, draw Y3bLu8bMOlu3aOtr, gate wired)
     var API_BASE  = "https://launchforte.app.n8n.cloud/webhook";
     var ASK       = API_BASE + "/forte-ask";
     var SHAPE     = API_BASE + "/forte-shape";
@@ -669,12 +669,29 @@
 
             var reader = resp.body.getReader();
             var decoder = new TextDecoder();
+            // Two buffers: lineBuf holds partial newline-delimited JSON lines
+            // from n8n, carry holds partial sentinels once we've concatenated
+            // the model's actual content text. Per flows-session note: n8n
+            // emits {"content":"..."}\n envelopes and the model breaks text
+            // wherever it likes, so "[[SHAPE|lead-routing]]" can arrive as
+            // "[[" + "SHAPE" + "|lead" + "-routing" + "]]" across 5 envelopes.
+            // Concatenate content first, then scan for sentinels.
+            var lineBuf = "";
             var carry = "";
 
             function pump(){
                 return reader.read().then(function(res){
                     if (res.done){
-                        // Flush any remaining buffered tail (in case stream ended mid-sentinel-ish)
+                        // Flush any partial trailing line as content
+                        if (lineBuf){
+                            var extra = extractContent(lineBuf);
+                            if (extra){
+                                var out = parseSentinels(extra, carry);
+                                carry = out.carry;
+                                for (var i = 0; i < out.frames.length; i++) handleFrame(out.frames[i]);
+                            }
+                            lineBuf = "";
+                        }
                         if (carry){
                             handleFrame({ type: "token", text: carry });
                             carry = "";
@@ -682,12 +699,45 @@
                         finish();
                         return;
                     }
-                    var chunkText = decoder.decode(res.value, { stream: true });
-                    var out = parseSentinels(chunkText, carry);
-                    carry = out.carry;
-                    for (var i = 0; i < out.frames.length; i++) handleFrame(out.frames[i]);
+                    lineBuf += decoder.decode(res.value, { stream: true });
+                    // Split on newlines; keep the last partial line in buffer
+                    var lines = lineBuf.split("\n");
+                    lineBuf = lines.pop();
+                    // Extract .content from each complete line and concatenate
+                    var textOut = "";
+                    for (var i = 0; i < lines.length; i++){
+                        var c = extractContent(lines[i]);
+                        if (c) textOut += c;
+                    }
+                    if (textOut){
+                        var out = parseSentinels(textOut, carry);
+                        carry = out.carry;
+                        for (var j = 0; j < out.frames.length; j++) handleFrame(out.frames[j]);
+                    }
                     return pump();
                 });
+            }
+
+            // Unwrap one n8n stream line -> return the content field, or
+            // treat as-is if the line isn't JSON (backward compat with plain-text
+            // streams). Empty/whitespace lines return empty string.
+            function extractContent(line){
+                var trimmed = line.replace(/^data:\s*/, "").trim();
+                if (!trimmed) return "";
+                if (trimmed.charAt(0) === "{"){
+                    try {
+                        var obj = JSON.parse(trimmed);
+                        if (typeof obj.content === "string") return obj.content;
+                        if (typeof obj.text === "string") return obj.text;
+                        if (typeof obj.token === "string") return obj.token;
+                        if (typeof obj.delta === "string") return obj.delta;
+                        return "";
+                    } catch(_){
+                        // Not valid JSON — return raw
+                        return trimmed;
+                    }
+                }
+                return trimmed;
             }
 
             function handleFrame(f){
@@ -830,8 +880,8 @@
     </div>
 </footer>
 
-<script src="/studio-motion.js?v=p8u" defer></script>
-<script src="/scroll-top.js?v=p8u" defer></script>
-<script src="/hamburger.js?v=p8u" defer></script>
+<script src="/studio-motion.js?v=p8v" defer></script>
+<script src="/scroll-top.js?v=p8v" defer></script>
+<script src="/hamburger.js?v=p8v" defer></script>
 </body>
 </html>

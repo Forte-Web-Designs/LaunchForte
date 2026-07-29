@@ -641,8 +641,9 @@ a:hover { color: var(--accent-hover); }
 .form-input, .form-select, .form-textarea { width: 100%; padding: 0.85rem 1rem; font-family: inherit; font-size: 1rem; color: var(--ink); background: var(--paper); border: 1px solid var(--border); border-radius: 12px; outline: none; transition: border-color 0.2s ease; }
 .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
 .form-textarea { min-height: 140px; resize: vertical; }
-.form-error { display: block; color: #dc2626; font-size: 0.8125rem; margin-top: 0.4rem; min-height: 1em; }
-.form-success { padding: var(--sp-8); background: var(--paper); border: 1px solid var(--accent); border-radius: var(--radius-3xl); text-align: center; }
+/* Hidden by default; JS on submit success/error flips display to block. */
+.form-error { display: none; color: #dc2626; font-size: 0.9375rem; margin-top: 1rem; padding: 0.75rem 1rem; background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.2); border-radius: 12px; }
+.form-success { display: none; padding: var(--sp-8); background: var(--paper); border: 1px solid var(--accent); border-radius: var(--radius-3xl); text-align: center; margin-top: 1.5rem; }
 .form-success-icon { font-size: 2.5rem; color: var(--accent); margin-bottom: var(--sp-3); }
 .form-success-heading { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1.5rem; font-weight: 600; color: var(--ink); margin: 0 0 var(--sp-2); }
 .form-success-text { color: var(--n-600); margin: 0; }

@@ -19,8 +19,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p8u">
-    <script src="/studio-theme.js?v=p8u"></script>
+    <link rel="stylesheet" href="/studio.css?v=p8v">
+    <script src="/studio-theme.js?v=p8v"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -398,6 +398,11 @@
         .askf-warm-tool:hover { border-color: var(--accent); transform: translateY(-2px); }
         .askf-warm-tool b { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.9375rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
         .askf-warm-tool span { display: block; font-size: 0.8125rem; color: var(--n-500); }
+        /* FLAG_LIVE=true iframe mount of /demo/blueprint */
+        .askf-inline-inner-chat { padding: 0; position: relative; overflow: hidden; }
+        .askf-inline-inner-chat .askf-close { position: absolute; top: 12px; right: 12px; z-index: 2; background: var(--paper); border: 1px solid var(--border); }
+        .askf-inline-iframe { display: block; width: 100%; height: 720px; border: 0; background: var(--paper); }
+        @media(max-width: 640px) { .askf-inline-iframe { height: 640px; } }
 
         /* WHO WE BUILD FOR one-liner (Section 11.3) */
         .who-line { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.5rem, 3.2vw, 2rem); line-height: 1.25; letter-spacing: -0.02em; color: var(--ink); margin: 1rem 0 0; max-width: 900px; }
@@ -583,10 +588,9 @@
            SECTION 13: mobile discipline (crowded is the enemy)
            ============================================================ */
         @media(max-width: 768px) {
-          /* Video: poster only under 768px — kill the dim loop for bytes + Lighthouse win */
-          .hero-video { display: none !important; }
-          /* Add a subtle gradient wash so the black hero doesn't feel empty */
-          .hero-zone { background: linear-gradient(180deg, #0A0A0A 0%, #14213D 100%); }
+          /* 2026-07-28 Seth override: video STAYS on mobile, stacks above the
+             text via studio.css. The Section 13 poster-only rule is retired. */
+          .hero-zone { background: #0A0A0A; }
           .hero-overlay-btm { background: linear-gradient(180deg, transparent 75%, rgba(10,10,10,0.4) 88%, #FFFFFF 100%); }
           /* Rhythm: pane radius steps down */
           .studio-pane { border-top-left-radius: 24px; border-top-right-radius: 24px; }
@@ -1399,7 +1403,11 @@
    /ask remains a redirect to /demo/blueprint for people arriving via
    bookmark or campaign link, but the homepage bar routes NOTHING to it. */
 (function(){
-    var FLAG_LIVE = false;
+    // 2026-07-28: all four n8n endpoints answer per flows session.
+    // Homepage bar mounts the full Ask Forte component inline via iframe
+    // pointed at /demo/blueprint/?q=<query>. Two mounts, one implementation.
+    // URL never changes (per Section 16); iframe carries the conversation.
+    var FLAG_LIVE = true;
 
     var form = document.getElementById('askf-hero-form');
     var input = document.getElementById('ask-forte-input');
@@ -1429,20 +1437,18 @@
             '</div>';
     }
 
-    /* When FLAG_LIVE is true the full Ask Forte component mounts here.
-       For now this is a placeholder so the mount hook is proven; the
-       n8n side ships the streaming + sentinel adapter first, then a
-       later commit ports the /demo/blueprint component into this mount. */
+    /* FLAG_LIVE=true: mount the /demo/blueprint component inline as an
+       iframe with the user's query prefilled. Blueprint's prefill handler
+       fires the first turn on arrival so the visitor's message is already
+       being answered by the time the frame paints. The homepage URL never
+       changes; the conversation happens in place. */
     function renderLiveMount(q){
-        var qHtml = q ? '<p class="quoted-q">"' + esc(q) + '"</p>' : '';
+        var src = '/demo/blueprint/' + (q ? '?q=' + encodeURIComponent(q) : '');
         panel.innerHTML =
-            '<div class="askf-inline-inner">' +
+            '<div class="askf-inline-inner askf-inline-inner-chat">' +
                 closeBtn() +
-                '<h3>Ask Forte</h3>' +
-                qHtml +
-                '<p>Loading the conversation...</p>' +
+                '<iframe class="askf-inline-iframe" src="' + esc(src) + '" title="Ask Forte" allow="microphone"></iframe>' +
             '</div>';
-        /* Component mount lands here when the flows-session porting commit ships. */
     }
 
     function openPanel(q){
@@ -1482,8 +1488,8 @@
     });
 })();
 </script>
-<script src="/studio-motion.js?v=p8u" defer></script>
-<script src="/scroll-top.js?v=p8u" defer></script>
-<script src="/hamburger.js?v=p8u" defer></script>
+<script src="/studio-motion.js?v=p8v" defer></script>
+<script src="/scroll-top.js?v=p8v" defer></script>
+<script src="/hamburger.js?v=p8v" defer></script>
 </body>
 </html>
