@@ -19,9 +19,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p9o">
-    <link rel="stylesheet" href="/ask-forte.css?v=p9o">
-    <script src="/studio-theme.js?v=p9o"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9p">
+    <link rel="stylesheet" href="/ask-forte.css?v=p9p">
+    <script src="/studio-theme.js?v=p9p"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -262,45 +262,35 @@
         .hero-eyebrow-line .rule { display: inline-block; width: 40px; height: 1px; background: rgba(255,255,255,0.32); flex: none; }
 
         /* H1: two lines. Line 1 is the ONE permitted gradient (ink to accent blue) — the hero's signature. */
-        .hero-h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(2rem, 4.8vw, 4rem); line-height: 1.15; letter-spacing: -0.03em; margin: 0 0 2.25rem; max-width: 22ch; }
-        .hero-h1 .hero-h1-line-1,
-        .hero-h1 .hero-h1-line-2 { display: block; }
-        .hero-h1 .hero-h1-line-1 { color: #FFFFFF; }
-        .hero-h1 .hero-h1-line-2 { color: #FFFFFF; }
-        /* Rotating word: gradient blue text that cycles through terms. The
-           slot reserves the widest word's width so the page never jumps
-           when the word changes length. All variants stack in the same
-           position (position: absolute); only .is-active is visible. */
-        .hero-rotator { display: inline-block; vertical-align: baseline; position: relative; }
-        .hero-rotator-slot { display: inline-block; position: relative; min-width: 0; }
-        .hero-rotator-word {
-            display: inline-block;
-            background: linear-gradient(90deg, #FFFFFF 0%, #4AB5ED 55%, #0088DB 100%);
+        /* Hero H1 per sethforte: title-case, single <br>, rotating gradient word.
+           min-height gets pinned at boot by JS to the tallest variant so cycling
+           never shifts the page. CSS floor here is the no-JS/first-paint fallback. */
+        .hero-h1 {
+            font-family: var(--font-display); font-variation-settings: var(--font-display-vars);
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            font-size: clamp(2.25rem, 6vw, 4.5rem);
+            margin: 0 auto 1.5rem;
+            color: #FFFFFF;
+            max-width: 20ch;
+            /* No-JS floor: reserve 2 lines. JS reads the tallest variant and
+               replaces this with the exact tallest-rendered pixel height. */
+            min-height: calc(2 * 1.05em);
+        }
+        @media (max-width: 560px) {
+            /* Only "Using The Right Data" needs a third line at narrow widths */
+            .hero-h1 { min-height: calc(3 * 1.05em); }
+        }
+        /* The ONE permitted gradient in the system — on the payoff phrase */
+        .gradient-text {
+            background: linear-gradient(120deg, var(--accent) 0%, #5BC0FF 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             color: transparent;
-            font-weight: 600;
-            font-style: italic;
-        }
-        /* All variants after the first stack over the first via absolute positioning.
-           JS toggles .is-active to swap which one is visible. The FIRST child sits
-           in normal flow and dictates the slot's width — JS measures every word and
-           picks the widest as the initial visible one so nothing ever expands past it. */
-        .hero-rotator-word:not(:first-child) {
-            position: absolute; top: 0; left: 0;
-            opacity: 0; visibility: hidden;
-            transition: opacity 350ms ease-out;
-        }
-        .hero-rotator-word:first-child {
-            opacity: 0; visibility: hidden;
-            transition: opacity 350ms ease-out;
-        }
-        .hero-rotator-word.is-active {
-            opacity: 1; visibility: visible;
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .hero-rotator-word { transition: none; }
+            display: inline-block;
+            transition: opacity 0.3s ease;
         }
 
         /* Ask Forte field: paper field on dark ground */
@@ -700,17 +690,13 @@
          scroll cue into that bar. -->
     <div class="hero-content">
         <div class="hero-content-inner">
-            <!-- Hero: fixed line 1, rotating PHRASE on line 2 in the gradient color.
-                 The rotator sits in an inline-block wrapper that reserves the
-                 widest phrase's width, so cycling through terms of different
-                 length never jumps the page up or down. Phrases from the
-                 original sethforte hero (per git history): A System, The
-                 Right Data, A Framework, A Process, Execution. -->
-            <h1 class="hero-h1">
-                <span class="hero-h1-line-1">Business growth isn't luck.</span>
-                <span class="hero-h1-line-2">It's <span class="hero-rotator" aria-live="polite"><span class="hero-rotator-slot"><span class="hero-rotator-word is-active">A System</span><span class="hero-rotator-word">The Right Data</span><span class="hero-rotator-word">A Framework</span><span class="hero-rotator-word">A Process</span><span class="hero-rotator-word">Execution</span></span></span>.</span>
-            </h1>
-            <p class="hero-sub-below" style="color:rgba(255,255,255,0.65);font-size:0.9375rem;line-height:1.5;margin:0 auto 1.5rem;max-width:56ch;text-align:center;font-weight:500;letter-spacing:0.01em;">Automation infrastructure for growing businesses.</p>
+            <!-- Hero H1 — sethforte pattern verbatim: title case, single <br>,
+                 the last word swaps on a timer via .gradient-text. The JS
+                 rotator below measures every variant off-screen at boot and
+                 pins .hero-h1 min-height to the tallest, so the page never
+                 shifts when the word changes length. -->
+            <h1 class="hero-h1 hero-headline">Business Growth Isn't Luck.<br>It's <span class="gradient-text">A System</span>.</h1>
+            <p class="hero-sub-below" style="color:rgba(250,250,250,0.72);font-size:1.125rem;line-height:1.5;margin:0 auto 1.5rem;max-width:54ch;text-align:center;font-weight:400;">Automation infrastructure for growing businesses. I build the systems that turn traffic into revenue and make growth repeatable.</p>
 
             <p class="hero-quiet-links">
                 <a href="#ask-forte" data-gtm-event="homepage_hero_ask_link">Ask Forte</a>
@@ -1331,65 +1317,54 @@
     });
 })();
 
-/* Hero rotator: cycle "system / process / blueprint / machine / discipline
-   / playbook" without jumping the page. The slot's width is fixed to the
-   widest word at boot; every other variant is absolutely positioned at
-   0,0 and toggled via .is-active. Cross-fade on swap, 2.4s cadence. */
+/* Hero H1 rotator per sethforte.com exactly. Two IIFEs on purpose so
+   they map 1:1 to that reference:
+     1) Reserve the H1's tallest state by measuring every variant off-screen
+        and pinning min-height. Prevents the page from shifting when the
+        rotating word changes length (esp. "Using The Right Data" at narrow
+        widths where it needs a third line).
+     2) Swap the .gradient-text word on a 2.2s interval, 0.3s opacity fade
+        on the swap. */
 (function(){
-    var slot = document.querySelector('.hero-rotator-slot');
-    if (!slot) return;
-    var words = Array.prototype.slice.call(slot.querySelectorAll('.hero-rotator-word'));
-    if (words.length < 2) return;
-
-    // Measure widest word (they're all in the DOM already; the non-first
-    // are absolute so they don't contribute to slot width by default).
-    // Temporarily un-hide each to measure, then restore.
-    function measureAndPin(){
-        var maxW = 0;
-        words.forEach(function(w){
-            var prev = { opacity: w.style.opacity, visibility: w.style.visibility, position: w.style.position };
-            w.style.visibility = 'hidden';
-            w.style.opacity = '0';
-            w.style.position = 'static';
-            var rect = w.getBoundingClientRect();
-            if (rect.width > maxW) maxW = rect.width;
-            w.style.opacity = prev.opacity;
-            w.style.visibility = prev.visibility;
-            w.style.position = prev.position;
-        });
-        // Pin the slot to the widest measured word so no cycle ever expands
-        // it. Add a tiny buffer for sub-pixel rendering.
-        slot.style.width = Math.ceil(maxW + 2) + 'px';
-        slot.style.display = 'inline-block';
-        slot.style.minHeight = '1em';
+    var h1 = document.querySelector('.hero-headline');
+    var slot = h1 && h1.querySelector('.gradient-text');
+    if (!h1 || !slot) return;
+    var variants = ["A System", "Using The Right Data", "A Framework", "A Process", "Repeatable"];
+    function reserve(){
+        var live = slot.textContent;
+        h1.style.minHeight = '';
+        var tallest = 0;
+        for (var i = 0; i < variants.length; i++){
+            slot.textContent = variants[i];
+            var hgt = h1.getBoundingClientRect().height;
+            if (hgt > tallest) tallest = hgt;
+        }
+        slot.textContent = live;
+        if (tallest) h1.style.minHeight = Math.ceil(tallest) + 'px';
     }
-
-    // Wait for font to load so the width is measured with Mona Sans rendered,
-    // not the fallback face (otherwise the pin can be tight after swap).
-    if (document.fonts && document.fonts.ready){
-        document.fonts.ready.then(measureAndPin);
-    } else {
-        window.addEventListener('load', measureAndPin);
-    }
-    // Also re-measure on resize (font-size changes across breakpoints).
-    var resizeT;
+    reserve();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(reserve);
+    var t;
     window.addEventListener('resize', function(){
-        clearTimeout(resizeT);
-        resizeT = setTimeout(measureAndPin, 120);
-    }, { passive: true });
-
-    // Reduced motion: just leave the first word visible and don't cycle.
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-        words.forEach(function(w, i){ w.classList.toggle('is-active', i === 0); });
-        return;
-    }
-
-    var idx = 0;
+        clearTimeout(t);
+        t = setTimeout(reserve, 120);
+    });
+})();
+(function(){
+    var words = ["A System", "Using The Right Data", "A Framework", "A Process", "Repeatable"];
+    var el = document.querySelector('.hero-headline .gradient-text');
+    if (!el) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var index = 0;
     setInterval(function(){
-        words[idx].classList.remove('is-active');
-        idx = (idx + 1) % words.length;
-        words[idx].classList.add('is-active');
-    }, 2400);
+        el.style.opacity = 0;
+        el.style.transition = 'opacity 0.3s ease';
+        setTimeout(function(){
+            index = (index + 1) % words.length;
+            el.textContent = words[index];
+            el.style.opacity = 1;
+        }, 300);
+    }, 2200);
 })();
 
 // Section 13: mobile placeholder swap for Ask bar (under 480px).
@@ -1722,9 +1697,9 @@
     else boot();
 })();
 </script>
-<script src="/ask-forte.js?v=p9o" defer></script>
-<script src="/studio-motion.js?v=p9o" defer></script>
-<script src="/scroll-top.js?v=p9o" defer></script>
-<script src="/hamburger.js?v=p9o" defer></script>
+<script src="/ask-forte.js?v=p9p" defer></script>
+<script src="/studio-motion.js?v=p9p" defer></script>
+<script src="/scroll-top.js?v=p9p" defer></script>
+<script src="/hamburger.js?v=p9p" defer></script>
 </body>
 </html>
