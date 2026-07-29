@@ -8,8 +8,7 @@
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=p9w', pos: 'center center' },
-        { src: '/media/hero-2.mp4?v=p9w', pos: 'center center' }
+        { src: '/media/hero-1.mp4?v=p9x', pos: 'center center' }
     ];
     var i = 0;
     if (sources.length > 1) {

@@ -4,7 +4,7 @@
     <link rel="preload" as="image" href="/images/home/launch-forte.png" fetchpriority="high">
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
     <!-- Preload the first hero video so it starts painting the moment the page loads, not on scroll -->
-    <link rel="preload" as="video" href="/media/hero-1.mp4?v=p9w" type="video/mp4">
+    <link rel="preload" as="video" href="/media/hero-1.mp4?v=p9x" type="video/mp4">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Launch Forte | Business Automation and Revenue Systems, Built and Run</title>
@@ -19,9 +19,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=p9w">
-    <link rel="stylesheet" href="/ask-forte.css?v=p9w">
-    <script src="/studio-theme.js?v=p9w"></script>
+    <link rel="stylesheet" href="/studio.css?v=p9x">
+    <link rel="stylesheet" href="/ask-forte.css?v=p9x">
+    <script src="/studio-theme.js?v=p9x"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -686,10 +686,10 @@
 
 <div class="hero-zone">
     <!-- Rotating ambient video (muted, autoplay, back-to-back). Poster shows first paint.
-         The JS at the bottom of the page cycles through /media/hero-1.mp4?v=p9w .. hero-2.mp4. -->
+         The JS at the bottom of the page cycles through /media/hero-1.mp4?v=p9x .. hero-2.mp4. -->
     <!-- preload="auto" eagerly fetches the whole file so the video plays instantly, not after a scroll cue. No poster: the dark hero background reads clean until the first frame paints. -->
     <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4?v=p9w" type="video/mp4">
+        <source src="/media/hero-1.mp4?v=p9x" type="video/mp4">
     </video>
     <!-- Two overlays: left-to-right dark gradient for text legibility, bottom fade dissolving into the pane's rounded top -->
     <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
@@ -1266,7 +1266,7 @@
     io.observe(host);
 })();
 
-// Cinematic hero: rotate through /media/hero-1.mp4?v=p9w .. hero-2.mp4 back-to-back
+// Cinematic hero: rotate through /media/hero-1.mp4?v=p9x .. hero-2.mp4 back-to-back
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
@@ -1275,8 +1275,7 @@
     // Rotation order (Seth's pick): black shirt (hero-1), collared with me visible (hero-2), last (hero-4).
     // Each has a poster crop hint so I'm in view regardless of the video's own centering.
     var sources = [
-        { src: '/media/hero-1.mp4?v=p9w', pos: 'center center' },
-        { src: '/media/hero-2.mp4?v=p9w', pos: 'center center' }
+        { src: '/media/hero-1.mp4?v=p9x', pos: 'center center' }
     ];
     var i = 0;
     v.removeAttribute('loop'); // We rotate instead of looping a single file
@@ -1699,9 +1698,9 @@
     else boot();
 })();
 </script>
-<script src="/ask-forte.js?v=p9w" defer></script>
-<script src="/studio-motion.js?v=p9w" defer></script>
-<script src="/scroll-top.js?v=p9w" defer></script>
-<script src="/hamburger.js?v=p9w" defer></script>
+<script src="/ask-forte.js?v=p9x" defer></script>
+<script src="/studio-motion.js?v=p9x" defer></script>
+<script src="/scroll-top.js?v=p9x" defer></script>
+<script src="/hamburger.js?v=p9x" defer></script>
 </body>
 </html>
