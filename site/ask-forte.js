@@ -67,13 +67,14 @@
         wireInput();
         wireMic();
         wireGate();
-        // Empty thread by default. The ghost sample above sells, the input
-        // placeholder invites — a bot introducing itself before being spoken
-        // to reads as needy. Visitor speaks first.
-        // Approved fallback if a first bubble ever comes back:
-        // "What's eating your week? Say it plain and I'll draw it."
+        // Opener bubble per Seth: exactly this and nothing more.
+        // No introduction, no name, no capabilities list — just the question.
         var pre = new URLSearchParams(location.search).get("q");
-        if (pre) sendMessage(pre.slice(0, CHAR_CAP), { prefill: true });
+        if (pre) {
+            sendMessage(pre.slice(0, CHAR_CAP), { prefill: true });
+        } else {
+            renderBotBubble("What's eating your week? Say it plain and I'll draw it.", { instant: true });
+        }
         updateAllowance();
     }
 
@@ -174,28 +175,36 @@
         scrollLog();
         return t;
     }
-    /* Runbook: when [[NAPKIN]] arrives, render the napkin container IMMEDIATELY
-       with a faint blurred generic napkin ghost at low opacity (never an empty
-       wait state). Real strokes draw over it in strict order as they land, blur
-       lifts as strokes complete. Draw is fired automatically — no button. */
+    /* Runbook: when [[NAPKIN]] arrives, render the napkin container. The
+       blur-ghost placeholder fades IN at draw start — not sitting there
+       before. Real strokes draw over it in strict order as they land, blur
+       lifts as strokes complete. Draw is fired automatically — no button.
+
+       Every ghost edge terminates in a drawn node at BOTH ends (renderer
+       rule from Seth's ruling). Shape below: three-node pipeline in a row,
+       one decision circle below the middle, book-out box under it. No
+       dangling connectors. */
     function renderNapkinGhost(){
         var t = el("div","askf-turn bot");
         var b = el("div","askf-bubble napkin askf-napkin-loading");
         var frame = el("div","askf-napkin-frame askf-napkin-frame-ghost");
-        // Generic pipeline-shape ghost: 4 nodes, 3 wires, 1 scar underline.
-        // Sits at low opacity + blur; JS lifts it when the real SVG lands.
+        // The ghost SVG is inserted with opacity:0; JS fades it in on next
+        // frame so the container appears BEFORE the ghost blooms into it.
         frame.innerHTML =
-            '<svg viewBox="0 0 340 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+            '<svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
               '<g stroke="#4A4A4F" stroke-width="1.6" fill="none" stroke-linecap="round">' +
-                '<rect x="18" y="30" width="80" height="46" rx="8"/>' +
+                // Three nodes across the top
+                '<rect x="18"  y="30" width="80" height="46" rx="8"/>' +
                 '<rect x="130" y="30" width="80" height="46" rx="8"/>' +
                 '<rect x="242" y="30" width="80" height="46" rx="8"/>' +
-                '<rect x="130" y="130" width="80" height="46" rx="8"/>' +
-                '<path d="M98 53 L130 53"/>' +
-                '<path d="M210 53 L242 53"/>' +
-                '<path d="M170 76 L170 130"/>' +
-                '<circle cx="170" cy="153" r="34" stroke="#0088DB" stroke-width="2"/>' +
-                '<path d="M18 220 L145 220"/>' +
+                // Book-out node, centered below the middle
+                '<rect x="130" y="150" width="80" height="46" rx="8"/>' +
+                // Edges — every endpoint touches a node bound
+                '<path d="M98 53 L130 53"/>' +      // top-left -> middle
+                '<path d="M210 53 L242 53"/>' +     // middle -> top-right
+                '<path d="M170 76 L170 150"/>' +    // middle down to book-out
+                // Blue decision ring around the middle node
+                '<rect x="130" y="30" width="80" height="46" rx="8" stroke="#0088DB" stroke-width="2"/>' +
               '</g>' +
             '</svg>';
         b.appendChild(frame);
@@ -205,6 +214,14 @@
         t.appendChild(b);
         $("askf-log").appendChild(t);
         scrollLog();
+        // Fade the ghost in AT draw start rather than having it visible
+        // the instant the container mounts. Container appears first (paper
+        // only), then blur-ghost blooms.
+        frame.style.opacity = '0';
+        requestAnimationFrame(function(){
+            frame.style.transition = 'opacity 400ms ease-out';
+            frame.style.opacity = '1';
+        });
         return { turn: t, bubble: b, frame: frame, status: status };
     }
     function renderCard(kind, body){
