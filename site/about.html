@@ -73,8 +73,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q1r">
-    <script src="/studio-theme.js?v=q1r"></script>
+    <link rel="stylesheet" href="/studio.css?v=q1s">
+    <script src="/studio-theme.js?v=q1s"></script>
     <style>
         /* Cinematic hero for About — same rotating video pattern as homepage.
            Runbook §8 declares one dark zone per site (the homepage) but the
@@ -153,10 +153,10 @@
 </header>
 
 <!-- CINEMATIC HERO — same rotating video as homepage. Rotates through
-     /media/hero-1.mp4?v=q1r and hero-2.mp4 via the JS at page bottom. -->
+     /media/hero-1.mp4?v=q1s and hero-2.mp4 via the JS at page bottom. -->
 <div class="hero-zone">
     <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4?v=q1r" type="video/mp4">
+        <source src="/media/hero-1.mp4?v=q1s" type="video/mp4">
     </video>
     <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
@@ -334,14 +334,14 @@
 </main>
 
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1r .. hero-2.mp4 back-to-back
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q1s .. hero-2.mp4 back-to-back
 // (same as homepage). Reduced motion honors the poster and skips rotation.
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1r', pos: 'center center', startAt: 3, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q1s', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -372,8 +372,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q1r" defer></script>
-<script src="/scroll-top.js?v=q1r" defer></script>
-<script src="/hamburger.js?v=q1r" defer></script>
+<script src="/studio-motion.js?v=q1s" defer></script>
+<script src="/scroll-top.js?v=q1s" defer></script>
+<script src="/hamburger.js?v=q1s" defer></script>
 </body>
 </html>
