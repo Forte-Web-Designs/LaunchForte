@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-    <link rel="preload" as="image" href="/images/home/logo-header-light.svg" fetchpriority="high">
+    <link rel="preload" as="image" href="/images/home/launch-forte.png" fetchpriority="high">
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
     <!-- Preload the first hero video so it starts painting the moment the page loads, not on scroll -->
     <meta charset="UTF-8">
@@ -18,9 +18,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=q1z">
-    <link rel="stylesheet" href="/ask-forte.css?v=q1z">
-    <script src="/studio-theme.js?v=q1z"></script>
+    <link rel="stylesheet" href="/studio.css?v=q2a">
+    <link rel="stylesheet" href="/ask-forte.css?v=q2a">
+    <script src="/studio-theme.js?v=q2a"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -198,7 +198,7 @@
               #0A0A0A;
             color: #FFFFFF;
             overflow: hidden;
-            padding-bottom: 1rem;
+            padding-bottom: 0.5rem;
         }
         /* The paper pane that follows the hero doesn't need its own peek/top padding */
         main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
@@ -222,7 +222,7 @@
         .hero-nav.is-scrolled { background: rgba(10, 10, 10, 0.82) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; backdrop-filter: saturate(180%) blur(20px) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
         @media (max-width: 640px) { .hero-nav { padding: 0.7rem 0 !important; } .hero-nav .studio-nav-inner { padding: 0 1rem; gap: 0.75rem; } .hero-nav .studio-nav-cta { padding: 0.45rem 0.9rem; font-size: 0.8125rem; } .hero-nav .studio-nav-right { gap: 0.5rem; } }
         .hero-nav .studio-nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
-        .hero-nav .studio-logo img { height: 28px; width: auto; display: block; }
+        .hero-nav .studio-logo img { filter: brightness(0) invert(1); height: 28px; width: auto; display: block; }
         .hero-nav .studio-nav-cta { background: #FFFFFF; color: #0A0A0A; }
         .hero-nav .studio-nav-cta:hover { background: #F5F5F5; color: #0A0A0A; }
         .hero-nav #hamburger { border-color: rgba(255,255,255,0.24); }
@@ -713,7 +713,7 @@
 <header class="studio-nav site-header hero-nav">
     <div class="studio-nav-inner">
         <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
-            <img src="/images/home/logo-header-light.svg" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
         </a>
         <div class="studio-nav-right">
             <a href="/contact.html" class="studio-nav-cta">Contact</a>
@@ -1115,7 +1115,7 @@
     <!-- 7.5 ABOUT VIDEO — autoplay muted b-roll, sits above the About block -->
     <section class="studio-container studio-section" style="padding-top:0;">
         <div class="about-us-video-wrap studio-reveal">
-            <video src="/media/about-us.mp4?v=q1z" autoplay muted loop playsinline preload="metadata" controls></video>
+            <video src="/media/about-us.mp4?v=q2a" autoplay muted loop playsinline preload="metadata" controls></video>
         </div>
     </section>
 
@@ -1313,7 +1313,7 @@
     io.observe(host);
 })();
 
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1z .. hero-2.mp4 back-to-back
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q2a .. hero-2.mp4 back-to-back
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
@@ -1322,7 +1322,7 @@
     // Rotation order (Seth's pick): black shirt (hero-1), collared with me visible (hero-2), last (hero-4).
     // Each has a poster crop hint so I'm in view regardless of the video's own centering.
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1z', pos: 'center center', startAt: 2, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q2a', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
     v.removeAttribute('loop'); // We rotate instead of looping a single file
@@ -1768,9 +1768,9 @@
     else boot();
 })();
 </script>
-<script src="/ask-forte.js?v=q1z" defer></script>
-<script src="/studio-motion.js?v=q1z" defer></script>
-<script src="/scroll-top.js?v=q1z" defer></script>
-<script src="/hamburger.js?v=q1z" defer></script>
+<script src="/ask-forte.js?v=q2a" defer></script>
+<script src="/studio-motion.js?v=q2a" defer></script>
+<script src="/scroll-top.js?v=q2a" defer></script>
+<script src="/hamburger.js?v=q2a" defer></script>
 </body>
 </html>
