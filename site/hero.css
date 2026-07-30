@@ -1,7 +1,7 @@
 /* Cinematic hero — shared across every page that carries it.
    Structure per-page (below the sticky Studio nav):
      <div class="hero-zone">
-       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=q1t"></video>
+       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=q1u"></video>
        <div class="hero-overlay hero-overlay-lr"></div>
        <div class="hero-overlay hero-overlay-btm"></div>
        <div class="hero-content"><div class="hero-content-inner">
@@ -86,7 +86,7 @@ main.studio-pane.hero-follows::before { display: none; }
 .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 60ch; }
 
 /* Mobile hero (sethforte pattern): video stays full-cover background,
-   text sits over it. object-position: 30% center keeps Seth in frame
+   text sits over it. object-position: 20% center keeps Seth in frame
    after the horizontal crop that fits 1280px into a phone width. A
    heavier top-down gradient darkens for text legibility. */
 @media (max-width: 768px) {
@@ -102,7 +102,7 @@ main.studio-pane.hero-follows::before { display: none; }
     width: 100% !important;
     height: 100% !important;
     object-fit: cover;
-    object-position: 30% center;   /* Seth stands ~30% from left */
+    object-position: 20% center;   /* Seth stands ~30% from left */
     opacity: 1 !important;
     display: block;
   }
