@@ -73,8 +73,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q1i">
-    <script src="/studio-theme.js?v=q1i"></script>
+    <link rel="stylesheet" href="/studio.css?v=q1j">
+    <script src="/studio-theme.js?v=q1j"></script>
     <style>
         /* Cinematic hero for About — same rotating video pattern as homepage.
            Runbook §8 declares one dark zone per site (the homepage) but the
@@ -84,7 +84,7 @@
         main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
         main.studio-pane.hero-follows::before { display: none; }
         .hero-video { position: absolute; top: 0; right: 0; width: 65%; height: 100%; object-fit: cover; object-position: center bottom; z-index: 0; }
-        @media(max-width: 900px) { .hero-video { width: 100%; opacity: 0.55; } }
+        @media(max-width: 900px) { .hero-video { width: 100%; } }
         @media(prefers-reduced-motion: reduce) { .hero-video { display: none; } }
 
         /* Uniform dim tint over the entire video — recedes gibberish into
@@ -146,10 +146,10 @@
 </header>
 
 <!-- CINEMATIC HERO — same rotating video as homepage. Rotates through
-     /media/hero-1.mp4?v=q1i and hero-2.mp4 via the JS at page bottom. -->
+     /media/hero-1.mp4?v=q1j and hero-2.mp4 via the JS at page bottom. -->
 <div class="hero-zone">
     <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4?v=q1i" type="video/mp4">
+        <source src="/media/hero-1.mp4?v=q1j" type="video/mp4">
     </video>
     <div class="hero-video-tint" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
@@ -328,14 +328,14 @@
 </main>
 
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1i .. hero-2.mp4 back-to-back
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q1j .. hero-2.mp4 back-to-back
 // (same as homepage). Reduced motion honors the poster and skips rotation.
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1i', pos: 'center bottom', startAt: 6, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q1j', pos: 'center bottom', startAt: 6, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -366,8 +366,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q1i" defer></script>
-<script src="/scroll-top.js?v=q1i" defer></script>
-<script src="/hamburger.js?v=q1i" defer></script>
+<script src="/studio-motion.js?v=q1j" defer></script>
+<script src="/scroll-top.js?v=q1j" defer></script>
+<script src="/hamburger.js?v=q1j" defer></script>
 </body>
 </html>
