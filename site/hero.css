@@ -1,7 +1,7 @@
 /* Cinematic hero — shared across every page that carries it.
    Structure per-page (below the sticky Studio nav):
      <div class="hero-zone">
-       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=p9z"></video>
+       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=q1b"></video>
        <div class="hero-overlay hero-overlay-lr"></div>
        <div class="hero-overlay hero-overlay-btm"></div>
        <div class="hero-content"><div class="hero-content-inner">
@@ -32,13 +32,11 @@ main.studio-pane.hero-follows::before { display: none; }
     top: 0; right: 0;
     width: 65%; height: 100%;
     object-fit: cover;
-    object-position: center;
+    /* Favor the bottom of the frame so the AI whiteboard (upper region,
+       gibberish text) sits above the crop and never renders. hero.js sets
+       objectPosition per-source at runtime — this is the CSS fallback. */
+    object-position: center bottom;
     z-index: 0;
-    /* Just a hint of softness — enough that you can tell it's AI-generated
-       footage but the frame is still readable. Not intentionally-blurred,
-       just soft. scale keeps the blurred edges contained. */
-    filter: blur(1.5px);
-    transform: scale(1.02);
 }
 @media(max-width: 900px) {
     .hero-video { width: 100%; opacity: 0.55; }
@@ -97,12 +95,10 @@ main.studio-pane.hero-follows::before { display: none; }
     width: 100% !important;
     height: 220px !important;
     object-fit: cover;
-    object-position: center;
+    /* Same bottom-crop as desktop so the whiteboard stays out of frame. */
+    object-position: center bottom;
     opacity: 1 !important;
     display: block;
-    /* Match the desktop hint-of-softness; even lighter on the small banner. */
-    filter: blur(1px);
-    transform: scale(1.015);
   }
   .hero-zone .hero-overlay { display: none !important; }
   .hero-zone .hero-content { padding: var(--sp-6) 0 var(--sp-4) !important; }
