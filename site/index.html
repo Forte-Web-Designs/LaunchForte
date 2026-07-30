@@ -4,7 +4,7 @@
     <link rel="preload" as="image" href="/images/home/launch-forte.png" fetchpriority="high">
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
     <!-- Preload the first hero video so it starts painting the moment the page loads, not on scroll -->
-    <link rel="preload" as="video" href="/media/hero-1.mp4?v=q1u" type="video/mp4">
+    <link rel="preload" as="video" href="/media/hero-1.mp4?v=q1v" type="video/mp4">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Launch Forte | Business Automation and Revenue Systems, Built and Run</title>
@@ -19,9 +19,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=q1u">
-    <link rel="stylesheet" href="/ask-forte.css?v=q1u">
-    <script src="/studio-theme.js?v=q1u"></script>
+    <link rel="stylesheet" href="/studio.css?v=q1v">
+    <link rel="stylesheet" href="/ask-forte.css?v=q1v">
+    <script src="/studio-theme.js?v=q1v"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -189,53 +189,29 @@
         /* ============================================================
            SECTION 8: cinematic hero (dark zone, one on the whole site)
            ============================================================ */
+        /* Clean atmospheric hero — no video. Deep black with a subtle
+           cyan glow from top-left, subtle vignette on the right side. */
         .hero-zone {
             position: relative;
-            background: #0A0A0A;
+            background:
+              radial-gradient(ellipse 900px 600px at 15% 20%, rgba(74,181,237,0.18), transparent 60%),
+              radial-gradient(ellipse 700px 500px at 90% 90%, rgba(0,136,219,0.10), transparent 60%),
+              #0A0A0A;
             color: #FFFFFF;
             overflow: hidden;
-            /* No rounded corners at top; rounded fade at bottom via the overlay */
             padding-bottom: 3rem;
         }
         /* The paper pane that follows the hero doesn't need its own peek/top padding */
         main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
         main.studio-pane.hero-follows::before { display: none; }
 
-        /* The video layer — full width, no seam. Overlays carry the
-           left-side legibility so it reads as ONE composed image (not
-           a black slab + a video crammed to the right). Color video —
-           no filter (removed 2026-07-29 with new documentary-style clip). */
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            z-index: 0;
-        }
-        @media(max-width: 900px) {
-            .hero-video { width: 100%; }
-        }
-        @media(prefers-reduced-motion: reduce) {
-            .hero-video { display: none; }
-        }
-
-
-        /* Two overlays for legibility. LR gradient is heavier now that the
-           video runs full-width — keeps H1 white type legible on the left
-           without collapsing the video to a stripe on the right. */
+        /* Bottom fade dissolves the hero into the white pane below */
         .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
-        .hero-overlay-lr {
-            background: linear-gradient(90deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.78) 30%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.28) 78%, rgba(10,10,10,0.18) 100%);
-        }
         .hero-overlay-btm {
-            /* Fades bottom of the hero into the paper pane below via a dark-to-paper gradient */
-            background: linear-gradient(180deg, transparent 60%, rgba(10,10,10,0.55) 82%, #FFFFFF 100%);
+            background: linear-gradient(180deg, transparent 70%, rgba(10,10,10,0.55) 88%, #FFFFFF 100%);
         }
         [data-theme="dark"] .hero-overlay-btm {
-            background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #0A0A0A 100%);
+            background: linear-gradient(180deg, transparent 70%, rgba(10,10,10,0.4) 88%, #0A0A0A 100%);
         }
 
         /* Nav sits ON the hero ground, at the top of the page */
@@ -357,9 +333,65 @@
         }
         .ask-submit:hover { transform: translateY(-1px); background: var(--accent-hover); color: #FFFFFF; }
 
-        .hero-quiet-links { margin: 1.25rem 0 3rem; font-size: var(--text-base); color: rgba(255,255,255,0.72); display: flex; flex-wrap: wrap; gap: 0.5rem 0.85rem; align-items: center; justify-content: center; }
-        .hero-quiet-links a { color: #FFFFFF; text-decoration: underline; text-underline-offset: 0.25em; text-decoration-color: rgba(255,255,255,0.32); font-weight: 500; }
-        .hero-quiet-links a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+        /* Hero sub — muted paragraph between H1 and CTAs */
+        .hero-sub {
+            color: rgba(255,255,255,0.68);
+            font-size: 1.0625rem;
+            line-height: 1.55;
+            max-width: 52ch;
+            margin: 0 auto 2rem;
+        }
+
+        /* Hero CTA row — one filled cyan-gradient primary, one ghost */
+        .hero-cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0 auto 3rem;
+        }
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.5rem;
+            border-radius: 10px;
+            font-family: var(--font-display);
+            font-variation-settings: var(--font-display-vars);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            letter-spacing: -0.005em;
+            text-decoration: none;
+            transition: transform 180ms var(--ease-out), box-shadow 200ms ease, background 180ms ease, border-color 180ms ease;
+            min-height: 48px;
+        }
+        .hero-btn-primary {
+            background: linear-gradient(135deg, #4AB5ED 0%, #0088DB 100%);
+            color: #0A0A0A;
+            border: 1px solid rgba(74,181,237,0.4);
+            box-shadow: 0 4px 20px rgba(74,181,237,0.25);
+        }
+        .hero-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(74,181,237,0.4);
+        }
+        .hero-btn-ghost {
+            background: transparent;
+            color: #FFFFFF;
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+        .hero-btn-ghost:hover {
+            border-color: rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.04);
+            transform: translateY(-2px);
+        }
+        .hero-btn-arrow {
+            display: inline-block;
+            transition: transform 180ms var(--ease-out);
+        }
+        .hero-btn:hover .hero-btn-arrow { transform: translateX(3px); }
 
         /* ============================================================
            SECTION 9 + 10 + 11.1: Ask Forte section (in the paper pane)
@@ -605,33 +637,17 @@
            SECTION 13: mobile discipline (crowded is the enemy)
            ============================================================ */
         @media(max-width: 768px) {
-          /* Mobile hero (sethforte pattern): video is a full-cover
-             background, text sits over it. object-position: 20% center
-             keeps Seth in frame after the horizontal crop. */
+          /* Mobile hero: keep atmospheric glow bg, vertically center the stack */
           .hero-zone {
-            background: #0A0A0A;
-            min-height: 78vh;
+            min-height: 68vh;
             display: flex;
             align-items: center;
           }
-          .hero-zone .hero-video {
-            position: absolute !important;
-            inset: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover;
-            object-position: 20% center;
-            opacity: 1 !important;
-            display: block;
-          }
-          .hero-zone .hero-overlay-lr {
-            background: linear-gradient(180deg,
-              rgba(10,10,10,0.72) 0%,
-              rgba(10,10,10,0.78) 55%,
-              rgba(10,10,10,0.90) 100%);
-          }
-          .hero-content { width: 100%; }
+          .hero-content { width: 100%; padding: 4rem 0 2rem; }
           .hero-overlay-btm { background: linear-gradient(180deg, transparent 75%, rgba(10,10,10,0.4) 88%, #FFFFFF 100%); }
+          /* CTAs stack vertically on small screens */
+          .hero-cta-row { flex-direction: column; align-items: stretch; }
+          .hero-btn { width: 100%; }
           /* Rhythm: pane radius steps down */
           .studio-pane { border-top-left-radius: 24px; border-top-right-radius: 24px; }
         }
@@ -709,15 +725,8 @@
 </header>
 
 <div class="hero-zone">
-    <!-- Rotating ambient video (muted, autoplay, back-to-back). Poster shows first paint.
-         The JS at the bottom of the page cycles through /media/hero-1.mp4?v=q1u .. hero-2.mp4. -->
-    <!-- preload="auto" eagerly fetches the whole file so the video plays instantly, not after a scroll cue. No poster: the dark hero background reads clean until the first frame paints. -->
-    <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4?v=q1u" type="video/mp4">
-    </video>
-    <!-- Whiteboard mask: dim tint over the AI-generated whiteboard region so the gibberish text reads as a slightly-lit projection rather than something to squint at. Positioned by CSS in hero.css. -->
-    <!-- Two overlays: left-to-right dark gradient for text legibility, bottom fade dissolving into the pane's rounded top -->
-    <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
+    <!-- Clean atmospheric hero — no video. Background glow is in CSS.
+         Bottom fade dissolves the dark hero into the white pane below. -->
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
 
     <!-- Hero content: H1, quiet CTA pair, stats row.
@@ -733,13 +742,15 @@
                  shifts when the word changes length. -->
             <h1 class="hero-h1 hero-headline">Business Growth Isn't Luck.<br>It's <span class="gradient-text">A System</span>.</h1>
 
-            <p class="hero-quiet-links">
-                <a href="#ask-forte" data-gtm-event="homepage_hero_ask_link">Ask Forte</a>
-                <span aria-hidden="true">·</span>
-                <a href="/grade" data-gtm-event="homepage_hero_grade_link">Grade my systems free</a>
-                <span aria-hidden="true">·</span>
-                <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" data-gtm-event="homepage_hero_audit_link">Book the Growth Systems Audit</a>
-            </p>
+            <p class="hero-sub">Automation infrastructure for growing businesses. I build the systems that turn traffic into revenue and make growth repeatable.</p>
+
+            <div class="hero-cta-row">
+                <a href="#ask-forte" class="hero-btn hero-btn-primary" data-gtm-event="homepage_hero_ask_link">Ask Forte</a>
+                <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="hero-btn hero-btn-ghost" data-gtm-event="homepage_hero_audit_link">
+                    Book the Growth Systems Audit
+                    <span class="hero-btn-arrow" aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
 
             <!-- Stats row: retires the standalone PROOF STRIP section per Section 8.4.
                  Per Section 10: no marketplace branding. Upwork attribution removed;
@@ -1290,7 +1301,7 @@
     io.observe(host);
 })();
 
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1u .. hero-2.mp4 back-to-back
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q1v .. hero-2.mp4 back-to-back
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
@@ -1299,7 +1310,7 @@
     // Rotation order (Seth's pick): black shirt (hero-1), collared with me visible (hero-2), last (hero-4).
     // Each has a poster crop hint so I'm in view regardless of the video's own centering.
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1u', pos: 'center center', startAt: 2, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q1v', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
     v.removeAttribute('loop'); // We rotate instead of looping a single file
@@ -1745,9 +1756,9 @@
     else boot();
 })();
 </script>
-<script src="/ask-forte.js?v=q1u" defer></script>
-<script src="/studio-motion.js?v=q1u" defer></script>
-<script src="/scroll-top.js?v=q1u" defer></script>
-<script src="/hamburger.js?v=q1u" defer></script>
+<script src="/ask-forte.js?v=q1v" defer></script>
+<script src="/studio-motion.js?v=q1v" defer></script>
+<script src="/scroll-top.js?v=q1v" defer></script>
+<script src="/hamburger.js?v=q1v" defer></script>
 </body>
 </html>
