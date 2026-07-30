@@ -1,8 +1,7 @@
 /* Cinematic hero — shared across every page that carries it.
+   Atmospheric glow on deep black, no video, text centered.
    Structure per-page (below the sticky Studio nav):
      <div class="hero-zone">
-       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=q1w"></video>
-       <div class="hero-overlay hero-overlay-lr"></div>
        <div class="hero-overlay hero-overlay-btm"></div>
        <div class="hero-content"><div class="hero-content-inner">
          <span class="hero-eyebrow-line"><span class="dot"></span><span class="mark">{PAGE LABEL}</span></span>
@@ -14,44 +13,31 @@
        </div></div>
      </div>
    The <main class="studio-pane hero-follows"> that follows removes its own
-   peek + rounded-top so the hero and pane join seamlessly.
-   /hero.js handles the video rotation. */
+   peek + rounded-top so the hero and pane join seamlessly. */
 
 .hero-zone {
     position: relative;
-    background: #0A0A0A;
+    background:
+      radial-gradient(ellipse 900px 600px at 15% 20%, rgba(74,181,237,0.18), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 90% 90%, rgba(0,136,219,0.10), transparent 60%),
+      #0A0A0A;
     color: #FFFFFF;
     overflow: hidden;
-    padding-bottom: 3rem;
+    padding-bottom: 1rem;
 }
+/* Hint of the next section peeks through — pane starts closer, next-section
+   content sits visible under the hero fade so scroll affordance is obvious. */
+main.studio-pane.hero-follows > :first-child { padding-top: 2rem; }
 main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
 main.studio-pane.hero-follows::before { display: none; }
 
-.hero-video {
-    position: absolute;
-    top: 0; right: 0;
-    width: 65%; height: 100%;
-    object-fit: cover;
-    object-position: center;
-    z-index: 0;
-}
-@media(max-width: 900px) {
-    .hero-video { width: 100%; opacity: 0.55; }
-}
-@media(prefers-reduced-motion: reduce) {
-    .hero-video { display: none; }
-}
-
+/* Bottom fade dissolves the hero into the white pane below */
 .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
-
-.hero-overlay-lr {
-    background: linear-gradient(90deg, #0A0A0A 0%, rgba(10,10,10,0.85) 35%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.25) 100%);
-}
 .hero-overlay-btm {
-    background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #FFFFFF 100%);
+    background: linear-gradient(180deg, transparent 70%, rgba(10,10,10,0.55) 88%, #FFFFFF 100%);
 }
 [data-theme="dark"] .hero-overlay-btm {
-    background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #0A0A0A 100%);
+    background: linear-gradient(180deg, transparent 70%, rgba(10,10,10,0.4) 88%, #0A0A0A 100%);
 }
 
 /* Nav sits transparent-over-dark on the cinematic hero. Only applied when
@@ -68,8 +54,8 @@ main.studio-pane.hero-follows::before { display: none; }
     .hero-nav { padding: 0.7rem 0 !important; }
     .hero-nav .studio-nav-inner { padding: 0 1rem; gap: 0.75rem; }
     .hero-nav .studio-nav-cta { display: none; }
-    .hero-nav #studio-theme-toggle:not(.scrolled) { display: none; }
     .hero-nav .studio-nav-right { gap: 0.5rem; }
+    /* Theme toggle stays visible at page-top on mobile (was hidden until scrolled) */
 }
 
 .hero-content { position: relative; z-index: 20; padding: 5rem 0 3rem; }
@@ -85,33 +71,14 @@ main.studio-pane.hero-follows::before { display: none; }
 
 .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 60ch; }
 
-/* Mobile hero (sethforte pattern): video stays full-cover background,
-   text sits over it. object-position: 20% center keeps Seth in frame
-   after the horizontal crop that fits 1280px into a phone width. A
-   heavier top-down gradient darkens for text legibility. */
+/* Mobile hero: atmospheric glow bg, vertically-centered content stack.
+   Padding-bottom kept tight so the fade + next-section peek stays visible. */
 @media (max-width: 768px) {
   .hero-zone {
-    padding-bottom: var(--sp-6);
-    min-height: 78vh;
+    padding-bottom: 0.5rem;
+    min-height: 55vh;
     display: flex;
     align-items: center;
-  }
-  .hero-zone .hero-video {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover;
-    object-position: 20% center;   /* Seth stands ~30% from left */
-    opacity: 1 !important;
-    display: block;
-  }
-  /* Heavier legibility gradient on mobile — top→bottom */
-  .hero-zone .hero-overlay-lr {
-    background: linear-gradient(180deg,
-      rgba(10,10,10,0.72) 0%,
-      rgba(10,10,10,0.78) 55%,
-      rgba(10,10,10,0.90) 100%);
   }
   .hero-zone .hero-content {
     padding: var(--sp-4) 0 !important;
@@ -119,7 +86,4 @@ main.studio-pane.hero-follows::before { display: none; }
   }
   .hero-zone .hero-content-inner { text-align: center; }
   .hero-zone .hero-h1 { max-width: 100% !important; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-zone .hero-video { display: none !important; }
 }
