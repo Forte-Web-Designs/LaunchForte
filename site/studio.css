@@ -839,9 +839,6 @@ a:hover { color: var(--accent-hover); }
    Below 768px the video moves to the top as a fixed-height banner, then
    the hero-content sits below on solid black. Overrides the per-page
    inline rules that had the video full-width dimmed-behind-text. ---- */
-@media (max-width: 768px) {
-  .hero-zone { padding-bottom: var(--sp-6); }
-  .hero-zone .hero-content { padding: var(--sp-6) 0 var(--sp-4) !important; }
-  .hero-zone .hero-content-inner { text-align: center; }
-  .hero-zone .hero-h1 { max-width: 100% !important; }
-}
+/* Mobile hero overrides now live in /hero.css (or the per-page inline block).
+   Removed 2026-07-30: this block was overriding the tight hero→pane gap and
+   the bottom-fade overlay from hero.css. */

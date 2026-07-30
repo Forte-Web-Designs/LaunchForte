@@ -45,7 +45,7 @@ main.studio-pane.hero-follows::before { display: none; }
 .hero-nav { position: sticky; top: 0; z-index: 40; padding: 1.15rem 0; background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-bottom: 1px solid transparent !important; transition: background 0.2s ease, border-color 0.2s ease; }
 .hero-nav.is-scrolled { background: rgba(10, 10, 10, 0.82) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; backdrop-filter: saturate(180%) blur(20px) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
 .hero-nav .studio-nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
-.hero-nav .studio-logo img { filter: brightness(0) invert(1); height: 28px; width: auto; display: block; }
+.hero-nav .studio-logo img { height: 28px; width: auto; display: block; }
 .hero-nav .studio-nav-cta { background: #FFFFFF; color: #0A0A0A; }
 .hero-nav .studio-nav-cta:hover { background: #F5F5F5; color: #0A0A0A; }
 .hero-nav #hamburger { border-color: rgba(255,255,255,0.24); }

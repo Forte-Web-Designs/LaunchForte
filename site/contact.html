@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="preload" as="image" href="/images/home/launch-forte.png" fetchpriority="high">
+    <link rel="preload" as="image" href="/images/home/logo-header-light.svg" fetchpriority="high">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact: Book A Growth Systems Audit | Launch Forte</title>
@@ -21,8 +21,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q1y">
-    <script src="/studio-theme.js?v=q1y"></script>
+    <link rel="stylesheet" href="/studio.css?v=q1z">
+    <script src="/studio-theme.js?v=q1z"></script>
     <style>
         /* Cinematic hero — same rotating video pattern as homepage + About + Results. */
         .hero-zone {
@@ -44,7 +44,7 @@
         .hero-nav.is-scrolled { background: rgba(10, 10, 10, 0.82) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; backdrop-filter: saturate(180%) blur(20px) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
         @media (max-width: 640px) { .hero-nav { padding: 0.7rem 0 !important; } .hero-nav .studio-nav-inner { padding: 0 1rem; gap: 0.75rem; } .hero-nav .studio-nav-cta { display: none; } .hero-nav .studio-nav-right { gap: 0.5rem; } }
         .hero-nav .studio-nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
-        .hero-nav .studio-logo img { filter: brightness(0) invert(1); height: 28px; width: auto; display: block; }
+        .hero-nav .studio-logo img { height: 28px; width: auto; display: block; }
         .hero-nav .studio-nav-cta { background: #FFFFFF; color: #0A0A0A; }
         .hero-nav .studio-nav-cta:hover { background: #F5F5F5; color: #0A0A0A; }
         .hero-nav #hamburger { border-color: rgba(255,255,255,0.24); }
@@ -65,7 +65,7 @@
             min-height: 60vh;
             display: flex;
             align-items: center;
-            padding-bottom: var(--sp-6);
+            padding-bottom: 0.5rem;
           }
           .hero-zone .hero-content { padding: var(--sp-4, 1rem) 0 !important; width: 100%; }
           .hero-content-inner { text-align: center; }
@@ -79,7 +79,7 @@
 <header class="studio-nav site-header hero-nav">
     <div class="studio-nav-inner">
         <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
-            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
+            <img src="/images/home/logo-header-light.svg" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
         </a>
         <div class="studio-nav-right">
             <a href="/contact.html" class="studio-nav-cta">Contact</a>
@@ -274,13 +274,13 @@
 })();
 </script>
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1y .. hero-2.mp4 (same as homepage).
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q1z .. hero-2.mp4 (same as homepage).
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1y', pos: 'center center', startAt: 2, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q1z', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -310,8 +310,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q1y" defer></script>
-<script src="/scroll-top.js?v=q1y" defer></script>
-<script src="/hamburger.js?v=q1y" defer></script>
+<script src="/studio-motion.js?v=q1z" defer></script>
+<script src="/scroll-top.js?v=q1z" defer></script>
+<script src="/hamburger.js?v=q1z" defer></script>
 </body>
 </html>
