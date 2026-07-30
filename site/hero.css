@@ -25,9 +25,11 @@
     overflow: hidden;
     padding-bottom: 0.5rem;
 }
-/* Hint of the next section peeks through — pane starts closer, next-section
-   content sits visible under the hero fade so scroll affordance is obvious. */
-main.studio-pane.hero-follows > :first-child { padding-top: 2rem; }
+/* Pane starts immediately after hero — kill the default studio-section top
+   margin on the FIRST section so the hero fade flows directly into it.
+   Applies to desktop (where --sp-40 was ~10rem) and mobile (where --sp-24
+   was still meaningful). */
+main.studio-pane.hero-follows > :first-child { margin-top: 0 !important; padding-top: 1rem; }
 main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
 main.studio-pane.hero-follows::before { display: none; }
 
