@@ -1,7 +1,7 @@
 /* Cinematic hero — shared across every page that carries it.
    Structure per-page (below the sticky Studio nav):
      <div class="hero-zone">
-       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=q1h"></video>
+       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=q1i"></video>
        <div class="hero-overlay hero-overlay-lr"></div>
        <div class="hero-overlay hero-overlay-btm"></div>
        <div class="hero-content"><div class="hero-content-inner">
@@ -47,28 +47,16 @@ main.studio-pane.hero-follows::before { display: none; }
 
 .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
 
-/* Whiteboard mask — dark tinted rectangle sized to sit over the AI
-   whiteboard in the hero video. Reads as "dim projected screen in a
-   slightly dim room" rather than "text you should try to read." Behind
-   the LR/BTM gradient overlays but above the video. */
-.hero-screen-mask {
+/* Uniform dim tint over the entire video — recedes the gibberish
+   whiteboard into ambient background noise (you have to squint to
+   read it, nobody squints at hero footage). Room, Seth, and audience
+   still read; accent blue on the H1 still pops against darkness. */
+.hero-video-tint {
   position: absolute;
-  top: 15%;
-  left: 60%;
-  width: 24%;
-  height: 34%;
-  background: rgba(10, 10, 10, 0.72);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
   z-index: 1;
   pointer-events: none;
-  border-radius: 2px;
-}
-/* Hide the mask on mobile — the video collapses to a 220px banner
-   at full width, and the whiteboard region is much smaller/harder to
-   read at that size anyway. */
-@media (max-width: 768px) {
-  .hero-screen-mask { display: none; }
 }
 .hero-overlay-lr {
     background: linear-gradient(90deg, #0A0A0A 0%, rgba(10,10,10,0.85) 35%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.25) 100%);
