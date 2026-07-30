@@ -1,7 +1,7 @@
 /* Cinematic hero — shared across every page that carries it.
    Structure per-page (below the sticky Studio nav):
      <div class="hero-zone">
-       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=q1s"></video>
+       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=q1t"></video>
        <div class="hero-overlay hero-overlay-lr"></div>
        <div class="hero-overlay hero-overlay-btm"></div>
        <div class="hero-content"><div class="hero-content-inner">
@@ -85,20 +85,38 @@ main.studio-pane.hero-follows::before { display: none; }
 
 .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 60ch; }
 
-/* Mobile hero stack: video moves to top as a 220px banner, text below on solid black */
+/* Mobile hero (sethforte pattern): video stays full-cover background,
+   text sits over it. object-position: 30% center keeps Seth in frame
+   after the horizontal crop that fits 1280px into a phone width. A
+   heavier top-down gradient darkens for text legibility. */
 @media (max-width: 768px) {
-  .hero-zone { padding-bottom: var(--sp-6); }
+  .hero-zone {
+    padding-bottom: var(--sp-6);
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+  }
   .hero-zone .hero-video {
-    position: relative !important;
+    position: absolute !important;
+    inset: 0 !important;
     width: 100% !important;
-    height: 220px !important;
+    height: 100% !important;
     object-fit: cover;
-    object-position: center;
+    object-position: 30% center;   /* Seth stands ~30% from left */
     opacity: 1 !important;
     display: block;
   }
-  .hero-zone .hero-overlay { display: none !important; }
-  .hero-zone .hero-content { padding: var(--sp-6) 0 var(--sp-4) !important; }
+  /* Heavier legibility gradient on mobile — top→bottom */
+  .hero-zone .hero-overlay-lr {
+    background: linear-gradient(180deg,
+      rgba(10,10,10,0.72) 0%,
+      rgba(10,10,10,0.78) 55%,
+      rgba(10,10,10,0.90) 100%);
+  }
+  .hero-zone .hero-content {
+    padding: var(--sp-4) 0 !important;
+    width: 100%;
+  }
   .hero-zone .hero-content-inner { text-align: center; }
   .hero-zone .hero-h1 { max-width: 100% !important; }
 }

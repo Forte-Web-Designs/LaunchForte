@@ -42,8 +42,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q1s">
-    <script src="/studio-theme.js?v=q1s"></script>
+    <link rel="stylesheet" href="/studio.css?v=q1t">
+    <script src="/studio-theme.js?v=q1t"></script>
     <style>
         /* Cinematic hero — same rotating video pattern as homepage + About.
            Results is the proof page; the hero introduces it in the same visual
@@ -80,19 +80,33 @@
         .hero-h1 .hero-h1-line-2 { display: block; color: #FFFFFF; }
         .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 60ch; }
 
-        /* Mobile hero: video moves to top as a 220px banner. */
+        /* Mobile hero (sethforte pattern): video stays full-cover
+           background, text sits over it. object-position: 30% center
+           keeps Seth in frame after the horizontal crop. */
         @media(max-width: 768px) {
-          .hero-zone { padding-bottom: var(--sp-6); }
+          .hero-zone {
+            padding-bottom: var(--sp-6);
+            min-height: 78vh;
+            display: flex;
+            align-items: center;
+          }
           .hero-zone .hero-video {
-            position: relative !important;
+            position: absolute !important;
+            inset: 0 !important;
             width: 100% !important;
-            height: 220px !important;
+            height: 100% !important;
             object-fit: cover;
-            object-position: center;
+            object-position: 30% center;
             opacity: 1 !important;
             display: block;
           }
-          .hero-zone .hero-overlay { display: none !important; }
+          .hero-zone .hero-overlay-lr {
+            background: linear-gradient(180deg,
+              rgba(10,10,10,0.72) 0%,
+              rgba(10,10,10,0.78) 55%,
+              rgba(10,10,10,0.90) 100%);
+          }
+          .hero-zone .hero-content { padding: var(--sp-4, 1rem) 0 !important; width: 100%; }
           .hero-content-inner { text-align: center; }
           .hero-h1 { max-width: 100% !important; }
         }
@@ -124,7 +138,7 @@
 <!-- CINEMATIC HERO — same rotating video as homepage + About. -->
 <div class="hero-zone">
     <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4?v=q1s" type="video/mp4">
+        <source src="/media/hero-1.mp4?v=q1t" type="video/mp4">
     </video>
     <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
@@ -536,13 +550,13 @@
 
 </main>
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1s .. hero-2.mp4 (same as homepage).
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q1t .. hero-2.mp4 (same as homepage).
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1s', pos: 'center center', startAt: 2, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q1t', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -572,8 +586,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q1s" defer></script>
-<script src="/scroll-top.js?v=q1s" defer></script>
-<script src="/hamburger.js?v=q1s" defer></script>
+<script src="/studio-motion.js?v=q1t" defer></script>
+<script src="/scroll-top.js?v=q1t" defer></script>
+<script src="/hamburger.js?v=q1t" defer></script>
 </body>
 </html>
