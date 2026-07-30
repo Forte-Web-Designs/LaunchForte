@@ -1,8 +1,8 @@
 /* Cinematic hero — rotates through the `sources` list back-to-back.
-   Each source declares an optional `startAt` (seconds) so the video
-   starts inside the clip rather than at frame 0 — used to skip the
-   first few seconds of ramp-up. We handle the loop ourselves (native
-   `loop` would rewind to 0, not `startAt`).
+   Each source declares startAt (seconds — where playback begins) and
+   optional endAt (seconds — where we cut to the next clip). If endAt
+   is omitted, the clip plays to natural end. Cutting early keeps
+   any per-frame gibberish from lingering long enough to read.
    No-op if no #hero-video on page. Reduced motion skips entirely. */
 (function(){
     var v = document.getElementById('hero-video');
@@ -10,12 +10,12 @@
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1d', pos: 'center bottom', startAt: 3 },
-        { src: '/media/hero-4.mp4?v=q1d', pos: 'center bottom', startAt: 3 }
+        { src: '/media/hero-1.mp4?v=q1e', pos: 'center bottom', startAt: 3, endAt: 7 },
+        { src: '/media/hero-2.mp4?v=q1e', pos: 'center bottom', startAt: 6, endAt: 10 }
     ];
     var i = 0;
 
-    /* We're always seeking to startAt on wrap, so native loop is off. */
+    /* We always rewind / swap ourselves, so native loop is off. */
     v.removeAttribute('loop');
 
     function seekToStart() {
@@ -30,19 +30,7 @@
         try { var p = v.play(); if (p && p.catch) p.catch(function(){}); } catch (_) {}
     }
 
-    function load(k) {
-        i = k;
-        var s = sources[i];
-        v.style.objectPosition = s.pos;
-        if (!v.src.endsWith(s.src)) v.src = s.src;
-        /* loadedmetadata fires as soon as duration is known — safe to seek */
-        v.addEventListener('loadedmetadata', seekToStart, { once: true });
-        /* loadeddata fires after the first frame is decoded — safe to play */
-        v.addEventListener('loadeddata', play, { once: true });
-        play();
-    }
-
-    v.addEventListener('ended', function(){
+    function advance() {
         var next = (i + 1) % sources.length;
         if (next === i) {
             /* single source — seek back to startAt and keep playing */
@@ -51,11 +39,31 @@
         } else {
             load(next);
         }
+    }
+
+    function load(k) {
+        i = k;
+        var s = sources[i];
+        v.style.objectPosition = s.pos;
+        if (!v.src.endsWith(s.src)) v.src = s.src;
+        v.addEventListener('loadedmetadata', seekToStart, { once: true });
+        v.addEventListener('loadeddata', play, { once: true });
+        play();
+    }
+
+    /* endAt handling: on every timeupdate, if we've passed the endAt
+       marker for the current source, advance. timeupdate fires ~4x/sec
+       so a small margin is fine. */
+    v.addEventListener('timeupdate', function(){
+        var s = sources[i];
+        if (s.endAt && v.currentTime >= s.endAt) advance();
     });
 
+    /* Natural end still triggers advance (fallback if endAt omitted). */
+    v.addEventListener('ended', advance);
+
     v.style.objectPosition = sources[0].pos;
-    /* If the <source> tag already targets our first src, don't reload it,
-       just seek + play. Otherwise `load(0)` will point src at it. */
+    /* If the <source> tag already targets our first src, don't reload — seek + play. */
     if (v.src && v.src.endsWith(sources[0].src)) {
         if (v.readyState >= 1) {
             seekToStart();

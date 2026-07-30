@@ -42,8 +42,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q1d">
-    <script src="/studio-theme.js?v=q1d"></script>
+    <link rel="stylesheet" href="/studio.css?v=q1e">
+    <script src="/studio-theme.js?v=q1e"></script>
     <style>
         /* Cinematic hero — same rotating video pattern as homepage + About.
            Results is the proof page; the hero introduces it in the same visual
@@ -106,7 +106,7 @@
 <!-- CINEMATIC HERO — same rotating video as homepage + About. -->
 <div class="hero-zone">
     <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4?v=q1d" type="video/mp4">
+        <source src="/media/hero-1.mp4?v=q1e" type="video/mp4">
     </video>
     <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
@@ -518,14 +518,14 @@
 
 </main>
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1d .. hero-2.mp4 (same as homepage).
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q1e .. hero-2.mp4 (same as homepage).
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1d', pos: 'center bottom', startAt: 3 },
-        { src: '/media/hero-4.mp4?v=q1d', pos: 'center bottom', startAt: 3 }
+        { src: '/media/hero-1.mp4?v=q1e', pos: 'center bottom', startAt: 3, endAt: 7 },
+        { src: '/media/hero-2.mp4?v=q1e', pos: 'center bottom', startAt: 6, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -545,13 +545,18 @@
     }
     v.style.objectPosition = sources[0].pos;
     v.addEventListener('ended', playNext);
+    // endAt: cut early so gibberish frames don't linger
+    v.addEventListener('timeupdate', function(){
+        var s = sources[i];
+        if (s.endAt && v.currentTime >= s.endAt) playNext();
+    });
     v.addEventListener('loadedmetadata', function(){ var s = sources[i]; if (s.startAt && v.duration && s.startAt < v.duration) { try { v.currentTime = s.startAt; } catch(_){} } }, { once: true });
     v.addEventListener('loadeddata', function(){ v.play().catch(function(){}); });
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q1d" defer></script>
-<script src="/scroll-top.js?v=q1d" defer></script>
-<script src="/hamburger.js?v=q1d" defer></script>
+<script src="/studio-motion.js?v=q1e" defer></script>
+<script src="/scroll-top.js?v=q1e" defer></script>
+<script src="/hamburger.js?v=q1e" defer></script>
 </body>
 </html>
