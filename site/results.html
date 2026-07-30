@@ -42,23 +42,27 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q1v">
-    <script src="/studio-theme.js?v=q1v"></script>
+    <link rel="stylesheet" href="/studio.css?v=q1w">
+    <script src="/studio-theme.js?v=q1w"></script>
     <style>
         /* Cinematic hero — same rotating video pattern as homepage + About.
            Results is the proof page; the hero introduces it in the same visual
            language rather than a flat gradient. */
-        .hero-zone { position: relative; background: #0A0A0A; color: #FFFFFF; overflow: hidden; padding-bottom: 3rem; }
+        .hero-zone {
+            position: relative;
+            background:
+              radial-gradient(ellipse 900px 600px at 15% 20%, rgba(74,181,237,0.18), transparent 60%),
+              radial-gradient(ellipse 700px 500px at 90% 90%, rgba(0,136,219,0.10), transparent 60%),
+              #0A0A0A;
+            color: #FFFFFF;
+            overflow: hidden;
+            padding-bottom: 3rem;
+        }
         main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
         main.studio-pane.hero-follows::before { display: none; }
-        .hero-video { position: absolute; top: 0; right: 0; width: 65%; height: 100%; object-fit: cover; object-position: center; z-index: 0; }
-        @media(max-width: 900px) { .hero-video { width: 100%; } }
-        @media(prefers-reduced-motion: reduce) { .hero-video { display: none; } }
-
         .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
-        .hero-overlay-lr { background: linear-gradient(90deg, #0A0A0A 0%, rgba(10,10,10,0.85) 35%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.25) 100%); }
-        .hero-overlay-btm { background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #FFFFFF 100%); }
-        [data-theme="dark"] .hero-overlay-btm { background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #0A0A0A 100%); }
+        .hero-overlay-btm { background: linear-gradient(180deg, transparent 70%, rgba(10,10,10,0.55) 88%, #FFFFFF 100%); }
+        [data-theme="dark"] .hero-overlay-btm { background: linear-gradient(180deg, transparent 70%, rgba(10,10,10,0.4) 88%, #0A0A0A 100%); }
         /* Nav overrides for dark hero — same as homepage .hero-nav */
         .hero-nav { position: sticky; top: 0; z-index: 40; padding: 1.15rem 0; background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-bottom: 1px solid transparent !important; transition: background 0.2s ease, border-color 0.2s ease; }
         .hero-nav.is-scrolled { background: rgba(10, 10, 10, 0.82) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; backdrop-filter: saturate(180%) blur(20px) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
@@ -80,31 +84,13 @@
         .hero-h1 .hero-h1-line-2 { display: block; color: #FFFFFF; }
         .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 60ch; }
 
-        /* Mobile hero (sethforte pattern): video stays full-cover
-           background, text sits over it. object-position: 20% center
-           keeps Seth in frame after the horizontal crop. */
+        /* Mobile hero: keep atmospheric glow bg, vertically center the stack */
         @media(max-width: 768px) {
           .hero-zone {
-            padding-bottom: var(--sp-6);
-            min-height: 78vh;
+            min-height: 60vh;
             display: flex;
             align-items: center;
-          }
-          .hero-zone .hero-video {
-            position: absolute !important;
-            inset: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover;
-            object-position: 20% center;
-            opacity: 1 !important;
-            display: block;
-          }
-          .hero-zone .hero-overlay-lr {
-            background: linear-gradient(180deg,
-              rgba(10,10,10,0.72) 0%,
-              rgba(10,10,10,0.78) 55%,
-              rgba(10,10,10,0.90) 100%);
+            padding-bottom: var(--sp-6);
           }
           .hero-zone .hero-content { padding: var(--sp-4, 1rem) 0 !important; width: 100%; }
           .hero-content-inner { text-align: center; }
@@ -137,10 +123,6 @@
 
 <!-- CINEMATIC HERO — same rotating video as homepage + About. -->
 <div class="hero-zone">
-    <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4?v=q1v" type="video/mp4">
-    </video>
-    <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
 
     <div class="hero-content">
@@ -550,13 +532,13 @@
 
 </main>
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1v .. hero-2.mp4 (same as homepage).
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q1w .. hero-2.mp4 (same as homepage).
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1v', pos: 'center center', startAt: 2, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q1w', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -586,8 +568,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q1v" defer></script>
-<script src="/scroll-top.js?v=q1v" defer></script>
-<script src="/hamburger.js?v=q1v" defer></script>
+<script src="/studio-motion.js?v=q1w" defer></script>
+<script src="/scroll-top.js?v=q1w" defer></script>
+<script src="/hamburger.js?v=q1w" defer></script>
 </body>
 </html>

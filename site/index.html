@@ -4,7 +4,7 @@
     <link rel="preload" as="image" href="/images/home/launch-forte.png" fetchpriority="high">
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
     <!-- Preload the first hero video so it starts painting the moment the page loads, not on scroll -->
-    <link rel="preload" as="video" href="/media/hero-1.mp4?v=q1v" type="video/mp4">
+    <link rel="preload" as="video" href="/media/hero-1.mp4?v=q1w" type="video/mp4">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Launch Forte | Business Automation and Revenue Systems, Built and Run</title>
@@ -19,9 +19,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=q1v">
-    <link rel="stylesheet" href="/ask-forte.css?v=q1v">
-    <script src="/studio-theme.js?v=q1v"></script>
+    <link rel="stylesheet" href="/studio.css?v=q1w">
+    <link rel="stylesheet" href="/ask-forte.css?v=q1w">
+    <script src="/studio-theme.js?v=q1w"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -591,6 +591,10 @@
         .featured-case-metric { color: var(--n-400); font-size: var(--text-base); line-height: 1.6; }
         .featured-case-link { color: var(--accent); font-weight: 600; font-size: var(--text-sm); text-decoration: underline; text-underline-offset: 0.2em; }
 
+        /* About-us video wrap */
+        .about-us-video-wrap { max-width: 960px; margin: 0 auto; aspect-ratio: 16/9; border-radius: var(--radius-3xl); overflow: hidden; background: var(--ink); box-shadow: 0 12px 40px rgba(10,10,10,0.12); }
+        .about-us-video-wrap video { width: 100%; height: 100%; display: block; object-fit: cover; }
+
         /* About */
         .about-block { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: flex-start; }
         @media(max-width: 700px) { .about-block { grid-template-columns: 1fr; gap: 1.5rem; text-align: left; } }
@@ -637,17 +641,23 @@
            SECTION 13: mobile discipline (crowded is the enemy)
            ============================================================ */
         @media(max-width: 768px) {
-          /* Mobile hero: keep atmospheric glow bg, vertically center the stack */
+          /* Mobile hero: atmospheric glow bg, content truly vertically centered.
+             Symmetric padding (was 4rem top / 2rem bottom) so the flex-center
+             on the parent actually reads as centered. */
           .hero-zone {
             min-height: 68vh;
             display: flex;
             align-items: center;
+            padding-bottom: 3rem;
           }
-          .hero-content { width: 100%; padding: 4rem 0 2rem; }
+          .hero-content { width: 100%; padding: 2rem 0; }
+          .hero-content-inner { padding: 0 1.25rem; }
           .hero-overlay-btm { background: linear-gradient(180deg, transparent 75%, rgba(10,10,10,0.4) 88%, #FFFFFF 100%); }
           /* CTAs stack vertically on small screens */
           .hero-cta-row { flex-direction: column; align-items: stretch; }
           .hero-btn { width: 100%; }
+          /* Stats: nudge closer to CTAs on mobile */
+          .hero-stats { margin-top: 1.5rem; }
           /* Rhythm: pane radius steps down */
           .studio-pane { border-top-left-radius: 24px; border-top-right-radius: 24px; }
         }
@@ -741,8 +751,6 @@
                  pins .hero-h1 min-height to the tallest, so the page never
                  shifts when the word changes length. -->
             <h1 class="hero-h1 hero-headline">Business Growth Isn't Luck.<br>It's <span class="gradient-text">A System</span>.</h1>
-
-            <p class="hero-sub">Automation infrastructure for growing businesses. I build the systems that turn traffic into revenue and make growth repeatable.</p>
 
             <div class="hero-cta-row">
                 <a href="#ask-forte" class="hero-btn hero-btn-primary" data-gtm-event="homepage_hero_ask_link">Ask Forte</a>
@@ -1107,6 +1115,13 @@
         </div>
     </section>
 
+    <!-- 7.5 ABOUT VIDEO — autoplay muted b-roll, sits above the About block -->
+    <section class="studio-container studio-section" style="padding-top:0;">
+        <div class="about-us-video-wrap studio-reveal">
+            <video src="/media/about-us.mp4?v=q1w" autoplay muted loop playsinline preload="metadata" controls></video>
+        </div>
+    </section>
+
     <!-- 8. ABOUT -->
     <section class="studio-container studio-section">
         <div class="section-eyebrow-block studio-reveal" style="text-align:left;margin-bottom:var(--sp-10);">
@@ -1301,7 +1316,7 @@
     io.observe(host);
 })();
 
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1v .. hero-2.mp4 back-to-back
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q1w .. hero-2.mp4 back-to-back
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
@@ -1310,7 +1325,7 @@
     // Rotation order (Seth's pick): black shirt (hero-1), collared with me visible (hero-2), last (hero-4).
     // Each has a poster crop hint so I'm in view regardless of the video's own centering.
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1v', pos: 'center center', startAt: 2, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q1w', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
     v.removeAttribute('loop'); // We rotate instead of looping a single file
@@ -1756,9 +1771,9 @@
     else boot();
 })();
 </script>
-<script src="/ask-forte.js?v=q1v" defer></script>
-<script src="/studio-motion.js?v=q1v" defer></script>
-<script src="/scroll-top.js?v=q1v" defer></script>
-<script src="/hamburger.js?v=q1v" defer></script>
+<script src="/ask-forte.js?v=q1w" defer></script>
+<script src="/studio-motion.js?v=q1w" defer></script>
+<script src="/scroll-top.js?v=q1w" defer></script>
+<script src="/hamburger.js?v=q1w" defer></script>
 </body>
 </html>
