@@ -1,7 +1,7 @@
 /* Cinematic hero — shared across every page that carries it.
    Structure per-page (below the sticky Studio nav):
      <div class="hero-zone">
-       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=p9y"></video>
+       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=p9z"></video>
        <div class="hero-overlay hero-overlay-lr"></div>
        <div class="hero-overlay hero-overlay-btm"></div>
        <div class="hero-content"><div class="hero-content-inner">
@@ -34,11 +34,11 @@ main.studio-pane.hero-follows::before { display: none; }
     object-fit: cover;
     object-position: center;
     z-index: 0;
-    /* Soft blur throughout so the video reads like a dreamy backdrop
-       rather than sharp footage. scale keeps the blurred edges from
-       showing through as a transparent halo. */
-    filter: blur(8px);
-    transform: scale(1.08);
+    /* Just a hint of softness — enough that you can tell it's AI-generated
+       footage but the frame is still readable. Not intentionally-blurred,
+       just soft. scale keeps the blurred edges contained. */
+    filter: blur(1.5px);
+    transform: scale(1.02);
 }
 @media(max-width: 900px) {
     .hero-video { width: 100%; opacity: 0.55; }
@@ -100,10 +100,9 @@ main.studio-pane.hero-follows::before { display: none; }
     object-position: center;
     opacity: 1 !important;
     display: block;
-    /* Softer blur + smaller scale on the mobile banner so the frame
-       doesn't feel muddy at 220px tall and blurred edges stay contained. */
-    filter: blur(5px);
-    transform: scale(1.05);
+    /* Match the desktop hint-of-softness; even lighter on the small banner. */
+    filter: blur(1px);
+    transform: scale(1.015);
   }
   .hero-zone .hero-overlay { display: none !important; }
   .hero-zone .hero-content { padding: var(--sp-6) 0 var(--sp-4) !important; }
