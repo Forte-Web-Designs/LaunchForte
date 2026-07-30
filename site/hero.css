@@ -1,7 +1,7 @@
 /* Cinematic hero — shared across every page that carries it.
    Structure per-page (below the sticky Studio nav):
      <div class="hero-zone">
-       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=q1j"></video>
+       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=q1k"></video>
        <div class="hero-overlay hero-overlay-lr"></div>
        <div class="hero-overlay hero-overlay-btm"></div>
        <div class="hero-content"><div class="hero-content-inner">
@@ -99,13 +99,19 @@ main.studio-pane.hero-follows::before { display: none; }
 
 .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 60ch; }
 
-/* Mobile hero: video is a full-bleed background layer (same model as
-   desktop), text sits over it. The whiteboard gibberish gets covered
-   by the H1/sub instead of stacking above them. */
+/* Mobile hero: video is a full-bleed background, H1 stack sits
+   VERTICALLY CENTERED over it so the type physically covers the
+   whiteboard region (roughly the middle of the frame). Give the
+   zone a min-height so there's real room for the composition. */
 @media (max-width: 768px) {
-  .hero-zone { padding-bottom: var(--sp-6); }
+  .hero-zone {
+    padding-bottom: var(--sp-6);
+    min-height: 78vh;
+    display: flex;
+    align-items: center;   /* vertical-center the content stack */
+  }
   .hero-zone .hero-video {
-    /* Keep it absolute + full-cover on mobile (was a 220px banner) */
+    /* Full-cover background layer (was a 220px banner) */
     position: absolute !important;
     inset: 0 !important;
     width: 100% !important;
@@ -115,9 +121,12 @@ main.studio-pane.hero-follows::before { display: none; }
     opacity: 1 !important;
     display: block;
   }
-  /* Keep the tint + gradient overlays live on mobile so the video
-     recedes and text stays legible. */
-  .hero-zone .hero-content { padding: var(--sp-6) 0 var(--sp-4) !important; }
+  /* Content stretches to fill the flex parent so its own inner
+     centering (text-align:center) still works horizontally. */
+  .hero-zone .hero-content {
+    padding: var(--sp-4) 0 !important;
+    width: 100%;
+  }
   .hero-zone .hero-content-inner { text-align: center; }
   .hero-zone .hero-h1 { max-width: 100% !important; }
 }
