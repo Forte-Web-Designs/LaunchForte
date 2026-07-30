@@ -21,8 +21,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q1g">
-    <script src="/studio-theme.js?v=q1g"></script>
+    <link rel="stylesheet" href="/studio.css?v=q1h">
+    <script src="/studio-theme.js?v=q1h"></script>
     <style>
         /* Cinematic hero — same rotating video pattern as homepage + About + Results. */
         .hero-zone { position: relative; background: #0A0A0A; color: #FFFFFF; overflow: hidden; padding-bottom: 3rem; }
@@ -31,6 +31,18 @@
         .hero-video { position: absolute; top: 0; right: 0; width: 65%; height: 100%; object-fit: cover; object-position: center bottom; z-index: 0; }
         @media(max-width: 900px) { .hero-video { width: 100%; opacity: 0.55; } }
         @media(prefers-reduced-motion: reduce) { .hero-video { display: none; } }
+
+        /* Whiteboard mask — dim tint over the AI whiteboard region so gibberish
+           reads as a dim projected screen instead of text to squint at. */
+        .hero-screen-mask {
+            position: absolute;
+            top: 15%; left: 60%; width: 24%; height: 34%;
+            background: rgba(10, 10, 10, 0.72);
+            backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+            z-index: 1; pointer-events: none; border-radius: 2px;
+        }
+        @media (max-width: 768px) { .hero-screen-mask { display: none; } }
+
         .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
         .hero-overlay-lr { background: linear-gradient(90deg, #0A0A0A 0%, rgba(10,10,10,0.85) 35%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.25) 100%); }
         .hero-overlay-btm { background: linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.4) 82%, #FFFFFF 100%); }
@@ -81,8 +93,9 @@
 <!-- CINEMATIC HERO — same rotating video as homepage + About + Results. -->
 <div class="hero-zone">
     <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4?v=q1g" type="video/mp4">
+        <source src="/media/hero-1.mp4?v=q1h" type="video/mp4">
     </video>
+    <div class="hero-screen-mask" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
 
@@ -260,13 +273,13 @@
 })();
 </script>
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1g .. hero-2.mp4 (same as homepage).
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q1h .. hero-2.mp4 (same as homepage).
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1g', pos: 'center bottom', startAt: 6, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q1h', pos: 'center bottom', startAt: 6, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -296,8 +309,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q1g" defer></script>
-<script src="/scroll-top.js?v=q1g" defer></script>
-<script src="/hamburger.js?v=q1g" defer></script>
+<script src="/studio-motion.js?v=q1h" defer></script>
+<script src="/scroll-top.js?v=q1h" defer></script>
+<script src="/hamburger.js?v=q1h" defer></script>
 </body>
 </html>
