@@ -21,8 +21,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q1l">
-    <script src="/studio-theme.js?v=q1l"></script>
+    <link rel="stylesheet" href="/studio.css?v=q1m">
+    <script src="/studio-theme.js?v=q1m"></script>
     <style>
         /* Cinematic hero — same rotating video pattern as homepage + About + Results. */
         .hero-zone { position: relative; background: #0A0A0A; color: #FFFFFF; overflow: hidden; padding-bottom: 3rem; }
@@ -65,15 +65,13 @@
         .hero-h1 .hero-h1-line-2 { display: block; color: #FFFFFF; }
         .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 60ch; }
 
-        /* Mobile hero: video is a full-cover background, H1 stack
-           vertically centered so it physically covers the whiteboard. */
+        /* Mobile hero: hide the video and its overlays; text-only hero
+           on the dark background. Avoids the AI whiteboard being visible
+           and pinch-zoomable on small screens. */
         @media(max-width: 768px) {
-          .hero-zone {
-            min-height: 78vh;
-            display: flex;
-            align-items: center;
-          }
-          .hero-content { width: 100%; padding: var(--sp-4, 1rem) 0 !important; }
+          .hero-zone .hero-video,
+          .hero-zone .hero-video-tint,
+          .hero-zone .hero-overlay { display: none !important; }
           .hero-content-inner { text-align: center; }
           .hero-h1 { max-width: 100% !important; }
         }
@@ -105,7 +103,7 @@
 <!-- CINEMATIC HERO — same rotating video as homepage + About + Results. -->
 <div class="hero-zone">
     <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4?v=q1l" type="video/mp4">
+        <source src="/media/hero-1.mp4?v=q1m" type="video/mp4">
     </video>
     <div class="hero-video-tint" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
@@ -285,13 +283,13 @@
 })();
 </script>
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1l .. hero-2.mp4 (same as homepage).
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q1m .. hero-2.mp4 (same as homepage).
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1l', pos: 'center bottom', startAt: 3, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q1m', pos: 'center bottom', startAt: 3, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -321,8 +319,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q1l" defer></script>
-<script src="/scroll-top.js?v=q1l" defer></script>
-<script src="/hamburger.js?v=q1l" defer></script>
+<script src="/studio-motion.js?v=q1m" defer></script>
+<script src="/scroll-top.js?v=q1m" defer></script>
+<script src="/hamburger.js?v=q1m" defer></script>
 </body>
 </html>
