@@ -1,7 +1,7 @@
 /* Cinematic hero — shared across every page that carries it.
    Structure per-page (below the sticky Studio nav):
      <div class="hero-zone">
-       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=q1q"></video>
+       <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"><source src="/media/hero-1.mp4?v=q1r"></video>
        <div class="hero-overlay hero-overlay-lr"></div>
        <div class="hero-overlay hero-overlay-btm"></div>
        <div class="hero-content"><div class="hero-content-inner">
@@ -32,10 +32,7 @@ main.studio-pane.hero-follows::before { display: none; }
     top: 0; right: 0;
     width: 65%; height: 100%;
     object-fit: cover;
-    /* Favor the bottom of the frame so the AI whiteboard (upper region,
-       gibberish text) sits above the crop and never renders. hero.js sets
-       objectPosition per-source at runtime — this is the CSS fallback. */
-    object-position: center bottom;
+    object-position: center;
     z-index: 0;
 }
 @media(max-width: 900px) {
@@ -47,17 +44,6 @@ main.studio-pane.hero-follows::before { display: none; }
 
 .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
 
-/* Uniform dim tint over the entire video — recedes the gibberish
-   whiteboard into ambient background noise (you have to squint to
-   read it, nobody squints at hero footage). Room, Seth, and audience
-   still read; accent blue on the H1 still pops against darkness. */
-.hero-video-tint {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.28);
-  z-index: 1;
-  pointer-events: none;
-}
 .hero-overlay-lr {
     background: linear-gradient(90deg, #0A0A0A 0%, rgba(10,10,10,0.85) 35%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.25) 100%);
 }
@@ -99,15 +85,20 @@ main.studio-pane.hero-follows::before { display: none; }
 
 .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 60ch; }
 
-/* Mobile hero: video is hidden entirely. The AI whiteboard
-   gibberish is too easy to pinch-zoom into on a phone, so text-only
-   hero on the dark background is the cleanest answer. Overlays also
-   hidden so nothing extra tints the flat dark backdrop. */
+/* Mobile hero stack: video moves to top as a 220px banner, text below on solid black */
 @media (max-width: 768px) {
   .hero-zone { padding-bottom: var(--sp-6); }
-  .hero-zone .hero-video,
-  .hero-zone .hero-video-tint,
+  .hero-zone .hero-video {
+    position: relative !important;
+    width: 100% !important;
+    height: 220px !important;
+    object-fit: cover;
+    object-position: center;
+    opacity: 1 !important;
+    display: block;
+  }
   .hero-zone .hero-overlay { display: none !important; }
+  .hero-zone .hero-content { padding: var(--sp-6) 0 var(--sp-4) !important; }
   .hero-zone .hero-content-inner { text-align: center; }
   .hero-zone .hero-h1 { max-width: 100% !important; }
 }
