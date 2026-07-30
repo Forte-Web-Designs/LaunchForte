@@ -841,20 +841,7 @@ a:hover { color: var(--accent-hover); }
    inline rules that had the video full-width dimmed-behind-text. ---- */
 @media (max-width: 768px) {
   .hero-zone { padding-bottom: var(--sp-6); }
-  .hero-zone .hero-video {
-    position: relative !important;
-    width: 100% !important;
-    height: 220px !important;
-    object-fit: cover;
-    object-position: center;
-    opacity: 1 !important;
-    display: block;
-  }
-  .hero-zone .hero-overlay { display: none !important; }
   .hero-zone .hero-content { padding: var(--sp-6) 0 var(--sp-4) !important; }
   .hero-zone .hero-content-inner { text-align: center; }
   .hero-zone .hero-h1 { max-width: 100% !important; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-zone .hero-video { display: none !important; }
 }
