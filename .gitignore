@@ -47,3 +47,8 @@ site/videos/video-0.mp4
 # Tailwind Plus Studio source (Pass 8 design reference; licensed for Seth's own projects, not to be shipped)
 /tailwind-plus-studio/
 /design-reference/
+
+# Hero video comparison — kept local only, never shipped to Netlify
+site/media/candidate-*.mp4
+site/media/legacy-*.mp4
+site/hero-compare.html
