@@ -21,8 +21,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q1c">
-    <script src="/studio-theme.js?v=q1c"></script>
+    <link rel="stylesheet" href="/studio.css?v=q1b">
+    <script src="/studio-theme.js?v=q1b"></script>
     <style>
         /* Cinematic hero — same rotating video pattern as homepage + About + Results. */
         .hero-zone { position: relative; background: #0A0A0A; color: #FFFFFF; overflow: hidden; padding-bottom: 3rem; }
@@ -81,7 +81,7 @@
 <!-- CINEMATIC HERO — same rotating video as homepage + About + Results. -->
 <div class="hero-zone">
     <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4?v=q1c" type="video/mp4">
+        <source src="/media/hero-1.mp4?v=q1b" type="video/mp4">
     </video>
     <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
@@ -260,14 +260,14 @@
 })();
 </script>
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1c .. hero-2.mp4 (same as homepage).
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q1b .. hero-2.mp4 (same as homepage).
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1c', pos: 'center bottom', startAt: 3 },
-        { src: '/media/hero-4.mp4?v=q1c', pos: 'center bottom', startAt: 3 }
+        { src: '/media/hero-1.mp4?v=q1b', pos: 'center bottom', startAt: 3 },
+        { src: '/media/hero-4.mp4?v=q1b', pos: 'center bottom', startAt: 3 }
     ];
     var i = 0;
     function playNext(){
@@ -292,8 +292,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q1c" defer></script>
-<script src="/scroll-top.js?v=q1c" defer></script>
-<script src="/hamburger.js?v=q1c" defer></script>
+<script src="/studio-motion.js?v=q1b" defer></script>
+<script src="/scroll-top.js?v=q1b" defer></script>
+<script src="/hamburger.js?v=q1b" defer></script>
 </body>
 </html>
