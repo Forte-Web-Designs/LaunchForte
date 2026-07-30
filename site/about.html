@@ -73,8 +73,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q1e">
-    <script src="/studio-theme.js?v=q1e"></script>
+    <link rel="stylesheet" href="/studio.css?v=q1g">
+    <script src="/studio-theme.js?v=q1g"></script>
     <style>
         /* Cinematic hero for About — same rotating video pattern as homepage.
            Runbook §8 declares one dark zone per site (the homepage) but the
@@ -135,10 +135,10 @@
 </header>
 
 <!-- CINEMATIC HERO — same rotating video as homepage. Rotates through
-     /media/hero-1.mp4?v=q1e and hero-2.mp4 via the JS at page bottom. -->
+     /media/hero-1.mp4?v=q1g and hero-2.mp4 via the JS at page bottom. -->
 <div class="hero-zone">
     <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="/media/hero-1.mp4?v=q1e" type="video/mp4">
+        <source src="/media/hero-1.mp4?v=q1g" type="video/mp4">
     </video>
     <div class="hero-overlay hero-overlay-lr" aria-hidden="true"></div>
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
@@ -316,15 +316,14 @@
 </main>
 
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q1e .. hero-2.mp4 back-to-back
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q1g .. hero-2.mp4 back-to-back
 // (same as homepage). Reduced motion honors the poster and skips rotation.
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q1e', pos: 'center bottom', startAt: 3, endAt: 7 },
-        { src: '/media/hero-2.mp4?v=q1e', pos: 'center bottom', startAt: 6, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q1g', pos: 'center bottom', startAt: 6, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -355,8 +354,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q1e" defer></script>
-<script src="/scroll-top.js?v=q1e" defer></script>
-<script src="/hamburger.js?v=q1e" defer></script>
+<script src="/studio-motion.js?v=q1g" defer></script>
+<script src="/scroll-top.js?v=q1g" defer></script>
+<script src="/hamburger.js?v=q1g" defer></script>
 </body>
 </html>
