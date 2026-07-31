@@ -73,8 +73,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q2b">
-    <script src="/studio-theme.js?v=q2b"></script>
+    <link rel="stylesheet" href="/studio.css?v=q2c">
+    <script src="/studio-theme.js?v=q2c"></script>
     <style>
         /* Cinematic hero for About — same rotating video pattern as homepage.
            Runbook §8 declares one dark zone per site (the homepage) but the
@@ -88,13 +88,13 @@
               #0A0A0A;
             color: #FFFFFF;
             overflow: hidden;
-            padding-bottom: 0.5rem;
+            padding-bottom: 6rem;
         }
         main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
         main.studio-pane.hero-follows::before { display: none; }
         .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
-        .hero-overlay-btm { background: linear-gradient(180deg, transparent 70%, rgba(10,10,10,0.55) 88%, #FFFFFF 100%); }
-        [data-theme="dark"] .hero-overlay-btm { background: linear-gradient(180deg, transparent 70%, rgba(10,10,10,0.4) 88%, #0A0A0A 100%); }
+        .hero-overlay-btm { background: linear-gradient(180deg, transparent 82%, rgba(10,10,10,0.55) 94%, #FFFFFF 100%); }
+        [data-theme="dark"] .hero-overlay-btm { background: linear-gradient(180deg, transparent 82%, rgba(10,10,10,0.4) 94%, #0A0A0A 100%); }
         /* Nav overrides for the dark hero — same as homepage .hero-nav */
         .hero-nav { position: sticky; top: 0; z-index: 40; padding: 1.15rem 0; background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-bottom: 1px solid transparent !important; transition: background 0.2s ease, border-color 0.2s ease; }
         .hero-nav.is-scrolled { background: rgba(10, 10, 10, 0.82) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; backdrop-filter: saturate(180%) blur(20px) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
@@ -157,7 +157,7 @@
 </header>
 
 <!-- CINEMATIC HERO — same rotating video as homepage. Rotates through
-     /media/hero-1.mp4?v=q2b and hero-2.mp4 via the JS at page bottom. -->
+     /media/hero-1.mp4?v=q2c and hero-2.mp4 via the JS at page bottom. -->
 <div class="hero-zone">
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
 
@@ -178,7 +178,7 @@
     <!-- ABOUT US VIDEO — autoplay muted b-roll -->
     <div class="section reveal">
         <div class="about-us-video-wrap">
-            <video src="/media/about-us.mp4?v=q2b" autoplay muted loop playsinline preload="metadata" controls></video>
+            <video src="/media/about-us.mp4?v=q2c" autoplay muted loop playsinline preload="metadata" controls></video>
         </div>
     </div>
 
@@ -341,14 +341,14 @@
 </main>
 
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q2b .. hero-2.mp4 back-to-back
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q2c .. hero-2.mp4 back-to-back
 // (same as homepage). Reduced motion honors the poster and skips rotation.
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q2b', pos: 'center center', startAt: 2, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q2c', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -379,8 +379,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q2b" defer></script>
-<script src="/scroll-top.js?v=q2b" defer></script>
-<script src="/hamburger.js?v=q2b" defer></script>
+<script src="/studio-motion.js?v=q2c" defer></script>
+<script src="/scroll-top.js?v=q2c" defer></script>
+<script src="/hamburger.js?v=q2c" defer></script>
 </body>
 </html>

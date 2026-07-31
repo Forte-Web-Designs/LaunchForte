@@ -23,23 +23,24 @@
       #0A0A0A;
     color: #FFFFFF;
     overflow: hidden;
-    padding-bottom: 0.5rem;
+    /* Real black space below the stats + room for the fade to sit lower.
+       Ask Forte peeks through the very bottom of the fade (see negative
+       margin-top on the first pane child below). */
+    padding-bottom: 6rem;
 }
-/* Pane starts immediately after hero — kill the default studio-section top
-   margin on the FIRST section so the hero fade flows directly into it.
-   Applies to desktop (where --sp-40 was ~10rem) and mobile (where --sp-24
-   was still meaningful). */
-main.studio-pane.hero-follows > :first-child { margin-top: 0 !important; padding-top: 1rem; }
+/* Pane pulls UP into the hero so the fade actually overlaps the top of
+   Ask Forte — invites the scroll instead of ending on a hard white line. */
+main.studio-pane.hero-follows > :first-child { margin-top: -3rem !important; padding-top: 2rem; position: relative; z-index: 2; }
 main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
 main.studio-pane.hero-follows::before { display: none; }
 
 /* Bottom fade dissolves the hero into the white pane below */
 .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
 .hero-overlay-btm {
-    background: linear-gradient(180deg, transparent 70%, rgba(10,10,10,0.55) 88%, #FFFFFF 100%);
+    background: linear-gradient(180deg, transparent 82%, rgba(10,10,10,0.55) 94%, #FFFFFF 100%);
 }
 [data-theme="dark"] .hero-overlay-btm {
-    background: linear-gradient(180deg, transparent 70%, rgba(10,10,10,0.4) 88%, #0A0A0A 100%);
+    background: linear-gradient(180deg, transparent 82%, rgba(10,10,10,0.4) 94%, #0A0A0A 100%);
 }
 
 /* Nav sits transparent-over-dark on the cinematic hero. Only applied when
@@ -74,7 +75,7 @@ main.studio-pane.hero-follows::before { display: none; }
 .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 60ch; }
 
 /* Mobile hero: atmospheric glow bg, vertically-centered content stack.
-   Padding-bottom kept tight so the fade + next-section peek stays visible. */
+   Padding-bottom kept tight, no overlap between pane + hero on mobile. */
 @media (max-width: 768px) {
   .hero-zone {
     padding-bottom: 0.5rem;
@@ -88,4 +89,6 @@ main.studio-pane.hero-follows::before { display: none; }
   }
   .hero-zone .hero-content-inner { text-align: center; }
   .hero-zone .hero-h1 { max-width: 100% !important; }
+  /* No pull-up on mobile — hero is already tight, don't overlap the pane */
+  main.studio-pane.hero-follows > :first-child { margin-top: 0 !important; padding-top: 1rem; }
 }
