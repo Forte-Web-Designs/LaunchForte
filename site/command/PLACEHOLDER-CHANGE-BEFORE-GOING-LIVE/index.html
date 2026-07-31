@@ -196,6 +196,9 @@ border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);resize
 background:var(--brand);color:#fff;font-weight:700;font-size:20px;cursor:pointer}
 .console-composer button:disabled{opacity:.5;cursor:default}
 .console-note{font-size:11.5px;color:var(--muted-2);padding:0 14px 10px}
+.console-empty{margin:auto;text-align:center;color:var(--muted-2);font-size:13px;padding:0 24px;max-width:280px}
+.banner .retry{margin-left:8px;font-weight:700;text-decoration:underline;cursor:pointer;background:none;border:none;
+color:inherit;font:inherit;padding:0}
 
 footer{margin:40px 0 0;padding-top:18px;border-top:1px solid var(--line);
 color:var(--muted-2);font-size:12.5px}
@@ -237,7 +240,7 @@ height:64px;opacity:.55}
 
 <section id="reports">
 <p class="eyebrow">Latest reports</p>
-<div id="reportlist" class="stack"></div>
+<div id="reportlist" class="stack"><div class="skel"></div></div>
 </section>
 
 <section id="dispatch">
@@ -317,7 +320,7 @@ height:64px;opacity:.55}
 <div class="console-top">
 <select id="c_client"><option value="">Pick a client first…</option></select>
 </div>
-<div class="console-log" id="c_log"></div>
+<div class="console-log" id="c_log"><div class="console-empty" id="c_empty">Pick a client above, then ask about status, tasks, or history.</div></div>
 <div class="console-imgprev" id="c_imgprev">
 <img id="c_imgprev_img" alt="pasted image">
 <span>image attached</span>
@@ -698,6 +701,8 @@ return html;
 
 function addTurn(role, text){
 var log = $('c_log');
+var empty = $('c_empty');
+if (empty) empty.remove();
 var turn = el('div', 'c-turn ' + role);
 var bubble = el('div', 'c-bubble');
 if (role === 'bot') bubble.innerHTML = mdLite(text); else bubble.textContent = text;
@@ -858,7 +863,11 @@ $('refreshline').textContent = 'Last refresh ' + shortTime(new Date().toISOStrin
 function offline(e){
 $('dot').className = 'dot down';
 $('banners').innerHTML = '';
-var b = el('div','banner bad','The dashboard cannot reach n8n right now. ' + (e && e.message ? '(' + e.message + ')' : '') + ' The page will keep trying every 5 minutes.');
+var b = el('div','banner bad');
+b.appendChild(document.createTextNode('The dashboard cannot reach n8n right now. ' + (e && e.message ? '(' + e.message + ') ' : '') + 'The page will keep trying every 5 minutes.'));
+var retry = el('button','retry','Retry now');
+retry.addEventListener('click', function(){ retry.disabled = true; retry.textContent = 'Retrying…'; pull(); });
+b.appendChild(retry);
 $('banners').appendChild(b);
 }
 
