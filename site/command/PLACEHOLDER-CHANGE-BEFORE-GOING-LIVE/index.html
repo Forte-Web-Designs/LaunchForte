@@ -1,693 +1,505 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0A1220" media="(prefers-color-scheme: dark)">
-<title>Command</title>
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)">
+<title>Command | Launch Forte</title>
 <link rel="icon" href="data:,">
+
+<link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/studio.css?v=p9x">
+<script src="/studio-theme.js?v=p9x"></script>
+
 <style>
-:root{
-  --brand:#0088DB; --brand-soft:#E6F2FA; --brand-ink:#075A8F;
-  --ok:#1E7A4F; --warn:#B4541B; --danger:#C23B3B; --gray:#8892A0;
-  --bg:#F5F7FA; --card:#FFFFFF; --ink:#0B1220; --muted:#5A6472; --muted-2:#8892A0;
-  --line:#E4E8EE; --line-strong:#D5DBE3;
-  --radius:16px; --radius-lg:22px;
-  --shadow:0 1px 2px rgba(20,25,34,.05),0 8px 24px rgba(20,25,34,.06);
-  --font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
-  --pad:16px;
-}
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#0A1220; --card:#111C33; --ink:#E7EDF5; --muted:#93A1B5; --muted-2:#6E7F96;
-    --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.14);
-    --brand:#4AB5ED; --brand-soft:rgba(74,181,237,.10); --brand-ink:#9AD4F7;
-    --ok:#3FBF85; --warn:#E08A45; --danger:#E86A6A; --gray:#7C8CA3;
-    --shadow:0 1px 2px rgba(0,0,0,.45),0 10px 30px rgba(0,0,0,.35);
-  }
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-  background:var(--bg); color:var(--ink); font-family:var(--font);
-  font-size:16px; line-height:1.45; -webkit-font-smoothing:antialiased;
-  padding:0 var(--pad) 64px; padding-bottom:calc(64px + env(safe-area-inset-bottom));
-}
-.wrap{max-width:1120px;margin:0 auto}
-.num{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.mono{font-family:var(--mono);font-size:12px}
-a{color:var(--brand-ink);text-decoration:none}
-a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
+/* ---- /command v2: page-only rules. Shell (nav, pane, tokens) is studio.css. ---- */
+.cmd-container { max-width: var(--max-content); margin: 0 auto; padding: 0 1.5rem var(--sp-32); }
+@media (min-width: 640px) { .cmd-container { padding: 0 2rem var(--sp-32); } }
 
-/* header */
-header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
-  padding:22px 0 14px;position:sticky;top:0;background:var(--bg);z-index:20;
-  border-bottom:1px solid var(--line)}
-.mark{font-weight:800;letter-spacing:-.03em;font-size:19px}
-.mark span{color:var(--brand)}
-.asof{font-size:12px;color:var(--muted-2);display:flex;align-items:center;gap:7px;white-space:nowrap}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
-.dot.stale{background:var(--warn)} .dot.down{background:var(--danger)}
+.cmd-head { margin-bottom: var(--sp-8); }
+.cmd-title-row { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.cmd-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--n-400); flex: none; }
+.cmd-dot.is-ok { background: var(--ok); }
+.cmd-dot.is-down { background: var(--danger); }
+.cmd-sub { color: var(--n-600); font-size: var(--text-sm); margin-top: 0.35rem; }
 
-/* banners */
-.banner{margin:14px 0;padding:12px 14px;border-radius:12px;font-size:14px;
-  border:1px solid var(--line-strong);background:var(--card)}
-.banner.warn{border-color:var(--warn);color:var(--warn)}
-.banner.bad{border-color:var(--danger);color:var(--danger)}
-.banner.preview{border-color:var(--brand);color:var(--brand-ink);background:var(--brand-soft);font-weight:600}
+.cmd-banner { padding: 0.9rem 1.15rem; border-radius: var(--radius); border: 1px solid var(--border-strong); background: var(--paper-2); color: var(--ink); font-size: var(--text-sm); margin: 0 0 var(--sp-6); }
+.cmd-banner.is-down { border-color: var(--danger); color: var(--danger); background: rgba(194,59,59,0.06); }
 
-/* sections */
-section{margin:34px 0 0}
-.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted-2);font-weight:700;margin:0 0 12px}
-h2{font-size:15px;margin:0 0 12px;font-weight:700;letter-spacing:-.01em}
+.cmd-infra { display: flex; flex-wrap: wrap; gap: 0.4rem 1.75rem; padding: 1rem 1.25rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--paper-2); margin-bottom: var(--sp-8); font-size: var(--text-sm); color: var(--n-600); }
+.cmd-infra strong { color: var(--ink); font-weight: 600; }
 
-/* the verdict rail: one device, used everywhere a state exists */
-.card{position:relative;background:var(--card);border:1px solid var(--line);
-  border-radius:var(--radius);padding:15px 16px 15px 19px;box-shadow:var(--shadow);
-  overflow:hidden;--rail:var(--gray)}
-.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--rail)}
-.rail-ok{--rail:var(--ok)} .rail-warn{--rail:var(--warn)}
-.rail-bad{--rail:var(--danger)} .rail-gray{--rail:var(--gray)} .rail-brand{--rail:var(--brand)}
-.stack{display:grid;gap:10px}
-.grid2{display:grid;gap:12px}
-@media(min-width:860px){.grid2{grid-template-columns:1fr 1fr}}
+.cmd-clients { display: grid; gap: 0.75rem; }
+.cmd-row { border: 1px solid var(--border); border-radius: var(--radius-3xl); background: var(--paper); padding: 1.25rem 1.5rem; }
+.cmd-row-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
+.cmd-name { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: var(--text-lg); color: var(--ink); letter-spacing: -0.01em; }
+.cmd-status { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 999px; background: var(--paper-2); border: 1px solid var(--border-strong); color: var(--n-600); white-space: nowrap; }
+.cmd-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.85rem 1.5rem; margin-top: 1rem; }
+.cmd-field-label { font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--n-500); font-weight: 600; }
+.cmd-field-value { margin-top: 0.2rem; font-size: var(--text-sm); color: var(--ink); line-height: 1.45; }
+.cmd-field-value.is-muted { color: var(--n-500); font-style: italic; }
 
-/* next steps */
-.step-top{display:flex;gap:10px;align-items:baseline}
-.pri{font-size:10.5px;font-weight:800;letter-spacing:.1em;flex:none;padding-top:2px}
-.pri.now{color:var(--danger)} .pri.today{color:var(--warn)} .pri.week{color:var(--muted)}
-.step-action{font-weight:600;font-size:15.5px;letter-spacing:-.01em}
-.step-meta{color:var(--muted);font-size:13px;margin-top:6px}
-details.how{margin-top:9px}
-details.how summary{cursor:pointer;font-size:12.5px;color:var(--brand-ink);
-  list-style:none;font-weight:600;display:inline-flex;align-items:center;gap:5px}
-details.how summary::-webkit-details-marker{display:none}
-details.how summary::after{content:"+";font-weight:700}
-details.how[open] summary::after{content:"\2013"}
-details.how p{margin:8px 0 0;font-size:13.5px;color:var(--muted);white-space:pre-wrap}
+.cmd-empty { padding: 2.5rem 1.5rem; text-align: center; color: var(--n-600); border: 1px dashed var(--border-strong); border-radius: var(--radius-3xl); font-size: var(--text-sm); }
+.cmd-skel { height: 104px; border-radius: var(--radius-3xl); background: var(--paper-2); border: 1px solid var(--border); }
 
-/* the signature: the best possible screen is nearly empty */
-.allclear{padding:46px 22px;text-align:center;background:var(--card);
-  border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow)}
-.allclear .big{font-size:clamp(25px,7.2vw,40px);font-weight:800;letter-spacing:-.035em;line-height:1.12}
-.allclear .sub{margin-top:12px;color:var(--muted-2);font-size:13px}
-
-/* gauge hero */
-.gauge{padding:24px 20px 24px 24px}
-.gauge .state{font-size:clamp(30px,9vw,48px);font-weight:800;letter-spacing:-.04em;line-height:1;
-  text-transform:uppercase;color:var(--rail)}
-.gauge .reason{margin-top:12px;color:var(--muted);font-size:14px}
-
-/* campaign cards */
-.camp-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
-.camp-name{font-weight:700;letter-spacing:-.01em}
-.verdict{font-size:11px;font-weight:800;letter-spacing:.09em;color:var(--rail)}
-.camp-sub{color:var(--muted-2);font-size:12px;margin-top:3px}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 8px;margin-top:15px}
-@media(min-width:520px){.metrics{grid-template-columns:repeat(6,1fr)}}
-.metric .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);font-weight:600}
-.metric .v{font-size:19px;font-weight:700;margin-top:1px}
-.metric .v small{font-size:12px;font-weight:600;color:var(--muted-2);letter-spacing:0}
-.metric .v.na{font-size:12.5px;font-weight:600;color:var(--muted-2);font-style:italic}
-.foot-note{margin-top:12px;font-size:11.5px;color:var(--muted-2)}
-
-/* charts */
-.chart-card{padding:14px 14px 8px}
-.chart-card h3{margin:0 0 8px;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:-.01em}
-.chart-box{position:relative;height:168px}
-
-/* double down */
-.dd{font-size:15px;letter-spacing:-.01em}
-.dd.collecting{color:var(--muted-2);font-style:italic;font-size:13.5px}
-
-/* jobs */
-.job-head{display:flex;gap:9px;align-items:baseline}
-.fit{font-size:10.5px;font-weight:800;letter-spacing:.08em;flex:none;color:var(--rail)}
-.job-title{font-weight:650;letter-spacing:-.01em;font-size:15px}
-.score{margin-left:auto;font-weight:800;font-size:15px}
-.job-reason{color:var(--muted);font-size:13.5px;margin-top:7px}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
-.chip{font-size:11px;padding:3px 8px;border-radius:999px;background:var(--brand-soft);
-  color:var(--brand-ink);font-weight:600;white-space:nowrap}
-.chip.plain{background:transparent;border:1px solid var(--line-strong);color:var(--muted)}
-.job-actions{margin-top:12px;display:flex;gap:14px;align-items:center;font-size:13px;font-weight:600}
-.applied{color:var(--ok);font-weight:700;font-size:12px}
-
-/* tables */
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);
-  border-radius:var(--radius);background:var(--card);box-shadow:var(--shadow)}
-table{border-collapse:collapse;width:100%;font-size:13px;min-width:520px}
-th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
-th{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);font-weight:700}
-tbody tr:last-child td{border-bottom:0}
-td.n{text-align:right;font-variant-numeric:tabular-nums}
-th.n{text-align:right}
-.tag{font-size:11px;font-weight:700}
-.tag.ok{color:var(--ok)} .tag.warn{color:var(--warn)} .tag.bad{color:var(--danger)} .tag.gray{color:var(--muted-2)}
-
-/* footer */
-footer{margin:44px 0 0;padding-top:18px;border-top:1px solid var(--line);
-  color:var(--muted-2);font-size:12.5px}
-footer .links{display:flex;flex-wrap:wrap;gap:8px 16px;margin:10px 0 14px}
-footer .note{line-height:1.6}
-
-.skel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-  height:74px;opacity:.55}
-.hide{display:none !important}
-
-@media (prefers-reduced-motion: no-preference){
-  .reveal{animation:rise .34s cubic-bezier(.22,.61,.36,1) both}
-  @keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
-}
+/* ---- dispatch: queue status + queue form (job 3a) ---- */
+.cmd-section-gap { margin-top: var(--sp-32); }
+.cmd-task-row { border: 1px solid var(--border); border-radius: var(--radius-3xl); background: var(--paper); padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.65rem; }
+.cmd-task-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
+.cmd-task-title { font-weight: 600; color: var(--ink); font-size: var(--text-sm); }
+.cmd-task-id { color: var(--n-500); font-size: 0.75rem; font-family: var(--mono, monospace); margin-top: 0.15rem; }
+.cmd-task-status { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 999px; border: 1px solid var(--border-strong); white-space: nowrap; color: var(--n-600); background: var(--paper-2); }
+.cmd-task-status.is-bad { color: var(--danger); border-color: var(--danger); background: rgba(194,59,59,0.06); }
+.cmd-btn-sm { font-size: 0.75rem; padding: 0.5rem 1rem; border-radius: 999px; }
+.cmd-result { margin-top: 0.25rem; padding: 0.85rem 1.05rem; border-radius: var(--radius); border: 1px solid var(--border-strong); background: var(--paper-2); font-size: 0.75rem; font-family: var(--mono, monospace); white-space: pre-wrap; word-break: break-word; }
+.cmd-result.is-ok { border-color: var(--ok); }
+.cmd-result.is-bad { border-color: var(--danger); }
+.cmd-autonomy-note { font-size: 0.8125rem; color: var(--n-500); margin-top: 0.35rem; }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<header>
-  <div class="mark">LAUNCH FORTE <span>COMMAND</span></div>
-  <div class="asof"><span class="dot" id="dot"></span><span id="asof">loading</span></div>
+<header class="studio-nav site-header">
+    <div class="studio-nav-inner">
+        <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte" width="160" height="28" fetchpriority="high">
+        </a>
+        <div class="studio-nav-right">
+            <span class="studio-nav-cta" style="background:transparent;color:var(--ink);border:1px solid var(--border-strong);cursor:default">Command</span>
+        </div>
+    </div>
 </header>
 
-<div id="banners"></div>
+<main class="studio-pane">
+<div class="cmd-container">
 
-<section id="next-steps">
-  <p class="eyebrow">Next steps</p>
-  <div id="steps" class="stack"><div class="skel"></div><div class="skel"></div></div>
-</section>
+    <div class="cmd-head">
+        <p class="studio-eyebrow">House · read only</p>
+        <h1 class="studio-h2" style="margin-bottom:0.35rem">Clients</h1>
+        <div class="cmd-title-row">
+            <span class="cmd-dot" id="cmd-dot"></span>
+            <span class="cmd-sub" id="cmd-asof" style="margin-top:0">Loading the snapshot&hellip;</span>
+        </div>
+    </div>
 
-<section id="working">
-  <p class="eyebrow">Working?</p>
-  <div id="gauge" class="card gauge rail-gray"><div class="state">loading</div></div>
-</section>
+    <div id="cmd-banner-slot"></div>
 
-<section id="command">
-  <p class="eyebrow">Command</p>
-  <div id="camps" class="stack"><div class="skel"></div></div>
-</section>
+    <div class="cmd-infra" id="cmd-infra" hidden></div>
 
-<section id="charts">
-  <p class="eyebrow">Trend</p>
-  <div id="chartgrid" class="grid2"></div>
-  <p id="chartfail" class="foot-note hide">Charts did not load. The numbers above are unaffected.</p>
-</section>
+    <section id="cmd-clients" class="cmd-clients studio-reveal-stagger">
+        <div class="cmd-skel"></div>
+        <div class="cmd-skel"></div>
+    </section>
 
-<section id="double-down">
-  <p class="eyebrow">Double down</p>
-  <div id="dd" class="stack"></div>
-</section>
+    <section id="cmd-queue-status" class="cmd-section-gap">
+        <p class="studio-eyebrow">Dispatch</p>
+        <h2 class="studio-h2" style="margin-bottom:0.35rem">Queue status</h2>
+        <div id="cmd-tasks" class="cmd-clients studio-reveal-stagger">
+            <div class="cmd-skel"></div>
+        </div>
+    </section>
 
-<section id="jobs">
-  <p class="eyebrow">Jobs</p>
-  <div id="joblist" class="stack"></div>
-</section>
-
-<section id="categories">
-  <p class="eyebrow">Categories</p>
-  <div class="tbl-wrap"><table id="cats"></table></div>
-</section>
-
-<section id="demos">
-  <p class="eyebrow">Demos</p>
-  <div class="tbl-wrap"><table id="dem"></table></div>
-</section>
-
-<footer>
-  <div id="refreshline">Waiting for the first refresh.</div>
-  <div class="links" id="editlinks"></div>
-  <div class="note" id="archnote"></div>
-  <div class="note" style="margin-top:10px">The sheet is the only place anything can be edited. This page is a read only view and never writes.</div>
-</footer>
+    <section id="cmd-queue-new" class="cmd-section-gap">
+        <p class="studio-eyebrow">Dispatch</p>
+        <h2 class="studio-h2" style="margin-bottom:0.35rem">Queue a job</h2>
+        <form id="cmd-queue-form" class="cmd-queue-form" novalidate>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="q-job-id">Job ID</label>
+                    <input class="form-input" type="text" id="q-job-id" name="job_id" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="q-title">Title</label>
+                    <input class="form-input" type="text" id="q-title" name="title" required autocomplete="off">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="q-job-class">Job class</label>
+                    <select class="form-select" id="q-job-class" name="job_class" required>
+                        <option value="" disabled selected>Choose one</option>
+                        <option value="doc_update">doc_update</option>
+                        <option value="site_pass">site_pass</option>
+                        <option value="generator">generator</option>
+                        <option value="export">export</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="q-repo">Repo</label>
+                    <select class="form-select" id="q-repo" name="repo" required>
+                        <option value="" disabled selected>Choose one</option>
+                        <option value="launchforte">launchforte</option>
+                        <option value="sethfortewebsite">sethfortewebsite</option>
+                        <option value="meh-site">meh-site</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="q-prompt">Prompt</label>
+                <textarea class="form-textarea" id="q-prompt" name="prompt" required></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="q-autonomy">Autonomy</label>
+                <select class="form-select" id="q-autonomy" name="autonomy" disabled>
+                    <option value="green" selected>green</option>
+                </select>
+                <p class="cmd-autonomy-note">Fixed to green here. Amber/red confirms are a separate flow.</p>
+            </div>
+            <button type="submit" class="studio-btn studio-btn-primary" id="q-submit">Queue job</button>
+            <div id="q-result" class="cmd-result" hidden></div>
+        </form>
+    </section>
 
 </div>
+</main>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
 <script>
-/* ------------------------------------------------------------------ config */
-/* PATH_STYLE 'nested' gives /webhook/dash-{token}/summary.
-   If n8n rejects a slash inside a webhook path, flip this one word to 'flat'
-   and the endpoints become /webhook/dash-{token}-summary. Nothing else moves. */
-var PATH_STYLE = 'nested';
-var API_BASE   = 'https://launchforte.app.n8n.cloud/webhook';
-/* The token is read from this page's own directory, so rotating it means
-   renaming the folder and changing the n8n constant. This file never changes.
-   THIS FALLBACK IS A PLACEHOLDER. Before going live: rename the parent
-   directory to a real random token AND change the TOKEN_FALLBACK line below
-   to match. Keeping them in sync means a fresh visit lands on the right
-   token even if the URL is loaded from a bookmark that dropped the path. */
-var TOKEN_FALLBACK = 'PLACEHOLDER-CHANGE-BEFORE-GOING-LIVE';
-var POLL_MS = 5 * 60 * 1000;
-var STALE_HOURS = 26;
+(function () {
+  /* ------------------------------------------------------------------
+   * Locked contract: GET /webhook/dashboard-snapshot, one call, whole
+   * board. This job (1 of 4) renders CLIENTS only: name, status,
+   * waiting_on, replies_owed_age_days, and a money summary
+   * (fortress_monthly_infra_usd + the per-engagement total from the
+   * money object). tasks[]/latest_reports[]/queue_depth are fetched
+   * (single call, per contract) but intentionally not rendered here --
+   * that's jobs 2-4.
+   *
+   * ASSUMPTION (flagged as an open question, see final message): the
+   * exact key linking a client to its row in money.engagements and the
+   * exact per-engagement total field name are not given in prose form,
+   * so lookups below try a short list of plausible keys defensively
+   * rather than asserting one. fortress_monthly_infra_usd is read
+   * verbatim as given.
+   *
+   * Job 3a (dispatch: queue) adds: a QUEUE form that POSTs to
+   * /webhook/build-enqueue, and a RESUME action on any queue task
+   * whose status is failed/stuck. Board rendering (job 2) has not
+   * landed yet at the time this job was built, so the task list here
+   * is a minimal read of data.tasks[] just to give RESUME somewhere to
+   * live -- see the open question in the final message about
+   * reconciling this with job 2's board once it merges. The exact
+   * field names on a task object are not given in prose either, so
+   * they're read defensively the same way the client/money lookups
+   * are above.
+   * ------------------------------------------------------------------ */
 
-var TOKEN = (function(){
-  var m = location.pathname.match(/\/command\/([A-Za-z0-9_-]{16,})/);
-  return m ? m[1] : TOKEN_FALLBACK;
-})();
-function ep(name){
-  return PATH_STYLE === 'nested'
-    ? API_BASE + '/dash-' + TOKEN + '/' + name
-    : API_BASE + '/dash-' + TOKEN + '-' + name;
-}
-var PREVIEW = /[?&]preview=1/.test(location.search);
-
-/* ------------------------------------------------------------------ helpers */
-var $ = function(id){ return document.getElementById(id); };
-function el(tag, cls, txt){
-  var n = document.createElement(tag);
-  if (cls) n.className = cls;
-  if (txt !== undefined && txt !== null) n.textContent = txt;
-  return n;
-}
-function num(v, dp){
-  if (v === null || v === undefined || isNaN(v)) return null;
-  return Number(v).toLocaleString('en-US', {maximumFractionDigits: dp === undefined ? 0 : dp});
-}
-function clockAge(iso){
-  if (!iso) return null;
-  return Math.round((Date.now() - new Date(iso).getTime()) / 60000);
-}
-function shortTime(iso){
-  if (!iso) return 'unknown';
-  var d = new Date(iso);
-  if (isNaN(d)) return 'unknown';
-  return d.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
-}
-function railFor(colour){
-  return ({green:'rail-ok', amber:'rail-warn', red:'rail-bad', gray:'rail-gray'})[colour] || 'rail-gray';
-}
-function tagFor(colour){
-  return ({green:'ok', amber:'warn', red:'bad', gray:'gray'})[colour] || 'gray';
-}
-
-/* ------------------------------------------------------------------ render */
-function metric(k, v, sub, na){
-  var w = el('div','metric');
-  w.appendChild(el('div','k',k));
-  var val = el('div', na ? 'v na num' : 'v num', v);
-  if (sub && !na){ var s = el('small', null, ' ' + sub); val.appendChild(s); }
-  w.appendChild(val);
-  return w;
-}
-
-function renderSteps(list){
-  var host = $('steps'); host.innerHTML = '';
-  if (!list || !list.length){
-    var box = el('div','allclear reveal');
-    box.appendChild(el('div','big','Nothing needs you today: the machine is flowing'));
-    box.appendChild(el('div','sub','Every queue is clear. The next check runs tomorrow at 6:40am.'));
-    host.appendChild(box);
-    return;
-  }
-  list.forEach(function(s, i){
-    var pri = String(s.priority || '').toUpperCase();
-    var rail = pri === 'NOW' ? 'rail-bad' : (pri === 'TODAY' ? 'rail-warn' : 'rail-gray');
-    var c = el('div','card reveal ' + rail);
-    c.style.animationDelay = Math.min(i,6) * 28 + 'ms';
-    var top = el('div','step-top');
-    top.appendChild(el('div','pri ' + (pri === 'NOW' ? 'now' : pri === 'TODAY' ? 'today' : 'week'), pri));
-    top.appendChild(el('div','step-action', s.action || ''));
-    c.appendChild(top);
-    if (s.evidence) c.appendChild(el('div','step-meta', s.evidence));
-    if (s.how){
-      var d = el('details','how');
-      d.appendChild(el('summary', null, 'How'));
-      d.appendChild(el('p', null, s.how));
-      c.appendChild(d);
-    }
-    if (s.source === 'manual' && s.editUrl){
-      var a = el('a', null, 'Edit in the sheet');
-      a.href = s.editUrl; a.target = '_blank'; a.rel = 'noopener noreferrer';
-      var wrap = el('div','job-actions'); wrap.appendChild(a); c.appendChild(wrap);
-    }
-    host.appendChild(c);
-  });
-}
-
-function renderGauge(g){
-  var host = $('gauge');
-  host.className = 'card gauge reveal ' + railFor(g && g.colour);
-  host.innerHTML = '';
-  var word = (g && g.state ? String(g.state) : 'unknown').replace(/_/g,' ');
-  host.appendChild(el('div','state', word));
-  host.appendChild(el('div','reason', (g && g.reason) || 'No reason reported.'));
-}
-
-function renderCamps(list){
-  var host = $('camps'); host.innerHTML = '';
-  if (!list || !list.length){
-    host.appendChild(el('div','card rail-gray','No campaign is armed yet.'));
-    return;
-  }
-  list.forEach(function(c){
-    var card = el('div','card reveal ' + railFor(c.verdictColour));
-    var head = el('div','camp-head');
-    var left = el('div');
-    left.appendChild(el('div','camp-name', c.campaign || c.vertical || 'campaign'));
-    var bits = [];
-    if (c.vertical) bits.push(c.vertical);
-    if (c.cohorts && c.cohorts.length) bits.push('cohorts ' + c.cohorts.join(' and '));
-    if (c.demoDestination) bits.push('sends to ' + c.demoDestination);
-    left.appendChild(el('div','camp-sub', bits.join('  ·  ')));
-    head.appendChild(left);
-    head.appendChild(el('div','verdict', c.verdict || ''));
-    card.appendChild(head);
-
-    var m = el('div','metrics');
-    m.appendChild(metric('Sourced', num(c.sourced) || '0'));
-    m.appendChild(metric('Enrolled', num(c.enrolled) || '0'));
-    m.appendChild(metric('Contacted', num(c.contacted) || '0'));
-    var rr = c.replyRate === null || c.replyRate === undefined;
-    m.appendChild(metric('Replies',
-      rr ? (c.replyRateLabel || 'collecting') : (num(c.replies) || '0'),
-      rr ? '' : num(c.replyRate,1) + '%', rr));
-    var bp = c.bouncePct === null || c.bouncePct === undefined;
-    m.appendChild(metric('Bounce',
-      bp ? 'nothing sent' : num(c.bouncePct,2) + '%',
-      bp ? '' : 'of ' + num(c.bounceCeiling,1) + '% cap', bp));
-    var rw = c.runwayDays === null || c.runwayDays === undefined;
-    m.appendChild(metric('Runway', rw ? 'unknown' : num(c.runwayDays,1), rw ? '' : 'days', rw));
-    card.appendChild(m);
-
-    var notes = [];
-    if (c.contactedFootnote) notes.push('Contacted counts ' + c.contactedFootnote + '.');
-    if (c.creditsUsed !== null && c.creditsUsed !== undefined)
-      notes.push('Apollo credits ' + num(c.creditsUsed) + ' of ' + num(c.creditsCap) + '.');
-    if (notes.length) card.appendChild(el('div','foot-note', notes.join(' ')));
-    host.appendChild(card);
-  });
-}
-
-function renderDD(list){
-  var host = $('dd'); host.innerHTML = '';
-  if (!list || !list.length){
-    host.appendChild(el('div','card rail-gray','Nothing to compare yet.')); return;
-  }
-  list.forEach(function(d){
-    var c = el('div','card reveal ' + (d.state === 'ranked' ? 'rail-brand' : 'rail-gray'));
-    c.appendChild(el('div','dd' + (d.state === 'ranked' ? '' : ' collecting'), d.sentence || ''));
-    host.appendChild(c);
-  });
-}
-
-function renderJobs(list){
-  var host = $('joblist'); host.innerHTML = '';
-  if (!list || !list.length){
-    host.appendChild(el('div','card rail-gray','No A or B fits in the current window.')); return;
-  }
-  list.slice().sort(function(a,b){
-    if (a.fit !== b.fit) return a.fit === 'A' ? -1 : 1;
-    return (b.score||0) - (a.score||0);
-  }).forEach(function(j){
-    var c = el('div','card reveal ' + (j.fit === 'A' ? 'rail-brand' : 'rail-gray'));
-    var head = el('div','job-head');
-    head.appendChild(el('div','fit', j.fit + ' FIT'));
-    head.appendChild(el('div','job-title', j.title || 'untitled posting'));
-    if (j.score !== null && j.score !== undefined) head.appendChild(el('div','score num', j.score));
-    c.appendChild(head);
-    if (j.reason) c.appendChild(el('div','job-reason', j.reason));
-    var chips = el('div','chips');
-    if (j.suggestedDemo) chips.appendChild(el('span','chip','show ' + j.suggestedDemo));
-    var cl = j.client || {};
-    if (cl.country) chips.appendChild(el('span','chip plain', cl.country));
-    if (cl.spend !== undefined && cl.spend !== null) chips.appendChild(el('span','chip plain','$' + num(cl.spend) + ' spent'));
-    if (cl.hireRate !== undefined && cl.hireRate !== null) chips.appendChild(el('span','chip plain', cl.hireRate + '% hire rate'));
-    if (cl.rating !== undefined && cl.rating !== null) chips.appendChild(el('span','chip plain', cl.rating + ' rating'));
-    if (cl.verified) chips.appendChild(el('span','chip plain','payment verified'));
-    if (j.postedAt) chips.appendChild(el('span','chip plain','posted ' + shortTime(j.postedAt)));
-    c.appendChild(chips);
-    var act = el('div','job-actions');
-    if (j.url){
-      var a = el('a', null, 'Open the posting');
-      a.href = j.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
-      act.appendChild(a);
-    }
-    act.appendChild(el('span', j.applied ? 'applied' : 'foot-note', j.applied ? 'APPLIED' : 'not applied'));
-    c.appendChild(act);
-    host.appendChild(c);
-  });
-}
-
-function table(node, cols, rows){
-  node.innerHTML = '';
-  var thead = document.createElement('thead'), tr = document.createElement('tr');
-  cols.forEach(function(c){
-    var th = el('th', c.n ? 'n' : null, c.label); tr.appendChild(th);
-  });
-  thead.appendChild(tr); node.appendChild(thead);
-  var tb = document.createElement('tbody');
-  (rows || []).forEach(function(r){
-    var row = document.createElement('tr');
-    cols.forEach(function(c){
-      var td = el('td', c.n ? 'n' : null);
-      var v = c.get(r);
-      if (v && v.tag){ var s = el('span','tag ' + v.tag, v.text); td.appendChild(s); }
-      else td.textContent = (v === null || v === undefined || v === '') ? '—' : v;
-      row.appendChild(td);
-    });
-    tb.appendChild(row);
-  });
-  node.appendChild(tb);
-}
-
-function renderCats(list){
-  table($('cats'), [
-    {label:'Vertical', get:function(r){return r.vertical;}},
-    {label:'Sourced', n:1, get:function(r){return num(r.sourced);}},
-    {label:'Enrolled', n:1, get:function(r){return num(r.enrolled);}},
-    {label:'Replied', n:1, get:function(r){return num(r.replied);}},
-    {label:'Pool', n:1, get:function(r){return num(r.poolDepth);}},
-    {label:'Status', get:function(r){
-      var t = {active:'ok', queued:'gray', held:'warn', demoted:'bad', caution:'warn'}[r.status] || 'gray';
-      return {tag:t, text:r.status || 'unknown'};
-    }}
-  ], list);
-}
-
-function renderDemos(list){
-  table($('dem'), [
-    {label:'Demo', get:function(r){return r.demo;}},
-    {label:'Status', get:function(r){
-      var t = /live|in campaign/.test(r.status || '') ? 'ok'
-            : /gated|pending/.test(r.status || '') ? 'warn'
-            : /not built/.test(r.status || '') ? 'bad' : 'gray';
-      return {tag:t, text:r.status || 'unknown'};
-    }},
-    {label:'7d', n:1, get:function(r){return num(r.runs7);}},
-    {label:'30d', n:1, get:function(r){return num(r.runs30);}},
-    {label:'Total', n:1, get:function(r){return num(r.runsTotal);}},
-    {label:'Raises', n:1, get:function(r){return num(r.raises30);}},
-    {label:'Raise rate', n:1, get:function(r){
-      return (r.raiseRate === null || r.raiseRate === undefined)
-        ? (r.raiseRateLabel || '—') : num(r.raiseRate,1) + '%';
-    }},
-    {label:'Last run', get:function(r){return r.lastRun ? shortTime(r.lastRun) : null;}}
-  ], list);
-}
-
-/* ------------------------------------------------------------------ charts */
-var charts = [];
-function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
-function chartCard(title){
-  var c = el('div','card chart-card');
-  c.style.paddingLeft = '14px';
-  c.appendChild(el('h3', null, title));
-  var box = el('div','chart-box');
-  var cv = document.createElement('canvas');
-  box.appendChild(cv); c.appendChild(box);
-  $('chartgrid').appendChild(c);
-  return cv;
-}
-function renderCharts(s){
-  charts.forEach(function(c){ try{ c.destroy(); }catch(e){} });
-  charts = [];
-  $('chartgrid').innerHTML = '';
-  if (typeof Chart === 'undefined' || !s){ $('chartfail').classList.remove('hide'); return; }
-  $('chartfail').classList.add('hide');
-  var ink = css('--ink'), muted = css('--muted-2'), line = css('--line'), brand = css('--brand');
-  Chart.defaults.color = muted;
-  Chart.defaults.font.family = css('--font') || 'sans-serif';
-  Chart.defaults.font.size = 11;
-  var base = {
-    responsive:true, maintainAspectRatio:false,
-    plugins:{legend:{display:false}, tooltip:{displayColors:false}},
-    scales:{ x:{grid:{display:false}, ticks:{maxTicksLimit:6}},
-             y:{grid:{color:line}, beginAtZero:true, ticks:{maxTicksLimit:5}} },
-    elements:{point:{radius:0}, line:{tension:.32, borderWidth:2}}
+  var CONFIG = {
+    API_BASE: 'https://launchforte.app.n8n.cloud',
+    SNAPSHOT_PATH: '/webhook/dashboard-snapshot',
+    ENQUEUE_PATH: '/webhook/build-enqueue',
+    TOKEN_FALLBACK: 'PLACEHOLDER-CHANGE-BEFORE-GOING-LIVE'
   };
-  function mk(cv, cfg){ charts.push(new Chart(cv.getContext('2d'), cfg)); }
-  function series(title, labels, data, colour){
-    if (!data || !data.length) return;
-    mk(chartCard(title), {type:'line', data:{labels:labels, datasets:[{
-      data:data, borderColor:colour, backgroundColor:'transparent', fill:false}]}, options:base});
+
+  var JOB_CLASSES = ['doc_update', 'site_pass', 'generator', 'export'];
+  var REPOS = ['launchforte', 'sethfortewebsite', 'meh-site'];
+
+  var TOKEN = (function () {
+    var m = location.pathname.match(/\/command\/([A-Za-z0-9_-]{16,})/);
+    return m ? m[1] : CONFIG.TOKEN_FALLBACK;
+  })();
+
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, cls, txt) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (txt !== undefined && txt !== null) n.textContent = txt;
+    return n;
   }
-  function bars(title, labels, data, horizontal){
-    if (!data || !data.length) return;
-    var o = JSON.parse(JSON.stringify(base));
-    o.indexAxis = horizontal ? 'y' : 'x';
-    o.plugins = base.plugins;
-    mk(chartCard(title), {type:'bar', data:{labels:labels, datasets:[{
-      data:data, backgroundColor:brand, borderRadius:5, barThickness: horizontal ? 14 : undefined}]},
-      options:o});
+  function money(v) {
+    if (v === null || v === undefined || isNaN(v)) return null;
+    return '$' + Number(v).toLocaleString('en-US', { maximumFractionDigits: 0 });
   }
-  var d = s.days || [];
-  var pretty = d.map(function(x){ return String(x).slice(5); });
-  series('Replies a day', pretty, s.repliesPerDay, brand);
-  series('Runway, days', pretty, s.runwayDays, css('--warn'));
-  series('Apollo credits used', pretty, s.creditsUsed, css('--ok'));
-  if (s.funnel) bars('Funnel', s.funnel.labels, s.funnel.values, true);
-  if (s.leadsByCategory) bars('Leads by category', s.leadsByCategory.labels, s.leadsByCategory.values, true);
-  if (s.replyRateByCampaign) bars('Reply rate by campaign, %', s.replyRateByCampaign.labels, s.replyRateByCampaign.values, false);
-}
-
-/* ------------------------------------------------------------------ paint */
-var lastGen = null, lastData = null;
-
-function banner(cls, text){
-  var b = el('div','banner ' + cls, text);
-  $('banners').appendChild(b);
-}
-function paint(data){
-  lastData = data;
-  $('banners').innerHTML = '';
-  if (PREVIEW) banner('preview','Preview mode. Every number on this screen is fake sample data, not your business.');
-
-  var meta = data.meta || {};
-  var parts = meta.parts || {};
-  var ages = Object.keys(parts).map(function(k){ return clockAge(parts[k]); }).filter(function(x){ return x !== null; });
-  var oldest = ages.length ? Math.max.apply(null, ages) : null;
-  var stale = oldest !== null && oldest > STALE_HOURS * 60;
-
-  $('dot').className = 'dot' + (stale ? ' stale' : '');
-  $('asof').textContent = meta.generatedAt ? 'as of ' + shortTime(meta.generatedAt) : 'time unknown';
-  if (stale){
-    banner('warn','This snapshot is ' + Math.floor(oldest/60) + ' hours old. The 6:45am refresh has not run, so every number below is from the last one that did.');
+  function pick(obj, keys) {
+    if (!obj) return null;
+    for (var i = 0; i < keys.length; i++) {
+      if (obj[keys[i]] !== undefined && obj[keys[i]] !== null && obj[keys[i]] !== '') return obj[keys[i]];
+    }
+    return null;
   }
-  ['main','queue'].forEach(function(p){
-    if (parts[p] === undefined || parts[p] === null)
-      banner('bad','The ' + (p === 'queue' ? 'next steps queue' : 'main snapshot') + ' is missing from this refresh. Everything else on the page is current.');
-  });
 
-  renderSteps(data.nextSteps);
-  renderGauge(data.gauge);
-  renderCamps(data.command);
-  renderCharts(data.series);
-  renderDD(data.doubleDown);
-  renderJobs(data.jobs);
-  renderCats(data.categories);
-  renderDemos(data.demos);
+  function engagementFor(moneyObj, clientName) {
+    if (!moneyObj || !clientName) return null;
+    var list = moneyObj.engagements;
+    if (Array.isArray(list)) {
+      for (var i = 0; i < list.length; i++) {
+        var e = list[i];
+        if (e && (e.client === clientName || e.name === clientName || e.engagement === clientName)) return e;
+      }
+      return null;
+    }
+    if (list && typeof list === 'object') return list[clientName] || null;
+    return null;
+  }
+  function engagementTotal(e) {
+    if (!e) return null;
+    if (e.total_usd !== undefined && e.total_usd !== null) return e.total_usd;
+    if (e.totals && e.totals.cost_usd !== undefined && e.totals.cost_usd !== null) return e.totals.cost_usd;
+    if (e.cost_usd !== undefined && e.cost_usd !== null) return e.cost_usd;
+    return null;
+  }
+  function engagementBudget(e) {
+    if (!e) return null;
+    if (e.token_budget_usd !== undefined && e.token_budget_usd !== null) return e.token_budget_usd;
+    if (e.budget_usd !== undefined && e.budget_usd !== null) return e.budget_usd;
+    return null;
+  }
 
-  $('refreshline').textContent = 'Last refresh ' + shortTime(meta.generatedAt) +
-    '. Cadence: ' + (meta.refreshCadence || 'daily') + '. This page re checks every 5 minutes while open.';
-  var links = $('editlinks'); links.innerHTML = '';
-  var labels = {nextSteps:'Edit next steps', toolCosts:'Enter tool costs', ideas:'Update IDEAS', intentOverrides:'Override intent'};
-  Object.keys(data.editLinks || {}).forEach(function(k){
-    var a = el('a', null, labels[k] || k);
-    a.href = data.editLinks[k]; a.target = '_blank'; a.rel = 'noopener noreferrer';
-    links.appendChild(a);
-  });
-  $('archnote').textContent = data.archiveNote || '';
-}
+  function renderInfra(moneyObj) {
+    var host = $('cmd-infra');
+    if (!moneyObj || moneyObj.fortress_monthly_infra_usd === undefined || moneyObj.fortress_monthly_infra_usd === null) {
+      host.hidden = true;
+      return;
+    }
+    host.hidden = false;
+    host.innerHTML = '';
+    var wrap = el('span');
+    wrap.appendChild(document.createTextNode('Fortress monthly infra: '));
+    wrap.appendChild(el('strong', null, money(moneyObj.fortress_monthly_infra_usd)));
+    host.appendChild(wrap);
+  }
 
-/* ------------------------------------------------------------------ fetch */
-function get(url){
-  return fetch(url, {cache:'no-store', credentials:'omit', referrerPolicy:'no-referrer'})
-    .then(function(r){
+  function field(label, valueNode) {
+    var w = el('div');
+    w.appendChild(el('div', 'cmd-field-label', label));
+    var v = el('div', 'cmd-field-value');
+    if (typeof valueNode === 'string') v.textContent = valueNode;
+    else v.appendChild(valueNode);
+    w.appendChild(v);
+    return w;
+  }
+  function mutedField(label, text) {
+    var w = el('div');
+    w.appendChild(el('div', 'cmd-field-label', label));
+    w.appendChild(el('div', 'cmd-field-value is-muted', text));
+    return w;
+  }
+
+  function renderClients(clients, moneyObj) {
+    var host = $('cmd-clients');
+    host.innerHTML = '';
+    if (!clients || !clients.length) {
+      host.appendChild(el('div', 'cmd-empty', 'No clients on the snapshot.'));
+      return;
+    }
+    clients.forEach(function (c) {
+      var row = el('div', 'cmd-row studio-reveal');
+      var head = el('div', 'cmd-row-head');
+      head.appendChild(el('div', 'cmd-name', c.name || 'Unnamed client'));
+      if (c.status) head.appendChild(el('span', 'cmd-status', String(c.status)));
+      row.appendChild(head);
+
+      var grid = el('div', 'cmd-fields');
+      if (c.waiting_on) {
+        grid.appendChild(field('Waiting on', c.waiting_on));
+      } else {
+        grid.appendChild(mutedField('Waiting on', 'nothing reported'));
+      }
+
+      var age = c.replies_owed_age_days;
+      if (age === null || age === undefined) {
+        grid.appendChild(mutedField('Replies owed', 'none reported'));
+      } else if (Number(age) <= 0) {
+        grid.appendChild(field('Replies owed', 'none owed'));
+      } else {
+        grid.appendChild(field('Replies owed', Number(age) + ' day' + (Number(age) === 1 ? '' : 's')));
+      }
+
+      var eng = engagementFor(moneyObj, c.name);
+      var total = engagementTotal(eng);
+      var budget = engagementBudget(eng);
+      if (total === null) {
+        grid.appendChild(mutedField('Engagement total', 'no engagement money reported'));
+      } else if (budget !== null) {
+        grid.appendChild(field('Engagement total', money(total) + ' of ' + money(budget) + ' budget'));
+      } else {
+        grid.appendChild(field('Engagement total', money(total)));
+      }
+
+      row.appendChild(grid);
+      host.appendChild(row);
+    });
+  }
+
+  /* ---------------------------------------------------------- dispatch */
+  function taskId(t) { return pick(t, ['job_id', 'id', 'jobId']); }
+  function taskStatus(t) { return String(pick(t, ['status', 'state']) || '').toLowerCase(); }
+  function taskTitle(t) { return pick(t, ['title']); }
+  function taskJobClass(t) { return pick(t, ['job_class', 'jobClass']); }
+  function taskRepo(t) { return pick(t, ['repo']); }
+  function taskPrompt(t) { return pick(t, ['prompt']); }
+  function isRetryable(status) { return status === 'failed' || status === 'stuck' || status === 'error'; }
+
+  function readBody(r) {
+    return r.text().then(function (t) {
+      var parsed = null;
+      try { parsed = t ? JSON.parse(t) : null; } catch (e) {}
+      return { ok: r.ok, status: r.status, json: parsed, raw: t };
+    });
+  }
+  function enqueue(payload) {
+    return fetch(CONFIG.API_BASE + CONFIG.ENQUEUE_PATH, {
+      method: 'POST',
+      cache: 'no-store',
+      credentials: 'omit',
+      referrerPolicy: 'no-referrer',
+      headers: { 'Content-Type': 'application/json', 'X-Dashboard-Token': TOKEN },
+      body: JSON.stringify(payload)
+    }).then(readBody);
+  }
+  function showResult(host, res) {
+    host.hidden = false;
+    host.className = 'cmd-result ' + (res.ok ? 'is-ok' : 'is-bad');
+    var body = res.json !== null ? JSON.stringify(res.json, null, 2) : (res.raw || '(empty response)');
+    host.textContent = 'HTTP ' + res.status + '\n' + body;
+  }
+  function requestFailed(host, err) {
+    showResult(host, { ok: false, status: 0, json: null, raw: 'Request failed: ' + (err && err.message ? err.message : err) });
+  }
+
+  function renderTasks(list) {
+    var host = $('cmd-tasks');
+    host.innerHTML = '';
+    if (!list || !list.length) {
+      host.appendChild(el('div', 'cmd-empty', 'No jobs on the snapshot.'));
+      return;
+    }
+    list.forEach(function (t) {
+      var status = taskStatus(t);
+      var row = el('div', 'cmd-task-row studio-reveal');
+      var head = el('div', 'cmd-task-head');
+      var left = el('div');
+      left.appendChild(el('div', 'cmd-task-title', taskTitle(t) || 'Untitled job'));
+      left.appendChild(el('div', 'cmd-task-id', taskId(t) || 'no id'));
+      head.appendChild(left);
+      head.appendChild(el('span', 'cmd-task-status' + (isRetryable(status) ? ' is-bad' : ''), status || 'unknown'));
+      row.appendChild(head);
+
+      if (isRetryable(status)) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'studio-btn studio-btn-ghost cmd-btn-sm';
+        btn.textContent = 'Resume';
+        var resultBox = el('div', 'cmd-result');
+        resultBox.hidden = true;
+        btn.addEventListener('click', function () {
+          var origId = taskId(t) || 'job';
+          var newId = origId + '-retry' + Date.now();
+          btn.disabled = true;
+          btn.textContent = 'Resuming…';
+          enqueue({
+            job_id: newId,
+            title: taskTitle(t) || '',
+            job_class: taskJobClass(t) || '',
+            repo: taskRepo(t) || '',
+            prompt: taskPrompt(t) || '',
+            autonomy: 'green'
+          }).then(function (res) {
+            showResult(resultBox, res);
+          }).catch(function (err) {
+            requestFailed(resultBox, err);
+          }).then(function () {
+            btn.disabled = false;
+            btn.textContent = 'Resume';
+          });
+        });
+        var actions = el('div');
+        actions.appendChild(btn);
+        row.appendChild(actions);
+        row.appendChild(resultBox);
+      }
+      host.appendChild(row);
+    });
+  }
+
+  function wireQueueForm() {
+    var form = $('cmd-queue-form');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var resultHost = $('q-result');
+      var payload = {
+        job_id: $('q-job-id').value.trim(),
+        title: $('q-title').value.trim(),
+        job_class: $('q-job-class').value,
+        repo: $('q-repo').value,
+        prompt: $('q-prompt').value,
+        autonomy: 'green'
+      };
+      if (!payload.job_id || !payload.title || !payload.prompt ||
+          JOB_CLASSES.indexOf(payload.job_class) === -1 ||
+          REPOS.indexOf(payload.repo) === -1) {
+        resultHost.hidden = false;
+        resultHost.className = 'cmd-result is-bad';
+        resultHost.textContent = 'Fill in job ID, title, prompt, and pick a job class and repo before queuing.';
+        return;
+      }
+      var btn = $('q-submit');
+      btn.disabled = true;
+      btn.textContent = 'Queuing…';
+      enqueue(payload).then(function (res) {
+        showResult(resultHost, res);
+      }).catch(function (err) {
+        requestFailed(resultHost, err);
+      }).then(function () {
+        btn.disabled = false;
+        btn.textContent = 'Queue job';
+      });
+    });
+  }
+
+  function banner(cls, text) {
+    var slot = $('cmd-banner-slot');
+    slot.innerHTML = '';
+    slot.appendChild(el('div', 'cmd-banner ' + cls, text));
+  }
+  function clearBanner() { $('cmd-banner-slot').innerHTML = ''; }
+
+  function paint(data) {
+    clearBanner();
+    $('cmd-dot').className = 'cmd-dot is-ok';
+    $('cmd-asof').textContent = 'Last checked ' + new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+    renderInfra(data.money);
+    renderClients(data.clients, data.money);
+    renderTasks(data.tasks);
+  }
+
+  function offline(err) {
+    $('cmd-dot').className = 'cmd-dot is-down';
+    $('cmd-asof').textContent = 'Could not reach the snapshot endpoint.';
+    banner('cmd-banner is-down', 'The dashboard cannot reach the snapshot endpoint right now' + (err && err.message ? ' (' + err.message + ')' : '') + '. Nothing is wrong with your data -- this page just could not load it this time.');
+    $('cmd-clients').innerHTML = '';
+    $('cmd-clients').appendChild(el('div', 'cmd-empty', 'No client data to show until the endpoint responds.'));
+    $('cmd-tasks').innerHTML = '';
+    $('cmd-tasks').appendChild(el('div', 'cmd-empty', 'No queue data to show until the endpoint responds.'));
+    $('cmd-infra').hidden = true;
+  }
+
+  function pullSnapshot() {
+    var url = CONFIG.API_BASE + CONFIG.SNAPSHOT_PATH;
+    return fetch(url, {
+      method: 'GET',
+      cache: 'no-store',
+      credentials: 'omit',
+      referrerPolicy: 'no-referrer',
+      headers: { 'X-Dashboard-Token': TOKEN }
+    }).then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
+    }).then(function (data) {
+      paint(data || {});
     });
-}
-function pullSummary(){
-  return get(ep('summary')).then(function(d){
-    lastGen = (d.meta || {}).generatedAt || null;
-    paint(d);
-    return true;
-  });
-}
-/* The 5 minute tick asks health first, which is a few bytes and echoes the
-   snapshot's generatedAt. The full snapshot is re pulled only when that moves,
-   so a phone left open all day costs almost nothing. */
-function tick(){
-  if (PREVIEW) return;
-  get(ep('health')).then(function(h){
-    if (!lastGen || !h.generatedAt || h.generatedAt !== lastGen || h.stale) return pullSummary();
-    $('dot').className = 'dot' + (h.stale ? ' stale' : '');
-  }).catch(function(){
-    return pullSummary().catch(function(e){ offline(e); });
-  });
-}
-function offline(e){
-  $('dot').className = 'dot down';
-  if (!lastData){
-    $('steps').innerHTML = '';
-    var c = el('div','card rail-bad');
-    c.appendChild(el('div','step-action','The dashboard cannot reach n8n.'));
-    c.appendChild(el('div','step-meta','Nothing is wrong with your data. The page will keep trying every 5 minutes. ' + (e && e.message ? '(' + e.message + ')' : '')));
-    $('steps').appendChild(c);
-  } else {
-    $('banners').appendChild(el('div','banner bad','Could not reach n8n on the last check. Showing the last good snapshot.'));
   }
-}
 
-/* --------------------------------------------------------------- preview */
-var SAMPLE = {
-  meta:{generatedAt:new Date(Date.now()-3600e3).toISOString(),
-    parts:{main:new Date(Date.now()-3600e3).toISOString(), queue:new Date(Date.now()-3900e3).toISOString()},
-    refreshCadence:'daily 6:45am CT plus event writes', contractVersion:1},
-  gauge:{state:'too_early', colour:'gray',
-    reason:'collecting: deliverability (nothing sent yet), replies (0 of 30 sends needed), pipeline (no replies yet). Already passing: demo conversion, raise rate 11.9%'},
-  nextSteps:[
-    {priority:'NOW', action:'Reply to the hand raise from a Cohort A contact', how:'Open the Salesforge master inbox and answer inside the thread. Fulfil the ten lead sample against their stated ICP.', evidence:'raised 3 hours ago, SLA is 24 hours', source:'computed', editUrl:null},
-    {priority:'TODAY', action:'Rule the close kit price bands', how:'Every price in the close kit is a [BAND] placeholder. Nothing sends until you set them.', evidence:'open since Jul 25', source:'manual', editUrl:'https://docs.google.com/spreadsheets/d/1cURTfSmmvDLhSGUKdylP91LcWD5vI4O1VOmOLg5YGNs/edit'},
-    {priority:'THIS WEEK', action:'Top up NeverBounce', how:'177 credits left and one 500 lead pull spends about 290.', evidence:'below the 300 credit floor', source:'computed', editUrl:null}
-  ],
-  command:[{campaign:'Agencies US Campaign 1', vertical:'marketing_agencies', demoDestination:'/leads',
-    cohorts:['A','B'], sourced:206, enrolled:140, contacted:0, contactedFootnote:'contacts touched, not emails sent',
-    replies:0, replyRate:null, replyRateLabel:'collecting (n=0)', bouncePct:null, bounceCeiling:2,
-    runwayDays:2.8, creditsUsed:459, creditsCap:2500, verdict:'HOLD', verdictColour:'gray'}],
-  series:{days:['2026-07-20','2026-07-21','2026-07-22','2026-07-23','2026-07-24','2026-07-25','2026-07-26'],
-    repliesPerDay:[0,0,0,0,0,0,0], runwayDays:[8.9,8.9,8.9,4.2,3.1,2.8,2.8], creditsUsed:[169,169,169,459,459,459,459],
-    funnel:{labels:['sourced','enrolled','contacted','replied'], values:[206,140,0,0]},
-    leadsByCategory:{labels:['marketing_agencies','roofing','unset'], values:[206,27,77]},
-    replyRateByCampaign:{labels:['Cohort A','Cohort B'], values:[0,0]}},
-  doubleDown:[{sentence:'Not enough sent to compare cohorts yet. This fills in once either side clears 30 sends.', state:'collecting'}],
-  jobs:[{id:'up_1', fit:'A', title:'n8n automation engineer for a lead gen system', score:88,
-    reason:'Names n8n and a lead pipeline, budget consistent with the Campaign in a Box shape.',
-    suggestedDemo:'/leads', client:{country:'US', spend:41000, hireRate:82, rating:4.9, verified:true},
-    url:'https://www.upwork.com/', applied:false, postedAt:new Date(Date.now()-7200e3).toISOString()}],
-  categories:[
-    {vertical:'marketing_agencies', sourced:206, enrolled:140, replied:0, poolDepth:3107, status:'active'},
-    {vertical:'staffing_recruiting', sourced:493, enrolled:0, replied:0, poolDepth:3107, status:'queued'},
-    {vertical:'roofing', sourced:27, enrolled:0, replied:0, poolDepth:null, status:'held'}],
-  demos:[
-    {demo:'Instant Systems Grade', url:'/grade', status:'live', runs7:3, runs30:9, runsTotal:9, raises30:4, raiseRate:null, raiseRateLabel:'collecting (n=9)', lastRun:new Date(Date.now()-5400e3).toISOString()},
-    {demo:'Verified Lead Sample', url:'/leads', status:'in campaign', runs7:4, runs30:19, runsTotal:19, raises30:2, raiseRate:null, raiseRateLabel:'collecting (n=19)', lastRun:new Date(Date.now()-9000e3).toISOString()},
-    {demo:'The 2am Alert', url:'/demo/watcher', status:'live', runs7:1, runs30:2, runsTotal:2, raises30:0, raiseRate:null, raiseRateLabel:'collecting (n=2)', lastRun:null}],
-  editLinks:{nextSteps:'https://docs.google.com/spreadsheets/d/1cURTfSmmvDLhSGUKdylP91LcWD5vI4O1VOmOLg5YGNs/edit',
-    toolCosts:'https://docs.google.com/spreadsheets/d/1cURTfSmmvDLhSGUKdylP91LcWD5vI4O1VOmOLg5YGNs/edit',
-    ideas:'https://docs.google.com/spreadsheets/d/1cURTfSmmvDLhSGUKdylP91LcWD5vI4O1VOmOLg5YGNs/edit'},
-  archiveNote:'Rows older than 90 days move to Command Center Archive 2026 on the 1st of each month.'
-};
-
-/* ------------------------------------------------------------------- boot */
-function boot(){
-  if (PREVIEW){ paint(SAMPLE); return; }
-  pullSummary().catch(offline);
-  setInterval(tick, POLL_MS);
-  document.addEventListener('visibilitychange', function(){
-    if (!document.hidden) tick();
-  });
-}
-if (window.matchMedia){
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){
-    if (lastData) renderCharts(lastData.series);
-  });
-}
-window.addEventListener('load', boot);
+  function boot() {
+    wireQueueForm();
+    pullSnapshot().catch(offline);
+  }
+  window.addEventListener('load', boot);
+})();
 </script>
+<script src="/studio-motion.js?v=p9x" defer></script>
 </body>
 </html>
