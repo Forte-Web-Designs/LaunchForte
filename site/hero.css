@@ -28,9 +28,10 @@
        margin-top on the first pane child below). */
     padding-bottom: 6rem;
 }
-/* Pane pulls UP into the hero so the fade actually overlaps the top of
-   Ask Forte — invites the scroll instead of ending on a hard white line. */
-main.studio-pane.hero-follows > :first-child { margin-top: -3rem !important; padding-top: 2rem; position: relative; z-index: 2; }
+/* Comfortable gap between hero and first pane section. Homepage overrides
+   inline to pull Ask Forte up into the fade (that's its specific "peek"
+   composition). Other pages keep this generous default. */
+main.studio-pane.hero-follows > :first-child { margin-top: 0 !important; padding-top: 3rem; position: relative; z-index: 2; }
 main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
 main.studio-pane.hero-follows::before { display: none; }
 
