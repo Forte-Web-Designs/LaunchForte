@@ -21,8 +21,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q2e">
-    <script src="/studio-theme.js?v=q2e"></script>
+    <link rel="stylesheet" href="/studio.css?v=q2f">
+    <script src="/studio-theme.js?v=q2f"></script>
     <style>
         /* Cinematic hero — same rotating video pattern as homepage + About + Results. */
         .hero-zone {
@@ -274,13 +274,13 @@
 })();
 </script>
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q2e .. hero-2.mp4 (same as homepage).
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q2f .. hero-2.mp4 (same as homepage).
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q2e', pos: 'center center', startAt: 2, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q2f', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -310,8 +310,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q2e" defer></script>
-<script src="/scroll-top.js?v=q2e" defer></script>
-<script src="/hamburger.js?v=q2e" defer></script>
+<script src="/studio-motion.js?v=q2f" defer></script>
+<script src="/scroll-top.js?v=q2f" defer></script>
+<script src="/hamburger.js?v=q2f" defer></script>
 </body>
 </html>
