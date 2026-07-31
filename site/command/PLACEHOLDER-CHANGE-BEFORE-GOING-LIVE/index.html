@@ -161,6 +161,42 @@ word-break:break-word;max-height:200px;overflow-y:auto}
 .confirm-box{border-color:var(--danger)!important}
 .confirm-box .step-action{color:var(--danger);font-weight:700}
 
+/* console */
+.console-shell{display:flex;flex-direction:column;height:min(72vh,640px);border:1px solid var(--line);
+border-radius:var(--radius-lg);background:var(--card);box-shadow:var(--shadow);overflow:hidden}
+.console-top{display:flex;gap:10px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line);flex:none}
+.console-top select{flex:1;font:inherit;font-size:13.5px;padding:8px 10px;border-radius:10px;
+border:1px solid var(--line-strong);background:var(--bg);color:var(--ink)}
+.console-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+.c-turn{display:flex}
+.c-turn.user{justify-content:flex-end}
+.c-turn.bot{justify-content:flex-start}
+.c-bubble{max-width:82%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.c-turn.user .c-bubble{background:var(--brand);color:#fff;border-bottom-right-radius:4px}
+.c-turn.bot .c-bubble{background:var(--bg);border:1px solid var(--line-strong);border-bottom-left-radius:4px}
+.c-bubble hr{border:none;border-top:1px solid var(--line-strong);margin:8px 0}
+.c-line{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--muted);
+margin:3px 0;padding:2px 0}
+.c-line.read{color:var(--brand-ink)}
+.c-line.do{color:var(--warn)}
+.c-line.done{color:var(--ok)}
+.c-typing{display:flex;gap:4px;padding:10px 13px}
+.c-typing span{width:6px;height:6px;border-radius:50%;background:var(--muted-2);animation:cdot 1s infinite ease-in-out}
+.c-typing span:nth-child(2){animation-delay:.15s}.c-typing span:nth-child(3){animation-delay:.3s}
+@keyframes cdot{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.console-imgprev{display:none;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--line);flex:none}
+.console-imgprev.show{display:flex}
+.console-imgprev img{width:40px;height:40px;object-fit:cover;border-radius:8px;border:1px solid var(--line-strong)}
+.console-imgprev .rm{font-size:12px;color:var(--danger);cursor:pointer;font-weight:700}
+.console-composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);flex:none;
+padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+.console-composer textarea{flex:1;font:inherit;font-size:15px;padding:11px 13px;border-radius:14px;
+border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);resize:none;min-height:44px;max-height:120px}
+.console-composer button{flex:none;min-width:52px;min-height:44px;border-radius:14px;border:none;
+background:var(--brand);color:#fff;font-weight:700;font-size:20px;cursor:pointer}
+.console-composer button:disabled{opacity:.5;cursor:default}
+.console-note{font-size:11.5px;color:var(--muted-2);padding:0 14px 10px}
+
 footer{margin:40px 0 0;padding-top:18px;border-top:1px solid var(--line);
 color:var(--muted-2);font-size:12.5px}
 footer .note{line-height:1.6;margin-top:8px}
@@ -275,9 +311,29 @@ height:64px;opacity:.55}
 
 </section>
 
+<section id="console">
+<p class="eyebrow">Console</p>
+<div class="console-shell card">
+<div class="console-top">
+<select id="c_client"><option value="">Pick a client first…</option></select>
+</div>
+<div class="console-log" id="c_log"></div>
+<div class="console-imgprev" id="c_imgprev">
+<img id="c_imgprev_img" alt="pasted image">
+<span>image attached</span>
+<span class="rm" id="c_imgprev_rm">remove</span>
+</div>
+<div class="console-composer">
+<textarea id="c_input" rows="1" placeholder="Pick a client, then ask…" disabled></textarea>
+<button id="c_send" disabled>&#8593;</button>
+</div>
+</div>
+<div class="gap-flag">Server-side gap: console-turn requires a client_slug on every call -- there's no "whole book" / all-clients mode yet, so this is one conversation per client, not one thread across the book. Image paste posts an image_base64 field speculatively; I haven't confirmed the flow reads it, so treat attachments as best-effort until that's verified server-side. READ/DO/done compact-line styling is a pattern guess -- I never saw the model emit those markers live, so it only activates if a reply line happens to start with those words.</div>
+</section>
+
 <footer>
 <div id="refreshline">Waiting for the first refresh.</div>
-<div class="note">The console lands here in the next pass.</div>
+<div class="note">Command Center v2 -- console live above.</div>
 </footer>
 
 </div>
@@ -483,6 +539,7 @@ function closeDetail(){ $('detailOverlay').classList.add('hide'); }
 var ENQUEUE_URL = API_BASE + '/build-enqueue';
 var PACK_URL = API_BASE + '/pack-request';
 var NOTE_URL = API_BASE + '/task-note';
+var CONSOLE_URL = API_BASE + '/console-turn';
 
 function showResult(hostId, ok, text){
 var host = $(hostId);
@@ -587,6 +644,191 @@ $('redOverlay').classList.remove('hide');
 }
 function closeRed(){ $('redOverlay').classList.add('hide'); }
 
+/* ------------------------------------------------------------------ console */
+var consoleSessionId = null;
+var consoleClientsLoaded = false;
+var pendingImageB64 = null;
+
+function populateConsoleClients(list){
+if (consoleClientsLoaded) return; /* don't clobber user's mid-conversation selection on later polls */
+var sel = $('c_client');
+var prior = sel.value;
+sel.innerHTML = '';
+sel.appendChild(el('option', null, 'Pick a client first…')).value = '';
+(list || []).forEach(function(c){
+var opt = el('option', null, c.name || c.slug || 'unnamed');
+opt.value = c.slug || '';
+sel.appendChild(opt);
+});
+if (list && list.length) consoleClientsLoaded = true;
+if (prior) sel.value = prior;
+}
+
+function consoleClientPicked(){
+var slug = $('c_client').value;
+var ok = !!slug;
+$('c_input').disabled = !ok;
+$('c_send').disabled = !ok;
+$('c_input').placeholder = ok ? 'Ask about this client…' : 'Pick a client, then ask…';
+if (ok) consoleSessionId = 'console-' + slug + '-' + Date.now().toString(36);
+}
+
+function mdLite(text){
+/* very small markdown: **bold**, --- as <hr>, newlines preserved via CSS white-space.
+Also picks out lines that open with READ/DO/done-style markers and tags them --
+this is a guess at styling, not a confirmed server contract (see gap-flag). */
+var esc = document.createTextNode(text).textContent
+.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+var lines = text.split('\n');
+var html = lines.map(function(line){
+if (/^---+$/.test(line.trim())) return '<hr>';
+var m = line.match(/^\s*(READ|DO|✓|DONE)\b\s*[:\-]?\s*(.*)$/i);
+var safe = line.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+if (m){
+var kind = /^read/i.test(m[1]) ? 'read' : /^do/i.test(m[1]) ? 'do' : 'done';
+var rest = m[2].replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+return '<span class="c-line ' + kind + '">' + m[1].toUpperCase() + (rest ? ' — ' + rest : '') + '</span>';
+}
+return safe;
+}).join('\n');
+return html;
+}
+
+function addTurn(role, text){
+var log = $('c_log');
+var turn = el('div', 'c-turn ' + role);
+var bubble = el('div', 'c-bubble');
+if (role === 'bot') bubble.innerHTML = mdLite(text); else bubble.textContent = text;
+turn.appendChild(bubble);
+log.appendChild(turn);
+log.scrollTop = log.scrollHeight;
+return bubble;
+}
+
+function addTyping(){
+var log = $('c_log');
+var turn = el('div', 'c-turn bot');
+turn.id = 'c_typing_turn';
+var t = el('div', 'c-typing');
+t.appendChild(el('span')); t.appendChild(el('span')); t.appendChild(el('span'));
+turn.appendChild(t);
+log.appendChild(turn);
+log.scrollTop = log.scrollHeight;
+}
+function removeTyping(){
+var n = $('c_typing_turn');
+if (n) n.remove();
+}
+
+function sendConsoleTurn(){
+var slug = $('c_client').value;
+var msg = $('c_input').value.trim();
+if (!slug || (!msg && !pendingImageB64)) return;
+addTurn('user', msg || '(image attached)');
+$('c_input').value = '';
+$('c_input').style.height = 'auto';
+var imgToSend = pendingImageB64;
+clearImagePreview();
+$('c_send').disabled = true;
+addTyping();
+
+var body = {session_id: consoleSessionId, message: msg, client_slug: slug};
+if (imgToSend) body.image_base64 = imgToSend; /* speculative field -- unconfirmed server-side, see gap-flag */
+
+fetch(CONSOLE_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)})
+.then(function(r){
+if (!r.body || !r.body.getReader) return r.json().then(function(j){ return {plain:j}; });
+var reader = r.body.getReader();
+var decoder = new TextDecoder();
+var buf = '';
+var acc = '';
+function pumpStep(){
+return reader.read().then(function(res){
+if (res.done){
+if (buf.trim()) acc += consumeLine(buf);
+return {acc: acc};
+}
+buf += decoder.decode(res.value, {stream:true});
+var lines = buf.split('\n');
+buf = lines.pop();
+lines.forEach(function(line){ acc += consumeLine(line); });
+return pumpStep();
+});
+}
+function consumeLine(line){
+line = line.trim();
+if (!line) return '';
+try {
+var env = JSON.parse(line);
+if (env.type === 'item' && typeof env.content === 'string') return env.content;
+if (env.type === 'item' && env.content && typeof env.content.reply === 'string') return env.content.reply;
+} catch(e){ /* not a JSON envelope line, ignore */ }
+return '';
+}
+return pumpStep();
+})
+.then(function(result){
+removeTyping();
+$('c_send').disabled = false;
+var finalText = result.plain ? (result.plain.reply || JSON.stringify(result.plain)) : result.acc;
+/* blocked-turn shape comes back as a single JSON object string instead of
+streamed prose -- detect and unwrap it rather than showing raw JSON */
+var trimmed = (finalText || '').trim();
+if (/^\{[\s\S]*\}$/.test(trimmed)){
+try {
+var parsed = JSON.parse(trimmed);
+if (typeof parsed.reply === 'string') finalText = parsed.reply;
+if (parsed.session_id) consoleSessionId = parsed.session_id;
+} catch(e){ /* not actually JSON, show as-is */ }
+}
+addTurn('bot', finalText || '(no reply)');
+})
+.catch(function(e){
+removeTyping();
+$('c_send').disabled = false;
+addTurn('bot', 'Request failed: ' + e.message);
+});
+}
+
+function showImagePreview(dataUrl){
+pendingImageB64 = dataUrl;
+$('c_imgprev_img').src = dataUrl;
+$('c_imgprev').classList.add('show');
+}
+function clearImagePreview(){
+pendingImageB64 = null;
+$('c_imgprev_img').src = '';
+$('c_imgprev').classList.remove('show');
+}
+
+function wireConsole(){
+$('c_client').addEventListener('change', consoleClientPicked);
+$('c_send').addEventListener('click', sendConsoleTurn);
+$('c_input').addEventListener('keydown', function(e){
+if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendConsoleTurn(); }
+});
+$('c_input').addEventListener('input', function(){
+this.style.height = 'auto';
+this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+});
+$('c_input').addEventListener('paste', function(e){
+var items = (e.clipboardData || {}).items || [];
+for (var i = 0; i < items.length; i++){
+if (items[i].type && items[i].type.indexOf('image') === 0){
+var file = items[i].getAsFile();
+var reader = new FileReader();
+reader.onload = function(ev){ showImagePreview(ev.target.result); };
+reader.readAsDataURL(file);
+e.preventDefault();
+break;
+}
+}
+});
+$('c_imgprev_rm').addEventListener('click', clearImagePreview);
+}
+
 /* ------------------------------------------------------------------ fetch */
 function get(url){
 var headers = {};
@@ -607,6 +849,7 @@ renderMoney(data.money);
 renderClients(data.clients);
 renderBoard(data.clients, data.tasks);
 renderReports(data.latest_reports);
+populateConsoleClients(data.clients);
 var qd = (data.queue_depth === null || data.queue_depth === undefined) ? '—' : data.queue_depth;
 $('refreshline').textContent = 'Last refresh ' + shortTime(new Date().toISOString()) +
 '. Queue depth: ' + qd + '. This page re-checks every 5 minutes while open.';
@@ -642,6 +885,7 @@ wireQueueForm('q', 'q_job_id');
 wireQueueForm('r', 'r_job_id');
 wirePack();
 wireRed();
+wireConsole();
 }
 window.addEventListener('load', boot);
 </script>
