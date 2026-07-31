@@ -73,8 +73,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q2d">
-    <script src="/studio-theme.js?v=q2d"></script>
+    <link rel="stylesheet" href="/studio.css?v=q2e">
+    <script src="/studio-theme.js?v=q2e"></script>
     <style>
         /* Cinematic hero for About — same rotating video pattern as homepage.
            Runbook §8 declares one dark zone per site (the homepage) but the
@@ -132,6 +132,37 @@
           .hero-content-inner { text-align: center; }
           .hero-h1 { max-width: 100% !important; }
         }
+
+        /* How I Work Differently — 2x2 grid of cards, studio grammar */
+        .about-diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+        @media (max-width: 700px) {
+            .about-diff-grid { grid-template-columns: 1fr; }
+        }
+        .about-diff-card {
+            background: var(--paper);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.75rem;
+        }
+        .about-diff-title {
+            font-family: var(--font-display);
+            font-variation-settings: var(--font-display-vars);
+            font-size: var(--text-lg);
+            font-weight: 600;
+            color: var(--ink);
+            letter-spacing: -0.015em;
+            margin: 0 0 0.5rem;
+        }
+        .about-diff-body {
+            color: var(--n-600);
+            font-size: var(--text-base);
+            line-height: 1.6;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -157,7 +188,7 @@
 </header>
 
 <!-- CINEMATIC HERO — same rotating video as homepage. Rotates through
-     /media/hero-1.mp4?v=q2d and hero-2.mp4 via the JS at page bottom. -->
+     /media/hero-1.mp4?v=q2e and hero-2.mp4 via the JS at page bottom. -->
 <div class="hero-zone">
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
 
@@ -168,7 +199,6 @@
                 <span class="hero-h1-line-1">We start with</span>
                 <span class="hero-h1-line-2">what the problem costs.</span>
             </h1>
-            <p class="hero-sub-dark">Solo engineering practice. The architect, builder, and partner you talk to during the audit is the same person who ships the build.</p>
         </div>
     </div>
 </div>
@@ -178,7 +208,7 @@
     <!-- ABOUT US VIDEO — autoplay muted b-roll -->
     <div class="section reveal">
         <div class="about-us-video-wrap">
-            <video src="/media/about-us.mp4?v=q2d" autoplay muted loop playsinline preload="metadata" controls></video>
+            <video src="/media/about-us.mp4?v=q2e" autoplay muted loop playsinline preload="metadata" controls></video>
         </div>
     </div>
 
@@ -219,63 +249,70 @@
     </section>
 
     <!-- FOUNDER LINK -->
-    <div class="section reveal">
-        <span class="section-label">About the founder</span>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:2rem 2.25rem;display:flex;flex-direction:column;gap:0.75rem">
-            <h3 style="font-size:1.25rem;font-weight:600;color:var(--text-primary);margin:0;letter-spacing:-0.015em">Where the engineering judgment comes from.</h3>
-            <p style="font-size:0.9375rem;line-height:1.7;color:var(--text-secondary);margin:0">Launch Forte is the company. <a href="https://sethforte.com/about" target="_blank" rel="noopener" style="color:var(--accent);font-weight:500">sethforte.com</a> is the person. Background, writing on the work, and the trust layer behind the practice.</p>
-            <div>
-                <a href="https://sethforte.com/about" target="_blank" rel="noopener" class="btn-primary" style="display:inline-block;margin-top:0.5rem">Visit sethforte.com</a>
-            </div>
+    <section class="studio-container studio-section">
+        <div class="section-eyebrow-block studio-reveal" style="text-align:left;margin-bottom:var(--sp-10);">
+            <p class="studio-eyebrow">About the founder</p>
+            <h2 class="studio-h2">Where the engineering judgment <span class="lf-accent">comes from</span>.</h2>
         </div>
-    </div>
+        <div class="studio-reveal" style="max-width:720px;">
+            <p style="color:var(--n-700);font-size:var(--text-base);line-height:1.7;margin:0 0 1.5rem;">Launch Forte is the company. <a href="https://sethforte.com/about" target="_blank" rel="noopener" style="color:var(--accent);font-weight:500">sethforte.com</a> is the person. Background, writing on the work, and the trust layer behind the practice.</p>
+            <a href="https://sethforte.com/about" target="_blank" rel="noopener" class="studio-btn studio-btn-primary">Visit sethforte.com</a>
+        </div>
+    </section>
 
     <!-- DIFFERENTIATORS -->
-    <div class="section reveal">
-        <span class="section-label">How I Work Differently</span>
-        <div class="diff-grid">
-            <div class="diff-card">
-                <div class="diff-title">I start with the math</div>
-                <div class="diff-body">Every project begins by calculating what the problem is costing. If the ROI does not work, I do not build it. I never oversell scope. Clients always know what they are getting.</div>
+    <section class="studio-container studio-section">
+        <div class="section-eyebrow-block studio-reveal" style="text-align:left;margin-bottom:var(--sp-10);">
+            <p class="studio-eyebrow">How I work differently</p>
+            <h2 class="studio-h2">Four things you can hold me to, <span class="lf-accent">from day one</span>.</h2>
+        </div>
+        <div class="about-diff-grid studio-reveal">
+            <div class="about-diff-card">
+                <h3 class="about-diff-title">I start with the math</h3>
+                <p class="about-diff-body">Every project begins by calculating what the problem is costing. If the ROI doesn't work, I don't build it. Scope is never oversold, and you always know what you're getting.</p>
             </div>
-            <div class="diff-card">
-                <div class="diff-title">You own everything I build</div>
-                <div class="diff-body">I document every system, train you on how it works, hand it over. No retainers required to keep the lights on. Clients stay because the work is good, not because I made them dependent.</div>
+            <div class="about-diff-card">
+                <h3 class="about-diff-title">You own everything I build</h3>
+                <p class="about-diff-body">Every system is documented and handed over. No retainer required to keep the lights on. Clients stay because the work is good, not because they're dependent.</p>
             </div>
-            <div class="diff-card">
-                <div class="diff-title">Clear scope, no surprises</div>
-                <div class="diff-body">Before I write code, I define what is being built and why. You know what you are getting, when, and what it is supposed to do. No scope creep.</div>
+            <div class="about-diff-card">
+                <h3 class="about-diff-title">Clear scope, no surprises</h3>
+                <p class="about-diff-body">Before I write code, I define what's being built and why. You know what you're getting, when, and what it's supposed to do. No scope creep.</p>
             </div>
-            <div class="diff-card">
-                <div class="diff-title">I solve the real problem</div>
-                <div class="diff-body">Most clients come in asking for a specific tool. I ask what problem that solves. Sometimes the answer changes what I build. Sometimes it saves them money. Always it makes the solution better.</div>
+            <div class="about-diff-card">
+                <h3 class="about-diff-title">I solve the real problem</h3>
+                <p class="about-diff-body">Most clients come in asking for a specific tool. I ask what problem it solves. Sometimes the answer changes what I build. Always it makes the solution better.</p>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- FAQ -->
-    <div class="section reveal" id="faq">
-        <span class="section-label">Common Questions</span>
-        <h2 style="font-size:clamp(1.35rem,3vw,1.65rem);font-weight:700;color:var(--text-primary);margin-bottom:2rem;letter-spacing:-0.02em;line-height:1.3">What buyers ask before <span style="color:var(--accent)">reaching out</span>.</h2>
-        <div class="faq-list">
-            <div class="faq-item">
-                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">Who does the work?</h3>
-                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Seth Forte. Solo engineering practice. The architect, builder, and partner you talk to during the audit is the same person who ships the build. No account manager handing your project to a subcontractor. Every engagement runs through one engineer's hands.</p>
-            </div>
-            <div class="faq-item">
-                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">What's the engineering background?</h3>
-                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">Software engineering and SRE in financial services, where downtime costs six figures per hour. That work taught reliability, monitoring, documentation, and failure handling at a level most automation work never sees. It shows up in cleaner architecture and systems that don't break when volume increases.</p>
-            </div>
-            <div class="faq-item">
-                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">Why solo instead of an agency?</h3>
-                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-size:0.9375rem">The engineering work doesn't scale through headcount. Senior engineers don't replicate cleanly into junior implementers. We'd rather take fewer engagements at full depth than more at agency depth.</p>
-            </div>
-            <div class="faq-item">
-                <h3 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:0.65rem;line-height:1.4">How do we get started?</h3>
-                <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:0;font-size:0.9375rem">Book a Growth Systems Audit on the homepage. Fixed price, written diagnostic with prioritized recommendations. Credit applies to your first build. If a build or partnership comes after, the work moves into scope. If not, you still own the diagnostic.</p>
+    <section class="studio-container studio-section" id="faq">
+        <div class="section-eyebrow-block studio-reveal">
+            <p class="studio-eyebrow">Common Questions</p>
+            <h2 class="studio-h2">What buyers ask before <span class="lf-accent">reaching out</span>.</h2>
+        </div>
+        <div class="faq-shell studio-reveal">
+            <div class="faq-group">
+                <div class="faq-qa">
+                    <button class="faq-q" aria-expanded="false"><span>Who does the work?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                    <div class="faq-panel"><div class="faq-panel-inner"><p>Seth Forte. Solo engineering practice. The architect, builder, and partner you talk to during the audit is the same person who ships the build. Every engagement runs through one engineer's hands.</p></div></div>
+                </div>
+                <div class="faq-qa">
+                    <button class="faq-q" aria-expanded="false"><span>What's the engineering background?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                    <div class="faq-panel"><div class="faq-panel-inner"><p>Software engineering and SRE in financial services, where downtime costs six figures per hour. That work taught reliability, monitoring, and failure handling at a level most automation work never sees.</p></div></div>
+                </div>
+                <div class="faq-qa">
+                    <button class="faq-q" aria-expanded="false"><span>Why solo instead of an agency?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                    <div class="faq-panel"><div class="faq-panel-inner"><p>Engineering work doesn't scale through headcount. Senior engineers don't replicate into junior implementers. Fewer engagements at full depth beats more at agency depth.</p></div></div>
+                </div>
+                <div class="faq-qa">
+                    <button class="faq-q" aria-expanded="false"><span>How do we get started?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                    <div class="faq-panel"><div class="faq-panel-inner"><p>Book a Growth Systems Audit. Fixed price, written diagnostic, prioritized fixes. Credits toward your first build. If nothing gets built, you still own the diagnostic.</p></div></div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- CTA -->
     <div class="section reveal">
@@ -341,14 +378,14 @@
 </main>
 
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q2d .. hero-2.mp4 back-to-back
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q2e .. hero-2.mp4 back-to-back
 // (same as homepage). Reduced motion honors the poster and skips rotation.
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q2d', pos: 'center center', startAt: 2, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q2e', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -379,8 +416,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q2d" defer></script>
-<script src="/scroll-top.js?v=q2d" defer></script>
-<script src="/hamburger.js?v=q2d" defer></script>
+<script src="/studio-motion.js?v=q2e" defer></script>
+<script src="/scroll-top.js?v=q2e" defer></script>
+<script src="/hamburger.js?v=q2e" defer></script>
 </body>
 </html>
