@@ -46,9 +46,27 @@
     </script>
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q2f">
-    <link rel="stylesheet" href="/hero.css?v=q2f">
-    <script src="/studio-theme.js?v=q2f"></script>
+    <link rel="stylesheet" href="/studio.css?v=q2g">
+    <link rel="stylesheet" href="/hero.css?v=q2g">
+    <script src="/studio-theme.js?v=q2g"></script>
+    <style>
+        /* Free-tools grammar. Sections open with .studio-eyebrow badges to match sitewide. */
+        .studio-container.studio-section { max-width: var(--max-content); margin: 0 auto; padding: 0 1.5rem; }
+        @media(min-width: 640px) { .studio-container.studio-section { padding: 0 2rem; } }
+
+        .section-eyebrow-block { margin-bottom: var(--sp-10); }
+        .section-eyebrow-block.left { text-align: left; }
+        .section-eyebrow-block .studio-eyebrow { display: inline-flex; align-items: center; gap: 0.55rem; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--n-500); margin: 0 0 0.85rem; }
+        .section-eyebrow-block .studio-eyebrow::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-tint, rgba(0,136,219,0.10)); flex: none; }
+        .section-eyebrow-block .studio-h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.5rem, 3.2vw, 2.25rem); line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin: 0; text-wrap: balance; }
+        .section-eyebrow-block .studio-h2 .lf-accent { color: var(--accent); }
+        .section-eyebrow-block .studio-lead { color: var(--n-600); font-size: var(--text-base); line-height: 1.6; margin: 1rem 0 0; max-width: 60ch; }
+
+        .body-text { color: var(--n-700); font-size: var(--text-base); line-height: 1.65; margin: 0 0 1rem; max-width: 60ch; }
+        .intro-block { max-width: var(--max-content); margin: 0 auto var(--sp-12); padding: 0 1.5rem; }
+        @media(min-width: 640px) { .intro-block { padding: 0 2rem; } }
+        .intro-block p { color: var(--n-700); font-size: var(--text-lg); line-height: 1.55; margin: 0; max-width: 60ch; }
+    </style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -99,9 +117,11 @@
     </div>
 
     <!-- SECTION 01: The Tool -->
-    <section class="page-section reveal" id="self-check">
-        <p class="section-label">01 / Systems Audit Self Check</p>
-        <h2>Ten questions. <span style="color:var(--accent)">A real diagnosis</span>.</h2>
+    <section class="studio-container studio-section reveal" id="self-check">
+        <div class="section-eyebrow-block left">
+            <p class="studio-eyebrow">Systems Audit Self Check</p>
+            <h2 class="studio-h2">Ten questions. <span class="lf-accent">A real diagnosis</span>.</h2>
+        </div>
         <p class="body-text">Answer ten yes or no questions about your current systems. The tool scores your setup and shows you the category most likely leaking revenue. Same framework we use inside the paid audit.</p>
 
         <div id="self-check-tool" style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:2.5rem 2rem;margin-top:1.5rem">
@@ -149,24 +169,30 @@
     </section>
 
     <!-- SECTION 02: How it scores -->
-    <section class="page-section reveal" id="how-it-scores">
-        <p class="section-label">02 / How it scores</p>
-        <h2>The score tells you where to look. <span style="color:var(--accent)">Not what to build</span>.</h2>
+    <section class="studio-container studio-section reveal" id="how-it-scores">
+        <div class="section-eyebrow-block left">
+            <p class="studio-eyebrow">How it scores</p>
+            <h2 class="studio-h2">The score tells you where to look. <span class="lf-accent">Not what to build</span>.</h2>
+        </div>
         <p class="body-text">The self check is a first pass. It surfaces the category most likely leaking. The paid audit goes deeper, with eyes on your actual stack, and tells you exactly what to fix and what it would take to fix it.</p>
     </section>
 
     <!-- SECTION 03: More tools coming -->
-    <section class="page-section reveal" id="coming-soon">
-        <p class="section-label">03 / In the works</p>
-        <h2>More free tools <span style="color:var(--accent)">coming soon</span>.</h2>
+    <section class="studio-container studio-section reveal" id="coming-soon">
+        <div class="section-eyebrow-block left">
+            <p class="studio-eyebrow">In the works</p>
+            <h2 class="studio-h2">More free tools <span class="lf-accent">coming soon</span>.</h2>
+        </div>
         <p class="body-text">Outbound deliverability checker. CRM hygiene scoring. Ad spend leak detector. The tools that don't need our eyes on your stack will live here as we build them.</p>
     </section>
 
     <!-- SECTION 04: Closing CTA -->
-    <section class="page-section reveal" id="next-step">
-        <p class="section-label">04 / Next step</p>
+    <section class="studio-container studio-section reveal" id="next-step">
+        <div class="section-eyebrow-block left">
+            <p class="studio-eyebrow">Next step</p>
         <div class="cta-banner">
-            <h2>Want the <span style="color:var(--accent)">full diagnosis</span>?</h2>
+            <h2 class="studio-h2">Want the <span class="lf-accent">full diagnosis</span>?</h2>
+        </div>
             <p>The self check is the first pass. The Growth Systems Audit is the full diagnosis: written, prioritized, with fixed pricing on every fix. Credits toward your first build.</p>
             <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="btn-primary">Book a Growth Systems Audit</a>
         </div>
@@ -331,8 +357,8 @@
     render();
 })();
 </script>
-<script src="/studio-motion.js?v=q2f" defer></script>
-<script src="/scroll-top.js?v=q2f" defer></script>
-<script src="/hamburger.js?v=q2f" defer></script>
+<script src="/studio-motion.js?v=q2g" defer></script>
+<script src="/scroll-top.js?v=q2g" defer></script>
+<script src="/hamburger.js?v=q2g" defer></script>
 </body>
 </html>

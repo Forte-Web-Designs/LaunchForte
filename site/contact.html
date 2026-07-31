@@ -21,8 +21,8 @@
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/studio.css?v=q2f">
-    <script src="/studio-theme.js?v=q2f"></script>
+    <link rel="stylesheet" href="/studio.css?v=q2g">
+    <script src="/studio-theme.js?v=q2g"></script>
     <style>
         /* Cinematic hero — same rotating video pattern as homepage + About + Results. */
         .hero-zone {
@@ -71,6 +71,48 @@
           .hero-content-inner { text-align: center; }
           .hero-h1 { max-width: 100% !important; }
         }
+
+        /* ============================================================
+           Contact-page grammar. Sections use .studio-eyebrow badges
+           to match the sitewide pattern.
+           ============================================================ */
+        .studio-container.studio-section { max-width: var(--max-content); margin: 0 auto; padding: 0 1.5rem; }
+        @media(min-width: 640px) { .studio-container.studio-section { padding: 0 2rem; } }
+
+        .section-eyebrow-block { margin-bottom: var(--sp-10); }
+        .section-eyebrow-block.left { text-align: left; }
+        .section-eyebrow-block .studio-eyebrow { display: inline-flex; align-items: center; gap: 0.55rem; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--n-500); margin: 0 0 0.85rem; }
+        .section-eyebrow-block .studio-eyebrow::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-tint, rgba(0,136,219,0.10)); flex: none; }
+        .section-eyebrow-block .studio-h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.5rem, 3.2vw, 2.25rem); line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin: 0; text-wrap: balance; }
+        .section-eyebrow-block .studio-h2 .lf-accent { color: var(--accent); }
+
+        /* Contact info cards */
+        .contact-info-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+        .contact-info-item { background: var(--paper); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.35rem; }
+        .contact-info-icon { font-size: 1.25rem; color: var(--accent); margin-bottom: 0.35rem; }
+        .contact-info-label { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--n-500); }
+        .contact-info-value { font-size: 0.9375rem; color: var(--ink); font-weight: 500; }
+        .contact-info-value a { color: var(--accent); text-decoration: none; }
+        .contact-info-value a:hover { text-decoration: underline; }
+
+        /* Contact form */
+        .contact-form-wrap { background: var(--paper); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; max-width: 720px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        @media(max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+        .form-group { margin-bottom: 1rem; }
+        .form-label { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.8125rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
+        .form-input, .form-select, .form-textarea { width: 100%; padding: 0.7rem 0.85rem; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.9375rem; color: var(--ink); background: var(--paper); transition: border-color var(--dur-hover); }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-tint); }
+        .form-textarea { min-height: 140px; resize: vertical; }
+        .form-error, .form-success { display: none; margin-top: 1rem; padding: 0.9rem 1rem; border-radius: 8px; font-size: 0.875rem; }
+        .form-error.is-visible, .form-success.is-visible { display: block; }
+        .form-error { background: rgba(194,59,59,0.08); color: #C23B3B; border: 1px solid rgba(194,59,59,0.24); }
+        .form-success { background: rgba(30,122,79,0.08); color: #1E7A4F; border: 1px solid rgba(30,122,79,0.24); text-align: center; }
+        .form-success-icon { display: inline-block; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .form-success-heading { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; margin-bottom: 0.35rem; }
+        .honeypot { position: absolute !important; left: -9999px !important; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.75rem 1.35rem; background: var(--accent); color: #FFFFFF; border: 0; border-radius: 8px; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.9375rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background var(--dur-hover), transform var(--dur-hover); }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
     </style>
 </head>
 <body>
@@ -114,8 +156,11 @@
 <main class="studio-pane hero-follows">
 
     <!-- CONTACT INFO -->
-    <div class="section reveal" style="padding-top:0;">
-        <span class="section-label">Reach Us</span>
+    <section class="studio-container studio-section reveal">
+        <div class="section-eyebrow-block left">
+            <p class="studio-eyebrow">Reach Us</p>
+            <h2 class="studio-h2">Three ways to <span class="lf-accent">get in touch</span>.</h2>
+        </div>
         <div class="contact-info-row">
             <div class="contact-info-item">
                 <div class="contact-info-icon">&#9993;</div>
@@ -133,11 +178,14 @@
                 <div class="contact-info-value">Within 1 business day</div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- CONTACT FORM -->
-    <div class="section reveal">
-        <span class="section-label">Send a Message</span>
+    <section class="studio-container studio-section reveal">
+        <div class="section-eyebrow-block left">
+            <p class="studio-eyebrow">Send a Message</p>
+            <h2 class="studio-h2">Tell us <span class="lf-accent">what's broken</span>.</h2>
+        </div>
         <div class="contact-form-wrap">
             <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
                 <input type="hidden" name="form-name" value="contact">
@@ -192,16 +240,18 @@
                 </div>
             </form>
         </div>
-    </div>
+    </section>
 
     <!-- CALENDLY -->
-    <div class="section reveal">
-        <span class="section-label">Or Book Directly</span>
-        <p class="body-text" style="margin-bottom:1.5rem;">Prefer to skip the back and forth? Pick a time that works for you.</p>
-        <div class="calendly-wrap">
-            <iframe src="https://calendly.com/seth-launchforte/30min" title="Book a call with Seth Forte" loading="lazy"></iframe>
+    <section class="studio-container studio-section reveal">
+        <div class="section-eyebrow-block left">
+            <p class="studio-eyebrow">Or Book Directly</p>
+            <h2 class="studio-h2">Skip the back and forth. <span class="lf-accent">Pick a time</span>.</h2>
         </div>
-    </div>
+        <div class="calendly-wrap">
+            <iframe src="https://calendly.com/seth-launchforte/30min" title="Book a call with Seth Forte" loading="lazy" style="width:100%;min-height:700px;border:0;border-radius:16px;"></iframe>
+        </div>
+    </section>
 
     <!-- FOOTER -->
     <footer class="studio-footer">
@@ -274,13 +324,13 @@
 })();
 </script>
 <script>
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q2f .. hero-2.mp4 (same as homepage).
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q2g .. hero-2.mp4 (same as homepage).
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var sources = [
-        { src: '/media/hero-1.mp4?v=q2f', pos: 'center center', startAt: 2, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q2g', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
     function playNext(){
@@ -310,8 +360,8 @@
     v.play().catch(function(){});
 })();
 </script>
-<script src="/studio-motion.js?v=q2f" defer></script>
-<script src="/scroll-top.js?v=q2f" defer></script>
-<script src="/hamburger.js?v=q2f" defer></script>
+<script src="/studio-motion.js?v=q2g" defer></script>
+<script src="/scroll-top.js?v=q2g" defer></script>
+<script src="/hamburger.js?v=q2g" defer></script>
 </body>
 </html>

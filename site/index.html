@@ -18,9 +18,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=q2f">
-    <link rel="stylesheet" href="/ask-forte.css?v=q2f">
-    <script src="/studio-theme.js?v=q2f"></script>
+    <link rel="stylesheet" href="/studio.css?v=q2g">
+    <link rel="stylesheet" href="/ask-forte.css?v=q2g">
+    <script src="/studio-theme.js?v=q2g"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -1113,10 +1113,14 @@
         </div>
     </section>
 
-    <!-- 7.5 ABOUT VIDEO — autoplay muted b-roll, sits above the About block -->
+    <!-- 7.5 ABOUT VIDEO — YouTube welcome video, autoplay muted with unmute button -->
     <section class="studio-container studio-section" style="padding-top:0;">
-        <div class="about-us-video-wrap studio-reveal">
-            <video src="/media/about-us.mp4?v=q2f" autoplay muted loop playsinline preload="metadata" controls></video>
+        <div class="about-us-video-wrap studio-reveal" style="position:relative;">
+            <div id="about-video-player"></div>
+            <button type="button" class="about-video-unmute" aria-label="Unmute video">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                <span>Tap to unmute</span>
+            </button>
         </div>
     </section>
 
@@ -1314,7 +1318,7 @@
     io.observe(host);
 })();
 
-// Cinematic hero: rotate through /media/hero-1.mp4?v=q2f .. hero-2.mp4 back-to-back
+// Cinematic hero: rotate through /media/hero-1.mp4?v=q2g .. hero-2.mp4 back-to-back
 (function(){
     var v = document.getElementById('hero-video');
     if (!v) return;
@@ -1323,7 +1327,7 @@
     // Rotation order (Seth's pick): black shirt (hero-1), collared with me visible (hero-2), last (hero-4).
     // Each has a poster crop hint so I'm in view regardless of the video's own centering.
     var sources = [
-        { src: '/media/hero-1.mp4?v=q2f', pos: 'center center', startAt: 2, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q2g', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
     v.removeAttribute('loop'); // We rotate instead of looping a single file
@@ -1769,9 +1773,9 @@
     else boot();
 })();
 </script>
-<script src="/ask-forte.js?v=q2f" defer></script>
-<script src="/studio-motion.js?v=q2f" defer></script>
-<script src="/scroll-top.js?v=q2f" defer></script>
-<script src="/hamburger.js?v=q2f" defer></script>
+<script src="/ask-forte.js?v=q2g" defer></script>
+<script src="/studio-motion.js?v=q2g" defer></script>
+<script src="/scroll-top.js?v=q2g" defer></script>
+<script src="/hamburger.js?v=q2g" defer></script>
 </body>
 </html>
