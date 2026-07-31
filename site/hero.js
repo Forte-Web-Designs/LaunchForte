@@ -10,7 +10,7 @@
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     var sources = [
-        { src: '/media/hero-1.mp4?v=q2i', pos: 'center center', startAt: 2, endAt: 10 }
+        { src: '/media/hero-1.mp4?v=q2j', pos: 'center center', startAt: 2, endAt: 10 }
     ];
     var i = 0;
 
