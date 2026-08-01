@@ -91,6 +91,7 @@ overflow:hidden;--rail:var(--gray)}
 .doorbell-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;
 letter-spacing:.04em;text-transform:uppercase;color:var(--brand-ink);background:var(--brand-soft);
 padding:3px 9px;border-radius:999px;cursor:default}
+  .doorbell-badge.blocked{color:var(--danger);background:transparent;border:1px solid var(--danger)}
 
 /* reports */
 .report-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
@@ -443,6 +444,12 @@ bell.textContent = '🔔 Doorbell';
 bell.title = 'Phase ' + (c.current_phase || 1) + ' complete -- every task in this phase is done or waiting only on the client.';
 head.appendChild(bell);
 }
+  if (c.doorbell_two){
+    var bell2 = el('span','doorbell-badge blocked');
+    bell2.textContent = '⛔ Blocked';
+    bell2.title = 'Every remaining task for this engagement is waiting on Seth or the client -- zero workable cards right now.';
+    head.appendChild(bell2);
+  }
 card.appendChild(head);
 if (c.waiting_on) card.appendChild(el('div','client-sub', 'Waiting on: ' + c.waiting_on));
 if (c.current_phase !== null && c.current_phase !== undefined) card.appendChild(el('div','client-sub', 'Phase ' + c.current_phase));
