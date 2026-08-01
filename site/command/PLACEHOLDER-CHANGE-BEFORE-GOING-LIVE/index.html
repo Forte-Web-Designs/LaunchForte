@@ -88,6 +88,9 @@ overflow:hidden;--rail:var(--gray)}
 .owed{display:inline-flex;align-items:center;gap:5px;margin-top:7px;font-size:12.5px;color:var(--muted-2)}
 .owed .n{color:var(--warn);font-weight:700}
 .owed.overdue .n{color:var(--danger)}
+.doorbell-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;
+letter-spacing:.04em;text-transform:uppercase;color:var(--brand-ink);background:var(--brand-soft);
+padding:3px 9px;border-radius:999px;cursor:default}
 
 /* reports */
 .report-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
@@ -434,8 +437,15 @@ card.style.animationDelay = Math.min(i,6) * 24 + 'ms';
 var head = el('div','client-head');
 head.appendChild(el('div','client-name', c.name || c.slug || 'unnamed client'));
 head.appendChild(el('div','tag ' + statusClass, c.status || 'unknown'));
+if (c.doorbell_one){
+var bell = el('span','doorbell-badge');
+bell.textContent = '🔔 Doorbell';
+bell.title = 'Phase ' + (c.current_phase || 1) + ' complete -- every task in this phase is done or waiting only on the client.';
+head.appendChild(bell);
+}
 card.appendChild(head);
 if (c.waiting_on) card.appendChild(el('div','client-sub', 'Waiting on: ' + c.waiting_on));
+if (c.current_phase !== null && c.current_phase !== undefined) card.appendChild(el('div','client-sub', 'Phase ' + c.current_phase));
 if (c.replies_owed_age_days !== null && c.replies_owed_age_days !== undefined){
 var owed = el('div','owed' + (c.replies_owed_age_days >= 7 ? ' overdue' : ''));
 owed.appendChild(document.createTextNode('reply owed '));
@@ -542,6 +552,10 @@ row('Status', colLabel(t.status));
 row('Autonomy', t.autonomy);
 row('Cost', t.cost_usd !== null && t.cost_usd !== undefined ? money(t.cost_usd) : null);
 row('Branch', t.branch);
+row('Phase', t.phase_number);
+row('Waiting on', t.waiting_on);
+row('Evidence', t.evidence);
+row('Task type', t.task_type);
 row('Updated', shortTime(t.updated));
 var report = (lastSnapshot && lastSnapshot.latest_reports || []).find(function(r){ return r.job_id === t.id; });
 if (report){
