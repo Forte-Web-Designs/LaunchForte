@@ -71,6 +71,8 @@ overflow:hidden;--rail:var(--gray)}
 .rail-ok{--rail:var(--ok)} .rail-warn{--rail:var(--warn)}
 .rail-bad{--rail:var(--danger)} .rail-gray{--rail:var(--gray)} .rail-brand{--rail:var(--brand)}
 .stack{display:grid;gap:10px}
+.card.clickable{cursor:pointer}
+.card.clickable:hover{border-color:var(--brand)}
 
 /* money strip */
 .money-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 8px}
@@ -78,6 +80,19 @@ overflow:hidden;--rail:var(--gray)}
 .metric .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);font-weight:600}
 .metric .v{font-size:19px;font-weight:700;margin-top:1px}
 .metric .v.neg{color:var(--danger)}
+
+/* needs-me strip */
+.needsme-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.needsme-strip::-webkit-scrollbar{height:6px}
+.needsme-chip{flex:none;display:flex;flex-direction:column;gap:3px;min-width:180px;max-width:240px;
+background:var(--card);border:1px solid var(--line-strong);border-left:4px solid var(--warn);
+border-radius:12px;padding:10px 12px;cursor:pointer;box-shadow:var(--shadow)}
+.needsme-chip:hover{border-color:var(--brand)}
+.needsme-chip .nm-kind{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--warn)}
+.needsme-chip .nm-title{font-size:13.5px;font-weight:650;line-height:1.3}
+.needsme-chip .nm-sub{font-size:11.5px;color:var(--muted-2)}
+.needsme-empty{padding:14px 16px;color:var(--muted-2);font-size:13px;background:var(--card);
+border:1px solid var(--line);border-radius:var(--radius)}
 
 /* client rows */
 .client-head{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
@@ -91,7 +106,7 @@ overflow:hidden;--rail:var(--gray)}
 .doorbell-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;
 letter-spacing:.04em;text-transform:uppercase;color:var(--brand-ink);background:var(--brand-soft);
 padding:3px 9px;border-radius:999px;cursor:default}
-  .doorbell-badge.blocked{color:var(--danger);background:transparent;border:1px solid var(--danger)}
+.doorbell-badge.blocked{color:var(--danger);background:transparent;border:1px solid var(--danger)}
 
 /* reports */
 .report-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
@@ -126,6 +141,13 @@ color:var(--brand-ink);font-weight:700;white-space:nowrap}
 .chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}
 .taskcard.empty{opacity:.5;font-style:italic;cursor:default;text-align:center;padding:14px 10px}
 
+/* quick dispatch buttons on cards */
+.t-actions{display:flex;gap:6px;margin-top:8px}
+.qbtn{font:inherit;font-size:10.5px;font-weight:700;padding:5px 9px;border-radius:8px;
+border:1px solid var(--line-strong);background:var(--card);color:var(--ink);cursor:pointer}
+.qbtn:hover{border-color:var(--brand);color:var(--brand-ink)}
+.qbtn.qdanger{border-color:var(--danger);color:var(--danger)}
+
 /* task detail overlay */
 .detail-overlay{position:fixed;inset:0;background:rgba(10,15,25,.5);z-index:50;
 display:flex;align-items:flex-end;justify-content:center}
@@ -140,6 +162,8 @@ max-width:520px;width:100%;padding:22px;box-shadow:var(--shadow);max-height:80vh
 .detail-row .v{font-size:14px}
 .detail-close{margin-top:16px;width:100%;padding:11px;border-radius:12px;border:1px solid var(--line-strong);
 background:transparent;color:var(--ink);font-weight:700;font-size:14px;cursor:pointer}
+.detail-action{margin-top:10px;width:100%;padding:11px;border-radius:12px;border:1px solid var(--brand);
+background:transparent;color:var(--brand-ink);font-weight:700;font-size:14px;cursor:pointer}
 
 /* dispatch */
 .dispatch-block{margin:0 0 20px}
@@ -167,6 +191,15 @@ word-break:break-word;max-height:200px;overflow-y:auto}
 .gap-flag{font-size:11.5px;color:var(--warn);margin-top:8px;line-height:1.5}
 .confirm-box{border-color:var(--danger)!important}
 .confirm-box .step-action{color:var(--danger);font-weight:700}
+.field.flash{animation:flash 1.1s ease}
+@keyframes flash{0%{box-shadow:0 0 0 3px var(--brand)}100%{box-shadow:none}}
+
+/* history */
+.history-toggle{font-size:12.5px;font-weight:700;color:var(--brand-ink);background:none;border:none;
+cursor:pointer;padding:0;margin-bottom:12px}
+.history-list{display:none;gap:10px}
+.history-list.show{display:grid}
+.history-kind{font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--muted-2);margin-bottom:2px}
 
 /* console */
 .console-shell{display:flex;flex-direction:column;height:min(72vh,640px);border:1px solid var(--line);
@@ -230,6 +263,11 @@ height:64px;opacity:.55}
 
 <div id="banners"></div>
 
+<section id="needsme">
+<p class="eyebrow">Needs me</p>
+<div id="needsmehost" class="needsme-strip"><div class="skel" style="min-width:180px"></div></div>
+</section>
+
 <section id="money">
 <p class="eyebrow">Money</p>
 <div id="moneybox" class="card stack"><div class="skel"></div></div>
@@ -248,6 +286,8 @@ height:64px;opacity:.55}
 <section id="reports">
 <p class="eyebrow">Latest reports</p>
 <div id="reportlist" class="stack"><div class="skel"></div></div>
+<button class="history-toggle" id="historyToggle" type="button">Show full history &darr;</button>
+<div id="historylist" class="history-list stack"></div>
 </section>
 
 <section id="dispatch">
@@ -316,7 +356,6 @@ height:64px;opacity:.55}
 <div class="field"><label>What are you confirming</label><textarea id="red_note" placeholder="describe the action being confirmed"></textarea></div>
 <div class="btnrow"><button class="btn danger" id="red_open">Confirm a red action</button></div>
 <div id="red_result"></div>
-<div class="gap-flag">Server-side gap: task-note's Route Note code currently only handles types task/note/amend/availability -- red_confirm isn't a recognized type yet. This will log a note-style write until the flows side adds a matching case.</div>
 </div>
 
 </section>
@@ -434,6 +473,7 @@ return;
 visible.forEach(function(c, i){
 var statusClass = c.status === 'active' ? 'active' : (c.status === 'paused' ? 'paused' : 'gray');
 var card = el('div','card reveal ' + (statusClass === 'active' ? 'rail-ok' : statusClass === 'paused' ? 'rail-warn' : 'rail-gray'));
+card.id = 'client-' + (c.slug || i);
 card.style.animationDelay = Math.min(i,6) * 24 + 'ms';
 var head = el('div','client-head');
 head.appendChild(el('div','client-name', c.name || c.slug || 'unnamed client'));
@@ -444,12 +484,12 @@ bell.textContent = '🔔 Doorbell';
 bell.title = 'Phase ' + (c.current_phase || 1) + ' complete -- every task in this phase is done or waiting only on the client.';
 head.appendChild(bell);
 }
-  if (c.doorbell_two){
-    var bell2 = el('span','doorbell-badge blocked');
-    bell2.textContent = '⛔ Blocked';
-    bell2.title = 'Every remaining task for this engagement is waiting on Seth or the client -- zero workable cards right now.';
-    head.appendChild(bell2);
-  }
+if (c.doorbell_two){
+var bell2 = el('span','doorbell-badge blocked');
+bell2.textContent = '⛔ Blocked';
+bell2.title = 'Every remaining task for this engagement is waiting on Seth or the client -- zero workable cards right now.';
+head.appendChild(bell2);
+}
 card.appendChild(head);
 if (c.waiting_on) card.appendChild(el('div','client-sub', 'Waiting on: ' + c.waiting_on));
 if (c.current_phase !== null && c.current_phase !== undefined) card.appendChild(el('div','client-sub', 'Phase ' + c.current_phase));
@@ -471,14 +511,109 @@ return;
 }
 list.slice(0, 8).forEach(function(r, i){
 var rail = r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '') ? 'rail-warn' : 'rail-ok';
-var card = el('div','card reveal ' + rail);
+var card = el('div','card clickable reveal ' + rail);
 card.style.animationDelay = Math.min(i,6) * 24 + 'ms';
 var row = el('div','report-row');
 row.appendChild(el('div','report-subject', r.subject || r.job_id || 'untitled report'));
 row.appendChild(el('div','report-meta', (r.triage || '') + (r.cost_usd ? ' · ' + money(r.cost_usd) : '')));
 card.appendChild(row);
 if (r.status) card.appendChild(el('div','report-meta', 'status: ' + r.status));
+card.addEventListener('click', function(){ openReportDetail(r); });
 host.appendChild(card);
+});
+}
+
+function renderHistory(data){
+var host = $('historylist'); host.innerHTML = '';
+var reports = data.latest_reports || [];
+var doneTasks = (data.tasks || []).filter(function(t){ return colOf(t.status) === 'done'; });
+if (!reports.length && !doneTasks.length){
+host.appendChild(el('div','card rail-gray client-sub','No history yet.'));
+return;
+}
+if (reports.length){
+host.appendChild(el('div','history-kind', 'All reports (' + reports.length + ')'));
+reports.forEach(function(r, i){
+var rail = r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '') ? 'rail-warn' : 'rail-ok';
+var card = el('div','card clickable reveal ' + rail);
+card.style.animationDelay = Math.min(i,10) * 16 + 'ms';
+var row = el('div','report-row');
+row.appendChild(el('div','report-subject', r.subject || r.job_id || 'untitled report'));
+row.appendChild(el('div','report-meta', (r.triage || '') + (r.cost_usd ? ' · ' + money(r.cost_usd) : '')));
+card.appendChild(row);
+if (r.status) card.appendChild(el('div','report-meta', 'status: ' + r.status));
+card.addEventListener('click', function(){ openReportDetail(r); });
+host.appendChild(card);
+});
+}
+if (doneTasks.length){
+host.appendChild(el('div','history-kind', 'Done tasks (' + doneTasks.length + ')'));
+doneTasks
+.slice()
+.sort(function(a,b){ return new Date(b.updated || 0) - new Date(a.updated || 0); })
+.forEach(function(t, i){
+var card = el('div','card clickable reveal rail-ok');
+card.style.animationDelay = Math.min(i,10) * 16 + 'ms';
+var row = el('div','report-row');
+row.appendChild(el('div','report-subject', t.title || t.id));
+row.appendChild(el('div','report-meta', shortTime(t.updated)));
+card.appendChild(row);
+card.addEventListener('click', function(){ openDetail(t); });
+host.appendChild(card);
+});
+}
+}
+
+function wireHistoryToggle(){
+$('historyToggle').addEventListener('click', function(){
+var list = $('historylist');
+var showing = list.classList.toggle('show');
+$('historyToggle').textContent = showing ? 'Hide full history ↑' : 'Show full history ↓';
+});
+}
+
+/* ------------------------------------------------------------------ needs me */
+function scrollToId(id){
+var n = document.getElementById(id);
+if (n && n.scrollIntoView) n.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function renderNeedsMe(data){
+var host = $('needsmehost'); host.innerHTML = '';
+var items = [];
+(data.clients || []).forEach(function(c){
+if (c.replies_owed_age_days !== null && c.replies_owed_age_days !== undefined && c.replies_owed_age_days >= 7){
+items.push({kind:'REPLY OVERDUE', title: c.name || c.slug, sub: c.replies_owed_age_days + 'd waiting', onClick: function(){ scrollToId('client-' + (c.slug || '')); }});
+}
+if (c.doorbell_one){
+items.push({kind:'DOORBELL', title: c.name || c.slug, sub: 'Phase ' + (c.current_phase || 1) + ' ready', onClick: function(){ scrollToId('client-' + (c.slug || '')); }});
+}
+if (c.doorbell_two){
+items.push({kind:'BLOCKED CLIENT', title: c.name || c.slug, sub: 'zero workable cards', onClick: function(){ scrollToId('client-' + (c.slug || '')); }});
+}
+});
+(data.tasks || []).forEach(function(t){
+if (colOf(t.status) === 'blocked'){
+items.push({kind:'BLOCKED', title: t.title || t.id, sub: t.client_slug || '', onClick: function(){ openDetail(t); }});
+}
+});
+(data.latest_reports || []).forEach(function(r){
+if (r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '')){
+items.push({kind:'REPORT', title: r.subject || r.job_id || 'untitled report', sub: r.status || '', onClick: function(){ openReportDetail(r); }});
+}
+});
+if (!items.length){
+host.appendChild(el('div','needsme-empty','Nothing needs you right now.'));
+return;
+}
+items.forEach(function(it, i){
+var chip = el('div','needsme-chip reveal');
+chip.style.animationDelay = Math.min(i,8) * 20 + 'ms';
+chip.appendChild(el('div','nm-kind', it.kind));
+chip.appendChild(el('div','nm-title', it.title));
+if (it.sub) chip.appendChild(el('div','nm-sub', it.sub));
+chip.addEventListener('click', it.onClick);
+host.appendChild(chip);
 });
 }
 
@@ -490,6 +625,28 @@ var s = String(status || '').toLowerCase();
 return BOARD_COLS.indexOf(s) > -1 ? s : 'backlog';
 }
 var lastSnapshot = null;
+
+function focusField(id){
+var n = $(id);
+if (!n) return;
+var field = n.closest('.field') || n;
+field.classList.remove('flash');
+void field.offsetWidth;
+field.classList.add('flash');
+n.focus();
+}
+
+function quickResume(t){
+scrollToId('dispatch');
+$('r_ref_id').value = t.id || '';
+$('r_title').value = t.title || '';
+focusField('r_job_id');
+}
+function quickPack(t){
+scrollToId('dispatch');
+$('p_task_id').value = t.id || '';
+focusField('p_task_id');
+}
 
 function renderBoard(clients, tasks){
 var host = $('boardhost'); host.innerHTML = '';
@@ -533,6 +690,21 @@ if (t.autonomy) chips.appendChild(el('span','chip', t.autonomy));
 if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
 if (t.branch) chips.appendChild(el('span','chip branch', t.branch));
 card.appendChild(chips);
+if (col === 'blocked' || col === 'backlog'){
+var actions = el('div','t-actions');
+var resumeBtn = el('button','qbtn qdanger','Resume');
+resumeBtn.type = 'button';
+resumeBtn.addEventListener('click', function(e){ e.stopPropagation(); quickResume(t); });
+actions.appendChild(resumeBtn);
+card.appendChild(actions);
+} else if (col === 'ready' || col === 'in_progress'){
+var actions2 = el('div','t-actions');
+var packBtn = el('button','qbtn','Pack');
+packBtn.type = 'button';
+packBtn.addEventListener('click', function(e){ e.stopPropagation(); quickPack(t); });
+actions2.appendChild(packBtn);
+card.appendChild(actions2);
+}
 card.addEventListener('click', function(){ openDetail(t); });
 cardsBox.appendChild(card);
 });
@@ -573,12 +745,44 @@ row('Report detail', report.detail);
 } else {
 row('Report', 'No matching report yet for this task.');
 }
+if (colOf(t.status) === 'blocked' || colOf(t.status) === 'backlog'){
+var resumeBtn = el('button','detail-action','Resume this job');
+resumeBtn.addEventListener('click', function(){ closeDetail(); quickResume(t); });
+sheet.appendChild(resumeBtn);
+}
 var close = el('button','detail-close','Close');
 close.addEventListener('click', closeDetail);
 sheet.appendChild(close);
 $('detailOverlay').classList.remove('hide');
 }
 function closeDetail(){ $('detailOverlay').classList.add('hide'); }
+
+function openReportDetail(r){
+var sheet = $('detailSheet'); sheet.innerHTML = '';
+sheet.appendChild(el('div','detail-title', r.subject || r.job_id || 'untitled report'));
+function row(k, v){
+if (v === null || v === undefined || v === '') return;
+var rr = el('div','detail-row');
+rr.appendChild(el('div','k', k));
+rr.appendChild(el('div','v', String(v)));
+sheet.appendChild(rr);
+}
+row('Triage', r.triage);
+row('Status', r.status);
+row('Cost', r.cost_usd !== null && r.cost_usd !== undefined ? money(r.cost_usd) : null);
+row('Job ID', r.job_id);
+row('Detail', r.detail);
+var matchedTask = (lastSnapshot && lastSnapshot.tasks || []).find(function(t){ return t.id === r.job_id; });
+if (matchedTask){
+var viewBtn = el('button','detail-action','View matching task');
+viewBtn.addEventListener('click', function(){ openDetail(matchedTask); });
+sheet.appendChild(viewBtn);
+}
+var close = el('button','detail-close','Close');
+close.addEventListener('click', closeDetail);
+sheet.appendChild(close);
+$('detailOverlay').classList.remove('hide');
+}
 
 /* ------------------------------------------------------------------ dispatch */
 var ENQUEUE_URL = API_BASE + '/build-enqueue';
@@ -905,9 +1109,11 @@ $('banners').innerHTML = '';
 $('dot').className = 'dot';
 $('asof').textContent = 'as of ' + shortTime(new Date().toISOString());
 renderMoney(data.money);
+renderNeedsMe(data);
 renderClients(data.clients);
 renderBoard(data.clients, data.tasks);
 renderReports(data.latest_reports);
+renderHistory(data);
 populateConsoleClients(data.clients);
 var qd = (data.queue_depth === null || data.queue_depth === undefined) ? '—' : data.queue_depth;
 $('refreshline').textContent = 'Last refresh ' + shortTime(new Date().toISOString()) +
@@ -950,6 +1156,7 @@ wirePack();
 wireRed();
 wireConsole();
 wireClientFlip();
+wireHistoryToggle();
 }
 window.addEventListener('load', boot);
 </script>
