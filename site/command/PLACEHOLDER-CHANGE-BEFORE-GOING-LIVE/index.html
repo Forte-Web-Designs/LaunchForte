@@ -59,10 +59,7 @@ border:1px solid var(--line-strong);background:var(--card)}
 
 section{margin:30px 0 0}
 .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-color:var(--muted-2);font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:10px}
-.flipbtn{letter-spacing:.04em;text-transform:none;font-weight:700;font-size:11px;
-color:var(--brand-ink);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline}
-.flipbtn:hover{opacity:.8}
+color:var(--muted-2);font-weight:700;margin:0 0 12px}
 
 .card{position:relative;background:var(--card);border:1px solid var(--line);
 border-radius:var(--radius);padding:15px 16px 15px 19px;box-shadow:var(--shadow);
@@ -88,6 +85,9 @@ overflow:hidden;--rail:var(--gray)}
 .owed{display:inline-flex;align-items:center;gap:5px;margin-top:7px;font-size:12.5px;color:var(--muted-2)}
 .owed .n{color:var(--warn);font-weight:700}
 .owed.overdue .n{color:var(--danger)}
+.doorbell-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;
+letter-spacing:.04em;text-transform:uppercase;color:var(--brand-ink);background:var(--brand-soft);
+padding:3px 9px;border-radius:999px;cursor:default}
 
 /* reports */
 .report-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
@@ -232,7 +232,7 @@ height:64px;opacity:.55}
 </section>
 
 <section id="clients">
-<p class="eyebrow">Clients <button class="flipbtn" id="clientFlip" type="button">Show all</button></p>
+<p class="eyebrow">Clients</p>
 <div id="clientlist" class="stack"><div class="skel"></div><div class="skel"></div></div>
 </section>
 
@@ -364,12 +364,6 @@ token, so shipping it in public JS is acceptable for house data only. */
 var DASHBOARD_API_TOKEN = '';
 var POLL_MS = 5 * 60 * 1000;
 
-/* Operator Contract 15.5: active-only default view. Dashboard shows only
-status === 'active' clients (and their board columns) by default; the flip
-button toggles to show paused/dormant/unknown too. State is in-memory only
-(resets to active-only on reload), matching "default view" intent. */
-var showAllClients = false;
-
 var $ = function(id){ return document.getElementById(id); };
 function el(tag, cls, txt){
 var n = document.createElement(tag);
@@ -408,34 +402,30 @@ host.appendChild(metric('Margin', money(m.total_margin_usd)));
 host.appendChild(metric('API + infra', money(m.total_api_spend_usd) + ' / ' + money(m.total_infra_cost_usd)));
 }
 
-function visibleClients(list){
-if (showAllClients) return list || [];
-return (list || []).filter(function(c){ return c.status === 'active'; });
-}
-
 function renderClients(list){
 var host = $('clientlist'); host.innerHTML = '';
-var all = list || [];
-var visible = visibleClients(all);
-if (!visible.length){
+if (!list || !list.length){
 var box = el('div','allclear reveal');
-box.appendChild(el('div','big', all.length ? (showAllClients ? 'No clients on the book yet' : 'No active clients right now') : 'No clients on the book yet'));
-var hidden = all.length - visible.length;
-if (!showAllClients && hidden > 0){
-box.appendChild(el('div','sub', hidden + ' paused/inactive client' + (hidden === 1 ? '' : 's') + ' hidden -- click "Show all" above.'));
-}
+box.appendChild(el('div','big','No clients on the book yet'));
 host.appendChild(box);
 return;
 }
-visible.forEach(function(c, i){
+list.forEach(function(c, i){
 var statusClass = c.status === 'active' ? 'active' : (c.status === 'paused' ? 'paused' : 'gray');
 var card = el('div','card reveal ' + (statusClass === 'active' ? 'rail-ok' : statusClass === 'paused' ? 'rail-warn' : 'rail-gray'));
 card.style.animationDelay = Math.min(i,6) * 24 + 'ms';
 var head = el('div','client-head');
 head.appendChild(el('div','client-name', c.name || c.slug || 'unnamed client'));
 head.appendChild(el('div','tag ' + statusClass, c.status || 'unknown'));
+if (c.doorbell_one){
+var bell = el('span','doorbell-badge');
+bell.textContent = '🔔 Doorbell';
+bell.title = 'Phase ' + (c.current_phase || 1) + ' complete -- every task in this phase is done or waiting only on the client.';
+head.appendChild(bell);
+}
 card.appendChild(head);
 if (c.waiting_on) card.appendChild(el('div','client-sub', 'Waiting on: ' + c.waiting_on));
+if (c.current_phase !== null && c.current_phase !== undefined) card.appendChild(el('div','client-sub', 'Phase ' + c.current_phase));
 if (c.replies_owed_age_days !== null && c.replies_owed_age_days !== undefined){
 var owed = el('div','owed' + (c.replies_owed_age_days >= 7 ? ' overdue' : ''));
 owed.appendChild(document.createTextNode('reply owed '));
@@ -476,8 +466,7 @@ var lastSnapshot = null;
 
 function renderBoard(clients, tasks){
 var host = $('boardhost'); host.innerHTML = '';
-var visible = visibleClients(clients);
-if (!visible || !visible.length || !tasks){
+if (!clients || !clients.length || !tasks){
 host.appendChild(el('div','card rail-gray client-sub','No board data yet.'));
 return;
 }
@@ -487,7 +476,7 @@ var slug = t.client_slug || '_unassigned';
 (byClient[slug] = byClient[slug] || []).push(t);
 });
 var any = false;
-visible.forEach(function(c){
+clients.forEach(function(c){
 var list = byClient[c.slug] || [];
 if (!list.length) return;
 any = true;
@@ -542,6 +531,10 @@ row('Status', colLabel(t.status));
 row('Autonomy', t.autonomy);
 row('Cost', t.cost_usd !== null && t.cost_usd !== undefined ? money(t.cost_usd) : null);
 row('Branch', t.branch);
+row('Phase', t.phase_number);
+row('Waiting on', t.waiting_on);
+row('Evidence', t.evidence);
+row('Task type', t.task_type);
 row('Updated', shortTime(t.updated));
 var report = (lastSnapshot && lastSnapshot.latest_reports || []).find(function(r){ return r.job_id === t.id; });
 if (report){
@@ -855,18 +848,6 @@ break;
 $('c_imgprev_rm').addEventListener('click', clearImagePreview);
 }
 
-/* ------------------------------------------------------------------ view flip */
-function wireClientFlip(){
-$('clientFlip').addEventListener('click', function(){
-showAllClients = !showAllClients;
-$('clientFlip').textContent = showAllClients ? 'Active only' : 'Show all';
-if (lastSnapshot){
-renderClients(lastSnapshot.clients);
-renderBoard(lastSnapshot.clients, lastSnapshot.tasks);
-}
-});
-}
-
 /* ------------------------------------------------------------------ fetch */
 function get(url){
 var headers = {};
@@ -928,7 +909,6 @@ wireQueueForm('r', 'r_job_id');
 wirePack();
 wireRed();
 wireConsole();
-wireClientFlip();
 }
 window.addEventListener('load', boot);
 </script>
