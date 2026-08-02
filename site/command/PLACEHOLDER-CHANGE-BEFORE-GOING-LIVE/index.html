@@ -138,7 +138,7 @@ padding:10px 11px;cursor:pointer;font-size:13.5px}
 .chip{font-size:10.5px;padding:2px 7px;border-radius:999px;background:var(--brand-soft);
 color:var(--brand-ink);font-weight:700;white-space:nowrap}
 .chip.cost{background:transparent;border:1px solid var(--line-strong);color:var(--muted)}
-.chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}
+.chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}.chip.id{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:9.5px}
 .taskcard.empty{opacity:.5;font-style:italic;cursor:default;text-align:center;padding:14px 10px}
 
 /* quick dispatch buttons on cards */
@@ -273,7 +273,7 @@ height:64px;opacity:.55}
 <div id="moneybox" class="card stack"><div class="skel"></div></div>
 </section>
 
-<section id="clients">
+<section id="clients"><div class="field" style="margin:0 0 12px"><input id="client_search" placeholder="Search clients by name or ID..."></div>
 <p class="eyebrow">Clients <button class="flipbtn" id="clientFlip" type="button">Show all</button></p>
 <div id="clientlist" class="stack"><div class="skel"></div><div class="skel"></div></div>
 </section>
@@ -355,8 +355,7 @@ height:64px;opacity:.55}
 <div class="field"><label>Task ID</label><input id="red_task_id" placeholder="which task this is about"></div>
 <div class="field"><label>What are you confirming</label><textarea id="red_note" placeholder="describe the action being confirmed"></textarea></div>
 <div class="btnrow"><button class="btn danger" id="red_open">Confirm a red action</button></div>
-<div id="red_result"></div>
-</div>
+<div id="red_result"></div></div><div class="dispatch-block card"><div class="dispatch-title">Request a new video</div><div class="dispatch-help">Logs a video request against a client. This does not queue a Video Engine run itself -- it records the ask so it surfaces in the client's notes/brief.</div><div class="field"><label>Client slug</label><input id="v_client_slug" placeholder="e.g. acme-co"></div><div class="field"><label>What the video is about</label><textarea id="v_note" placeholder="describe the ask -- product, angle, deadline if any"></textarea></div><div class="btnrow"><button class="btn primary" id="v_submit">Request video</button></div><div id="v_result"></div></div>
 
 </section>
 
@@ -624,7 +623,7 @@ function colOf(status){
 var s = String(status || '').toLowerCase();
 return BOARD_COLS.indexOf(s) > -1 ? s : 'backlog';
 }
-var lastSnapshot = null;
+var lastSnapshot = null; var clientSearchTerm = ''; function filteredClients(list){ if (!clientSearchTerm) return list; var t = clientSearchTerm.toLowerCase(); return (list || []).filter(function(c){ return (c.name || '').toLowerCase().indexOf(t) > -1 || (c.slug || '').toLowerCase().indexOf(t) > -1; }); }
 
 function focusField(id){
 var n = $(id);
@@ -688,7 +687,7 @@ card.appendChild(el('div','t-title', t.title || t.id));
 var chips = el('div','t-chips');
 if (t.autonomy) chips.appendChild(el('span','chip', t.autonomy));
 if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
-if (t.branch) chips.appendChild(el('span','chip branch', t.branch));
+if (t.branch) chips.appendChild(el('span','chip branch', t.branch)); if (t.id) chips.appendChild(el('span','chip id', t.id));
 card.appendChild(chips);
 if (col === 'blocked' || col === 'backlog'){
 var actions = el('div','t-actions');
@@ -891,7 +890,7 @@ sheet.appendChild(closeBtn);
 $('redOverlay').classList.remove('hide');
 });
 }
-function closeRed(){ $('redOverlay').classList.add('hide'); }
+function closeRed(){ $('redOverlay').classList.add('hide'); } function wireVideoRequest(){ $('v_submit').addEventListener('click', function(){ var slug = $('v_client_slug').value.trim(); var note = $('v_note').value.trim(); if (!slug || !note){ showResult('v_result', false, 'Client slug and a description are both required.'); return; } var btn = $('v_submit'); btn.disabled = true; postJSON(NOTE_URL, {type: 'video_request', client_slug: slug, note: note}).then(function(res){ btn.disabled = false; showResult('v_result', res.status === 200, JSON.stringify(res.body, null, 2)); }).catch(function(e){ btn.disabled = false; showResult('v_result', false, 'Request failed: ' + e.message); }); }); }
 
 /* ------------------------------------------------------------------ console */
 var consoleSessionId = null;
@@ -1086,8 +1085,8 @@ $('clientFlip').addEventListener('click', function(){
 showAllClients = !showAllClients;
 $('clientFlip').textContent = showAllClients ? 'Active only' : 'Show all';
 if (lastSnapshot){
-renderClients(lastSnapshot.clients);
-renderBoard(lastSnapshot.clients, lastSnapshot.tasks);
+renderClients(filteredClients(lastSnapshot.clients));
+renderBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
 }
 });
 }
@@ -1110,8 +1109,8 @@ $('dot').className = 'dot';
 $('asof').textContent = 'as of ' + shortTime(new Date().toISOString());
 renderMoney(data.money);
 renderNeedsMe(data);
-renderClients(data.clients);
-renderBoard(data.clients, data.tasks);
+renderClients(filteredClients(data.clients));
+renderBoard(filteredClients(data.clients), data.tasks);
 renderReports(data.latest_reports);
 renderHistory(data);
 populateConsoleClients(data.clients);
@@ -1150,10 +1149,10 @@ if (e.target === $('redOverlay')) closeRed();
 document.addEventListener('keydown', function(e){
 if (e.key === 'Escape'){ closeDetail(); closeRed(); }
 });
-wireQueueForm('q', 'q_job_id');
+wireQueueForm('q', 'q_job_id'); $('client_search').addEventListener('input', function(){ clientSearchTerm = this.value.trim(); if (lastSnapshot){ renderClients(filteredClients(lastSnapshot.clients)); renderBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks); } });
 wireQueueForm('r', 'r_job_id');
 wirePack();
-wireRed();
+wireRed(); wireVideoRequest();
 wireConsole();
 wireClientFlip();
 wireHistoryToggle();
