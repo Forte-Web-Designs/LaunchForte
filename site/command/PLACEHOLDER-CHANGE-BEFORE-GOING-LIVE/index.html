@@ -355,7 +355,7 @@ height:64px;opacity:.55}
 <div class="field"><label>Task ID</label><input id="red_task_id" placeholder="which task this is about"></div>
 <div class="field"><label>What are you confirming</label><textarea id="red_note" placeholder="describe the action being confirmed"></textarea></div>
 <div class="btnrow"><button class="btn danger" id="red_open">Confirm a red action</button></div>
-<div id="red_result"></div></div><div class="dispatch-block card"><div class="dispatch-title">Request a new video</div><div class="dispatch-help">Logs a video request against a client. This does not queue a Video Engine run itself -- it records the ask so it surfaces in the client's notes/brief.</div><div class="field"><label>Client slug</label><input id="v_client_slug" placeholder="e.g. acme-co"></div><div class="field"><label>What the video is about</label><textarea id="v_note" placeholder="describe the ask -- product, angle, deadline if any"></textarea></div><div class="btnrow"><button class="btn primary" id="v_submit">Request video</button></div><div id="v_result"></div></div>
+<div id="red_result"></div></div><div class="dispatch-block card"><div class="dispatch-title">Request a new video</div><div class="dispatch-help">Logs a video request against a client, or against your own channel if it's not for a client. This does not queue a Video Engine run itself -- it records the ask so it surfaces in the client's notes/brief (personal asks land in a dedicated internal log instead).</div><div class="field"><label style="display:flex;align-items:center;gap:7px;text-transform:none;letter-spacing:0;font-size:13.5px;color:var(--ink);font-weight:500"><input type="checkbox" id="v_personal" style="width:auto"> Not for a client -- this is for my own channel</label></div><div class="field" id="v_client_slug_field"><label>Client slug</label><input id="v_client_slug" list="v_client_datalist" placeholder="start typing a client name or slug…"><datalist id="v_client_datalist"></datalist></div><div class="field"><label>What the video is about</label><textarea id="v_note" placeholder="describe the ask -- product, angle, deadline if any"></textarea></div><div class="btnrow"><button class="btn primary" id="v_submit">Request video</button></div><div id="v_result"></div></div>
 
 </section>
 
@@ -363,6 +363,7 @@ height:64px;opacity:.55}
 <p class="eyebrow">Console</p>
 <div class="console-shell card">
 <div class="console-top">
+<input id="c_client_search" placeholder="Search clients…" style="flex:1;font:inherit;font-size:13.5px;padding:8px 10px;border-radius:10px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink)">
 <select id="c_client"><option value="">Pick a client first…</option></select>
 </div>
 <div class="console-log" id="c_log"><div class="console-empty" id="c_empty">Pick a client above, then ask about status, tasks, or history.</div></div>
@@ -890,26 +891,73 @@ sheet.appendChild(closeBtn);
 $('redOverlay').classList.remove('hide');
 });
 }
-function closeRed(){ $('redOverlay').classList.add('hide'); } function wireVideoRequest(){ $('v_submit').addEventListener('click', function(){ var slug = $('v_client_slug').value.trim(); var note = $('v_note').value.trim(); if (!slug || !note){ showResult('v_result', false, 'Client slug and a description are both required.'); return; } var btn = $('v_submit'); btn.disabled = true; postJSON(NOTE_URL, {type: 'video_request', client_slug: slug, note: note}).then(function(res){ btn.disabled = false; showResult('v_result', res.status === 200, JSON.stringify(res.body, null, 2)); }).catch(function(e){ btn.disabled = false; showResult('v_result', false, 'Request failed: ' + e.message); }); }); }
+function closeRed(){ $('redOverlay').classList.add('hide'); } var PERSONAL_VIDEO_SLUG = 'seth-youtube-channel';
+function wireVideoRequest(){
+if ($('v_personal')){
+$('v_personal').addEventListener('change', function(){
+var personal = this.checked;
+$('v_client_slug_field').style.display = personal ? 'none' : '';
+});
+}
+$('v_submit').addEventListener('click', function(){
+var personal = $('v_personal') && $('v_personal').checked;
+var slug = personal ? PERSONAL_VIDEO_SLUG : $('v_client_slug').value.trim();
+var note = $('v_note').value.trim();
+if (!slug || !note){ showResult('v_result', false, (personal ? 'A description is required.' : 'Client slug and a description are both required.')); return; }
+var btn = $('v_submit');
+btn.disabled = true;
+postJSON(NOTE_URL, {type: 'video_request', client_slug: slug, note: note}).then(function(res){
+btn.disabled = false;
+showResult('v_result', res.status === 200, JSON.stringify(res.body, null, 2));
+}).catch(function(e){
+btn.disabled = false;
+showResult('v_result', false, 'Request failed: ' + e.message);
+});
+});
+}
 
 /* ------------------------------------------------------------------ console */
 var consoleSessionId = null;
 var consoleClientsLoaded = false;
 var pendingImageB64 = null;
+var allConsoleClients = [];
 
 function populateConsoleClients(list){
+if (list && list.length) allConsoleClients = list;
 if (consoleClientsLoaded) return; /* don't clobber user's mid-conversation selection on later polls */
+renderConsoleClientOptions($('c_client_search') ? $('c_client_search').value : '');
+if (list && list.length) consoleClientsLoaded = true;
+}
+
+function renderConsoleClientOptions(filterText){
 var sel = $('c_client');
 var prior = sel.value;
+var t = (filterText || '').trim().toLowerCase();
+var source = allConsoleClients || [];
+var filtered = !t ? source : source.filter(function(c){
+return (c.name || '').toLowerCase().indexOf(t) > -1 || (c.slug || '').toLowerCase().indexOf(t) > -1;
+});
 sel.innerHTML = '';
-sel.appendChild(el('option', null, 'Pick a client first…')).value = '';
-(list || []).forEach(function(c){
+var placeholder = el('option', null, 'Pick a client first…'); placeholder.value = '';
+sel.appendChild(placeholder);
+filtered.forEach(function(c){
 var opt = el('option', null, c.name || c.slug || 'unnamed');
 opt.value = c.slug || '';
 sel.appendChild(opt);
 });
-if (list && list.length) consoleClientsLoaded = true;
-if (prior) sel.value = prior;
+if (prior && filtered.some(function(c){ return (c.slug || '') === prior; })) sel.value = prior;
+}
+
+function populateVideoClientList(list){
+var dl = $('v_client_datalist');
+if (!dl) return;
+dl.innerHTML = '';
+(list || []).forEach(function(c){
+var opt = document.createElement('option');
+opt.value = c.slug || '';
+opt.label = (c.name || c.slug || '') + (c.slug ? ' (' + c.slug + ')' : '');
+dl.appendChild(opt);
+});
 }
 
 function consoleClientPicked(){
@@ -1055,6 +1103,7 @@ $('c_imgprev').classList.remove('show');
 
 function wireConsole(){
 $('c_client').addEventListener('change', consoleClientPicked);
+if ($('c_client_search')) $('c_client_search').addEventListener('input', function(){ renderConsoleClientOptions(this.value); });
 $('c_send').addEventListener('click', sendConsoleTurn);
 $('c_input').addEventListener('keydown', function(e){
 if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendConsoleTurn(); }
@@ -1114,6 +1163,7 @@ renderBoard(filteredClients(data.clients), data.tasks);
 renderReports(data.latest_reports);
 renderHistory(data);
 populateConsoleClients(data.clients);
+populateVideoClientList(data.clients);
 var qd = (data.queue_depth === null || data.queue_depth === undefined) ? '—' : data.queue_depth;
 $('refreshline').textContent = 'Last refresh ' + shortTime(new Date().toISOString()) +
 '. Queue depth: ' + qd + '. This page re-checks every 5 minutes while open.';
