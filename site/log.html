@@ -69,7 +69,18 @@
 
 <div id="log-entries">
 <!-- LOG_ENTRIES_START -->
-<p class="log-empty">The first entries land after this week's pass. Check back soon.</p>
+<div class="log-entry">
+<span class="log-date">Aug 2026</span>
+<p class="log-text">When an n8n data table is empty and alwaysOutputData is enabled, the workflow receives one item containing an empty string rather than zero items, which means any dedupe set built from that output will match every incoming record as already seen. The fix is to run the array through a filter that drops falsy values before constructing the key set, so an empty table produces an empty set instead of a poisoned one.</p>
+</div>
+<div class="log-entry">
+<span class="log-date">Aug 2026</span>
+<p class="log-text">The n8n list-tables operation returns a maximum of ten results by default while still reporting the true total count in a separate field, so a name lookup against a large table collection will incorrectly conclude a table does not exist when it simply fell outside the first page. Before treating a table as missing, the lookup must paginate using take and skip until the full set has been checked, otherwise the workflow will attempt to create a duplicate that already exists among dozens of live tables.</p>
+</div>
+<div class="log-entry">
+<span class="log-date">Aug 2026</span>
+<p class="log-text">In n8n code nodes, $input and $json resolve to the immediate upstream node in the execution graph, not to whichever earlier node produced the data the developer intended to read, so any branch or intermediate step silently redirects the reference. The reliable fix is to reference the intended source node by name using the $(NodeName).first() pattern, making the data dependency explicit and immune to topology changes; three separate silent failures in one workflow estate traced back to this single assumption.</p>
+</div>
 <!-- LOG_ENTRIES_END -->
 </div>
 
