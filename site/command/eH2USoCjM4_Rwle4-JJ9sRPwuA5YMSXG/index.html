@@ -76,15 +76,20 @@ overflow:hidden;--rail:var(--gray)}
 
 /* money strip */
 .money-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 8px}
-@media(min-width:640px){.money-grid{grid-template-columns:repeat(4,1fr)}}
 .metric .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);font-weight:600}
 .metric .v{font-size:19px;font-weight:700;margin-top:1px}
 .metric .v.neg{color:var(--danger)}
 
-/* needs-me strip */
-.needsme-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
-.needsme-strip::-webkit-scrollbar{height:6px}
-.needsme-chip{flex:none;display:flex;flex-direction:column;gap:3px;min-width:180px;max-width:240px;
+/* needs-me kanban */
+.needsme-kanban{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:760px){.needsme-kanban{grid-template-columns:repeat(3,1fr)}}
+.needsme-col{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+padding:12px;box-shadow:var(--shadow)}
+.needsme-col-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.needsme-col-title{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--muted-2)}
+.needsme-col-count{font-size:11px;color:var(--muted-2);font-weight:700}
+.needsme-col-cards{display:grid;gap:8px}
+.needsme-chip{display:flex;flex-direction:column;gap:3px;
 background:var(--card);border:1px solid var(--line-strong);border-left:4px solid var(--warn);
 border-radius:12px;padding:10px 12px;cursor:pointer;box-shadow:var(--shadow)}
 .needsme-chip:hover{border-color:var(--brand)}
@@ -265,7 +270,7 @@ height:64px;opacity:.55}
 
 <section id="needsme">
 <p class="eyebrow">Needs me</p>
-<div id="needsmehost" class="needsme-strip"><div class="skel" style="min-width:180px"></div></div>
+<div id="needsmehost" class="needsme-kanban"><div class="skel"></div></div>
 </section>
 
 <section id="money">
@@ -274,7 +279,7 @@ height:64px;opacity:.55}
 </section>
 
 <section id="clients"><div class="field" style="margin:0 0 12px"><input id="client_search" placeholder="Search clients by name or ID..."></div>
-<p class="eyebrow">Clients <button class="flipbtn" id="clientFlip" type="button">Show all</button></p>
+<p class="eyebrow">Clients<span id="clientCount"></span> <button class="flipbtn" id="clientFlip" type="button">Show all</button></p>
 <div id="clientlist" class="stack"><div class="skel"></div><div class="skel"></div></div>
 </section>
 
@@ -413,6 +418,11 @@ button toggles to show paused/dormant/unknown too. State is in-memory only
 (resets to active-only on reload), matching "default view" intent. */
 var showAllClients = false;
 
+/* Clients list is collapsed to a count by default so the sixty-plus roster
+doesn't push Board/Reports/Dispatch below the fold; the existing Show all
+button expands it (and, as before, also flips active-only vs every status). */
+var clientsExpanded = false;
+
 var $ = function(id){ return document.getElementById(id); };
 function el(tag, cls, txt){
 var n = document.createElement(tag);
@@ -446,8 +456,6 @@ function renderMoney(m){
 var host = $('moneybox'); host.className = 'card money-grid reveal'; host.innerHTML = '';
 if (!m){ host.appendChild(el('div','client-sub','No money data returned.')); return; }
 host.appendChild(metric('Total cost', money(m.total_cost_usd)));
-host.appendChild(metric('Price charged', money(m.total_price_charged)));
-host.appendChild(metric('Margin', money(m.total_margin_usd)));
 host.appendChild(metric('API + infra', money(m.total_api_spend_usd) + ' / ' + money(m.total_infra_cost_usd)));
 }
 
@@ -456,9 +464,21 @@ if (showAllClients) return list || [];
 return (list || []).filter(function(c){ return c.status === 'active'; });
 }
 
+function updateClientCount(n){
+var node = $('clientCount');
+if (!node) return;
+node.textContent = (n === null || n === undefined) ? '' : ' - ' + n;
+}
+
 function renderClients(list){
 var host = $('clientlist'); host.innerHTML = '';
 var all = list || [];
+var totalCount = (lastSnapshot && lastSnapshot.clients) ? lastSnapshot.clients.length : all.length;
+updateClientCount(totalCount);
+if (!clientsExpanded && !clientSearchTerm){
+host.appendChild(el('div','card rail-gray client-sub', totalCount + ' client' + (totalCount === 1 ? '' : 's') + ' collapsed -- click "Show all" above to view.'));
+return;
+}
 var visible = visibleClients(all);
 if (!visible.length){
 var box = el('div','allclear reveal');
@@ -578,42 +598,74 @@ var n = document.getElementById(id);
 if (n && n.scrollIntoView) n.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
+function scrollToClient(slug){
+var needsRerender = false;
+if (!clientsExpanded){ clientsExpanded = true; needsRerender = true; }
+if (!showAllClients){ showAllClients = true; $('clientFlip').textContent = 'Active only'; needsRerender = true; }
+if (needsRerender && lastSnapshot){
+renderClients(filteredClients(lastSnapshot.clients));
+renderBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
+}
+scrollToId('client-' + slug);
+}
+
+/* Needs-me kanban groups. The underlying signals (reply-overdue, doorbell,
+blocked client, blocked task, needs-you report) carry no shared "status"
+field, so each kind is assigned to the group its meaning maps to:
+DOORBELL (a phase just finished, moving to the next) -> in_progress;
+REPLY OVERDUE and REPORT (needs-you) -- waiting on a reply or a review -> pending;
+BLOCKED and BLOCKED CLIENT (no workable card exists) -> blocked. */
+var NEEDSME_GROUPS = ['in_progress','pending','blocked'];
+function needsmeGroupLabel(g){
+return g === 'in_progress' ? 'In progress' : g === 'pending' ? 'Pending' : 'Blocked';
+}
 function renderNeedsMe(data){
 var host = $('needsmehost'); host.innerHTML = '';
 var items = [];
 (data.clients || []).forEach(function(c){
 if (c.replies_owed_age_days !== null && c.replies_owed_age_days !== undefined && c.replies_owed_age_days >= 7){
-items.push({kind:'REPLY OVERDUE', title: c.name || c.slug, sub: c.replies_owed_age_days + 'd waiting', onClick: function(){ scrollToId('client-' + (c.slug || '')); }});
+items.push({group:'pending', kind:'REPLY OVERDUE', title: c.name || c.slug, sub: c.replies_owed_age_days + 'd waiting', onClick: function(){ scrollToClient(c.slug || ''); }});
 }
 if (c.doorbell_one){
-items.push({kind:'DOORBELL', title: c.name || c.slug, sub: 'Phase ' + (c.current_phase || 1) + ' ready', onClick: function(){ scrollToId('client-' + (c.slug || '')); }});
+items.push({group:'in_progress', kind:'DOORBELL', title: c.name || c.slug, sub: 'Phase ' + (c.current_phase || 1) + ' ready', onClick: function(){ scrollToClient(c.slug || ''); }});
 }
 if (c.doorbell_two){
-items.push({kind:'BLOCKED CLIENT', title: c.name || c.slug, sub: 'zero workable cards', onClick: function(){ scrollToId('client-' + (c.slug || '')); }});
+items.push({group:'blocked', kind:'BLOCKED CLIENT', title: c.name || c.slug, sub: 'zero workable cards', onClick: function(){ scrollToClient(c.slug || ''); }});
 }
 });
 (data.tasks || []).forEach(function(t){
 if (colOf(t.status) === 'blocked'){
-items.push({kind:'BLOCKED', title: t.title || t.id, sub: t.client_slug || '', onClick: function(){ openDetail(t); }});
+items.push({group:'blocked', kind:'BLOCKED', title: t.title || t.id, sub: t.client_slug || '', onClick: function(){ openDetail(t); }});
 }
 });
 (data.latest_reports || []).forEach(function(r){
 if (r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '')){
-items.push({kind:'REPORT', title: r.subject || r.job_id || 'untitled report', sub: r.status || '', onClick: function(){ openReportDetail(r); }});
+items.push({group:'pending', kind:'REPORT', title: r.subject || r.job_id || 'untitled report', sub: r.status || '', onClick: function(){ openReportDetail(r); }});
 }
 });
 if (!items.length){
 host.appendChild(el('div','needsme-empty','Nothing needs you right now.'));
 return;
 }
-items.forEach(function(it, i){
+NEEDSME_GROUPS.forEach(function(g){
+var groupItems = items.filter(function(it){ return it.group === g; });
+var col = el('div','needsme-col');
+var head = el('div','needsme-col-head');
+head.appendChild(el('div','needsme-col-title', needsmeGroupLabel(g)));
+head.appendChild(el('div','needsme-col-count', String(groupItems.length)));
+col.appendChild(head);
+var cardsBox = el('div','needsme-col-cards');
+groupItems.forEach(function(it, i){
 var chip = el('div','needsme-chip reveal');
 chip.style.animationDelay = Math.min(i,8) * 20 + 'ms';
 chip.appendChild(el('div','nm-kind', it.kind));
 chip.appendChild(el('div','nm-title', it.title));
 if (it.sub) chip.appendChild(el('div','nm-sub', it.sub));
 chip.addEventListener('click', it.onClick);
-host.appendChild(chip);
+cardsBox.appendChild(chip);
+});
+col.appendChild(cardsBox);
+host.appendChild(col);
 });
 }
 
@@ -1131,6 +1183,7 @@ $('c_imgprev_rm').addEventListener('click', clearImagePreview);
 /* ------------------------------------------------------------------ view flip */
 function wireClientFlip(){
 $('clientFlip').addEventListener('click', function(){
+clientsExpanded = true;
 showAllClients = !showAllClients;
 $('clientFlip').textContent = showAllClients ? 'Active only' : 'Show all';
 if (lastSnapshot){
