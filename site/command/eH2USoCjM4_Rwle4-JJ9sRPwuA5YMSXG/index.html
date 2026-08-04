@@ -124,9 +124,6 @@ border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--sha
 .allclear .sub{margin-top:10px;color:var(--muted-2);font-size:13px}
 
 /* board */
-.board-client{margin:0 0 22px}
-.board-client:last-child{margin-bottom:0}
-.board-client-name{font-weight:700;font-size:14px;margin:0 0 10px;letter-spacing:-.01em}
 .board-cols{display:grid;gap:12px;grid-template-columns:1fr}
 @media(min-width:760px){.board-cols{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}}
 .board-col{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
@@ -138,6 +135,7 @@ padding:12px;box-shadow:var(--shadow)}
 .taskcard{background:var(--bg);border:1px solid var(--line-strong);border-radius:12px;
 padding:10px 11px;cursor:pointer;font-size:13.5px}
 .taskcard:hover{border-color:var(--brand)}
+.taskcard .t-client{font-size:11px;font-weight:700;letter-spacing:.01em;color:var(--muted-2);margin-bottom:4px}
 .taskcard .t-title{font-weight:650;letter-spacing:-.01em;line-height:1.3}
 .taskcard .t-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
 .chip{font-size:10.5px;padding:2px 7px;border-radius:999px;background:var(--brand-soft);
@@ -147,11 +145,14 @@ color:var(--brand-ink);font-weight:700;white-space:nowrap}
 .taskcard.empty{opacity:.5;font-style:italic;cursor:default;text-align:center;padding:14px 10px}
 
 /* quick dispatch buttons on cards */
-.t-actions{display:flex;gap:6px;margin-top:8px}
+.t-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;align-items:center}
 .qbtn{font:inherit;font-size:10.5px;font-weight:700;padding:5px 9px;border-radius:8px;
 border:1px solid var(--line-strong);background:var(--card);color:var(--ink);cursor:pointer}
 .qbtn:hover{border-color:var(--brand);color:var(--brand-ink)}
 .qbtn.qdanger{border-color:var(--danger);color:var(--danger)}
+.statussel{font:inherit;font-size:10.5px;font-weight:700;padding:5px 7px;border-radius:8px;
+border:1px solid var(--line-strong);background:var(--card);color:var(--ink);cursor:pointer}
+.statussel:disabled{opacity:.5;cursor:default}
 
 /* task detail overlay */
 .detail-overlay{position:fixed;inset:0;background:rgba(10,15,25,.5);z-index:50;
@@ -600,8 +601,8 @@ if (n && n.scrollIntoView) n.scrollIntoView({behavior:'smooth', block:'start'});
 
 function scrollToClient(slug){
 var needsRerender = false;
-if (!clientsExpanded){ clientsExpanded = true; needsRerender = true; }
-if (!showAllClients){ showAllClients = true; $('clientFlip').textContent = 'Active only'; needsRerender = true; }
+if (!clientsExpanded){ clientsExpanded = true; $('clientFlip').textContent = 'Hide'; needsRerender = true; }
+if (!showAllClients){ showAllClients = true; needsRerender = true; }
 if (needsRerender && lastSnapshot){
 renderClients(filteredClients(lastSnapshot.clients));
 renderBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
@@ -700,6 +701,9 @@ $('p_task_id').value = t.id || '';
 focusField('p_task_id');
 }
 
+/* Single board across all visible clients (not one board per client) --
+each card carries its own client name + contact name since there's no
+longer a per-client heading to imply that context. */
 function renderBoard(clients, tasks){
 var host = $('boardhost'); host.innerHTML = '';
 var visible = visibleClients(clients);
@@ -707,27 +711,22 @@ if (!visible || !visible.length || !tasks){
 host.appendChild(el('div','card rail-gray client-sub','No board data yet.'));
 return;
 }
-var byClient = {};
-tasks.forEach(function(t){
-var slug = t.client_slug || '_unassigned';
-(byClient[slug] = byClient[slug] || []).push(t);
-});
-var any = false;
-visible.forEach(function(c){
-var list = byClient[c.slug] || [];
-if (!list.length) return;
-any = true;
-var block = el('div','board-client');
-block.appendChild(el('div','board-client-name', c.name || c.slug));
-var cols = el('div','board-cols');
-/* only render columns that actually have a status present for this client,
+var clientBySlug = {};
+visible.forEach(function(c){ clientBySlug[c.slug] = c; });
+var boardTasks = tasks.filter(function(t){ return clientBySlug[t.client_slug]; });
+if (!boardTasks.length){
+host.appendChild(el('div','card rail-gray client-sub','No tasks on the board yet.'));
+return;
+}
+/* only render columns that actually have a status present on the board,
 in BACKLOG-through-DONE order, per the runbook */
 var present = BOARD_COLS.filter(function(col){
-return list.some(function(t){ return colOf(t.status) === col; });
+return boardTasks.some(function(t){ return colOf(t.status) === col; });
 });
 if (!present.length) present = ['backlog'];
+var cols = el('div','board-cols');
 present.forEach(function(col){
-var colTasks = list.filter(function(t){ return colOf(t.status) === col; });
+var colTasks = boardTasks.filter(function(t){ return colOf(t.status) === col; });
 var colBox = el('div','board-col');
 var head = el('div','board-col-head');
 head.appendChild(el('div','board-col-title', colLabel(col)));
@@ -735,38 +734,77 @@ head.appendChild(el('div','board-col-count', String(colTasks.length)));
 colBox.appendChild(head);
 var cardsBox = el('div','board-col-cards');
 colTasks.forEach(function(t){
+var c = clientBySlug[t.client_slug] || {};
 var card = el('div','taskcard');
+var clientLine = c.name || t.client_slug || 'unassigned';
+if (c.contact_name) clientLine += ' · ' + c.contact_name;
+card.appendChild(el('div','t-client', clientLine));
 card.appendChild(el('div','t-title', t.title || t.id));
 var chips = el('div','t-chips');
 if (t.autonomy) chips.appendChild(el('span','chip', t.autonomy));
 if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
 if (t.branch) chips.appendChild(el('span','chip branch', t.branch)); if (t.id) chips.appendChild(el('span','chip id', t.id));
 card.appendChild(chips);
-if (col === 'blocked' || col === 'backlog'){
 var actions = el('div','t-actions');
+var statusSel = el('select','statussel');
+BOARD_COLS.forEach(function(colOpt){
+var opt = el('option', null, colLabel(colOpt));
+opt.value = colOpt;
+if (colOpt === col) opt.selected = true;
+statusSel.appendChild(opt);
+});
+statusSel.addEventListener('click', function(e){ e.stopPropagation(); });
+statusSel.addEventListener('change', function(e){
+e.stopPropagation();
+moveTaskStatus(t, statusSel.value, statusSel, col);
+});
+actions.appendChild(statusSel);
+if (col === 'blocked' || col === 'backlog'){
 var resumeBtn = el('button','qbtn qdanger','Resume');
 resumeBtn.type = 'button';
 resumeBtn.addEventListener('click', function(e){ e.stopPropagation(); quickResume(t); });
 actions.appendChild(resumeBtn);
-card.appendChild(actions);
 } else if (col === 'ready' || col === 'in_progress'){
-var actions2 = el('div','t-actions');
 var packBtn = el('button','qbtn','Pack');
 packBtn.type = 'button';
 packBtn.addEventListener('click', function(e){ e.stopPropagation(); quickPack(t); });
-actions2.appendChild(packBtn);
-card.appendChild(actions2);
+actions.appendChild(packBtn);
 }
+card.appendChild(actions);
 card.addEventListener('click', function(){ openDetail(t); });
 cardsBox.appendChild(card);
 });
 colBox.appendChild(cardsBox);
 cols.appendChild(colBox);
 });
-block.appendChild(cols);
-host.appendChild(block);
+host.appendChild(cols);
+}
+
+/* Moves a card between statuses from the board select control. Persists via
+task-note (NOTE_URL) -- the same write path wireRed/wireVideoRequest already
+use for task-scoped writes -- with type: 'status_change'. Whether the n8n
+workflow behind task-note also updates the task record's status field (vs.
+only logging a note) is not confirmed from this repo; if it only logs, the
+card reverts to the server's status on the next 5-minute poll. */
+function moveTaskStatus(t, newStatus, selectEl, oldCol){
+if (colOf(newStatus) === oldCol) return;
+var oldStatus = t.status;
+selectEl.disabled = true;
+postJSON(NOTE_URL, {type:'status_change', task_id: t.id, client_slug: t.client_slug, from_status: oldStatus, to_status: newStatus, note: 'Status changed to ' + colLabel(newStatus) + ' via Command Center board.'})
+.then(function(res){
+selectEl.disabled = false;
+if (res.status === 200){
+t.status = newStatus;
+if (lastSnapshot) renderBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
+} else {
+selectEl.value = oldCol;
+selectEl.title = 'Save failed: ' + JSON.stringify(res.body);
+}
+}).catch(function(e){
+selectEl.disabled = false;
+selectEl.value = oldCol;
+selectEl.title = 'Save failed: ' + e.message;
 });
-if (!any) host.appendChild(el('div','card rail-gray client-sub','No tasks on the board yet.'));
 }
 
 function openDetail(t){
@@ -1183,9 +1221,9 @@ $('c_imgprev_rm').addEventListener('click', clearImagePreview);
 /* ------------------------------------------------------------------ view flip */
 function wireClientFlip(){
 $('clientFlip').addEventListener('click', function(){
-clientsExpanded = true;
-showAllClients = !showAllClients;
-$('clientFlip').textContent = showAllClients ? 'Active only' : 'Show all';
+clientsExpanded = !clientsExpanded;
+showAllClients = clientsExpanded;
+$('clientFlip').textContent = clientsExpanded ? 'Hide' : 'Show all';
 if (lastSnapshot){
 renderClients(filteredClients(lastSnapshot.clients));
 renderBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
