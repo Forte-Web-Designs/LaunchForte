@@ -80,25 +80,6 @@ overflow:hidden;--rail:var(--gray)}
 .metric .v{font-size:19px;font-weight:700;margin-top:1px}
 .metric .v.neg{color:var(--danger)}
 
-/* needs-me kanban */
-.needsme-kanban{display:grid;gap:12px;grid-template-columns:1fr}
-@media(min-width:760px){.needsme-kanban{grid-template-columns:repeat(3,1fr)}}
-.needsme-col{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-padding:12px;box-shadow:var(--shadow)}
-.needsme-col-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
-.needsme-col-title{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--muted-2)}
-.needsme-col-count{font-size:11px;color:var(--muted-2);font-weight:700}
-.needsme-col-cards{display:grid;gap:8px}
-.needsme-chip{display:flex;flex-direction:column;gap:3px;
-background:var(--card);border:1px solid var(--line-strong);border-left:4px solid var(--warn);
-border-radius:12px;padding:10px 12px;cursor:pointer;box-shadow:var(--shadow)}
-.needsme-chip:hover{border-color:var(--brand)}
-.needsme-chip .nm-kind{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--warn)}
-.needsme-chip .nm-title{font-size:13.5px;font-weight:650;line-height:1.3}
-.needsme-chip .nm-sub{font-size:11.5px;color:var(--muted-2)}
-.needsme-empty{padding:14px 16px;color:var(--muted-2);font-size:13px;background:var(--card);
-border:1px solid var(--line);border-radius:var(--radius)}
-
 /* client rows */
 .client-head{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
 .client-name{font-weight:700;letter-spacing:-.01em;font-size:15px}
@@ -143,6 +124,7 @@ color:var(--brand-ink);font-weight:700;white-space:nowrap}
 .chip.cost{background:transparent;border:1px solid var(--line-strong);color:var(--muted)}
 .chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}.chip.id{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:9.5px}
 .taskcard.empty{opacity:.5;font-style:italic;cursor:default;text-align:center;padding:14px 10px}
+.taskcard.needsme{border-left:4px solid var(--warn)}
 
 /* quick dispatch buttons on cards */
 .t-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;align-items:center}
@@ -269,9 +251,9 @@ height:64px;opacity:.55}
 
 <div id="banners"></div>
 
-<section id="needsme">
-<p class="eyebrow">Needs me</p>
-<div id="needsmehost" class="needsme-kanban"><div class="skel"></div></div>
+<section id="board">
+<p class="eyebrow">Board</p>
+<div id="boardhost" class="stack"><div class="skel"></div></div>
 </section>
 
 <section id="money">
@@ -282,11 +264,6 @@ height:64px;opacity:.55}
 <section id="clients"><div class="field" style="margin:0 0 12px"><input id="client_search" placeholder="Search clients by name or ID..."></div>
 <p class="eyebrow">Clients<span id="clientCount"></span> <button class="flipbtn" id="clientFlip" type="button">Show all</button></p>
 <div id="clientlist" class="stack"><div class="skel"></div><div class="skel"></div></div>
-</section>
-
-<section id="board">
-<p class="eyebrow">Board</p>
-<div id="boardhost" class="stack"><div class="skel"></div></div>
 </section>
 
 <section id="reports">
@@ -593,81 +570,9 @@ $('historyToggle').textContent = showing ? 'Hide full history ↑' : 'Show full 
 });
 }
 
-/* ------------------------------------------------------------------ needs me */
 function scrollToId(id){
 var n = document.getElementById(id);
 if (n && n.scrollIntoView) n.scrollIntoView({behavior:'smooth', block:'start'});
-}
-
-function scrollToClient(slug){
-var needsRerender = false;
-if (!clientsExpanded){ clientsExpanded = true; $('clientFlip').textContent = 'Hide'; needsRerender = true; }
-if (!showAllClients){ showAllClients = true; needsRerender = true; }
-if (needsRerender && lastSnapshot){
-renderClients(filteredClients(lastSnapshot.clients));
-renderBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
-}
-scrollToId('client-' + slug);
-}
-
-/* Needs-me kanban groups. The underlying signals (reply-overdue, doorbell,
-blocked client, blocked task, needs-you report) carry no shared "status"
-field, so each kind is assigned to the group its meaning maps to:
-DOORBELL (a phase just finished, moving to the next) -> in_progress;
-REPLY OVERDUE and REPORT (needs-you) -- waiting on a reply or a review -> pending;
-BLOCKED and BLOCKED CLIENT (no workable card exists) -> blocked. */
-var NEEDSME_GROUPS = ['in_progress','pending','blocked'];
-function needsmeGroupLabel(g){
-return g === 'in_progress' ? 'In progress' : g === 'pending' ? 'Pending' : 'Blocked';
-}
-function renderNeedsMe(data){
-var host = $('needsmehost'); host.innerHTML = '';
-var items = [];
-(data.clients || []).forEach(function(c){
-if (c.replies_owed_age_days !== null && c.replies_owed_age_days !== undefined && c.replies_owed_age_days >= 7){
-items.push({group:'pending', kind:'REPLY OVERDUE', title: c.name || c.slug, sub: c.replies_owed_age_days + 'd waiting', onClick: function(){ scrollToClient(c.slug || ''); }});
-}
-if (c.doorbell_one){
-items.push({group:'in_progress', kind:'DOORBELL', title: c.name || c.slug, sub: 'Phase ' + (c.current_phase || 1) + ' ready', onClick: function(){ scrollToClient(c.slug || ''); }});
-}
-if (c.doorbell_two){
-items.push({group:'blocked', kind:'BLOCKED CLIENT', title: c.name || c.slug, sub: 'zero workable cards', onClick: function(){ scrollToClient(c.slug || ''); }});
-}
-});
-(data.tasks || []).forEach(function(t){
-if (colOf(t.status) === 'blocked'){
-items.push({group:'blocked', kind:'BLOCKED', title: t.title || t.id, sub: t.client_slug || '', onClick: function(){ openDetail(t); }});
-}
-});
-(data.latest_reports || []).forEach(function(r){
-if (r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '')){
-items.push({group:'pending', kind:'REPORT', title: r.subject || r.job_id || 'untitled report', sub: r.status || '', onClick: function(){ openReportDetail(r); }});
-}
-});
-if (!items.length){
-host.appendChild(el('div','needsme-empty','Nothing needs you right now.'));
-return;
-}
-NEEDSME_GROUPS.forEach(function(g){
-var groupItems = items.filter(function(it){ return it.group === g; });
-var col = el('div','needsme-col');
-var head = el('div','needsme-col-head');
-head.appendChild(el('div','needsme-col-title', needsmeGroupLabel(g)));
-head.appendChild(el('div','needsme-col-count', String(groupItems.length)));
-col.appendChild(head);
-var cardsBox = el('div','needsme-col-cards');
-groupItems.forEach(function(it, i){
-var chip = el('div','needsme-chip reveal');
-chip.style.animationDelay = Math.min(i,8) * 20 + 'ms';
-chip.appendChild(el('div','nm-kind', it.kind));
-chip.appendChild(el('div','nm-title', it.title));
-if (it.sub) chip.appendChild(el('div','nm-sub', it.sub));
-chip.addEventListener('click', it.onClick);
-cardsBox.appendChild(chip);
-});
-col.appendChild(cardsBox);
-host.appendChild(col);
-});
 }
 
 /* ------------------------------------------------------------------ board */
@@ -701,6 +606,19 @@ $('p_task_id').value = t.id || '';
 focusField('p_task_id');
 }
 
+/* Needs-me signal, carried over from the retired NEEDS ME section onto board
+cards: a card is marked when its task is blocked, or its client has an
+overdue reply (>=7d), a doorbell (phase-complete or fully-blocked client), or
+a NEEDS YOU report tied to this task's job_id. */
+function taskNeedsMe(t, c){
+if (colOf(t.status) === 'blocked') return true;
+if (c && c.replies_owed_age_days !== null && c.replies_owed_age_days !== undefined && c.replies_owed_age_days >= 7) return true;
+if (c && c.doorbell_one) return true;
+if (c && c.doorbell_two) return true;
+var reports = (lastSnapshot && lastSnapshot.latest_reports) || [];
+return reports.some(function(r){ return r.job_id === t.id && (r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '')); });
+}
+
 /* Single board across all visible clients (not one board per client) --
 each card carries its own client name + contact name since there's no
 longer a per-client heading to imply that context. */
@@ -726,7 +644,12 @@ return boardTasks.some(function(t){ return colOf(t.status) === col; });
 if (!present.length) present = ['backlog'];
 var cols = el('div','board-cols');
 present.forEach(function(col){
-var colTasks = boardTasks.filter(function(t){ return colOf(t.status) === col; });
+var colTasks = boardTasks.filter(function(t){ return colOf(t.status) === col; })
+.sort(function(a,b){
+var an = taskNeedsMe(a, clientBySlug[a.client_slug]) ? 0 : 1;
+var bn = taskNeedsMe(b, clientBySlug[b.client_slug]) ? 0 : 1;
+return an - bn;
+});
 var colBox = el('div','board-col');
 var head = el('div','board-col-head');
 head.appendChild(el('div','board-col-title', colLabel(col)));
@@ -735,7 +658,7 @@ colBox.appendChild(head);
 var cardsBox = el('div','board-col-cards');
 colTasks.forEach(function(t){
 var c = clientBySlug[t.client_slug] || {};
-var card = el('div','taskcard');
+var card = el('div','taskcard' + (taskNeedsMe(t, c) ? ' needsme' : ''));
 var clientLine = c.name || t.client_slug || 'unassigned';
 if (c.contact_name) clientLine += ' · ' + c.contact_name;
 card.appendChild(el('div','t-client', clientLine));
@@ -1248,7 +1171,6 @@ $('banners').innerHTML = '';
 $('dot').className = 'dot';
 $('asof').textContent = 'as of ' + shortTime(new Date().toISOString());
 renderMoney(data.money);
-renderNeedsMe(data);
 renderClients(filteredClients(data.clients));
 renderBoard(filteredClients(data.clients), data.tasks);
 renderReports(data.latest_reports);
