@@ -750,7 +750,7 @@ function moveTaskStatus(t, newStatus, selectEl, oldCol){
 if (colOf(newStatus) === oldCol) return;
 var oldStatus = t.status;
 selectEl.disabled = true;
-postJSON(NOTE_URL, {type:'status_change', task_id: t.id, client_slug: t.client_slug, from_status: oldStatus, to_status: newStatus, note: 'Status changed to ' + colLabel(newStatus) + ' via Command Center board.'})
+postJSON(NOTE_URL, {type:'amend', task_id: t.id, client_slug: t.client_slug, from_status: oldStatus, to_status: newStatus, note: 'Status changed to ' + colLabel(newStatus) + ' via Command Center board.'})
 .then(function(res){
 selectEl.disabled = false;
 if (res.status === 200){
