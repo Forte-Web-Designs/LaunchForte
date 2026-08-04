@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A1220" media="(prefers-color-scheme: dark)">
+<title>Command</title>
+<link rel="icon" href="data:,">
+<style>
+:root{
+--brand:#0088DB; --brand-soft:#E6F2FA; --brand-ink:#075A8F;
+--ok:#1E7A4F; --warn:#B4541B; --danger:#C23B3B; --gray:#8892A0;
+--bg:#F5F7FA; --card:#FFFFFF; --ink:#0B1220; --muted:#5A6472; --muted-2:#8892A0;
+--line:#E4E8EE; --line-strong:#D5DBE3;
+--radius:16px; --radius-lg:22px;
+--shadow:0 1px 2px rgba(20,25,34,.05),0 8px 24px rgba(20,25,34,.06);
+--font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+--pad:16px;
+}
+@media (prefers-color-scheme: dark){
+:root{
+--bg:#0A1220; --card:#111C33; --ink:#E7EDF5; --muted:#93A1B5; --muted-2:#6E7F96;
+--line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.14);
+--brand:#4AB5ED; --brand-soft:rgba(74,181,237,.10); --brand-ink:#9AD4F7;
+--ok:#3FBF85; --warn:#E08A45; --danger:#E86A6A; --gray:#7C8CA3;
+--shadow:0 1px 2px rgba(0,0,0,.45),0 10px 30px rgba(0,0,0,.35);
+}
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+background:var(--bg); color:var(--ink); font-family:var(--font);
+font-size:16px; line-height:1.45; -webkit-font-smoothing:antialiased;
+padding:0 var(--pad) 64px; padding-bottom:calc(64px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:1120px;margin:0 auto}
+.num{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.mono{font-family:var(--mono);font-size:12px}
+a{color:var(--brand-ink);text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
+
+header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+padding:22px 0 14px;position:sticky;top:0;background:var(--bg);z-index:20;
+border-bottom:1px solid var(--line)}
+.mark{font-weight:800;letter-spacing:-.03em;font-size:19px}
+.mark span{color:var(--brand)}
+.asof{font-size:12px;color:var(--muted-2);display:flex;align-items:center;gap:7px;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
+.dot.stale{background:var(--warn)} .dot.down{background:var(--danger)}
+
+.banner{margin:14px 0;padding:12px 14px;border-radius:12px;font-size:14px;
+border:1px solid var(--line-strong);background:var(--card)}
+.banner.bad{border-color:var(--danger);color:var(--danger)}
+.banner.preview{border-color:var(--brand);color:var(--brand-ink);background:var(--brand-soft);font-weight:600}
+
+section{margin:30px 0 0}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+color:var(--muted-2);font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.flipbtn{letter-spacing:.04em;text-transform:none;font-weight:700;font-size:11px;
+color:var(--brand-ink);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline}
+.flipbtn:hover{opacity:.8}
+
+.card{position:relative;background:var(--card);border:1px solid var(--line);
+border-radius:var(--radius);padding:15px 16px 15px 19px;box-shadow:var(--shadow);
+overflow:hidden;--rail:var(--gray)}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--rail)}
+.rail-ok{--rail:var(--ok)} .rail-warn{--rail:var(--warn)}
+.rail-bad{--rail:var(--danger)} .rail-gray{--rail:var(--gray)} .rail-brand{--rail:var(--brand)}
+.stack{display:grid;gap:10px}
+.card.clickable{cursor:pointer}
+.card.clickable:hover{border-color:var(--brand)}
+
+/* money strip */
+.money-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 8px}
+.metric .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);font-weight:600}
+.metric .v{font-size:19px;font-weight:700;margin-top:1px}
+.metric .v.neg{color:var(--danger)}
+
+/* client rows */
+.client-head{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.client-name{font-weight:700;letter-spacing:-.01em;font-size:15px}
+.tag{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.tag.active{color:var(--ok)} .tag.paused{color:var(--warn)} .tag.gray{color:var(--muted-2)}
+.client-sub{color:var(--muted);font-size:13.5px;margin-top:6px}
+.owed{display:inline-flex;align-items:center;gap:5px;margin-top:7px;font-size:12.5px;color:var(--muted-2)}
+.owed .n{color:var(--warn);font-weight:700}
+.owed.overdue .n{color:var(--danger)}
+.doorbell-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;
+letter-spacing:.04em;text-transform:uppercase;color:var(--brand-ink);background:var(--brand-soft);
+padding:3px 9px;border-radius:999px;cursor:default}
+.doorbell-badge.blocked{color:var(--danger);background:transparent;border:1px solid var(--danger)}
+
+/* reports */
+.report-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.report-subject{font-weight:600;font-size:14px}
+.report-meta{color:var(--muted-2);font-size:12px}
+
+.allclear{padding:36px 22px;text-align:center;background:var(--card);
+border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+.allclear .big{font-size:clamp(20px,6vw,28px);font-weight:800;letter-spacing:-.03em}
+.allclear .sub{margin-top:10px;color:var(--muted-2);font-size:13px}
+
+/* board */
+.board-client{margin:0 0 22px}
+.board-client:last-child{margin-bottom:0}
+.board-client-name{font-weight:700;font-size:14px;margin:0 0 10px;letter-spacing:-.01em}
+.board-cols{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:760px){.board-cols{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}}
+.board-col{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+padding:12px;box-shadow:var(--shadow)}
+.board-col-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.board-col-title{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--muted-2)}
+.board-col-count{font-size:11px;color:var(--muted-2);font-weight:700}
+.board-col-cards{display:grid;gap:8px}
+.taskcard{background:var(--bg);border:1px solid var(--line-strong);border-radius:12px;
+padding:10px 11px;cursor:pointer;font-size:13.5px}
+.taskcard:hover{border-color:var(--brand)}
+.taskcard .t-title{font-weight:650;letter-spacing:-.01em;line-height:1.3}
+.taskcard .t-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.chip{font-size:10.5px;padding:2px 7px;border-radius:999px;background:var(--brand-soft);
+color:var(--brand-ink);font-weight:700;white-space:nowrap}
+.chip.cost{background:transparent;border:1px solid var(--line-strong);color:var(--muted)}
+.chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}.chip.id{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:9.5px}
+.taskcard.empty{opacity:.5;font-style:italic;cursor:default;text-align:center;padding:14px 10px}
+
+/* quick dispatch buttons on cards */
+.t-actions{display:flex;gap:6px;margin-top:8px}
+.qbtn{font:inherit;font-size:10.5px;font-weight:700;padding:5px 9px;border-radius:8px;
+border:1px solid var(--line-strong);background:var(--card);color:var(--ink);cursor:pointer}
+.qbtn:hover{border-color:var(--brand);color:var(--brand-ink)}
+.qbtn.qdanger{border-color:var(--danger);color:var(--danger)}
+
+/* task detail overlay */
+.detail-overlay{position:fixed;inset:0;background:rgba(10,15,25,.5);z-index:50;
+display:flex;align-items:flex-end;justify-content:center}
+@media(min-width:640px){.detail-overlay{align-items:center}}
+.detail-overlay.hide{display:none}
+.detail-sheet{background:var(--card);border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+max-width:520px;width:100%;padding:22px;box-shadow:var(--shadow);max-height:80vh;overflow-y:auto}
+@media(min-width:640px){.detail-sheet{border-radius:var(--radius-lg)}}
+.detail-title{font-weight:800;font-size:17px;letter-spacing:-.01em;margin-bottom:14px}
+.detail-row{margin-bottom:12px}
+.detail-row .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);font-weight:700;margin-bottom:4px}
+.detail-row .v{font-size:14px}
+.detail-close{margin-top:16px;width:100%;padding:11px;border-radius:12px;border:1px solid var(--line-strong);
+background:transparent;color:var(--ink);font-weight:700;font-size:14px;cursor:pointer}
+.detail-action{margin-top:10px;width:100%;padding:11px;border-radius:12px;border:1px solid var(--brand);
+background:transparent;color:var(--brand-ink);font-weight:700;font-size:14px;cursor:pointer}
+
+/* dispatch */
+.dispatch-block{margin:0 0 20px}
+.dispatch-block:last-child{margin-bottom:0}
+.dispatch-title{font-weight:700;font-size:14px;margin:0 0 4px;letter-spacing:-.01em}
+.dispatch-help{font-size:12.5px;color:var(--muted-2);margin-bottom:12px;line-height:1.5}
+.field{display:grid;gap:5px;margin-bottom:10px}
+.field label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-2)}
+.field input,.field select,.field textarea{
+font:inherit;font-size:14px;padding:10px 11px;border-radius:10px;border:1px solid var(--line-strong);
+background:var(--bg);color:var(--ink);width:100%}
+.field textarea{min-height:88px;resize:vertical;font-family:var(--mono);font-size:12.5px}
+.field.readonly input{opacity:.6}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.btn{font:inherit;font-weight:700;font-size:13.5px;padding:11px 16px;border-radius:12px;
+border:1px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.danger{background:transparent;border-color:var(--danger);color:var(--danger)}
+.btn:disabled{opacity:.5;cursor:default}
+.resultbox{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--bg);
+border:1px solid var(--line-strong);font-family:var(--mono);font-size:11.5px;white-space:pre-wrap;
+word-break:break-word;max-height:200px;overflow-y:auto}
+.resultbox.ok{border-color:var(--ok)}
+.resultbox.err{border-color:var(--danger)}
+.gap-flag{font-size:11.5px;color:var(--warn);margin-top:8px;line-height:1.5}
+.confirm-box{border-color:var(--danger)!important}
+.confirm-box .step-action{color:var(--danger);font-weight:700}
+.field.flash{animation:flash 1.1s ease}
+@keyframes flash{0%{box-shadow:0 0 0 3px var(--brand)}100%{box-shadow:none}}
+
+/* history */
+.history-toggle{font-size:12.5px;font-weight:700;color:var(--brand-ink);background:none;border:none;
+cursor:pointer;padding:0;margin-bottom:12px}
+.history-list{display:none;gap:10px}
+.history-list.show{display:grid}
+.history-kind{font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--muted-2);margin-bottom:2px}
+
+/* console */
+.console-shell{display:flex;flex-direction:column;height:min(72vh,640px);border:1px solid var(--line);
+border-radius:var(--radius-lg);background:var(--card);box-shadow:var(--shadow);overflow:hidden}
+.console-top{display:flex;gap:10px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line);flex:none}
+.console-top select{flex:1;font:inherit;font-size:13.5px;padding:8px 10px;border-radius:10px;
+border:1px solid var(--line-strong);background:var(--bg);color:var(--ink)}
+.console-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+.c-turn{display:flex}
+.c-turn.user{justify-content:flex-end}
+.c-turn.bot{justify-content:flex-start}
+.c-bubble{max-width:82%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.c-turn.user .c-bubble{background:var(--brand);color:#fff;border-bottom-right-radius:4px}
+.c-turn.bot .c-bubble{background:var(--bg);border:1px solid var(--line-strong);border-bottom-left-radius:4px}
+.c-bubble hr{border:none;border-top:1px solid var(--line-strong);margin:8px 0}
+.c-line{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--muted);
+margin:3px 0;padding:2px 0}
+.c-line.read{color:var(--brand-ink)}
+.c-line.do{color:var(--warn)}
+.c-line.done{color:var(--ok)}
+.c-typing{display:flex;gap:4px;padding:10px 13px}
+.c-typing span{width:6px;height:6px;border-radius:50%;background:var(--muted-2);animation:cdot 1s infinite ease-in-out}
+.c-typing span:nth-child(2){animation-delay:.15s}.c-typing span:nth-child(3){animation-delay:.3s}
+@keyframes cdot{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.console-imgprev{display:none;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--line);flex:none}
+.console-imgprev.show{display:flex}
+.console-imgprev img{width:40px;height:40px;object-fit:cover;border-radius:8px;border:1px solid var(--line-strong)}
+.console-imgprev .rm{font-size:12px;color:var(--danger);cursor:pointer;font-weight:700}
+.console-composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);flex:none;
+padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+.console-composer textarea{flex:1;font:inherit;font-size:15px;padding:11px 13px;border-radius:14px;
+border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);resize:none;min-height:44px;max-height:120px}
+.console-composer button{flex:none;min-width:52px;min-height:44px;border-radius:14px;border:none;
+background:var(--brand);color:#fff;font-weight:700;font-size:20px;cursor:pointer}
+.console-composer button:disabled{opacity:.5;cursor:default}
+.console-note{font-size:11.5px;color:var(--muted-2);padding:0 14px 10px}
+.console-empty{margin:auto;text-align:center;color:var(--muted-2);font-size:13px;padding:0 24px;max-width:280px}
+.banner .retry{margin-left:8px;font-weight:700;text-decoration:underline;cursor:pointer;background:none;border:none;
+color:inherit;font:inherit;padding:0}
+
+footer{margin:40px 0 0;padding-top:18px;border-top:1px solid var(--line);
+color:var(--muted-2);font-size:12.5px}
+footer .note{line-height:1.6;margin-top:8px}
+
+.skel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+height:64px;opacity:.55}
+.hide{display:none !important}
+
+@media (prefers-reduced-motion: no-preference){
+.reveal{animation:rise .3s cubic-bezier(.22,.61,.36,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+<div class="mark">LAUNCH FORTE <span>COMMAND V2</span></div>
+<div class="asof"><span class="dot" id="dot"></span><span id="asof">loading</span></div>
+</header>
+
+<div id="banners"></div>
+
+<section id="needsme">
+<p class="eyebrow">Needs me</p>
+<div id="needsmehost" class="board-cols"><div class="skel" style="min-width:180px"></div></div>
+</section>
+
+<section id="money">
+<p class="eyebrow">Money</p>
+<div id="moneybox" class="card stack"><div class="skel"></div></div>
+</section>
+
+<section id="clients"><div class="field" id="clientSearchField" style="margin:0 0 12px"><input id="client_search" placeholder="Search clients by name or ID..."></div>
+<p class="eyebrow">Clients <span id="clientCount"></span> <button class="flipbtn" id="clientsToggle" type="button">Show list</button> <button class="flipbtn" id="clientFlip" type="button">Show all</button></p>
+<div id="clientlist" class="stack"><div class="skel"></div><div class="skel"></div></div>
+</section>
+
+<section id="board">
+<p class="eyebrow">Board</p>
+<div id="boardhost" class="stack"><div class="skel"></div></div>
+</section>
+
+<section id="reports">
+<p class="eyebrow">Latest reports</p>
+<div id="reportlist" class="stack"><div class="skel"></div></div>
+<button class="history-toggle" id="historyToggle" type="button">Show full history &darr;</button>
+<div id="historylist" class="history-list stack"></div>
+</section>
+
+<section id="dispatch">
+<p class="eyebrow">Dispatch</p>
+
+<div class="dispatch-block card">
+<div class="dispatch-title">Queue</div>
+<div class="dispatch-help">Posts straight to build-enqueue. Autonomy is locked to green -- the endpoint refuses anything else.</div>
+<div class="field"><label>Job ID</label><input id="q_job_id" placeholder="e.g. site-copy-fix-2026-07-31"></div>
+<div class="field"><label>Title</label><input id="q_title" placeholder="Short human title"></div>
+<div class="field"><label>Job class</label>
+<select id="q_job_class">
+<option value="doc_update">doc_update</option>
+<option value="site_pass">site_pass</option>
+<option value="generator">generator</option>
+<option value="export">export</option>
+</select></div>
+<div class="field"><label>Repo</label>
+<select id="q_repo">
+<option value="launchforte">launchforte</option>
+<option value="sethfortewebsite">sethfortewebsite</option>
+<option value="meh-site">meh-site</option>
+</select></div>
+<div class="field"><label>Prompt</label><textarea id="q_prompt" placeholder="Full prompt, name the endpoint contracts verbatim if this touches the flows"></textarea></div>
+<div class="field readonly"><label>Autonomy</label><input value="green" disabled></div>
+<div class="btnrow"><button class="btn primary" id="q_submit">Queue it</button></div>
+<div id="q_result"></div>
+</div>
+
+<div class="dispatch-block card">
+<div class="dispatch-title">Resume a stalled job</div>
+<div class="dispatch-help">The dashboard doesn't have the original prompt on hand (dashboard-snapshot doesn't return it), so this isn't a one-click re-queue yet -- it's the same Queue form, framed for picking a job back up. Give it a fresh job_id (the endpoint rejects duplicates) and note which job it's resuming in the prompt.</div>
+<div class="field"><label>Resuming job ID (for reference)</label><input id="r_ref_id" placeholder="the stalled job's id"></div>
+<div class="field"><label>New job ID</label><input id="r_job_id" placeholder="e.g. old-id-retry"></div>
+<div class="field"><label>Title</label><input id="r_title"></div>
+<div class="field"><label>Job class</label>
+<select id="r_job_class">
+<option value="doc_update">doc_update</option>
+<option value="site_pass">site_pass</option>
+<option value="generator">generator</option>
+<option value="export">export</option>
+</select></div>
+<div class="field"><label>Repo</label>
+<select id="r_repo">
+<option value="launchforte">launchforte</option>
+<option value="sethfortewebsite">sethfortewebsite</option>
+<option value="meh-site">meh-site</option>
+</select></div>
+<div class="field"><label>Prompt</label><textarea id="r_prompt" placeholder="Scope it smaller than the original attempt if it stalled on size"></textarea></div>
+<div class="btnrow"><button class="btn primary" id="r_submit">Resume</button></div>
+<div id="r_result"></div>
+</div>
+
+<div class="dispatch-block card">
+<div class="dispatch-title">Pack</div>
+<div class="dispatch-help">Pulls a task's boot pack and copies it to your clipboard.</div>
+<div class="field"><label>Task ID</label><input id="p_task_id" placeholder="e.g. task-test-1"></div>
+<div class="btnrow"><button class="btn primary" id="p_submit">Paste into a fresh session: ten seconds</button></div>
+<div id="p_result"></div>
+</div>
+
+<div class="dispatch-block card">
+<div class="dispatch-title">Red action</div>
+<div class="dispatch-help">Records a go on something high-stakes. This does not execute anything itself -- it only logs that you said go.</div>
+<div class="field"><label>Task ID</label><input id="red_task_id" placeholder="which task this is about"></div>
+<div class="field"><label>What are you confirming</label><textarea id="red_note" placeholder="describe the action being confirmed"></textarea></div>
+<div class="btnrow"><button class="btn danger" id="red_open">Confirm a red action</button></div>
+<div id="red_result"></div></div><div class="dispatch-block card"><div class="dispatch-title">Request a new video</div><div class="dispatch-help">Logs a video request against a client, or against your own channel if it's not for a client. This does not queue a Video Engine run itself -- it records the ask so it surfaces in the client's notes/brief (personal asks land in a dedicated internal log instead).</div><div class="field"><label style="display:flex;align-items:center;gap:7px;text-transform:none;letter-spacing:0;font-size:13.5px;color:var(--ink);font-weight:500"><input type="checkbox" id="v_personal" style="width:auto"> Not for a client -- this is for my own channel</label></div><div class="field" id="v_client_slug_field"><label>Client slug</label><input id="v_client_slug" list="v_client_datalist" placeholder="start typing a client name or slug…"><datalist id="v_client_datalist"></datalist></div><div class="field"><label>What the video is about</label><textarea id="v_note" placeholder="describe the ask -- product, angle, deadline if any"></textarea></div><div class="btnrow"><button class="btn primary" id="v_submit">Request video</button></div><div id="v_result"></div></div>
+
+</section>
+
+<section id="console">
+<p class="eyebrow">Console</p>
+<div class="console-shell card">
+<div class="console-top">
+<input id="c_client_search" placeholder="Search clients…" style="flex:1;font:inherit;font-size:13.5px;padding:8px 10px;border-radius:10px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink)">
+<select id="c_client"><option value="">Pick a client first…</option></select>
+</div>
+<div class="console-log" id="c_log"><div class="console-empty" id="c_empty">Pick a client above, then ask about status, tasks, or history.</div></div>
+<div class="console-imgprev" id="c_imgprev">
+<img id="c_imgprev_img" alt="pasted image">
+<span>image attached</span>
+<span class="rm" id="c_imgprev_rm">remove</span>
+</div>
+<div class="console-composer">
+<textarea id="c_input" rows="1" placeholder="Pick a client, then ask…" disabled></textarea>
+<button id="c_send" disabled>&#8593;</button>
+</div>
+</div>
+<div class="gap-flag">Server-side gap: console-turn requires a client_slug on every call -- there's no "whole book" / all-clients mode yet, so this is one conversation per client, not one thread across the book. Image paste posts an image_base64 field speculatively; I haven't confirmed the flow reads it, so treat attachments as best-effort until that's verified server-side. READ/DO/done compact-line styling is a pattern guess -- I never saw the model emit those markers live, so it only activates if a reply line happens to start with those words.</div>
+</section>
+
+<footer>
+<div id="refreshline">Waiting for the first refresh.</div>
+<div class="note">Command Center v2 -- console live above.</div>
+</footer>
+
+</div>
+
+<div class="detail-overlay hide" id="detailOverlay">
+<div class="detail-sheet" id="detailSheet"></div>
+</div>
+
+<div class="detail-overlay hide" id="redOverlay">
+<div class="detail-sheet" id="redSheet"></div>
+</div>
+
+<script>
+/* ------------------------------------------------------------------ config */
+var API_BASE = 'https://launchforte.app.n8n.cloud/webhook';
+var SNAPSHOT_URL = API_BASE + '/dashboard-snapshot';
+/* Constants node placeholder: no dashboard API token is enforced server-side
+yet (Ops: Dashboard API's guard is still the __SET_BY_SETH__ placeholder,
+observation only). Once enforcement lands, set this string and it ships as
+a header on every call below -- the page already sits behind the path
+token, so shipping it in public JS is acceptable for house data only. */
+var DASHBOARD_API_TOKEN = '';
+var POLL_MS = 5 * 60 * 1000;
+
+/* Operator Contract 15.5: active-only default view. Dashboard shows only
+status === 'active' clients (and their board columns) by default; the flip
+button toggles to show paused/dormant/unknown too. State is in-memory only
+(resets to active-only on reload), matching "default view" intent. */
+var showAllClients = false;
+/* Clients section collapses by default (long list would otherwise force
+scrolling past it to reach Board/Reports/Dispatch); this toggle is separate
+from showAllClients above, which controls active-vs-all filtering. */
+var clientsExpanded = false;
+
+var $ = function(id){ return document.getElementById(id); };
+function el(tag, cls, txt){
+var n = document.createElement(tag);
+if (cls) n.className = cls;
+if (txt !== undefined && txt !== null) n.textContent = txt;
+return n;
+}
+function num(v, dp){
+if (v === null || v === undefined || isNaN(v)) return null;
+return Number(v).toLocaleString('en-US', {maximumFractionDigits: dp === undefined ? 0 : dp, minimumFractionDigits: dp === undefined ? 0 : dp});
+}
+function money(v){
+var n = num(v, 0);
+return n === null ? '—' : '$' + n;
+}
+function shortTime(iso){
+if (!iso) return 'unknown';
+var d = new Date(iso);
+if (isNaN(d)) return 'unknown';
+return d.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+}
+
+/* ------------------------------------------------------------------ render */
+function metric(k, v, neg){
+var w = el('div','metric');
+w.appendChild(el('div','k',k));
+w.appendChild(el('div', 'v num' + (neg ? ' neg' : ''), v));
+return w;
+}
+function renderMoney(m){
+var host = $('moneybox'); host.className = 'card money-grid reveal'; host.innerHTML = '';
+if (!m){ host.appendChild(el('div','client-sub','No money data returned.')); return; }
+host.appendChild(metric('Total cost', money(m.total_cost_usd)));
+host.appendChild(metric('API + infra', money(m.total_api_spend_usd) + ' / ' + money(m.total_infra_cost_usd)));
+}
+
+function visibleClients(list){
+if (showAllClients) return list || [];
+return (list || []).filter(function(c){ return c.status === 'active'; });
+}
+
+function renderClients(list){
+var host = $('clientlist'); host.innerHTML = '';
+var all = list || [];
+var visible = visibleClients(all);
+if (!visible.length){
+var box = el('div','allclear reveal');
+box.appendChild(el('div','big', all.length ? (showAllClients ? 'No clients on the book yet' : 'No active clients right now') : 'No clients on the book yet'));
+var hidden = all.length - visible.length;
+if (!showAllClients && hidden > 0){
+box.appendChild(el('div','sub', hidden + ' paused/inactive client' + (hidden === 1 ? '' : 's') + ' hidden -- click "Show all" above.'));
+}
+host.appendChild(box);
+return;
+}
+visible.forEach(function(c, i){
+var statusClass = c.status === 'active' ? 'active' : (c.status === 'paused' ? 'paused' : 'gray');
+var card = el('div','card reveal ' + (statusClass === 'active' ? 'rail-ok' : statusClass === 'paused' ? 'rail-warn' : 'rail-gray'));
+card.id = 'client-' + (c.slug || i);
+card.style.animationDelay = Math.min(i,6) * 24 + 'ms';
+var head = el('div','client-head');
+head.appendChild(el('div','client-name', c.name || c.slug || 'unnamed client'));
+head.appendChild(el('div','tag ' + statusClass, c.status || 'unknown'));
+if (c.doorbell_one){
+var bell = el('span','doorbell-badge');
+bell.textContent = '🔔 Doorbell';
+bell.title = 'Phase ' + (c.current_phase || 1) + ' complete -- every task in this phase is done or waiting only on the client.';
+head.appendChild(bell);
+}
+if (c.doorbell_two){
+var bell2 = el('span','doorbell-badge blocked');
+bell2.textContent = '⛔ Blocked';
+bell2.title = 'Every remaining task for this engagement is waiting on Seth or the client -- zero workable cards right now.';
+head.appendChild(bell2);
+}
+card.appendChild(head);
+if (c.waiting_on) card.appendChild(el('div','client-sub', 'Waiting on: ' + c.waiting_on));
+if (c.current_phase !== null && c.current_phase !== undefined) card.appendChild(el('div','client-sub', 'Phase ' + c.current_phase));
+if (c.replies_owed_age_days !== null && c.replies_owed_age_days !== undefined){
+var owed = el('div','owed' + (c.replies_owed_age_days >= 7 ? ' overdue' : ''));
+owed.appendChild(document.createTextNode('reply owed '));
+owed.appendChild(el('span','n', c.replies_owed_age_days + 'd'));
+card.appendChild(owed);
+}
+host.appendChild(card);
+});
+}
+
+function renderReports(list){
+var host = $('reportlist'); host.innerHTML = '';
+if (!list || !list.length){
+host.appendChild(el('div','card rail-gray client-sub','No reports yet.'));
+return;
+}
+list.slice(0, 8).forEach(function(r, i){
+var rail = r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '') ? 'rail-warn' : 'rail-ok';
+var card = el('div','card clickable reveal ' + rail);
+card.style.animationDelay = Math.min(i,6) * 24 + 'ms';
+var row = el('div','report-row');
+row.appendChild(el('div','report-subject', r.subject || r.job_id || 'untitled report'));
+row.appendChild(el('div','report-meta', (r.triage || '') + (r.cost_usd ? ' · ' + money(r.cost_usd) : '')));
+card.appendChild(row);
+if (r.status) card.appendChild(el('div','report-meta', 'status: ' + r.status));
+card.addEventListener('click', function(){ openReportDetail(r); });
+host.appendChild(card);
+});
+}
+
+function renderHistory(data){
+var host = $('historylist'); host.innerHTML = '';
+var reports = data.latest_reports || [];
+var doneTasks = (data.tasks || []).filter(function(t){ return colOf(t.status) === 'done'; });
+if (!reports.length && !doneTasks.length){
+host.appendChild(el('div','card rail-gray client-sub','No history yet.'));
+return;
+}
+if (reports.length){
+host.appendChild(el('div','history-kind', 'All reports (' + reports.length + ')'));
+reports.forEach(function(r, i){
+var rail = r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '') ? 'rail-warn' : 'rail-ok';
+var card = el('div','card clickable reveal ' + rail);
+card.style.animationDelay = Math.min(i,10) * 16 + 'ms';
+var row = el('div','report-row');
+row.appendChild(el('div','report-subject', r.subject || r.job_id || 'untitled report'));
+row.appendChild(el('div','report-meta', (r.triage || '') + (r.cost_usd ? ' · ' + money(r.cost_usd) : '')));
+card.appendChild(row);
+if (r.status) card.appendChild(el('div','report-meta', 'status: ' + r.status));
+card.addEventListener('click', function(){ openReportDetail(r); });
+host.appendChild(card);
+});
+}
+if (doneTasks.length){
+host.appendChild(el('div','history-kind', 'Done tasks (' + doneTasks.length + ')'));
+doneTasks
+.slice()
+.sort(function(a,b){ return new Date(b.updated || 0) - new Date(a.updated || 0); })
+.forEach(function(t, i){
+var card = el('div','card clickable reveal rail-ok');
+card.style.animationDelay = Math.min(i,10) * 16 + 'ms';
+var row = el('div','report-row');
+row.appendChild(el('div','report-subject', t.title || t.id));
+row.appendChild(el('div','report-meta', shortTime(t.updated)));
+card.appendChild(row);
+card.addEventListener('click', function(){ openDetail(t); });
+host.appendChild(card);
+});
+}
+}
+
+function wireHistoryToggle(){
+$('historyToggle').addEventListener('click', function(){
+var list = $('historylist');
+var showing = list.classList.toggle('show');
+$('historyToggle').textContent = showing ? 'Hide full history ↑' : 'Show full history ↓';
+});
+}
+
+/* ------------------------------------------------------------------ needs me */
+function scrollToId(id){
+var n = document.getElementById(id);
+if (n && n.scrollIntoView) n.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* Needs me is a kanban of every task that isn't done, grouped by its real
+status value (see BOARD_COLS): backlog + ready collapse into PENDING (not
+started yet), in_progress stays IN PROGRESS, blocked stays BLOCKED. done
+tasks are excluded -- a finished task doesn't need me. This mirrors the
+same status field the Board section already renders per-client. */
+var NEEDSME_GROUPS = [
+{key:'pending', label:'PENDING', match:function(s){ return s === 'backlog' || s === 'ready'; }},
+{key:'in_progress', label:'IN PROGRESS', match:function(s){ return s === 'in_progress'; }},
+{key:'blocked', label:'BLOCKED', match:function(s){ return s === 'blocked'; }}
+];
+
+function renderNeedsMe(data){
+var host = $('needsmehost'); host.innerHTML = '';
+var tasks = data.tasks || [];
+NEEDSME_GROUPS.forEach(function(group){
+var list = tasks.filter(function(t){ return group.match(colOf(t.status)); });
+var col = el('div','board-col');
+var head = el('div','board-col-head');
+head.appendChild(el('div','board-col-title', group.label));
+head.appendChild(el('div','board-col-count', String(list.length)));
+col.appendChild(head);
+var cardsBox = el('div','board-col-cards');
+if (!list.length){
+cardsBox.appendChild(el('div','taskcard empty','Nothing here'));
+} else {
+list.forEach(function(t){
+var card = el('div','taskcard');
+card.appendChild(el('div','t-title', t.title || t.id));
+var chips = el('div','t-chips');
+if (t.client_slug) chips.appendChild(el('span','chip', t.client_slug));
+if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
+if (t.branch) chips.appendChild(el('span','chip branch', t.branch));
+if (t.id) chips.appendChild(el('span','chip id', t.id));
+card.appendChild(chips);
+var status = colOf(t.status);
+if (status === 'blocked' || status === 'backlog'){
+var actions = el('div','t-actions');
+var resumeBtn = el('button','qbtn qdanger','Resume');
+resumeBtn.type = 'button';
+resumeBtn.addEventListener('click', function(e){ e.stopPropagation(); quickResume(t); });
+actions.appendChild(resumeBtn);
+card.appendChild(actions);
+} else if (status === 'ready' || status === 'in_progress'){
+var actions2 = el('div','t-actions');
+var packBtn = el('button','qbtn','Pack');
+packBtn.type = 'button';
+packBtn.addEventListener('click', function(e){ e.stopPropagation(); quickPack(t); });
+actions2.appendChild(packBtn);
+card.appendChild(actions2);
+}
+card.addEventListener('click', function(){ openDetail(t); });
+cardsBox.appendChild(card);
+});
+}
+col.appendChild(cardsBox);
+host.appendChild(col);
+});
+}
+
+/* ------------------------------------------------------------------ board */
+var BOARD_COLS = ['backlog','ready','in_progress','blocked','done'];
+function colLabel(s){ return String(s || '').replace(/_/g,' ').toUpperCase(); }
+function colOf(status){
+var s = String(status || '').toLowerCase();
+return BOARD_COLS.indexOf(s) > -1 ? s : 'backlog';
+}
+var lastSnapshot = null; var clientSearchTerm = ''; function filteredClients(list){ if (!clientSearchTerm) return list; var t = clientSearchTerm.toLowerCase(); return (list || []).filter(function(c){ return (c.name || '').toLowerCase().indexOf(t) > -1 || (c.slug || '').toLowerCase().indexOf(t) > -1; }); }
+
+function focusField(id){
+var n = $(id);
+if (!n) return;
+var field = n.closest('.field') || n;
+field.classList.remove('flash');
+void field.offsetWidth;
+field.classList.add('flash');
+n.focus();
+}
+
+function quickResume(t){
+scrollToId('dispatch');
+$('r_ref_id').value = t.id || '';
+$('r_title').value = t.title || '';
+focusField('r_job_id');
+}
+function quickPack(t){
+scrollToId('dispatch');
+$('p_task_id').value = t.id || '';
+focusField('p_task_id');
+}
+
+function renderBoard(clients, tasks){
+var host = $('boardhost'); host.innerHTML = '';
+var visible = visibleClients(clients);
+if (!visible || !visible.length || !tasks){
+host.appendChild(el('div','card rail-gray client-sub','No board data yet.'));
+return;
+}
+var byClient = {};
+tasks.forEach(function(t){
+var slug = t.client_slug || '_unassigned';
+(byClient[slug] = byClient[slug] || []).push(t);
+});
+var any = false;
+visible.forEach(function(c){
+var list = byClient[c.slug] || [];
+if (!list.length) return;
+any = true;
+var block = el('div','board-client');
+block.appendChild(el('div','board-client-name', c.name || c.slug));
+var cols = el('div','board-cols');
+/* only render columns that actually have a status present for this client,
+in BACKLOG-through-DONE order, per the runbook */
+var present = BOARD_COLS.filter(function(col){
+return list.some(function(t){ return colOf(t.status) === col; });
+});
+if (!present.length) present = ['backlog'];
+present.forEach(function(col){
+var colTasks = list.filter(function(t){ return colOf(t.status) === col; });
+var colBox = el('div','board-col');
+var head = el('div','board-col-head');
+head.appendChild(el('div','board-col-title', colLabel(col)));
+head.appendChild(el('div','board-col-count', String(colTasks.length)));
+colBox.appendChild(head);
+var cardsBox = el('div','board-col-cards');
+colTasks.forEach(function(t){
+var card = el('div','taskcard');
+card.appendChild(el('div','t-title', t.title || t.id));
+var chips = el('div','t-chips');
+if (t.autonomy) chips.appendChild(el('span','chip', t.autonomy));
+if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
+if (t.branch) chips.appendChild(el('span','chip branch', t.branch)); if (t.id) chips.appendChild(el('span','chip id', t.id));
+card.appendChild(chips);
+if (col === 'blocked' || col === 'backlog'){
+var actions = el('div','t-actions');
+var resumeBtn = el('button','qbtn qdanger','Resume');
+resumeBtn.type = 'button';
+resumeBtn.addEventListener('click', function(e){ e.stopPropagation(); quickResume(t); });
+actions.appendChild(resumeBtn);
+card.appendChild(actions);
+} else if (col === 'ready' || col === 'in_progress'){
+var actions2 = el('div','t-actions');
+var packBtn = el('button','qbtn','Pack');
+packBtn.type = 'button';
+packBtn.addEventListener('click', function(e){ e.stopPropagation(); quickPack(t); });
+actions2.appendChild(packBtn);
+card.appendChild(actions2);
+}
+card.addEventListener('click', function(){ openDetail(t); });
+cardsBox.appendChild(card);
+});
+colBox.appendChild(cardsBox);
+cols.appendChild(colBox);
+});
+block.appendChild(cols);
+host.appendChild(block);
+});
+if (!any) host.appendChild(el('div','card rail-gray client-sub','No tasks on the board yet.'));
+}
+
+function openDetail(t){
+var sheet = $('detailSheet'); sheet.innerHTML = '';
+sheet.appendChild(el('div','detail-title', t.title || t.id));
+function row(k, v){
+if (v === null || v === undefined || v === '') return;
+var r = el('div','detail-row');
+r.appendChild(el('div','k', k));
+r.appendChild(el('div','v', String(v)));
+sheet.appendChild(r);
+}
+row('Status', colLabel(t.status));
+row('Autonomy', t.autonomy);
+row('Cost', t.cost_usd !== null && t.cost_usd !== undefined ? money(t.cost_usd) : null);
+row('Branch', t.branch);
+row('Phase', t.phase_number);
+row('Waiting on', t.waiting_on);
+row('Evidence', t.evidence);
+row('Task type', t.task_type);
+row('Updated', shortTime(t.updated));
+var report = (lastSnapshot && lastSnapshot.latest_reports || []).find(function(r){ return r.job_id === t.id; });
+if (report){
+row('Report subject', report.subject);
+row('Report triage', report.triage);
+row('Report status', report.status);
+row('Report detail', report.detail);
+} else {
+row('Report', 'No matching report yet for this task.');
+}
+if (colOf(t.status) === 'blocked' || colOf(t.status) === 'backlog'){
+var resumeBtn = el('button','detail-action','Resume this job');
+resumeBtn.addEventListener('click', function(){ closeDetail(); quickResume(t); });
+sheet.appendChild(resumeBtn);
+}
+var close = el('button','detail-close','Close');
+close.addEventListener('click', closeDetail);
+sheet.appendChild(close);
+$('detailOverlay').classList.remove('hide');
+}
+function closeDetail(){ $('detailOverlay').classList.add('hide'); }
+
+function openReportDetail(r){
+var sheet = $('detailSheet'); sheet.innerHTML = '';
+sheet.appendChild(el('div','detail-title', r.subject || r.job_id || 'untitled report'));
+function row(k, v){
+if (v === null || v === undefined || v === '') return;
+var rr = el('div','detail-row');
+rr.appendChild(el('div','k', k));
+rr.appendChild(el('div','v', String(v)));
+sheet.appendChild(rr);
+}
+row('Triage', r.triage);
+row('Status', r.status);
+row('Cost', r.cost_usd !== null && r.cost_usd !== undefined ? money(r.cost_usd) : null);
+row('Job ID', r.job_id);
+row('Detail', r.detail);
+var matchedTask = (lastSnapshot && lastSnapshot.tasks || []).find(function(t){ return t.id === r.job_id; });
+if (matchedTask){
+var viewBtn = el('button','detail-action','View matching task');
+viewBtn.addEventListener('click', function(){ openDetail(matchedTask); });
+sheet.appendChild(viewBtn);
+}
+var close = el('button','detail-close','Close');
+close.addEventListener('click', closeDetail);
+sheet.appendChild(close);
+$('detailOverlay').classList.remove('hide');
+}
+
+/* ------------------------------------------------------------------ dispatch */
+var ENQUEUE_URL = API_BASE + '/build-enqueue';
+var PACK_URL = API_BASE + '/pack-request';
+var NOTE_URL = API_BASE + '/task-note';
+var CONSOLE_URL = API_BASE + '/console-turn';
+
+function showResult(hostId, ok, text){
+var host = $(hostId);
+host.innerHTML = '';
+host.appendChild(el('div','resultbox ' + (ok ? 'ok' : 'err'), text));
+}
+
+function postJSON(url, body){
+var headers = {'Content-Type':'application/json'};
+if (DASHBOARD_API_TOKEN) headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN;
+return fetch(url, {method:'POST', headers: headers, body: JSON.stringify(body)})
+.then(function(r){ return r.json().then(function(j){ return {status:r.status, body:j}; }); });
+}
+
+function wireQueueForm(prefix, jobIdEl, extra){
+$(prefix + '_submit').addEventListener('click', function(){
+var btn = $(prefix + '_submit');
+var body = {
+job_id: $(jobIdEl).value.trim(),
+title: $(prefix + '_title').value.trim(),
+job_class: $(prefix + '_job_class').value,
+repo: $(prefix + '_repo').value,
+prompt: $(prefix + '_prompt').value,
+autonomy: 'green'
+};
+if (extra) Object.assign(body, extra());
+if (!body.job_id || !body.title || !body.prompt){
+showResult(prefix + '_result', false, 'job_id, title, and prompt are all required.');
+return;
+}
+btn.disabled = true;
+postJSON(ENQUEUE_URL, body).then(function(res){
+btn.disabled = false;
+showResult(prefix + '_result', res.status === 200 && res.body.queued, JSON.stringify(res.body, null, 2));
+}).catch(function(e){
+btn.disabled = false;
+showResult(prefix + '_result', false, 'Request failed: ' + e.message);
+});
+});
+}
+
+function wirePack(){
+$('p_submit').addEventListener('click', function(){
+var taskId = $('p_task_id').value.trim();
+if (!taskId){ showResult('p_result', false, 'Task ID is required.'); return; }
+var btn = $('p_submit');
+btn.disabled = true;
+postJSON(PACK_URL, {task_id: taskId}).then(function(res){
+btn.disabled = false;
+if (res.status === 200 && res.body.pack){
+navigator.clipboard.writeText(res.body.pack).then(function(){
+showResult('p_result', true, 'Copied ' + res.body.pack.length + ' characters to clipboard for ' + (res.body.client_slug || 'this task') + '.');
+}).catch(function(){
+showResult('p_result', true, res.body.pack);
+});
+} else {
+showResult('p_result', false, JSON.stringify(res.body, null, 2));
+}
+}).catch(function(e){
+btn.disabled = false;
+showResult('p_result', false, 'Request failed: ' + e.message);
+});
+});
+}
+
+function wireRed(){
+$('red_open').addEventListener('click', function(){
+var taskId = $('red_task_id').value.trim();
+var note = $('red_note').value.trim();
+if (!taskId || !note){ showResult('red_result', false, 'Task ID and a description are both required before confirming.'); return; }
+var sheet = $('redSheet'); sheet.innerHTML = '';
+sheet.appendChild(el('div','detail-title', 'Confirm this red action?'));
+var row = el('div','detail-row');
+row.appendChild(el('div','k','Task'));
+row.appendChild(el('div','v', taskId));
+sheet.appendChild(row);
+var row2 = el('div','detail-row');
+row2.appendChild(el('div','k','Confirming'));
+row2.appendChild(el('div','v', note));
+sheet.appendChild(row2);
+var warn = el('div','client-sub','This only records that you said go -- it does not execute anything by itself.');
+sheet.appendChild(warn);
+var goBtn = el('button','btn danger','Yes, record the go');
+goBtn.style.marginTop = '14px';
+goBtn.style.width = '100%';
+goBtn.addEventListener('click', function(){
+goBtn.disabled = true;
+postJSON(NOTE_URL, {type: 'red_confirm', task_id: taskId, note: note}).then(function(res){
+closeRed();
+showResult('red_result', res.status === 200, JSON.stringify(res.body, null, 2));
+}).catch(function(e){
+goBtn.disabled = false;
+showResult('red_result', false, 'Request failed: ' + e.message);
+});
+});
+var closeBtn = el('button','detail-close','Cancel');
+closeBtn.addEventListener('click', closeRed);
+sheet.appendChild(goBtn);
+sheet.appendChild(closeBtn);
+$('redOverlay').classList.remove('hide');
+});
+}
+function closeRed(){ $('redOverlay').classList.add('hide'); } var PERSONAL_VIDEO_SLUG = 'seth-youtube-channel';
+function wireVideoRequest(){
+if ($('v_personal')){
+$('v_personal').addEventListener('change', function(){
+var personal = this.checked;
+$('v_client_slug_field').style.display = personal ? 'none' : '';
+});
+}
+$('v_submit').addEventListener('click', function(){
+var personal = $('v_personal') && $('v_personal').checked;
+var slug = personal ? PERSONAL_VIDEO_SLUG : $('v_client_slug').value.trim();
+var note = $('v_note').value.trim();
+if (!slug || !note){ showResult('v_result', false, (personal ? 'A description is required.' : 'Client slug and a description are both required.')); return; }
+var btn = $('v_submit');
+btn.disabled = true;
+postJSON(NOTE_URL, {type: 'video_request', client_slug: slug, note: note}).then(function(res){
+btn.disabled = false;
+showResult('v_result', res.status === 200, JSON.stringify(res.body, null, 2));
+}).catch(function(e){
+btn.disabled = false;
+showResult('v_result', false, 'Request failed: ' + e.message);
+});
+});
+}
+
+/* ------------------------------------------------------------------ console */
+var consoleSessionId = null;
+var consoleClientsLoaded = false;
+var pendingImageB64 = null;
+var allConsoleClients = [];
+
+function populateConsoleClients(list){
+if (list && list.length) allConsoleClients = list;
+if (consoleClientsLoaded) return; /* don't clobber user's mid-conversation selection on later polls */
+renderConsoleClientOptions($('c_client_search') ? $('c_client_search').value : '');
+if (list && list.length) consoleClientsLoaded = true;
+}
+
+function renderConsoleClientOptions(filterText){
+var sel = $('c_client');
+var prior = sel.value;
+var t = (filterText || '').trim().toLowerCase();
+var source = allConsoleClients || [];
+var filtered = !t ? source : source.filter(function(c){
+return (c.name || '').toLowerCase().indexOf(t) > -1 || (c.slug || '').toLowerCase().indexOf(t) > -1;
+});
+sel.innerHTML = '';
+var placeholder = el('option', null, 'Pick a client first…'); placeholder.value = '';
+sel.appendChild(placeholder);
+filtered.forEach(function(c){
+var opt = el('option', null, c.name || c.slug || 'unnamed');
+opt.value = c.slug || '';
+sel.appendChild(opt);
+});
+if (prior && filtered.some(function(c){ return (c.slug || '') === prior; })) sel.value = prior;
+}
+
+function populateVideoClientList(list){
+var dl = $('v_client_datalist');
+if (!dl) return;
+dl.innerHTML = '';
+(list || []).forEach(function(c){
+var opt = document.createElement('option');
+opt.value = c.slug || '';
+opt.label = (c.name || c.slug || '') + (c.slug ? ' (' + c.slug + ')' : '');
+dl.appendChild(opt);
+});
+}
+
+function consoleClientPicked(){
+var slug = $('c_client').value;
+var ok = !!slug;
+$('c_input').disabled = !ok;
+$('c_send').disabled = !ok;
+$('c_input').placeholder = ok ? 'Ask about this client…' : 'Pick a client, then ask…';
+if (ok) consoleSessionId = 'console-' + slug + '-' + Date.now().toString(36);
+}
+
+function mdLite(text){
+/* very small markdown: **bold**, --- as <hr>, newlines preserved via CSS white-space.
+Also picks out lines that open with READ/DO/done-style markers and tags them --
+this is a guess at styling, not a confirmed server contract (see gap-flag). */
+var esc = document.createTextNode(text).textContent
+.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+var lines = text.split('\n');
+var html = lines.map(function(line){
+if (/^---+$/.test(line.trim())) return '<hr>';
+var m = line.match(/^\s*(READ|DO|✓|DONE)\b\s*[:\-]?\s*(.*)$/i);
+var safe = line.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+if (m){
+var kind = /^read/i.test(m[1]) ? 'read' : /^do/i.test(m[1]) ? 'do' : 'done';
+var rest = m[2].replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+return '<span class="c-line ' + kind + '">' + m[1].toUpperCase() + (rest ? ' — ' + rest : '') + '</span>';
+}
+return safe;
+}).join('\n');
+return html;
+}
+
+function addTurn(role, text){
+var log = $('c_log');
+var empty = $('c_empty');
+if (empty) empty.remove();
+var turn = el('div', 'c-turn ' + role);
+var bubble = el('div', 'c-bubble');
+if (role === 'bot') bubble.innerHTML = mdLite(text); else bubble.textContent = text;
+turn.appendChild(bubble);
+log.appendChild(turn);
+log.scrollTop = log.scrollHeight;
+return bubble;
+}
+
+function addTyping(){
+var log = $('c_log');
+var turn = el('div', 'c-turn bot');
+turn.id = 'c_typing_turn';
+var t = el('div', 'c-typing');
+t.appendChild(el('span')); t.appendChild(el('span')); t.appendChild(el('span'));
+turn.appendChild(t);
+log.appendChild(turn);
+log.scrollTop = log.scrollHeight;
+}
+function removeTyping(){
+var n = $('c_typing_turn');
+if (n) n.remove();
+}
+
+function sendConsoleTurn(){
+var slug = $('c_client').value;
+var msg = $('c_input').value.trim();
+if (!slug || (!msg && !pendingImageB64)) return;
+addTurn('user', msg || '(image attached)');
+$('c_input').value = '';
+$('c_input').style.height = 'auto';
+var imgToSend = pendingImageB64;
+clearImagePreview();
+$('c_send').disabled = true;
+addTyping();
+
+var body = {session_id: consoleSessionId, message: msg, client_slug: slug};
+if (imgToSend) body.image_base64 = imgToSend; /* speculative field -- unconfirmed server-side, see gap-flag */
+
+fetch(CONSOLE_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)})
+.then(function(r){
+if (!r.body || !r.body.getReader) return r.json().then(function(j){ return {plain:j}; });
+var reader = r.body.getReader();
+var decoder = new TextDecoder();
+var buf = '';
+var acc = '';
+function pumpStep(){
+return reader.read().then(function(res){
+if (res.done){
+if (buf.trim()) acc += consumeLine(buf);
+return {acc: acc};
+}
+buf += decoder.decode(res.value, {stream:true});
+var lines = buf.split('\n');
+buf = lines.pop();
+lines.forEach(function(line){ acc += consumeLine(line); });
+return pumpStep();
+});
+}
+function consumeLine(line){
+line = line.trim();
+if (!line) return '';
+try {
+var env = JSON.parse(line);
+if (env.type === 'item' && typeof env.content === 'string') return env.content;
+if (env.type === 'item' && env.content && typeof env.content.reply === 'string') return env.content.reply;
+} catch(e){ /* not a JSON envelope line, ignore */ }
+return '';
+}
+return pumpStep();
+})
+.then(function(result){
+removeTyping();
+$('c_send').disabled = false;
+var finalText = result.plain ? (result.plain.reply || JSON.stringify(result.plain)) : result.acc;
+/* blocked-turn shape comes back as a single JSON object string instead of
+streamed prose -- detect and unwrap it rather than showing raw JSON */
+var trimmed = (finalText || '').trim();
+if (/^\{[\s\S]*\}$/.test(trimmed)){
+try {
+var parsed = JSON.parse(trimmed);
+if (typeof parsed.reply === 'string') finalText = parsed.reply;
+if (parsed.session_id) consoleSessionId = parsed.session_id;
+} catch(e){ /* not actually JSON, show as-is */ }
+}
+addTurn('bot', finalText || '(no reply)');
+})
+.catch(function(e){
+removeTyping();
+$('c_send').disabled = false;
+addTurn('bot', 'Request failed: ' + e.message);
+});
+}
+
+function showImagePreview(dataUrl){
+pendingImageB64 = dataUrl;
+$('c_imgprev_img').src = dataUrl;
+$('c_imgprev').classList.add('show');
+}
+function clearImagePreview(){
+pendingImageB64 = null;
+$('c_imgprev_img').src = '';
+$('c_imgprev').classList.remove('show');
+}
+
+function wireConsole(){
+$('c_client').addEventListener('change', consoleClientPicked);
+if ($('c_client_search')) $('c_client_search').addEventListener('input', function(){ renderConsoleClientOptions(this.value); });
+$('c_send').addEventListener('click', sendConsoleTurn);
+$('c_input').addEventListener('keydown', function(e){
+if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendConsoleTurn(); }
+});
+$('c_input').addEventListener('input', function(){
+this.style.height = 'auto';
+this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+});
+$('c_input').addEventListener('paste', function(e){
+var items = (e.clipboardData || {}).items || [];
+for (var i = 0; i < items.length; i++){
+if (items[i].type && items[i].type.indexOf('image') === 0){
+var file = items[i].getAsFile();
+var reader = new FileReader();
+reader.onload = function(ev){ showImagePreview(ev.target.result); };
+reader.readAsDataURL(file);
+e.preventDefault();
+break;
+}
+}
+});
+$('c_imgprev_rm').addEventListener('click', clearImagePreview);
+}
+
+/* ------------------------------------------------------------------ view flip */
+function wireClientFlip(){
+$('clientFlip').addEventListener('click', function(){
+showAllClients = !showAllClients;
+$('clientFlip').textContent = showAllClients ? 'Active only' : 'Show all';
+if (lastSnapshot){
+renderClients(filteredClients(lastSnapshot.clients));
+renderBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
+}
+});
+}
+
+/* Collapse/expand is separate from the active/all flip above: this only
+controls whether the client list + search box render at all, so the page
+doesn't force scrolling past 60 cards to reach Board/Reports/Dispatch. */
+function applyClientsExpanded(){
+$('clientSearchField').classList.toggle('hide', !clientsExpanded);
+$('clientlist').classList.toggle('hide', !clientsExpanded);
+$('clientsToggle').textContent = clientsExpanded ? 'Collapse' : 'Show list';
+}
+function wireClientsToggle(){
+applyClientsExpanded();
+$('clientsToggle').addEventListener('click', function(){
+clientsExpanded = !clientsExpanded;
+applyClientsExpanded();
+});
+}
+
+/* ------------------------------------------------------------------ fetch */
+function get(url){
+var headers = {};
+if (DASHBOARD_API_TOKEN) headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN;
+return fetch(url, {cache:'no-store', headers: headers})
+.then(function(r){
+if (!r.ok) throw new Error('HTTP ' + r.status);
+return r.json();
+});
+}
+
+function paint(data){
+lastSnapshot = data;
+$('banners').innerHTML = '';
+$('dot').className = 'dot';
+$('asof').textContent = 'as of ' + shortTime(new Date().toISOString());
+renderMoney(data.money);
+renderNeedsMe(data);
+$('clientCount').textContent = '— ' + (data.clients || []).length;
+renderClients(filteredClients(data.clients));
+renderBoard(filteredClients(data.clients), data.tasks);
+renderReports(data.latest_reports);
+renderHistory(data);
+populateConsoleClients(data.clients);
+populateVideoClientList(data.clients);
+var qd = (data.queue_depth === null || data.queue_depth === undefined) ? '—' : data.queue_depth;
+$('refreshline').textContent = 'Last refresh ' + shortTime(new Date().toISOString()) +
+'. Queue depth: ' + qd + '. This page re-checks every 5 minutes while open.';
+}
+
+function offline(e){
+$('dot').className = 'dot down';
+$('banners').innerHTML = '';
+var b = el('div','banner bad');
+b.appendChild(document.createTextNode('The dashboard cannot reach n8n right now. ' + (e && e.message ? '(' + e.message + ') ' : '') + 'The page will keep trying every 5 minutes.'));
+var retry = el('button','retry','Retry now');
+retry.addEventListener('click', function(){ retry.disabled = true; retry.textContent = 'Retrying…'; pull(); });
+b.appendChild(retry);
+$('banners').appendChild(b);
+}
+
+function pull(){
+return get(SNAPSHOT_URL).then(paint).catch(offline);
+}
+
+function boot(){
+pull();
+setInterval(pull, POLL_MS);
+document.addEventListener('visibilitychange', function(){
+if (!document.hidden) pull();
+});
+$('detailOverlay').addEventListener('click', function(e){
+if (e.target === $('detailOverlay')) closeDetail();
+});
+$('redOverlay').addEventListener('click', function(e){
+if (e.target === $('redOverlay')) closeRed();
+});
+document.addEventListener('keydown', function(e){
+if (e.key === 'Escape'){ closeDetail(); closeRed(); }
+});
+wireQueueForm('q', 'q_job_id'); $('client_search').addEventListener('input', function(){ clientSearchTerm = this.value.trim(); if (lastSnapshot){ renderClients(filteredClients(lastSnapshot.clients)); renderBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks); } });
+wireQueueForm('r', 'r_job_id');
+wirePack();
+wireRed(); wireVideoRequest();
+wireConsole();
+wireClientFlip();
+wireClientsToggle();
+wireHistoryToggle();
+}
+window.addEventListener('load', boot);
+</script>
+</body>
+</html>
