@@ -279,7 +279,9 @@ height:64px;opacity:.55}
 </section>
 
 <section id="dispatch">
-<p class="eyebrow">Dispatch</p>
+<p class="eyebrow">Dispatch<span id="dispatchCount"></span> <button class="flipbtn" id="dispatchFlip" type="button">Show all</button></p>
+<div class="card rail-gray client-sub" id="dispatchCollapsed"></div>
+<div id="dispatchBody" style="display:none">
 
 <div class="dispatch-block card">
 <div class="dispatch-title">Queue</div>
@@ -345,10 +347,12 @@ height:64px;opacity:.55}
 <div class="btnrow"><button class="btn danger" id="red_open">Confirm a red action</button></div>
 <div id="red_result"></div></div><div class="dispatch-block card"><div class="dispatch-title">Request a new video</div><div class="dispatch-help">Logs a video request against a client, or against your own channel if it's not for a client. This does not queue a Video Engine run itself -- it records the ask so it surfaces in the client's notes/brief (personal asks land in a dedicated internal log instead).</div><div class="field"><label style="display:flex;align-items:center;gap:7px;text-transform:none;letter-spacing:0;font-size:13.5px;color:var(--ink);font-weight:500"><input type="checkbox" id="v_personal" style="width:auto"> Not for a client -- this is for my own channel</label></div><div class="field" id="v_client_slug_field"><label>Client slug</label><input id="v_client_slug" list="v_client_datalist" placeholder="start typing a client name or slug…"><datalist id="v_client_datalist"></datalist></div><div class="field"><label>What the video is about</label><textarea id="v_note" placeholder="describe the ask -- product, angle, deadline if any"></textarea></div><div class="btnrow"><button class="btn primary" id="v_submit">Request video</button></div><div id="v_result"></div></div>
 
+</div>
 </section>
 
 <section id="console">
-<p class="eyebrow">Console</p>
+<p class="eyebrow">Console <button class="flipbtn" id="consoleFlip" type="button">Show all</button></p>
+<div id="consoleBody" style="display:none">
 <div class="console-shell card">
 <div class="console-top">
 <input id="c_client_search" placeholder="Search clients…" style="flex:1;font:inherit;font-size:13.5px;padding:8px 10px;border-radius:10px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink)">
@@ -366,6 +370,7 @@ height:64px;opacity:.55}
 </div>
 </div>
 <div class="gap-flag">Server-side gap: console-turn requires a client_slug on every call -- there's no "whole book" / all-clients mode yet, so this is one conversation per client, not one thread across the book. Image paste posts an image_base64 field speculatively; I haven't confirmed the flow reads it, so treat attachments as best-effort until that's verified server-side. READ/DO/done compact-line styling is a pattern guess -- I never saw the model emit those markers live, so it only activates if a reply line happens to start with those words.</div>
+</div>
 </section>
 
 <footer>
@@ -405,6 +410,12 @@ var showAllClients = false;
 doesn't push Board/Reports/Dispatch below the fold; the existing Show all
 button expands it (and, as before, also flips active-only vs every status). */
 var clientsExpanded = false;
+
+/* Dispatch and Console are the two heaviest static sections on the page --
+collapsed by default behind the same flip-button shape Clients uses, since
+neither is read at a glance the way Board/Reports are. */
+var dispatchExpanded = false;
+var consoleExpanded = false;
 
 var $ = function(id){ return document.getElementById(id); };
 function el(tag, cls, txt){
@@ -1191,6 +1202,28 @@ updateBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
 });
 }
 
+function wireDispatchFlip(){
+var count = document.querySelectorAll('#dispatchBody .dispatch-block').length;
+var collapsed = $('dispatchCollapsed');
+collapsed.textContent = count + ' action' + (count === 1 ? '' : 's') + ' collapsed -- click "Show all" above to view.';
+var cnode = $('dispatchCount');
+if (cnode) cnode.textContent = ' - ' + count;
+$('dispatchFlip').addEventListener('click', function(){
+dispatchExpanded = !dispatchExpanded;
+$('dispatchBody').style.display = dispatchExpanded ? '' : 'none';
+collapsed.style.display = dispatchExpanded ? 'none' : '';
+$('dispatchFlip').textContent = dispatchExpanded ? 'Hide' : 'Show all';
+});
+}
+
+function wireConsoleFlip(){
+$('consoleFlip').addEventListener('click', function(){
+consoleExpanded = !consoleExpanded;
+$('consoleBody').style.display = consoleExpanded ? '' : 'none';
+$('consoleFlip').textContent = consoleExpanded ? 'Hide' : 'Show all';
+});
+}
+
 /* ------------------------------------------------------------------ fetch */
 function get(url){
 var headers = {};
@@ -1255,6 +1288,8 @@ wirePack();
 wireRed(); wireVideoRequest();
 wireConsole();
 wireClientFlip();
+wireDispatchFlip();
+wireConsoleFlip();
 wireHistoryToggle();
 }
 window.addEventListener('load', boot);
