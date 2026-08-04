@@ -123,6 +123,7 @@ padding:10px 11px;cursor:pointer;font-size:13.5px}
 color:var(--brand-ink);font-weight:700;white-space:nowrap}
 .chip.cost{background:transparent;border:1px solid var(--line-strong);color:var(--muted)}
 .chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}.chip.id{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:9.5px}
+.chip.access{background:transparent;border:1px solid var(--warn);color:var(--warn);text-transform:uppercase}
 .taskcard.empty{opacity:.5;font-style:italic;cursor:default;text-align:center;padding:14px 10px}
 .taskcard.needsme{border-left:4px solid var(--warn)}
 
@@ -667,6 +668,7 @@ var chips = el('div','t-chips');
 if (t.autonomy) chips.appendChild(el('span','chip', t.autonomy));
 if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
 if (t.branch) chips.appendChild(el('span','chip branch', t.branch)); if (t.id) chips.appendChild(el('span','chip id', t.id));
+if (t.access_needed) chips.appendChild(el('span','chip access', 'ACCESS' + (t.access_status ? ' ' + t.access_status : '')));
 card.appendChild(chips);
 var actions = el('div','t-actions');
 var statusSel = el('select','statussel');
