@@ -52,6 +52,8 @@ border-bottom:1px solid var(--line)}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
 .dot.stale{background:var(--warn)} .dot.down{background:var(--danger)}
 
+.statusline{margin:14px 0 0;font-size:13px;color:var(--muted);font-weight:600}
+
 .banner{margin:14px 0;padding:12px 14px;border-radius:12px;font-size:14px;
 border:1px solid var(--line-strong);background:var(--card)}
 .banner.bad{border-color:var(--danger);color:var(--danger)}
@@ -114,26 +116,26 @@ padding:12px;box-shadow:var(--shadow)}
 .board-col-count{font-size:11px;color:var(--muted-2);font-weight:700}
 .board-col-cards{display:grid;gap:8px}
 .taskcard{background:var(--bg);border:1px solid var(--line-strong);border-radius:12px;
-padding:10px 11px;cursor:pointer;font-size:13.5px}
+padding:7px 9px;cursor:pointer;font-size:13.5px}
 .taskcard:hover{border-color:var(--brand)}
-.taskcard .t-client{font-size:11px;font-weight:700;letter-spacing:.01em;color:var(--muted-2);margin-bottom:4px}
+.taskcard .t-client{font-size:11px;font-weight:700;letter-spacing:.01em;color:var(--muted-2);margin-bottom:2px}
 .taskcard .t-title{font-weight:650;letter-spacing:-.01em;line-height:1.3}
-.taskcard .t-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
-.chip{font-size:10.5px;padding:2px 7px;border-radius:999px;background:var(--brand-soft);
+.taskcard .t-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.chip{font-size:10.5px;padding:1px 6px;border-radius:999px;background:var(--brand-soft);
 color:var(--brand-ink);font-weight:700;white-space:nowrap}
 .chip.cost{background:transparent;border:1px solid var(--line-strong);color:var(--muted)}
-.chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}.chip.id{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:9.5px}
+.chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}
 .chip.access{background:transparent;border:1px solid var(--warn);color:var(--warn);text-transform:uppercase}
 .taskcard.empty{opacity:.5;font-style:italic;cursor:default;text-align:center;padding:14px 10px}
 .taskcard.needsme{border-left:4px solid var(--warn)}
 
 /* quick dispatch buttons on cards */
-.t-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;align-items:center}
-.qbtn{font:inherit;font-size:10.5px;font-weight:700;padding:5px 9px;border-radius:8px;
+.t-actions{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap;align-items:center}
+.qbtn{font:inherit;font-size:10.5px;font-weight:700;padding:4px 8px;border-radius:8px;
 border:1px solid var(--line-strong);background:var(--card);color:var(--ink);cursor:pointer}
 .qbtn:hover{border-color:var(--brand);color:var(--brand-ink)}
 .qbtn.qdanger{border-color:var(--danger);color:var(--danger)}
-.statussel{font:inherit;font-size:10.5px;font-weight:700;padding:5px 7px;border-radius:8px;
+.statussel{font:inherit;font-size:10.5px;font-weight:700;padding:4px 6px;border-radius:8px;
 border:1px solid var(--line-strong);background:var(--card);color:var(--ink);cursor:pointer}
 .statussel:disabled{opacity:.5;cursor:default}
 
@@ -251,6 +253,8 @@ height:64px;opacity:.55}
 </header>
 
 <div id="banners"></div>
+
+<p class="statusline" id="statusline"></p>
 
 <section id="board">
 <p class="eyebrow">Board</p>
@@ -620,6 +624,36 @@ var reports = (lastSnapshot && lastSnapshot.latest_reports) || [];
 return reports.some(function(r){ return r.job_id === t.id && (r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '')); });
 }
 
+/* Tasks that actually land on the board: belonging to a currently-visible
+client. Shared by renderBoard and the glance status line so both count the
+same set. */
+function boardTasksFor(clients, tasks){
+var visible = visibleClients(clients);
+if (!visible || !visible.length || !tasks) return [];
+var clientBySlug = {};
+visible.forEach(function(c){ clientBySlug[c.slug] = c; });
+return tasks.filter(function(t){ return clientBySlug[t.client_slug]; });
+}
+
+/* The one-line glance above BOARD: total cards, how many are blocked on
+access, how many are actually in progress right now. Every number comes
+from the same snapshot data the board renders, not a hardcoded guess. */
+function renderStatusLine(clients, tasks){
+var host = $('statusline');
+if (!host) return;
+var boardTasks = boardTasksFor(clients, tasks);
+var total = boardTasks.length;
+var blockedAccess = boardTasks.filter(function(t){ return !!t.access_needed; }).length;
+var inProgress = boardTasks.filter(function(t){ return colOf(t.status) === 'in_progress'; }).length;
+host.textContent = total + ' card' + (total === 1 ? '' : 's') + ' · ' +
+blockedAccess + ' blocked on access · ' + inProgress + ' in progress';
+}
+
+function updateBoard(clients, tasks){
+renderBoard(clients, tasks);
+renderStatusLine(clients, tasks);
+}
+
 /* Single board across all visible clients (not one board per client) --
 each card carries its own client name + contact name since there's no
 longer a per-client heading to imply that context. */
@@ -660,14 +694,15 @@ var cardsBox = el('div','board-col-cards');
 colTasks.forEach(function(t){
 var c = clientBySlug[t.client_slug] || {};
 var card = el('div','taskcard' + (taskNeedsMe(t, c) ? ' needsme' : ''));
+if (t.id) card.title = t.id;
 var clientLine = c.name || t.client_slug || 'unassigned';
 if (c.contact_name) clientLine += ' · ' + c.contact_name;
 card.appendChild(el('div','t-client', clientLine));
 card.appendChild(el('div','t-title', t.title || t.id));
 var chips = el('div','t-chips');
-if (t.autonomy) chips.appendChild(el('span','chip', t.autonomy));
+if (t.autonomy && String(t.autonomy).toLowerCase() !== 'green') chips.appendChild(el('span','chip', t.autonomy));
 if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
-if (t.branch) chips.appendChild(el('span','chip branch', t.branch)); if (t.id) chips.appendChild(el('span','chip id', t.id));
+if (t.branch) chips.appendChild(el('span','chip branch', t.branch));
 if (t.access_needed) chips.appendChild(el('span','chip access', 'ACCESS' + (t.access_status ? ' ' + t.access_status : '')));
 card.appendChild(chips);
 var actions = el('div','t-actions');
@@ -720,7 +755,7 @@ postJSON(NOTE_URL, {type:'status_change', task_id: t.id, client_slug: t.client_s
 selectEl.disabled = false;
 if (res.status === 200){
 t.status = newStatus;
-if (lastSnapshot) renderBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
+if (lastSnapshot) updateBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
 } else {
 selectEl.value = oldCol;
 selectEl.title = 'Save failed: ' + JSON.stringify(res.body);
@@ -1151,7 +1186,7 @@ showAllClients = clientsExpanded;
 $('clientFlip').textContent = clientsExpanded ? 'Hide' : 'Show all';
 if (lastSnapshot){
 renderClients(filteredClients(lastSnapshot.clients));
-renderBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
+updateBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
 }
 });
 }
@@ -1174,7 +1209,7 @@ $('dot').className = 'dot';
 $('asof').textContent = 'as of ' + shortTime(new Date().toISOString());
 renderMoney(data.money);
 renderClients(filteredClients(data.clients));
-renderBoard(filteredClients(data.clients), data.tasks);
+updateBoard(filteredClients(data.clients), data.tasks);
 renderReports(data.latest_reports);
 renderHistory(data);
 populateConsoleClients(data.clients);
@@ -1214,7 +1249,7 @@ if (e.target === $('redOverlay')) closeRed();
 document.addEventListener('keydown', function(e){
 if (e.key === 'Escape'){ closeDetail(); closeRed(); }
 });
-wireQueueForm('q', 'q_job_id'); $('client_search').addEventListener('input', function(){ clientSearchTerm = this.value.trim(); if (lastSnapshot){ renderClients(filteredClients(lastSnapshot.clients)); renderBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks); } });
+wireQueueForm('q', 'q_job_id'); $('client_search').addEventListener('input', function(){ clientSearchTerm = this.value.trim(); if (lastSnapshot){ renderClients(filteredClients(lastSnapshot.clients)); updateBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks); } });
 wireQueueForm('r', 'r_job_id');
 wirePack();
 wireRed(); wireVideoRequest();
