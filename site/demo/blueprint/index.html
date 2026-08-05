@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en" data-theme-lock="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<title>The Blueprint - see your operation on one page | Launch Forte</title>
+<meta name="description" content="Describe how work moves through your business in your own words. Get back a one-page map of the systems you named, every handoff, and the gaps where things fall. Free, nothing stored.">
+<link rel="canonical" href="https://launchforte.com/demo/blueprint/">
+<link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
+<meta property="og:title" content="The Blueprint - see your operation on one page">
+<meta property="og:description" content="Describe how work moves through your business. Get a one-page map of your systems, handoffs, and gaps. Free, nothing stored.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://launchforte.com/demo/blueprint/">
+<meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
+<style>
+/* ============ HOUSE SKIN (Launch Forte island pattern) - matches /demo/books ============ */
+:root{
+  --ink:#14181f;
+  --ink-soft:#3a424e;
+  --muted:#6b7480;
+  --line:#e4e7ec;
+  --line-soft:#eef1f4;
+  --paper:#ffffff;
+  --wash:#f6f8fa;
+  --wash-2:#f0f3f6;
+  --brand:#0088DB;
+  --brand-ink:#0b3d91;
+  --flag:#b4530a;
+  --flag-wash:#fdf3e7;
+  --flag-line:#f2d9bb;
+  --good:#137a4b;
+  --good-wash:#eef7f1;
+  --measure:#5b4b8a;
+  --measure-wash:#f2f0f9;
+  --radius:14px;
+  --radius-sm:10px;
+  --shadow:0 1px 2px rgba(20,24,31,.04),0 8px 24px rgba(20,24,31,.06);
+  --mono:"SFMono-Regular",ui-monospace,"JetBrains Mono","Menlo",Consolas,monospace;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--sans);color:var(--ink);background:var(--wash);-webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}
+.card + .card{margin-top:18px}
+.stack{margin:26px 0 60px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:14.5px;font-weight:600;padding:12px 18px;border-radius:var(--radius-sm);cursor:pointer;transition:border-color .15s,background .15s,transform .05s}
+.btn:hover{border-color:#c9cfd8;background:var(--wash)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff;width:100%}
+.btn.primary:hover{background:#0077c4;border-color:#0077c4}
+.btn.primary:disabled{background:#a9c4f2;border-color:#a9c4f2;cursor:default}
+
+.privacy{margin-top:18px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.privacy b{color:var(--ink-soft);font-weight:600}
+
+.hidden{display:none!important}
+
+/* ===== PREMIUM HERO (matches /demo/books) ===== */
+.hero-section{position:relative;background:linear-gradient(180deg,#0A1220 0%,#0E1729 55%,#0A1220 100%);color:#E7EDF5;overflow:hidden;padding:88px 0 100px}
+.hero-section::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 900px 500px at 50% 0%,rgba(0,136,219,.24),transparent 60%);pointer-events:none}
+.hero-section::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 700px 400px at 80% 100%,rgba(74,181,237,.14),transparent 55%);pointer-events:none}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;max-width:1120px;margin:0 auto;padding:0 24px}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:44px}.hero-section{padding:60px 0 72px}}
+.eyebrow-hero{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#B7DBF3;background:rgba(0,136,219,.14);border:1px solid rgba(0,136,219,.28);padding:7px 14px;border-radius:999px}
+.eyebrow-hero .dot{width:6px;height:6px;border-radius:50%;background:#0088DB;box-shadow:0 0 12px rgba(0,136,219,.35);animation:heropulse 2s infinite}
+@keyframes heropulse{0%,100%{box-shadow:0 0 12px rgba(0,136,219,.35)}50%{box-shadow:0 0 20px rgba(0,136,219,.35)}}
+.hero-section h1{font-size:clamp(38px,5.6vw,60px);line-height:1.04;letter-spacing:-.028em;margin:22px 0 20px;font-weight:800;color:#fff}
+.hero-section h1 .accent-word{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:19px;color:#B7C4D6;margin:0 0 28px;max-width:44ch;line-height:1.55}
+.hero-meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:8px}
+.hero-meta-item{display:flex;align-items:center;gap:10px;font-size:14px;color:#93A1B5}
+.hero-meta-item svg{color:#0088DB;flex:0 0 auto}
+.hero-illo{position:relative;aspect-ratio:1/1;max-width:460px;margin:0 auto;width:100%;transition:transform .18s cubic-bezier(.2,.7,.3,1.2)}
+.hero-illo svg{width:100%;height:100%;filter:drop-shadow(0 20px 60px rgba(0,136,219,.25));transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+.hero-illo:hover svg{filter:drop-shadow(0 20px 80px rgba(0,136,219,.4))}
+
+/* ===== SAMPLE PREVIEW PANEL ===== */
+.section-preview{padding:64px 0 20px;background:var(--wash)}
+.wrap-flow{max-width:1120px;margin:0 auto;padding:0 24px}
+.section-head{text-align:center;max-width:640px;margin:0 auto 32px}
+.kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0088DB;margin-bottom:14px}
+.section-preview h2, .section-how h2{font-size:clamp(26px,3.4vw,36px);line-height:1.15;letter-spacing:-.02em;margin:0 0 14px;font-weight:800;color:#14181f}
+.section-sub{font-size:17px;color:#6b7480;margin:0}
+.preview-panel{max-width:820px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;position:relative}
+.preview-panel .preview-label{position:absolute;top:14px;right:16px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--wash);padding:4px 9px;border-radius:999px;border:1px solid var(--line)}
+.preview-svg{width:100%;height:auto;display:block;margin:8px 0 4px}
+.preview-gaps{margin:22px 0 0;padding:16px 18px;border-top:1px dashed var(--line);display:grid;grid-template-columns:1fr;gap:10px}
+.preview-gaps h3{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--flag);margin:0 0 4px}
+.gap{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line-soft)}
+.gap:first-of-type{border-top:none}
+.gap .g-mark{flex:0 0 28px;height:28px;border-radius:8px;background:var(--flag-wash);border:1px solid var(--flag-line);color:var(--flag);font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px}
+.gap .g-body{flex:1;min-width:0}
+.gap .g-name{font-size:14.5px;font-weight:600;color:var(--ink);margin:0 0 2px;line-height:1.35}
+.gap .g-why{font-size:13.5px;color:var(--muted);margin:0;line-height:1.5}
+
+/* ===== HOW IT WORKS ===== */
+.section-how{padding:64px 0;background:#f6f8fa}
+.hiw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1120px;margin:0 auto}
+@media(max-width:820px){.hiw-grid{grid-template-columns:1fr;gap:14px}}
+.hiw-card{background:#fff;border:1px solid #E4E7EC;border-radius:22px;padding:28px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
+.hiw-card:hover{transform:translateY(-3px);box-shadow:0 1px 2px rgba(20,25,34,.06),0 20px 60px rgba(20,25,34,.1);border-color:#D5DBE3}
+.hiw-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#E6F2FA;color:#075A8F;font-weight:800;font-size:15px;margin-bottom:16px}
+.hiw-title{font-size:18px;font-weight:700;color:#14181f;margin:0 0 8px;letter-spacing:-.01em}
+.hiw-body{font-size:15px;color:#6b7480;line-height:1.6;margin:0}
+
+/* ===== TRY IT ===== */
+.form-head{text-align:center;max-width:640px;margin:32px auto 24px;padding:0 24px}
+.form-head .kicker{color:#0088DB}
+.form-head h2{font-size:clamp(24px,3vw,32px);letter-spacing:-.02em;font-weight:800;margin:0;color:#14181f}
+
+.blueprint-input{width:100%;font-family:inherit;font-size:15.5px;line-height:1.55;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 15px;min-height:130px;resize:vertical;transition:border-color .15s,box-shadow .15s}
+.blueprint-input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(0,136,219,.12)}
+.blueprint-input::placeholder{color:var(--muted)}
+.input-meta{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+.input-actions{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+.sample-link{text-align:center;font-size:13.5px;color:var(--muted);margin:10px 0 0}
+.sample-link a{color:var(--brand);font-weight:600;cursor:pointer}
+.input-err{display:none;font-size:13px;color:var(--flag);background:var(--flag-wash);border:1px solid var(--flag-line);padding:10px 12px;border-radius:9px;margin-top:12px}
+
+/* ===== WORK / LOADING ===== */
+.loading{text-align:center;padding:44px 20px}
+.spin{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--brand);border-radius:50%;margin:0 auto 18px;animation:sp 0.8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.loading .msg{font-size:15px;color:var(--ink-soft);font-weight:500}
+.loading .steps{font-size:13px;color:var(--muted);margin-top:8px;min-height:20px}
+
+/* ===== RESULT ===== */
+.result-head{padding:36px 0 8px}
+.result-head .kicker{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.result-head h2{font-size:24px;margin:0 0 6px;letter-spacing:-.01em;color:var(--ink)}
+.result-head .meta{font-size:12.5px;color:var(--muted);font-family:var(--mono);margin-top:6px}
+.napkin-wrap{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-top:16px}
+.napkin-wrap svg{width:100%;height:auto;display:block}
+.gaps-wrap{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-top:16px}
+.gaps-wrap h3{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--flag);margin:0 0 12px}
+.result-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;justify-content:center}
+.restart-link{background:none;border:none;color:var(--brand);font-size:14px;font-weight:600;cursor:pointer;padding:8px 16px;font-family:inherit;text-decoration:underline;text-underline-offset:3px}
+.restart-link:hover{color:#0077c4}
+
+/* ===== ASK PILL (matches /demo/books) ===== */
+.ask-pill{position:fixed;bottom:22px;right:22px;z-index:50;display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%);color:#fff;padding:14px 20px;border-radius:999px;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;font-weight:700;font-size:15px;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(0,136,219,.45),0 0 0 6px rgba(0,136,219,.08);transition:transform .18s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s;animation:askFloat 3s ease-in-out infinite}
+.ask-pill:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 40px rgba(0,136,219,.55),0 0 0 8px rgba(0,136,219,.1)}
+.ask-pill:active{transform:translateY(-1px) scale(.98)}
+.ask-pill svg{flex:none}
+.ask-pill .pulse-ask{position:absolute;top:12px;right:14px;width:10px;height:10px;border-radius:50%;background:#4AB5ED;box-shadow:0 0 12px #4AB5ED;animation:askPulseK 1.8s ease-in-out infinite}
+@keyframes askFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes askPulseK{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.ask-panel{position:fixed;bottom:22px;right:22px;z-index:51;width:min(360px,calc(100vw - 44px));background:#fff;border:1px solid #E4E8EE;border-radius:20px;box-shadow:0 30px 80px rgba(10,18,32,.25),0 0 0 1px rgba(0,136,219,.06);padding:20px;transform:translateY(20px) scale(.9);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.2,.9,.3,1.3);font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif}
+.ask-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
+.ask-panel h4{margin:0 0 6px;font-size:17px;font-weight:800;color:#0B1220;letter-spacing:-.01em}
+.ask-panel p{margin:0 0 14px;font-size:13.5px;color:#5A6472;line-height:1.5}
+.ask-panel input,.ask-panel textarea{width:100%;padding:11px 13px;border:1.5px solid #E4E8EE;border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:#0B1220;margin:0 0 8px;transition:border-color .15s,box-shadow .15s}
+.ask-panel input:focus,.ask-panel textarea:focus{outline:none;border-color:#0088DB;box-shadow:0 0 0 3px rgba(0,136,219,.12)}
+.ask-panel textarea{min-height:74px;resize:vertical}
+.ask-panel .ask-send{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:linear-gradient(180deg,#0088DB 0%,#0077C4 100%);color:#fff;border:none;border-radius:10px;padding:12px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .12s,box-shadow .25s;box-shadow:0 6px 18px rgba(0,136,219,.32);margin-top:4px}
+.ask-panel .ask-send:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,136,219,.42)}
+.ask-panel .ask-close{position:absolute;top:12px;right:12px;background:none;border:none;color:#8892A0;cursor:pointer;padding:4px;line-height:1;font-family:inherit}
+.ask-panel .ask-close:hover{color:#0B1220}
+.ask-panel .ask-ok{display:none;text-align:center;font-size:14px;color:#1E7A4F;padding:12px 8px;background:rgba(30,122,79,.08);border-radius:10px;margin-top:8px;font-weight:600}
+.ask-panel.sent .ask-ok{display:block}
+.ask-panel.sent input,.ask-panel.sent textarea,.ask-panel.sent .ask-send{display:none}
+@media(prefers-reduced-motion:reduce){.ask-pill{animation:none!important;transition:none!important}}
+
+.hiw-card,.preview-panel,.gap{position:relative;overflow:hidden}
+.hiw-card::before,.preview-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,136,219,.06),transparent 55%);opacity:0;transition:opacity .3s;pointer-events:none;border-radius:inherit;z-index:0}
+.hiw-card:hover::before,.preview-panel:hover::before{opacity:1}
+.hiw-card > *,.preview-panel > *{position:relative;z-index:1}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:560px){
+  .hero-section{padding:60px 0 60px}
+  .card{padding:20px}
+  .section-preview,.section-how{padding:48px 0 24px}
+  .preview-panel{padding:20px}
+  .napkin-wrap,.gaps-wrap{padding:18px}
+}
+</style>
+
+<link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/studio.css?v=q2j">
+<script src="/studio-theme.js?v=q2j"></script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="studio-nav site-header">
+    <div class="studio-nav-inner">
+        <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
+        </a>
+        <div class="studio-nav-right">
+            <a href="/contact.html" class="studio-nav-cta">Contact</a>
+            <nav class="header-nav" aria-label="Primary" style="display:none">
+                <a href="/index.html">Home</a>
+                <a href="/what-we-build.html">What We Build</a>
+                <a href="/results.html">Results</a>
+                <a href="/tools" class="active">Free Tools</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-section">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow-hero"><span class="dot"></span>Free blueprint &middot; Under two minutes</span>
+      <h1>See your operation on <span class="accent-word">one page.</span></h1>
+      <p class="hero-sub">Describe how work actually moves through your business, in your own words. You get back a map of the systems you named, every handoff between them, and the places where things quietly fall through. No signup to see it.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M4 5h16"/><path d="M4 12h10"/></svg>
+          <span>Written in plain English</span>
+        </div>
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Nothing stored</span>
+        </div>
+        <div class="hero-meta-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v13"/><path d="M3 19h18"/><path d="M9 22h6"/></svg>
+          <span>Yours to keep</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero SVG: a napkin-style sketch of boxes and lines -->
+    <div class="hero-illo" id="heroIllo">
+      <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#0088DB" stop-opacity=".4"/>
+            <stop offset="100%" stop-color="#0088DB" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="250" cy="250" r="240" fill="url(#glow)"/>
+        <!-- napkin card -->
+        <rect x="60" y="80" width="380" height="340" rx="14" fill="#0E1729" stroke="#4AB5ED" stroke-width="2"/>
+        <!-- boxes -->
+        <g stroke="#4AB5ED" stroke-width="1.5" fill="none">
+          <rect x="88" y="130" width="120" height="52" rx="6"/>
+          <rect x="290" y="130" width="120" height="52" rx="6"/>
+          <rect x="88" y="240" width="120" height="52" rx="6"/>
+          <rect x="290" y="240" width="120" height="52" rx="6"/>
+          <rect x="189" y="340" width="120" height="52" rx="6"/>
+        </g>
+        <!-- labels -->
+        <g fill="#B7DBF3" font-family="-apple-system,Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle">
+          <text x="148" y="161">Web form</text>
+          <text x="350" y="161">Shared inbox</text>
+          <text x="148" y="271">CRM</text>
+          <text x="350" y="271">Callback list</text>
+          <text x="249" y="371">Sales rep</text>
+        </g>
+        <!-- handoff arrows (solid = automated, dashed = manual/fragile) -->
+        <g stroke="#4AB5ED" stroke-width="1.5" fill="none" marker-end="url(#arr)">
+          <path d="M208 156 L290 156"/>
+        </g>
+        <g stroke="#FF9885" stroke-width="1.5" fill="none" stroke-dasharray="4 4" marker-end="url(#arrRed)">
+          <path d="M350 182 L350 240"/>
+          <path d="M290 266 L208 266"/>
+          <path d="M148 292 L200 340"/>
+          <path d="M350 292 L298 340"/>
+        </g>
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#4AB5ED"/></marker>
+          <marker id="arrRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#FF9885"/></marker>
+        </defs>
+        <!-- gap dots on the fragile edges -->
+        <g fill="#FF6B57">
+          <circle cx="350" cy="211" r="6"/>
+          <circle cx="249" cy="266" r="6"/>
+          <circle cx="174" cy="316" r="6"/>
+          <circle cx="324" cy="316" r="6"/>
+        </g>
+        <g fill="#fff" font-family="ui-monospace,monospace" font-size="8" font-weight="700" text-anchor="middle">
+          <text x="350" y="214">!</text>
+          <text x="249" y="269">!</text>
+          <text x="174" y="319">!</text>
+          <text x="324" y="319">!</text>
+        </g>
+        <!-- bottom legend -->
+        <line x1="88" y1="410" x2="412" y2="410" stroke="rgba(74,181,237,.2)"/>
+        <g font-family="ui-monospace,monospace" font-size="10" fill="#7788A0">
+          <text x="88" y="428">5 systems &middot; 5 handoffs &middot; 4 gaps</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- SAMPLE PREVIEW -->
+<section class="section-preview">
+  <div class="wrap-flow">
+    <div class="section-head">
+      <div class="kicker">A sample blueprint</div>
+      <h2>Here's what one looks like.</h2>
+      <p class="section-sub">A local roofing company described how a lead becomes a booked job. This is what came back.</p>
+    </div>
+    <div class="preview-panel">
+      <span class="preview-label">Sample</span>
+      <svg class="preview-svg" viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" aria-labelledby="sampleTitle">
+        <title id="sampleTitle">Sample blueprint: five systems and four gaps</title>
+        <defs>
+          <marker id="parr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#3a424e"/></marker>
+          <marker id="parrRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#b4530a"/></marker>
+        </defs>
+        <!-- boxes -->
+        <g stroke="#3a424e" stroke-width="1.5" fill="#fff">
+          <rect x="30"  y="130" width="130" height="60" rx="8"/>
+          <rect x="220" y="60"  width="130" height="60" rx="8"/>
+          <rect x="220" y="200" width="130" height="60" rx="8"/>
+          <rect x="420" y="130" width="130" height="60" rx="8"/>
+          <rect x="590" y="130" width="110" height="60" rx="8"/>
+        </g>
+        <g fill="#14181f" font-family="Inter,-apple-system,sans-serif" font-size="13" font-weight="600" text-anchor="middle">
+          <text x="95"  y="165">Website form</text>
+          <text x="285" y="95">Shared inbox</text>
+          <text x="285" y="235">Voicemail</text>
+          <text x="485" y="165">HubSpot</text>
+          <text x="645" y="165">Callback</text>
+        </g>
+        <!-- handoffs: some solid (automated), some dashed (manual/depends on memory) -->
+        <g stroke="#3a424e" stroke-width="1.5" fill="none" marker-end="url(#parr)">
+          <path d="M160 155 L220 90"/>
+        </g>
+        <g stroke="#b4530a" stroke-width="1.5" fill="none" stroke-dasharray="5 4" marker-end="url(#parrRed)">
+          <path d="M160 165 L220 230"/>
+          <path d="M350 90  L420 155"/>
+          <path d="M350 230 L420 175"/>
+          <path d="M550 160 L590 160"/>
+        </g>
+        <!-- gap dots -->
+        <g>
+          <circle cx="195" cy="200" r="10" fill="#fdf3e7" stroke="#b4530a" stroke-width="1.5"/>
+          <text x="195" y="204" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#b4530a">1</text>
+          <circle cx="385" cy="122" r="10" fill="#fdf3e7" stroke="#b4530a" stroke-width="1.5"/>
+          <text x="385" y="126" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#b4530a">2</text>
+          <circle cx="385" cy="200" r="10" fill="#fdf3e7" stroke="#b4530a" stroke-width="1.5"/>
+          <text x="385" y="204" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#b4530a">3</text>
+          <circle cx="570" cy="160" r="10" fill="#fdf3e7" stroke="#b4530a" stroke-width="1.5"/>
+          <text x="570" y="164" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#b4530a">4</text>
+        </g>
+      </svg>
+      <div class="preview-gaps">
+        <h3>4 gaps</h3>
+        <div class="gap"><div class="g-mark">1</div><div class="g-body"><p class="g-name">Voicemail lead never gets a record.</p><p class="g-why">Nobody types it into HubSpot unless the receptionist remembers.</p></div></div>
+        <div class="gap"><div class="g-mark">2</div><div class="g-body"><p class="g-name">Shared inbox to HubSpot is manual.</p><p class="g-why">A lead sits in email until someone copy-pastes it. Median time to touch: 4 hours.</p></div></div>
+        <div class="gap"><div class="g-mark">3</div><div class="g-body"><p class="g-name">Voicemail to HubSpot has no path at all.</p><p class="g-why">Calls that come in after hours land nowhere the sales team looks the next morning.</p></div></div>
+        <div class="gap"><div class="g-mark">4</div><div class="g-body"><p class="g-name">Callback list depends on someone being free.</p><p class="g-why">HubSpot flags the lead, but the actual call happens only when a rep opens the tab.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section-how">
+  <div class="wrap-flow">
+    <div class="section-head">
+      <div class="kicker">How it works</div>
+      <h2>Three steps. No signup.</h2>
+    </div>
+    <div class="hiw-grid">
+      <div class="hiw-card">
+        <div class="hiw-num">1</div>
+        <h3 class="hiw-title">Tell it what happens</h3>
+        <p class="hiw-body">A lead comes in, then what? Type it the way you would say it out loud. Two sentences is enough to start.</p>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">2</div>
+        <h3 class="hiw-title">It draws the shape</h3>
+        <p class="hiw-body">Every system you mention becomes a box. Every handoff becomes a line. Anything that depends on somebody remembering becomes a marked gap.</p>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">3</div>
+        <h3 class="hiw-title">Read the gaps</h3>
+        <p class="hiw-body">The marked points are where work gets lost. Each one says why in a sentence, not a diagram legend.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRY IT -->
+<div id="view-input">
+<div class="wrap-flow">
+  <div class="form-head">
+    <div class="kicker">Try it</div>
+    <h2>Describe your operation.</h2>
+  </div>
+  <div class="wrap"><div class="stack">
+    <div class="card">
+      <textarea id="bp-input" class="blueprint-input" rows="5" placeholder="A lead fills in the form on our site, then someone checks the inbox and puts it in the CRM, and then..." aria-label="Describe how work moves through your business"></textarea>
+      <div class="input-meta">
+        <span id="bp-count">0 words</span>
+        <a class="sample-link" href="#" id="bp-sample-inline" style="text-align:right;margin:0"><span>Use a sample</span></a>
+      </div>
+      <div class="input-err" id="bp-err"></div>
+      <div class="input-actions">
+        <button type="button" class="btn primary" id="bp-go">Draw my blueprint</button>
+      </div>
+      <div class="privacy" id="bp-privacy">
+        <b>What leaves your browser:</b> the text you type is sent to draw the blueprint and is not stored afterwards. Nothing here trains anything. No account, no email required to see your blueprint on screen.
+      </div>
+    </div>
+    <p class="sample-link">More free tools: <a href="/tools">launchforte.com/tools</a></p>
+  </div></div>
+</div>
+</div>
+
+<!-- LOADING -->
+<div id="view-loading" class="hidden">
+<div class="wrap"><div class="stack">
+  <div class="card loading"><div class="spin"></div><div class="msg" id="bp-loading-msg">Reading what you wrote</div><div class="steps" id="bp-loading-steps">Picking out the systems you named...</div></div>
+</div></div>
+</div>
+
+<!-- RESULT -->
+<div id="view-result" class="hidden">
+<div class="wrap"><div class="stack">
+  <div class="result-head">
+    <div class="kicker">Your blueprint</div>
+    <h2 id="bp-result-title">The shape of your operation</h2>
+    <p class="meta" id="bp-result-meta"></p>
+  </div>
+  <div class="napkin-wrap" id="bp-napkin"></div>
+  <div class="gaps-wrap hidden" id="bp-gaps-wrap">
+    <h3 id="bp-gaps-heading">The gaps</h3>
+    <div id="bp-gaps-list"></div>
+  </div>
+  <div class="result-actions">
+    <button type="button" class="restart-link" id="bp-restart">Start again</button>
+  </div>
+</div></div>
+</div>
+
+<footer class="studio-footer">
+    <div class="studio-footer-inner">
+        <a href="mailto:seth@launchforte.com" class="footer-email-main" style="display:block;text-align:center;font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-2xl);font-weight:600;color:var(--ink);margin-bottom:var(--sp-16);text-decoration:none;letter-spacing:-0.015em;">seth@launchforte.com</a>
+        <div class="studio-footer-cols">
+            <div class="studio-footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="/#audit">Audit</a></li>
+                    <li><a href="/#core-systems-build">Build</a></li>
+                    <li><a href="/partnership.html">Partnership</a></li>
+                    <li><a href="/what-we-build.html">What We Build</a></li>
+                </ul>
+            </div>
+            <div class="studio-footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/results.html">Results</a></li>
+                    <li><a href="/tools">Free Tools</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                    <li><a href="/faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="studio-footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
+                    <li><a href="mailto:seth@launchforte.com">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="studio-footer-bottom">
+            <p>Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
+            <p>&copy; 2026 Launch Forte. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ASK PILL -->
+<button type="button" class="ask-pill" id="askPill" aria-label="Ask us anything">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <span>Ask us anything</span>
+  <span class="pulse-ask"></span>
+</button>
+<div class="ask-panel" id="askPanel" role="dialog" aria-labelledby="askTitle" aria-hidden="true">
+  <button type="button" class="ask-close" id="askClose" aria-label="Close">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <h4 id="askTitle">Ask us anything</h4>
+  <p>What are you trying to figure out? I'll get back to you personally.</p>
+  <input type="text" id="askName" placeholder="Your name" autocomplete="name">
+  <input type="email" id="askEmail" placeholder="Your email" autocomplete="email">
+  <textarea id="askMsg" placeholder="What's on your mind?"></textarea>
+  <button type="button" class="ask-send" id="askSend">
+    Send it over
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </button>
+  <div class="ask-ok">Got it. Reply landing in your inbox soon.</div>
+</div>
+
+<script>
+/* ============================================================
+   The Blueprint - one-shot map of the visitor's operation.
+   Reuses Ask Forte's engine: streams /forte-ask to trigger the
+   shape recognition, then calls /forte-draw for the SVG. No
+   second engine, no chat UI. If /forte-ask does not emit a
+   [[NAPKIN]] marker, we show the runbook's honest empty state
+   rather than a faked diagram.
+   ============================================================ */
+(function(){
+  var API_BASE = "https://launchforte.app.n8n.cloud/webhook";
+  var ASK      = API_BASE + "/forte-ask";
+  var DRAW     = API_BASE + "/forte-draw";
+
+  var SAMPLE_TEXT = "A lead fills in the form on our site, someone checks the inbox twice a day and copies it into HubSpot, then whoever is free calls them back.";
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  var state = { sessionId: null, busy: false };
+
+  function mintSessionId(){
+    var rand = Math.floor(Math.random() * 1e12).toString(36);
+    return 'bp-' + rand + '-' + Date.now().toString(36).slice(-4);
+  }
+
+  function show(view){
+    ["input","loading","result"].forEach(function(v){
+      var el = $("view-"+v);
+      if (el) el.classList.toggle("hidden", v !== view);
+    });
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+
+  function wordCount(s){
+    s = String(s || "").trim();
+    if (!s) return 0;
+    return s.split(/\s+/).length;
+  }
+
+  function updateCount(){
+    var wc = wordCount($("bp-input").value);
+    $("bp-count").textContent = wc + (wc === 1 ? " word" : " words");
+  }
+
+  function showErr(msg){
+    var e = $("bp-err");
+    e.textContent = msg;
+    e.style.display = "block";
+  }
+  function clearErr(){
+    $("bp-err").style.display = "none";
+  }
+
+  /* --- sentinel parser: same grammar Ask Forte uses ([[SHAPE|slug]], [[NAPKIN]]) --- */
+  function scanForMarkers(text, seen){
+    var re = /\[\[([^\[\]]+)\]\]/g;
+    var m;
+    while ((m = re.exec(text)) !== null){
+      var body = m[1].trim();
+      if (body.indexOf("SHAPE|") === 0){
+        var slug = body.slice(6).trim();
+        if (slug) seen.shape = slug;
+      } else if (body === "NAPKIN"){
+        seen.napkin = true;
+      }
+    }
+    return seen;
+  }
+
+  function streamAsk(text){
+    state.sessionId = mintSessionId();
+    var payload = {
+      session_id: state.sessionId,
+      message: text,
+      meta: { referrer: document.referrer, blueprint: true }
+    };
+    return fetch(ASK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).then(function(resp){
+      if (!resp.ok) throw new Error("ask " + resp.status);
+      var newId = resp.headers.get("X-Forte-Session") || resp.headers.get("x-forte-session");
+      if (newId) state.sessionId = newId;
+
+      var reader = resp.body.getReader();
+      var decoder = new TextDecoder();
+      var lineBuf = "";
+      var full = "";
+      var seen = { shape: null, napkin: false };
+
+      function processLine(line){
+        var trimmed = line.replace(/^data:\s*/, "").trim();
+        if (!trimmed) return "";
+        if (trimmed.charAt(0) === "{"){
+          try {
+            var obj = JSON.parse(trimmed);
+            if (obj.type === "begin") return "";
+            if (obj.type === "end") return "";
+            if (obj.type === "item") return typeof obj.content === "string" ? obj.content : "";
+            if (typeof obj.content === "string") return obj.content;
+            if (typeof obj.text === "string") return obj.text;
+            if (typeof obj.token === "string") return obj.token;
+            if (typeof obj.delta === "string") return obj.delta;
+            return "";
+          } catch(_){ return trimmed; }
+        }
+        return trimmed;
+      }
+
+      function pump(){
+        return reader.read().then(function(res){
+          if (res.done){
+            if (lineBuf){ full += processLine(lineBuf); lineBuf = ""; }
+            scanForMarkers(full, seen);
+            return seen;
+          }
+          lineBuf += decoder.decode(res.value, { stream: true });
+          var lines = lineBuf.split("\n");
+          lineBuf = lines.pop();
+          for (var i = 0; i < lines.length; i++){
+            full += processLine(lines[i]);
+          }
+          return pump();
+        });
+      }
+      return pump();
+    });
+  }
+
+  function drawNapkin(){
+    return fetch(DRAW, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ session_id: state.sessionId })
+    }).then(function(r){
+      if (!r.ok) throw new Error("draw " + r.status);
+      return r.json();
+    });
+  }
+
+  function renderResult(data, seenShape){
+    var mount = $("bp-napkin");
+    mount.innerHTML = "";
+    if (data && data.sketch_svg){
+      var wrap = document.createElement("div");
+      wrap.innerHTML = String(data.sketch_svg);
+      var svg = wrap.querySelector("svg");
+      if (svg){
+        svg.removeAttribute("width");
+        svg.removeAttribute("height");
+        svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+        svg.style.maxWidth = "100%";
+        svg.style.height = "auto";
+      }
+      mount.appendChild(wrap);
+    } else {
+      mount.textContent = "The sketch didn't come through.";
+    }
+
+    /* Gaps: /forte-draw returns one scar string. If it's present, show
+       it as a single-item gaps list. If the engine ever returns an
+       array under `gaps`, render that instead. */
+    var gapsWrap = $("bp-gaps-wrap");
+    var list = $("bp-gaps-list");
+    list.innerHTML = "";
+    var gaps = [];
+    if (data && Array.isArray(data.gaps) && data.gaps.length){
+      gaps = data.gaps;
+    } else if (data && data.scar){
+      gaps = [{ name: data.scar, why: "" }];
+    }
+    if (gaps.length){
+      $("bp-gaps-heading").textContent = gaps.length + (gaps.length === 1 ? " gap" : " gaps");
+      gaps.forEach(function(g, i){
+        var row = document.createElement("div");
+        row.className = "gap";
+        var mark = document.createElement("div"); mark.className = "g-mark"; mark.textContent = String(i+1);
+        var body = document.createElement("div"); body.className = "g-body";
+        var name = document.createElement("p"); name.className = "g-name"; name.textContent = String(g.name || g.title || g);
+        body.appendChild(name);
+        if (g.why){
+          var why = document.createElement("p"); why.className = "g-why"; why.textContent = String(g.why);
+          body.appendChild(why);
+        }
+        row.appendChild(mark); row.appendChild(body);
+        list.appendChild(row);
+      });
+      gapsWrap.classList.remove("hidden");
+    } else {
+      gapsWrap.classList.add("hidden");
+    }
+
+    if (seenShape){
+      $("bp-result-meta").textContent = "Shape recognized: " + seenShape;
+    } else {
+      $("bp-result-meta").textContent = "";
+    }
+    show("result");
+    if (window.dataLayer) window.dataLayer.push({ event: "blueprint_drawn", shape: seenShape || null });
+  }
+
+  function fail(msg){
+    show("input");
+    showErr(msg);
+    state.busy = false;
+    $("bp-go").disabled = false;
+  }
+
+  function draw(){
+    if (state.busy) return;
+    clearErr();
+    var text = $("bp-input").value.trim();
+    var wc = wordCount(text);
+    if (wc < 8){
+      showErr("Add a sentence about what happens after the lead arrives.");
+      $("bp-input").focus();
+      return;
+    }
+    state.busy = true;
+    $("bp-go").disabled = true;
+    show("loading");
+
+    var stepEl = $("bp-loading-steps");
+    var msgEl = $("bp-loading-msg");
+    var stepTimer = setTimeout(function(){
+      msgEl.textContent = "Recognizing the shape";
+      stepEl.textContent = "Matching what you wrote to a system pattern...";
+    }, 3500);
+    var drawTimer = setTimeout(function(){
+      msgEl.textContent = "Drawing the sketch";
+      stepEl.textContent = "Placing boxes and marking the gaps...";
+    }, 9000);
+
+    streamAsk(text)
+      .then(function(seen){
+        if (!seen.napkin){
+          clearTimeout(stepTimer); clearTimeout(drawTimer);
+          fail("Not enough to go on yet. Add a sentence about what happens after the lead arrives.");
+          return null;
+        }
+        return drawNapkin().then(function(data){
+          clearTimeout(stepTimer); clearTimeout(drawTimer);
+          renderResult(data, seen.shape);
+          state.busy = false;
+          $("bp-go").disabled = false;
+        });
+      })
+      .catch(function(e){
+        clearTimeout(stepTimer); clearTimeout(drawTimer);
+        fail("The blueprint engine didn't answer. Try again in a moment, or email seth@launchforte.com.");
+      });
+  }
+
+  function useSample(ev){
+    if (ev) ev.preventDefault();
+    $("bp-input").value = SAMPLE_TEXT;
+    updateCount();
+    clearErr();
+    $("bp-input").focus();
+  }
+
+  function restart(){
+    $("bp-input").value = "";
+    updateCount();
+    clearErr();
+    show("input");
+    setTimeout(function(){ $("bp-input").focus(); }, 100);
+  }
+
+  /* wire everything */
+  $("bp-input").addEventListener("input", updateCount);
+  $("bp-go").addEventListener("click", draw);
+  $("bp-sample-inline").addEventListener("click", useSample);
+  $("bp-restart").addEventListener("click", restart);
+  $("bp-input").addEventListener("keydown", function(e){
+    if ((e.metaKey || e.ctrlKey) && e.key === "Enter"){ e.preventDefault(); draw(); }
+  });
+  updateCount();
+})();
+</script>
+
+<script>
+/* Hero parallax + card cursor-follow (matches /demo/books interactive kit) */
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var illo = document.getElementById('heroIllo');
+  if (illo && !reduce){
+    var raf = null;
+    illo.addEventListener('mousemove', function(e){
+      var r = illo.getBoundingClientRect();
+      var tx = ((e.clientX - r.left) / r.width - .5) * 14;
+      var ty = ((e.clientY - r.top) / r.height - .5) * 14;
+      if (raf) return;
+      raf = requestAnimationFrame(function(){ illo.style.transform = 'translate(' + tx + 'px,' + ty + 'px)'; raf = null; });
+    });
+    illo.addEventListener('mouseleave', function(){ illo.style.transform = ''; });
+  }
+  document.querySelectorAll('.hiw-card, .preview-panel').forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+})();
+</script>
+
+<script>
+/* Ask pill: identical wiring to /demo/books */
+(function(){
+  var pill = document.getElementById('askPill');
+  var panel = document.getElementById('askPanel');
+  if (!pill || !panel) return;
+  pill.addEventListener('click', function(){
+    panel.classList.add('open'); pill.style.display = 'none';
+    panel.setAttribute('aria-hidden','false');
+    setTimeout(function(){ document.getElementById('askName').focus(); }, 250);
+  });
+  document.getElementById('askClose').addEventListener('click', function(){
+    panel.classList.remove('open'); panel.setAttribute('aria-hidden','true');
+    setTimeout(function(){ pill.style.display = ''; }, 250);
+  });
+  document.getElementById('askSend').addEventListener('click', function(){
+    var name  = (document.getElementById('askName').value  || '').trim();
+    var email = (document.getElementById('askEmail').value || '').trim();
+    var msg   = (document.getElementById('askMsg').value   || '').trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || msg.length < 3){
+      document.getElementById('askEmail').style.borderColor = '#C23B3B';
+      return;
+    }
+    var send = document.getElementById('askSend');
+    send.disabled = true; send.textContent = 'Sending...';
+    var payload = { name: name, email: email, message: msg, sourcePath: location.pathname };
+    var fallback = function(){
+      var body = encodeURIComponent('From: ' + (name || 'anonymous') + ' <' + email + '>\n\nPage: ' + location.href + '\n\n' + msg);
+      var subject = encodeURIComponent('Question from ' + location.pathname);
+      var a = document.createElement('a'); a.href = 'mailto:seth@launchforte.com?subject=' + subject + '&body=' + body; a.target = '_blank';
+      document.body.appendChild(a); a.click(); a.remove();
+    };
+    fetch('https://launchforte.app.n8n.cloud/webhook/ask-anything', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      .then(function(r){ if (!r.ok) throw new Error('http'); return r.json(); })
+      .then(function(){ panel.classList.add('sent'); })
+      .catch(function(){ fallback(); setTimeout(function(){ panel.classList.add('sent'); }, 300); });
+  });
+})();
+</script>
+
+<script src="/hamburger.js?v=q2j" defer></script>
+</body>
+</html>
