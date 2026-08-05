@@ -267,6 +267,19 @@ height:64px;opacity:.55}
 </div>
 </section>
 
+<section id="cockpit">
+<p class="eyebrow" id="cockpitToggle" style="cursor:pointer">Cockpit</p>
+<div class="card rail-gray client-sub" id="cockpitCollapsed">Paste a job posting to start a proposal -- click to expand.</div>
+<div id="cockpitBody" style="display:none">
+<div class="card stack">
+<div class="field"><textarea id="ck_post" placeholder="Paste the job posting or the client's own words here."></textarea></div>
+<div class="field"><input id="ck_company" placeholder="Client or company name (optional)"></div>
+<div class="btnrow"><button class="btn primary" id="ck_submit">Start the proposal</button></div>
+<div id="ck_result"></div>
+</div>
+</div>
+</section>
+
 <section id="board">
 <p class="eyebrow">Board</p>
 <div id="boardhost" class="stack"><div class="skel"></div></div>
@@ -869,6 +882,7 @@ var NOTE_URL = API_BASE + '/task-note';
 var CONSOLE_URL = API_BASE + '/console-turn';
 var VIDEO_SCRIPT_URL = API_BASE + '/video-script-now';
 var DEMAND_URL = API_BASE + '/demand-data';
+var COCKPIT_URL = API_BASE + '/cockpit-submit-754cf2072a1fa8eb684043f8';
 
 function showResult(hostId, ok, text){
 var host = $(hostId);
@@ -1015,6 +1029,40 @@ promptBtn.addEventListener('click', function(){
 var v = input.value.trim();
 if (!v){ input.focus(); return; }
 send({prompt: v});
+});
+}
+
+var cockpitExpanded = false;
+function wireCockpitToggle(){
+$('cockpitToggle').addEventListener('click', function(){
+cockpitExpanded = !cockpitExpanded;
+$('cockpitBody').style.display = cockpitExpanded ? '' : 'none';
+});
+}
+function wireCockpit(){
+var btn = $('ck_submit'), post = $('ck_post'), company = $('ck_company');
+btn.addEventListener('click', function(){
+var text = post.value.trim();
+var words = text.split(/\s+/).filter(Boolean).length;
+if (words < 40){
+showResult('ck_result', false, 'That is too short to work from. Paste the whole posting.');
+post.focus();
+return;
+}
+btn.disabled = true;
+postJSON(COCKPIT_URL, {job_post: text, company: company.value.trim(), source: 'command-center'}).then(function(res){
+if (res.status === 200){
+post.value = '';
+showResult('ck_result', true, 'Sent. The proposal is being built and will land in your inbox.');
+setTimeout(function(){ btn.disabled = false; }, 5000);
+} else {
+btn.disabled = false;
+showResult('ck_result', false, 'Could not send that. Try again.');
+}
+}).catch(function(){
+btn.disabled = false;
+showResult('ck_result', false, 'Could not send that. Try again.');
+});
 });
 }
 
@@ -1395,6 +1443,7 @@ wireQueueForm('r', 'r_job_id');
 wirePack();
 wireRed(); wireVideoRequest();
 wireVideoScript();
+wireCockpit(); wireCockpitToggle();
 wireConsole();
 wireClientFlip();
 wireDispatchFlip();
