@@ -2,7 +2,7 @@
    One component, two mounts: /ask (wrapped in Studio chrome) and the
    homepage Ask Forte section (inline, no second chrome).
    All rules scoped to .askf-* to avoid bleeding into the rest of the site.
-   Loaded on: /site/demo/blueprint/index.html (canonical /ask) and /site/index.html
+   Loaded on: /site/ask/index.html (canonical /ask/) and /site/index.html
    (homepage inline mount). */
 
 /* ---- Layout: chat column + spec-card rail. Rail collapses to inline chips on mobile. */

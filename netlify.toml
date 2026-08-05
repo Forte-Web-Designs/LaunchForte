@@ -5,12 +5,9 @@
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
-# Ask Forte alias 2026-07-28. /ask is the product's own address; canonical stays /demo/blueprint/.
-[[redirects]]
-  from = "/ask"
-  to = "/demo/blueprint/"
-  status = 301
-  force = true
+# Ask Forte moved 2026-08-05: /ask/ is now its own canonical home (the file
+# always called itself /ask internally). /demo/blueprint/ is a different
+# product now — The Blueprint, a one-shot map — no cross-redirect between them.
 
 # One Connected System retired 2026-07-28 per runbook. Homepage engine
 # section + /what-we-build now carry that story. Both URL forms redirected.
