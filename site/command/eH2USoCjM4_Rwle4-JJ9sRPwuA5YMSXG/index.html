@@ -276,6 +276,19 @@ height:64px;opacity:.55}
 </div>
 </section>
 
+<section id="clientcontext">
+<p class="eyebrow" id="clientcontextToggle" style="cursor:pointer">Client context <button class="flipbtn" id="clientcontextFlip" type="button">Expand</button></p>
+<div class="card rail-gray client-sub" id="clientcontextCollapsed" style="cursor:pointer">Paste an email, a call note, or a message to file it against a client -- click to expand.</div>
+<div id="clientcontextBody" style="display:none">
+<div class="card stack">
+<div class="field"><label for="cx_text">Paste it</label><textarea id="cx_text" rows="8" placeholder="Paste an email, a call note, a Slack message."></textarea></div>
+<div class="field"><label for="cx_hint">Hint</label><input id="cx_hint" placeholder="Any hint, for example this is the Koo project."></div>
+<div class="btnrow"><button class="btn primary" id="cx_read">Read it</button></div>
+<div id="cx_result"></div>
+</div>
+</div>
+</section>
+
 <div id="banners"></div>
 
 <p class="statusline" id="statusline"></p>
@@ -902,6 +915,8 @@ var CONSOLE_URL = API_BASE + '/console-turn';
 var VIDEO_SCRIPT_URL = API_BASE + '/video-script-now';
 var DEMAND_URL = API_BASE + '/demand-data';
 var COCKPIT_URL = API_BASE + '/cockpit-submit-754cf2072a1fa8eb684043f8';
+var PASTE_CONTEXT_URL = API_BASE + '/paste-context';
+var COMMIT_CONTEXT_URL = API_BASE + '/commit-context';
 
 function showResult(hostId, ok, text){
 var host = $(hostId);
@@ -1104,6 +1119,145 @@ btn.disabled = false;
 showResult('ck_result', false, 'Could not send that. Try again.');
 });
 });
+}
+
+/* ------------------------------------------------------------------ client context */
+var cxStagingId = null;
+
+function renderContextDiscarded(){
+var host = $('cx_result'); host.innerHTML = '';
+host.appendChild(el('div','card rail-gray client-sub','Discarded, nothing was written.'));
+}
+
+function renderContextCommitted(b){
+var host = $('cx_result'); host.innerHTML = '';
+var card = el('div','card stack rail-ok');
+card.appendChild(el('div','detail-title', 'Filed against ' + (b.client_name || 'client')));
+card.appendChild(el('div','client-sub', b.ledger_entry || ''));
+var tasks = b.tasks || [];
+var taskCount = b.task_count !== undefined && b.task_count !== null ? b.task_count : tasks.length;
+card.appendChild(el('div','dispatch-title', taskCount + ' task' + (taskCount === 1 ? '' : 's') + ' created'));
+tasks.forEach(function(t){
+card.appendChild(el('div','client-sub', (t && t.title) ? t.title : String(t)));
+});
+host.appendChild(card);
+}
+
+function renderContextReview(body){
+var host = $('cx_result'); host.innerHTML = '';
+cxStagingId = body.staging_id;
+var card = el('div','card stack rail-brand');
+
+function row(k, v){
+if (v === null || v === undefined || v === '') return;
+var r = el('div','detail-row');
+r.appendChild(el('div','k', k));
+r.appendChild(el('div','v', String(v)));
+card.appendChild(r);
+}
+row('Proposed client', body.proposed_client);
+row('Proposed slug', body.proposed_slug);
+row('Confidence', body.confidence);
+row('Why this client', body.why_this_client);
+row('Kind', body.kind);
+row('Summary', body.summary);
+
+card.appendChild(el('div','dispatch-title','What goes in the record'));
+card.appendChild(el('div','client-sub', body.ledger_entry || '—'));
+
+var tasks = [];
+if (body.proposed_tasks){
+try { tasks = JSON.parse(body.proposed_tasks); } catch(e){ tasks = []; }
+}
+if (tasks && tasks.length){
+card.appendChild(el('div','dispatch-title','Proposed tasks'));
+tasks.forEach(function(t){
+card.appendChild(el('div',null, (t && t.title) ? t.title : String(t)));
+if (t && t.why) card.appendChild(el('div','client-sub', t.why));
+});
+}
+
+var oq = (body.open_questions || '').split('|').map(function(s){ return s.trim(); }).filter(Boolean);
+if (oq.length){
+card.appendChild(el('div','dispatch-title','Open questions'));
+oq.forEach(function(q){ card.appendChild(el('div','client-sub', '• ' + q)); });
+}
+
+var slugField = el('div','field');
+var slugLabel = el('label', null, 'Client'); slugLabel.setAttribute('for','cx_slug');
+var slugInput = el('input'); slugInput.id = 'cx_slug'; slugInput.value = body.proposed_slug || '';
+slugField.appendChild(slugLabel); slugField.appendChild(slugInput);
+card.appendChild(slugField);
+
+var btnrow = el('div','btnrow');
+var fileBtn = el('button','btn primary','File it'); fileBtn.type = 'button';
+var discardBtn = el('button','btn danger','Discard'); discardBtn.type = 'button';
+btnrow.appendChild(fileBtn); btnrow.appendChild(discardBtn);
+card.appendChild(btnrow);
+
+var errBox = el('div');
+card.appendChild(errBox);
+
+function commit(approve){
+fileBtn.disabled = true; discardBtn.disabled = true;
+errBox.innerHTML = '';
+postJSON(COMMIT_CONTEXT_URL, {staging_id: cxStagingId, approve: approve, slug: slugInput.value.trim()})
+.then(function(res){
+var b = res.body || {};
+if (b.ok === true && b.action === 'committed'){
+renderContextCommitted(b);
+} else if (b.ok === true && b.action === 'rejected'){
+renderContextDiscarded();
+} else {
+fileBtn.disabled = false; discardBtn.disabled = false;
+errBox.appendChild(el('div','resultbox err', b.error || JSON.stringify(b)));
+}
+}).catch(function(e){
+fileBtn.disabled = false; discardBtn.disabled = false;
+errBox.appendChild(el('div','resultbox err', 'Request failed: ' + e.message));
+});
+}
+fileBtn.addEventListener('click', function(){ commit(true); });
+discardBtn.addEventListener('click', function(){ commit(false); });
+
+host.appendChild(card);
+}
+
+function wireClientContext(){
+var readBtn = $('cx_read');
+readBtn.addEventListener('click', function(){
+var text = $('cx_text').value.trim();
+var hint = $('cx_hint').value.trim();
+if (!text){ $('cx_text').focus(); return; }
+$('cx_result').innerHTML = '';
+readBtn.disabled = true;
+readBtn.textContent = 'Reading';
+postJSON(PASTE_CONTEXT_URL, {text: text, hint: hint}).then(function(res){
+readBtn.disabled = false;
+readBtn.textContent = 'Read it';
+var b = res.body || {};
+if (b.ok === true){
+renderContextReview(b);
+} else {
+showResult('cx_result', false, b.error || JSON.stringify(b));
+}
+}).catch(function(e){
+readBtn.disabled = false;
+readBtn.textContent = 'Read it';
+showResult('cx_result', false, 'Request failed: ' + e.message);
+});
+});
+}
+
+var clientcontextExpanded = false;
+function wireClientContextToggle(){
+function toggle(){
+clientcontextExpanded = !clientcontextExpanded;
+$('clientcontextBody').style.display = clientcontextExpanded ? '' : 'none';
+$('clientcontextFlip').textContent = clientcontextExpanded ? 'Collapse' : 'Expand';
+}
+$('clientcontextToggle').addEventListener('click', toggle);
+$('clientcontextCollapsed').addEventListener('click', toggle);
 }
 
 /* ------------------------------------------------------------------ console */
@@ -1487,6 +1641,7 @@ wirePack();
 wireRed(); wireVideoRequest();
 wireVideoScript(); wireVideoscriptToggle();
 wireCockpit(); wireCockpitToggle();
+wireClientContext(); wireClientContextToggle();
 wireConsole();
 wireClientFlip();
 wireDispatchFlip();
