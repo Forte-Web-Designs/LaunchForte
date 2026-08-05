@@ -253,6 +253,29 @@ height:64px;opacity:.55}
 <div class="asof"><span class="dot" id="dot"></span><span id="asof">loading</span></div>
 </header>
 
+<section id="console">
+<p class="eyebrow">Console <button class="flipbtn" id="consoleFlip" type="button">Hide</button></p>
+<div id="consoleBody">
+<div class="console-shell card">
+<div class="console-top">
+<input id="c_client_search" placeholder="Search clients…" style="flex:1;font:inherit;font-size:13.5px;padding:8px 10px;border-radius:10px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink)">
+<select id="c_client"><option value="">Pick a client first…</option></select>
+</div>
+<div class="console-log" id="c_log"><div class="console-empty" id="c_empty">Pick a client above, then ask about status, tasks, or history.</div></div>
+<div class="console-imgprev" id="c_imgprev">
+<img id="c_imgprev_img" alt="pasted image">
+<span>image attached</span>
+<span class="rm" id="c_imgprev_rm">remove</span>
+</div>
+<div class="console-composer">
+<textarea id="c_input" rows="1" placeholder="Pick a client, then ask…" disabled></textarea>
+<button id="c_send" disabled>&#8593;</button>
+</div>
+</div>
+<div class="gap-flag">Server-side gap: console-turn requires a client_slug on every call -- there's no "whole book" / all-clients mode yet, so this is one conversation per client, not one thread across the book. Image paste posts an image_base64 field speculatively; I haven't confirmed the flow reads it, so treat attachments as best-effort until that's verified server-side. READ/DO/done compact-line styling is a pattern guess -- I never saw the model emit those markers live, so it only activates if a reply line happens to start with those words.</div>
+</div>
+</section>
+
 <div id="banners"></div>
 
 <p class="statusline" id="statusline"></p>
@@ -392,29 +415,6 @@ height:64px;opacity:.55}
 </div>
 </section>
 
-<section id="console">
-<p class="eyebrow">Console <button class="flipbtn" id="consoleFlip" type="button">Show all</button></p>
-<div id="consoleBody" style="display:none">
-<div class="console-shell card">
-<div class="console-top">
-<input id="c_client_search" placeholder="Search clients…" style="flex:1;font:inherit;font-size:13.5px;padding:8px 10px;border-radius:10px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink)">
-<select id="c_client"><option value="">Pick a client first…</option></select>
-</div>
-<div class="console-log" id="c_log"><div class="console-empty" id="c_empty">Pick a client above, then ask about status, tasks, or history.</div></div>
-<div class="console-imgprev" id="c_imgprev">
-<img id="c_imgprev_img" alt="pasted image">
-<span>image attached</span>
-<span class="rm" id="c_imgprev_rm">remove</span>
-</div>
-<div class="console-composer">
-<textarea id="c_input" rows="1" placeholder="Pick a client, then ask…" disabled></textarea>
-<button id="c_send" disabled>&#8593;</button>
-</div>
-</div>
-<div class="gap-flag">Server-side gap: console-turn requires a client_slug on every call -- there's no "whole book" / all-clients mode yet, so this is one conversation per client, not one thread across the book. Image paste posts an image_base64 field speculatively; I haven't confirmed the flow reads it, so treat attachments as best-effort until that's verified server-side. READ/DO/done compact-line styling is a pattern guess -- I never saw the model emit those markers live, so it only activates if a reply line happens to start with those words.</div>
-</div>
-</section>
-
 <section id="demand">
 <p class="eyebrow" id="demandToggle" style="cursor:pointer">Demand <button class="flipbtn" id="demandFlip" type="button">Expand</button></p>
 <div class="card rail-gray client-sub" id="demandCollapsed" style="cursor:pointer">Loading demand data…</div>
@@ -459,11 +459,12 @@ doesn't push Board/Reports/Dispatch below the fold; the existing Show all
 button expands it (and, as before, also flips active-only vs every status). */
 var clientsExpanded = false;
 
-/* Dispatch and Console are the two heaviest static sections on the page --
-collapsed by default behind the same flip-button shape Clients uses, since
-neither is read at a glance the way Board/Reports are. */
+/* Dispatch is one of the heaviest static sections on the page -- collapsed
+by default behind the same flip-button shape Clients uses, since it isn't
+read at a glance the way Board/Reports are. Console sits at the top of the
+page and stays expanded by default so it's usable with no click. */
 var dispatchExpanded = false;
-var consoleExpanded = false;
+var consoleExpanded = true;
 
 var $ = function(id){ return document.getElementById(id); };
 function el(tag, cls, txt){
