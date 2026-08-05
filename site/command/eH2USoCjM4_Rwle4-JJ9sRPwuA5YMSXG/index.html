@@ -59,11 +59,14 @@ border:1px solid var(--line-strong);background:var(--card)}
 .banner.bad{border-color:var(--danger);color:var(--danger)}
 .banner.preview{border-color:var(--brand);color:var(--brand-ink);background:var(--brand-soft);font-weight:600}
 
-section{margin:30px 0 0}
-.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-color:var(--muted-2);font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:10px}
-.flipbtn{letter-spacing:.04em;text-transform:none;font-weight:700;font-size:11px;
-color:var(--brand-ink);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline}
+section{margin:0;padding:34px 0 0;border-top:1px solid var(--line)}
+section:first-of-type{padding-top:0;border-top:none}
+.eyebrow{font-size:20px;letter-spacing:-.01em;text-transform:none;
+color:var(--ink);font-weight:800;margin:6px 0 14px;display:flex;align-items:center;
+justify-content:space-between;gap:10px}
+.flipbtn{letter-spacing:.03em;text-transform:uppercase;font-weight:800;font-size:11px;
+color:var(--brand-ink);background:var(--brand-soft);border:none;cursor:pointer;
+padding:6px 13px;border-radius:999px;text-decoration:none;flex:none;white-space:nowrap}
 .flipbtn:hover{opacity:.8}
 
 .card{position:relative;background:var(--card);border:1px solid var(--line);
@@ -217,7 +220,7 @@ height:64px;opacity:.55}
 </header>
 
 <section id="clientcontext">
-<p class="eyebrow" id="clientcontextToggle" style="cursor:pointer">Client context <button class="flipbtn" id="clientcontextFlip" type="button">Collapse</button></p>
+<p class="eyebrow" id="clientcontextToggle" style="cursor:pointer">Client context <button class="flipbtn" id="clientcontextFlip" type="button">Collapse &uarr;</button></p>
 <p class="client-sub" style="margin:0 0 14px">Paste an email, a call note, or anything you want me to know. I work out where it belongs.</p>
 <div id="clientcontextBody">
 <div class="card stack">
@@ -234,8 +237,8 @@ height:64px;opacity:.55}
 <p class="statusline" id="statusline"></p>
 
 <section id="videoscript">
-<p class="eyebrow" id="videoscriptToggle" style="cursor:pointer">Video script <button class="flipbtn" id="videoscriptFlip" type="button">Expand</button></p>
-<div class="card rail-gray client-sub" id="videoscriptCollapsed" style="cursor:pointer">Get a script pack or turn a prompt into a script -- click to expand.</div>
+<p class="eyebrow" id="videoscriptToggle" style="cursor:pointer">Video script <button class="flipbtn" id="videoscriptFlip" type="button">Expand &darr;</button></p>
+<div class="card rail-gray client-sub" id="videoscriptCollapsed" style="cursor:pointer">Get a script pack or turn a prompt into a script.</div>
 <div id="videoscriptBody" style="display:none">
 <div class="card stack">
 <div class="btnrow"><button class="btn primary" id="vs_pack_btn">Send me a script pack</button></div>
@@ -247,8 +250,8 @@ height:64px;opacity:.55}
 </section>
 
 <section id="cockpit">
-<p class="eyebrow" id="cockpitToggle" style="cursor:pointer">Cockpit <button class="flipbtn" id="cockpitFlip" type="button">Expand</button></p>
-<div class="card rail-gray client-sub" id="cockpitCollapsed" style="cursor:pointer">Paste a job posting to start a proposal -- click to expand.</div>
+<p class="eyebrow" id="cockpitToggle" style="cursor:pointer">Cockpit <button class="flipbtn" id="cockpitFlip" type="button">Expand &darr;</button></p>
+<div class="card rail-gray client-sub" id="cockpitCollapsed" style="cursor:pointer">Paste a job posting and it drafts the proposal, the pack and the PDF.</div>
 <div id="cockpitBody" style="display:none">
 <div class="card stack">
 <div class="field">
@@ -290,8 +293,8 @@ height:64px;opacity:.55}
 </section>
 
 <section id="reports">
-<p class="eyebrow" id="reportsToggle" style="cursor:pointer">Latest reports <button class="flipbtn" id="reportsFlip" type="button">Expand</button></p>
-<div class="card rail-gray client-sub" id="reportsCollapsed" style="cursor:pointer">See the latest report cards and full history -- click to expand.</div>
+<p class="eyebrow" id="reportsToggle" style="cursor:pointer">Latest reports <button class="flipbtn" id="reportsFlip" type="button">Expand &darr;</button></p>
+<div class="card rail-gray client-sub" id="reportsCollapsed" style="cursor:pointer">See the latest report cards and full history.</div>
 <div id="reportsBody" style="display:none">
 <div id="reportlist" class="stack"><div class="skel"></div></div>
 <button class="history-toggle" id="historyToggle" type="button">Show full history &darr;</button>
@@ -372,7 +375,7 @@ height:64px;opacity:.55}
 </section>
 
 <section id="demand">
-<p class="eyebrow" id="demandToggle" style="cursor:pointer">Demand <button class="flipbtn" id="demandFlip" type="button">Expand</button></p>
+<p class="eyebrow" id="demandToggle" style="cursor:pointer">Demand <button class="flipbtn" id="demandFlip" type="button">Expand &darr;</button></p>
 <div class="card rail-gray client-sub" id="demandCollapsed" style="cursor:pointer">Loading demand data…</div>
 <div id="demandBody" style="display:none"></div>
 </section>
@@ -1012,7 +1015,8 @@ function wireVideoscriptToggle(){
 function toggle(){
 videoscriptExpanded = !videoscriptExpanded;
 $('videoscriptBody').style.display = videoscriptExpanded ? '' : 'none';
-$('videoscriptFlip').textContent = videoscriptExpanded ? 'Collapse' : 'Expand';
+$('videoscriptCollapsed').style.display = videoscriptExpanded ? 'none' : '';
+$('videoscriptFlip').textContent = videoscriptExpanded ? 'Collapse ↑' : 'Expand ↓';
 }
 $('videoscriptToggle').addEventListener('click', toggle);
 $('videoscriptCollapsed').addEventListener('click', toggle);
@@ -1023,7 +1027,8 @@ function wireReportsToggle(){
 function toggle(){
 reportsExpanded = !reportsExpanded;
 $('reportsBody').style.display = reportsExpanded ? '' : 'none';
-$('reportsFlip').textContent = reportsExpanded ? 'Collapse' : 'Expand';
+$('reportsCollapsed').style.display = reportsExpanded ? 'none' : '';
+$('reportsFlip').textContent = reportsExpanded ? 'Collapse ↑' : 'Expand ↓';
 }
 $('reportsToggle').addEventListener('click', toggle);
 $('reportsCollapsed').addEventListener('click', toggle);
@@ -1034,7 +1039,8 @@ function wireCockpitToggle(){
 function toggle(){
 cockpitExpanded = !cockpitExpanded;
 $('cockpitBody').style.display = cockpitExpanded ? '' : 'none';
-$('cockpitFlip').textContent = cockpitExpanded ? 'Collapse' : 'Expand';
+$('cockpitCollapsed').style.display = cockpitExpanded ? 'none' : '';
+$('cockpitFlip').textContent = cockpitExpanded ? 'Collapse ↑' : 'Expand ↓';
 }
 $('cockpitToggle').addEventListener('click', toggle);
 $('cockpitCollapsed').addEventListener('click', toggle);
@@ -1202,7 +1208,7 @@ function wireClientContextToggle(){
 function toggle(){
 clientcontextExpanded = !clientcontextExpanded;
 $('clientcontextBody').style.display = clientcontextExpanded ? '' : 'none';
-$('clientcontextFlip').textContent = clientcontextExpanded ? 'Collapse' : 'Expand';
+$('clientcontextFlip').textContent = clientcontextExpanded ? 'Collapse ↑' : 'Expand ↓';
 }
 $('clientcontextToggle').addEventListener('click', toggle);
 }
@@ -1310,7 +1316,8 @@ function toggle(){
 if (!demandLoaded) return;
 demandExpanded = !demandExpanded;
 $('demandBody').style.display = demandExpanded ? '' : 'none';
-$('demandFlip').textContent = demandExpanded ? 'Collapse' : 'Expand';
+$('demandCollapsed').style.display = demandExpanded ? 'none' : '';
+$('demandFlip').textContent = demandExpanded ? 'Collapse ↑' : 'Expand ↓';
 }
 $('demandToggle').addEventListener('click', toggle);
 $('demandCollapsed').addEventListener('click', toggle);
