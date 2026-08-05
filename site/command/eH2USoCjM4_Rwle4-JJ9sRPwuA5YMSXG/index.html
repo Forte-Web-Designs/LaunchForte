@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A1220" media="(prefers-color-scheme: dark)">
+<title>Command</title>
+<link rel="icon" href="data:,">
+<style>
+:root{
+--brand:#0088DB; --brand-soft:#E6F2FA; --brand-ink:#075A8F;
+--ok:#1E7A4F; --warn:#B4541B; --danger:#C23B3B; --gray:#8892A0;
+--bg:#F5F7FA; --card:#FFFFFF; --ink:#0B1220; --muted:#5A6472; --muted-2:#8892A0;
+--line:#E4E8EE; --line-strong:#D5DBE3;
+--radius:16px; --radius-lg:22px;
+--shadow:0 1px 2px rgba(20,25,34,.05),0 8px 24px rgba(20,25,34,.06);
+--font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+--pad:16px;
+}
+@media (prefers-color-scheme: dark){
+:root{
+--bg:#0A1220; --card:#111C33; --ink:#E7EDF5; --muted:#93A1B5; --muted-2:#6E7F96;
+--line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.14);
+--brand:#4AB5ED; --brand-soft:rgba(74,181,237,.10); --brand-ink:#9AD4F7;
+--ok:#3FBF85; --warn:#E08A45; --danger:#E86A6A; --gray:#7C8CA3;
+--shadow:0 1px 2px rgba(0,0,0,.45),0 10px 30px rgba(0,0,0,.35);
+}
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+background:var(--bg); color:var(--ink); font-family:var(--font);
+font-size:16px; line-height:1.45; -webkit-font-smoothing:antialiased;
+padding:0 var(--pad) 64px; padding-bottom:calc(64px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:1120px;margin:0 auto}
+.num{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.mono{font-family:var(--mono);font-size:12px}
+a{color:var(--brand-ink);text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
+
+header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+padding:22px 0 14px;position:sticky;top:0;background:var(--bg);z-index:20;
+border-bottom:1px solid var(--line)}
+.mark{font-weight:800;letter-spacing:-.03em;font-size:19px}
+.mark span{color:var(--brand)}
+.asof{font-size:12px;color:var(--muted-2);display:flex;align-items:center;gap:7px;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
+.dot.stale{background:var(--warn)} .dot.down{background:var(--danger)}
+
+.statusline{margin:14px 0 0;font-size:13px;color:var(--muted);font-weight:600}
+
+.banner{margin:14px 0;padding:12px 14px;border-radius:12px;font-size:14px;
+border:1px solid var(--line-strong);background:var(--card)}
+.banner.bad{border-color:var(--danger);color:var(--danger)}
+.banner.preview{border-color:var(--brand);color:var(--brand-ink);background:var(--brand-soft);font-weight:600}
+
+section{margin:30px 0 0}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+color:var(--muted-2);font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.flipbtn{letter-spacing:.04em;text-transform:none;font-weight:700;font-size:11px;
+color:var(--brand-ink);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline}
+.flipbtn:hover{opacity:.8}
+
+.card{position:relative;background:var(--card);border:1px solid var(--line);
+border-radius:var(--radius);padding:15px 16px 15px 19px;box-shadow:var(--shadow);
+overflow:hidden;--rail:var(--gray)}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--rail)}
+.rail-ok{--rail:var(--ok)} .rail-warn{--rail:var(--warn)}
+.rail-bad{--rail:var(--danger)} .rail-gray{--rail:var(--gray)} .rail-brand{--rail:var(--brand)}
+.stack{display:grid;gap:10px}
+.card.clickable{cursor:pointer}
+.card.clickable:hover{border-color:var(--brand)}
+
+/* money strip */
+.money-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 8px}
+.metric .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);font-weight:600}
+.metric .v{font-size:19px;font-weight:700;margin-top:1px}
+.metric .v.neg{color:var(--danger)}
+
+/* client rows */
+.client-head{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.client-name{font-weight:700;letter-spacing:-.01em;font-size:15px}
+.tag{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.tag.active{color:var(--ok)} .tag.paused{color:var(--warn)} .tag.gray{color:var(--muted-2)}
+.client-sub{color:var(--muted);font-size:13.5px;margin-top:6px}
+.owed{display:inline-flex;align-items:center;gap:5px;margin-top:7px;font-size:12.5px;color:var(--muted-2)}
+.owed .n{color:var(--warn);font-weight:700}
+.owed.overdue .n{color:var(--danger)}
+.doorbell-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;
+letter-spacing:.04em;text-transform:uppercase;color:var(--brand-ink);background:var(--brand-soft);
+padding:3px 9px;border-radius:999px;cursor:default}
+.doorbell-badge.blocked{color:var(--danger);background:transparent;border:1px solid var(--danger)}
+
+/* reports */
+.report-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.report-subject{font-weight:600;font-size:14px}
+.report-meta{color:var(--muted-2);font-size:12px}
+
+.allclear{padding:36px 22px;text-align:center;background:var(--card);
+border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+.allclear .big{font-size:clamp(20px,6vw,28px);font-weight:800;letter-spacing:-.03em}
+.allclear .sub{margin-top:10px;color:var(--muted-2);font-size:13px}
+
+/* board */
+.board-cols{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:760px){.board-cols{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}}
+.board-col{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+padding:12px;box-shadow:var(--shadow)}
+.board-col-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.board-col-title{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--muted-2)}
+.board-col-count{font-size:11px;color:var(--muted-2);font-weight:700}
+.board-col-cards{display:grid;gap:8px}
+.taskcard{background:var(--bg);border:1px solid var(--line-strong);border-radius:12px;
+padding:7px 9px;cursor:pointer;font-size:13.5px}
+.taskcard:hover{border-color:var(--brand)}
+.taskcard .t-client{font-size:11px;font-weight:700;letter-spacing:.01em;color:var(--muted-2);margin-bottom:2px}
+.taskcard .t-title{font-weight:650;letter-spacing:-.01em;line-height:1.3}
+.taskcard .t-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+#demandBody .t-chips{display:flex;flex-wrap:wrap;gap:6px 8px}
+.chip{font-size:10.5px;padding:1px 6px;border-radius:999px;background:var(--brand-soft);
+color:var(--brand-ink);font-weight:700;white-space:nowrap}
+.chip.cost{background:transparent;border:1px solid var(--line-strong);color:var(--muted)}
+.chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}
+.chip.access{background:transparent;border:1px solid var(--warn);color:var(--warn);text-transform:uppercase}
+.taskcard.empty{opacity:.5;font-style:italic;cursor:default;text-align:center;padding:14px 10px}
+.taskcard.needsme{border-left:4px solid var(--warn)}
+
+/* quick dispatch buttons on cards */
+.t-actions{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap;align-items:center}
+.qbtn{font:inherit;font-size:10.5px;font-weight:700;padding:4px 8px;border-radius:8px;
+border:1px solid var(--line-strong);background:var(--card);color:var(--ink);cursor:pointer}
+.qbtn:hover{border-color:var(--brand);color:var(--brand-ink)}
+.qbtn.qdanger{border-color:var(--danger);color:var(--danger)}
+.statussel{font:inherit;font-size:10.5px;font-weight:700;padding:4px 6px;border-radius:8px;
+border:1px solid var(--line-strong);background:var(--card);color:var(--ink);cursor:pointer}
+.statussel:disabled{opacity:.5;cursor:default}
+
+/* task detail overlay */
+.detail-overlay{position:fixed;inset:0;background:rgba(10,15,25,.5);z-index:50;
+display:flex;align-items:flex-end;justify-content:center}
+@media(min-width:640px){.detail-overlay{align-items:center}}
+.detail-overlay.hide{display:none}
+.detail-sheet{background:var(--card);border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+max-width:520px;width:100%;padding:22px;box-shadow:var(--shadow);max-height:80vh;overflow-y:auto}
+@media(min-width:640px){.detail-sheet{border-radius:var(--radius-lg)}}
+.detail-title{font-weight:800;font-size:17px;letter-spacing:-.01em;margin-bottom:14px}
+.detail-row{margin-bottom:12px}
+.detail-row .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);font-weight:700;margin-bottom:4px}
+.detail-row .v{font-size:14px}
+.detail-close{margin-top:16px;width:100%;padding:11px;border-radius:12px;border:1px solid var(--line-strong);
+background:transparent;color:var(--ink);font-weight:700;font-size:14px;cursor:pointer}
+.detail-action{margin-top:10px;width:100%;padding:11px;border-radius:12px;border:1px solid var(--brand);
+background:transparent;color:var(--brand-ink);font-weight:700;font-size:14px;cursor:pointer}
+
+/* dispatch */
+.dispatch-block{margin:0 0 20px}
+.dispatch-block:last-child{margin-bottom:0}
+.dispatch-title{font-weight:700;font-size:14px;margin:0 0 4px;letter-spacing:-.01em}
+.dispatch-help{font-size:12.5px;color:var(--muted-2);margin-bottom:12px;line-height:1.5}
+.field{display:grid;gap:5px;margin-bottom:10px}
+.field label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-2)}
+.field input,.field select,.field textarea{
+font:inherit;font-size:14px;padding:10px 11px;border-radius:10px;border:1px solid var(--line-strong);
+background:var(--bg);color:var(--ink);width:100%}
+.field textarea{min-height:88px;resize:vertical;font-family:var(--mono);font-size:12.5px}
+.field.readonly input{opacity:.6}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.btn{font:inherit;font-weight:700;font-size:13.5px;padding:11px 16px;border-radius:12px;
+border:1px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.danger{background:transparent;border-color:var(--danger);color:var(--danger)}
+.btn:disabled{opacity:.5;cursor:default}
+.resultbox{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--bg);
+border:1px solid var(--line-strong);font-family:var(--mono);font-size:11.5px;white-space:pre-wrap;
+word-break:break-word;max-height:200px;overflow-y:auto}
+.resultbox.ok{border-color:var(--ok)}
+.resultbox.err{border-color:var(--danger)}
+.confirm-box{border-color:var(--danger)!important}
+.confirm-box .step-action{color:var(--danger);font-weight:700}
+.field.flash{animation:flash 1.1s ease}
+@keyframes flash{0%{box-shadow:0 0 0 3px var(--brand)}100%{box-shadow:none}}
+
+/* history */
+.history-toggle{font-size:12.5px;font-weight:700;color:var(--brand-ink);background:none;border:none;
+cursor:pointer;padding:0;margin-bottom:12px}
+.history-list{display:none;gap:10px}
+.history-list.show{display:grid}
+.history-kind{font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--muted-2);margin-bottom:2px}
+
+.banner .retry{margin-left:8px;font-weight:700;text-decoration:underline;cursor:pointer;background:none;border:none;
+color:inherit;font:inherit;padding:0}
+
+footer{margin:40px 0 0;padding-top:18px;border-top:1px solid var(--line);
+color:var(--muted-2);font-size:12.5px}
+footer .note{line-height:1.6;margin-top:8px}
+
+.skel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+height:64px;opacity:.55}
+
+@media (prefers-reduced-motion: no-preference){
+.reveal{animation:rise .3s cubic-bezier(.22,.61,.36,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+<div class="mark">LAUNCH FORTE <span>COMMAND V2</span></div>
+<div class="asof"><span class="dot" id="dot"></span><span id="asof">loading</span></div>
+</header>
+
+<section id="clientcontext">
+<p class="eyebrow" id="clientcontextToggle" style="cursor:pointer">Client context <button class="flipbtn" id="clientcontextFlip" type="button">Collapse</button></p>
+<p class="client-sub" style="margin:0 0 14px">Paste an email, a call note, or anything you want me to know. I work out where it belongs.</p>
+<div id="clientcontextBody">
+<div class="card stack">
+<div class="field"><label for="cx_text">Paste it</label><textarea id="cx_text" rows="8" placeholder="Paste an email, a call note, a Slack message."></textarea></div>
+<div class="field"><label for="cx_hint">Hint</label><input id="cx_hint" placeholder="Any hint, for example this is the Koo project."></div>
+<div class="btnrow"><button class="btn primary" id="cx_read">Read it</button></div>
+<div id="cx_result"></div>
+</div>
+</div>
+</section>
+
+<div id="banners"></div>
+
+<p class="statusline" id="statusline"></p>
+
+<section id="videoscript">
+<p class="eyebrow" id="videoscriptToggle" style="cursor:pointer">Video script <button class="flipbtn" id="videoscriptFlip" type="button">Expand</button></p>
+<div class="card rail-gray client-sub" id="videoscriptCollapsed" style="cursor:pointer">Get a script pack or turn a prompt into a script -- click to expand.</div>
+<div id="videoscriptBody" style="display:none">
+<div class="card stack">
+<div class="btnrow"><button class="btn primary" id="vs_pack_btn">Send me a script pack</button></div>
+<div class="field"><input id="vs_prompt" placeholder="Or describe the video you want..."></div>
+<div class="btnrow"><button class="btn primary" id="vs_prompt_btn">Turn this into a script</button></div>
+<div id="vs_result"></div>
+</div>
+</div>
+</section>
+
+<section id="cockpit">
+<p class="eyebrow" id="cockpitToggle" style="cursor:pointer">Cockpit <button class="flipbtn" id="cockpitFlip" type="button">Expand</button></p>
+<div class="card rail-gray client-sub" id="cockpitCollapsed" style="cursor:pointer">Paste a job posting to start a proposal -- click to expand.</div>
+<div id="cockpitBody" style="display:none">
+<div class="card stack">
+<div class="field">
+<label for="ck_channel">Channel</label>
+<select id="ck_channel">
+<option value="Upwork">Upwork</option>
+<option value="External client">External client</option>
+</select>
+<div class="client-sub">Upwork signs as Seth Forte with no links. External allows Launch Forte and a booking link.</div>
+</div>
+<div class="field">
+<label for="ck_uid">Upwork job ID</label>
+<input id="ck_uid" placeholder="optional, from the JOBS tab">
+<div class="client-sub">Pulls the judge's angle and buyer snapshot as context.</div>
+</div>
+<div class="field"><label for="ck_post">Job post</label><textarea id="ck_post" placeholder="Paste the whole posting."></textarea></div>
+<div class="field"><label for="ck_company">Company</label><input id="ck_company" placeholder="optional"></div>
+<div class="field"><label for="ck_notes">Notes for the draft</label><input id="ck_notes" placeholder="optional, anything the post does not say"></div>
+<div class="btnrow"><button class="btn primary" id="ck_submit">Draft it</button></div>
+<div class="client-sub">Usually about two minutes. You can close this page, the package also lands in your inbox.</div>
+<div id="ck_result"></div>
+</div>
+</div>
+</section>
+
+<section id="board">
+<p class="eyebrow">Board</p>
+<div id="boardhost" class="stack"><div class="skel"></div></div>
+</section>
+
+<section id="money">
+<p class="eyebrow">Money</p>
+<div id="moneybox" class="card stack"><div class="skel"></div></div>
+</section>
+
+<section id="clients"><div class="field" style="margin:0 0 12px"><input id="client_search" placeholder="Search clients by name or ID..."></div>
+<p class="eyebrow">Clients<span id="clientCount"></span> <button class="flipbtn" id="clientFlip" type="button">Show all</button></p>
+<div id="clientlist" class="stack"><div class="skel"></div><div class="skel"></div></div>
+</section>
+
+<section id="reports">
+<p class="eyebrow" id="reportsToggle" style="cursor:pointer">Latest reports <button class="flipbtn" id="reportsFlip" type="button">Expand</button></p>
+<div class="card rail-gray client-sub" id="reportsCollapsed" style="cursor:pointer">See the latest report cards and full history -- click to expand.</div>
+<div id="reportsBody" style="display:none">
+<div id="reportlist" class="stack"><div class="skel"></div></div>
+<button class="history-toggle" id="historyToggle" type="button">Show full history &darr;</button>
+<div id="historylist" class="history-list stack"></div>
+</div>
+</section>
+
+<section id="dispatch">
+<p class="eyebrow">Dispatch<span id="dispatchCount"></span> <button class="flipbtn" id="dispatchFlip" type="button">Show all</button></p>
+<div class="card rail-gray client-sub" id="dispatchCollapsed"></div>
+<div id="dispatchBody" style="display:none">
+
+<div class="dispatch-block card">
+<div class="dispatch-title">Queue</div>
+<div class="dispatch-help">Posts straight to build-enqueue. Autonomy is locked to green -- the endpoint refuses anything else.</div>
+<div class="field"><label>Job ID</label><input id="q_job_id" placeholder="e.g. site-copy-fix-2026-07-31"></div>
+<div class="field"><label>Title</label><input id="q_title" placeholder="Short human title"></div>
+<div class="field"><label>Job class</label>
+<select id="q_job_class">
+<option value="doc_update">doc_update</option>
+<option value="site_pass">site_pass</option>
+<option value="generator">generator</option>
+<option value="export">export</option>
+</select></div>
+<div class="field"><label>Repo</label>
+<select id="q_repo">
+<option value="launchforte">launchforte</option>
+<option value="sethfortewebsite">sethfortewebsite</option>
+<option value="meh-site">meh-site</option>
+</select></div>
+<div class="field"><label>Prompt</label><textarea id="q_prompt" placeholder="Full prompt, name the endpoint contracts verbatim if this touches the flows"></textarea></div>
+<div class="field readonly"><label>Autonomy</label><input value="green" disabled></div>
+<div class="btnrow"><button class="btn primary" id="q_submit">Queue it</button></div>
+<div id="q_result"></div>
+</div>
+
+<div class="dispatch-block card">
+<div class="dispatch-title">Resume a stalled job</div>
+<div class="dispatch-help">The dashboard doesn't have the original prompt on hand (dashboard-snapshot doesn't return it), so this isn't a one-click re-queue yet -- it's the same Queue form, framed for picking a job back up. Give it a fresh job_id (the endpoint rejects duplicates) and note which job it's resuming in the prompt.</div>
+<div class="field"><label>Resuming job ID (for reference)</label><input id="r_ref_id" placeholder="the stalled job's id"></div>
+<div class="field"><label>New job ID</label><input id="r_job_id" placeholder="e.g. old-id-retry"></div>
+<div class="field"><label>Title</label><input id="r_title"></div>
+<div class="field"><label>Job class</label>
+<select id="r_job_class">
+<option value="doc_update">doc_update</option>
+<option value="site_pass">site_pass</option>
+<option value="generator">generator</option>
+<option value="export">export</option>
+</select></div>
+<div class="field"><label>Repo</label>
+<select id="r_repo">
+<option value="launchforte">launchforte</option>
+<option value="sethfortewebsite">sethfortewebsite</option>
+<option value="meh-site">meh-site</option>
+</select></div>
+<div class="field"><label>Prompt</label><textarea id="r_prompt" placeholder="Scope it smaller than the original attempt if it stalled on size"></textarea></div>
+<div class="btnrow"><button class="btn primary" id="r_submit">Resume</button></div>
+<div id="r_result"></div>
+</div>
+
+<div class="dispatch-block card">
+<div class="dispatch-title">Pack</div>
+<div class="dispatch-help">Pulls a task's boot pack and copies it to your clipboard.</div>
+<div class="field"><label>Task ID</label><input id="p_task_id" placeholder="e.g. task-test-1"></div>
+<div class="btnrow"><button class="btn primary" id="p_submit">Paste into a fresh session: ten seconds</button></div>
+<div id="p_result"></div>
+</div>
+
+<div class="dispatch-block card">
+<div class="dispatch-title">Red action</div>
+<div class="dispatch-help">Records a go on something high-stakes. This does not execute anything itself -- it only logs that you said go.</div>
+<div class="field"><label>Task ID</label><input id="red_task_id" placeholder="which task this is about"></div>
+<div class="field"><label>What are you confirming</label><textarea id="red_note" placeholder="describe the action being confirmed"></textarea></div>
+<div class="btnrow"><button class="btn danger" id="red_open">Confirm a red action</button></div>
+<div id="red_result"></div></div><div class="dispatch-block card"><div class="dispatch-title">Request a new video</div><div class="dispatch-help">Logs a video request against a client, or against your own channel if it's not for a client. This does not queue a Video Engine run itself -- it records the ask so it surfaces in the client's notes/brief (personal asks land in a dedicated internal log instead).</div><div class="field"><label style="display:flex;align-items:center;gap:7px;text-transform:none;letter-spacing:0;font-size:13.5px;color:var(--ink);font-weight:500"><input type="checkbox" id="v_personal" style="width:auto"> Not for a client -- this is for my own channel</label></div><div class="field" id="v_client_slug_field"><label>Client slug</label><input id="v_client_slug" list="v_client_datalist" placeholder="start typing a client name or slug…"><datalist id="v_client_datalist"></datalist></div><div class="field"><label>What the video is about</label><textarea id="v_note" placeholder="describe the ask -- product, angle, deadline if any"></textarea></div><div class="btnrow"><button class="btn primary" id="v_submit">Request video</button></div><div id="v_result"></div></div>
+
+</div>
+</section>
+
+<section id="demand">
+<p class="eyebrow" id="demandToggle" style="cursor:pointer">Demand <button class="flipbtn" id="demandFlip" type="button">Expand</button></p>
+<div class="card rail-gray client-sub" id="demandCollapsed" style="cursor:pointer">Loading demand data…</div>
+<div id="demandBody" style="display:none"></div>
+</section>
+
+<footer>
+<div id="refreshline">Waiting for the first refresh.</div>
+<div class="note">Command Center v2 -- paste anything above, I'll work out the client.</div>
+</footer>
+
+</div>
+
+<div class="detail-overlay hide" id="detailOverlay">
+<div class="detail-sheet" id="detailSheet"></div>
+</div>
+
+<div class="detail-overlay hide" id="redOverlay">
+<div class="detail-sheet" id="redSheet"></div>
+</div>
+
+<script>
+/* ------------------------------------------------------------------ config */
+var API_BASE = 'https://launchforte.app.n8n.cloud/webhook';
+var SNAPSHOT_URL = API_BASE + '/dashboard-snapshot';
+/* Constants node placeholder: no dashboard API token is enforced server-side
+yet (Ops: Dashboard API's guard is still the __SET_BY_SETH__ placeholder,
+observation only). Once enforcement lands, set this string and it ships as
+a header on every call below -- the page already sits behind the path
+token, so shipping it in public JS is acceptable for house data only. */
+var DASHBOARD_API_TOKEN = '';
+var POLL_MS = 5 * 60 * 1000;
+
+/* Operator Contract 15.5: active-only default view. Dashboard shows only
+status === 'active' clients (and their board columns) by default; the flip
+button toggles to show paused/dormant/unknown too. State is in-memory only
+(resets to active-only on reload), matching "default view" intent. */
+var showAllClients = false;
+
+/* Clients list is collapsed to a count by default so the sixty-plus roster
+doesn't push Board/Reports/Dispatch below the fold; the existing Show all
+button expands it (and, as before, also flips active-only vs every status). */
+var clientsExpanded = false;
+
+/* Dispatch is one of the heaviest static sections on the page -- collapsed
+by default behind the same flip-button shape Clients uses, since it isn't
+read at a glance the way Board/Reports are. Client context sits at the top of
+the page and stays expanded by default so it's usable with no click. */
+var dispatchExpanded = false;
+
+var $ = function(id){ return document.getElementById(id); };
+function el(tag, cls, txt){
+var n = document.createElement(tag);
+if (cls) n.className = cls;
+if (txt !== undefined && txt !== null) n.textContent = txt;
+return n;
+}
+function num(v, dp){
+if (v === null || v === undefined || isNaN(v)) return null;
+return Number(v).toLocaleString('en-US', {maximumFractionDigits: dp === undefined ? 0 : dp, minimumFractionDigits: dp === undefined ? 0 : dp});
+}
+function money(v){
+var n = num(v, 0);
+return n === null ? '—' : '$' + n;
+}
+function shortTime(iso){
+if (!iso) return 'unknown';
+var d = new Date(iso);
+if (isNaN(d)) return 'unknown';
+return d.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+}
+
+/* ------------------------------------------------------------------ render */
+function metric(k, v, neg){
+var w = el('div','metric');
+w.appendChild(el('div','k',k));
+w.appendChild(el('div', 'v num' + (neg ? ' neg' : ''), v));
+return w;
+}
+function renderMoney(m){
+var host = $('moneybox'); host.className = 'card money-grid reveal'; host.innerHTML = '';
+if (!m){ host.appendChild(el('div','client-sub','No money data returned.')); return; }
+host.appendChild(metric('Total cost', money(m.total_cost_usd)));
+host.appendChild(metric('API + infra', money(m.total_api_spend_usd) + ' / ' + money(m.total_infra_cost_usd)));
+}
+
+function visibleClients(list){
+if (showAllClients) return list || [];
+return (list || []).filter(function(c){ return c.status === 'active'; });
+}
+
+function updateClientCount(n){
+var node = $('clientCount');
+if (!node) return;
+node.textContent = (n === null || n === undefined) ? '' : ' - ' + n;
+}
+
+function renderClients(list){
+var host = $('clientlist'); host.innerHTML = '';
+var all = list || [];
+var totalCount = (lastSnapshot && lastSnapshot.clients) ? lastSnapshot.clients.length : all.length;
+updateClientCount(totalCount);
+if (!clientsExpanded && !clientSearchTerm){
+host.appendChild(el('div','card rail-gray client-sub', totalCount + ' client' + (totalCount === 1 ? '' : 's') + ' collapsed -- click "Show all" above to view.'));
+return;
+}
+var visible = visibleClients(all);
+if (!visible.length){
+var box = el('div','allclear reveal');
+box.appendChild(el('div','big', all.length ? (showAllClients ? 'No clients on the book yet' : 'No active clients right now') : 'No clients on the book yet'));
+var hidden = all.length - visible.length;
+if (!showAllClients && hidden > 0){
+box.appendChild(el('div','sub', hidden + ' paused/inactive client' + (hidden === 1 ? '' : 's') + ' hidden -- click "Show all" above.'));
+}
+host.appendChild(box);
+return;
+}
+visible.forEach(function(c, i){
+var statusClass = c.status === 'active' ? 'active' : (c.status === 'paused' ? 'paused' : 'gray');
+var card = el('div','card reveal ' + (statusClass === 'active' ? 'rail-ok' : statusClass === 'paused' ? 'rail-warn' : 'rail-gray'));
+card.id = 'client-' + (c.slug || i);
+card.style.animationDelay = Math.min(i,6) * 24 + 'ms';
+var head = el('div','client-head');
+head.appendChild(el('div','client-name', c.name || c.slug || 'unnamed client'));
+head.appendChild(el('div','tag ' + statusClass, c.status || 'unknown'));
+if (c.doorbell_one){
+var bell = el('span','doorbell-badge');
+bell.textContent = '🔔 Doorbell';
+bell.title = 'Phase ' + (c.current_phase || 1) + ' complete -- every task in this phase is done or waiting only on the client.';
+head.appendChild(bell);
+}
+if (c.doorbell_two){
+var bell2 = el('span','doorbell-badge blocked');
+bell2.textContent = '⛔ Blocked';
+bell2.title = 'Every remaining task for this engagement is waiting on Seth or the client -- zero workable cards right now.';
+head.appendChild(bell2);
+}
+card.appendChild(head);
+if (c.waiting_on) card.appendChild(el('div','client-sub', 'Waiting on: ' + c.waiting_on));
+if (c.current_phase !== null && c.current_phase !== undefined) card.appendChild(el('div','client-sub', 'Phase ' + c.current_phase));
+if (c.replies_owed_age_days !== null && c.replies_owed_age_days !== undefined){
+var owed = el('div','owed' + (c.replies_owed_age_days >= 7 ? ' overdue' : ''));
+owed.appendChild(document.createTextNode('reply owed '));
+owed.appendChild(el('span','n', c.replies_owed_age_days + 'd'));
+card.appendChild(owed);
+}
+host.appendChild(card);
+});
+}
+
+function renderReports(list){
+var host = $('reportlist'); host.innerHTML = '';
+if (!list || !list.length){
+host.appendChild(el('div','card rail-gray client-sub','No reports yet.'));
+return;
+}
+list.slice(0, 8).forEach(function(r, i){
+var rail = r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '') ? 'rail-warn' : 'rail-ok';
+var card = el('div','card clickable reveal ' + rail);
+card.style.animationDelay = Math.min(i,6) * 24 + 'ms';
+var row = el('div','report-row');
+row.appendChild(el('div','report-subject', r.subject || r.job_id || 'untitled report'));
+row.appendChild(el('div','report-meta', (r.triage || '') + (r.cost_usd ? ' · ' + money(r.cost_usd) : '')));
+card.appendChild(row);
+if (r.status) card.appendChild(el('div','report-meta', 'status: ' + r.status));
+card.addEventListener('click', function(){ openReportDetail(r); });
+host.appendChild(card);
+});
+}
+
+function renderHistory(data){
+var host = $('historylist'); host.innerHTML = '';
+var reports = data.latest_reports || [];
+var doneTasks = (data.tasks || []).filter(function(t){ return colOf(t.status) === 'done'; });
+if (!reports.length && !doneTasks.length){
+host.appendChild(el('div','card rail-gray client-sub','No history yet.'));
+return;
+}
+if (reports.length){
+host.appendChild(el('div','history-kind', 'All reports (' + reports.length + ')'));
+reports.forEach(function(r, i){
+var rail = r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '') ? 'rail-warn' : 'rail-ok';
+var card = el('div','card clickable reveal ' + rail);
+card.style.animationDelay = Math.min(i,10) * 16 + 'ms';
+var row = el('div','report-row');
+row.appendChild(el('div','report-subject', r.subject || r.job_id || 'untitled report'));
+row.appendChild(el('div','report-meta', (r.triage || '') + (r.cost_usd ? ' · ' + money(r.cost_usd) : '')));
+card.appendChild(row);
+if (r.status) card.appendChild(el('div','report-meta', 'status: ' + r.status));
+card.addEventListener('click', function(){ openReportDetail(r); });
+host.appendChild(card);
+});
+}
+if (doneTasks.length){
+host.appendChild(el('div','history-kind', 'Done tasks (' + doneTasks.length + ')'));
+doneTasks
+.slice()
+.sort(function(a,b){ return new Date(b.updated || 0) - new Date(a.updated || 0); })
+.forEach(function(t, i){
+var card = el('div','card clickable reveal rail-ok');
+card.style.animationDelay = Math.min(i,10) * 16 + 'ms';
+var row = el('div','report-row');
+row.appendChild(el('div','report-subject', t.title || t.id));
+row.appendChild(el('div','report-meta', shortTime(t.updated)));
+card.appendChild(row);
+card.addEventListener('click', function(){ openDetail(t); });
+host.appendChild(card);
+});
+}
+}
+
+function wireHistoryToggle(){
+$('historyToggle').addEventListener('click', function(){
+var list = $('historylist');
+var showing = list.classList.toggle('show');
+$('historyToggle').textContent = showing ? 'Hide full history ↑' : 'Show full history ↓';
+});
+}
+
+function scrollToId(id){
+var n = document.getElementById(id);
+if (n && n.scrollIntoView) n.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ------------------------------------------------------------------ board */
+var BOARD_COLS = ['backlog','ready','in_progress','blocked','done'];
+function colLabel(s){ return String(s || '').replace(/_/g,' ').toUpperCase(); }
+function colOf(status){
+var s = String(status || '').toLowerCase();
+return BOARD_COLS.indexOf(s) > -1 ? s : 'backlog';
+}
+var lastSnapshot = null; var clientSearchTerm = ''; function filteredClients(list){ if (!clientSearchTerm) return list; var t = clientSearchTerm.toLowerCase(); return (list || []).filter(function(c){ return (c.name || '').toLowerCase().indexOf(t) > -1 || (c.slug || '').toLowerCase().indexOf(t) > -1; }); }
+
+function focusField(id){
+var n = $(id);
+if (!n) return;
+var field = n.closest('.field') || n;
+field.classList.remove('flash');
+void field.offsetWidth;
+field.classList.add('flash');
+n.focus();
+}
+
+function quickResume(t){
+scrollToId('dispatch');
+$('r_ref_id').value = t.id || '';
+$('r_title').value = t.title || '';
+focusField('r_job_id');
+}
+function quickPack(t){
+scrollToId('dispatch');
+$('p_task_id').value = t.id || '';
+focusField('p_task_id');
+}
+
+/* Needs-me signal, carried over from the retired NEEDS ME section onto board
+cards: a card is marked when its task is blocked, or its client has an
+overdue reply (>=7d), a doorbell (phase-complete or fully-blocked client), or
+a NEEDS YOU report tied to this task's job_id. */
+function taskNeedsMe(t, c){
+if (colOf(t.status) === 'blocked') return true;
+if (c && c.replies_owed_age_days !== null && c.replies_owed_age_days !== undefined && c.replies_owed_age_days >= 7) return true;
+if (c && c.doorbell_one) return true;
+if (c && c.doorbell_two) return true;
+var reports = (lastSnapshot && lastSnapshot.latest_reports) || [];
+return reports.some(function(r){ return r.job_id === t.id && (r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '')); });
+}
+
+/* Tasks that actually land on the board: belonging to a currently-visible
+client. Shared by renderBoard and the glance status line so both count the
+same set. */
+function boardTasksFor(clients, tasks){
+var visible = visibleClients(clients);
+if (!visible || !visible.length || !tasks) return [];
+var clientBySlug = {};
+visible.forEach(function(c){ clientBySlug[c.slug] = c; });
+return tasks.filter(function(t){ return clientBySlug[t.client_slug]; });
+}
+
+/* The one-line glance above BOARD: total cards, how many are blocked on
+access, how many are actually in progress right now. Every number comes
+from the same snapshot data the board renders, not a hardcoded guess. */
+function renderStatusLine(clients, tasks){
+var host = $('statusline');
+if (!host) return;
+var boardTasks = boardTasksFor(clients, tasks);
+var total = boardTasks.length;
+var blockedAccess = boardTasks.filter(function(t){ return !!t.access_needed; }).length;
+var inProgress = boardTasks.filter(function(t){ return colOf(t.status) === 'in_progress'; }).length;
+host.textContent = total + ' card' + (total === 1 ? '' : 's') + ' · ' +
+blockedAccess + ' blocked on access · ' + inProgress + ' in progress';
+}
+
+function updateBoard(clients, tasks){
+renderBoard(clients, tasks);
+renderStatusLine(clients, tasks);
+}
+
+/* Single board across all visible clients (not one board per client) --
+each card carries its own client name + contact name since there's no
+longer a per-client heading to imply that context. */
+function renderBoard(clients, tasks){
+var host = $('boardhost'); host.innerHTML = '';
+var visible = visibleClients(clients);
+if (!visible || !visible.length || !tasks){
+host.appendChild(el('div','card rail-gray client-sub','No board data yet.'));
+return;
+}
+var clientBySlug = {};
+visible.forEach(function(c){ clientBySlug[c.slug] = c; });
+var boardTasks = tasks.filter(function(t){ return clientBySlug[t.client_slug]; });
+if (!boardTasks.length){
+host.appendChild(el('div','card rail-gray client-sub','No tasks on the board yet.'));
+return;
+}
+/* only render columns that actually have a status present on the board,
+in BACKLOG-through-DONE order, per the runbook */
+var present = BOARD_COLS.filter(function(col){
+return boardTasks.some(function(t){ return colOf(t.status) === col; });
+});
+if (!present.length) present = ['backlog'];
+var cols = el('div','board-cols');
+present.forEach(function(col){
+var colTasks = boardTasks.filter(function(t){ return colOf(t.status) === col; })
+.sort(function(a,b){
+var an = taskNeedsMe(a, clientBySlug[a.client_slug]) ? 0 : 1;
+var bn = taskNeedsMe(b, clientBySlug[b.client_slug]) ? 0 : 1;
+return an - bn;
+});
+var colBox = el('div','board-col');
+var head = el('div','board-col-head');
+head.appendChild(el('div','board-col-title', colLabel(col)));
+head.appendChild(el('div','board-col-count', String(colTasks.length)));
+colBox.appendChild(head);
+var cardsBox = el('div','board-col-cards');
+colTasks.forEach(function(t){
+var c = clientBySlug[t.client_slug] || {};
+var card = el('div','taskcard' + (taskNeedsMe(t, c) ? ' needsme' : ''));
+if (t.id) card.title = t.id;
+var clientLine = c.name || t.client_slug || 'unassigned';
+if (c.contact_name) clientLine += ' · ' + c.contact_name;
+card.appendChild(el('div','t-client', clientLine));
+card.appendChild(el('div','t-title', t.title || t.id));
+var chips = el('div','t-chips');
+if (t.autonomy && String(t.autonomy).toLowerCase() !== 'green') chips.appendChild(el('span','chip', t.autonomy));
+if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
+if (t.branch) chips.appendChild(el('span','chip branch', t.branch));
+if (t.access_needed) chips.appendChild(el('span','chip access', 'ACCESS' + (t.access_status ? ' ' + t.access_status : '')));
+card.appendChild(chips);
+var actions = el('div','t-actions');
+var statusSel = el('select','statussel');
+BOARD_COLS.forEach(function(colOpt){
+var opt = el('option', null, colLabel(colOpt));
+opt.value = colOpt;
+if (colOpt === col) opt.selected = true;
+statusSel.appendChild(opt);
+});
+statusSel.addEventListener('click', function(e){ e.stopPropagation(); });
+statusSel.addEventListener('change', function(e){
+e.stopPropagation();
+moveTaskStatus(t, statusSel.value, statusSel, col);
+});
+actions.appendChild(statusSel);
+if (col === 'blocked' || col === 'backlog'){
+var resumeBtn = el('button','qbtn qdanger','Resume');
+resumeBtn.type = 'button';
+resumeBtn.addEventListener('click', function(e){ e.stopPropagation(); quickResume(t); });
+actions.appendChild(resumeBtn);
+} else if (col === 'ready' || col === 'in_progress'){
+var packBtn = el('button','qbtn','Pack');
+packBtn.type = 'button';
+packBtn.addEventListener('click', function(e){ e.stopPropagation(); quickPack(t); });
+actions.appendChild(packBtn);
+}
+card.appendChild(actions);
+card.addEventListener('click', function(){ openDetail(t); });
+cardsBox.appendChild(card);
+});
+colBox.appendChild(cardsBox);
+cols.appendChild(colBox);
+});
+host.appendChild(cols);
+}
+
+/* Moves a card between statuses from the board select control. Persists via
+task-note (NOTE_URL) -- the same write path wireRed/wireVideoRequest already
+use for task-scoped writes -- with type: 'status_change'. Whether the n8n
+workflow behind task-note also updates the task record's status field (vs.
+only logging a note) is not confirmed from this repo; if it only logs, the
+card reverts to the server's status on the next 5-minute poll. */
+function moveTaskStatus(t, newStatus, selectEl, oldCol){
+if (colOf(newStatus) === oldCol) return;
+var oldStatus = t.status;
+selectEl.disabled = true;
+postJSON(NOTE_URL, {type:'amend', task_id: t.id, client_slug: t.client_slug, from_status: oldStatus, to_status: newStatus, note: 'Status changed to ' + colLabel(newStatus) + ' via Command Center board.'})
+.then(function(res){
+selectEl.disabled = false;
+if (res.status === 200){
+t.status = newStatus;
+if (lastSnapshot) updateBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
+} else {
+selectEl.value = oldCol;
+selectEl.title = 'Save failed: ' + JSON.stringify(res.body);
+}
+}).catch(function(e){
+selectEl.disabled = false;
+selectEl.value = oldCol;
+selectEl.title = 'Save failed: ' + e.message;
+});
+}
+
+function openDetail(t){
+var sheet = $('detailSheet'); sheet.innerHTML = '';
+sheet.appendChild(el('div','detail-title', t.title || t.id));
+function row(k, v){
+if (v === null || v === undefined || v === '') return;
+var r = el('div','detail-row');
+r.appendChild(el('div','k', k));
+r.appendChild(el('div','v', String(v)));
+sheet.appendChild(r);
+}
+row('Status', colLabel(t.status));
+row('Autonomy', t.autonomy);
+row('Cost', t.cost_usd !== null && t.cost_usd !== undefined ? money(t.cost_usd) : null);
+row('Branch', t.branch);
+row('Phase', t.phase_number);
+row('Waiting on', t.waiting_on);
+row('Evidence', t.evidence);
+row('Task type', t.task_type);
+row('Updated', shortTime(t.updated));
+var report = (lastSnapshot && lastSnapshot.latest_reports || []).find(function(r){ return r.job_id === t.id; });
+if (report){
+row('Report subject', report.subject);
+row('Report triage', report.triage);
+row('Report status', report.status);
+row('Report detail', report.detail);
+} else {
+row('Report', 'No matching report yet for this task.');
+}
+if (colOf(t.status) === 'blocked' || colOf(t.status) === 'backlog'){
+var resumeBtn = el('button','detail-action','Resume this job');
+resumeBtn.addEventListener('click', function(){ closeDetail(); quickResume(t); });
+sheet.appendChild(resumeBtn);
+}
+var close = el('button','detail-close','Close');
+close.addEventListener('click', closeDetail);
+sheet.appendChild(close);
+$('detailOverlay').classList.remove('hide');
+}
+function closeDetail(){ $('detailOverlay').classList.add('hide'); }
+
+function openReportDetail(r){
+var sheet = $('detailSheet'); sheet.innerHTML = '';
+sheet.appendChild(el('div','detail-title', r.subject || r.job_id || 'untitled report'));
+function row(k, v){
+if (v === null || v === undefined || v === '') return;
+var rr = el('div','detail-row');
+rr.appendChild(el('div','k', k));
+rr.appendChild(el('div','v', String(v)));
+sheet.appendChild(rr);
+}
+row('Triage', r.triage);
+row('Status', r.status);
+row('Cost', r.cost_usd !== null && r.cost_usd !== undefined ? money(r.cost_usd) : null);
+row('Job ID', r.job_id);
+row('Detail', r.detail);
+var matchedTask = (lastSnapshot && lastSnapshot.tasks || []).find(function(t){ return t.id === r.job_id; });
+if (matchedTask){
+var viewBtn = el('button','detail-action','View matching task');
+viewBtn.addEventListener('click', function(){ openDetail(matchedTask); });
+sheet.appendChild(viewBtn);
+}
+var close = el('button','detail-close','Close');
+close.addEventListener('click', closeDetail);
+sheet.appendChild(close);
+$('detailOverlay').classList.remove('hide');
+}
+
+/* ------------------------------------------------------------------ dispatch */
+var ENQUEUE_URL = API_BASE + '/build-enqueue';
+var PACK_URL = API_BASE + '/pack-request';
+var NOTE_URL = API_BASE + '/task-note';
+var VIDEO_SCRIPT_URL = API_BASE + '/video-script-now';
+var DEMAND_URL = API_BASE + '/demand-data';
+var COCKPIT_URL = API_BASE + '/cockpit-submit-754cf2072a1fa8eb684043f8';
+var PASTE_CONTEXT_URL = API_BASE + '/paste-context';
+var COMMIT_CONTEXT_URL = API_BASE + '/commit-context';
+
+function showResult(hostId, ok, text){
+var host = $(hostId);
+host.innerHTML = '';
+host.appendChild(el('div','resultbox ' + (ok ? 'ok' : 'err'), text));
+}
+
+function postJSON(url, body){
+var headers = {'Content-Type':'application/json'};
+if (DASHBOARD_API_TOKEN) headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN;
+return fetch(url, {method:'POST', headers: headers, body: JSON.stringify(body)})
+.then(function(r){ return r.json().then(function(j){ return {status:r.status, body:j}; }); });
+}
+
+function wireQueueForm(prefix, jobIdEl, extra){
+$(prefix + '_submit').addEventListener('click', function(){
+var btn = $(prefix + '_submit');
+var body = {
+job_id: $(jobIdEl).value.trim(),
+title: $(prefix + '_title').value.trim(),
+job_class: $(prefix + '_job_class').value,
+repo: $(prefix + '_repo').value,
+prompt: $(prefix + '_prompt').value,
+autonomy: 'green'
+};
+if (extra) Object.assign(body, extra());
+if (!body.job_id || !body.title || !body.prompt){
+showResult(prefix + '_result', false, 'job_id, title, and prompt are all required.');
+return;
+}
+btn.disabled = true;
+postJSON(ENQUEUE_URL, body).then(function(res){
+btn.disabled = false;
+showResult(prefix + '_result', res.status === 200 && res.body.queued, JSON.stringify(res.body, null, 2));
+}).catch(function(e){
+btn.disabled = false;
+showResult(prefix + '_result', false, 'Request failed: ' + e.message);
+});
+});
+}
+
+function wirePack(){
+$('p_submit').addEventListener('click', function(){
+var taskId = $('p_task_id').value.trim();
+if (!taskId){ showResult('p_result', false, 'Task ID is required.'); return; }
+var btn = $('p_submit');
+btn.disabled = true;
+postJSON(PACK_URL, {task_id: taskId}).then(function(res){
+btn.disabled = false;
+if (res.status === 200 && res.body.pack){
+navigator.clipboard.writeText(res.body.pack).then(function(){
+showResult('p_result', true, 'Copied ' + res.body.pack.length + ' characters to clipboard for ' + (res.body.client_slug || 'this task') + '.');
+}).catch(function(){
+showResult('p_result', true, res.body.pack);
+});
+} else {
+showResult('p_result', false, JSON.stringify(res.body, null, 2));
+}
+}).catch(function(e){
+btn.disabled = false;
+showResult('p_result', false, 'Request failed: ' + e.message);
+});
+});
+}
+
+function wireRed(){
+$('red_open').addEventListener('click', function(){
+var taskId = $('red_task_id').value.trim();
+var note = $('red_note').value.trim();
+if (!taskId || !note){ showResult('red_result', false, 'Task ID and a description are both required before confirming.'); return; }
+var sheet = $('redSheet'); sheet.innerHTML = '';
+sheet.appendChild(el('div','detail-title', 'Confirm this red action?'));
+var row = el('div','detail-row');
+row.appendChild(el('div','k','Task'));
+row.appendChild(el('div','v', taskId));
+sheet.appendChild(row);
+var row2 = el('div','detail-row');
+row2.appendChild(el('div','k','Confirming'));
+row2.appendChild(el('div','v', note));
+sheet.appendChild(row2);
+var warn = el('div','client-sub','This only records that you said go -- it does not execute anything by itself.');
+sheet.appendChild(warn);
+var goBtn = el('button','btn danger','Yes, record the go');
+goBtn.style.marginTop = '14px';
+goBtn.style.width = '100%';
+goBtn.addEventListener('click', function(){
+goBtn.disabled = true;
+postJSON(NOTE_URL, {type: 'red_confirm', task_id: taskId, note: note}).then(function(res){
+closeRed();
+showResult('red_result', res.status === 200, JSON.stringify(res.body, null, 2));
+}).catch(function(e){
+goBtn.disabled = false;
+showResult('red_result', false, 'Request failed: ' + e.message);
+});
+});
+var closeBtn = el('button','detail-close','Cancel');
+closeBtn.addEventListener('click', closeRed);
+sheet.appendChild(goBtn);
+sheet.appendChild(closeBtn);
+$('redOverlay').classList.remove('hide');
+});
+}
+function closeRed(){ $('redOverlay').classList.add('hide'); } var PERSONAL_VIDEO_SLUG = 'seth-youtube-channel';
+function wireVideoRequest(){
+if ($('v_personal')){
+$('v_personal').addEventListener('change', function(){
+var personal = this.checked;
+$('v_client_slug_field').style.display = personal ? 'none' : '';
+});
+}
+$('v_submit').addEventListener('click', function(){
+var personal = $('v_personal') && $('v_personal').checked;
+var slug = personal ? PERSONAL_VIDEO_SLUG : $('v_client_slug').value.trim();
+var note = $('v_note').value.trim();
+if (!slug || !note){ showResult('v_result', false, (personal ? 'A description is required.' : 'Client slug and a description are both required.')); return; }
+var btn = $('v_submit');
+btn.disabled = true;
+postJSON(NOTE_URL, {type: 'video_request', client_slug: slug, note: note}).then(function(res){
+btn.disabled = false;
+showResult('v_result', res.status === 200, JSON.stringify(res.body, null, 2));
+}).catch(function(e){
+btn.disabled = false;
+showResult('v_result', false, 'Request failed: ' + e.message);
+});
+});
+}
+
+function wireVideoScript(){
+var packBtn = $('vs_pack_btn'), promptBtn = $('vs_prompt_btn'), input = $('vs_prompt');
+function lockButtons(){
+packBtn.disabled = true; promptBtn.disabled = true;
+setTimeout(function(){ packBtn.disabled = false; promptBtn.disabled = false; }, 5000);
+}
+function send(body){
+lockButtons();
+postJSON(VIDEO_SCRIPT_URL, body).then(function(res){
+showResult('vs_result', res.status === 200, res.status === 200 ? 'Queued. The pack will land in your inbox shortly.' : 'Could not queue that. Try again.');
+}).catch(function(){
+showResult('vs_result', false, 'Could not queue that. Try again.');
+});
+}
+packBtn.addEventListener('click', function(){ send({}); });
+promptBtn.addEventListener('click', function(){
+var v = input.value.trim();
+if (!v){ input.focus(); return; }
+send({prompt: v});
+});
+}
+
+var videoscriptExpanded = false;
+function wireVideoscriptToggle(){
+function toggle(){
+videoscriptExpanded = !videoscriptExpanded;
+$('videoscriptBody').style.display = videoscriptExpanded ? '' : 'none';
+$('videoscriptFlip').textContent = videoscriptExpanded ? 'Collapse' : 'Expand';
+}
+$('videoscriptToggle').addEventListener('click', toggle);
+$('videoscriptCollapsed').addEventListener('click', toggle);
+}
+
+var reportsExpanded = false;
+function wireReportsToggle(){
+function toggle(){
+reportsExpanded = !reportsExpanded;
+$('reportsBody').style.display = reportsExpanded ? '' : 'none';
+$('reportsFlip').textContent = reportsExpanded ? 'Collapse' : 'Expand';
+}
+$('reportsToggle').addEventListener('click', toggle);
+$('reportsCollapsed').addEventListener('click', toggle);
+}
+
+var cockpitExpanded = false;
+function wireCockpitToggle(){
+function toggle(){
+cockpitExpanded = !cockpitExpanded;
+$('cockpitBody').style.display = cockpitExpanded ? '' : 'none';
+$('cockpitFlip').textContent = cockpitExpanded ? 'Collapse' : 'Expand';
+}
+$('cockpitToggle').addEventListener('click', toggle);
+$('cockpitCollapsed').addEventListener('click', toggle);
+}
+function wireCockpit(){
+var btn = $('ck_submit'), post = $('ck_post'), company = $('ck_company'), channel = $('ck_channel'), uid = $('ck_uid'), notes = $('ck_notes');
+btn.addEventListener('click', function(){
+var text = post.value.trim();
+var words = text.split(/\s+/).filter(Boolean).length;
+if (words < 40){
+showResult('ck_result', false, 'That is too short to work from. Paste the whole posting.');
+post.focus();
+return;
+}
+btn.disabled = true;
+postJSON(COCKPIT_URL, {
+channel: channel.value,
+uid: uid.value.trim(),
+job_post: text,
+company: company.value.trim(),
+notes: notes.value.trim(),
+source: 'command-center'
+}).then(function(res){
+if (res.status === 200){
+post.value = '';
+showResult('ck_result', true, 'Sent. The proposal is being built and will land in your inbox.');
+setTimeout(function(){ btn.disabled = false; }, 5000);
+} else {
+btn.disabled = false;
+showResult('ck_result', false, 'Could not send that. Try again.');
+}
+}).catch(function(){
+btn.disabled = false;
+showResult('ck_result', false, 'Could not send that. Try again.');
+});
+});
+}
+
+/* ------------------------------------------------------------------ client context */
+var cxStagingId = null;
+
+function renderContextDiscarded(){
+var host = $('cx_result'); host.innerHTML = '';
+host.appendChild(el('div','card rail-gray client-sub','Discarded, nothing was written.'));
+}
+
+function renderContextCommitted(b){
+var host = $('cx_result'); host.innerHTML = '';
+var card = el('div','card stack rail-ok');
+card.appendChild(el('div','detail-title', 'Filed against ' + (b.client_name || 'client')));
+card.appendChild(el('div','client-sub', b.ledger_entry || ''));
+var tasks = b.tasks || [];
+var taskCount = b.task_count !== undefined && b.task_count !== null ? b.task_count : tasks.length;
+card.appendChild(el('div','dispatch-title', taskCount + ' task' + (taskCount === 1 ? '' : 's') + ' created'));
+tasks.forEach(function(t){
+card.appendChild(el('div','client-sub', (t && t.title) ? t.title : String(t)));
+});
+host.appendChild(card);
+}
+
+function renderContextReview(body){
+var host = $('cx_result'); host.innerHTML = '';
+cxStagingId = body.staging_id;
+var card = el('div','card stack rail-brand');
+
+function row(k, v){
+if (v === null || v === undefined || v === '') return;
+var r = el('div','detail-row');
+r.appendChild(el('div','k', k));
+r.appendChild(el('div','v', String(v)));
+card.appendChild(r);
+}
+row('Client', (body.client || '') + (body.slug ? ' (' + body.slug + ')' : ''));
+row('Confidence', body.confidence);
+row('Kind', body.kind);
+row('Why this client', body.why);
+row('Summary', body.summary);
+
+card.appendChild(el('div','dispatch-title','What goes in the record'));
+card.appendChild(el('div','client-sub', body.ledger_entry || '—'));
+
+var tasks = body.tasks || [];
+if (tasks.length){
+card.appendChild(el('div','dispatch-title','Tasks'));
+tasks.forEach(function(t){
+card.appendChild(el('div',null, (t && t.title) ? t.title : String(t)));
+if (t && t.why) card.appendChild(el('div','client-sub', t.why));
+});
+}
+
+var oq = (body.open_questions || '').split('|').map(function(s){ return s.trim(); }).filter(Boolean);
+if (oq.length){
+card.appendChild(el('div','dispatch-title','Open questions'));
+oq.forEach(function(q){ card.appendChild(el('div','client-sub', '• ' + q)); });
+}
+
+var slugField = el('div','field');
+var slugLabel = el('label', null, 'Client'); slugLabel.setAttribute('for','cx_slug');
+var slugInput = el('input'); slugInput.id = 'cx_slug'; slugInput.value = body.slug || '';
+slugField.appendChild(slugLabel); slugField.appendChild(slugInput);
+card.appendChild(slugField);
+
+var btnrow = el('div','btnrow');
+var fileBtn = el('button','btn primary','File it'); fileBtn.type = 'button';
+var discardBtn = el('button','btn danger','Discard'); discardBtn.type = 'button';
+btnrow.appendChild(fileBtn); btnrow.appendChild(discardBtn);
+card.appendChild(btnrow);
+
+var errBox = el('div');
+card.appendChild(errBox);
+
+function commit(approve){
+fileBtn.disabled = true; discardBtn.disabled = true;
+errBox.innerHTML = '';
+postJSON(COMMIT_CONTEXT_URL, {staging_id: cxStagingId, approve: approve, slug: slugInput.value.trim()})
+.then(function(res){
+var b = res.body || {};
+if (b.ok === true && b.action === 'committed'){
+renderContextCommitted(b);
+} else if (b.ok === true && b.action === 'rejected'){
+renderContextDiscarded();
+} else {
+fileBtn.disabled = false; discardBtn.disabled = false;
+errBox.appendChild(el('div','resultbox err', b.error || JSON.stringify(b)));
+}
+}).catch(function(e){
+fileBtn.disabled = false; discardBtn.disabled = false;
+errBox.appendChild(el('div','resultbox err', 'Request failed: ' + e.message));
+});
+}
+fileBtn.addEventListener('click', function(){ commit(true); });
+discardBtn.addEventListener('click', function(){ commit(false); });
+
+host.appendChild(card);
+}
+
+function wireClientContext(){
+var readBtn = $('cx_read');
+readBtn.addEventListener('click', function(){
+var text = $('cx_text').value.trim();
+var hint = $('cx_hint').value.trim();
+if (!text){ $('cx_text').focus(); return; }
+$('cx_result').innerHTML = '';
+readBtn.disabled = true;
+readBtn.textContent = 'Reading';
+postJSON(PASTE_CONTEXT_URL, {text: text, hint: hint}).then(function(res){
+readBtn.disabled = false;
+readBtn.textContent = 'Read it';
+var b = res.body || {};
+if (b.ok === true){
+renderContextReview(b);
+} else {
+showResult('cx_result', false, b.error || JSON.stringify(b));
+}
+}).catch(function(e){
+readBtn.disabled = false;
+readBtn.textContent = 'Read it';
+showResult('cx_result', false, 'Request failed: ' + e.message);
+});
+});
+}
+
+var clientcontextExpanded = true;
+function wireClientContextToggle(){
+function toggle(){
+clientcontextExpanded = !clientcontextExpanded;
+$('clientcontextBody').style.display = clientcontextExpanded ? '' : 'none';
+$('clientcontextFlip').textContent = clientcontextExpanded ? 'Collapse' : 'Expand';
+}
+$('clientcontextToggle').addEventListener('click', toggle);
+}
+
+function populateVideoClientList(list){
+var dl = $('v_client_datalist');
+if (!dl) return;
+dl.innerHTML = '';
+(list || []).forEach(function(c){
+var opt = document.createElement('option');
+opt.value = c.slug || '';
+opt.label = (c.name || c.slug || '') + (c.slug ? ' (' + c.slug + ')' : '');
+dl.appendChild(opt);
+});
+}
+
+/* ------------------------------------------------------------------ view flip */
+function wireClientFlip(){
+$('clientFlip').addEventListener('click', function(){
+clientsExpanded = !clientsExpanded;
+showAllClients = clientsExpanded;
+$('clientFlip').textContent = clientsExpanded ? 'Hide' : 'Show all';
+if (lastSnapshot){
+renderClients(filteredClients(lastSnapshot.clients));
+updateBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
+}
+});
+}
+
+function wireDispatchFlip(){
+var count = document.querySelectorAll('#dispatchBody .dispatch-block').length;
+var collapsed = $('dispatchCollapsed');
+collapsed.textContent = count + ' action' + (count === 1 ? '' : 's') + ' collapsed -- click "Show all" above to view.';
+var cnode = $('dispatchCount');
+if (cnode) cnode.textContent = ' - ' + count;
+$('dispatchFlip').addEventListener('click', function(){
+dispatchExpanded = !dispatchExpanded;
+$('dispatchBody').style.display = dispatchExpanded ? '' : 'none';
+collapsed.style.display = dispatchExpanded ? 'none' : '';
+$('dispatchFlip').textContent = dispatchExpanded ? 'Hide' : 'Show all';
+});
+}
+
+/* ------------------------------------------------------------------ demand */
+var demandExpanded = false;
+var demandLoaded = null;
+
+function demandUnavailable(){
+$('demandCollapsed').textContent = 'Demand data unavailable right now.';
+$('demandBody').innerHTML = '';
+$('demandBody').style.display = 'none';
+}
+
+function renderAskDetail(a){
+var d = el('div','client-sub');
+d.style.margin = '2px 0 10px';
+if (a.demo) d.appendChild(el('div', null, a.demo));
+if (a.examples) d.appendChild(el('div', null, a.examples));
+return d;
+}
+
+function renderDemandBody(d){
+var host = $('demandBody'); host.innerHTML = '';
+var asks = (d.asks || []).slice().sort(function(a,b){ return (b.count||0) - (a.count||0); }).slice(0,8);
+var askCard = el('div','card stack');
+askCard.appendChild(el('div','dispatch-title','The ask'));
+asks.forEach(function(a){
+var row = el('div','report-row');
+row.style.cursor = 'pointer';
+row.appendChild(el('div','report-subject', a.name));
+row.appendChild(el('div','report-meta', a.count + ' · ' + a.pct + '% · ' + money(a.spend)));
+var detail = renderAskDetail(a);
+detail.style.display = 'none';
+row.addEventListener('click', function(){ detail.style.display = detail.style.display === 'none' ? '' : 'none'; });
+askCard.appendChild(row);
+askCard.appendChild(detail);
+});
+host.appendChild(askCard);
+
+var toolCard = el('div','card');
+toolCard.appendChild(el('div','dispatch-title','Tools they name'));
+var pills = el('div','t-chips');
+(d.tools || []).slice(0,12).forEach(function(t){ pills.appendChild(el('span','chip', t.name + ' · ' + t.count)); });
+toolCard.appendChild(pills);
+host.appendChild(toolCard);
+
+var comboCard = el('div','card');
+comboCard.appendChild(el('div','dispatch-title','Named together'));
+(d.combos || []).slice(0,6).forEach(function(c){ comboCard.appendChild(el('div','report-meta', c.name + ' · ' + c.count)); });
+host.appendChild(comboCard);
+}
+
+function loadDemand(){
+get(DEMAND_URL).then(function(d){
+if (!d || !d.asks || !d.asks.length){ demandUnavailable(); return; }
+demandLoaded = d;
+var top = d.asks.slice().sort(function(a,b){ return (b.count||0) - (a.count||0); })[0];
+$('demandCollapsed').textContent = num(d.sample,0) + ' postings read. ' + top.name + ' leads at ' + top.pct + '%.';
+renderDemandBody(d);
+}).catch(function(){ demandUnavailable(); });
+}
+
+function wireDemandToggle(){
+function toggle(){
+if (!demandLoaded) return;
+demandExpanded = !demandExpanded;
+$('demandBody').style.display = demandExpanded ? '' : 'none';
+$('demandFlip').textContent = demandExpanded ? 'Collapse' : 'Expand';
+}
+$('demandToggle').addEventListener('click', toggle);
+$('demandCollapsed').addEventListener('click', toggle);
+}
+
+/* ------------------------------------------------------------------ fetch */
+function get(url){
+var headers = {};
+if (DASHBOARD_API_TOKEN) headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN;
+return fetch(url, {cache:'no-store', headers: headers})
+.then(function(r){
+if (!r.ok) throw new Error('HTTP ' + r.status);
+return r.json();
+});
+}
+
+function paint(data){
+lastSnapshot = data;
+$('banners').innerHTML = '';
+$('dot').className = 'dot';
+$('asof').textContent = 'as of ' + shortTime(new Date().toISOString());
+renderMoney(data.money);
+renderClients(filteredClients(data.clients));
+updateBoard(filteredClients(data.clients), data.tasks);
+renderReports(data.latest_reports);
+renderHistory(data);
+populateVideoClientList(data.clients);
+var qd = (data.queue_depth === null || data.queue_depth === undefined) ? '—' : data.queue_depth;
+$('refreshline').textContent = 'Last refresh ' + shortTime(new Date().toISOString()) +
+'. Queue depth: ' + qd + '. This page re-checks every 5 minutes while open.';
+}
+
+function offline(e){
+$('dot').className = 'dot down';
+$('banners').innerHTML = '';
+var b = el('div','banner bad');
+b.appendChild(document.createTextNode('The dashboard cannot reach n8n right now. ' + (e && e.message ? '(' + e.message + ') ' : '') + 'The page will keep trying every 5 minutes.'));
+var retry = el('button','retry','Retry now');
+retry.addEventListener('click', function(){ retry.disabled = true; retry.textContent = 'Retrying…'; pull(); });
+b.appendChild(retry);
+$('banners').appendChild(b);
+}
+
+function pull(){
+return get(SNAPSHOT_URL).then(paint).catch(offline);
+}
+
+function boot(){
+pull();
+setInterval(pull, POLL_MS);
+document.addEventListener('visibilitychange', function(){
+if (!document.hidden) pull();
+});
+$('detailOverlay').addEventListener('click', function(e){
+if (e.target === $('detailOverlay')) closeDetail();
+});
+$('redOverlay').addEventListener('click', function(e){
+if (e.target === $('redOverlay')) closeRed();
+});
+document.addEventListener('keydown', function(e){
+if (e.key === 'Escape'){ closeDetail(); closeRed(); }
+});
+wireQueueForm('q', 'q_job_id'); $('client_search').addEventListener('input', function(){ clientSearchTerm = this.value.trim(); if (lastSnapshot){ renderClients(filteredClients(lastSnapshot.clients)); updateBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks); } });
+wireQueueForm('r', 'r_job_id');
+wirePack();
+wireRed(); wireVideoRequest();
+wireVideoScript(); wireVideoscriptToggle();
+wireCockpit(); wireCockpitToggle();
+wireClientContext(); wireClientContextToggle();
+wireClientFlip();
+wireDispatchFlip();
+wireHistoryToggle();
+wireReportsToggle();
+wireDemandToggle();
+loadDemand();
+}
+window.addEventListener('load', boot);
+</script>
+</body>
+</html>
