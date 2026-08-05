@@ -256,6 +256,16 @@ height:64px;opacity:.55}
 
 <p class="statusline" id="statusline"></p>
 
+<section id="videoscript">
+<p class="eyebrow">Video script</p>
+<div class="card stack">
+<div class="btnrow"><button class="btn primary" id="vs_pack_btn">Send me a script pack</button></div>
+<div class="field"><input id="vs_prompt" placeholder="Or describe the video you want..."></div>
+<div class="btnrow"><button class="btn primary" id="vs_prompt_btn">Turn this into a script</button></div>
+<div id="vs_result"></div>
+</div>
+</section>
+
 <section id="board">
 <p class="eyebrow">Board</p>
 <div id="boardhost" class="stack"><div class="skel"></div></div>
@@ -850,6 +860,7 @@ var ENQUEUE_URL = API_BASE + '/build-enqueue';
 var PACK_URL = API_BASE + '/pack-request';
 var NOTE_URL = API_BASE + '/task-note';
 var CONSOLE_URL = API_BASE + '/console-turn';
+var VIDEO_SCRIPT_URL = API_BASE + '/video-script-now';
 
 function showResult(hostId, ok, text){
 var host = $(hostId);
@@ -974,6 +985,28 @@ showResult('v_result', res.status === 200, JSON.stringify(res.body, null, 2));
 btn.disabled = false;
 showResult('v_result', false, 'Request failed: ' + e.message);
 });
+});
+}
+
+function wireVideoScript(){
+var packBtn = $('vs_pack_btn'), promptBtn = $('vs_prompt_btn'), input = $('vs_prompt');
+function lockButtons(){
+packBtn.disabled = true; promptBtn.disabled = true;
+setTimeout(function(){ packBtn.disabled = false; promptBtn.disabled = false; }, 5000);
+}
+function send(body){
+lockButtons();
+postJSON(VIDEO_SCRIPT_URL, body).then(function(res){
+showResult('vs_result', res.status === 200, res.status === 200 ? 'Queued. The pack will land in your inbox shortly.' : 'Could not queue that. Try again.');
+}).catch(function(){
+showResult('vs_result', false, 'Could not queue that. Try again.');
+});
+}
+packBtn.addEventListener('click', function(){ send({}); });
+promptBtn.addEventListener('click', function(){
+var v = input.value.trim();
+if (!v){ input.focus(); return; }
+send({prompt: v});
 });
 }
 
@@ -1286,6 +1319,7 @@ wireQueueForm('q', 'q_job_id'); $('client_search').addEventListener('input', fun
 wireQueueForm('r', 'r_job_id');
 wirePack();
 wireRed(); wireVideoRequest();
+wireVideoScript();
 wireConsole();
 wireClientFlip();
 wireDispatchFlip();
