@@ -337,10 +337,13 @@ height:64px;opacity:.55}
 </section>
 
 <section id="reports">
-<p class="eyebrow">Latest reports</p>
+<p class="eyebrow" id="reportsToggle" style="cursor:pointer">Latest reports <button class="flipbtn" id="reportsFlip" type="button">Expand</button></p>
+<div class="card rail-gray client-sub" id="reportsCollapsed" style="cursor:pointer">See the latest report cards and full history -- click to expand.</div>
+<div id="reportsBody" style="display:none">
 <div id="reportlist" class="stack"><div class="skel"></div></div>
 <button class="history-toggle" id="historyToggle" type="button">Show full history &darr;</button>
 <div id="historylist" class="history-list stack"></div>
+</div>
 </section>
 
 <section id="dispatch">
@@ -1062,6 +1065,17 @@ $('videoscriptToggle').addEventListener('click', toggle);
 $('videoscriptCollapsed').addEventListener('click', toggle);
 }
 
+var reportsExpanded = false;
+function wireReportsToggle(){
+function toggle(){
+reportsExpanded = !reportsExpanded;
+$('reportsBody').style.display = reportsExpanded ? '' : 'none';
+$('reportsFlip').textContent = reportsExpanded ? 'Collapse' : 'Expand';
+}
+$('reportsToggle').addEventListener('click', toggle);
+$('reportsCollapsed').addEventListener('click', toggle);
+}
+
 var cockpitExpanded = false;
 function wireCockpitToggle(){
 function toggle(){
@@ -1492,6 +1506,7 @@ wireClientFlip();
 wireDispatchFlip();
 wireConsoleFlip();
 wireHistoryToggle();
+wireReportsToggle();
 wireDemandToggle();
 loadDemand();
 }
