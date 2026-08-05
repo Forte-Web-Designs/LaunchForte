@@ -510,22 +510,23 @@ button{font-family:inherit}
 <script>
 /* ============================================================
    The Blueprint - one-shot map of the visitor's operation.
-   Reuses Ask Forte's engine: streams /forte-ask to trigger the
-   shape recognition, then calls /forte-draw for the SVG. No
-   second engine, no chat UI. If /forte-ask does not emit a
-   [[NAPKIN]] marker, we show the runbook's honest empty state
-   rather than a faked diagram.
+   The diagram is built and drawn entirely in the browser from
+   the text the visitor typed - no network round trip required
+   to render it, so it can never come back empty. The optional
+   call to /forte-ask only adds a "shape recognized" label; if
+   it fails or times out the blueprint still draws.
    ============================================================ */
 (function(){
   var API_BASE = "https://launchforte.app.n8n.cloud/webhook";
   var ASK      = API_BASE + "/forte-ask";
-  var DRAW     = API_BASE + "/forte-draw";
+  var NS       = "http://www.w3.org/2000/svg";
+  var NOT_ENOUGH_MSG = "Not enough to go on yet. Add a sentence about what happens after the lead arrives.";
 
   var SAMPLE_TEXT = "A lead fills in the form on our site, someone checks the inbox twice a day and copies it into HubSpot, then whoever is free calls them back.";
 
   var $ = function(id){ return document.getElementById(id); };
 
-  var state = { sessionId: null, busy: false };
+  var state = { busy: false };
 
   function mintSessionId(){
     var rand = Math.floor(Math.random() * 1e12).toString(36);
@@ -560,138 +561,302 @@ button{font-family:inherit}
     $("bp-err").style.display = "none";
   }
 
-  /* --- sentinel parser: same grammar Ask Forte uses ([[SHAPE|slug]], [[NAPKIN]]) --- */
-  function scanForMarkers(text, seen){
-    var re = /\[\[([^\[\]]+)\]\]/g;
-    var m;
-    while ((m = re.exec(text)) !== null){
-      var body = m[1].trim();
-      if (body.indexOf("SHAPE|") === 0){
-        var slug = body.slice(6).trim();
-        if (slug) seen.shape = slug;
-      } else if (body === "NAPKIN"){
-        seen.napkin = true;
-      }
+  /* ---------- 1: systems named in the text ---------- */
+  var SYSTEM_GROUPS = [
+    [ {label:"Web form", re:/\b(the |our |a |my )?(web\s*)?form\b/i},
+      {label:"Website", re:/\b(the |our |my )?(website|our site|the site)\b/i} ],
+    [ {label:"Shared inbox", re:/\bshared inbox\b/i},
+      {label:"Inbox", re:/\binbox\b/i},
+      {label:"Email", re:/\bemails?\b/i} ],
+    [ {label:"HubSpot", re:/\bhubspot\b/i},
+      {label:"Salesforce", re:/\bsalesforce\b/i},
+      {label:"Pipedrive", re:/\bpipedrive\b/i},
+      {label:"Zoho", re:/\bzoho\b/i},
+      {label:"CRM", re:/\bcrm\b/i} ],
+    [ {label:"Spreadsheet", re:/\b(spreadsheet|google sheets?|excel)\b/i} ],
+    [ {label:"Airtable", re:/\bairtable\b/i} ],
+    [ {label:"Slack", re:/\bslack\b/i} ],
+    [ {label:"Text messages", re:/\b(text messages?|sms)\b/i} ],
+    [ {label:"Voicemail", re:/\bvoicemail\b/i} ],
+    [ {label:"Calendar", re:/\b(calendar|calendly)\b/i} ],
+    [ {label:"Database", re:/\bdatabase\b/i} ],
+    [ {label:"Chatbot", re:/\bchat ?bot\b/i} ],
+    [ {label:"Zapier", re:/\bzapier\b/i} ],
+    [ {label:"QuickBooks", re:/\bquickbooks\b/i} ],
+    [ {label:"Stripe", re:/\bstripe\b/i} ],
+    [ {label:"Trello", re:/\btrello\b/i} ],
+    [ {label:"Asana", re:/\basana\b/i} ],
+    [ {label:"Monday.com", re:/\bmonday\.com\b/i} ],
+    [ {label:"Mailchimp", re:/\bmailchimp\b/i} ]
+  ];
+
+  var ACTION_RE = /\b(call(?:s|ed)?(?: (?:them|him|her))? back|returns? (?:the |their )?call|follows? up|reaches? out|texts?(?: (?:them|him|her))? back|responds?(?: to (?:them|him|her))?|reviews? it)\b/i;
+  var ACTORS = [
+    {re:/\bwhoever(?:'s| is) free\b/i, label:"Whoever's free"},
+    {re:/\bwhoever(?:'s| is) available\b/i, label:"Whoever's available"},
+    {re:/\bsales ?reps?\b/i, label:"Sales rep"},
+    {re:/\breceptionists?\b/i, label:"Receptionist"},
+    {re:/\bassistants?\b/i, label:"Assistant"},
+    {re:/\bmanagers?\b/i, label:"Manager"},
+    {re:/\bowners?\b/i, label:"Owner"},
+    {re:/\bthe team\b/i, label:"The team"}
+  ];
+
+  function findGroupNode(group, text){
+    for (var i = 0; i < group.length; i++){
+      var m = group[i].re.exec(text);
+      if (m) return { label: group[i].label, pos: m.index };
     }
-    return seen;
+    return null;
   }
 
-  function streamAsk(text){
-    state.sessionId = mintSessionId();
-    var payload = {
-      session_id: state.sessionId,
-      message: text,
-      meta: { referrer: document.referrer, blueprint: true }
-    };
-    return fetch(ASK, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    }).then(function(resp){
-      if (!resp.ok) throw new Error("ask " + resp.status);
-      var newId = resp.headers.get("X-Forte-Session") || resp.headers.get("x-forte-session");
-      if (newId) state.sessionId = newId;
+  function findActionNode(text){
+    var m = ACTION_RE.exec(text);
+    if (!m) return null;
+    var start = Math.max(0, m.index - 70);
+    var context = text.slice(start, m.index + m[0].length);
+    for (var i = 0; i < ACTORS.length; i++){
+      if (ACTORS[i].re.test(context)) return { label: ACTORS[i].label, pos: m.index };
+    }
+    return { label: /text/i.test(m[0]) ? "Text back" : "Callback", pos: m.index };
+  }
 
-      var reader = resp.body.getReader();
-      var decoder = new TextDecoder();
-      var lineBuf = "";
-      var full = "";
-      var seen = { shape: null, napkin: false };
+  /* ---------- 2: gaps - a delay, a schedule, a manual copy, a "whoever" ---------- */
+  var GAP_TRIGGERS = [
+    { re:/twice a day/i,
+      headline:function(a){ return a.label + " is only checked twice a day."; },
+      why:function(){ return "A lead can sit for hours before anyone even looks."; } },
+    { re:/once a day/i,
+      headline:function(a){ return a.label + " is only checked once a day."; },
+      why:function(){ return "A lead can sit overnight before anyone looks."; } },
+    { re:/whoever(?:'s| is) (free|available)/i,
+      headline:function(a,b){ return b.label + " depends on whoever happens to be free."; },
+      why:function(){ return "No one owns this step, so it happens whenever someone has a spare minute."; } },
+    { re:/check(?:s|ing)?.{0,15}(inbox|email)/i,
+      headline:function(a){ return a.label + " only moves when someone remembers to check it."; },
+      why:function(){ return "There's no alert - it relies on a person opening it up."; } },
+    { re:/\bevery (morning|day|night|week|monday|hour)\b/i,
+      headline:function(a,b){ return a.label + " to " + b.label + " runs on a schedule, not in real time."; },
+      why:function(){ return "It waits for the next scheduled check instead of firing the moment it happens."; } },
+    { re:/\bcop(?:y|ies|ied|y-paste)\b/i,
+      headline:function(a,b){ return a.label + " to " + b.label + " is a manual copy."; },
+      why:function(){ return "Someone has to retype or copy-paste it from one place to the other."; } },
+    { re:/\bmanually\b|\bby hand\b/i,
+      headline:function(a,b){ return a.label + " to " + b.label + " is a manual step."; },
+      why:function(){ return "It's done by hand, which means it can be skipped, delayed, or done inconsistently."; } },
+    { re:/\bif (someone|anyone|they) remembers?\b/i,
+      headline:function(a,b){ return a.label + " to " + b.label + " only happens if someone remembers."; },
+      why:function(){ return "Nothing forces it to happen - it depends entirely on memory."; } },
+    { re:/\beventually\b/i,
+      headline:function(a,b){ return a.label + " to " + b.label + " has no deadline."; },
+      why:function(){ return "It happens eventually, whenever that ends up being."; } },
+    { re:/\bwhen (?:they|someone|we|he|she)?\s?(?:get|gets|has|have) (?:a chance|time|around to it)\b/i,
+      headline:function(a,b){ return a.label + " to " + b.label + " waits for spare time."; },
+      why:function(){ return "It happens when someone gets around to it, not on a fixed timeline."; } },
+    { re:/\bforgets?\b|\bforgot\b/i,
+      headline:function(a,b){ return a.label + " to " + b.label + " depends on memory."; },
+      why:function(){ return "And memory fails - that's when leads get lost."; } }
+  ];
 
-      function processLine(line){
-        var trimmed = line.replace(/^data:\s*/, "").trim();
-        if (!trimmed) return "";
-        if (trimmed.charAt(0) === "{"){
-          try {
-            var obj = JSON.parse(trimmed);
-            if (obj.type === "begin") return "";
-            if (obj.type === "end") return "";
-            if (obj.type === "item") return typeof obj.content === "string" ? obj.content : "";
-            if (typeof obj.content === "string") return obj.content;
-            if (typeof obj.text === "string") return obj.text;
-            if (typeof obj.token === "string") return obj.token;
-            if (typeof obj.delta === "string") return obj.delta;
-            return "";
-          } catch(_){ return trimmed; }
+  /* ---------- 3: turn the text into { nodes, edges } ---------- */
+  function analyzeText(text){
+    var nodes = [];
+    SYSTEM_GROUPS.forEach(function(g){
+      var n = findGroupNode(g, text);
+      if (n) nodes.push(n);
+    });
+    var action = findActionNode(text);
+    if (action) nodes.push(action);
+
+    nodes.sort(function(a,b){ return a.pos - b.pos; });
+    var seenLabels = {};
+    nodes = nodes.filter(function(n){
+      if (seenLabels[n.label]) return false;
+      seenLabels[n.label] = true;
+      return true;
+    });
+
+    if (nodes.length < 2) return null;
+
+    var edges = [];
+    for (var i = 0; i < nodes.length - 1; i++){
+      edges.push({ a: nodes[i], b: nodes[i+1], gap: false, triggers: [] });
+    }
+
+    GAP_TRIGGERS.forEach(function(trigger){
+      var m = trigger.re.exec(text);
+      if (!m) return;
+      var s = m.index, e = s + m[0].length;
+      var anchorIdx = -1;
+      for (var k = 0; k < nodes.length; k++){
+        if (nodes[k].pos >= s && nodes[k].pos <= e){ anchorIdx = k; break; }
+      }
+      if (anchorIdx === -1){
+        for (var j = 0; j < nodes.length; j++){
+          if (nodes[j].pos <= s) anchorIdx = j; else break;
         }
-        return trimmed;
+        if (anchorIdx === -1) anchorIdx = 0;
       }
+      var edgeIdx = (anchorIdx >= nodes.length - 1) ? nodes.length - 2 : anchorIdx;
+      if (edgeIdx >= 0 && edgeIdx < edges.length){
+        edges[edgeIdx].gap = true;
+        edges[edgeIdx].triggers.push(trigger);
+      }
+    });
 
-      function pump(){
-        return reader.read().then(function(res){
-          if (res.done){
-            if (lineBuf){ full += processLine(lineBuf); lineBuf = ""; }
-            scanForMarkers(full, seen);
-            return seen;
-          }
-          lineBuf += decoder.decode(res.value, { stream: true });
-          var lines = lineBuf.split("\n");
-          lineBuf = lines.pop();
-          for (var i = 0; i < lines.length; i++){
-            full += processLine(lines[i]);
-          }
-          return pump();
-        });
+    edges.forEach(function(edge){
+      if (!edge.gap) return;
+      edge.headline = edge.triggers[0].headline(edge.a, edge.b);
+      var whys = [];
+      edge.triggers.slice(0, 2).forEach(function(t){
+        var w = t.why(edge.a, edge.b);
+        if (whys.indexOf(w) === -1) whys.push(w);
+      });
+      edge.why = whys.join(" ");
+    });
+
+    return { nodes: nodes, edges: edges };
+  }
+
+  /* ---------- 4: draw it, same visual language as the sample ---------- */
+  function buildSvg(model){
+    var boxH = 60, gapX = 70, padX = 26, topY = 90;
+    var widths = model.nodes.map(function(n){ return Math.max(110, Math.min(190, n.label.length * 7.5 + 40)); });
+    var xs = [];
+    var cursor = padX;
+    for (var i = 0; i < model.nodes.length; i++){
+      xs.push(cursor);
+      cursor += widths[i] + gapX;
+    }
+    var vbW = Math.max(700, cursor - gapX + padX);
+    var vbH = 260;
+    var midY = topY + boxH / 2;
+    var gapCount = model.edges.filter(function(e){ return e.gap; }).length;
+
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 " + vbW + " " + vbH);
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "Blueprint: " + model.nodes.length + " systems, " + model.edges.length + " handoffs, " + gapCount + " gaps");
+
+    var defs = document.createElementNS(NS, "defs");
+    var arr = document.createElementNS(NS, "marker");
+    arr.setAttribute("id","barr"); arr.setAttribute("viewBox","0 0 10 10"); arr.setAttribute("refX","9"); arr.setAttribute("refY","5");
+    arr.setAttribute("markerWidth","7"); arr.setAttribute("markerHeight","7"); arr.setAttribute("orient","auto");
+    var arrPath = document.createElementNS(NS,"path"); arrPath.setAttribute("d","M0 0 L10 5 L0 10 z"); arrPath.setAttribute("fill","#3a424e");
+    arr.appendChild(arrPath); defs.appendChild(arr);
+    var arrRed = document.createElementNS(NS, "marker");
+    arrRed.setAttribute("id","barrRed"); arrRed.setAttribute("viewBox","0 0 10 10"); arrRed.setAttribute("refX","9"); arrRed.setAttribute("refY","5");
+    arrRed.setAttribute("markerWidth","7"); arrRed.setAttribute("markerHeight","7"); arrRed.setAttribute("orient","auto");
+    var arrRedPath = document.createElementNS(NS,"path"); arrRedPath.setAttribute("d","M0 0 L10 5 L0 10 z"); arrRedPath.setAttribute("fill","#b4530a");
+    arrRed.appendChild(arrRedPath); defs.appendChild(arrRed);
+    svg.appendChild(defs);
+
+    var gapNum = 0;
+    model.edges.forEach(function(edge, idx){
+      var ax = xs[idx] + widths[idx], bx = xs[idx+1];
+      var path = document.createElementNS(NS, "path");
+      path.setAttribute("d", "M" + ax + " " + midY + " L" + bx + " " + midY);
+      path.setAttribute("stroke", edge.gap ? "#b4530a" : "#3a424e");
+      path.setAttribute("stroke-width", "1.5");
+      path.setAttribute("fill", "none");
+      if (edge.gap) path.setAttribute("stroke-dasharray", "5 4");
+      path.setAttribute("marker-end", edge.gap ? "url(#barrRed)" : "url(#barr)");
+      svg.appendChild(path);
+      if (edge.gap){
+        gapNum++;
+        edge.gapNumber = gapNum;
+        var midx = (ax + bx) / 2;
+        var circle = document.createElementNS(NS, "circle");
+        circle.setAttribute("cx", midx); circle.setAttribute("cy", midY); circle.setAttribute("r", "11");
+        circle.setAttribute("fill", "#fdf3e7"); circle.setAttribute("stroke", "#b4530a"); circle.setAttribute("stroke-width", "1.5");
+        svg.appendChild(circle);
+        var t = document.createElementNS(NS, "text");
+        t.setAttribute("x", midx); t.setAttribute("y", midY + 4); t.setAttribute("text-anchor", "middle");
+        t.setAttribute("font-family", "ui-monospace,monospace"); t.setAttribute("font-size", "12"); t.setAttribute("font-weight", "700"); t.setAttribute("fill", "#b4530a");
+        t.textContent = String(gapNum);
+        svg.appendChild(t);
       }
-      return pump();
+    });
+
+    model.nodes.forEach(function(n, i){
+      var rect = document.createElementNS(NS, "rect");
+      rect.setAttribute("x", xs[i]); rect.setAttribute("y", topY); rect.setAttribute("width", widths[i]); rect.setAttribute("height", boxH); rect.setAttribute("rx", "8");
+      rect.setAttribute("stroke", "#3a424e"); rect.setAttribute("stroke-width", "1.5"); rect.setAttribute("fill", "#fff");
+      svg.appendChild(rect);
+      var text = document.createElementNS(NS, "text");
+      text.setAttribute("x", xs[i] + widths[i] / 2); text.setAttribute("y", midY + 4); text.setAttribute("text-anchor", "middle");
+      text.setAttribute("font-family", "Inter,-apple-system,sans-serif"); text.setAttribute("font-size", "13"); text.setAttribute("font-weight", "600"); text.setAttribute("fill", "#14181f");
+      text.textContent = n.label;
+      svg.appendChild(text);
+    });
+
+    return svg;
+  }
+
+  /* ---------- optional: ask the live classifier for a shape label ---------- */
+  function getShapeLabel(text){
+    return new Promise(function(resolve){
+      var ctrl = (typeof AbortController !== "undefined") ? new AbortController() : null;
+      var settled = false;
+      var timer = setTimeout(function(){
+        if (settled) return;
+        settled = true;
+        if (ctrl) ctrl.abort();
+        resolve(null);
+      }, 6000);
+      fetch(ASK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: mintSessionId(), message: text, meta: { referrer: document.referrer, blueprint: true } }),
+        signal: ctrl ? ctrl.signal : undefined
+      }).then(function(resp){
+        if (!resp.ok || !resp.body) throw new Error("ask " + (resp && resp.status));
+        var reader = resp.body.getReader();
+        var decoder = new TextDecoder();
+        var buf = "";
+        function pump(){
+          return reader.read().then(function(res){
+            if (settled) return;
+            if (res.done){ settled = true; clearTimeout(timer); resolve(null); return; }
+            buf += decoder.decode(res.value, { stream: true });
+            var m = /\[\[SHAPE\|([^\[\]]+)\]\]/.exec(buf);
+            if (m){
+              settled = true; clearTimeout(timer);
+              try { reader.cancel(); } catch(_){}
+              resolve(m[1].trim());
+              return;
+            }
+            return pump();
+          });
+        }
+        return pump();
+      }).catch(function(){
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        resolve(null);
+      });
     });
   }
 
-  function drawNapkin(){
-    return fetch(DRAW, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ session_id: state.sessionId })
-    }).then(function(r){
-      if (!r.ok) throw new Error("draw " + r.status);
-      return r.json();
-    });
-  }
-
-  function renderResult(data, seenShape){
+  function renderResult(model, shapeLabel){
     var mount = $("bp-napkin");
     mount.innerHTML = "";
-    if (data && data.sketch_svg){
-      var wrap = document.createElement("div");
-      wrap.innerHTML = String(data.sketch_svg);
-      var svg = wrap.querySelector("svg");
-      if (svg){
-        svg.removeAttribute("width");
-        svg.removeAttribute("height");
-        svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
-        svg.style.maxWidth = "100%";
-        svg.style.height = "auto";
-      }
-      mount.appendChild(wrap);
-    } else {
-      mount.textContent = "The sketch didn't come through.";
-    }
+    mount.appendChild(buildSvg(model));
 
-    /* Gaps: /forte-draw returns one scar string. If it's present, show
-       it as a single-item gaps list. If the engine ever returns an
-       array under `gaps`, render that instead. */
     var gapsWrap = $("bp-gaps-wrap");
     var list = $("bp-gaps-list");
     list.innerHTML = "";
-    var gaps = [];
-    if (data && Array.isArray(data.gaps) && data.gaps.length){
-      gaps = data.gaps;
-    } else if (data && data.scar){
-      gaps = [{ name: data.scar, why: "" }];
-    }
-    if (gaps.length){
-      $("bp-gaps-heading").textContent = gaps.length + (gaps.length === 1 ? " gap" : " gaps");
-      gaps.forEach(function(g, i){
-        var row = document.createElement("div");
-        row.className = "gap";
-        var mark = document.createElement("div"); mark.className = "g-mark"; mark.textContent = String(i+1);
+    var gapEdges = model.edges.filter(function(e){ return e.gap; });
+    if (gapEdges.length){
+      $("bp-gaps-heading").textContent = gapEdges.length + (gapEdges.length === 1 ? " gap" : " gaps");
+      gapEdges.forEach(function(edge){
+        var row = document.createElement("div"); row.className = "gap";
+        var mark = document.createElement("div"); mark.className = "g-mark"; mark.textContent = String(edge.gapNumber);
         var body = document.createElement("div"); body.className = "g-body";
-        var name = document.createElement("p"); name.className = "g-name"; name.textContent = String(g.name || g.title || g);
-        body.appendChild(name);
-        if (g.why){
-          var why = document.createElement("p"); why.className = "g-why"; why.textContent = String(g.why);
-          body.appendChild(why);
-        }
+        var name = document.createElement("p"); name.className = "g-name"; name.textContent = edge.headline;
+        var why = document.createElement("p"); why.className = "g-why"; why.textContent = edge.why;
+        body.appendChild(name); body.appendChild(why);
         row.appendChild(mark); row.appendChild(body);
         list.appendChild(row);
       });
@@ -700,20 +865,10 @@ button{font-family:inherit}
       gapsWrap.classList.add("hidden");
     }
 
-    if (seenShape){
-      $("bp-result-meta").textContent = "Shape recognized: " + seenShape;
-    } else {
-      $("bp-result-meta").textContent = "";
-    }
+    var counts = model.nodes.length + " systems · " + model.edges.length + (model.edges.length === 1 ? " handoff" : " handoffs") + " · " + gapEdges.length + (gapEdges.length === 1 ? " gap" : " gaps");
+    $("bp-result-meta").textContent = shapeLabel ? ("Shape recognized: " + shapeLabel + " · " + counts) : counts;
     show("result");
-    if (window.dataLayer) window.dataLayer.push({ event: "blueprint_drawn", shape: seenShape || null });
-  }
-
-  function fail(msg){
-    show("input");
-    showErr(msg);
-    state.busy = false;
-    $("bp-go").disabled = false;
+    if (window.dataLayer) window.dataLayer.push({ event: "blueprint_drawn", shape: shapeLabel || null, systems: model.nodes.length, gaps: gapEdges.length });
   }
 
   function draw(){
@@ -722,10 +877,18 @@ button{font-family:inherit}
     var text = $("bp-input").value.trim();
     var wc = wordCount(text);
     if (wc < 8){
-      showErr("Add a sentence about what happens after the lead arrives.");
+      showErr(NOT_ENOUGH_MSG);
       $("bp-input").focus();
       return;
     }
+
+    var model = analyzeText(text);
+    if (!model){
+      showErr(NOT_ENOUGH_MSG);
+      $("bp-input").focus();
+      return;
+    }
+
     state.busy = true;
     $("bp-go").disabled = true;
     show("loading");
@@ -735,30 +898,17 @@ button{font-family:inherit}
     var stepTimer = setTimeout(function(){
       msgEl.textContent = "Recognizing the shape";
       stepEl.textContent = "Matching what you wrote to a system pattern...";
-    }, 3500);
-    var drawTimer = setTimeout(function(){
-      msgEl.textContent = "Drawing the sketch";
-      stepEl.textContent = "Placing boxes and marking the gaps...";
-    }, 9000);
+    }, 1400);
 
-    streamAsk(text)
-      .then(function(seen){
-        if (!seen.napkin){
-          clearTimeout(stepTimer); clearTimeout(drawTimer);
-          fail("Not enough to go on yet. Add a sentence about what happens after the lead arrives.");
-          return null;
-        }
-        return drawNapkin().then(function(data){
-          clearTimeout(stepTimer); clearTimeout(drawTimer);
-          renderResult(data, seen.shape);
-          state.busy = false;
-          $("bp-go").disabled = false;
-        });
-      })
-      .catch(function(e){
-        clearTimeout(stepTimer); clearTimeout(drawTimer);
-        fail("The blueprint engine didn't answer. Try again in a moment, or email seth@launchforte.com.");
-      });
+    var minDelay = new Promise(function(res){ setTimeout(res, 700); });
+    var shapePromise = getShapeLabel(text);
+
+    Promise.all([shapePromise, minDelay]).then(function(results){
+      clearTimeout(stepTimer);
+      renderResult(model, results[0]);
+      state.busy = false;
+      $("bp-go").disabled = false;
+    });
   }
 
   function useSample(ev){
