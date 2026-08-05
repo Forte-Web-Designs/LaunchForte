@@ -269,7 +269,7 @@ height:64px;opacity:.55}
 
 <section id="cockpit">
 <p class="eyebrow" id="cockpitToggle" style="cursor:pointer">Cockpit</p>
-<div class="card rail-gray client-sub" id="cockpitCollapsed">Paste a job posting to start a proposal -- click to expand.</div>
+<div class="card rail-gray client-sub" id="cockpitCollapsed" style="cursor:pointer">Paste a job posting to start a proposal -- click to expand.</div>
 <div id="cockpitBody" style="display:none">
 <div class="card stack">
 <div class="field"><textarea id="ck_post" placeholder="Paste the job posting or the client's own words here."></textarea></div>
@@ -399,7 +399,7 @@ height:64px;opacity:.55}
 
 <section id="demand">
 <p class="eyebrow" id="demandToggle" style="cursor:pointer">Demand</p>
-<div class="card rail-gray client-sub" id="demandCollapsed">Loading demand data…</div>
+<div class="card rail-gray client-sub" id="demandCollapsed" style="cursor:pointer">Loading demand data…</div>
 <div id="demandBody" style="display:none"></div>
 </section>
 
@@ -1034,10 +1034,12 @@ send({prompt: v});
 
 var cockpitExpanded = false;
 function wireCockpitToggle(){
-$('cockpitToggle').addEventListener('click', function(){
+function toggle(){
 cockpitExpanded = !cockpitExpanded;
 $('cockpitBody').style.display = cockpitExpanded ? '' : 'none';
-});
+}
+$('cockpitToggle').addEventListener('click', toggle);
+$('cockpitCollapsed').addEventListener('click', toggle);
 }
 function wireCockpit(){
 var btn = $('ck_submit'), post = $('ck_post'), company = $('ck_company');
@@ -1373,11 +1375,13 @@ renderDemandBody(d);
 }
 
 function wireDemandToggle(){
-$('demandToggle').addEventListener('click', function(){
+function toggle(){
 if (!demandLoaded) return;
 demandExpanded = !demandExpanded;
 $('demandBody').style.display = demandExpanded ? '' : 'none';
-});
+}
+$('demandToggle').addEventListener('click', toggle);
+$('demandCollapsed').addEventListener('click', toggle);
 }
 
 /* ------------------------------------------------------------------ fetch */
