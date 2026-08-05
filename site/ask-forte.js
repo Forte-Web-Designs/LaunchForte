@@ -236,7 +236,7 @@
             '</svg>';
         b.appendChild(frame);
         var status = el("div","askf-napkin-caption askf-napkin-status");
-        status.textContent = "sketching your napkin…";
+        status.textContent = "drawing your sketch…";
         b.appendChild(status);
         t.appendChild(b);
         $("askf-log").appendChild(t);
@@ -398,7 +398,7 @@
         // Locked runbook copy for the allowance cap
         $("askf-input").placeholder = "That's my free brain for today.";
         // Warm cap message shown in the log as one last bot bubble
-        var capMsg = "That's my free brain for today. The audit is the unlimited version. Or drop your email and take the napkin with you.";
+        var capMsg = "That's my free brain for today. The audit is the unlimited version. Or drop your email and take the sketch with you.";
         var b = renderBotBubble(capMsg, { instant: true });
         // Open the gate with the same locked copy the keep-moment uses
         var gate = $("askf-gate");
@@ -439,7 +439,7 @@
             }).catch(function(){
                 msg.classList.add("err");
                 // Capture workflow isn't built yet — honest fallback, no false promise of email.
-                msg.textContent = "I can't email it just yet, but the napkin is yours on screen.";
+                msg.textContent = "I can't email it just yet, but the sketch is yours on screen.";
                 btn.disabled = false;
             });
         });
@@ -730,7 +730,7 @@
               }
               // Failed even after retry — remove the ghost, honest line + keep-moment
               if (ghost && ghost.turn && ghost.turn.parentNode) ghost.turn.parentNode.removeChild(ghost.turn);
-              renderBotBubble("The sketch isn't coming through on my side. Drop your email and I'll send the napkin once it's back, plus the demo that matches your build.", { instant: true });
+              renderBotBubble("The sketch isn't coming through on my side. Drop your email and I'll send the sketch once it's back, plus the demo that matches your build.", { instant: true });
               openKeepMoment();
           });
     }
