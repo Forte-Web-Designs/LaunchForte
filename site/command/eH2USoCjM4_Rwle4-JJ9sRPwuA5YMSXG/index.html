@@ -180,7 +180,6 @@ border:1px solid var(--line-strong);font-family:var(--mono);font-size:11.5px;whi
 word-break:break-word;max-height:200px;overflow-y:auto}
 .resultbox.ok{border-color:var(--ok)}
 .resultbox.err{border-color:var(--danger)}
-.gap-flag{font-size:11.5px;color:var(--warn);margin-top:8px;line-height:1.5}
 .confirm-box{border-color:var(--danger)!important}
 .confirm-box .step-action{color:var(--danger);font-weight:700}
 .field.flash{animation:flash 1.1s ease}
@@ -193,42 +192,6 @@ cursor:pointer;padding:0;margin-bottom:12px}
 .history-list.show{display:grid}
 .history-kind{font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--muted-2);margin-bottom:2px}
 
-/* console */
-.console-shell{display:flex;flex-direction:column;height:min(72vh,640px);border:1px solid var(--line);
-border-radius:var(--radius-lg);background:var(--card);box-shadow:var(--shadow);overflow:hidden}
-.console-top{display:flex;gap:10px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line);flex:none}
-.console-top select{flex:1;font:inherit;font-size:13.5px;padding:8px 10px;border-radius:10px;
-border:1px solid var(--line-strong);background:var(--bg);color:var(--ink)}
-.console-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
-.c-turn{display:flex}
-.c-turn.user{justify-content:flex-end}
-.c-turn.bot{justify-content:flex-start}
-.c-bubble{max-width:82%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
-.c-turn.user .c-bubble{background:var(--brand);color:#fff;border-bottom-right-radius:4px}
-.c-turn.bot .c-bubble{background:var(--bg);border:1px solid var(--line-strong);border-bottom-left-radius:4px}
-.c-bubble hr{border:none;border-top:1px solid var(--line-strong);margin:8px 0}
-.c-line{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--muted);
-margin:3px 0;padding:2px 0}
-.c-line.read{color:var(--brand-ink)}
-.c-line.do{color:var(--warn)}
-.c-line.done{color:var(--ok)}
-.c-typing{display:flex;gap:4px;padding:10px 13px}
-.c-typing span{width:6px;height:6px;border-radius:50%;background:var(--muted-2);animation:cdot 1s infinite ease-in-out}
-.c-typing span:nth-child(2){animation-delay:.15s}.c-typing span:nth-child(3){animation-delay:.3s}
-@keyframes cdot{0%,80%,100%{opacity:.3}40%{opacity:1}}
-.console-imgprev{display:none;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--line);flex:none}
-.console-imgprev.show{display:flex}
-.console-imgprev img{width:40px;height:40px;object-fit:cover;border-radius:8px;border:1px solid var(--line-strong)}
-.console-imgprev .rm{font-size:12px;color:var(--danger);cursor:pointer;font-weight:700}
-.console-composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);flex:none;
-padding-bottom:calc(10px + env(safe-area-inset-bottom))}
-.console-composer textarea{flex:1;font:inherit;font-size:15px;padding:11px 13px;border-radius:14px;
-border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);resize:none;min-height:44px;max-height:120px}
-.console-composer button{flex:none;min-width:52px;min-height:44px;border-radius:14px;border:none;
-background:var(--brand);color:#fff;font-weight:700;font-size:20px;cursor:pointer}
-.console-composer button:disabled{opacity:.5;cursor:default}
-.console-note{font-size:11.5px;color:var(--muted-2);padding:0 14px 10px}
-.console-empty{margin:auto;text-align:center;color:var(--muted-2);font-size:13px;padding:0 24px;max-width:280px}
 .banner .retry{margin-left:8px;font-weight:700;text-decoration:underline;cursor:pointer;background:none;border:none;
 color:inherit;font:inherit;padding:0}
 
@@ -253,33 +216,10 @@ height:64px;opacity:.55}
 <div class="asof"><span class="dot" id="dot"></span><span id="asof">loading</span></div>
 </header>
 
-<section id="console">
-<p class="eyebrow">Console <button class="flipbtn" id="consoleFlip" type="button">Hide</button></p>
-<div id="consoleBody">
-<div class="console-shell card">
-<div class="console-top">
-<input id="c_client_search" placeholder="Search clients…" style="flex:1;font:inherit;font-size:13.5px;padding:8px 10px;border-radius:10px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink)">
-<select id="c_client"><option value="">Pick a client first…</option></select>
-</div>
-<div class="console-log" id="c_log"><div class="console-empty" id="c_empty">Pick a client above, then ask about status, tasks, or history.</div></div>
-<div class="console-imgprev" id="c_imgprev">
-<img id="c_imgprev_img" alt="pasted image">
-<span>image attached</span>
-<span class="rm" id="c_imgprev_rm">remove</span>
-</div>
-<div class="console-composer">
-<textarea id="c_input" rows="1" placeholder="Pick a client, then ask…" disabled></textarea>
-<button id="c_send" disabled>&#8593;</button>
-</div>
-</div>
-<div class="gap-flag">Server-side gap: console-turn requires a client_slug on every call -- there's no "whole book" / all-clients mode yet, so this is one conversation per client, not one thread across the book. Image paste posts an image_base64 field speculatively; I haven't confirmed the flow reads it, so treat attachments as best-effort until that's verified server-side. READ/DO/done compact-line styling is a pattern guess -- I never saw the model emit those markers live, so it only activates if a reply line happens to start with those words.</div>
-</div>
-</section>
-
 <section id="clientcontext">
-<p class="eyebrow" id="clientcontextToggle" style="cursor:pointer">Client context <button class="flipbtn" id="clientcontextFlip" type="button">Expand</button></p>
-<div class="card rail-gray client-sub" id="clientcontextCollapsed" style="cursor:pointer">Paste an email, a call note, or a message to file it against a client -- click to expand.</div>
-<div id="clientcontextBody" style="display:none">
+<p class="eyebrow" id="clientcontextToggle" style="cursor:pointer">Client context <button class="flipbtn" id="clientcontextFlip" type="button">Collapse</button></p>
+<p class="client-sub" style="margin:0 0 14px">Paste an email, a call note, or anything you want me to know. I work out where it belongs.</p>
+<div id="clientcontextBody">
 <div class="card stack">
 <div class="field"><label for="cx_text">Paste it</label><textarea id="cx_text" rows="8" placeholder="Paste an email, a call note, a Slack message."></textarea></div>
 <div class="field"><label for="cx_hint">Hint</label><input id="cx_hint" placeholder="Any hint, for example this is the Koo project."></div>
@@ -439,7 +379,7 @@ height:64px;opacity:.55}
 
 <footer>
 <div id="refreshline">Waiting for the first refresh.</div>
-<div class="note">Command Center v2 -- console live above.</div>
+<div class="note">Command Center v2 -- paste anything above, I'll work out the client.</div>
 </footer>
 
 </div>
@@ -477,10 +417,9 @@ var clientsExpanded = false;
 
 /* Dispatch is one of the heaviest static sections on the page -- collapsed
 by default behind the same flip-button shape Clients uses, since it isn't
-read at a glance the way Board/Reports are. Console sits at the top of the
-page and stays expanded by default so it's usable with no click. */
+read at a glance the way Board/Reports are. Client context sits at the top of
+the page and stays expanded by default so it's usable with no click. */
 var dispatchExpanded = false;
-var consoleExpanded = true;
 
 var $ = function(id){ return document.getElementById(id); };
 function el(tag, cls, txt){
@@ -914,7 +853,6 @@ $('detailOverlay').classList.remove('hide');
 var ENQUEUE_URL = API_BASE + '/build-enqueue';
 var PACK_URL = API_BASE + '/pack-request';
 var NOTE_URL = API_BASE + '/task-note';
-var CONSOLE_URL = API_BASE + '/console-turn';
 var VIDEO_SCRIPT_URL = API_BASE + '/video-script-now';
 var DEMAND_URL = API_BASE + '/demand-data';
 var COCKPIT_URL = API_BASE + '/cockpit-submit-754cf2072a1fa8eb684043f8';
@@ -1169,22 +1107,18 @@ r.appendChild(el('div','k', k));
 r.appendChild(el('div','v', String(v)));
 card.appendChild(r);
 }
-row('Proposed client', body.proposed_client);
-row('Proposed slug', body.proposed_slug);
+row('Client', (body.client || '') + (body.slug ? ' (' + body.slug + ')' : ''));
 row('Confidence', body.confidence);
-row('Why this client', body.why_this_client);
 row('Kind', body.kind);
+row('Why this client', body.why);
 row('Summary', body.summary);
 
 card.appendChild(el('div','dispatch-title','What goes in the record'));
 card.appendChild(el('div','client-sub', body.ledger_entry || '—'));
 
-var tasks = [];
-if (body.proposed_tasks){
-try { tasks = JSON.parse(body.proposed_tasks); } catch(e){ tasks = []; }
-}
-if (tasks && tasks.length){
-card.appendChild(el('div','dispatch-title','Proposed tasks'));
+var tasks = body.tasks || [];
+if (tasks.length){
+card.appendChild(el('div','dispatch-title','Tasks'));
 tasks.forEach(function(t){
 card.appendChild(el('div',null, (t && t.title) ? t.title : String(t)));
 if (t && t.why) card.appendChild(el('div','client-sub', t.why));
@@ -1199,7 +1133,7 @@ oq.forEach(function(q){ card.appendChild(el('div','client-sub', '• ' + q)); })
 
 var slugField = el('div','field');
 var slugLabel = el('label', null, 'Client'); slugLabel.setAttribute('for','cx_slug');
-var slugInput = el('input'); slugInput.id = 'cx_slug'; slugInput.value = body.proposed_slug || '';
+var slugInput = el('input'); slugInput.id = 'cx_slug'; slugInput.value = body.slug || '';
 slugField.appendChild(slugLabel); slugField.appendChild(slugInput);
 card.appendChild(slugField);
 
@@ -1263,7 +1197,7 @@ showResult('cx_result', false, 'Request failed: ' + e.message);
 });
 }
 
-var clientcontextExpanded = false;
+var clientcontextExpanded = true;
 function wireClientContextToggle(){
 function toggle(){
 clientcontextExpanded = !clientcontextExpanded;
@@ -1271,39 +1205,6 @@ $('clientcontextBody').style.display = clientcontextExpanded ? '' : 'none';
 $('clientcontextFlip').textContent = clientcontextExpanded ? 'Collapse' : 'Expand';
 }
 $('clientcontextToggle').addEventListener('click', toggle);
-$('clientcontextCollapsed').addEventListener('click', toggle);
-}
-
-/* ------------------------------------------------------------------ console */
-var consoleSessionId = null;
-var consoleClientsLoaded = false;
-var pendingImageB64 = null;
-var allConsoleClients = [];
-
-function populateConsoleClients(list){
-if (list && list.length) allConsoleClients = list;
-if (consoleClientsLoaded) return; /* don't clobber user's mid-conversation selection on later polls */
-renderConsoleClientOptions($('c_client_search') ? $('c_client_search').value : '');
-if (list && list.length) consoleClientsLoaded = true;
-}
-
-function renderConsoleClientOptions(filterText){
-var sel = $('c_client');
-var prior = sel.value;
-var t = (filterText || '').trim().toLowerCase();
-var source = allConsoleClients || [];
-var filtered = !t ? source : source.filter(function(c){
-return (c.name || '').toLowerCase().indexOf(t) > -1 || (c.slug || '').toLowerCase().indexOf(t) > -1;
-});
-sel.innerHTML = '';
-var placeholder = el('option', null, 'Pick a client first…'); placeholder.value = '';
-sel.appendChild(placeholder);
-filtered.forEach(function(c){
-var opt = el('option', null, c.name || c.slug || 'unnamed');
-opt.value = c.slug || '';
-sel.appendChild(opt);
-});
-if (prior && filtered.some(function(c){ return (c.slug || '') === prior; })) sel.value = prior;
 }
 
 function populateVideoClientList(list){
@@ -1316,174 +1217,6 @@ opt.value = c.slug || '';
 opt.label = (c.name || c.slug || '') + (c.slug ? ' (' + c.slug + ')' : '');
 dl.appendChild(opt);
 });
-}
-
-function consoleClientPicked(){
-var slug = $('c_client').value;
-var ok = !!slug;
-$('c_input').disabled = !ok;
-$('c_send').disabled = !ok;
-$('c_input').placeholder = ok ? 'Ask about this client…' : 'Pick a client, then ask…';
-if (ok) consoleSessionId = 'console-' + slug + '-' + Date.now().toString(36);
-}
-
-function mdLite(text){
-/* very small markdown: **bold**, --- as <hr>, newlines preserved via CSS white-space.
-Also picks out lines that open with READ/DO/done-style markers and tags them --
-this is a guess at styling, not a confirmed server contract (see gap-flag). */
-var esc = document.createTextNode(text).textContent
-.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-var lines = text.split('\n');
-var html = lines.map(function(line){
-if (/^---+$/.test(line.trim())) return '<hr>';
-var m = line.match(/^\s*(READ|DO|✓|DONE)\b\s*[:\-]?\s*(.*)$/i);
-var safe = line.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-if (m){
-var kind = /^read/i.test(m[1]) ? 'read' : /^do/i.test(m[1]) ? 'do' : 'done';
-var rest = m[2].replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-return '<span class="c-line ' + kind + '">' + m[1].toUpperCase() + (rest ? ' — ' + rest : '') + '</span>';
-}
-return safe;
-}).join('\n');
-return html;
-}
-
-function addTurn(role, text){
-var log = $('c_log');
-var empty = $('c_empty');
-if (empty) empty.remove();
-var turn = el('div', 'c-turn ' + role);
-var bubble = el('div', 'c-bubble');
-if (role === 'bot') bubble.innerHTML = mdLite(text); else bubble.textContent = text;
-turn.appendChild(bubble);
-log.appendChild(turn);
-log.scrollTop = log.scrollHeight;
-return bubble;
-}
-
-function addTyping(){
-var log = $('c_log');
-var turn = el('div', 'c-turn bot');
-turn.id = 'c_typing_turn';
-var t = el('div', 'c-typing');
-t.appendChild(el('span')); t.appendChild(el('span')); t.appendChild(el('span'));
-turn.appendChild(t);
-log.appendChild(turn);
-log.scrollTop = log.scrollHeight;
-}
-function removeTyping(){
-var n = $('c_typing_turn');
-if (n) n.remove();
-}
-
-function sendConsoleTurn(){
-var slug = $('c_client').value;
-var msg = $('c_input').value.trim();
-if (!slug || (!msg && !pendingImageB64)) return;
-addTurn('user', msg || '(image attached)');
-$('c_input').value = '';
-$('c_input').style.height = 'auto';
-var imgToSend = pendingImageB64;
-clearImagePreview();
-$('c_send').disabled = true;
-addTyping();
-
-var body = {session_id: consoleSessionId, message: msg, client_slug: slug};
-if (imgToSend) body.image_base64 = imgToSend; /* speculative field -- unconfirmed server-side, see gap-flag */
-
-fetch(CONSOLE_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)})
-.then(function(r){
-if (!r.body || !r.body.getReader) return r.json().then(function(j){ return {plain:j}; });
-var reader = r.body.getReader();
-var decoder = new TextDecoder();
-var buf = '';
-var acc = '';
-function pumpStep(){
-return reader.read().then(function(res){
-if (res.done){
-if (buf.trim()) acc += consumeLine(buf);
-return {acc: acc};
-}
-buf += decoder.decode(res.value, {stream:true});
-var lines = buf.split('\n');
-buf = lines.pop();
-lines.forEach(function(line){ acc += consumeLine(line); });
-return pumpStep();
-});
-}
-function consumeLine(line){
-line = line.trim();
-if (!line) return '';
-try {
-var env = JSON.parse(line);
-if (env.type === 'item' && typeof env.content === 'string') return env.content;
-if (env.type === 'item' && env.content && typeof env.content.reply === 'string') return env.content.reply;
-} catch(e){ /* not a JSON envelope line, ignore */ }
-return '';
-}
-return pumpStep();
-})
-.then(function(result){
-removeTyping();
-$('c_send').disabled = false;
-var finalText = result.plain ? (result.plain.reply || JSON.stringify(result.plain)) : result.acc;
-/* blocked-turn shape comes back as a single JSON object string instead of
-streamed prose -- detect and unwrap it rather than showing raw JSON */
-var trimmed = (finalText || '').trim();
-if (/^\{[\s\S]*\}$/.test(trimmed)){
-try {
-var parsed = JSON.parse(trimmed);
-if (typeof parsed.reply === 'string') finalText = parsed.reply;
-if (parsed.session_id) consoleSessionId = parsed.session_id;
-} catch(e){ /* not actually JSON, show as-is */ }
-}
-addTurn('bot', finalText || '(no reply)');
-})
-.catch(function(e){
-removeTyping();
-$('c_send').disabled = false;
-addTurn('bot', 'Request failed: ' + e.message);
-});
-}
-
-function showImagePreview(dataUrl){
-pendingImageB64 = dataUrl;
-$('c_imgprev_img').src = dataUrl;
-$('c_imgprev').classList.add('show');
-}
-function clearImagePreview(){
-pendingImageB64 = null;
-$('c_imgprev_img').src = '';
-$('c_imgprev').classList.remove('show');
-}
-
-function wireConsole(){
-$('c_client').addEventListener('change', consoleClientPicked);
-if ($('c_client_search')) $('c_client_search').addEventListener('input', function(){ renderConsoleClientOptions(this.value); });
-$('c_send').addEventListener('click', sendConsoleTurn);
-$('c_input').addEventListener('keydown', function(e){
-if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendConsoleTurn(); }
-});
-$('c_input').addEventListener('input', function(){
-this.style.height = 'auto';
-this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-});
-$('c_input').addEventListener('paste', function(e){
-var items = (e.clipboardData || {}).items || [];
-for (var i = 0; i < items.length; i++){
-if (items[i].type && items[i].type.indexOf('image') === 0){
-var file = items[i].getAsFile();
-var reader = new FileReader();
-reader.onload = function(ev){ showImagePreview(ev.target.result); };
-reader.readAsDataURL(file);
-e.preventDefault();
-break;
-}
-}
-});
-$('c_imgprev_rm').addEventListener('click', clearImagePreview);
 }
 
 /* ------------------------------------------------------------------ view flip */
@@ -1510,14 +1243,6 @@ dispatchExpanded = !dispatchExpanded;
 $('dispatchBody').style.display = dispatchExpanded ? '' : 'none';
 collapsed.style.display = dispatchExpanded ? 'none' : '';
 $('dispatchFlip').textContent = dispatchExpanded ? 'Hide' : 'Show all';
-});
-}
-
-function wireConsoleFlip(){
-$('consoleFlip').addEventListener('click', function(){
-consoleExpanded = !consoleExpanded;
-$('consoleBody').style.display = consoleExpanded ? '' : 'none';
-$('consoleFlip').textContent = consoleExpanded ? 'Hide' : 'Show all';
 });
 }
 
@@ -1612,7 +1337,6 @@ renderClients(filteredClients(data.clients));
 updateBoard(filteredClients(data.clients), data.tasks);
 renderReports(data.latest_reports);
 renderHistory(data);
-populateConsoleClients(data.clients);
 populateVideoClientList(data.clients);
 var qd = (data.queue_depth === null || data.queue_depth === undefined) ? '—' : data.queue_depth;
 $('refreshline').textContent = 'Last refresh ' + shortTime(new Date().toISOString()) +
@@ -1656,10 +1380,8 @@ wireRed(); wireVideoRequest();
 wireVideoScript(); wireVideoscriptToggle();
 wireCockpit(); wireCockpitToggle();
 wireClientContext(); wireClientContextToggle();
-wireConsole();
 wireClientFlip();
 wireDispatchFlip();
-wireConsoleFlip();
 wireHistoryToggle();
 wireReportsToggle();
 wireDemandToggle();
