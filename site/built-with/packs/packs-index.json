@@ -1,0 +1,535 @@
+{
+ "_comment": "shape -> tool -> the one PDF to attach. Unguessable suffix; this index is the only way to resolve one.",
+ "base": "https://launchforte.com/built-with/packs/",
+ "count": 96,
+ "packs": {
+  "ai-assistant": {
+   "ghl": {
+    "pdf": "ai-assistant--ghl-5a50a0326e.pdf",
+    "product": "The Straight Answer Desk",
+    "pages": 5
+   },
+   "instantly": {
+    "pdf": "ai-assistant--instantly-75f3eb06d4.pdf",
+    "product": "The Straight Answer Desk",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "ai-assistant--n8n-6eb63a63a2.pdf",
+    "product": "The Straight Answer Desk",
+    "pages": 5
+   }
+  },
+  "ai-research-agent": {
+   "n8n": {
+    "pdf": "ai-research-agent--n8n-6d38de0008.pdf",
+    "product": "The Research Desk",
+    "pages": 4
+   }
+  },
+  "alerting": {
+   "airtable": {
+    "pdf": "alerting--airtable-5eb238066d.pdf",
+    "product": "The Watch",
+    "pages": 5
+   },
+   "google-sheets": {
+    "pdf": "alerting--google-sheets-16868f057b.pdf",
+    "product": "The Watch",
+    "pages": 5
+   },
+   "make": {
+    "pdf": "alerting--make-ad08eb8173.pdf",
+    "product": "The Watch",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "alerting--n8n-bc8807a807.pdf",
+    "product": "The Watch",
+    "pages": 5
+   },
+   "zapier": {
+    "pdf": "alerting--zapier-6652cf96db.pdf",
+    "product": "The Watch",
+    "pages": 5
+   }
+  },
+  "approval-routing": {
+   "airtable": {
+    "pdf": "approval-routing--airtable-1f86a51f4c.pdf",
+    "product": "The Approval Router",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "approval-routing--n8n-899363e18d.pdf",
+    "product": "The Approval Router",
+    "pages": 5
+   },
+   "pipedrive": {
+    "pdf": "approval-routing--pipedrive-75a04d3a15.pdf",
+    "product": "The Approval Router",
+    "pages": 5
+   }
+  },
+  "books-reconciliation": {
+   "make": {
+    "pdf": "books-reconciliation--make-2bc791dedf.pdf",
+    "product": "The Reconciliation Build",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "books-reconciliation--n8n-311d97ff1d.pdf",
+    "product": "The Reconciliation Build",
+    "pages": 5
+   },
+   "quickbooks": {
+    "pdf": "books-reconciliation--quickbooks-a36f0728a8.pdf",
+    "product": "The Reconciliation Build",
+    "pages": 5
+   },
+   "stripe": {
+    "pdf": "books-reconciliation--stripe-3dc0afaf74.pdf",
+    "product": "The Reconciliation Build",
+    "pages": 5
+   }
+  },
+  "client-onboarding": {
+   "airtable": {
+    "pdf": "client-onboarding--airtable-ae11caddd6.pdf",
+    "product": "The Onboarding Build",
+    "pages": 5
+   },
+   "ghl": {
+    "pdf": "client-onboarding--ghl-a0766d662a.pdf",
+    "product": "The Onboarding Build",
+    "pages": 5
+   },
+   "hubspot": {
+    "pdf": "client-onboarding--hubspot-226d4f4b4d.pdf",
+    "product": "The Onboarding Build",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "client-onboarding--n8n-81fff01d35.pdf",
+    "product": "The Onboarding Build",
+    "pages": 5
+   }
+  },
+  "cold-outreach": {
+   "instantly": {
+    "pdf": "cold-outreach--instantly-9d4b2658de.pdf",
+    "product": "The Outreach Engine",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "cold-outreach--n8n-2b2989d399.pdf",
+    "product": "The Outreach Engine",
+    "pages": 4
+   }
+  },
+  "data-collection": {
+   "activecampaign": {
+    "pdf": "data-collection--activecampaign-5a4d387aee.pdf",
+    "product": "The Intake System",
+    "pages": 5
+   },
+   "airtable": {
+    "pdf": "data-collection--airtable-2a51ca487c.pdf",
+    "product": "The Intake System",
+    "pages": 5
+   },
+   "ghl": {
+    "pdf": "data-collection--ghl-c3a8825fe8.pdf",
+    "product": "The Intake System",
+    "pages": 5
+   },
+   "google-sheets": {
+    "pdf": "data-collection--google-sheets-7d51f48811.pdf",
+    "product": "The Intake System",
+    "pages": 5
+   },
+   "hubspot": {
+    "pdf": "data-collection--hubspot-88bbb30fe1.pdf",
+    "product": "The Intake System",
+    "pages": 5
+   },
+   "instantly": {
+    "pdf": "data-collection--instantly-9dc2345436.pdf",
+    "product": "The Intake System",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "data-collection--n8n-998cff4f01.pdf",
+    "product": "The Intake System",
+    "pages": 5
+   },
+   "shopify": {
+    "pdf": "data-collection--shopify-a7fd4c8726.pdf",
+    "product": "The Intake System",
+    "pages": 5
+   },
+   "stripe": {
+    "pdf": "data-collection--stripe-791399d369.pdf",
+    "product": "The Intake System",
+    "pages": 5
+   },
+   "zapier": {
+    "pdf": "data-collection--zapier-8a4ad067a2.pdf",
+    "product": "The Intake System",
+    "pages": 5
+   }
+  },
+  "data-model-architecture": {
+   "airtable": {
+    "pdf": "data-model-architecture--airtable-8f49658321.pdf",
+    "product": "The Data Layer",
+    "pages": 5
+   },
+   "hubspot": {
+    "pdf": "data-model-architecture--hubspot-0c650dfd8b.pdf",
+    "product": "The Data Layer",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "data-model-architecture--n8n-643472e315.pdf",
+    "product": "The Data Layer",
+    "pages": 4
+   },
+   "pipedrive": {
+    "pdf": "data-model-architecture--pipedrive-c156e3a77f.pdf",
+    "product": "The Data Layer",
+    "pages": 5
+   }
+  },
+  "document-assembly": {
+   "n8n": {
+    "pdf": "document-assembly--n8n-5b60224618.pdf",
+    "product": "The Document Build",
+    "pages": 5
+   }
+  },
+  "lead-routing": {
+   "activecampaign": {
+    "pdf": "lead-routing--activecampaign-da579f66f1.pdf",
+    "product": "The Lead Router",
+    "pages": 5
+   },
+   "ghl": {
+    "pdf": "lead-routing--ghl-db5d4b2134.pdf",
+    "product": "The Lead Router",
+    "pages": 5
+   },
+   "hubspot": {
+    "pdf": "lead-routing--hubspot-0f41e9c335.pdf",
+    "product": "The Lead Router",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "lead-routing--n8n-a1cc6012ab.pdf",
+    "product": "The Lead Router",
+    "pages": 5
+   },
+   "zapier": {
+    "pdf": "lead-routing--zapier-08b867993d.pdf",
+    "product": "The Lead Router",
+    "pages": 5
+   }
+  },
+  "messaging-compliance": {
+   "ghl": {
+    "pdf": "messaging-compliance--ghl-fa1d2ec971.pdf",
+    "product": "The Deliverability Build",
+    "pages": 5
+   },
+   "instantly": {
+    "pdf": "messaging-compliance--instantly-251f5de8b6.pdf",
+    "product": "The Deliverability Build",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "messaging-compliance--n8n-6f06acb348.pdf",
+    "product": "The Deliverability Build",
+    "pages": 4
+   }
+  },
+  "platform-migration": {
+   "ghl": {
+    "pdf": "platform-migration--ghl-d45c503a89.pdf",
+    "product": "The Migration Build",
+    "pages": 5
+   },
+   "hubspot": {
+    "pdf": "platform-migration--hubspot-3d159e09a5.pdf",
+    "product": "The Migration Build",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "platform-migration--n8n-dcb8bb08eb.pdf",
+    "product": "The Migration Build",
+    "pages": 5
+   }
+  },
+  "production-takeover": {
+   "n8n": {
+    "pdf": "production-takeover--n8n-7ae554222a.pdf",
+    "product": "The Takeover Build",
+    "pages": 5
+   }
+  },
+  "project-ops": {
+   "airtable": {
+    "pdf": "project-ops--airtable-8fcaec5aed.pdf",
+    "product": "The Operations Board",
+    "pages": 5
+   },
+   "monday": {
+    "pdf": "project-ops--monday-b92abffa8d.pdf",
+    "product": "The Operations Board",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "project-ops--n8n-bb722b990a.pdf",
+    "product": "The Operations Board",
+    "pages": 4
+   }
+  },
+  "quote-follow-up": {
+   "activecampaign": {
+    "pdf": "quote-follow-up--activecampaign-883e812992.pdf",
+    "product": "The Follow Up",
+    "pages": 5
+   },
+   "ghl": {
+    "pdf": "quote-follow-up--ghl-1f198f8480.pdf",
+    "product": "The Follow Up",
+    "pages": 5
+   },
+   "make": {
+    "pdf": "quote-follow-up--make-49e46bf3d3.pdf",
+    "product": "The Follow Up",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "quote-follow-up--n8n-ecc2f787ec.pdf",
+    "product": "The Follow Up",
+    "pages": 5
+   },
+   "pipedrive": {
+    "pdf": "quote-follow-up--pipedrive-07f7748a28.pdf",
+    "product": "The Follow Up",
+    "pages": 5
+   }
+  },
+  "reactivation": {
+   "ghl": {
+    "pdf": "reactivation--ghl-6c1294ae02.pdf",
+    "product": "The Win-Back",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "reactivation--n8n-248bd2761d.pdf",
+    "product": "The Win-Back",
+    "pages": 5
+   }
+  },
+  "reporting": {
+   "activecampaign": {
+    "pdf": "reporting--activecampaign-d95c7406a7.pdf",
+    "product": "The Reporting Layer",
+    "pages": 5
+   },
+   "airtable": {
+    "pdf": "reporting--airtable-a81cbe1922.pdf",
+    "product": "The Reporting Layer",
+    "pages": 5
+   },
+   "ghl": {
+    "pdf": "reporting--ghl-955a03b282.pdf",
+    "product": "The Reporting Layer",
+    "pages": 5
+   },
+   "google-sheets": {
+    "pdf": "reporting--google-sheets-6f48f6a536.pdf",
+    "product": "The Reporting Layer",
+    "pages": 5
+   },
+   "hubspot": {
+    "pdf": "reporting--hubspot-d12e49f1de.pdf",
+    "product": "The Reporting Layer",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "reporting--n8n-b4dd49a2d6.pdf",
+    "product": "The Reporting Layer",
+    "pages": 5
+   },
+   "pipedrive": {
+    "pdf": "reporting--pipedrive-1de595a4bf.pdf",
+    "product": "The Reporting Layer",
+    "pages": 5
+   },
+   "quickbooks": {
+    "pdf": "reporting--quickbooks-3064515cd0.pdf",
+    "product": "The Reporting Layer",
+    "pages": 5
+   },
+   "shopify": {
+    "pdf": "reporting--shopify-283a7ae487.pdf",
+    "product": "The Reporting Layer",
+    "pages": 5
+   },
+   "stripe": {
+    "pdf": "reporting--stripe-b7c9633f68.pdf",
+    "product": "The Reporting Layer",
+    "pages": 5
+   }
+  },
+  "scheduling": {
+   "ghl": {
+    "pdf": "scheduling--ghl-5277093b13.pdf",
+    "product": "The Booking System",
+    "pages": 5
+   },
+   "google-sheets": {
+    "pdf": "scheduling--google-sheets-66197aa2e2.pdf",
+    "product": "The Booking System",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "scheduling--n8n-d1877f5ff2.pdf",
+    "product": "The Booking System",
+    "pages": 5
+   },
+   "quickbooks": {
+    "pdf": "scheduling--quickbooks-5527fe8ee8.pdf",
+    "product": "The Booking System",
+    "pages": 5
+   }
+  },
+  "stalled-deal-escalation": {
+   "activecampaign": {
+    "pdf": "stalled-deal-escalation--activecampaign-f7c915c4a3.pdf",
+    "product": "The Rescue",
+    "pages": 5
+   },
+   "ghl": {
+    "pdf": "stalled-deal-escalation--ghl-608b32cf73.pdf",
+    "product": "The Rescue",
+    "pages": 5
+   },
+   "hubspot": {
+    "pdf": "stalled-deal-escalation--hubspot-f440e21f8a.pdf",
+    "product": "The Rescue",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "stalled-deal-escalation--n8n-f8e4125bda.pdf",
+    "product": "The Rescue",
+    "pages": 5
+   },
+   "pipedrive": {
+    "pdf": "stalled-deal-escalation--pipedrive-a656c5d1c3.pdf",
+    "product": "The Rescue",
+    "pages": 5
+   },
+   "zapier": {
+    "pdf": "stalled-deal-escalation--zapier-332f4e3e57.pdf",
+    "product": "The Rescue",
+    "pages": 5
+   }
+  },
+  "storefront-upsell": {
+   "n8n": {
+    "pdf": "storefront-upsell--n8n-9c5c5d6e46.pdf",
+    "product": "The Upsell Engine",
+    "pages": 5
+   },
+   "shopify": {
+    "pdf": "storefront-upsell--shopify-a57a6d2905.pdf",
+    "product": "The Upsell Engine",
+    "pages": 5
+   }
+  },
+  "system-sync": {
+   "airtable": {
+    "pdf": "system-sync--airtable-df07289f12.pdf",
+    "product": "The Sync Build",
+    "pages": 5
+   },
+   "hubspot": {
+    "pdf": "system-sync--hubspot-595d4fbf70.pdf",
+    "product": "The Sync Build",
+    "pages": 5
+   },
+   "instantly": {
+    "pdf": "system-sync--instantly-135892290c.pdf",
+    "product": "The Sync Build",
+    "pages": 5
+   },
+   "make": {
+    "pdf": "system-sync--make-a4e759dacd.pdf",
+    "product": "The Sync Build",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "system-sync--n8n-e672e72571.pdf",
+    "product": "The Sync Build",
+    "pages": 5
+   },
+   "quickbooks": {
+    "pdf": "system-sync--quickbooks-f182500a96.pdf",
+    "product": "The Sync Build",
+    "pages": 5
+   },
+   "shopify": {
+    "pdf": "system-sync--shopify-447c560a75.pdf",
+    "product": "The Sync Build",
+    "pages": 5
+   },
+   "stripe": {
+    "pdf": "system-sync--stripe-bdf345fc98.pdf",
+    "product": "The Sync Build",
+    "pages": 5
+   },
+   "zapier": {
+    "pdf": "system-sync--zapier-560e12e167.pdf",
+    "product": "The Sync Build",
+    "pages": 5
+   }
+  },
+  "voice-agent-intake": {
+   "ghl": {
+    "pdf": "voice-agent-intake--ghl-0a9153e294.pdf",
+    "product": "The Voice Intake",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "voice-agent-intake--n8n-d484d11e32.pdf",
+    "product": "The Voice Intake",
+    "pages": 5
+   },
+   "twilio": {
+    "pdf": "voice-agent-intake--twilio-bbd99c8bc1.pdf",
+    "product": "The Voice Intake",
+    "pages": 5
+   }
+  },
+  "conversation-design": {
+   "ghl": {
+    "pdf": "conversation-design--ghl-ee689e056b.pdf",
+    "product": "The Conversation Architecture",
+    "pages": 5
+   },
+   "instantly": {
+    "pdf": "conversation-design--instantly-9e332e2154.pdf",
+    "product": "The Conversation Architecture",
+    "pages": 5
+   },
+   "n8n": {
+    "pdf": "conversation-design--n8n-48b94ac9fb.pdf",
+    "product": "The Conversation Architecture",
+    "pages": 5
+   }
+  }
+ }
+}
