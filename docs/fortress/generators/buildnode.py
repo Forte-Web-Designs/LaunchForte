@@ -840,8 +840,35 @@ let PACK = 3
 const lenCap = __postLen > 2600 ? 8 : __postLen > 1400 ? 7 : __postLen > 700 ? 6 : 5;
 PACK = Math.max(PACK_MIN, Math.min(PACK_MAX, Math.min(PACK, lenCap)));
 
+// Some shots in the library say, in their own filename, that the thing is not
+// running: an empty agents list, a paused agent, a campaign list with nothing
+// but drafts in it. They were captured while a tool was being set up and they
+// are honest, but a buyer opening a PDF and finding an empty state has learned
+// something we did not want to teach. So they sort last everywhere, and only
+// ever arrive as the final backfill when a shape holds nothing else.
+//
+// "draft order" is excluded on purpose: in Shopify a draft order is a product
+// noun, not a confession.
+// No \b and no \s in this pattern, on purpose. The JS below is emitted through
+// a Python format string, and Python reads a lone backslash-b as a backspace
+// character - so the first version of this regex shipped with every word
+// boundary silently deleted and matched almost nothing. View names are
+// hyphen-separated, so hyphen and underscore ARE the boundaries here.
+const __WEAK = /(^|[-_])(?:empty[-_]?state|inactive|paused|placeholder|blank)([-_]|$)|(^|[-_])drafts?(?![-_]orders)([-_]|$)/i;
+const weak = s => __WEAK.test(String((s && s.v) || ''));
+// Stable, and weak-last. Array.prototype.sort is stable in every engine n8n
+// runs on, so equal-strength shots keep the order the library gave them.
+const strongFirst = arr => (arr || []).slice().sort((a, b) => (weak(a) ? 1 : 0) - (weak(b) ? 1 : 0));
+
+// Two passes, always: a running shot that matches the pattern beats a
+// not-running shot that matches it better. Filtering weak shots at the call
+// sites was not enough - "campaigns-list-draft" contains "list", so the
+// generic result-shot fallback found it anyway.
 const pick = (arr, ...pats) => {
-  for (const p of pats) { const h = (arr || []).find(x => x.v.includes(p)); if (h) return h; }
+  const all = arr || [];
+  for (const pool of [all.filter(x => !weak(x)), all]) {
+    for (const p of pats) { const h = pool.find(x => x.v.includes(p)); if (h) return h; }
+  }
   return null;
 };
 const n8n = entry['n8n'] || [];
@@ -875,14 +902,28 @@ push(logic,  beats[1], 'thinking');
 // claiming range in the letter and attaching a pack that shows one system.
 const lead = {}, tail = {};
 showTools.forEach((t, i) => {
-  const shots = (entry[t] || []).map(s => Object.assign({}, s, { __tool: t }));
-  lead[t] = (i === 0 && hint[0] && pick(shots, hint[0]))
-            || pick(shots, 'canvas', 'builder', 'automation', 'settings', 'config', 'trigger')
-            || shots[0];
+  const shots = strongFirst(entry[t] || []).map(s => Object.assign({}, s, { __tool: t }));
+  // The hint pins which shot a caption is describing, so it wins - but only
+  // among shots that are actually running. A hint that matches nothing except
+  // an empty state is a caption pointing at a picture of nothing, and that is
+  // how "campaigns-list-draft" led a cold outreach pack on the first cut.
+  // Every fallback is tried against the running shots BEFORE the pattern list is
+  // widened to include the rest. Exhausting the patterns first is what put
+  // "campaigns-list-draft" in the result slot: no running shot in that shape
+  // contains the word list, so a pattern match on a draft beat a plain running
+  // shot that matched nothing. A running picture the caption describes loosely
+  // is worth more than a perfect match on an empty screen.
+  const strong = shots.filter(s => !weak(s));
+  const LEADPAT = ['canvas', 'builder', 'automation', 'settings', 'config', 'trigger'];
+  const TAILPAT = ['board', 'list', 'dashboard', 'record', 'detail', 'saved', 'summary'];
+  lead[t] = (i === 0 && hint[0] && pick(strong, hint[0]))
+            || pick(strong, ...LEADPAT) || strong[0]
+            || pick(shots, ...LEADPAT) || shots[0];
   const rest = shots.filter(s => s !== lead[t]);
-  tail[t] = (i === 0 && hint[1] && pick(rest, hint[1]))
-            || pick(rest, 'board', 'list', 'dashboard', 'record', 'detail', 'saved', 'summary')
-            || rest[0];
+  const restStrong = rest.filter(s => !weak(s));
+  tail[t] = (i === 0 && hint[1] && pick(restStrong, hint[1]))
+            || pick(restStrong, ...TAILPAT) || restStrong[0]
+            || pick(rest, ...TAILPAT) || rest[0];
 });
 const seamLineFor = t => 'And the far side of it, in ' + pretty(t) +
   ' — the same record after it crosses. ' +
@@ -902,9 +943,9 @@ showTools.forEach((t, i) => {
 // rather than shipping four when seven exist. Padding costs the deal, but so
 // does leaving proof in the folder.
 if (chosen.length < PACK) {
-  const pool = showTools.concat(spread).reduce(
+  const pool = strongFirst(showTools.concat(spread).reduce(
     (acc, t) => acc.concat((entry[t] || []).map(s => Object.assign({}, s, { __tool: t }))),
-    []).concat(n8n.map(s => Object.assign({}, s, { __tool: 'n8n' })));
+    []).concat(n8n.map(s => Object.assign({}, s, { __tool: 'n8n' }))));
   for (const f of pool) {
     if (chosen.length >= PACK) break;
     push(f, beats[3] || beats[2], 'more');

@@ -85,3 +85,31 @@ any run generated before this change.
 The prompt and the audit both read the array. The prompt now also states the
 picture count outright, because a model told "four screenshots are attached" in
 one place and handed six in another will describe four.
+
+## Shots that say they are not running
+
+Seven pictures in the library announce, in their own filename, that the thing
+is switched off: `agents-empty-state`, `agent-paused-inactive`,
+`campaigns-list-draft`, `flow-list-inactive`, `landing-pages-sample-draft`,
+`flow-canvas-upsell-draft`. They were captured while a tool was being set up.
+They are honest, and a buyer opening a PDF and finding an empty screen has
+learned something we did not want to teach.
+
+So they sort last everywhere and are only reached when a shape holds nothing
+else. Every fallback — the pinned hint, the "their world" pattern list, the
+"result" pattern list — is tried against the running shots first, and only then
+widened. That ordering matters: `campaigns-list-draft` contains the word
+*list*, so the result-shot fallback found it on the first cut even though six
+running Instantly shots were sitting right there. A running picture the caption
+describes loosely is worth more than a perfect pattern match on an empty
+screen.
+
+Shopify's **draft orders** are excluded from the rule on purpose. There, draft
+is a product noun, not a confession.
+
+One footnote worth keeping. The first version of that pattern used `\b` word
+boundaries, and this node is emitted through a Python format string — Python
+reads a lone backslash-b as a backspace character, so the regex shipped with
+every boundary silently deleted and matched almost nothing. The pattern now
+uses hyphen and underscore as its boundaries, which is what view names actually
+separate on, and nothing in it needs escaping.
