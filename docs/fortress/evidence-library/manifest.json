@@ -1,5 +1,5 @@
 {
- "count": 745,
+ "count": 766,
  "shapes": [
   "_blockers",
   "_library",
@@ -4497,6 +4497,132 @@
    "tool": "slack",
    "view": "ops-channel-full-cycle",
    "file": "messaging-compliance/messaging-compliance--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "flow-both-branches-send-and-suppress",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--flow-both-branches-send-and-suppress.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "flow-canvas-companion-split-full",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--flow-canvas-companion-split-full.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "internal-alert-suppressed-with-reason",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--internal-alert-suppressed-with-reason.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "profile-consent-and-companion-properties",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--profile-consent-and-companion-properties.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "segment-definition-consent-and-exclusion",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--segment-definition-consent-and-exclusion.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "segment-members-example-addresses",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--segment-members-example-addresses.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "klaviyo",
+   "view": "flow-both-branches-send-and-suppress",
+   "file": "alerting/alerting--klaviyo--flow-both-branches-send-and-suppress.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "klaviyo",
+   "view": "internal-alert-suppressed-with-reason",
+   "file": "alerting/alerting--klaviyo--internal-alert-suppressed-with-reason.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "flow-both-branches-send-and-suppress",
+   "file": "reactivation/reactivation--klaviyo--flow-both-branches-send-and-suppress.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "flow-canvas-companion-split-full",
+   "file": "reactivation/reactivation--klaviyo--flow-canvas-companion-split-full.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "profile-consent-and-companion-properties",
+   "file": "reactivation/reactivation--klaviyo--profile-consent-and-companion-properties.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "segment-definition-consent-and-exclusion",
+   "file": "reactivation/reactivation--klaviyo--segment-definition-consent-and-exclusion.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "segment-members-example-addresses",
+   "file": "reactivation/reactivation--klaviyo--segment-members-example-addresses.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "klaviyo",
+   "view": "profile-consent-and-companion-properties",
+   "file": "data-model-architecture/data-model-architecture--klaviyo--profile-consent-and-companion-properties.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "klaviyo",
+   "view": "segment-definition-consent-and-exclusion",
+   "file": "data-model-architecture/data-model-architecture--klaviyo--segment-definition-consent-and-exclusion.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "klaviyo",
+   "view": "segment-members-example-addresses",
+   "file": "data-collection/data-collection--klaviyo--segment-members-example-addresses.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "flow-both-branches-send-and-suppress",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--flow-both-branches-send-and-suppress.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "flow-canvas-companion-split-full",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--flow-canvas-companion-split-full.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "internal-alert-suppressed-with-reason",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--internal-alert-suppressed-with-reason.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "profile-consent-and-companion-properties",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--profile-consent-and-companion-properties.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "segment-definition-consent-and-exclusion",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--segment-definition-consent-and-exclusion.jpg"
   }
  ]
 }
