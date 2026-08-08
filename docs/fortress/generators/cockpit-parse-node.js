@@ -6,7 +6,17 @@ if (resp.statusCode && resp.statusCode >= 400) {
 }
 const parts = (body && body.content) || [];
 const text = parts.filter(p => p && p.type === 'text').map(p => p.text).join('\n').trim();
-if (!text) throw new Error('COCKPIT: the model returned no text. Stop rather than send an empty draft.');
+// "no text" has one cause worth naming: the whole output budget went on
+// thinking and the letter never started. Say which it was, so the next person
+// reading this error knows whether to raise the ceiling or look at the prompt.
+if (!text) {
+  const why = (body && body.stop_reason === 'max_tokens')
+    ? ' It stopped on max_tokens after ' + ((body.usage && body.usage.output_tokens) || '?') +
+      ' output tokens, all of them ' + (parts.map(p => p && p.type).join('/') || 'nothing') +
+      '. Raise max_tokens on the payload.'
+    : ' stop_reason was ' + ((body && body.stop_reason) || 'not reported') + '.';
+  throw new Error('COCKPIT: the model returned no text. Stop rather than send an empty draft.' + why);
+}
 let raw = text.replace(/^\`\`\`(?:json)?/i, '').replace(/\`\`\`$/, '').trim();
 const a = raw.indexOf('{'), b = raw.lastIndexOf('}');
 if (a > 0 || b < raw.length - 1) raw = raw.slice(a, b + 1);
@@ -95,6 +105,31 @@ const EARLY_RE = /\b(once|after|when|as soon as|the moment)\b[^.!?]{0,60}\b(you|
 
 const sentences = (p) => String(p).split(/(?<=[.!?])\s+/).filter(Boolean);
 
+// Seth, Aug 8, on the wording: "just say upwork doesnt allow to share links etc
+// before were under contract. thats it." The letter had grown a whole clause
+// around it — "anything carrying a URL is something I share once we are working
+// together" — which is a promise dressed as a policy. The policy is the point,
+// it is one sentence, and it is the same sentence every time.
+const CANON_LINK = 'Upwork does not allow sharing links before we are under contract.';
+const LINKWORD_RE = /\b(links?|urls?)\b/i;
+const SHARE_RE = /\b(share|shared|sharing|send|sends|sending|sent|come|comes|travel|travels|pass|passing|get you)\b/i;
+const TIMING_RE = /\b(contract|working together|reply|replies|chat|messages?|interview|once|before|until)\b/i;
+
+function canonLinkRule(text) {
+  let seen = 0;
+  const kept = paras(text).map(p => {
+    const S = sentences(p).map(s => {
+      if (LINKWORD_RE.test(s) && SHARE_RE.test(s) && TIMING_RE.test(s)) {
+        seen++;
+        return seen === 1 ? CANON_LINK : '';
+      }
+      return s;
+    }).filter(Boolean);
+    return S.join(' ').trim();
+  }).filter(Boolean);
+  return { text: kept.join('\n\n'), rewritten: seen };
+}
+
 function fixLinkPromise(letter) {
   let cut = 0;
   const kept = paras(letter).map(p => {
@@ -106,6 +141,38 @@ function fixLinkPromise(letter) {
     return S.join(' ').trim();
   }).filter(Boolean);
   return { text: kept.join('\n\n'), cut };
+}
+
+// ---------------------------------------------------------------------------
+// OWN THE PRODUCT
+//
+// Seth: "always own it. don't say 'the upsell engine', call it 'my upsell
+// engine' in all posts." The definite article makes a thing he designed and
+// shipped sound like a product off a shelf that anyone could point at. It is
+// his catalogue, and the letter should read that way.
+//
+// The prompt asks for it. This makes it true whether or not it was asked
+// nicely, because it is a one-word substitution with no judgement in it.
+// ---------------------------------------------------------------------------
+function ownProduct(text, rawName) {
+  // The shapes table stores the product as "The Upsell Engine", article and
+  // all, so "put my in front of it" produced "it is my The Upsell Engine" in a
+  // letter that went out. The article belongs to the catalogue row, not to the
+  // sentence. Strip it before doing anything else.
+  const name = String(rawName || '').replace(/^\s*(?:the|an?|my)\s+/i, '').trim();
+  if (!name) return { text: text, fixed: 0 };
+  const esc = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  let fixed = 0;
+  // The article's own case says nothing: a model writing "closely mirrors The
+  // Upsell Engine" mid-sentence would otherwise hand back "mirrors My Upsell
+  // Engine". Sentence position decides the capital, not the word being replaced.
+  const sub = new RegExp('(^|[\\s\\S])\\b(?:The|the|An?|an?)\\s+(' + esc + ')\\b', 'g');
+  const out = String(text || '').replace(sub, function (m, before, n) {
+    fixed++;
+    const starts = before === '' || /[.!?:\n]/.test(before);
+    return before + (starts ? 'My ' : 'my ') + n;
+  });
+  return { text: out, fixed: fixed };
 }
 
 const SHOT_PROMISE = 'I am going to attach a couple of screenshots from a similar product I have built and shipped multiple times, so you can take a look. It may not be a one to one fit, but it is similar and I have real experience with the idea behind what you are asking for.';
@@ -132,11 +199,14 @@ try { __ev = $('Pick the evidence to attach').first().json || {}; } catch (e) { 
 const __hasShots = (__ev.evidence_count || 0) > 0;
 
 const __L = fixLetter(out.coverLetter);
-const __P = fixLinkPromise(__L.text);
+const __C = canonLinkRule(__L.text);
+const __P = fixLinkPromise(__C.text);
+const __O = ownProduct(__P.text, __ev.product_name);
 const __SP = fixLinkPromise(out.loomScript);
-const __S = fixScript(__SP.text, __hasShots);
+const __SO = ownProduct(__SP.text, __ev.product_name);
+const __S = fixScript(__SO.text, __hasShots);
 const __wasLetter = String(out.coverLetter || '');
-out.coverLetter = __P.text;
+out.coverLetter = __O.text;
 out.loomScript = __S.text;
 
 // Observable, like everything else that decides something on its own.
@@ -149,6 +219,9 @@ const normalised = {
   script_promise_added: __S.added,
   script_promise_removed: __S.removed,
   link_promises_cut: __P.cut + __SP.cut,
+  link_rule_rewritten: __C.rewritten,
+  product_owned: __O.fixed + __SO.fixed,
+  product_name: __ev.product_name || null,
   attached_tools: [__ev.evidence_tool_shown, __ev.seam_shown].filter(Boolean),
   attached_captions: (Array.isArray(__ev.evidence) ? __ev.evidence : []).map(e => e.line),
 };

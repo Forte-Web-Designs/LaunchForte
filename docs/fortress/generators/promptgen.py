@@ -98,6 +98,16 @@ MUST_CONTAIN = [
      r"__attachedSlugs\.indexOf\(__slug\(r\.tool\)\)"),
     ("the close is gated on the pack, not on a reference build",
      r"if \(__refs\.length \|\| __shots\.length\)"),
+    # Seth, Aug 8: "always own it. dont say 'the upsell engine' call it 'my
+    # upsell engine' in all posts."
+    ("the product is owned, never given a definite article",
+     r"ALWAYS OWN THE PRODUCT"),
+    ("the product name is handed over with my in front of it",
+     r"put my in front of it: my "),
+    ("the stored article is stripped before the name is handed over",
+     r"product_name\)\.replace\(/\^\\s\*\(\?:the\|an\?\)\\s\+/i"),
+    ("the link rule is one plain sentence, not a clause",
+     r"Upwork does not allow sharing links before we are under contract"),
 ]
 
 # Wording that must never reach a buyer. These are the phrases that made our own

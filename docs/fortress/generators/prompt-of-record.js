@@ -113,7 +113,8 @@ const UPWORK_RULES = [
   'Scheduling stays on platform: ask for a couple of windows, Monday to Friday, 9 to 5 Central.',
   'LINKS ARE NOT A CHAT THING, THEY ARE A CONTRACT THING. On Upwork a link cannot be sent when they reply, cannot be sent in chat, and cannot be sent in an interview. Nothing carrying a URL may travel until we are UNDER CONTRACT. Getting into the messages is not the unlock; the contract is.',
   'So never promise a link on any earlier trigger. Never write once you reply, once we are in chat, over chat, in the messages, when we connect, on the call, or anything with the same shape, attached to a link, a demo, a store, a walkthrough or a login.',
-  'What may be promised BEFORE a contract: the attachments already in this email, and answers to anything they ask. The live walkthrough and anything with a URL is offered as something that happens once we are working together, phrased exactly that way.',
+  'IF THE LINK RULE NEEDS SAYING AT ALL, SAY IT PLAINLY AND STOP. The whole sentence is: Upwork does not allow sharing links before we are under contract. Do not build a clause around it, do not turn it into a promise about what happens later, and never write anything of the shape anything carrying a URL is something I share once we are working together. State the rule, move on.',
+  'What may be offered BEFORE a contract: the attachments already in this email, and answers to anything they ask. Nothing else needs offering.',
   'PRICING DISCIPLINE: the platform ceiling is separate from the value ceiling. A number that reads as gig-platform agency price gets discounted or skipped before the pitch is even read, regardless of how well justified it is.',
   'STANDING UPWORK CEILING, until real data says otherwise: land at or under roughly $3,000 to $3,500 for a first engagement, even when the honestly scoped value or hourly math would support more.',
   'IF TRUE SCOPE EXCEEDS THE CEILING, SPLIT, DO NOT INFLATE: propose a smaller first phase that fits under the ceiling, with Phase 2 and Phase 3 named as a non-binding roadmap. Never quote the full number and hope.',
@@ -350,6 +351,9 @@ if (__refs.length || __shots.length) {
   rb.push('Close the cover letter with a short paragraph on this, framed as a PRODUCT rather than a demo.');
   rb.push('The frame, in Seth\'s words: again, this needs more conversation, but most of what he builds is');
   rb.push('either fully or partially a product in his catalogue, and theirs closely mirrors <product name>.');
+  rb.push('ALWAYS OWN THE PRODUCT. Write my <product name>, never the <product name>. It is his, he built');
+  rb.push('it, and the definite article makes it sound like a thing off a shelf that anyone could point at.');
+  rb.push('Same everywhere it appears: my Upsell Engine, my reachability audit, my escalation build.');
   rb.push('Then say in one clause what the picture is showing, and close with: and yours would look like');
   rb.push('this, with <their subject> in place of <ours>. It is production ready and already working, so');
   rb.push('say it is similar and definitely buildable — never claim it is a perfect or exact fit.');
@@ -361,7 +365,11 @@ if (__refs.length || __shots.length) {
   /* LF-BANLIST-END */
   if (__pack.product_name) {
     rb.push('');
-    rb.push('THE PRODUCT THIS ONE IS. Use this name, not one you invent: ' + __pack.product_name);
+    // The catalogue stores it as "The Upsell Engine". Handing that over with
+    // "put my in front of it" produced "it is my The Upsell Engine" in a letter
+    // that shipped. The article belongs to the table, not to the sentence.
+    rb.push('THE PRODUCT THIS ONE IS. Use this name, not one you invent, and put my in front of it: my '
+            + String(__pack.product_name).replace(/^\s*(?:the|an?)\s+/i, ''));
     if (__pack.evidence_open) { rb.push('   What it is: ' + __pack.evidence_open); }
     if (__pack.substitution_note) { rb.push('   Say this about the tool it is shown in: ' + __pack.substitution_note); }
     if (__pack.direction_note) { rb.push('   This is not a carbon copy, so say: ' + __pack.direction_note); }
@@ -392,7 +400,14 @@ if (__refs.length || __shots.length) {
 
 const payload = {
   model: 'claude-fable-5',
-  max_tokens: 16000,
+  // 16,000 was not a budget for the answer, it was a budget for the answer AND
+  // the thinking. On the hardest posting in the set — a four thousand character
+  // brief with a $400 ceiling against our $2,500 floor — the model spent all
+  // 16,000 on thinking and returned content of type thinking and nothing else.
+  // stop_reason came back max_tokens, Parse Outputs threw "the model returned no
+  // text", and the same posting failed the same way twice. That is not a flake,
+  // it is a ceiling. The letter needs room left over after the thinking is done.
+  max_tokens: 32000,
   system: TEMPLATE + NL + NL + String(j.groundingBlock || "") + NL + NL + CHANNEL_RULES + NL + NL + PROOF_BLOCK + NL + NL + OUTPUT_CONTRACT,
   messages: [{ role: 'user', content: ctx.join(NL) }]
 };

@@ -52,13 +52,42 @@ var __TOOLS = [
 var __CLAIM = /\b(attach\w*|screenshot\w*|picture|pictures|shot|shots|image|images|pdf|pack)\b/i;
 var __sentences = function (t) { return String(t || '').split(/(?<=[.!?])\s+/); };
 
+// Naming a tool ANYWHERE in a sentence that also mentions the attachment is not
+// the defect. The first cut of this check held a draft over "I synced a
+// furniture retailer's Shopify orders into Xero, and the order state work in
+// the screenshots runs through the orders API" — a true sentence about a real
+// build, with Xero sixty characters away from the word screenshots. A hold that
+// fires on honest prose gets switched off, and then it protects nothing.
+//
+// What is actually wrong is a DEPICTION claim: the attachment is said to show
+// the tool. That is a short-range grammatical relation, so it is matched as
+// one — the attachment word, a depiction verb, then the tool, all inside the
+// span a sentence like that occupies.
+var __ATT = '(?:attached|attachment|screenshots?|pictures?|shots?|images?|pdf|pack)';
+var __VERB = '(?:shows?|showing|shown|is|are|of|from|in|with)';
+var __depicts = function (sentence, toolRe) {
+  var t = toolRe.source.replace(/^\\b|\\b$/g, '');
+  var fwd = new RegExp(__ATT + '\\b[^.!?]{0,25}?\\b' + __VERB + '\\b[^.!?]{0,45}?(?:' + t + ')', 'i');
+  var back = new RegExp('(?:' + t + ')[\\w\\s,\'-]{0,25}\\b' + __ATT + '\\b', 'i');
+  return fwd.test(sentence) || back.test(sentence);
+};
+
+// The sketch is on every run whether or not there is a pack, so "the attached
+// sketch shows the shape of it on one page" is always a true sentence. The
+// first cut held a draft over exactly that. Take the sketch out of the sentence
+// before asking what the attachment is claimed to show.
+var __desketch = function (s) {
+  return String(s).replace(/\b(?:the\s+)?attached\s+sketch\b/ig, 'SKETCH')
+                  .replace(/\bsketch\b/ig, 'SKETCH');
+};
+
 var __wrong = [];
-__sentences(letter).forEach(function (s) {
+__sentences(letter).forEach(function (raw) {
+  var s = __desketch(raw);
   if (!__CLAIM.test(s)) return;
   __TOOLS.forEach(function (p) {
-    if (p[0].test(s) && __shownSlugs.indexOf(p[1]) === -1 && __wrong.indexOf(p[1]) === -1) {
-      __wrong.push(p[1]);
-    }
+    if (__shownSlugs.indexOf(p[1]) !== -1 || __wrong.indexOf(p[1]) !== -1) return;
+    if (p[0].test(s) && __depicts(s, p[0])) { __wrong.push(p[1]); }
   });
 });
 if (__wrong.length) {
@@ -66,8 +95,11 @@ if (__wrong.length) {
     '. The pack is in ' + (__packTools.length ? __packTools.join(' and ') : 'nothing') +
     ', so that picture is not in the email. Describe what was attached or attach what was described.');
 }
-if (!__shotCount && __CLAIM.test(letter)) {
-  hard.push('The letter refers to an attachment and nothing was attached.');
+// Only a claim about a PICTURE depends on the pack. Everything else that gets
+// called an attachment — the sketch, the client pack — ships regardless.
+var __SHOTWORD = /\b(screenshots?|pictures?|images?|shots?)\b/i;
+if (!__shotCount && __SHOTWORD.test(__desketch(letter))) {
+  hard.push('The letter refers to a screenshot and no screenshots were attached.');
 }
 
 /* nothing carrying a URL travels before a contract */

@@ -75,6 +75,39 @@ FIXTURES = [
                   "I will send you the live one in the messages as soon as you reply.\n\nNo worries either way.",
     },
     {
+        # Both from run 26656, which shipped. Seth on the first: "just say
+        # upwork doesnt allow to share links etc before were under contract.
+        # thats it." On the second: the catalogue stores the product as "The
+        # Upsell Engine", so "put my in front of it" produced "my The Upsell
+        # Engine" in the letter.
+        "name": "the link rule is one plain sentence, and the stored article is not part of the name",
+        "letter": "Hey, reading the post it sounds like the launch needs the machine around it.\n\n"
+                  "Read against what you have described, it is The Upsell Engine, built on the idea "
+                  "that every order shipping without its companion is margin you already paid for.\n\n"
+                  "Seth Forte\n\n"
+                  "On store links, anything carrying a URL is something I share once we are working "
+                  "together, so the storefront examples will have to wait. From your stack I have "
+                  "shipped in Shopify.",
+        "shots": 4,
+        "product": "The Upsell Engine",
+        "canon": True,
+    },
+    {
+        # Seth, Aug 8: "always own it. dont say 'the upsell engine' call it
+        # 'my upsell engine' in all posts."
+        "name": "the product is his, so it never takes a definite article",
+        "letter": "Hey, reading the post it sounds like the companion product never gets offered.\n\n"
+                  "Again, this needs more conversation, but your post purchase ask closely mirrors "
+                  "The Upsell Engine, since every order that ships without its obvious companion is "
+                  "margin you already paid to acquire. The attached screenshots show it running "
+                  "inside Shopify against the live catalogue.\n\n"
+                  "Seth Forte",
+        "shots": 4,
+        "product": "Upsell Engine",
+        "script": "Hey, quick one.\n\nThis is basically an Upsell Engine, same shape as yours.\n\n"
+                  "I am going to attach a couple of screenshots so you can see it.",
+    },
+    {
         "name": "no attachments — the video must not promise a picture",
         "letter": "Hey, reading the post it sounds like a rebuild rather than an automation.\n\n"
                   "Seth Forte",
@@ -88,7 +121,7 @@ HARNESS = """
 %(body)s
 const __out = [];
 for (const f of FIXTURES) {
-  const ev = { evidence_count: f.shots };
+  const ev = { evidence_count: f.shots, product_name: f.product || null };
   const $ = () => ({ first: () => ({ json: ev }) });
   const out = { coverLetter: f.letter,
                 loomScript: f.script || 'Hey, quick one.\\n\\nHere is the sketch.\\n\\nIf it fits, great.',
@@ -167,6 +200,22 @@ def main():
                                   r"|\b(over|in|via|through) (?:the )?(chat|messages|dm|dms|inbox|thread)\b|\bin the interview\b", s, re.I)
                 if linky and early:
                     bad.append("the %s promises a link before a contract: %r" % (where, s.strip()[:70]))
+
+        # The product is his. "the Upsell Engine" reads like something off a
+        # shelf; "my Upsell Engine" reads like something he built.
+        if f.get("product"):
+            bare = re.sub(r"^\s*(?:the|an?)\s+", "", f["product"], flags=re.I)
+            for where, txt in (("letter", letter), ("video", script)):
+                m = re.search(r"\b(the|an?|my\s+the)\s+" + re.escape(bare) + r"\b", txt, re.I)
+                if m:
+                    bad.append("the %s says %r instead of my %s" % (where, m.group(0), bare))
+
+        # The link rule is one sentence, the same one every time.
+        if f.get("canon"):
+            if "Upwork does not allow sharing links before we are under contract." not in letter:
+                bad.append("the plain link rule is missing")
+            if re.search(r"anything carrying a URL", letter, re.I):
+                bad.append("the promise-shaped clause survived")
 
         mentions = bool(re.search(r"screenshot", script, re.I))
         if f["shots"] and not mentions:
