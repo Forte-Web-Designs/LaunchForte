@@ -1,5 +1,5 @@
 {
- "count": 704,
+ "count": 745,
  "shapes": [
   "_blockers",
   "_library",
@@ -4251,6 +4251,252 @@
    "tool": "supabase",
    "view": "row-level-security-policies",
    "file": "messaging-compliance/messaging-compliance--supabase--row-level-security-policies.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "reporting/reporting--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "calendly",
+   "view": "no-show-workflow-trigger",
+   "file": "client-onboarding/client-onboarding--calendly--no-show-workflow-trigger.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "calendly",
+   "view": "routing-form-question",
+   "file": "client-onboarding/client-onboarding--calendly--routing-form-question.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "calendly",
+   "view": "routing-rule-if-then",
+   "file": "client-onboarding/client-onboarding--calendly--routing-rule-if-then.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "client-onboarding/client-onboarding--calendly--routing-rule-saved.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "no-show-email-template",
+   "file": "scheduling/scheduling--calendly--no-show-email-template.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "no-show-workflow-trigger",
+   "file": "scheduling/scheduling--calendly--no-show-workflow-trigger.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "routing-condition-detail",
+   "file": "scheduling/scheduling--calendly--routing-condition-detail.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "routing-form-question",
+   "file": "scheduling/scheduling--calendly--routing-form-question.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "routing-rule-if-then",
+   "file": "scheduling/scheduling--calendly--routing-rule-if-then.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "scheduling/scheduling--calendly--routing-rule-saved.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "scheduling/scheduling--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "alert-message-step",
+   "file": "alerting/alerting--slack--alert-message-step.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "approval-step-config",
+   "file": "alerting/alerting--slack--approval-step-config.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "approval-workflow-steps",
+   "file": "alerting/alerting--slack--approval-workflow-steps.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "alerting/alerting--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "workflow-trigger-picker",
+   "file": "alerting/alerting--slack--workflow-trigger-picker.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "slack",
+   "view": "approval-step-config",
+   "file": "document-assembly/document-assembly--slack--approval-step-config.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "slack",
+   "view": "approval-workflow-steps",
+   "file": "document-assembly/document-assembly--slack--approval-workflow-steps.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "calendly",
+   "view": "no-show-email-template",
+   "file": "reactivation/reactivation--calendly--no-show-email-template.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "calendly",
+   "view": "no-show-workflow-trigger",
+   "file": "reactivation/reactivation--calendly--no-show-workflow-trigger.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "reactivation/reactivation--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "alert-message-step",
+   "file": "approval-routing/approval-routing--slack--alert-message-step.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "approval-step-config",
+   "file": "approval-routing/approval-routing--slack--approval-step-config.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "approval-workflow-steps",
+   "file": "approval-routing/approval-routing--slack--approval-workflow-steps.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "approval-routing/approval-routing--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "workflow-trigger-picker",
+   "file": "approval-routing/approval-routing--slack--workflow-trigger-picker.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "calendly",
+   "view": "routing-condition-detail",
+   "file": "lead-routing/lead-routing--calendly--routing-condition-detail.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "calendly",
+   "view": "routing-form-question",
+   "file": "lead-routing/lead-routing--calendly--routing-form-question.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "calendly",
+   "view": "routing-rule-if-then",
+   "file": "lead-routing/lead-routing--calendly--routing-rule-if-then.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "lead-routing/lead-routing--calendly--routing-rule-saved.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "lead-routing/lead-routing--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "slack",
+   "view": "approval-workflow-steps",
+   "file": "system-sync/system-sync--slack--approval-workflow-steps.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "system-sync/system-sync--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "slack",
+   "view": "workflow-trigger-picker",
+   "file": "system-sync/system-sync--slack--workflow-trigger-picker.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "calendly",
+   "view": "no-show-workflow-trigger",
+   "file": "quote-follow-up/quote-follow-up--calendly--no-show-workflow-trigger.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "calendly",
+   "view": "routing-form-question",
+   "file": "data-collection/data-collection--calendly--routing-form-question.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "calendly",
+   "view": "routing-rule-if-then",
+   "file": "data-collection/data-collection--calendly--routing-rule-if-then.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "data-collection/data-collection--calendly--routing-rule-saved.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "messaging-compliance/messaging-compliance--calendly--routing-rule-saved.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "messaging-compliance/messaging-compliance--slack--ops-channel-full-cycle.jpg"
   }
  ]
 }
