@@ -1,248 +1,32 @@
 {
- "count": 651,
- "shapes": {
-  "_blockers": {
-   "count": 14,
-   "tools": [
-    "ghl",
-    "instantly",
-    "shopify"
-   ]
-  },
-  "_library": {
-   "count": 32,
-   "tools": [
-    "activecampaign",
-    "airtable",
-    "ghl",
-    "google-sheets",
-    "hubspot",
-    "instantly",
-    "make",
-    "pipedrive",
-    "quickbooks",
-    "shopify",
-    "stripe",
-    "twilio",
-    "zapier"
-   ]
-  },
-  "ai-assistant": {
-   "count": 36,
-   "tools": [
-    "ghl",
-    "instantly",
-    "n8n"
-   ]
-  },
-  "ai-research-agent": {
-   "count": 4,
-   "tools": [
-    "n8n"
-   ]
-  },
-  "alerting": {
-   "count": 21,
-   "tools": [
-    "airtable",
-    "google-sheets",
-    "make",
-    "n8n",
-    "slack",
-    "zapier"
-   ]
-  },
-  "approval-routing": {
-   "count": 19,
-   "tools": [
-    "airtable",
-    "n8n",
-    "pipedrive",
-    "slack"
-   ]
-  },
-  "books-reconciliation": {
-   "count": 52,
-   "tools": [
-    "make",
-    "n8n",
-    "quickbooks",
-    "stripe"
-   ]
-  },
-  "client-onboarding": {
-   "count": 26,
-   "tools": [
-    "airtable",
-    "ghl",
-    "hubspot",
-    "n8n"
-   ]
-  },
-  "cold-outreach": {
-   "count": 11,
-   "tools": [
-    "instantly",
-    "n8n"
-   ]
-  },
-  "data-collection": {
-   "count": 57,
-   "tools": [
-    "activecampaign",
-    "airtable",
-    "ghl",
-    "google-sheets",
-    "hubspot",
-    "instantly",
-    "klaviyo",
-    "n8n",
-    "shopify",
-    "stripe",
-    "zapier"
-   ]
-  },
-  "data-model-architecture": {
-   "count": 23,
-   "tools": [
-    "airtable",
-    "hubspot",
-    "n8n",
-    "pipedrive"
-   ]
-  },
-  "document-assembly": {
-   "count": 10,
-   "tools": [
-    "n8n"
-   ]
-  },
-  "lead-routing": {
-   "count": 44,
-   "tools": [
-    "activecampaign",
-    "ghl",
-    "hubspot",
-    "n8n",
-    "zapier"
-   ]
-  },
-  "messaging-compliance": {
-   "count": 12,
-   "tools": [
-    "ghl",
-    "instantly",
-    "klaviyo",
-    "n8n"
-   ]
-  },
-  "platform-migration": {
-   "count": 14,
-   "tools": [
-    "ghl",
-    "hubspot",
-    "n8n"
-   ]
-  },
-  "production-takeover": {
-   "count": 8,
-   "tools": [
-    "n8n"
-   ]
-  },
-  "project-ops": {
-   "count": 25,
-   "tools": [
-    "airtable",
-    "clickup",
-    "monday",
-    "n8n"
-   ]
-  },
-  "quote-follow-up": {
-   "count": 19,
-   "tools": [
-    "activecampaign",
-    "ghl",
-    "make",
-    "n8n",
-    "pipedrive"
-   ]
-  },
-  "reactivation": {
-   "count": 19,
-   "tools": [
-    "ghl",
-    "n8n"
-   ]
-  },
-  "reporting": {
-   "count": 32,
-   "tools": [
-    "activecampaign",
-    "airtable",
-    "ghl",
-    "google-sheets",
-    "hubspot",
-    "n8n",
-    "pipedrive",
-    "quickbooks",
-    "shopify",
-    "stripe"
-   ]
-  },
-  "scheduling": {
-   "count": 23,
-   "tools": [
-    "calendly",
-    "ghl",
-    "google-sheets",
-    "n8n",
-    "quickbooks"
-   ]
-  },
-  "stalled-deal-escalation": {
-   "count": 47,
-   "tools": [
-    "activecampaign",
-    "ghl",
-    "hubspot",
-    "n8n",
-    "pipedrive",
-    "zapier"
-   ]
-  },
-  "storefront-upsell": {
-   "count": 37,
-   "tools": [
-    "klaviyo",
-    "n8n",
-    "shopify"
-   ]
-  },
-  "system-sync": {
-   "count": 42,
-   "tools": [
-    "airtable",
-    "hubspot",
-    "instantly",
-    "make",
-    "n8n",
-    "quickbooks",
-    "shopify",
-    "stripe",
-    "zapier"
-   ]
-  },
-  "voice-agent-intake": {
-   "count": 24,
-   "tools": [
-    "ghl",
-    "n8n",
-    "twilio"
-   ]
-  }
- },
+ "count": 704,
+ "shapes": [
+  "_blockers",
+  "_library",
+  "ai-assistant",
+  "ai-research-agent",
+  "alerting",
+  "approval-routing",
+  "books-reconciliation",
+  "client-onboarding",
+  "cold-outreach",
+  "data-collection",
+  "data-model-architecture",
+  "document-assembly",
+  "lead-routing",
+  "messaging-compliance",
+  "platform-migration",
+  "production-takeover",
+  "project-ops",
+  "quote-follow-up",
+  "reactivation",
+  "reporting",
+  "scheduling",
+  "stalled-deal-escalation",
+  "storefront-upsell",
+  "system-sync",
+  "voice-agent-intake"
+ ],
  "images": [
   {
    "shape": "_blockers",
@@ -4149,6 +3933,324 @@
    "tool": "twilio",
    "view": "widget-config-gather-input",
    "file": "voice-agent-intake/voice-agent-intake--twilio--widget-config-gather-input.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "supabase",
+   "view": "weekly-rollup-query",
+   "file": "reporting/reporting--supabase--weekly-rollup-query.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "zoho",
+   "view": "stalled-deals-list",
+   "file": "reporting/reporting--zoho--stalled-deals-list.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "escalation-task-config",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--escalation-task-config.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "stalled-deals-kanban",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--stalled-deals-kanban.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "stalled-deals-list",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--stalled-deals-list.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "stalled-view-criteria",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--stalled-view-criteria.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "webhook-handoff-config",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--webhook-handoff-config.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "workflow-rules-list",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--workflow-rules-list.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "zoho",
+   "view": "stalled-deals-kanban",
+   "file": "project-ops/project-ops--zoho--stalled-deals-kanban.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "supabase",
+   "view": "companion-gap-query",
+   "file": "storefront-upsell/storefront-upsell--supabase--companion-gap-query.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "supabase",
+   "view": "orders-table-editor",
+   "file": "storefront-upsell/storefront-upsell--supabase--orders-table-editor.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "supabase",
+   "view": "dedupe-query-in-sql-editor",
+   "file": "platform-migration/platform-migration--supabase--dedupe-query-in-sql-editor.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "supabase",
+   "view": "raw-inbox-landing-table",
+   "file": "platform-migration/platform-migration--supabase--raw-inbox-landing-table.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "supabase",
+   "view": "run-log-failed-then-retried",
+   "file": "alerting/alerting--supabase--run-log-failed-then-retried.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "alerting/alerting--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "supabase",
+   "view": "companion-gap-query",
+   "file": "reactivation/reactivation--supabase--companion-gap-query.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "approval-routing/approval-routing--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "zoho",
+   "view": "escalation-task-config",
+   "file": "approval-routing/approval-routing--zoho--escalation-task-config.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "zoho",
+   "view": "webhook-handoff-config",
+   "file": "approval-routing/approval-routing--zoho--webhook-handoff-config.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "zoho",
+   "view": "workflow-rules-list",
+   "file": "approval-routing/approval-routing--zoho--workflow-rules-list.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "companion-gap-query",
+   "file": "data-model-architecture/data-model-architecture--supabase--companion-gap-query.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "dedupe-query-in-sql-editor",
+   "file": "data-model-architecture/data-model-architecture--supabase--dedupe-query-in-sql-editor.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "orders-table-editor",
+   "file": "data-model-architecture/data-model-architecture--supabase--orders-table-editor.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "rls-policy-using-clause",
+   "file": "data-model-architecture/data-model-architecture--supabase--rls-policy-using-clause.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "row-level-security-policies",
+   "file": "data-model-architecture/data-model-architecture--supabase--row-level-security-policies.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "schema-visualizer-foreign-keys",
+   "file": "data-model-architecture/data-model-architecture--supabase--schema-visualizer-foreign-keys.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "weekly-rollup-query",
+   "file": "data-model-architecture/data-model-architecture--supabase--weekly-rollup-query.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "rls-policy-using-clause",
+   "file": "ai-research-agent/ai-research-agent--supabase--rls-policy-using-clause.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "row-level-security-policies",
+   "file": "ai-research-agent/ai-research-agent--supabase--row-level-security-policies.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "run-log-failed-then-retried",
+   "file": "ai-research-agent/ai-research-agent--supabase--run-log-failed-then-retried.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "schema-visualizer-foreign-keys",
+   "file": "ai-research-agent/ai-research-agent--supabase--schema-visualizer-foreign-keys.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "weekly-rollup-query",
+   "file": "ai-research-agent/ai-research-agent--supabase--weekly-rollup-query.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "lead-routing/lead-routing--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zoho",
+   "view": "stalled-deals-kanban",
+   "file": "lead-routing/lead-routing--zoho--stalled-deals-kanban.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zoho",
+   "view": "stalled-view-criteria",
+   "file": "lead-routing/lead-routing--zoho--stalled-view-criteria.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zoho",
+   "view": "webhook-handoff-config",
+   "file": "lead-routing/lead-routing--zoho--webhook-handoff-config.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "dedupe-query-in-sql-editor",
+   "file": "system-sync/system-sync--supabase--dedupe-query-in-sql-editor.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "orders-table-editor",
+   "file": "system-sync/system-sync--supabase--orders-table-editor.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "raw-inbox-landing-table",
+   "file": "system-sync/system-sync--supabase--raw-inbox-landing-table.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "run-log-failed-then-retried",
+   "file": "system-sync/system-sync--supabase--run-log-failed-then-retried.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "schema-visualizer-foreign-keys",
+   "file": "system-sync/system-sync--supabase--schema-visualizer-foreign-keys.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "zoho",
+   "view": "webhook-handoff-config",
+   "file": "system-sync/system-sync--zoho--webhook-handoff-config.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "quote-follow-up/quote-follow-up--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "escalation-task-config",
+   "file": "quote-follow-up/quote-follow-up--zoho--escalation-task-config.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "stalled-deals-kanban",
+   "file": "quote-follow-up/quote-follow-up--zoho--stalled-deals-kanban.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "stalled-deals-list",
+   "file": "quote-follow-up/quote-follow-up--zoho--stalled-deals-list.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "stalled-view-criteria",
+   "file": "quote-follow-up/quote-follow-up--zoho--stalled-view-criteria.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "supabase",
+   "view": "dedupe-query-in-sql-editor",
+   "file": "data-collection/data-collection--supabase--dedupe-query-in-sql-editor.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "supabase",
+   "view": "raw-inbox-landing-table",
+   "file": "data-collection/data-collection--supabase--raw-inbox-landing-table.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "supabase",
+   "view": "run-log-failed-then-retried",
+   "file": "data-collection/data-collection--supabase--run-log-failed-then-retried.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "supabase",
+   "view": "rls-policy-using-clause",
+   "file": "messaging-compliance/messaging-compliance--supabase--rls-policy-using-clause.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "supabase",
+   "view": "row-level-security-policies",
+   "file": "messaging-compliance/messaging-compliance--supabase--row-level-security-policies.jpg"
   }
  ]
 }

@@ -384,7 +384,8 @@ const PAIN   = %s;
 const TOOLS  = %s;
 const PRETTY = %s;
 
-const MAX = 4;
+// Pack size is decided per posting now, in section 4a. These are the walls.
+const PACK_MIN = 3, PACK_MAX = 8;
 const BASE = 'https://launchforte.com/built-with/shots/';
 const pretty = t => PRETTY[t] || (t ? t[0].toUpperCase() + t.slice(1) : t);
 
@@ -762,20 +763,82 @@ if (!entry) {
   }}];
 }
 
-// ---- 4. which tool do we show? --------------------------------------------
+// ---- 4. which tools do we show? -------------------------------------------
+// The rule, in Seth's words: if the posting names the tool, show that tool. If
+// it does not name one cleanly, or there is more we could show, slice it across
+// tools — because the claim is not "I once did this in Klaviyo", it is "this
+// pattern is mine and it stands up wherever you keep your data".
 const toolsHere = Object.keys(entry).filter(t => t !== 'n8n');
 const rank = ['ghl','hubspot','pipedrive','shopify','quickbooks','stripe','monday',
-              'activecampaign','zapier','twilio','airtable','instantly'];
-// Show a tool THEY named. Their first choice if we have it; otherwise any other
-// tool they named, because that is still their stack and not a substitution.
-const theirsCovered = clientTools.filter(t => entry[t]);
-const shown = theirsCovered[0]
-  || rank.find(t => toolsHere.includes(t)) || toolsHere[0] || 'n8n';
+              'activecampaign','zapier','twilio','airtable','instantly','klaviyo',
+              'supabase','zoho','slack','notion','clickup','calendly','vapi'];
+
+// Tools THEY named that we actually hold, in the order they named them. These
+// are not negotiable. A posting that says Klaviyo and gets a pack with no
+// Klaviyo in it has already lost, however good the other pictures are.
+const theirsCovered = clientTools.filter(t => entry[t] && t !== 'n8n');
 const covered = theirsCovered.length > 0;
+// Only tools the buyer WROTE decide how wide and how deep the pack goes.
+// clientTools falls back to hint fields — skills tags, categories, whatever
+// else rode in — and those are a guess. Sizing on a guess is what made the
+// same telehealth posting attach a Klaviyo shot on a clean run and a second
+// GoHighLevel shot on a contaminated one. A guess may still pick which tool
+// leads; it may not change what the buyer receives.
+const namedHeld = (toolSource === 'posting' ? statedTools : [])
+  .filter(t => entry[t] && t !== 'n8n');
+const namedAndHeld = namedHeld.length > 0;
 // Their FIRST-named tool is the one they will look for. Missing it is still a
 // gap worth queueing even when we could show a different tool they mentioned.
 const primaryMissing = !!(clientTool && !entry[clientTool]);
 const an = w => (/^[aeiou]/i.test(w) ? 'an ' : 'a ') + w;
+
+// Everything else this shape lives in, best-known first. When they named
+// nothing we hold, this IS the pack: same pattern, three houses.
+const spread = rank.filter(t => toolsHere.includes(t) && !theirsCovered.includes(t))
+                   .concat(toolsHere.filter(t => !theirsCovered.includes(t)));
+const uniq = a => a.filter((x, i) => a.indexOf(x) === i);
+
+// How wide the pack goes. Every tool they named earns a place. When they named
+// none, breadth is the argument, so take up to three. When they named one and
+// we have it, one more tool shows the seam without turning the pack into a
+// tour of rival CRMs.
+const WIDTH = namedHeld.length >= 2 ? Math.min(3, namedHeld.length)
+            : namedHeld.length === 1 ? 2
+            : 3;
+const showTools = uniq(theirsCovered.concat(spread)).slice(0, WIDTH);
+
+// Back-compat: the prompt, the audit and the send list all still read these
+// two scalars. They now mean "the first tool" and "the second tool" rather
+// than "the tool" and "the seam", and the array below is the real answer.
+const shown   = showTools[0] || 'n8n';
+const partner = showTools[1] || null;
+
+// ---- 4a. how many pictures has this posting earned? -----------------------
+// A four-line "connect Shopify to Klaviyo" post does not need eight images. A
+// scoped brief that names three systems, describes the failure and lists
+// requirements does — and sending four there reads as a template. So the size
+// is earned by the ask, then capped by how much DISTINCT evidence we hold.
+//
+// Every term here has to be a function of THE POSTING and the library, and
+// nothing else. Sizing on match confidence was the first version and it was
+// wrong: confidence moves with the scoring margin, contamination in the
+// payload moves the margin, and the regression caught the same buyer getting
+// six pictures on one run and seven on the next. What a buyer opens must never
+// depend on what else rode in with the request.
+const __postLen = (post || '').length;
+let PACK = 3
+  + (__postLen > 2600 ? 2 : __postLen > 1000 ? 1 : 0)
+  + Math.min(2, Math.max(0, showTools.length - 1))
+  + (painFor(shape).length >= 3 ? 1 : 0)
+  + (namedAndHeld ? 1 : 0)
+  // They named nothing we hold, so there is no single right tool to be inside.
+  // Breadth is the argument instead — the same pattern standing up in three
+  // places — and breadth needs the room to be visible.
+  + (!namedAndHeld && showTools.length >= 3 ? 1 : 0);
+// A four-line posting that gets eight pictures reads as a template, however
+// good the pictures are. The ask sets the ceiling as well as the floor.
+const lenCap = __postLen > 2600 ? 8 : __postLen > 1400 ? 7 : __postLen > 700 ? 6 : 5;
+PACK = Math.max(PACK_MIN, Math.min(PACK_MAX, Math.min(PACK, lenCap)));
 
 const pick = (arr, ...pats) => {
   for (const p of pats) { const h = (arr || []).find(x => x.v.includes(p)); if (h) return h; }
@@ -786,62 +849,74 @@ const own = entry[shown] || [];
 
 const beats = STORY[shape].beats;
 const chosen = [];
+const used = new Set();
+const push = (f, line, beat) => {
+  if (!f || !line || used.has(f.f) || chosen.length >= PACK) return;
+  used.add(f.f);
+  chosen.push({ f, line, beat, tool: f.__tool || shown });
+};
 const canvas = pick(n8n, 'kit-canvas-18-nodes', 'canvas');
 const logic  = pick(n8n, 'node-v2-decision-if', 'node-v2-gap-report', 'node-validate');
 const hint   = HINT[shape] || [];
-const inTool = (hint[0] && pick(own, hint[0]))
-               || pick(own, 'canvas', 'builder', 'automation', 'settings', 'config', 'trigger')
-               || own[0];
-let rest      = (own || []).filter(x => x !== inTool);
-let result    = (hint[1] && pick(rest, hint[1]))
-               || pick(rest, 'board', 'list', 'dashboard', 'record', 'detail', 'saved', 'summary')
-               || rest[0];
+const stack  = STACK[shape] || null;
 
-// ---- 4b. the seam ---------------------------------------------------------
-// If the posting names a SECOND tool and we hold this pattern in it too, beat
-// four stops being "another shot of the same tool" and becomes the far side of
-// the integration: the record as it lands in the system they also named. That
-// is not tool-mixing — the client asked for both. When they named only one, we
-// stay inside it, because a rival CRM in the deck reads as "no proof in mine".
-const partner = clientTools.slice(1).find(t => t !== shown && t !== 'n8n' && entry[t]);
-let seamShot = null;
-if (partner) {
-  const far = entry[partner] || [];
-  seamShot = pick(far, 'board', 'list', 'dashboard', 'record', 'detail', 'summary',
-                       'canvas', 'automation', 'config') || far[0];
-  if (seamShot) result = seamShot;
-}
-const stack = STACK[shape] || null;
-const seamLine = partner && seamShot
-  ? ('And the far side of it, in ' + pretty(partner) + ' — the same record after it crosses. ' +
-     (stack ? stack.seam : 'The handoff is the part that actually breaks, so it is the part worth showing.'))
-  : null;
+// Beat one and two are always the machine: the shape of it, then the decision
+// inside it. Those are the same picture whoever the buyer is.
+push(canvas, beats[0], 'system');
+push(logic,  beats[1], 'thinking');
 
-// Never attach the same shot twice. On a shape we only hold in n8n, `own` and
-// `n8n` are the same list, so the canvas could land as both beat 1 and beat 3 —
-// which reads as padding, and padding costs the deal.
-const used = new Set();
-[[canvas, beats[0], 'system'], [logic, beats[1], 'thinking'],
- [inTool, beats[2], 'their-world'],
- [result, seamLine || beats[3], seamLine ? 'the-seam' : 'result']]
-  .forEach(([f, line, beat]) => {
-    if (!f || !line || used.has(f.f)) return;
-    used.add(f.f);
-    chosen.push({ f, line, beat });
-  });
-// If deduping left the pack short, backfill from whatever this shape holds that
-// has not been used, rather than shipping three when four exist.
-if (chosen.length < MAX) {
-  const pool = [...(own || []), ...(entry[partner] || []), ...n8n];
+// Then the tools, in two passes rather than one. The first pass gives every
+// tool its lead picture, so a three-tool pack in a five-slot budget still shows
+// three tools instead of two tools twice. Only once every tool has been seen
+// does the second pass spend what is left on the far side of each.
+//
+// The one-pass version looked tidier and was wrong: it exhausted the budget on
+// tool one and the third tool never appeared, which is the exact failure —
+// claiming range in the letter and attaching a pack that shows one system.
+const lead = {}, tail = {};
+showTools.forEach((t, i) => {
+  const shots = (entry[t] || []).map(s => Object.assign({}, s, { __tool: t }));
+  lead[t] = (i === 0 && hint[0] && pick(shots, hint[0]))
+            || pick(shots, 'canvas', 'builder', 'automation', 'settings', 'config', 'trigger')
+            || shots[0];
+  const rest = shots.filter(s => s !== lead[t]);
+  tail[t] = (i === 0 && hint[1] && pick(rest, hint[1]))
+            || pick(rest, 'board', 'list', 'dashboard', 'record', 'detail', 'saved', 'summary')
+            || rest[0];
+});
+const seamLineFor = t => 'And the far side of it, in ' + pretty(t) +
+  ' — the same record after it crosses. ' +
+  (stack ? stack.seam
+         : 'The handoff is the part that actually breaks, so it is the part worth showing.');
+
+showTools.forEach((t, i) => {
+  push(lead[t], i === 0 ? beats[2] : seamLineFor(t), i === 0 ? 'their-world' : 'the-seam');
+});
+showTools.forEach((t, i) => {
+  push(tail[t], i === 0 ? beats[3]
+                        : 'What it looks like in ' + pretty(t) + ' once the run is done.',
+       i === 0 ? 'result' : 'the-seam');
+});
+
+// Still short? Backfill from anything this shape holds that has not been used,
+// rather than shipping four when seven exist. Padding costs the deal, but so
+// does leaving proof in the folder.
+if (chosen.length < PACK) {
+  const pool = showTools.concat(spread).reduce(
+    (acc, t) => acc.concat((entry[t] || []).map(s => Object.assign({}, s, { __tool: t }))),
+    []).concat(n8n.map(s => Object.assign({}, s, { __tool: 'n8n' })));
   for (const f of pool) {
-    if (chosen.length >= MAX) break;
-    if (used.has(f.f)) continue;
-    used.add(f.f);
-    chosen.push({ f, line: beats[3] || beats[2], beat: 'more' });
+    if (chosen.length >= PACK) break;
+    push(f, beats[3] || beats[2], 'more');
   }
 }
 
-const attach = chosen.slice(0, MAX);
+const attach = chosen.slice(0, PACK);
+// The pack is the whole truth downstream, so the tool list has to be what is
+// actually IN it, not what we hoped to show. A tool we planned and then found
+// no unused shot for must not appear here.
+const attachedTools = uniq(attach.map(a => a.tool).filter(t => t && t !== 'n8n'));
+const seamShown = attachedTools.filter(t => t !== shown);
 
 return [{ json: {
   ...input,
@@ -854,6 +929,10 @@ return [{ json: {
   product_name: STORY[shape].product,
   evidence_open: STORY[shape].open,
   evidence_tool_shown: pretty(shown),
+  // The real answer. Every tool a picture in this pack is actually inside, in
+  // the order the pack tells it. Downstream treats THIS as the truth; the two
+  // scalars either side of it are the old shape kept alive for the send list.
+  evidence_tools_shown: attachedTools.map(pretty),
   client_tool: clientTool || null,
   client_tools: clientTools,
   client_tool_covered: covered,
@@ -865,7 +944,13 @@ return [{ json: {
   stack_partners: stack ? stack.partners.map(pretty) : [],
   stack_seam: stack ? stack.seam : null,
   // Set when THEY named two tools and we hold the pattern in both.
-  seam_shown: partner ? pretty(partner) : null,
+  seam_shown: seamShown.length ? pretty(seamShown[0]) : null,
+  seams_shown: seamShown.map(pretty),
+  // Why the pack is the size it is, so a short one can be read as a decision
+  // rather than a shortage.
+  pack_size: attach.length,
+  pack_target: PACK,
+  pack_width: showTools.length,
   // The line to open the integration paragraph with, whether or not we attached
   // a far-side shot. Uses their own tools when they named them.
   stack_note: stack

@@ -98,7 +98,25 @@ FIXTURES = [
 
     ("The attached screenshots show the same board in Shopify.", "", None, None, True,
      "claims screenshots when the pack came back empty"),
+
+    # Seth, Aug 8: "if the job posting explicitly states the tool, be sure to show
+    # that tool... if it doesnt cleanly, or theres more we can do here, show it."
+    # A pack that spans three tools is now normal, and the checker has to know
+    # that the THIRD tool is as attached as the first.
+    ("The attached screenshots show the registration wizard in GoHighLevel, the deliverability "
+     "settings in Instantly, and the consent state on a profile in Klaviyo.", "",
+     "GoHighLevel", None, False,
+     "a three-tool pack: every tool named is really in it",
+     ["GoHighLevel", "Instantly", "Klaviyo"]),
+
+    ("The attached screenshots show the registration wizard in GoHighLevel and the same record "
+     "once it lands in HubSpot.", "", "GoHighLevel", None, True,
+     "HubSpot is not in the three-tool pack, so claiming a picture of it is still a lie",
+     ["GoHighLevel", "Instantly", "Klaviyo"]),
 ]
+
+# Older rows predate the tools column. Pad them rather than rewrite each one.
+FIXTURES = [f if len(f) == 7 else (f + (None,)) for f in FIXTURES]
 
 HARNESS = """
 %(patch)s
@@ -108,14 +126,16 @@ return hard;
 
 def run_fixtures(patch):
     import json as _json
-    cases = [{"letter": a, "loom": b, "tool": c, "seam": d} for a, b, c, d, _, _ in FIXTURES]
+    cases = [{"letter": a, "loom": b, "tool": c, "seam": d, "tools": g}
+             for a, b, c, d, _, _, g in FIXTURES]
     js = ("const CASES = " + __import__("json").dumps(cases) + ";\n"
           "function __run(c) {\n"
           "  const hard = [];\n"
           "  const CHANNEL = 'upwork';\n"
           "  const letter = c.letter, loom = c.loom;\n"
           "  const $ = () => ({ first: () => ({ json: {\n"
-          "    evidence_tool_shown: c.tool, seam_shown: c.seam, evidence_count: c.tool ? 4 : 0 } }) });\n"
+          "    evidence_tool_shown: c.tool, seam_shown: c.seam, evidence_tools_shown: c.tools || undefined,\n"
+          "    evidence_count: (c.tools ? c.tools.length * 2 : (c.tool ? 4 : 0)) } }) });\n"
           + patch + "\n  return hard;\n}\n"
           "console.log(JSON.stringify(CASES.map(__run)));\n")
     path = os.path.join(HERE, "_probe_fixtures.js")
@@ -127,7 +147,7 @@ def run_fixtures(patch):
         return 1
     results = __import__("json").loads(r.stdout)
     bad = 0
-    for (letter, loom, tool, seam, expect, why), held in zip(FIXTURES, results):
+    for (letter, loom, tool, seam, expect, why, _tools), held in zip(FIXTURES, results):
         if bool(held) == expect:
             print("  ok    %s %s" % ("HOLD " if expect else "pass ", why))
         else:

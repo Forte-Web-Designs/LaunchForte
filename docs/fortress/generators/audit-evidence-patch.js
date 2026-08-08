@@ -25,9 +25,12 @@
 var __pk = {};
 try { __pk = $('Pick the evidence to attach').first().json || {}; } catch (e) { __pk = {}; }
 var __slug = function (s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, ''); };
-// The pack only ever draws from the tool being shown, the far side of the seam
-// when they named two, and our own n8n canvases.
-var __packTools = [__pk.evidence_tool_shown, __pk.seam_shown].filter(Boolean);
+// The pack sets its own width now, so read the list it published. The two
+// scalars are the old fixed shape, kept only so a run generated before the
+// variable-width pack still audits instead of flagging every tool as unshown.
+var __packTools = (Array.isArray(__pk.evidence_tools_shown) && __pk.evidence_tools_shown.length
+  ? __pk.evidence_tools_shown
+  : [__pk.evidence_tool_shown, __pk.seam_shown]).filter(Boolean);
 var __shownSlugs = __packTools.map(__slug).concat(['n8n']);
 var __shotCount = Number(__pk.evidence_count || 0);
 
@@ -65,11 +68,34 @@ var __sentences = function (t) { return String(t || '').split(/(?<=[.!?])\s+/); 
 // span a sentence like that occupies.
 var __ATT = '(?:attached|attachment|screenshots?|pictures?|shots?|images?|pdf|pack)';
 var __VERB = '(?:shows?|showing|shown|is|are|of|from|in|with)';
+// A depiction claim runs until the sentence stops talking about the picture and
+// starts talking about Seth. "The screenshots show X, and I have also shipped
+// this inside HubSpot" is two claims, and only the first one is about the
+// attachment. So cut the sentence at the first I-have/we-built clause that
+// comes AFTER the attachment word, then look inside what is left.
+//
+// After, not anywhere: "From your stack I have shipped in Shopify and Klaviyo,
+// and the attached screenshots come from a live Klaviyo build" puts the
+// experience clause FIRST, and cutting there would throw away the lie.
+var __EXP = /\b(?:i|we)\s+(?:(?:have|had|has|also|already|recently|just|since|once|previously)\s+){0,3}(?:built|build|shipped|ship|did|do|done|ran|run|set|worked|delivered|made|used)\b/i;
+var __upToDepiction = function (sentence) {
+  var a = sentence.search(new RegExp(__ATT, 'i'));
+  if (a < 0) return sentence;
+  var tail = sentence.slice(a);
+  var e = tail.search(__EXP);
+  return e < 0 ? sentence : sentence.slice(0, a + e);
+};
 var __depicts = function (sentence, toolRe) {
   var t = toolRe.source.replace(/^\\b|\\b$/g, '');
-  var fwd = new RegExp(__ATT + '\\b[^.!?]{0,25}?\\b' + __VERB + '\\b[^.!?]{0,45}?(?:' + t + ')', 'i');
+  var scoped = __upToDepiction(sentence);
+  // The window is wide because a real caption keeps listing: "the screenshots
+  // show the wizard in GoHighLevel, the settings in Instantly, and the consent
+  // state in Klaviyo" is one claim about three tools, and the third one is as
+  // checkable as the first. The clause cut above is what makes a wide window
+  // safe; without it, widening turned every honest experience line into a hold.
+  var fwd = new RegExp(__ATT + '\\b[^.!?]{0,25}?\\b' + __VERB + '\\b[^.!?]{0,110}?(?:' + t + ')', 'i');
   var back = new RegExp('(?:' + t + ')[\\w\\s,\'-]{0,25}\\b' + __ATT + '\\b', 'i');
-  return fwd.test(sentence) || back.test(sentence);
+  return fwd.test(scoped) || back.test(sentence);
 };
 
 // The sketch is on every run whether or not there is a pack, so "the attached

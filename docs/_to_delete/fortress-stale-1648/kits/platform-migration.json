@@ -1,0 +1,543 @@
+{
+  "name": "LF DEMO: The move that loses nothing",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "platform-migration",
+        "options": {}
+      },
+      "id": "kit0001-0000-4000-8000-000000000001",
+      "name": "A migration batch starts",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "kit0900-0000-4000-8000-000000000900"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Never trust the payload.\nconst required = [\"batch_id\"];\nconst missing = required.filter(f => !$json[f]);\nreturn [{ json: { ...$json, valid: missing.length === 0, missing } }];"
+      },
+      "id": "kit0002-0000-4000-8000-000000000002",
+      "name": "Validate what arrived",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "kit0502-0000-4000-8000-000000000502",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "kit0003-0000-4000-8000-000000000003",
+      "name": "Malformed, refuse it",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// The same event arrives twice more often than anyone expects.\nconst key = $json[\"batch_id\"];\nconst seen = $getWorkflowStaticData('global');\nseen.keys = seen.keys || {};\nconst isNew = !seen.keys[key];\nseen.keys[key] = Date.now();\nreturn [{ json: { ...$json, isNew, dedupeKey: key } }];"
+      },
+      "id": "kit0004-0000-4000-8000-000000000004",
+      "name": "Deduplicate on batch_id",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "kit0504-0000-4000-8000-000000000504",
+              "leftValue": "={{ $json.isNew }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "kit0005-0000-4000-8000-000000000005",
+      "name": "Already handled, stop here",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        880,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Stay under the vendor ceiling instead of discovering it in production.\nconst s = $getWorkflowStaticData('global');\nconst now = Date.now();\ns.window = (s.window || []).filter(t => now - t < 60000);\nconst allowed = s.window.length < 50;\ns.window.push(now);\nreturn [{ json: { ...$json, allowed } }];"
+      },
+      "id": "kit0006-0000-4000-8000-000000000006",
+      "name": "Hold the rate limit",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://example.com/api/source",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "kit0007-0000-4000-8000-000000000007",
+      "name": "Read the source batch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        300
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {},
+      "id": "kit0008-0000-4000-8000-000000000008",
+      "name": "Source unreachable, stop the batch",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        620
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "kit0009-0000-4000-8000-000000000009",
+      "name": "Escalate to a human, with the context",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "kit0509-0000-4000-8000-000000000509",
+              "leftValue": "={{ $json.countsMatch === true }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "kit0010-0000-4000-8000-000000000010",
+      "name": "Do the counts reconcile exactly?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1540,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://example.com/api/commit",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "kit0011-0000-4000-8000-000000000011",
+      "name": "Commit the batch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        150
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://example.com/api/commit",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "kit0012-0000-4000-8000-000000000012",
+      "name": "Roll back and report the delta",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        450
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// A path that is not logged cannot be improved.\nreturn [{ json: {\n  at: new Date().toISOString(),\n  key: $json.dedupeKey,\n  path: $json.outcome || 'handled',\n  ok: true,\n} }];"
+      },
+      "id": "kit0013-0000-4000-8000-000000000013",
+      "name": "Log the run, both paths",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1980,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ received: true, handled: $json.ok === true }) }}"
+      },
+      "id": "kit0014-0000-4000-8000-000000000014",
+      "name": "Fail safe, never guess",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        2200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "id": "kit0015-0000-4000-8000-000000000015",
+      "name": "Every Monday, 7am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = $getWorkflowStaticData('global');\nconst keys = Object.entries(s.keys || {});\nconst weekAgo = Date.now() - 7 * 864e5;\nreturn [{ json: { handled: keys.filter(([,t]) => t > weekAgo).length } }];"
+      },
+      "id": "kit0016-0000-4000-8000-000000000016",
+      "name": "Read the week of runs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// The gap report is the part a buyer keeps paying for.\nconst handled = $json.handled || 0;\nreturn [{ json: {\n  handled,\n  note: handled === 0\n    ? 'Nothing ran this week. Worth checking the source is still sending.'\n    : `${handled} handled cleanly this week.`,\n} }];"
+      },
+      "id": "kit0017-0000-4000-8000-000000000017",
+      "name": "Batches migrated, and anything left behind",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        900
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "kit0018-0000-4000-8000-000000000018",
+      "name": "Weekly gap report to the owner",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        660,
+        900
+      ]
+    }
+  ],
+  "connections": {
+    "A migration batch starts": {
+      "main": [
+        [
+          {
+            "node": "Validate what arrived",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate what arrived": {
+      "main": [
+        [
+          {
+            "node": "Malformed, refuse it",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Malformed, refuse it": {
+      "main": [
+        [
+          {
+            "node": "Deduplicate on batch_id",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fail safe, never guess",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deduplicate on batch_id": {
+      "main": [
+        [
+          {
+            "node": "Already handled, stop here",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Already handled, stop here": {
+      "main": [
+        [
+          {
+            "node": "Hold the rate limit",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fail safe, never guess",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hold the rate limit": {
+      "main": [
+        [
+          {
+            "node": "Read the source batch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read the source batch": {
+      "main": [
+        [
+          {
+            "node": "Do the counts reconcile exactly?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Source unreachable, stop the batch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Source unreachable, stop the batch": {
+      "main": [
+        [
+          {
+            "node": "Escalate to a human, with the context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Do the counts reconcile exactly?": {
+      "main": [
+        [
+          {
+            "node": "Commit the batch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Roll back and report the delta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Commit the batch": {
+      "main": [
+        [
+          {
+            "node": "Log the run, both paths",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Escalate to a human, with the context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Roll back and report the delta": {
+      "main": [
+        [
+          {
+            "node": "Log the run, both paths",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Escalate to a human, with the context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log the run, both paths": {
+      "main": [
+        [
+          {
+            "node": "Fail safe, never guess",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every Monday, 7am": {
+      "main": [
+        [
+          {
+            "node": "Read the week of runs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read the week of runs": {
+      "main": [
+        [
+          {
+            "node": "Batches migrated, and anything left behind",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Batches migrated, and anything left behind": {
+      "main": [
+        [
+          {
+            "node": "Weekly gap report to the owner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

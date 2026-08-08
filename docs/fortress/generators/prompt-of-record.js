@@ -293,10 +293,15 @@ if (__matched.length) {
 let __pack = {};
 try { __pack = $('Pick the evidence to attach').first().json || {}; } catch (e) { __pack = {}; }
 const __slug = function (s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, ''); };
-// The pack only ever draws from three places: the tool being shown, the far
-// side of the seam when they named two, and our own n8n canvases.
-const __attachedTools = [__pack.evidence_tool_shown, __pack.seam_shown, 'n8n']
-  .filter(Boolean).map(String);
+// The pack decides its own width now — one tool when the buyer named one, up
+// to three when they named none and range is the argument — so the tool list
+// has to come from the pack itself. The two scalars are the old fixed shape
+// and are only a fallback for a run that predates evidence_tools_shown.
+const __packTools = Array.isArray(__pack.evidence_tools_shown) && __pack.evidence_tools_shown.length
+  ? __pack.evidence_tools_shown
+  : [__pack.evidence_tool_shown, __pack.seam_shown];
+const __attachedTools = __packTools.concat(['n8n']).filter(Boolean).map(String)
+  .filter(function (t, i, a) { return a.indexOf(t) === i; });
 const __attachedSlugs = __attachedTools.map(__slug);
 const __shots = Array.isArray(__pack.evidence) ? __pack.evidence : [];
 if (__shots.length) {
@@ -311,6 +316,14 @@ if (__shots.length) {
   });
   pb.push('');
   pb.push('THE ONLY TOOLS THE PICTURES ARE IN: ' + __attachedTools.join(', ') + '.');
+  if (__attachedTools.length > 2) {
+    pb.push('That is more than one tool on purpose. They did not name one clearly enough to');
+    pb.push('build the whole pack inside it, so the pack shows the same pattern standing up in');
+    pb.push('each of them. Say that plainly if you use it — the point is that the architecture');
+    pb.push('travels, not that we happen to own three logins.');
+  }
+  pb.push('There are ' + __shots.length + ' pictures, not four and not some other number.');
+  pb.push('Do not say how many unless you have counted this list.');
   pb.push('Never say or imply that a screenshot, a picture or the attachment shows any other');
   pb.push('tool. If they named a tool that is not in that list, you may still talk about it —');
   pb.push('what you may not do is claim we are showing them a picture of it.');

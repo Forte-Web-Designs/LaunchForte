@@ -222,7 +222,10 @@ const normalised = {
   link_rule_rewritten: __C.rewritten,
   product_owned: __O.fixed + __SO.fixed,
   product_name: __ev.product_name || null,
-  attached_tools: [__ev.evidence_tool_shown, __ev.seam_shown].filter(Boolean),
+  attached_tools: (Array.isArray(__ev.evidence_tools_shown) && __ev.evidence_tools_shown.length
+    ? __ev.evidence_tools_shown
+    : [__ev.evidence_tool_shown, __ev.seam_shown]).filter(Boolean),
+  pack_size: __ev.pack_size || (Array.isArray(__ev.evidence) ? __ev.evidence.length : 0),
   attached_captions: (Array.isArray(__ev.evidence) ? __ev.evidence : []).map(e => e.line),
 };
 

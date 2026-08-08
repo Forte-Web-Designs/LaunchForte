@@ -1,0 +1,661 @@
+{
+  "captured": 109,
+  "rejected": 32,
+  "unclassified": 34,
+  "images": [
+    {
+      "shape": "reporting",
+      "tool": "n8n",
+      "view": "canvas-one-page-truth",
+      "file": "reporting/reporting--n8n--canvas-one-page-truth.jpg"
+    },
+    {
+      "shape": "system-sync",
+      "tool": "n8n",
+      "view": "canvas-two-way-bridge",
+      "file": "system-sync/system-sync--n8n--canvas-two-way-bridge.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "n8n",
+      "view": "canvas-speed-to-lead",
+      "file": "lead-routing/lead-routing--n8n--canvas-speed-to-lead.jpg"
+    },
+    {
+      "shape": "data-collection",
+      "tool": "n8n",
+      "view": "canvas-screening-desk",
+      "file": "data-collection/data-collection--n8n--canvas-screening-desk.jpg"
+    },
+    {
+      "shape": "voice-agent-intake",
+      "tool": "n8n",
+      "view": "canvas-always-on-desk",
+      "file": "voice-agent-intake/voice-agent-intake--n8n--canvas-always-on-desk.jpg"
+    },
+    {
+      "shape": "ai-assistant",
+      "tool": "n8n",
+      "view": "canvas-straight-answer-desk-full",
+      "file": "ai-assistant/ai-assistant--n8n--canvas-straight-answer-desk-full.jpg"
+    },
+    {
+      "shape": "ai-assistant",
+      "tool": "n8n",
+      "view": "canvas-straight-answer-desk-left",
+      "file": "ai-assistant/ai-assistant--n8n--canvas-straight-answer-desk-left.png"
+    },
+    {
+      "shape": "ai-assistant",
+      "tool": "n8n",
+      "view": "canvas-straight-answer-desk-right",
+      "file": "ai-assistant/ai-assistant--n8n--canvas-straight-answer-desk-right.png"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "n8n",
+      "view": "canvas-lf-demo-speed-to-lead-full",
+      "file": "lead-routing/lead-routing--n8n--canvas-lf-demo-speed-to-lead-full.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "n8n",
+      "view": "canvas-lf-demo-speed-to-lead-left",
+      "file": "lead-routing/lead-routing--n8n--canvas-lf-demo-speed-to-lead-left.png"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "n8n",
+      "view": "canvas-lf-demo-speed-to-lead-right",
+      "file": "lead-routing/lead-routing--n8n--canvas-lf-demo-speed-to-lead-right.png"
+    },
+    {
+      "shape": "voice-agent-intake",
+      "tool": "n8n",
+      "view": "canvas-after-hours-line",
+      "file": "voice-agent-intake/voice-agent-intake--n8n--canvas-after-hours-line.jpg"
+    },
+    {
+      "shape": "scheduling",
+      "tool": "n8n",
+      "view": "canvas-booked-solid",
+      "file": "scheduling/scheduling--n8n--canvas-booked-solid.jpg"
+    },
+    {
+      "shape": "data-collection",
+      "tool": "n8n",
+      "view": "canvas-list-to-ledger",
+      "file": "data-collection/data-collection--n8n--canvas-list-to-ledger.jpg"
+    },
+    {
+      "shape": "document-assembly",
+      "tool": "n8n",
+      "view": "canvas-paper-trail",
+      "file": "document-assembly/document-assembly--n8n--canvas-paper-trail.jpg"
+    },
+    {
+      "shape": "alerting",
+      "tool": "n8n",
+      "view": "canvas-watchtower",
+      "file": "alerting/alerting--n8n--canvas-watchtower.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "n8n",
+      "view": "canvas-ghl-deals-that-stopped-moving",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--canvas-ghl-deals-that-stopped-moving.jpg"
+    },
+    {
+      "shape": "storefront-upsell",
+      "tool": "n8n",
+      "view": "canvas-ecommerce-order-ops",
+      "file": "storefront-upsell/storefront-upsell--n8n--canvas-ecommerce-order-ops.jpg"
+    },
+    {
+      "shape": "books-reconciliation",
+      "tool": "n8n",
+      "view": "canvas-books-bridge",
+      "file": "books-reconciliation/books-reconciliation--n8n--canvas-books-bridge.jpg"
+    },
+    {
+      "shape": "client-onboarding",
+      "tool": "n8n",
+      "view": "canvas-lifecycle-engine",
+      "file": "client-onboarding/client-onboarding--n8n--canvas-lifecycle-engine.jpg"
+    },
+    {
+      "shape": "storefront-upsell",
+      "tool": "n8n",
+      "view": "kit-canvas-18-nodes",
+      "file": "storefront-upsell/storefront-upsell--n8n--kit-canvas-18-nodes.jpg"
+    },
+    {
+      "shape": "storefront-upsell",
+      "tool": "n8n",
+      "view": "kit-retry-config",
+      "file": "storefront-upsell/storefront-upsell--n8n--kit-retry-config.jpg"
+    },
+    {
+      "shape": "approval-routing",
+      "tool": "n8n",
+      "view": "kit-canvas-18-nodes",
+      "file": "approval-routing/approval-routing--n8n--kit-canvas-18-nodes.jpg"
+    },
+    {
+      "shape": "approval-routing",
+      "tool": "n8n",
+      "view": "kit-retry-config",
+      "file": "approval-routing/approval-routing--n8n--kit-retry-config.jpg"
+    },
+    {
+      "shape": "books-reconciliation",
+      "tool": "n8n",
+      "view": "kit-canvas-18-nodes",
+      "file": "books-reconciliation/books-reconciliation--n8n--kit-canvas-18-nodes.jpg"
+    },
+    {
+      "shape": "books-reconciliation",
+      "tool": "n8n",
+      "view": "kit-retry-config",
+      "file": "books-reconciliation/books-reconciliation--n8n--kit-retry-config.jpg"
+    },
+    {
+      "shape": "scheduling",
+      "tool": "n8n",
+      "view": "kit-canvas-18-nodes",
+      "file": "scheduling/scheduling--n8n--kit-canvas-18-nodes.jpg"
+    },
+    {
+      "shape": "scheduling",
+      "tool": "n8n",
+      "view": "kit-retry-config",
+      "file": "scheduling/scheduling--n8n--kit-retry-config.jpg"
+    },
+    {
+      "shape": "reporting",
+      "tool": "n8n",
+      "view": "kit-canvas-18-nodes",
+      "file": "reporting/reporting--n8n--kit-canvas-18-nodes.jpg"
+    },
+    {
+      "shape": "reporting",
+      "tool": "n8n",
+      "view": "kit-retry-config",
+      "file": "reporting/reporting--n8n--kit-retry-config.jpg"
+    },
+    {
+      "shape": "system-sync",
+      "tool": "n8n",
+      "view": "kit-canvas-18-nodes",
+      "file": "system-sync/system-sync--n8n--kit-canvas-18-nodes.jpg"
+    },
+    {
+      "shape": "system-sync",
+      "tool": "n8n",
+      "view": "kit-retry-config",
+      "file": "system-sync/system-sync--n8n--kit-retry-config.jpg"
+    },
+    {
+      "shape": "platform-migration",
+      "tool": "n8n",
+      "view": "kit-canvas-18-nodes",
+      "file": "platform-migration/platform-migration--n8n--kit-canvas-18-nodes.jpg"
+    },
+    {
+      "shape": "platform-migration",
+      "tool": "n8n",
+      "view": "kit-retry-config",
+      "file": "platform-migration/platform-migration--n8n--kit-retry-config.jpg"
+    },
+    {
+      "shape": "production-takeover",
+      "tool": "n8n",
+      "view": "kit-canvas-18-nodes",
+      "file": "production-takeover/production-takeover--n8n--kit-canvas-18-nodes.jpg"
+    },
+    {
+      "shape": "production-takeover",
+      "tool": "n8n",
+      "view": "kit-retry-config",
+      "file": "production-takeover/production-takeover--n8n--kit-retry-config.jpg"
+    },
+    {
+      "shape": "reporting",
+      "tool": "ghl",
+      "view": "dashboard-opportunity-widgets",
+      "file": "reporting/reporting--ghl--dashboard-opportunity-widgets.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "ghl",
+      "view": "pipeline-board",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--pipeline-board.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "ghl",
+      "view": "pipelines-list-6-stages",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--pipelines-list-6-stages.jpg"
+    },
+    {
+      "shape": "data-collection",
+      "tool": "ghl",
+      "view": "contacts-smart-list",
+      "file": "data-collection/data-collection--ghl--contacts-smart-list.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "trigger-picker-contact",
+      "file": "lead-routing/lead-routing--ghl--trigger-picker-contact.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "trigger-picker-events",
+      "file": "lead-routing/lead-routing--ghl--trigger-picker-events.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "trigger-config-customer-replied",
+      "file": "lead-routing/lead-routing--ghl--trigger-config-customer-replied.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "action-picker-contact",
+      "file": "lead-routing/lead-routing--ghl--action-picker-contact.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "action-picker-custom-objects",
+      "file": "lead-routing/lead-routing--ghl--action-picker-custom-objects.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "sms-action-merge-fields",
+      "file": "lead-routing/lead-routing--ghl--sms-action-merge-fields.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "wait-action-types",
+      "file": "lead-routing/lead-routing--ghl--wait-action-types.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "wait-config-period",
+      "file": "lead-routing/lead-routing--ghl--wait-config-period.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "assign-user-panel",
+      "file": "lead-routing/lead-routing--ghl--assign-user-panel.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "canvas-first-build",
+      "file": "lead-routing/lead-routing--ghl--canvas-first-build.jpg"
+    },
+    {
+      "shape": "data-collection",
+      "tool": "ghl",
+      "view": "form-builder",
+      "file": "data-collection/data-collection--ghl--form-builder.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "ghl",
+      "view": "trigger-idle-7-days",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--trigger-idle-7-days.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "ghl",
+      "view": "pipeline-stage-dropdown",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--pipeline-stage-dropdown.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "ghl",
+      "view": "notification-merge-fields",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--notification-merge-fields.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "ghl",
+      "view": "wait-7-days",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--wait-7-days.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "ghl",
+      "view": "on-hold-opportunity-update",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--on-hold-opportunity-update.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "ghl",
+      "view": "canvas-top-three-way-fork",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--canvas-top-three-way-fork.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "ghl",
+      "view": "canvas-bottom-escalation",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--canvas-bottom-escalation.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "if-else-lead-source",
+      "file": "lead-routing/lead-routing--ghl--if-else-lead-source.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "sms-body-merge-fields",
+      "file": "lead-routing/lead-routing--ghl--sms-body-merge-fields.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "wait-five-minutes",
+      "file": "lead-routing/lead-routing--ghl--wait-five-minutes.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "canvas-speed-to-lead-full",
+      "file": "lead-routing/lead-routing--ghl--canvas-speed-to-lead-full.jpg"
+    },
+    {
+      "shape": "scheduling",
+      "tool": "ghl",
+      "view": "wait-until-scheduled-date",
+      "file": "scheduling/scheduling--ghl--wait-until-scheduled-date.jpg"
+    },
+    {
+      "shape": "scheduling",
+      "tool": "ghl",
+      "view": "canvas-appointment-reminders",
+      "file": "scheduling/scheduling--ghl--canvas-appointment-reminders.jpg"
+    },
+    {
+      "shape": "scheduling",
+      "tool": "ghl",
+      "view": "canvas-appointment-reminders-legible",
+      "file": "scheduling/scheduling--ghl--canvas-appointment-reminders-legible.jpg"
+    },
+    {
+      "shape": "data-collection",
+      "tool": "ghl",
+      "view": "contacts-with-tags",
+      "file": "data-collection/data-collection--ghl--contacts-with-tags.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "ghl",
+      "view": "opportunities-board-with-stalled-deal",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--opportunities-board-with-stalled-deal.jpg"
+    },
+    {
+      "shape": "data-collection",
+      "tool": "ghl",
+      "view": "form-builder-six-fields",
+      "file": "data-collection/data-collection--ghl--form-builder-six-fields.jpg"
+    },
+    {
+      "shape": "client-onboarding",
+      "tool": "ghl",
+      "view": "wait-for-reply-timeout",
+      "file": "client-onboarding/client-onboarding--ghl--wait-for-reply-timeout.jpg"
+    },
+    {
+      "shape": "client-onboarding",
+      "tool": "ghl",
+      "view": "canvas-review-request",
+      "file": "client-onboarding/client-onboarding--ghl--canvas-review-request.jpg"
+    },
+    {
+      "shape": "client-onboarding",
+      "tool": "ghl",
+      "view": "canvas-review-request-legible",
+      "file": "client-onboarding/client-onboarding--ghl--canvas-review-request-legible.jpg"
+    },
+    {
+      "shape": "quote-follow-up",
+      "tool": "ghl",
+      "view": "email-action-merge-chip",
+      "file": "quote-follow-up/quote-follow-up--ghl--email-action-merge-chip.jpg"
+    },
+    {
+      "shape": "quote-follow-up",
+      "tool": "ghl",
+      "view": "canvas-quote-cadence-full",
+      "file": "quote-follow-up/quote-follow-up--ghl--canvas-quote-cadence-full.jpg"
+    },
+    {
+      "shape": "quote-follow-up",
+      "tool": "ghl",
+      "view": "canvas-quote-cadence-legible",
+      "file": "quote-follow-up/quote-follow-up--ghl--canvas-quote-cadence-legible.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "round-robin-assign-panel",
+      "file": "lead-routing/lead-routing--ghl--round-robin-assign-panel.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "ghl",
+      "view": "canvas-round-robin-sla",
+      "file": "lead-routing/lead-routing--ghl--canvas-round-robin-sla.jpg"
+    },
+    {
+      "shape": "_library",
+      "tool": "ghl",
+      "view": "workflows-list-six-drafts",
+      "file": "_library/_library--ghl--workflows-list-six-drafts.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "hubspot",
+      "view": "deal-pipeline-board",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--deal-pipeline-board.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "hubspot",
+      "view": "pipeline-settings",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--pipeline-settings.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "hubspot",
+      "view": "stage-editor-probabilities",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--stage-editor-probabilities.jpg"
+    },
+    {
+      "shape": "stalled-deal-escalation",
+      "tool": "hubspot",
+      "view": "pipeline-automate-tab",
+      "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--pipeline-automate-tab.jpg"
+    },
+    {
+      "shape": "data-model-architecture",
+      "tool": "hubspot",
+      "view": "contact-properties-fill-rate",
+      "file": "data-model-architecture/data-model-architecture--hubspot--contact-properties-fill-rate.jpg"
+    },
+    {
+      "shape": "data-model-architecture",
+      "tool": "hubspot",
+      "view": "property-builder-field-types",
+      "file": "data-model-architecture/data-model-architecture--hubspot--property-builder-field-types.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "hubspot",
+      "view": "property-dropdown-routing-tiers",
+      "file": "lead-routing/lead-routing--hubspot--property-dropdown-routing-tiers.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "hubspot",
+      "view": "sample-property-in-list",
+      "file": "lead-routing/lead-routing--hubspot--sample-property-in-list.jpg"
+    },
+    {
+      "shape": "data-collection",
+      "tool": "hubspot",
+      "view": "form-template-gallery",
+      "file": "data-collection/data-collection--hubspot--form-template-gallery.jpg"
+    },
+    {
+      "shape": "data-collection",
+      "tool": "hubspot",
+      "view": "form-builder-canvas",
+      "file": "data-collection/data-collection--hubspot--form-builder-canvas.jpg"
+    },
+    {
+      "shape": "data-collection",
+      "tool": "hubspot",
+      "view": "form-automation-entry",
+      "file": "data-collection/data-collection--hubspot--form-automation-entry.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "hubspot",
+      "view": "workflow-trigger-node",
+      "file": "lead-routing/lead-routing--hubspot--workflow-trigger-node.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "hubspot",
+      "view": "workflow-send-email-tier-padlocks",
+      "file": "lead-routing/lead-routing--hubspot--workflow-send-email-tier-padlocks.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "hubspot",
+      "view": "segment-object-picker",
+      "file": "lead-routing/lead-routing--hubspot--segment-object-picker.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "hubspot",
+      "view": "segment-filter-compound-logic",
+      "file": "lead-routing/lead-routing--hubspot--segment-filter-compound-logic.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "hubspot",
+      "view": "segment-review-save",
+      "file": "lead-routing/lead-routing--hubspot--segment-review-save.jpg"
+    },
+    {
+      "shape": "reporting",
+      "tool": "hubspot",
+      "view": "dashboard-four-charts",
+      "file": "reporting/reporting--hubspot--dashboard-four-charts.jpg"
+    },
+    {
+      "shape": "system-sync",
+      "tool": "hubspot",
+      "view": "connected-apps",
+      "file": "system-sync/system-sync--hubspot--connected-apps.jpg"
+    },
+    {
+      "shape": "client-onboarding",
+      "tool": "hubspot",
+      "view": "marketing-email-builder",
+      "file": "client-onboarding/client-onboarding--hubspot--marketing-email-builder.jpg"
+    },
+    {
+      "shape": "data-model-architecture",
+      "tool": "hubspot",
+      "view": "data-model-manage",
+      "file": "data-model-architecture/data-model-architecture--hubspot--data-model-manage.jpg"
+    },
+    {
+      "shape": "data-model-architecture",
+      "tool": "hubspot",
+      "view": "data-model-graph",
+      "file": "data-model-architecture/data-model-architecture--hubspot--data-model-graph.jpg"
+    },
+    {
+      "shape": "_library",
+      "tool": "hubspot",
+      "view": "platform-nav-breadth",
+      "file": "_library/_library--hubspot--platform-nav-breadth.jpg"
+    },
+    {
+      "shape": "client-onboarding",
+      "tool": "hubspot",
+      "view": "landing-page-gallery",
+      "file": "client-onboarding/client-onboarding--hubspot--landing-page-gallery.jpg"
+    },
+    {
+      "shape": "client-onboarding",
+      "tool": "hubspot",
+      "view": "landing-page-editor",
+      "file": "client-onboarding/client-onboarding--hubspot--landing-page-editor.jpg"
+    },
+    {
+      "shape": "lead-routing",
+      "tool": "hubspot",
+      "view": "segments-list-with-sample",
+      "file": "lead-routing/lead-routing--hubspot--segments-list-with-sample.jpg"
+    },
+    {
+      "shape": "_blockers",
+      "tool": "ghl",
+      "view": "calendar-empty",
+      "file": "_blockers/_blockers--ghl--calendar-empty.jpg"
+    },
+    {
+      "shape": "_blockers",
+      "tool": "ghl",
+      "view": "reporting-empty",
+      "file": "_blockers/_blockers--ghl--reporting-empty.jpg"
+    },
+    {
+      "shape": "_blockers",
+      "tool": "ghl",
+      "view": "funnels-empty",
+      "file": "_blockers/_blockers--ghl--funnels-empty.jpg"
+    },
+    {
+      "shape": "_blockers",
+      "tool": "ghl",
+      "view": "conversations-empty",
+      "file": "_blockers/_blockers--ghl--conversations-empty.jpg"
+    },
+    {
+      "shape": "_blockers",
+      "tool": "ghl",
+      "view": "calendar-needs-team-member",
+      "file": "_blockers/_blockers--ghl--calendar-needs-team-member.jpg"
+    },
+    {
+      "shape": "_blockers",
+      "tool": "ghl",
+      "view": "no-users-in-subaccount",
+      "file": "_blockers/_blockers--ghl--no-users-in-subaccount.jpg"
+    },
+    {
+      "shape": "_blockers",
+      "tool": "ghl",
+      "view": "round-robin-validation-error",
+      "file": "_blockers/_blockers--ghl--round-robin-validation-error.jpg"
+    }
+  ]
+}
