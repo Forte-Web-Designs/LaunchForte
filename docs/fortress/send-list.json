@@ -1,0 +1,706 @@
+{
+  "max_attachments": 4,
+  "substitution_line": "That build is in {have} rather than {want}, because that's where my last two clients lived. The tool changes; the architecture doesn't.",
+  "rule": "Attach at most 4. Resolve on SHAPE first, tool second. If the client's tool is not in tools_with_proof, still attach the same 4 and state the substitution out loud \u2014 never imply it is their tool.",
+  "shapes": {
+    "stalled-deal-escalation": {
+      "product": "The Rescue",
+      "open": "Your stalled-proposal problem is the one I'd fix first, because it's the one quietly costing you deals.",
+      "attach": [
+        {
+          "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the system that watches for a deal that hasn't moved and escalates before it goes cold.",
+          "beat": "system"
+        },
+        {
+          "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--node-v2-decision-if.jpg",
+          "line": "This is the gate underneath it \u2014 it checks whether anyone actually touched the deal, not just whether time passed.",
+          "beat": "thinking"
+        },
+        {
+          "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--canvas-bottom-escalation.jpg",
+          "line": "The same pattern inside the CRM itself \u2014 the escalation branch, with the owner and the manager step both wired.",
+          "beat": "their-world"
+        },
+        {
+          "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--opp-board-18-opportunities.jpg",
+          "line": "And this is what it looks like once it's running \u2014 every stage worked, and the stalled one flagged rather than forgotten.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "activecampaign",
+        "ghl",
+        "hubspot",
+        "n8n",
+        "pipedrive",
+        "zapier"
+      ],
+      "library_total": 46
+    },
+    "lead-routing": {
+      "product": "The Lead Router",
+      "open": "Five minutes is the whole game. A lead that waits an hour is worth a fraction of one answered fast.",
+      "attach": [
+        {
+          "file": "lead-routing/lead-routing--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the routing system end to end \u2014 score, assign, contact, and escalate on silence.",
+          "beat": "system"
+        },
+        {
+          "file": "lead-routing/lead-routing--n8n--node-v2-decision-if.jpg",
+          "line": "The part most builds miss is the SLA timer: this reassigns when the first owner doesn't touch it.",
+          "beat": "thinking"
+        },
+        {
+          "file": "lead-routing/lead-routing--ghl--canvas-speed-to-lead-full.jpg",
+          "line": "Same pattern running inside a real CRM, with the merge fields and the branch on lead source.",
+          "beat": "their-world"
+        },
+        {
+          "file": "lead-routing/lead-routing--hubspot--segment-filter-compound-logic.jpg",
+          "line": "And the segmentation behind it, so the right leads reach the right closer.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "activecampaign",
+        "ghl",
+        "hubspot",
+        "n8n",
+        "zapier"
+      ],
+      "library_total": 43
+    },
+    "books-reconciliation": {
+      "product": "The Reconciliation Build",
+      "open": "The hours don't go into the matching. They go into the handful of rows a human has to judge.",
+      "attach": [
+        {
+          "file": "books-reconciliation/books-reconciliation--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the system: payouts in, matched to the cent, and only the exceptions reach a person.",
+          "beat": "system"
+        },
+        {
+          "file": "books-reconciliation/books-reconciliation--n8n--node-v2-gap-report.jpg",
+          "line": "This is what it reports weekly \u2014 what's still unreconciled and how old, because that's the number that turns into a month-end problem.",
+          "beat": "thinking"
+        },
+        {
+          "file": "books-reconciliation/books-reconciliation--quickbooks--bank-rule-builder-stripe.jpg",
+          "line": "The same logic inside QuickBooks \u2014 a rule that encodes the ruling once instead of every week.",
+          "beat": "their-world"
+        },
+        {
+          "file": "books-reconciliation/books-reconciliation--quickbooks--qb-vs-bank-balance-variance.jpg",
+          "line": "And the variance it's built to close: the ledger and the bank disagreeing, in one frame.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "n8n",
+        "quickbooks",
+        "stripe"
+      ],
+      "library_total": 49
+    },
+    "storefront-upsell": {
+      "product": "The Upsell Engine",
+      "open": "Every order that ships without its obvious companion is margin you already paid to acquire.",
+      "attach": [
+        {
+          "file": "storefront-upsell/storefront-upsell--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the system that decides whether there's an honest companion \u2014 and stays silent when there isn't.",
+          "beat": "system"
+        },
+        {
+          "file": "storefront-upsell/storefront-upsell--n8n--node-v2-decision-if.jpg",
+          "line": "The restraint is the product: one suggestion, never a second, and never something they already own.",
+          "beat": "thinking"
+        },
+        {
+          "file": "storefront-upsell/storefront-upsell--shopify--both-companion-mappings.jpg",
+          "line": "Running inside Shopify, with the companion mapping configured against the real catalogue.",
+          "beat": "their-world"
+        },
+        {
+          "file": "storefront-upsell/storefront-upsell--shopify--buy-x-get-y-reward.jpg",
+          "line": "And the cross-sell rule firing on the order itself.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "n8n",
+        "shopify"
+      ],
+      "library_total": 32
+    },
+    "scheduling": {
+      "product": "The Booking System",
+      "open": "Confirmation is the easy half. The money is in what happens when someone doesn't turn up.",
+      "attach": [
+        {
+          "file": "scheduling/scheduling--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the full sequence \u2014 confirm, remind twice, and branch on attendance.",
+          "beat": "system"
+        },
+        {
+          "file": "scheduling/scheduling--n8n--node-v2-decision-if.jpg",
+          "line": "This is the no-show recovery path, which is the part that pays for the build.",
+          "beat": "thinking"
+        },
+        {
+          "file": "scheduling/scheduling--ghl--calendar-availability-mon-fri.jpg",
+          "line": "The same pattern inside a real booking system, with availability and buffers configured.",
+          "beat": "their-world"
+        },
+        {
+          "file": "scheduling/scheduling--ghl--wait-until-scheduled-date.jpg",
+          "line": "And the reminder cadence timed against the appointment rather than a fixed delay.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "ghl",
+        "n8n",
+        "quickbooks"
+      ],
+      "library_total": 19
+    },
+    "reporting": {
+      "product": "The Reporting Layer",
+      "open": "Most dashboards lie by omission. A zero that means 'unknown' looks exactly like a zero that means zero.",
+      "attach": [
+        {
+          "file": "reporting/reporting--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the system that gathers from every source and only publishes once there's enough data to be honest.",
+          "beat": "system"
+        },
+        {
+          "file": "reporting/reporting--n8n--node-v2-decision-if.jpg",
+          "line": "Below the threshold it prints COLLECTING rather than a number that reads as fact.",
+          "beat": "thinking"
+        },
+        {
+          "file": "reporting/reporting--hubspot--dashboard-pipeline-health.jpg",
+          "line": "The reporting layer running live on real records.",
+          "beat": "their-world"
+        },
+        {
+          "file": "reporting/reporting--hubspot--dashboard-four-charts.jpg",
+          "line": "And the same layer on a second stack \u2014 the numbers move, the structure does not.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "activecampaign",
+        "airtable",
+        "ghl",
+        "hubspot",
+        "n8n",
+        "pipedrive",
+        "quickbooks",
+        "shopify",
+        "stripe"
+      ],
+      "library_total": 29
+    },
+    "system-sync": {
+      "product": "The Sync Build",
+      "open": "Two systems disagreeing about the same customer is how a CRM quietly stops being trusted.",
+      "attach": [
+        {
+          "file": "system-sync/system-sync--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the two-way sync, with the echo gate that stops it looping at 3am.",
+          "beat": "system"
+        },
+        {
+          "file": "system-sync/system-sync--n8n--node-v2-decision-if.jpg",
+          "line": "This is the node that checks whether the change coming back is our own write. Most builds are missing it.",
+          "beat": "thinking"
+        },
+        {
+          "file": "system-sync/system-sync--hubspot--connected-apps.jpg",
+          "line": "The integration layer in place on a live stack.",
+          "beat": "their-world"
+        },
+        {
+          "file": "system-sync/system-sync--quickbooks--integration-connectors.jpg",
+          "line": "And the connectors it reconciles across.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "hubspot",
+        "instantly",
+        "n8n",
+        "quickbooks",
+        "shopify",
+        "stripe",
+        "zapier"
+      ],
+      "library_total": 20
+    },
+    "client-onboarding": {
+      "product": "The Onboarding Build",
+      "open": "The first 48 hours set the tone for the whole engagement, and they're usually improvised.",
+      "attach": [
+        {
+          "file": "client-onboarding/client-onboarding--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's what fires the moment a deal flips to Won \u2014 welcome, checklist, intake, escalation.",
+          "beat": "system"
+        },
+        {
+          "file": "client-onboarding/client-onboarding--n8n--node-v2-decision-if.jpg",
+          "line": "It escalates if the intake hasn't come back by day two, rather than waiting for someone to notice.",
+          "beat": "thinking"
+        },
+        {
+          "file": "client-onboarding/client-onboarding--ghl--trigger-moved-to-won.jpg",
+          "line": "Running in the CRM, triggered on the status change rather than a stage drag.",
+          "beat": "their-world"
+        },
+        {
+          "file": "client-onboarding/client-onboarding--ghl--canvas-full-7-nodes.jpg",
+          "line": "And the onboarding assets it assembles.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "ghl",
+        "hubspot",
+        "n8n"
+      ],
+      "library_total": 23
+    },
+    "data-collection": {
+      "product": "The Intake System",
+      "open": "A half-record in the CRM is worse than no record, because it looks complete.",
+      "attach": [
+        {
+          "file": "data-collection/data-collection--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the intake spine: validate, refuse what's malformed, dedupe, then write a clean record.",
+          "beat": "system"
+        },
+        {
+          "file": "data-collection/data-collection--n8n--node-v2-decision-if.jpg",
+          "line": "The validation gate is the part that matters \u2014 it refuses rather than guessing.",
+          "beat": "thinking"
+        },
+        {
+          "file": "data-collection/data-collection--ghl--form-builder-six-fields.jpg",
+          "line": "The intake form itself, with real field types bound to CRM properties.",
+          "beat": "their-world"
+        },
+        {
+          "file": "data-collection/data-collection--ghl--contact-list-sample-tags.jpg",
+          "line": "And the records it produces, clean and deduplicated.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "activecampaign",
+        "airtable",
+        "ghl",
+        "hubspot",
+        "instantly",
+        "n8n",
+        "shopify",
+        "stripe",
+        "zapier"
+      ],
+      "library_total": 53
+    },
+    "quote-follow-up": {
+      "product": "The Follow Up",
+      "open": "Following up on a quote is nobody's actual job, so it quietly becomes nobody's.",
+      "attach": [
+        {
+          "file": "quote-follow-up/quote-follow-up--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the cadence \u2014 day 2, day 5, day 9, then nurture.",
+          "beat": "system"
+        },
+        {
+          "file": "quote-follow-up/quote-follow-up--n8n--node-v2-decision-if.jpg",
+          "line": "Every touch checks for a reply first and stops dead the moment they answer. That gate is what separates follow-up from nagging.",
+          "beat": "thinking"
+        },
+        {
+          "file": "quote-follow-up/quote-follow-up--ghl--email-action-merge-chip.jpg",
+          "line": "The same cadence inside the CRM, with the real message copy.",
+          "beat": "their-world"
+        },
+        {
+          "file": "quote-follow-up/quote-follow-up--ghl--canvas-quote-cadence-full.jpg",
+          "line": "And what it reports: which quotes are unanswered and how old.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "activecampaign",
+        "ghl",
+        "n8n",
+        "pipedrive"
+      ],
+      "library_total": 15
+    },
+    "reactivation": {
+      "product": "The Win-Back",
+      "open": "Customers stop buying and nobody notices, because nothing is watching their own rhythm.",
+      "attach": [
+        {
+          "file": "reactivation/reactivation--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the win-back, keyed on each customer's normal gap rather than a blanket 90 days.",
+          "beat": "system"
+        },
+        {
+          "file": "reactivation/reactivation--n8n--node-v2-decision-if.jpg",
+          "line": "One honest message, never a series \u2014 that's what keeps it out of the spam folder.",
+          "beat": "thinking"
+        },
+        {
+          "file": "reactivation/reactivation--ghl--win-back-sms-merge-field.jpg",
+          "line": "Running in the CRM against real dormancy signals.",
+          "beat": "their-world"
+        },
+        {
+          "file": "reactivation/reactivation--ghl--canvas-full-8-nodes.jpg",
+          "line": "And the branch that stops the moment someone replies.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "ghl",
+        "n8n"
+      ],
+      "library_total": 17
+    },
+    "approval-routing": {
+      "product": "The Approval Router",
+      "open": "Approvals sit in an inbox with no ladder, so the bottleneck is invisible until someone asks why nothing shipped.",
+      "attach": [
+        {
+          "file": "approval-routing/approval-routing--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the router: auto-approve inside a band, route the rest by rule, escalate on silence.",
+          "beat": "system"
+        },
+        {
+          "file": "approval-routing/approval-routing--n8n--node-v2-decision-if.jpg",
+          "line": "Every auto-approval records who and why, or the band becomes unauditable.",
+          "beat": "thinking"
+        },
+        {
+          "file": "approval-routing/approval-routing--pipedrive--deal-detail-on-hold-activity.jpg",
+          "line": "And the weekly report naming who's actually holding things up.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "airtable",
+        "n8n",
+        "pipedrive"
+      ],
+      "library_total": 17
+    },
+    "alerting": {
+      "product": "The Watch",
+      "open": "Something breaks silently and the business hears it from a customer. That's the most expensive way to find out.",
+      "attach": [
+        {
+          "file": "alerting/alerting--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the watchdog, with the exact fix carried inside the alert rather than just the symptom.",
+          "beat": "system"
+        },
+        {
+          "file": "alerting/alerting--n8n--node-v2-decision-if.jpg",
+          "line": "It's tested against a planted failure before it ever watches anything real \u2014 an alert nobody trusts gets muted.",
+          "beat": "thinking"
+        }
+      ],
+      "tools_with_proof": [
+        "airtable",
+        "n8n",
+        "zapier"
+      ],
+      "library_total": 15
+    },
+    "platform-migration": {
+      "product": "The Migration Build",
+      "open": "Migrations lose records quietly. Nobody finds out until the customer who was lost calls.",
+      "attach": [
+        {
+          "file": "platform-migration/platform-migration--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the migration: reversible batches, counts reconciled before anything commits.",
+          "beat": "system"
+        },
+        {
+          "file": "platform-migration/platform-migration--n8n--node-v2-decision-if.jpg",
+          "line": "If the counts don't match, the batch rolls back and reports the delta instead of half-writing.",
+          "beat": "thinking"
+        },
+        {
+          "file": "platform-migration/platform-migration--hubspot--import-column-mapping-automapped.jpg",
+          "line": "A real import with the field mapping resolved.",
+          "beat": "their-world"
+        },
+        {
+          "file": "platform-migration/platform-migration--hubspot--import-summary-26-records-0-errors.jpg",
+          "line": "And the result \u2014 records in, associations intact, zero errors.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "ghl",
+        "hubspot",
+        "n8n"
+      ],
+      "library_total": 13
+    },
+    "production-takeover": {
+      "product": "The Takeover Build",
+      "open": "I don't change anything in week one. I map what it actually does versus what it's documented to do.",
+      "attach": [
+        {
+          "file": "production-takeover/production-takeover--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the probe: watch the inherited system, record every surprise, change nothing yet.",
+          "beat": "system"
+        },
+        {
+          "file": "production-takeover/production-takeover--n8n--node-v2-decision-if.jpg",
+          "line": "The gap between documented and observed behaviour is the real scope.",
+          "beat": "thinking"
+        },
+        {
+          "file": "production-takeover/production-takeover--n8n--kit-retry-config.jpg",
+          "line": "Every external call retries on its own terms rather than inheriting one blanket rule \u2014 an inherited system tells you which calls it can survive being hit twice.",
+          "beat": "their-world"
+        },
+        {
+          "file": "production-takeover/production-takeover--n8n--node-v2-log-the-run-both-paths.jpg",
+          "line": "And both paths get logged, the good one and the failed one, because week one is worth nothing if the evidence isn't written down.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "n8n"
+      ],
+      "library_total": 8
+    },
+    "voice-agent-intake": {
+      "product": "The Voice Intake",
+      "open": "Calls outside business hours go to voicemail, and voicemail is where leads go to die.",
+      "attach": [
+        {
+          "file": "voice-agent-intake/voice-agent-intake--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the after-hours desk \u2014 answer, capture intent, book or route.",
+          "beat": "system"
+        },
+        {
+          "file": "voice-agent-intake/voice-agent-intake--n8n--node-v2-decision-if.jpg",
+          "line": "The fail-safe matters more than the intelligence: when the model can't answer, the caller gets a human, never dead air.",
+          "beat": "thinking"
+        },
+        {
+          "file": "voice-agent-intake/voice-agent-intake--ghl--voice-ai-agent-builder-prompt-persona.jpg",
+          "line": "The agent itself inside the tool \u2014 persona, prompt, and what it's allowed to say.",
+          "beat": "their-world"
+        },
+        {
+          "file": "voice-agent-intake/voice-agent-intake--ghl--voice-ai-deploy-call-routing-hours.jpg",
+          "line": "And the deployment side: which number it answers, which hours, and where the call goes when it hands over.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "ghl",
+        "n8n",
+        "twilio"
+      ],
+      "library_total": 23
+    },
+    "document-assembly": {
+      "product": "The Document Build",
+      "open": "The document with a blank merge field is the one that goes out to a client.",
+      "attach": [
+        {
+          "file": "document-assembly/document-assembly--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the assembly, which verifies every merge field resolved before anything sends.",
+          "beat": "system"
+        },
+        {
+          "file": "document-assembly/document-assembly--n8n--node-v2-decision-if.jpg",
+          "line": "If one is missing it holds the document and names the field, rather than sending a hole.",
+          "beat": "thinking"
+        },
+        {
+          "file": "document-assembly/document-assembly--n8n--canvas-paper-trail.jpg",
+          "line": "The paper trail that goes with it \u2014 every document generated is traceable back to the record it came from.",
+          "beat": "their-world"
+        },
+        {
+          "file": "document-assembly/document-assembly--n8n--kit-retry-config.jpg",
+          "line": "And the retry configuration on the generation call, so a slow storage API delays a document instead of losing one.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "n8n"
+      ],
+      "library_total": 9
+    },
+    "ai-assistant": {
+      "product": "The Straight Answer Desk",
+      "open": "An assistant that guesses is worse than no assistant, because people stop trusting the answers and go back to phoning you.",
+      "attach": [
+        {
+          "file": "ai-assistant/ai-assistant--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the assistant \u2014 it answers from a real knowledge base and refuses when it doesn't know.",
+          "beat": "system"
+        },
+        {
+          "file": "ai-assistant/ai-assistant--n8n--node-v2-decision-if.jpg",
+          "line": "The refusal gate is the product. It hands to a human with the context attached rather than inventing something.",
+          "beat": "thinking"
+        },
+        {
+          "file": "ai-assistant/ai-assistant--ghl--ai-knowledge-base-list.jpg",
+          "line": "Running inside the tool, with the knowledge source it's actually trained on.",
+          "beat": "their-world"
+        },
+        {
+          "file": "ai-assistant/ai-assistant--ghl--conversation-ai-agents-list.jpg",
+          "line": "And the behaviour settings \u2014 how long it waits, when it stops, when a person takes over.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "ghl",
+        "instantly",
+        "n8n"
+      ],
+      "library_total": 34
+    },
+    "cold-outreach": {
+      "product": "The Outreach Engine",
+      "open": "Volume isn't the problem. Deliverability and reply handling are, and they're what nobody sets up properly.",
+      "attach": [
+        {
+          "file": "cold-outreach/cold-outreach--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the sending architecture \u2014 validated list, deduplicated, rate-limited to protect the domain.",
+          "beat": "system"
+        },
+        {
+          "file": "cold-outreach/cold-outreach--n8n--node-v2-decision-if.jpg",
+          "line": "The reply gate stops the sequence the moment someone answers.",
+          "beat": "thinking"
+        },
+        {
+          "file": "cold-outreach/cold-outreach--instantly--campaigns-list-draft.jpg",
+          "line": "And the report: what's landing, what's bouncing, what replied.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "instantly",
+        "n8n"
+      ],
+      "library_total": 10
+    },
+    "project-ops": {
+      "product": "The Operations Board",
+      "open": "Most board problems are architecture problems: relations pointing at dead boards, no templates, and no way to see who is drowning.",
+      "attach": [
+        {
+          "file": "project-ops/project-ops--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the system that keeps the boards honest \u2014 it checks the structure on every change rather than waiting for someone to notice a broken column.",
+          "beat": "system"
+        },
+        {
+          "file": "project-ops/project-ops--n8n--node-v2-decision-if.jpg",
+          "line": "This is the gate underneath it: a relation pointing at a board that no longer exists gets flagged, not silently dropped. Silently dropped is how boards rot.",
+          "beat": "thinking"
+        },
+        {
+          "file": "project-ops/project-ops--monday--subitems-expanded.jpg",
+          "line": "The standardised subitem structure, so every launch starts the same way instead of from scratch.",
+          "beat": "their-world"
+        },
+        {
+          "file": "project-ops/project-ops--monday--dashboard-workload-widget.jpg",
+          "line": "And the workload view, which is the answer to 'we can't see who's overloaded'.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "monday",
+        "n8n"
+      ],
+      "library_total": 18
+    },
+    "messaging-compliance": {
+      "product": "The Deliverability Build",
+      "open": "Messaging that isn't registered and authenticated doesn't get delivered, and nobody tells you \u2014 it just quietly stops arriving.",
+      "attach": [
+        {
+          "file": "messaging-compliance/messaging-compliance--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the system \u2014 nothing leaves until the sending identity has been checked against the registry.",
+          "beat": "system"
+        },
+        {
+          "file": "messaging-compliance/messaging-compliance--n8n--node-v2-decision-if.jpg",
+          "line": "This is the gate: registered, and throughput left on the number. 10DLC filtering is silent, so if you don't check here you find out from the reply rate weeks later rather than from an error.",
+          "beat": "thinking"
+        },
+        {
+          "file": "messaging-compliance/messaging-compliance--ghl--a2p-10dlc-registration-wizard-steps.jpg",
+          "line": "Here's the A2P 10DLC registration path, including the status screen where rejections actually surface.",
+          "beat": "their-world"
+        },
+        {
+          "file": "messaging-compliance/messaging-compliance--ghl--email-deliverability-dedicated-sending-domain-spf-dkim-dmarc.jpg",
+          "line": "And the sending-domain setup \u2014 SPF, DKIM and DMARC \u2014 which is what keeps email out of spam.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "ghl",
+        "instantly",
+        "n8n"
+      ],
+      "library_total": 10
+    },
+    "data-model-architecture": {
+      "product": "The Data Layer",
+      "open": "Most CRM problems are data-model problems wearing a workflow costume.",
+      "attach": [
+        {
+          "file": "data-model-architecture/data-model-architecture--n8n--kit-canvas-18-nodes.jpg",
+          "line": "Here's the system that enforces it \u2014 a record only gets written once every field maps to a property that exists.",
+          "beat": "system"
+        },
+        {
+          "file": "data-model-architecture/data-model-architecture--n8n--node-v2-decision-if.jpg",
+          "line": "This is the gate that keeps the model clean: every field has to map to a property that exists, or the record is quarantined rather than guessed at. Guessing is how you end up with three fields meaning the same thing.",
+          "beat": "thinking"
+        },
+        {
+          "file": "data-model-architecture/data-model-architecture--hubspot--data-model-graph-view.jpg",
+          "line": "Here's the object model on a real portal \u2014 objects, properties, and how they associate.",
+          "beat": "their-world"
+        },
+        {
+          "file": "data-model-architecture/data-model-architecture--hubspot--contact-properties-fill-rate.jpg",
+          "line": "And the property architecture underneath it, with fill rates so you can see what's actually used.",
+          "beat": "result"
+        }
+      ],
+      "tools_with_proof": [
+        "airtable",
+        "hubspot",
+        "n8n",
+        "pipedrive"
+      ],
+      "library_total": 18
+    }
+  }
+}

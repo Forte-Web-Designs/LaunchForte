@@ -268,13 +268,31 @@ TOOL_WORDS = {
  "xero":"xero","salesforce":"salesforce","airtable":"airtable","make.com":"make","zoho":"zoho",
  "klaviyo":"klaviyo","netsuite":"netsuite","clickup":"clickup","instantly":"instantly",
  "close.com":"close","notion":"notion","n8n":"n8n",
+ # Added Aug 8 2026 after counting 2,281 A/B graded postings. The ones we now
+ # hold shots for, plus the ones buyers name often enough that the letter should
+ # be able to say the name back to them even when we do not hold it yet.
+ "slack":"slack","calendly":"calendly","acuity":"calendly","supabase":"supabase",
+ "vapi":"vapi","retell":"retell","elevenlabs":"elevenlabs","eleven labs":"elevenlabs",
+ "wordpress":"wordpress","woocommerce":"wordpress","webflow":"webflow","wix":"wix",
+ "squarespace":"squarespace","smartlead":"smartlead","apollo.io":"apollo",
+ "gorgias":"gorgias","mailchimp":"mailchimp","looker":"looker","power bi":"powerbi",
+ "docusign":"docusign","pandadoc":"pandadoc","typeform":"typeform","jotform":"jotform",
+ "asana":"asana","trello":"trello","jira":"jira","intercom":"intercom","zendesk":"zendesk",
+ "freshbooks":"freshbooks","keap":"keap","infusionsoft":"keap","whatsapp":"whatsapp",
 }
 
 PRETTY = {"ghl":"GoHighLevel","hubspot":"HubSpot","shopify":"Shopify","stripe":"Stripe",
  "quickbooks":"QuickBooks","zapier":"Zapier","twilio":"Twilio","pipedrive":"Pipedrive",
  "monday":"Monday.com","activecampaign":"ActiveCampaign","n8n":"n8n","xero":"Xero",
  "salesforce":"Salesforce","airtable":"Airtable","make":"Make","zoho":"Zoho","klaviyo":"Klaviyo",
- "netsuite":"NetSuite","clickup":"ClickUp","instantly":"Instantly.ai","close":"Close","notion":"Notion"}
+ "netsuite":"NetSuite","clickup":"ClickUp","instantly":"Instantly.ai","close":"Close","notion":"Notion",
+ "slack":"Slack","calendly":"Calendly","supabase":"Supabase","vapi":"Vapi","retell":"Retell",
+ "elevenlabs":"ElevenLabs","wordpress":"WordPress","webflow":"Webflow","wix":"Wix",
+ "squarespace":"Squarespace","smartlead":"Smartlead","apollo":"Apollo","gorgias":"Gorgias",
+ "mailchimp":"Mailchimp","looker":"Looker Studio","powerbi":"Power BI","docusign":"DocuSign",
+ "pandadoc":"PandaDoc","typeform":"Typeform","jotform":"Jotform","asana":"Asana",
+ "trello":"Trello","jira":"Jira","intercom":"Intercom","zendesk":"Zendesk",
+ "freshbooks":"FreshBooks","keap":"Keap","whatsapp":"WhatsApp"}
 
 
 # A pattern can be a genuinely distinct ASK while the proof already sits under a

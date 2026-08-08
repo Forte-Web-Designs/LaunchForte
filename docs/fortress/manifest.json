@@ -1,0 +1,4025 @@
+{
+ "count": 632,
+ "shapes": {
+  "_blockers": {
+   "count": 14,
+   "tools": [
+    "ghl",
+    "instantly",
+    "shopify"
+   ]
+  },
+  "_library": {
+   "count": 29,
+   "tools": [
+    "activecampaign",
+    "airtable",
+    "ghl",
+    "google-sheets",
+    "hubspot",
+    "instantly",
+    "pipedrive",
+    "quickbooks",
+    "shopify",
+    "stripe",
+    "twilio",
+    "zapier"
+   ]
+  },
+  "_rejects": {
+   "count": 68,
+   "tools": [
+    "unknown"
+   ]
+  },
+  "ai-assistant": {
+   "count": 34,
+   "tools": [
+    "ghl",
+    "instantly",
+    "n8n"
+   ]
+  },
+  "alerting": {
+   "count": 15,
+   "tools": [
+    "airtable",
+    "google-sheets",
+    "n8n",
+    "zapier"
+   ]
+  },
+  "approval-routing": {
+   "count": 17,
+   "tools": [
+    "airtable",
+    "n8n",
+    "pipedrive"
+   ]
+  },
+  "books-reconciliation": {
+   "count": 49,
+   "tools": [
+    "n8n",
+    "quickbooks",
+    "stripe"
+   ]
+  },
+  "client-onboarding": {
+   "count": 23,
+   "tools": [
+    "ghl",
+    "hubspot",
+    "n8n"
+   ]
+  },
+  "cold-outreach": {
+   "count": 10,
+   "tools": [
+    "instantly",
+    "n8n"
+   ]
+  },
+  "data-collection": {
+   "count": 53,
+   "tools": [
+    "activecampaign",
+    "airtable",
+    "ghl",
+    "google-sheets",
+    "hubspot",
+    "instantly",
+    "n8n",
+    "shopify",
+    "stripe",
+    "zapier"
+   ]
+  },
+  "data-model-architecture": {
+   "count": 18,
+   "tools": [
+    "airtable",
+    "hubspot",
+    "n8n",
+    "pipedrive"
+   ]
+  },
+  "document-assembly": {
+   "count": 9,
+   "tools": [
+    "n8n"
+   ]
+  },
+  "lead-routing": {
+   "count": 43,
+   "tools": [
+    "activecampaign",
+    "ghl",
+    "hubspot",
+    "n8n",
+    "zapier"
+   ]
+  },
+  "messaging-compliance": {
+   "count": 10,
+   "tools": [
+    "ghl",
+    "instantly",
+    "n8n"
+   ]
+  },
+  "platform-migration": {
+   "count": 13,
+   "tools": [
+    "ghl",
+    "hubspot",
+    "n8n"
+   ]
+  },
+  "production-takeover": {
+   "count": 8,
+   "tools": [
+    "n8n"
+   ]
+  },
+  "project-ops": {
+   "count": 18,
+   "tools": [
+    "monday",
+    "n8n"
+   ]
+  },
+  "quote-follow-up": {
+   "count": 15,
+   "tools": [
+    "activecampaign",
+    "ghl",
+    "n8n",
+    "pipedrive"
+   ]
+  },
+  "reactivation": {
+   "count": 17,
+   "tools": [
+    "ghl",
+    "n8n"
+   ]
+  },
+  "reporting": {
+   "count": 29,
+   "tools": [
+    "activecampaign",
+    "airtable",
+    "ghl",
+    "google-sheets",
+    "hubspot",
+    "n8n",
+    "pipedrive",
+    "quickbooks",
+    "shopify",
+    "stripe"
+   ]
+  },
+  "scheduling": {
+   "count": 19,
+   "tools": [
+    "ghl",
+    "google-sheets",
+    "n8n",
+    "quickbooks"
+   ]
+  },
+  "stalled-deal-escalation": {
+   "count": 46,
+   "tools": [
+    "activecampaign",
+    "ghl",
+    "hubspot",
+    "n8n",
+    "pipedrive",
+    "zapier"
+   ]
+  },
+  "storefront-upsell": {
+   "count": 32,
+   "tools": [
+    "n8n",
+    "shopify"
+   ]
+  },
+  "system-sync": {
+   "count": 20,
+   "tools": [
+    "hubspot",
+    "instantly",
+    "n8n",
+    "quickbooks",
+    "shopify",
+    "stripe",
+    "zapier"
+   ]
+  },
+  "voice-agent-intake": {
+   "count": 23,
+   "tools": [
+    "ghl",
+    "n8n",
+    "twilio"
+   ]
+  }
+ },
+ "images": [
+  {
+   "shape": "_blockers",
+   "tool": "ghl",
+   "view": "calendar-empty",
+   "file": "_blockers/_blockers--ghl--calendar-empty.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "ghl",
+   "view": "calendar-needs-team-member",
+   "file": "_blockers/_blockers--ghl--calendar-needs-team-member.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "ghl",
+   "view": "conversations-empty",
+   "file": "_blockers/_blockers--ghl--conversations-empty.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "ghl",
+   "view": "funnels-empty",
+   "file": "_blockers/_blockers--ghl--funnels-empty.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "ghl",
+   "view": "no-users-in-subaccount",
+   "file": "_blockers/_blockers--ghl--no-users-in-subaccount.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "ghl",
+   "view": "reporting-empty",
+   "file": "_blockers/_blockers--ghl--reporting-empty.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "ghl",
+   "view": "round-robin-validation-error",
+   "file": "_blockers/_blockers--ghl--round-robin-validation-error.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "instantly",
+   "view": "instantly-ab-testing-paywall",
+   "file": "_blockers/_blockers--instantly--instantly-ab-testing-paywall.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "instantly",
+   "view": "instantly-analytics-empty-no-sends",
+   "file": "_blockers/_blockers--instantly--instantly-analytics-empty-no-sends.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "instantly",
+   "view": "instantly-crm-needs-mailbox",
+   "file": "_blockers/_blockers--instantly--instantly-crm-needs-mailbox.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "instantly",
+   "view": "instantly-email-accounts-empty",
+   "file": "_blockers/_blockers--instantly--instantly-email-accounts-empty.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "instantly",
+   "view": "instantly-inbox-placement-empty",
+   "file": "_blockers/_blockers--instantly--instantly-inbox-placement-empty.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "shopify",
+   "view": "shopify-flow-empty-state",
+   "file": "_blockers/_blockers--shopify--shopify-flow-empty-state.jpg"
+  },
+  {
+   "shape": "_blockers",
+   "tool": "shopify",
+   "view": "shopify-orders-empty-drafts-are-not-sales",
+   "file": "_blockers/_blockers--shopify--shopify-orders-empty-drafts-are-not-sales.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "activecampaign",
+   "view": "automations-list-inactive",
+   "file": "_library/_library--activecampaign--automations-list-inactive.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "airtable",
+   "view": "automations-list-both-off",
+   "file": "_library/_library--airtable--automations-list-both-off.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "airtable",
+   "view": "base-overview-tables",
+   "file": "_library/_library--airtable--base-overview-tables.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "ghl",
+   "view": "agency-reselling-rebilling-297-plan-limit",
+   "file": "_library/_library--ghl--agency-reselling-rebilling-297-plan-limit.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "ghl",
+   "view": "agency-white-label-branding-domains",
+   "file": "_library/_library--ghl--agency-white-label-branding-domains.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "ghl",
+   "view": "memberships-courses-client-portal",
+   "file": "_library/_library--ghl--memberships-courses-client-portal.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "ghl",
+   "view": "user-assigned-to-subaccount",
+   "file": "_library/_library--ghl--user-assigned-to-subaccount.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "ghl",
+   "view": "workflows-list-baseline",
+   "file": "_library/_library--ghl--workflows-list-baseline.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "ghl",
+   "view": "workflows-list-eight-drafts",
+   "file": "_library/_library--ghl--workflows-list-eight-drafts.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "ghl",
+   "view": "workflows-list-scrolled",
+   "file": "_library/_library--ghl--workflows-list-scrolled.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "ghl",
+   "view": "workflows-list-six-drafts",
+   "file": "_library/_library--ghl--workflows-list-six-drafts.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "google-sheets",
+   "view": "custom-menu-in-sheets",
+   "file": "_library/_library--google-sheets--custom-menu-in-sheets.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "google-sheets",
+   "view": "oauth-scopes-minimal",
+   "file": "_library/_library--google-sheets--oauth-scopes-minimal.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "google-sheets",
+   "view": "onopen-custom-menu-code",
+   "file": "_library/_library--google-sheets--onopen-custom-menu-code.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "google-sheets",
+   "view": "script-project-overview",
+   "file": "_library/_library--google-sheets--script-project-overview.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "google-sheets",
+   "view": "trigger-deleted-none-remain",
+   "file": "_library/_library--google-sheets--trigger-deleted-none-remain.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "hubspot",
+   "view": "platform-nav-breadth",
+   "file": "_library/_library--hubspot--platform-nav-breadth.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "instantly",
+   "view": "instantly-plan-usage",
+   "file": "_library/_library--instantly--instantly-plan-usage.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "pipedrive",
+   "view": "automations-list-all-inactive",
+   "file": "_library/_library--pipedrive--automations-list-all-inactive.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "quickbooks",
+   "view": "sandbox-companies-list",
+   "file": "_library/_library--quickbooks--sandbox-companies-list.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "quickbooks",
+   "view": "sandbox-confirmation",
+   "file": "_library/_library--quickbooks--sandbox-confirmation.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "shopify",
+   "view": "dev-store-creation-free-plus",
+   "file": "_library/_library--shopify--dev-store-creation-free-plus.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "shopify",
+   "view": "partner-dashboard-stores",
+   "file": "_library/_library--shopify--partner-dashboard-stores.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "shopify",
+   "view": "plan-development-store-no-billing",
+   "file": "_library/_library--shopify--plan-development-store-no-billing.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "shopify",
+   "view": "settings-general-dev-store",
+   "file": "_library/_library--shopify--settings-general-dev-store.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "shopify",
+   "view": "shopify-themes",
+   "file": "_library/_library--shopify--shopify-themes.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "stripe",
+   "view": "test-mode-confirmed",
+   "file": "_library/_library--stripe--test-mode-confirmed.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "twilio",
+   "view": "all-products-catalog",
+   "file": "_library/_library--twilio--all-products-catalog.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "zapier",
+   "view": "zaps-list-all-off",
+   "file": "_library/_library--zapier--zaps-list-all-off.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048501505-0",
+   "file": "_rejects/screenshot-1786048501505-0.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048519281-1",
+   "file": "_rejects/screenshot-1786048519281-1.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048527261-2",
+   "file": "_rejects/screenshot-1786048527261-2.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048527261-3",
+   "file": "_rejects/screenshot-1786048527261-3.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048588703-4",
+   "file": "_rejects/screenshot-1786048588703-4.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048602337-5",
+   "file": "_rejects/screenshot-1786048602337-5.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048602337-6",
+   "file": "_rejects/screenshot-1786048602337-6.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048612101-7",
+   "file": "_rejects/screenshot-1786048612101-7.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048625195-8",
+   "file": "_rejects/screenshot-1786048625195-8.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048625196-9",
+   "file": "_rejects/screenshot-1786048625196-9.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048634011-10",
+   "file": "_rejects/screenshot-1786048634011-10.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048644050-11",
+   "file": "_rejects/screenshot-1786048644050-11.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048658359-12",
+   "file": "_rejects/screenshot-1786048658359-12.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048668431-13",
+   "file": "_rejects/screenshot-1786048668431-13.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048708217-14",
+   "file": "_rejects/screenshot-1786048708217-14.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048716885-15",
+   "file": "_rejects/screenshot-1786048716885-15.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048730028-16",
+   "file": "_rejects/screenshot-1786048730028-16.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048741163-17",
+   "file": "_rejects/screenshot-1786048741163-17.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048760709-18",
+   "file": "_rejects/screenshot-1786048760709-18.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048776738-19",
+   "file": "_rejects/screenshot-1786048776738-19.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048787418-20",
+   "file": "_rejects/screenshot-1786048787418-20.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048798169-21",
+   "file": "_rejects/screenshot-1786048798169-21.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048818531-22",
+   "file": "_rejects/screenshot-1786048818531-22.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048834923-23",
+   "file": "_rejects/screenshot-1786048834923-23.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048874135-24",
+   "file": "_rejects/screenshot-1786048874135-24.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048892356-25",
+   "file": "_rejects/screenshot-1786048892356-25.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048970191-26",
+   "file": "_rejects/screenshot-1786048970191-26.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048977436-27",
+   "file": "_rejects/screenshot-1786048977436-27.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786048997700-28",
+   "file": "_rejects/screenshot-1786048997700-28.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786049022765-29",
+   "file": "_rejects/screenshot-1786049022765-29.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786049183264-30",
+   "file": "_rejects/screenshot-1786049183264-30.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786049605087-31",
+   "file": "_rejects/screenshot-1786049605087-31.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786049745821-32",
+   "file": "_rejects/screenshot-1786049745821-32.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786049781026-33",
+   "file": "_rejects/screenshot-1786049781026-33.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786069101228-131",
+   "file": "_rejects/screenshot-1786069101228-131.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786069158833-135",
+   "file": "_rejects/screenshot-1786069158833-135.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786069227404-137",
+   "file": "_rejects/screenshot-1786069227404-137.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786069281596-139",
+   "file": "_rejects/screenshot-1786069281596-139.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786069297864-141",
+   "file": "_rejects/screenshot-1786069297864-141.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786069561103-144",
+   "file": "_rejects/screenshot-1786069561103-144.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786069676539-147",
+   "file": "_rejects/screenshot-1786069676539-147.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786072103542-169",
+   "file": "_rejects/screenshot-1786072103542-169.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786072460794-170",
+   "file": "_rejects/screenshot-1786072460794-170.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786072621648-172",
+   "file": "_rejects/screenshot-1786072621648-172.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786072669844-174",
+   "file": "_rejects/screenshot-1786072669844-174.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786072708041-176",
+   "file": "_rejects/screenshot-1786072708041-176.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786072756166-177",
+   "file": "_rejects/screenshot-1786072756166-177.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786072756166-178",
+   "file": "_rejects/screenshot-1786072756166-178.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786072768807-180",
+   "file": "_rejects/screenshot-1786072768807-180.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786072783884-181",
+   "file": "_rejects/screenshot-1786072783884-181.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786073104650-182",
+   "file": "_rejects/screenshot-1786073104650-182.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786073273571-184",
+   "file": "_rejects/screenshot-1786073273571-184.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786073749587-186",
+   "file": "_rejects/screenshot-1786073749587-186.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786074021476-190",
+   "file": "_rejects/screenshot-1786074021476-190.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786074365721-191",
+   "file": "_rejects/screenshot-1786074365721-191.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786074412694-192",
+   "file": "_rejects/screenshot-1786074412694-192.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786074744096-193",
+   "file": "_rejects/screenshot-1786074744096-193.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786074744099-195",
+   "file": "_rejects/screenshot-1786074744099-195.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786074948127-196",
+   "file": "_rejects/screenshot-1786074948127-196.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786074948128-198",
+   "file": "_rejects/screenshot-1786074948128-198.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786075056123-199",
+   "file": "_rejects/screenshot-1786075056123-199.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786075277509-200",
+   "file": "_rejects/screenshot-1786075277509-200.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786075277510-201",
+   "file": "_rejects/screenshot-1786075277510-201.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786075393856-202",
+   "file": "_rejects/screenshot-1786075393856-202.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786075393857-203",
+   "file": "_rejects/screenshot-1786075393857-203.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786075462796-204",
+   "file": "_rejects/screenshot-1786075462796-204.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786075541654-205",
+   "file": "_rejects/screenshot-1786075541654-205.jpg"
+  },
+  {
+   "shape": "_rejects",
+   "tool": "unknown",
+   "view": "screenshot-1786075627073-207",
+   "file": "_rejects/screenshot-1786075627073-207.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "ai-knowledge-base-list",
+   "file": "ai-assistant/ai-assistant--ghl--ai-knowledge-base-list.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "conversation-ai-advanced-behaviour-settings",
+   "file": "ai-assistant/ai-assistant--ghl--conversation-ai-advanced-behaviour-settings.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "conversation-ai-agents-list",
+   "file": "ai-assistant/ai-assistant--ghl--conversation-ai-agents-list.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "conversation-ai-bot-actions-appointment-booking",
+   "file": "ai-assistant/ai-assistant--ghl--conversation-ai-bot-actions-appointment-booking.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "conversation-ai-bot-goal-types",
+   "file": "ai-assistant/ai-assistant--ghl--conversation-ai-bot-goal-types.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "conversation-ai-bot-goals-prompt-personality",
+   "file": "ai-assistant/ai-assistant--ghl--conversation-ai-bot-goals-prompt-personality.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "conversation-ai-bot-settings-status-channels",
+   "file": "ai-assistant/ai-assistant--ghl--conversation-ai-bot-settings-status-channels.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "conversation-ai-bot-training-knowledge-base-triggers",
+   "file": "ai-assistant/ai-assistant--ghl--conversation-ai-bot-training-knowledge-base-triggers.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "conversation-ai-create-bot-modal",
+   "file": "ai-assistant/ai-assistant--ghl--conversation-ai-create-bot-modal.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "conversation-ai-faq-training-pair",
+   "file": "ai-assistant/ai-assistant--ghl--conversation-ai-faq-training-pair.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "conversation-ai-knowledge-sources-crawler-faq-files",
+   "file": "ai-assistant/ai-assistant--ghl--conversation-ai-knowledge-sources-crawler-faq-files.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "workflow-external-ai-models-enabled",
+   "file": "ai-assistant/ai-assistant--ghl--workflow-external-ai-models-enabled.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "ghl",
+   "view": "workflow-premium-features-ai-actions-enabled",
+   "file": "ai-assistant/ai-assistant--ghl--workflow-premium-features-ai-actions-enabled.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "agent-behaviour-toggles",
+   "file": "ai-assistant/ai-assistant--instantly--agent-behaviour-toggles.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "agent-created-hitl",
+   "file": "ai-assistant/ai-assistant--instantly--agent-created-hitl.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "agent-escalation-rules",
+   "file": "ai-assistant/ai-assistant--instantly--agent-escalation-rules.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "agent-guidance-tone-length",
+   "file": "ai-assistant/ai-assistant--instantly--agent-guidance-tone-length.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "agent-integrations",
+   "file": "ai-assistant/ai-assistant--instantly--agent-integrations.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "agent-paused-inactive",
+   "file": "ai-assistant/ai-assistant--instantly--agent-paused-inactive.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "agent-scope-campaigns-accounts",
+   "file": "ai-assistant/ai-assistant--instantly--agent-scope-campaigns-accounts.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "agent-type-selection",
+   "file": "ai-assistant/ai-assistant--instantly--agent-type-selection.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "agents-empty-state",
+   "file": "ai-assistant/ai-assistant--instantly--agents-empty-state.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "hitl-vs-autopilot-mode",
+   "file": "ai-assistant/ai-assistant--instantly--hitl-vs-autopilot-mode.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "lead-finder-agent",
+   "file": "ai-assistant/ai-assistant--instantly--lead-finder-agent.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "no-show-recovery",
+   "file": "ai-assistant/ai-assistant--instantly--no-show-recovery.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "reply-agent-wizard",
+   "file": "ai-assistant/ai-assistant--instantly--reply-agent-wizard.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "sales-agent-manual-icp-instructions",
+   "file": "ai-assistant/ai-assistant--instantly--sales-agent-manual-icp-instructions.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "instantly",
+   "view": "sales-agent-url-context",
+   "file": "ai-assistant/ai-assistant--instantly--sales-agent-url-context.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "n8n",
+   "view": "canvas-straight-answer-desk-full",
+   "file": "ai-assistant/ai-assistant--n8n--canvas-straight-answer-desk-full.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "n8n",
+   "view": "canvas-straight-answer-desk-left",
+   "file": "ai-assistant/ai-assistant--n8n--canvas-straight-answer-desk-left.png"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "n8n",
+   "view": "canvas-straight-answer-desk-right",
+   "file": "ai-assistant/ai-assistant--n8n--canvas-straight-answer-desk-right.png"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "ai-assistant/ai-assistant--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "ai-assistant/ai-assistant--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "ai-assistant/ai-assistant--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "airtable",
+   "view": "automation-complaint-trigger",
+   "file": "alerting/alerting--airtable--automation-complaint-trigger.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "google-sheets",
+   "view": "apps-script-executions-log",
+   "file": "alerting/alerting--google-sheets--apps-script-executions-log.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "google-sheets",
+   "view": "error-handling-try-catch-finally",
+   "file": "alerting/alerting--google-sheets--error-handling-try-catch-finally.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "google-sheets",
+   "view": "log-timestamped-entries",
+   "file": "alerting/alerting--google-sheets--log-timestamped-entries.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "google-sheets",
+   "view": "logevent-disabled-email-hook",
+   "file": "alerting/alerting--google-sheets--logevent-disabled-email-hook.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "n8n",
+   "view": "canvas-watchtower",
+   "file": "alerting/alerting--n8n--canvas-watchtower.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "alerting/alerting--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "alerting/alerting--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-job-id",
+   "file": "alerting/alerting--n8n--node-deduplicate-on-job-id.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "alerting/alerting--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "alerting/alerting--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "alerting/alerting--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "alerting/alerting--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "alerting/alerting--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "zapier",
+   "view": "zap-history-autoreplay",
+   "file": "alerting/alerting--zapier--zap-history-autoreplay.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "airtable",
+   "view": "automation-approval-gate",
+   "file": "approval-routing/approval-routing--airtable--automation-approval-gate.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "airtable",
+   "view": "excused-vs-counts-field-config",
+   "file": "approval-routing/approval-routing--airtable--excused-vs-counts-field-config.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "airtable",
+   "view": "manager-review-queue-view",
+   "file": "approval-routing/approval-routing--airtable--manager-review-queue-view.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "airtable",
+   "view": "rollup-manager-approval-gate",
+   "file": "approval-routing/approval-routing--airtable--rollup-manager-approval-gate.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "approval-routing/approval-routing--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "approval-routing/approval-routing--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-request-id",
+   "file": "approval-routing/approval-routing--n8n--node-deduplicate-on-request-id.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "approval-routing/approval-routing--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "approval-routing/approval-routing--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "approval-routing/approval-routing--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "approval-routing/approval-routing--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "approval-routing/approval-routing--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "pipedrive",
+   "view": "automation-canvas-on-hold-branching",
+   "file": "approval-routing/approval-routing--pipedrive--automation-canvas-on-hold-branching.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "pipedrive",
+   "view": "condition-on-hold-reason-changed",
+   "file": "approval-routing/approval-routing--pipedrive--condition-on-hold-reason-changed.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "pipedrive",
+   "view": "deal-detail-on-hold-activity",
+   "file": "approval-routing/approval-routing--pipedrive--deal-detail-on-hold-activity.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "pipedrive",
+   "view": "else-branch-action",
+   "file": "approval-routing/approval-routing--pipedrive--else-branch-action.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "pipedrive",
+   "view": "on-hold-reason-field-options",
+   "file": "approval-routing/approval-routing--pipedrive--on-hold-reason-field-options.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "n8n",
+   "view": "canvas-books-bridge",
+   "file": "books-reconciliation/books-reconciliation--n8n--canvas-books-bridge.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "books-reconciliation/books-reconciliation--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "books-reconciliation/books-reconciliation--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-payout_id",
+   "file": "books-reconciliation/books-reconciliation--n8n--node-deduplicate-on-payout_id.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "books-reconciliation/books-reconciliation--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "books-reconciliation/books-reconciliation--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "books-reconciliation/books-reconciliation--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "books-reconciliation/books-reconciliation--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "books-reconciliation/books-reconciliation--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "ar-aging-buckets",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--ar-aging-buckets.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "ar-aging-summary",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--ar-aging-summary.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "ar-aging-total",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--ar-aging-total.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "audit-log-traceability",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--audit-log-traceability.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "bank-register-reconcile-status",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--bank-register-reconcile-status.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "bank-rule-builder-stripe",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--bank-rule-builder-stripe.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "bank-rule-saved-active",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--bank-rule-saved-active.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "bank-rules-screen",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--bank-rules-screen.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "bank-transactions-match-found",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--bank-transactions-match-found.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "categorize-actions-post-split-rule",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--categorize-actions-post-split-rule.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "categorize-uncategorized-income",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--categorize-uncategorized-income.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "chart-of-accounts-variance",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--chart-of-accounts-variance.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "customers-open-balances",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--customers-open-balances.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "customers-overdue-total",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--customers-overdue-total.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "dashboard-25-to-review",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--dashboard-25-to-review.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "for-review-queue-25-pending",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--for-review-queue-25-pending.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "invoice-detail-line-items",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--invoice-detail-line-items.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "invoices-filtered-overdue",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--invoices-filtered-overdue.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "invoices-overdue-total",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--invoices-overdue-total.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "invoices-paid-vs-overdue",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--invoices-paid-vs-overdue.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "journal-entry-debits-credits",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--journal-entry-debits-credits.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "match-detail-open-balance",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--match-detail-open-balance.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "match-proposals-suggested",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--match-proposals-suggested.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "match-reasoning-panel",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--match-reasoning-panel.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "match-vs-categorize-toggle",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--match-vs-categorize-toggle.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "qb-vs-bank-balance-variance",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--qb-vs-bank-balance-variance.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "reconcile-balance-form",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--reconcile-balance-form.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "reconcile-blocked-categorize-first",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--reconcile-blocked-categorize-first.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "reconcile-books-to-bank",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--reconcile-books-to-bank.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "reconcile-difference-closeup",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--reconcile-difference-closeup.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "reconcile-workspace-difference",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--reconcile-workspace-difference.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "quickbooks",
+   "view": "unpaid-invoice-net30-duedate",
+   "file": "books-reconciliation/books-reconciliation--quickbooks--unpaid-invoice-net30-duedate.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "stripe",
+   "view": "customer-detail-subscription-mrr",
+   "file": "books-reconciliation/books-reconciliation--stripe--customer-detail-subscription-mrr.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "stripe",
+   "view": "invoice-partially-paid",
+   "file": "books-reconciliation/books-reconciliation--stripe--invoice-partially-paid.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "stripe",
+   "view": "invoices-list-all-states",
+   "file": "books-reconciliation/books-reconciliation--stripe--invoices-list-all-states.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "stripe",
+   "view": "payment-fee-breakdown-gross-net",
+   "file": "books-reconciliation/books-reconciliation--stripe--payment-fee-breakdown-gross-net.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "stripe",
+   "view": "payments-list",
+   "file": "books-reconciliation/books-reconciliation--stripe--payments-list.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "stripe",
+   "view": "products-and-prices",
+   "file": "books-reconciliation/books-reconciliation--stripe--products-and-prices.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "stripe",
+   "view": "subscriptions-list",
+   "file": "books-reconciliation/books-reconciliation--stripe--subscriptions-list.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "stripe",
+   "view": "unpaid-open-invoice",
+   "file": "books-reconciliation/books-reconciliation--stripe--unpaid-open-invoice.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "ghl",
+   "view": "canvas-full-7-nodes",
+   "file": "client-onboarding/client-onboarding--ghl--canvas-full-7-nodes.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "ghl",
+   "view": "canvas-legible",
+   "file": "client-onboarding/client-onboarding--ghl--canvas-legible.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "ghl",
+   "view": "canvas-review-request-legible",
+   "file": "client-onboarding/client-onboarding--ghl--canvas-review-request-legible.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "ghl",
+   "view": "canvas-review-request",
+   "file": "client-onboarding/client-onboarding--ghl--canvas-review-request.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "ghl",
+   "view": "condition-named",
+   "file": "client-onboarding/client-onboarding--ghl--condition-named.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "ghl",
+   "view": "if-else-expanded",
+   "file": "client-onboarding/client-onboarding--ghl--if-else-expanded.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "ghl",
+   "view": "intake-reminder-sms",
+   "file": "client-onboarding/client-onboarding--ghl--intake-reminder-sms.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "ghl",
+   "view": "reputation-reviews-ai-request-settings",
+   "file": "client-onboarding/client-onboarding--ghl--reputation-reviews-ai-request-settings.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "ghl",
+   "view": "trigger-moved-to-won",
+   "file": "client-onboarding/client-onboarding--ghl--trigger-moved-to-won.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "ghl",
+   "view": "wait-for-reply-timeout",
+   "file": "client-onboarding/client-onboarding--ghl--wait-for-reply-timeout.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "hubspot",
+   "view": "landing-page-editor",
+   "file": "client-onboarding/client-onboarding--hubspot--landing-page-editor.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "hubspot",
+   "view": "landing-page-gallery",
+   "file": "client-onboarding/client-onboarding--hubspot--landing-page-gallery.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "hubspot",
+   "view": "landing-pages-sample-draft",
+   "file": "client-onboarding/client-onboarding--hubspot--landing-pages-sample-draft.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "hubspot",
+   "view": "marketing-email-builder",
+   "file": "client-onboarding/client-onboarding--hubspot--marketing-email-builder.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "n8n",
+   "view": "canvas-lifecycle-engine",
+   "file": "client-onboarding/client-onboarding--n8n--canvas-lifecycle-engine.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "client-onboarding/client-onboarding--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "client-onboarding/client-onboarding--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-client-id",
+   "file": "client-onboarding/client-onboarding--n8n--node-deduplicate-on-client-id.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "client-onboarding/client-onboarding--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "client-onboarding/client-onboarding--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "client-onboarding/client-onboarding--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "client-onboarding/client-onboarding--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "client-onboarding/client-onboarding--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "cold-outreach",
+   "tool": "instantly",
+   "view": "advanced-options",
+   "file": "cold-outreach/cold-outreach--instantly--advanced-options.jpg"
+  },
+  {
+   "shape": "cold-outreach",
+   "tool": "instantly",
+   "view": "campaigns-list-draft",
+   "file": "cold-outreach/cold-outreach--instantly--campaigns-list-draft.jpg"
+  },
+  {
+   "shape": "cold-outreach",
+   "tool": "instantly",
+   "view": "schedule-timezone-window",
+   "file": "cold-outreach/cold-outreach--instantly--schedule-timezone-window.jpg"
+  },
+  {
+   "shape": "cold-outreach",
+   "tool": "instantly",
+   "view": "sequence-builder-3-step-chain",
+   "file": "cold-outreach/cold-outreach--instantly--sequence-builder-3-step-chain.jpg"
+  },
+  {
+   "shape": "cold-outreach",
+   "tool": "instantly",
+   "view": "step-editor-personalisation-vars",
+   "file": "cold-outreach/cold-outreach--instantly--step-editor-personalisation-vars.jpg"
+  },
+  {
+   "shape": "cold-outreach",
+   "tool": "instantly",
+   "view": "stop-on-reply-tracking-daily-limit",
+   "file": "cold-outreach/cold-outreach--instantly--stop-on-reply-tracking-daily-limit.jpg"
+  },
+  {
+   "shape": "cold-outreach",
+   "tool": "instantly",
+   "view": "unibox-status-pipeline",
+   "file": "cold-outreach/cold-outreach--instantly--unibox-status-pipeline.jpg"
+  },
+  {
+   "shape": "cold-outreach",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "cold-outreach/cold-outreach--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "cold-outreach",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "cold-outreach/cold-outreach--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "cold-outreach",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "cold-outreach/cold-outreach--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "activecampaign",
+   "view": "contacts-sample",
+   "file": "data-collection/data-collection--activecampaign--contacts-sample.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "activecampaign",
+   "view": "form-builder",
+   "file": "data-collection/data-collection--activecampaign--form-builder.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "airtable",
+   "view": "dedupe-key-formula-editor",
+   "file": "data-collection/data-collection--airtable--dedupe-key-formula-editor.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "airtable",
+   "view": "dedupe-keys-duplicates-visible",
+   "file": "data-collection/data-collection--airtable--dedupe-keys-duplicates-visible.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "airtable",
+   "view": "filtered-view-config",
+   "file": "data-collection/data-collection--airtable--filtered-view-config.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "airtable",
+   "view": "grouped-view-duplicate-pairs",
+   "file": "data-collection/data-collection--airtable--grouped-view-duplicate-pairs.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "airtable",
+   "view": "incident-type-options",
+   "file": "data-collection/data-collection--airtable--incident-type-options.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "airtable",
+   "view": "incidents-table-populated",
+   "file": "data-collection/data-collection--airtable--incidents-table-populated.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "ghl",
+   "view": "contact-list-23-records",
+   "file": "data-collection/data-collection--ghl--contact-list-23-records.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "ghl",
+   "view": "contact-list-sample-tags",
+   "file": "data-collection/data-collection--ghl--contact-list-sample-tags.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "ghl",
+   "view": "contacts-bulk-actions-20-selected",
+   "file": "data-collection/data-collection--ghl--contacts-bulk-actions-20-selected.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "ghl",
+   "view": "contacts-smart-list",
+   "file": "data-collection/data-collection--ghl--contacts-smart-list.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "ghl",
+   "view": "contacts-with-tags",
+   "file": "data-collection/data-collection--ghl--contacts-with-tags.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "ghl",
+   "view": "form-builder-six-fields",
+   "file": "data-collection/data-collection--ghl--form-builder-six-fields.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "ghl",
+   "view": "form-builder",
+   "file": "data-collection/data-collection--ghl--form-builder.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "ghl",
+   "view": "funnel-create-options-ai-templates",
+   "file": "data-collection/data-collection--ghl--funnel-create-options-ai-templates.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "ghl",
+   "view": "funnel-page-editor-builder",
+   "file": "data-collection/data-collection--ghl--funnel-page-editor-builder.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "ghl",
+   "view": "funnel-step-overview-split-test",
+   "file": "data-collection/data-collection--ghl--funnel-step-overview-split-test.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "ghl",
+   "view": "funnel-steps-canvas",
+   "file": "data-collection/data-collection--ghl--funnel-steps-canvas.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "ghl",
+   "view": "sites-funnels-websites-hub",
+   "file": "data-collection/data-collection--ghl--sites-funnels-websites-hub.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "google-sheets",
+   "view": "apps-script-dedupe-function",
+   "file": "data-collection/data-collection--google-sheets--apps-script-dedupe-function.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "google-sheets",
+   "view": "data-validation-config",
+   "file": "data-collection/data-collection--google-sheets--data-validation-config.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "google-sheets",
+   "view": "double-run-guard-lockservice",
+   "file": "data-collection/data-collection--google-sheets--double-run-guard-lockservice.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "google-sheets",
+   "view": "intake-sheet-populated",
+   "file": "data-collection/data-collection--google-sheets--intake-sheet-populated.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "google-sheets",
+   "view": "line-total-formula",
+   "file": "data-collection/data-collection--google-sheets--line-total-formula.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "google-sheets",
+   "view": "status-dropdown-validation",
+   "file": "data-collection/data-collection--google-sheets--status-dropdown-validation.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "google-sheets",
+   "view": "validate-intake-function",
+   "file": "data-collection/data-collection--google-sheets--validate-intake-function.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "google-sheets",
+   "view": "validation-flagged-rows",
+   "file": "data-collection/data-collection--google-sheets--validation-flagged-rows.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "google-sheets",
+   "view": "validation-flagging-logic",
+   "file": "data-collection/data-collection--google-sheets--validation-flagging-logic.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "hubspot",
+   "view": "contacts-filtered-to-sample",
+   "file": "data-collection/data-collection--hubspot--contacts-filtered-to-sample.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "hubspot",
+   "view": "form-automation-entry",
+   "file": "data-collection/data-collection--hubspot--form-automation-entry.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "hubspot",
+   "view": "form-builder-canvas",
+   "file": "data-collection/data-collection--hubspot--form-builder-canvas.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "hubspot",
+   "view": "form-builder-estimate-request",
+   "file": "data-collection/data-collection--hubspot--form-builder-estimate-request.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "hubspot",
+   "view": "form-field-connected-property",
+   "file": "data-collection/data-collection--hubspot--form-field-connected-property.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "hubspot",
+   "view": "form-template-gallery",
+   "file": "data-collection/data-collection--hubspot--form-template-gallery.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "instantly",
+   "view": "bulk-insert-format",
+   "file": "data-collection/data-collection--instantly--bulk-insert-format.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "instantly",
+   "view": "lead-import-methods",
+   "file": "data-collection/data-collection--instantly--lead-import-methods.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "instantly",
+   "view": "lead-list-with-variables",
+   "file": "data-collection/data-collection--instantly--lead-list-with-variables.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
+   "view": "canvas-list-to-ledger",
+   "file": "data-collection/data-collection--n8n--canvas-list-to-ledger.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
+   "view": "canvas-screening-desk",
+   "file": "data-collection/data-collection--n8n--canvas-screening-desk.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "data-collection/data-collection--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "data-collection/data-collection--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-submission-id",
+   "file": "data-collection/data-collection--n8n--node-deduplicate-on-submission-id.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "data-collection/data-collection--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "data-collection/data-collection--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "data-collection/data-collection--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "data-collection/data-collection--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "data-collection/data-collection--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "shopify",
+   "view": "shopify-customers-list",
+   "file": "data-collection/data-collection--shopify--shopify-customers-list.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "stripe",
+   "view": "customers-list",
+   "file": "data-collection/data-collection--stripe--customers-list.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "zapier",
+   "view": "formatter-clean-fields",
+   "file": "data-collection/data-collection--zapier--formatter-clean-fields.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "zapier",
+   "view": "trigger-config",
+   "file": "data-collection/data-collection--zapier--trigger-config.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "zapier",
+   "view": "webhook-trigger-url-masked",
+   "file": "data-collection/data-collection--zapier--webhook-trigger-url-masked.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "airtable",
+   "view": "clients-table-reverse-links",
+   "file": "data-model-architecture/data-model-architecture--airtable--clients-table-reverse-links.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "airtable",
+   "view": "field-type-picker",
+   "file": "data-model-architecture/data-model-architecture--airtable--field-type-picker.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "airtable",
+   "view": "linked-record-config",
+   "file": "data-model-architecture/data-model-architecture--airtable--linked-record-config.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "hubspot",
+   "view": "company-record-sample",
+   "file": "data-model-architecture/data-model-architecture--hubspot--company-record-sample.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "hubspot",
+   "view": "contact-properties-fill-rate",
+   "file": "data-model-architecture/data-model-architecture--hubspot--contact-properties-fill-rate.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "hubspot",
+   "view": "contact-property-builder-service-type",
+   "file": "data-model-architecture/data-model-architecture--hubspot--contact-property-builder-service-type.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "hubspot",
+   "view": "contact-record-detail-sample",
+   "file": "data-model-architecture/data-model-architecture--hubspot--contact-record-detail-sample.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "hubspot",
+   "view": "custom-contact-properties-in-list",
+   "file": "data-model-architecture/data-model-architecture--hubspot--custom-contact-properties-in-list.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "hubspot",
+   "view": "custom-deal-property-in-list",
+   "file": "data-model-architecture/data-model-architecture--hubspot--custom-deal-property-in-list.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "hubspot",
+   "view": "data-model-graph-view",
+   "file": "data-model-architecture/data-model-architecture--hubspot--data-model-graph-view.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "hubspot",
+   "view": "data-model-graph",
+   "file": "data-model-architecture/data-model-architecture--hubspot--data-model-graph.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "hubspot",
+   "view": "data-model-manage",
+   "file": "data-model-architecture/data-model-architecture--hubspot--data-model-manage.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "hubspot",
+   "view": "deal-property-builder-stall-reason",
+   "file": "data-model-architecture/data-model-architecture--hubspot--deal-property-builder-stall-reason.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "hubspot",
+   "view": "property-builder-field-types",
+   "file": "data-model-architecture/data-model-architecture--hubspot--property-builder-field-types.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "data-model-architecture/data-model-architecture--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "data-model-architecture/data-model-architecture--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "data-model-architecture/data-model-architecture--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "pipedrive",
+   "view": "custom-fields-list",
+   "file": "data-model-architecture/data-model-architecture--pipedrive--custom-fields-list.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "n8n",
+   "view": "canvas-paper-trail",
+   "file": "document-assembly/document-assembly--n8n--canvas-paper-trail.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "document-assembly/document-assembly--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "document-assembly/document-assembly--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-record-id",
+   "file": "document-assembly/document-assembly--n8n--node-deduplicate-on-record-id.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "document-assembly/document-assembly--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "document-assembly/document-assembly--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "document-assembly/document-assembly--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "document-assembly/document-assembly--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "document-assembly/document-assembly--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "activecampaign",
+   "view": "segment-builder-compound",
+   "file": "lead-routing/lead-routing--activecampaign--segment-builder-compound.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "activecampaign",
+   "view": "segments-list-saved",
+   "file": "lead-routing/lead-routing--activecampaign--segments-list-saved.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "action-picker-contact",
+   "file": "lead-routing/lead-routing--ghl--action-picker-contact.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "action-picker-custom-objects",
+   "file": "lead-routing/lead-routing--ghl--action-picker-custom-objects.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "assign-user-panel",
+   "file": "lead-routing/lead-routing--ghl--assign-user-panel.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "canvas-first-build",
+   "file": "lead-routing/lead-routing--ghl--canvas-first-build.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "canvas-round-robin-complete",
+   "file": "lead-routing/lead-routing--ghl--canvas-round-robin-complete.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "canvas-round-robin-sla",
+   "file": "lead-routing/lead-routing--ghl--canvas-round-robin-sla.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "canvas-speed-to-lead-full",
+   "file": "lead-routing/lead-routing--ghl--canvas-speed-to-lead-full.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "if-else-lead-source",
+   "file": "lead-routing/lead-routing--ghl--if-else-lead-source.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "round-robin-assign-configured",
+   "file": "lead-routing/lead-routing--ghl--round-robin-assign-configured.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "round-robin-assign-panel",
+   "file": "lead-routing/lead-routing--ghl--round-robin-assign-panel.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "sms-action-merge-fields",
+   "file": "lead-routing/lead-routing--ghl--sms-action-merge-fields.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "sms-body-merge-fields",
+   "file": "lead-routing/lead-routing--ghl--sms-body-merge-fields.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "trigger-config-customer-replied",
+   "file": "lead-routing/lead-routing--ghl--trigger-config-customer-replied.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "trigger-picker-contact",
+   "file": "lead-routing/lead-routing--ghl--trigger-picker-contact.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "trigger-picker-events",
+   "file": "lead-routing/lead-routing--ghl--trigger-picker-events.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "wait-action-types",
+   "file": "lead-routing/lead-routing--ghl--wait-action-types.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "wait-config-period",
+   "file": "lead-routing/lead-routing--ghl--wait-config-period.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "ghl",
+   "view": "wait-five-minutes",
+   "file": "lead-routing/lead-routing--ghl--wait-five-minutes.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "hubspot",
+   "view": "property-dropdown-routing-tiers",
+   "file": "lead-routing/lead-routing--hubspot--property-dropdown-routing-tiers.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "hubspot",
+   "view": "sample-property-in-list",
+   "file": "lead-routing/lead-routing--hubspot--sample-property-in-list.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "hubspot",
+   "view": "saved-segment-filters-members",
+   "file": "lead-routing/lead-routing--hubspot--saved-segment-filters-members.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "hubspot",
+   "view": "segment-builder-compound-and-or",
+   "file": "lead-routing/lead-routing--hubspot--segment-builder-compound-and-or.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "hubspot",
+   "view": "segment-filter-compound-logic",
+   "file": "lead-routing/lead-routing--hubspot--segment-filter-compound-logic.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "hubspot",
+   "view": "segment-object-picker",
+   "file": "lead-routing/lead-routing--hubspot--segment-object-picker.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "hubspot",
+   "view": "segment-review-save",
+   "file": "lead-routing/lead-routing--hubspot--segment-review-save.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "hubspot",
+   "view": "segments-list-with-sample",
+   "file": "lead-routing/lead-routing--hubspot--segments-list-with-sample.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "hubspot",
+   "view": "workflow-send-email-tier-padlocks",
+   "file": "lead-routing/lead-routing--hubspot--workflow-send-email-tier-padlocks.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "hubspot",
+   "view": "workflow-trigger-node",
+   "file": "lead-routing/lead-routing--hubspot--workflow-trigger-node.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
+   "view": "canvas-lf-demo-speed-to-lead-full",
+   "file": "lead-routing/lead-routing--n8n--canvas-lf-demo-speed-to-lead-full.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
+   "view": "canvas-lf-demo-speed-to-lead-left",
+   "file": "lead-routing/lead-routing--n8n--canvas-lf-demo-speed-to-lead-left.png"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
+   "view": "canvas-lf-demo-speed-to-lead-right",
+   "file": "lead-routing/lead-routing--n8n--canvas-lf-demo-speed-to-lead-right.png"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
+   "view": "canvas-speed-to-lead",
+   "file": "lead-routing/lead-routing--n8n--canvas-speed-to-lead.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "lead-routing/lead-routing--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "lead-routing/lead-routing--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-lead_id",
+   "file": "lead-routing/lead-routing--n8n--node-deduplicate-on-lead_id.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "lead-routing/lead-routing--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "lead-routing/lead-routing--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "lead-routing/lead-routing--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "lead-routing/lead-routing--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "lead-routing/lead-routing--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zapier",
+   "view": "filter-real-conditions",
+   "file": "lead-routing/lead-routing--zapier--filter-real-conditions.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "ghl",
+   "view": "a2p-10dlc-registration-wizard-steps",
+   "file": "messaging-compliance/messaging-compliance--ghl--a2p-10dlc-registration-wizard-steps.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "ghl",
+   "view": "a2p-brand-registration-form-ein",
+   "file": "messaging-compliance/messaging-compliance--ghl--a2p-brand-registration-form-ein.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "ghl",
+   "view": "a2p-brands-campaigns-status",
+   "file": "messaging-compliance/messaging-compliance--ghl--a2p-brands-campaigns-status.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "ghl",
+   "view": "a2p-trust-center-overview",
+   "file": "messaging-compliance/messaging-compliance--ghl--a2p-trust-center-overview.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "ghl",
+   "view": "email-deliverability-dedicated-sending-domain-spf-dkim-dmarc",
+   "file": "messaging-compliance/messaging-compliance--ghl--email-deliverability-dedicated-sending-domain-spf-dkim-dmarc.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "instantly",
+   "view": "advanced-deliverability-ai-filtering",
+   "file": "messaging-compliance/messaging-compliance--instantly--advanced-deliverability-ai-filtering.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "instantly",
+   "view": "provider-matching-esp-routing",
+   "file": "messaging-compliance/messaging-compliance--instantly--provider-matching-esp-routing.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "messaging-compliance/messaging-compliance--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "messaging-compliance/messaging-compliance--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "messaging-compliance/messaging-compliance--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "ghl",
+   "view": "agency-create-snapshot-form",
+   "file": "platform-migration/platform-migration--ghl--agency-create-snapshot-form.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "ghl",
+   "view": "agency-snapshots-list",
+   "file": "platform-migration/platform-migration--ghl--agency-snapshots-list.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "hubspot",
+   "view": "import-column-mapping-automapped",
+   "file": "platform-migration/platform-migration--hubspot--import-column-mapping-automapped.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "hubspot",
+   "view": "import-details-step-4",
+   "file": "platform-migration/platform-migration--hubspot--import-details-step-4.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "hubspot",
+   "view": "import-summary-26-records-0-errors",
+   "file": "platform-migration/platform-migration--hubspot--import-summary-26-records-0-errors.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "platform-migration/platform-migration--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "platform-migration/platform-migration--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-batch-id",
+   "file": "platform-migration/platform-migration--n8n--node-deduplicate-on-batch-id.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "platform-migration/platform-migration--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "platform-migration/platform-migration--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "platform-migration/platform-migration--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "platform-migration/platform-migration--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "platform-migration/platform-migration--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "production-takeover",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "production-takeover/production-takeover--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "production-takeover",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "production-takeover/production-takeover--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "production-takeover",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-job-id",
+   "file": "production-takeover/production-takeover--n8n--node-deduplicate-on-job-id.jpg"
+  },
+  {
+   "shape": "production-takeover",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "production-takeover/production-takeover--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "production-takeover",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "production-takeover/production-takeover--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "production-takeover",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "production-takeover/production-takeover--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "production-takeover",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "production-takeover/production-takeover--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "production-takeover",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "production-takeover/production-takeover--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "automation-builder-midbuild",
+   "file": "project-ops/project-ops--monday--automation-builder-midbuild.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "automation-centre",
+   "file": "project-ops/project-ops--monday--automation-centre.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "automations-list",
+   "file": "project-ops/project-ops--monday--automations-list.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "automations-toggled-off",
+   "file": "project-ops/project-ops--monday--automations-toggled-off.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "board-relation-config",
+   "file": "project-ops/project-ops--monday--board-relation-config.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "board-view-switcher",
+   "file": "project-ops/project-ops--monday--board-view-switcher.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "connect-item-mirror-live",
+   "file": "project-ops/project-ops--monday--connect-item-mirror-live.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "dashboard-workload-widget",
+   "file": "project-ops/project-ops--monday--dashboard-workload-widget.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "formula-builder",
+   "file": "project-ops/project-ops--monday--formula-builder.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "kanban-view",
+   "file": "project-ops/project-ops--monday--kanban-view.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "mirror-column-config",
+   "file": "project-ops/project-ops--monday--mirror-column-config.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "relation-mirror-formula-columns",
+   "file": "project-ops/project-ops--monday--relation-mirror-formula-columns.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "save-as-template",
+   "file": "project-ops/project-ops--monday--save-as-template.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "subitems-expanded",
+   "file": "project-ops/project-ops--monday--subitems-expanded.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "monday",
+   "view": "widgets-center-workload",
+   "file": "project-ops/project-ops--monday--widgets-center-workload.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "project-ops/project-ops--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "project-ops/project-ops--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "project-ops/project-ops--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "activecampaign",
+   "view": "automation-canvas-branching",
+   "file": "quote-follow-up/quote-follow-up--activecampaign--automation-canvas-branching.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "activecampaign",
+   "view": "reply-gate-condition",
+   "file": "quote-follow-up/quote-follow-up--activecampaign--reply-gate-condition.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "ghl",
+   "view": "canvas-quote-cadence-full",
+   "file": "quote-follow-up/quote-follow-up--ghl--canvas-quote-cadence-full.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "ghl",
+   "view": "canvas-quote-cadence-legible",
+   "file": "quote-follow-up/quote-follow-up--ghl--canvas-quote-cadence-legible.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "ghl",
+   "view": "email-action-merge-chip",
+   "file": "quote-follow-up/quote-follow-up--ghl--email-action-merge-chip.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "quote-follow-up/quote-follow-up--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "quote-follow-up/quote-follow-up--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-quote_id",
+   "file": "quote-follow-up/quote-follow-up--n8n--node-deduplicate-on-quote_id.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "quote-follow-up/quote-follow-up--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "quote-follow-up/quote-follow-up--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "quote-follow-up/quote-follow-up--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "quote-follow-up/quote-follow-up--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "quote-follow-up/quote-follow-up--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "pipedrive",
+   "view": "activities-list",
+   "file": "quote-follow-up/quote-follow-up--pipedrive--activities-list.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "pipedrive",
+   "view": "automation-action-call-in-2-days",
+   "file": "quote-follow-up/quote-follow-up--pipedrive--automation-action-call-in-2-days.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "ghl",
+   "view": "canvas-after-sms",
+   "file": "reactivation/reactivation--ghl--canvas-after-sms.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "ghl",
+   "view": "canvas-full-8-nodes",
+   "file": "reactivation/reactivation--ghl--canvas-full-8-nodes.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "ghl",
+   "view": "canvas-legible",
+   "file": "reactivation/reactivation--ghl--canvas-legible.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "ghl",
+   "view": "canvas-with-branch",
+   "file": "reactivation/reactivation--ghl--canvas-with-branch.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "ghl",
+   "view": "condition-config",
+   "file": "reactivation/reactivation--ghl--condition-config.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "ghl",
+   "view": "owner-notification-five-merge-fields",
+   "file": "reactivation/reactivation--ghl--owner-notification-five-merge-fields.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "ghl",
+   "view": "task-due-date-units",
+   "file": "reactivation/reactivation--ghl--task-due-date-units.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "ghl",
+   "view": "wait-three-day-timeout",
+   "file": "reactivation/reactivation--ghl--wait-three-day-timeout.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "ghl",
+   "view": "win-back-sms-merge-field",
+   "file": "reactivation/reactivation--ghl--win-back-sms-merge-field.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "reactivation/reactivation--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "reactivation/reactivation--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-customer-id",
+   "file": "reactivation/reactivation--n8n--node-deduplicate-on-customer-id.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "reactivation/reactivation--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "reactivation/reactivation--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "reactivation/reactivation--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "reactivation/reactivation--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "reactivation/reactivation--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "activecampaign",
+   "view": "deal-funnel-report",
+   "file": "reporting/reporting--activecampaign--deal-funnel-report.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "airtable",
+   "view": "cleaner-score-formula",
+   "file": "reporting/reporting--airtable--cleaner-score-formula.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "airtable",
+   "view": "cleaner-scores-computed",
+   "file": "reporting/reporting--airtable--cleaner-scores-computed.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "airtable",
+   "view": "interface-dashboard-evaluations",
+   "file": "reporting/reporting--airtable--interface-dashboard-evaluations.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "airtable",
+   "view": "interface-dashboard",
+   "file": "reporting/reporting--airtable--interface-dashboard.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "airtable",
+   "view": "monthly-evaluations-scores",
+   "file": "reporting/reporting--airtable--monthly-evaluations-scores.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "ghl",
+   "view": "dashboard-opportunity-widgets",
+   "file": "reporting/reporting--ghl--dashboard-opportunity-widgets.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "google-sheets",
+   "view": "bulk-order-populated-by-script",
+   "file": "reporting/reporting--google-sheets--bulk-order-populated-by-script.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "google-sheets",
+   "view": "grouping-and-sum-pass",
+   "file": "reporting/reporting--google-sheets--grouping-and-sum-pass.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "hubspot",
+   "view": "dashboard-deals-created-vs-goal",
+   "file": "reporting/reporting--hubspot--dashboard-deals-created-vs-goal.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "hubspot",
+   "view": "dashboard-four-charts",
+   "file": "reporting/reporting--hubspot--dashboard-four-charts.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "hubspot",
+   "view": "dashboard-pipeline-health",
+   "file": "reporting/reporting--hubspot--dashboard-pipeline-health.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "n8n",
+   "view": "canvas-one-page-truth",
+   "file": "reporting/reporting--n8n--canvas-one-page-truth.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "reporting/reporting--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "reporting/reporting--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-period",
+   "file": "reporting/reporting--n8n--node-deduplicate-on-period.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "reporting/reporting--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "reporting/reporting--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "reporting/reporting--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "reporting/reporting--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "reporting/reporting--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "pipedrive",
+   "view": "insights-pipeline-health",
+   "file": "reporting/reporting--pipedrive--insights-pipeline-health.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "quickbooks",
+   "view": "balance-sheet",
+   "file": "reporting/reporting--quickbooks--balance-sheet.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "quickbooks",
+   "view": "profit-and-loss-2",
+   "file": "reporting/reporting--quickbooks--profit-and-loss-2.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "quickbooks",
+   "view": "profit-and-loss",
+   "file": "reporting/reporting--quickbooks--profit-and-loss.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "quickbooks",
+   "view": "standard-reports-list-2",
+   "file": "reporting/reporting--quickbooks--standard-reports-list-2.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "quickbooks",
+   "view": "standard-reports-list",
+   "file": "reporting/reporting--quickbooks--standard-reports-list.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "shopify",
+   "view": "shopify-analytics-dashboard",
+   "file": "reporting/reporting--shopify--shopify-analytics-dashboard.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "stripe",
+   "view": "billing-mrr-arr",
+   "file": "reporting/reporting--stripe--billing-mrr-arr.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "ghl",
+   "view": "calendar-availability-mon-fri",
+   "file": "scheduling/scheduling--ghl--calendar-availability-mon-fri.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "ghl",
+   "view": "calendar-booking-rules-notice-buffer",
+   "file": "scheduling/scheduling--ghl--calendar-booking-rules-notice-buffer.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "ghl",
+   "view": "calendar-created-active",
+   "file": "scheduling/scheduling--ghl--calendar-created-active.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "ghl",
+   "view": "calendar-form-confirmation-consent",
+   "file": "scheduling/scheduling--ghl--calendar-form-confirmation-consent.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "ghl",
+   "view": "canvas-appointment-reminders-legible",
+   "file": "scheduling/scheduling--ghl--canvas-appointment-reminders-legible.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "ghl",
+   "view": "canvas-appointment-reminders",
+   "file": "scheduling/scheduling--ghl--canvas-appointment-reminders.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "ghl",
+   "view": "wait-until-scheduled-date",
+   "file": "scheduling/scheduling--ghl--wait-until-scheduled-date.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "google-sheets",
+   "view": "trigger-config-time-driven",
+   "file": "scheduling/scheduling--google-sheets--trigger-config-time-driven.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "google-sheets",
+   "view": "trigger-saved-list",
+   "file": "scheduling/scheduling--google-sheets--trigger-saved-list.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "n8n",
+   "view": "canvas-booked-solid",
+   "file": "scheduling/scheduling--n8n--canvas-booked-solid.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "scheduling/scheduling--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "scheduling/scheduling--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-booking_id",
+   "file": "scheduling/scheduling--n8n--node-deduplicate-on-booking_id.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "scheduling/scheduling--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "scheduling/scheduling--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "scheduling/scheduling--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "scheduling/scheduling--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "scheduling/scheduling--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "quickbooks",
+   "view": "recurring-transactions",
+   "file": "scheduling/scheduling--quickbooks--recurring-transactions.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "activecampaign",
+   "view": "crm-pipeline-deal",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--activecampaign--crm-pipeline-deal.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "canvas-bottom-escalation",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--canvas-bottom-escalation.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "canvas-top-three-way-fork",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--canvas-top-three-way-fork.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "notification-merge-fields",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--notification-merge-fields.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "on-hold-opportunity-update",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--on-hold-opportunity-update.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "opp-board-18-opportunities",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--opp-board-18-opportunities.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "opp-board-closed-won",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--opp-board-closed-won.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "opp-board-negotiation",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--opp-board-negotiation.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "opp-board-stages-1-5",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--opp-board-stages-1-5.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "opportunities-board-with-stalled-deal",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--opportunities-board-with-stalled-deal.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "pipeline-board",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--pipeline-board.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "pipeline-stage-dropdown",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--pipeline-stage-dropdown.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "pipelines-list-6-stages",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--pipelines-list-6-stages.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "trigger-idle-7-days",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--trigger-idle-7-days.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "ghl",
+   "view": "wait-7-days",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--ghl--wait-7-days.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "hubspot",
+   "view": "deal-all-properties-stall-reason",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--deal-all-properties-stall-reason.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "hubspot",
+   "view": "deal-board-7-stages-12-deals",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--deal-board-7-stages-12-deals.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "hubspot",
+   "view": "deal-pipeline-board",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--deal-pipeline-board.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "hubspot",
+   "view": "deal-record-stalled",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--deal-record-stalled.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "hubspot",
+   "view": "deal-table-stages-amounts",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--deal-table-stages-amounts.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "hubspot",
+   "view": "pipeline-automate-tab",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--pipeline-automate-tab.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "hubspot",
+   "view": "pipeline-settings",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--pipeline-settings.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "hubspot",
+   "view": "pipelines-overview-tier-cap",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--pipelines-overview-tier-cap.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "hubspot",
+   "view": "stage-editor-7-stages-probabilities",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--stage-editor-7-stages-probabilities.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "hubspot",
+   "view": "stage-editor-probabilities",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--hubspot--stage-editor-probabilities.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "n8n",
+   "view": "canvas-ghl-deals-that-stopped-moving",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--canvas-ghl-deals-that-stopped-moving.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-deal_id",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--node-deduplicate-on-deal_id.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "pipedrive",
+   "view": "automation-canvas-stage-criteria",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--pipedrive--automation-canvas-stage-criteria.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "pipedrive",
+   "view": "automation-canvas-time-based",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--pipedrive--automation-canvas-time-based.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "pipedrive",
+   "view": "automation-trigger-and-action",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--pipedrive--automation-trigger-and-action.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "pipedrive",
+   "view": "filter-applied-board",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--pipedrive--filter-applied-board.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "pipedrive",
+   "view": "filter-applied-list",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--pipedrive--filter-applied-list.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "pipedrive",
+   "view": "native-rotten-deals-filter",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--pipedrive--native-rotten-deals-filter.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "pipedrive",
+   "view": "pipeline-board-stages",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--pipedrive--pipeline-board-stages.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "pipedrive",
+   "view": "saved-filter-conditions",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--pipedrive--saved-filter-conditions.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "pipedrive",
+   "view": "stage-rotting-days-per-stage",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--pipedrive--stage-rotting-days-per-stage.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "pipedrive",
+   "view": "stage-rotting-saved",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--pipedrive--stage-rotting-saved.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zapier",
+   "view": "paths-branches-by-stall-reason",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zapier--paths-branches-by-stall-reason.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zapier",
+   "view": "paths-canvas",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zapier--paths-canvas.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "n8n",
+   "view": "canvas-ecommerce-order-ops",
+   "file": "storefront-upsell/storefront-upsell--n8n--canvas-ecommerce-order-ops.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "storefront-upsell/storefront-upsell--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "storefront-upsell/storefront-upsell--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-order_id",
+   "file": "storefront-upsell/storefront-upsell--n8n--node-deduplicate-on-order_id.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "storefront-upsell/storefront-upsell--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "storefront-upsell/storefront-upsell--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "storefront-upsell/storefront-upsell--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "storefront-upsell/storefront-upsell--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "storefront-upsell/storefront-upsell--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "admin-dashboard",
+   "file": "storefront-upsell/storefront-upsell--shopify--admin-dashboard.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "both-companion-mappings",
+   "file": "storefront-upsell/storefront-upsell--shopify--both-companion-mappings.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "buy-x-get-y-reward",
+   "file": "storefront-upsell/storefront-upsell--shopify--buy-x-get-y-reward.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "buy-x-get-y-trigger",
+   "file": "storefront-upsell/storefront-upsell--shopify--buy-x-get-y-trigger.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "checkout-settings",
+   "file": "storefront-upsell/storefront-upsell--shopify--checkout-settings.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "collections-list",
+   "file": "storefront-upsell/storefront-upsell--shopify--collections-list.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "complementary-and-related-config",
+   "file": "storefront-upsell/storefront-upsell--shopify--complementary-and-related-config.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "discounts-with-companion-upsell",
+   "file": "storefront-upsell/storefront-upsell--shopify--discounts-with-companion-upsell.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "draft-orders-list",
+   "file": "storefront-upsell/storefront-upsell--shopify--draft-orders-list.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "flow-canvas-upsell-draft",
+   "file": "storefront-upsell/storefront-upsell--shopify--flow-canvas-upsell-draft.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "flow-list-inactive",
+   "file": "storefront-upsell/storefront-upsell--shopify--flow-list-inactive.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "inventory-by-location",
+   "file": "storefront-upsell/storefront-upsell--shopify--inventory-by-location.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "order-with-companion-pair",
+   "file": "storefront-upsell/storefront-upsell--shopify--order-with-companion-pair.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "product-detail",
+   "file": "storefront-upsell/storefront-upsell--shopify--product-detail.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "product-metafields-seo",
+   "file": "storefront-upsell/storefront-upsell--shopify--product-metafields-seo.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "products-list-catalogue",
+   "file": "storefront-upsell/storefront-upsell--shopify--products-list-catalogue.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "recommendation-performance",
+   "file": "storefront-upsell/storefront-upsell--shopify--recommendation-performance.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "recommendations-after-config",
+   "file": "storefront-upsell/storefront-upsell--shopify--recommendations-after-config.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "recommendations-all-products",
+   "file": "storefront-upsell/storefront-upsell--shopify--recommendations-all-products.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "rule-based-automated-collection",
+   "file": "storefront-upsell/storefront-upsell--shopify--rule-based-automated-collection.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "saved-complementary-mapping",
+   "file": "storefront-upsell/storefront-upsell--shopify--saved-complementary-mapping.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "search-discovery-settings",
+   "file": "storefront-upsell/storefront-upsell--shopify--search-discovery-settings.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "shopify",
+   "view": "variants-and-inventory",
+   "file": "storefront-upsell/storefront-upsell--shopify--variants-and-inventory.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "hubspot",
+   "view": "connected-apps",
+   "file": "system-sync/system-sync--hubspot--connected-apps.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "hubspot",
+   "view": "integrations-connected-apps",
+   "file": "system-sync/system-sync--hubspot--integrations-connected-apps.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "instantly",
+   "view": "instantly-integrations-api-webhooks",
+   "file": "system-sync/system-sync--instantly--instantly-integrations-api-webhooks.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "n8n",
+   "view": "canvas-two-way-bridge",
+   "file": "system-sync/system-sync--n8n--canvas-two-way-bridge.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "system-sync/system-sync--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "system-sync/system-sync--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-record_id",
+   "file": "system-sync/system-sync--n8n--node-deduplicate-on-record_id.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "system-sync/system-sync--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "system-sync/system-sync--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "system-sync/system-sync--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "system-sync/system-sync--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "system-sync/system-sync--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "quickbooks",
+   "view": "integration-connectors",
+   "file": "system-sync/system-sync--quickbooks--integration-connectors.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "quickbooks",
+   "view": "integration-transactions",
+   "file": "system-sync/system-sync--quickbooks--integration-transactions.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "shopify",
+   "view": "shopify-apps-installed",
+   "file": "system-sync/system-sync--shopify--shopify-apps-installed.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "stripe",
+   "view": "api-keys-masked",
+   "file": "system-sync/system-sync--stripe--api-keys-masked.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "stripe",
+   "view": "webhooks",
+   "file": "system-sync/system-sync--stripe--webhooks.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "zapier",
+   "view": "app-directory-9000-integrations",
+   "file": "system-sync/system-sync--zapier--app-directory-9000-integrations.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "zapier",
+   "view": "canvas-five-step-chain",
+   "file": "system-sync/system-sync--zapier--canvas-five-step-chain.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "zapier",
+   "view": "canvas-sync-echo-guard",
+   "file": "system-sync/system-sync--zapier--canvas-sync-echo-guard.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "ghl",
+   "view": "voice-ai-actions-transfer-booking-workflow",
+   "file": "voice-agent-intake/voice-agent-intake--ghl--voice-ai-actions-transfer-booking-workflow.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "ghl",
+   "view": "voice-ai-agent-builder-prompt-persona",
+   "file": "voice-agent-intake/voice-agent-intake--ghl--voice-ai-agent-builder-prompt-persona.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "ghl",
+   "view": "voice-ai-agent-list-not-deployed",
+   "file": "voice-agent-intake/voice-agent-intake--ghl--voice-ai-agent-list-not-deployed.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "ghl",
+   "view": "voice-ai-call-handling-settings",
+   "file": "voice-agent-intake/voice-agent-intake--ghl--voice-ai-call-handling-settings.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "ghl",
+   "view": "voice-ai-create-agent-options",
+   "file": "voice-agent-intake/voice-agent-intake--ghl--voice-ai-create-agent-options.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "ghl",
+   "view": "voice-ai-deploy-call-routing-hours",
+   "file": "voice-agent-intake/voice-agent-intake--ghl--voice-ai-deploy-call-routing-hours.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "ghl",
+   "view": "voice-ai-landing-create-agent",
+   "file": "voice-agent-intake/voice-agent-intake--ghl--voice-ai-landing-create-agent.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "n8n",
+   "view": "canvas-after-hours-line",
+   "file": "voice-agent-intake/voice-agent-intake--n8n--canvas-after-hours-line.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "n8n",
+   "view": "canvas-always-on-desk",
+   "file": "voice-agent-intake/voice-agent-intake--n8n--canvas-always-on-desk.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "voice-agent-intake/voice-agent-intake--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "n8n",
+   "view": "kit-retry-config",
+   "file": "voice-agent-intake/voice-agent-intake--n8n--kit-retry-config.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "n8n",
+   "view": "node-deduplicate-on-call-id",
+   "file": "voice-agent-intake/voice-agent-intake--n8n--node-deduplicate-on-call-id.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "voice-agent-intake/voice-agent-intake--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "voice-agent-intake/voice-agent-intake--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "n8n",
+   "view": "node-v2-hold-the-rate-limit",
+   "file": "voice-agent-intake/voice-agent-intake--n8n--node-v2-hold-the-rate-limit.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "n8n",
+   "view": "node-v2-log-the-run-both-paths",
+   "file": "voice-agent-intake/voice-agent-intake--n8n--node-v2-log-the-run-both-paths.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "n8n",
+   "view": "node-validate-what-arrived",
+   "file": "voice-agent-intake/voice-agent-intake--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "twilio",
+   "view": "functions-twiml-runtime",
+   "file": "voice-agent-intake/voice-agent-intake--twilio--functions-twiml-runtime.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "twilio",
+   "view": "messaging-services",
+   "file": "voice-agent-intake/voice-agent-intake--twilio--messaging-services.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "twilio",
+   "view": "phone-numbers",
+   "file": "voice-agent-intake/voice-agent-intake--twilio--phone-numbers.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "twilio",
+   "view": "studio-flow-canvas",
+   "file": "voice-agent-intake/voice-agent-intake--twilio--studio-flow-canvas.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "twilio",
+   "view": "verify-services",
+   "file": "voice-agent-intake/voice-agent-intake--twilio--verify-services.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "twilio",
+   "view": "widget-config-gather-input",
+   "file": "voice-agent-intake/voice-agent-intake--twilio--widget-config-gather-input.jpg"
+  }
+ ]
+}
