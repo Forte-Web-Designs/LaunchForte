@@ -61,6 +61,20 @@ FIXTURES = [
         "shots": 4,
     },
     {
+        # The real one. Seth: "you cant send links until we are under contract.
+        # on upwork its not a matter of just getting into chat, you have to be
+        # under contract."
+        "name": "promises links on reply, which the platform does not allow",
+        "letter": "Hey, reading the post it sounds like you want the launch to go out clean.\n\n"
+                  "Upwork rules keep URLs out of proposals, so store links come over chat once you reply. "
+                  "The build itself is the same either way.\n\n"
+                  "Again, this needs more conversation, but this mirrors my upsell engine.\n\n"
+                  "Seth Forte",
+        "shots": 4,
+        "script": "Hey, quick one.\n\nI am going to attach a couple of screenshots so you can see it.\n\n"
+                  "I will send you the live one in the messages as soon as you reply.\n\nNo worries either way.",
+    },
+    {
         "name": "no attachments — the video must not promise a picture",
         "letter": "Hey, reading the post it sounds like a rebuild rather than an automation.\n\n"
                   "Seth Forte",
@@ -141,6 +155,18 @@ def main():
             bad.append("a stray label survived on the first line")
         if re.search(r"^-{2,}\s*ANSWERS", letter, re.M):
             bad.append("the delimiter survived into the letter")
+
+        # Nothing carrying a URL travels before a contract. A sentence that
+        # promises one on a reply, in chat or in an interview is a promise the
+        # platform will not let us keep.
+        for where, txt in (("letter", letter), ("video", script)):
+            for s in re.split(r"(?<=[.!?])\s+", txt):
+                linky = re.search(r"\b(link|links|url|urls|demo|walkthrough|storefront|store|login|dashboard|screens?|portal|site|page|video|loom|recording|access)\b"
+                                  r"|\bthe live (?:one|version|link|demo|build|system|thing)\b", s, re.I)
+                early = re.search(r"\b(once|after|when|as soon as|the moment)\b[^.!?]{0,60}\b(you|we|they)\b[^.!?]{0,40}\b(reply|replies|respond|message|chat|connect|talk|interview)\b"
+                                  r"|\b(over|in|via|through) (?:the )?(chat|messages|dm|dms|inbox|thread)\b|\bin the interview\b", s, re.I)
+                if linky and early:
+                    bad.append("the %s promises a link before a contract: %r" % (where, s.strip()[:70]))
 
         mentions = bool(re.search(r"screenshot", script, re.I))
         if f["shots"] and not mentions:

@@ -69,7 +69,9 @@ MUST_CONTAIN = [
     ("the eight-page proposal shape is specified",
      r"EIGHT PAGES, THIS ORDER"),
     ("the proof block is actually wired into the payload",
-     r"__PRICING_BRIEF\+__PROOF"),
+     r"__PRICING_BRIEF \+ __PROOF|__PRICING_BRIEF\+__PROOF"),
+    ("the brief targets the system prompt by name, not the longest string",
+     r"o\.payload\.system = o\.payload\.system \+ __PRICING_BRIEF"),
     ("the answers block is delimited so ordering can be enforced",
      r"---ANSWERS--- on its own"),
     ("the model does not write its own sign off",
@@ -78,6 +80,24 @@ MUST_CONTAIN = [
      r"Only promise what is actually attached"),
     ("the video frames the shots as a shipped product, not a one-to-one fit",
      r"built and shipped\s*',\s*'multiple times|shipped\s+multiple times|may not be a one to one fit"),
+    # Seth, Aug 8: "you cant send links until we are under contract. on upwork
+    # it's not a matter of just getting into chat, you have to be under
+    # contract." Getting a reply is not the unlock, so the prompt may not say
+    # it is.
+    ("links only travel once we are under contract",
+     r"UNDER CONTRACT"),
+    ("the earlier triggers are named so the model cannot reach for one",
+     r"once you reply, once we are in chat, over chat"),
+    # Seth, Aug 8: "the pdf on this one doesnt match what youre saying. theres
+    # no klaviyo in those pdfs." Two selectors picked evidence independently.
+    ("the attached pack is listed and declared the whole truth",
+     r"WHAT IS ACTUALLY ATTACHED TO THIS EMAIL"),
+    ("the tools the pictures are in are named explicitly",
+     r"THE ONLY TOOLS THE PICTURES ARE IN"),
+    ("a reference build the pack did not attach is filtered out",
+     r"__attachedSlugs\.indexOf\(__slug\(r\.tool\)\)"),
+    ("the close is gated on the pack, not on a reference build",
+     r"if \(__refs\.length \|\| __shots\.length\)"),
 ]
 
 # Wording that must never reach a buyer. These are the phrases that made our own
@@ -88,6 +108,8 @@ MUST_NOT_CONTAIN = [
     ("disowns it as not a real client",    r"not a named client|rather than a named client"),
     ("leaves an image placeholder",        r"IMAGE TO EMBED|\[IMAGE LINK\]|image link"),
     ("leaves a proposal token unfilled",   r"\[BUILD \d|\[TESTIMONIAL"),
+    ("promises a link on reply instead of under contract",
+     r"in the chat after they reply|links? (?:come|comes|will come) over chat|once they reply"),
 ]
 
 # A real prompt sits in this band. Well under it means something truncated the
