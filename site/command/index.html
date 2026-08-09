@@ -1291,7 +1291,7 @@ var count = document.querySelectorAll('#dispatchBody .dispatch-block').length;
 var collapsed = $('dispatchCollapsed');
 collapsed.textContent = count + ' action' + (count === 1 ? '' : 's') + ' collapsed -- click "Show all" above to view.';
 var cnode = $('dispatchCount');
-if (cnode) cnode.textContent = ' - ' + count;
+if (cnode) cnode.textContent = ' (' + count + ')';
 $('dispatchFlip').addEventListener('click', function(){
 dispatchExpanded = !dispatchExpanded;
 $('dispatchBody').style.display = dispatchExpanded ? '' : 'none';
@@ -1435,7 +1435,7 @@ var headers = {};
 if (DASHBOARD_API_TOKEN) { headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN; headers['X-Dashboard-Token'] = DASHBOARD_API_TOKEN; }
 return fetch(url, {cache:'no-store', headers: headers})
 .then(function(r){
-if (r.status === 401) { forgetToken(); askForToken('That token was rejected.'); throw new Error('HTTP 401'); }
+if (r.status === 401) { var e401 = new Error('HTTP 401'); e401.auth = true; throw e401; }
 if (!r.ok) throw new Error('HTTP ' + r.status);
 return r.json();
 });
@@ -1443,7 +1443,7 @@ return r.json();
 
 function paint(data){
 lastSnapshot = data;
-$('banners').innerHTML = '';
+clearBanners();
 $('dot').className = 'dot';
 $('asof').textContent = 'as of ' + shortTime(new Date().toISOString());
 renderMoney(data.money);
@@ -1455,12 +1455,27 @@ renderHistory(data);
 populateVideoClientList(data.clients);
 var qd = (data.queue_depth === null || data.queue_depth === undefined) ? '—' : data.queue_depth;
 $('refreshline').textContent = 'Last refresh ' + shortTime(new Date().toISOString()) +
-'. Queue depth: ' + qd + '. This page re-checks every 5 minutes while open.';
+'. Queue depth: ' + qd + '. This page re-checks every 5 minutes while open. ';
+/* There was no forget control at all -- the only caller of forgetToken() was the
+   401 handler that should never have been calling it. */
+var fg = document.createElement('button');
+fg.className = 'retry'; fg.textContent = 'Forget token on this device';
+fg.addEventListener('click', function(){ forgetToken(); location.reload(); });
+$('refreshline').appendChild(fg);
+}
+
+function clearBanners(){
+var host = $('banners'); if (!host) return;
+/* Keep the token gate. It lives in this strip, and blowing the strip away is
+   how the form used to vanish the moment anything else went wrong. */
+var keep = document.getElementById('tokengate');
+while (host.firstChild) { if (host.firstChild === keep) break; host.removeChild(host.firstChild); }
+Array.prototype.slice.call(host.children).forEach(function(n){ if (n !== keep) host.removeChild(n); });
 }
 
 function offline(e){
 $('dot').className = 'dot down';
-$('banners').innerHTML = '';
+clearBanners();
 var b = el('div','banner bad');
 b.appendChild(document.createTextNode('The dashboard cannot reach n8n right now. ' + (e && e.message ? '(' + e.message + ') ' : '') + 'The page will keep trying every 5 minutes.'));
 var retry = el('button','retry','Retry now');
@@ -1469,8 +1484,31 @@ b.appendChild(retry);
 $('banners').appendChild(b);
 }
 
+/* A 401 used to do two things at once: delete the stored token, and then hand
+   the error to offline(), which clears #banners -- the exact strip askForToken
+   renders into. So one transient 401 (an n8n cold start, a publish, any blip)
+   wiped the token, destroyed the form that would let you re-enter it, and left
+   an "cannot reach n8n" banner in its place. Reload and you are typing the token
+   in again. That is the whole reason this felt like every single time.
+   Now: one silent retry, a failure NEVER deletes the token (only submitting a
+   new one overwrites it), and auth errors never reach offline(). */
+function onSnapshot(data){
+var gate = document.getElementById('tokengate');
+if (gate && gate.parentNode) gate.parentNode.removeChild(gate);
+paint(data);
+}
+
 function pull(){
-return get(SNAPSHOT_URL).then(paint).catch(offline);
+return get(SNAPSHOT_URL).then(onSnapshot).catch(function(e){
+if (!(e && e.auth)) { offline(e); return; }
+return new Promise(function(res){ setTimeout(res, 2000); })
+.then(function(){ return get(SNAPSHOT_URL); })
+.then(onSnapshot)
+.catch(function(e2){
+if (e2 && e2.auth) askForToken('That token was rejected. Paste it again \u2014 the saved one stays until you do.');
+else offline(e2);
+});
+});
 }
 
 function boot(){
