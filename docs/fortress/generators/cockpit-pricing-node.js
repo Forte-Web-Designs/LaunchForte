@@ -115,6 +115,54 @@ const COMPONENT_RE = {
   'abandoned-cart': /\b(abandoned cart|cart abandonment|abandoned checkout|browse abandonment)\b/
 };
 
+// ---------------------------------------------------------------------------
+// PRICE BASIS: FLOOR-UP (Aug 9). The budget medians above are now ORDERING
+// EVIDENCE ONLY — they rank demand, they no longer set a price.
+//
+// Why: the budget column does not respond to scope. Median posted budget by
+// number of components asked for runs $50, $75, $100, $125, $120, $125, $75 —
+// a posting asking for six things is budgeted like one asking for one, while
+// description length triples across the same bands. A price derived from that
+// column is a price derived from what people type in a required field.
+//
+// So every component price is now built from arithmetic:
+//
+//   delivery   = component Seth-minutes x minute cost
+//   warranty   = delivery x reserve            (rework exposure)
+//   connects   = connects-per-bid x cost / WIN RATE   (the losing bids)
+//   tooling    = monthly tooling / wins per month
+//   price      = (delivery + warranty + connects + tooling) / (1 - Upwork fee)
+//
+// HONEST LIMIT, STATED UP FRONT: psm_estimate takes only two distinct values
+// across this corpus (10 and 55 minutes), because it measures SETH'S HANDS —
+// sign-in, RED confirms, thread — and not build effort. So floor-up yields a
+// two-tier list, not a graded one. That is arithmetic being honest about an
+// input nobody has measured: per-component BUILD minutes do not exist yet. The
+// flat answer never under-prices, which the budget-derived list did.
+const BASIS = {
+  win_rate: 0.08,            // ASSUMED. Nothing in the estate records a win yet.
+  warranty_reserve: 0.15,    // ASSUMED
+  monthly_tooling: 400,      // ASSUMED — tool_spend table is all zeros
+  wins_per_month: 3.5,       // ASSUMED (10 proposals/wk at the assumed win rate)
+  source: 'DERIVED',
+  assumptions: ['win_rate', 'warranty_reserve', 'monthly_tooling', 'wins_per_month']
+};
+// Component Seth-minutes, median of certified psm across postings whose entire
+// ask was that component. Data-derived from the corpus, not assigned.
+const COMPONENT_PSM_DEFAULT = 55;
+const COMPONENT_PSM = {
+  'api-call': 10, 'permissions': 10, 'code-snippet': 10, 'data-import': 10,
+  'list-clean': 10, 'one-way-connect': 10, 'form-build': 10
+};
+const floorUpPrice = function (key, psmOverride) {
+  const psm = psmOverride != null ? psmOverride : (COMPONENT_PSM[key] || COMPONENT_PSM_DEFAULT);
+  const delivery = psm * DELIVERY.seth_minute_cost;
+  const warranty = delivery * BASIS.warranty_reserve;
+  const connects = DELIVERY.connects_per_bid * DELIVERY.connect_cost / BASIS.win_rate;
+  const tooling  = BASIS.monthly_tooling / BASIS.wins_per_month;
+  return Math.round(((delivery + warranty + connects + tooling) / (1 - DELIVERY.upwork_fee)) / 25) * 25;
+};
+
 // THE COST-TO-DELIVER FLOOR. On certified hands-free work this replaces the
 // catalogue floor entirely, because the catalogue floor is a positioning number
 // and this one is arithmetic: what the job actually costs to win and run.
@@ -181,8 +229,10 @@ if (!spec) {
   // because a component quote does not need a shape: it needs a list of parts.
   if (detected.length && isCertified) {
     const lines0 = detected.map(function (k) {
-      return { label: COMPONENT[k][0], amount: COMPONENT[k][1],
-               why: 'derived from ' + COMPONENT[k][2] + ' postings in the corpus whose entire ask was this' };
+      return { label: COMPONENT[k][0], amount: floorUpPrice(k),
+               why: 'cost to deliver plus warranty, connects on losing bids and tooling',
+               basis: 'floor_up', price_source: 'DERIVED',
+               demand_rank_postings: COMPONENT[k][3], budget_median_evidence_only: COMPONENT[k][1] };
     });
     const total0 = lines0.reduce(function (a, l) { return a + l.amount; }, 0);
     return [{ json: Object.assign({}, input, {
@@ -223,8 +273,11 @@ const __classFloor = __fixFloorApplies ? Math.max(floor, 500) : floor;
 if (detected.length && componentSum < __classFloor && isCertified) {
   const lines0 = detected.map(function (k) {
     const c = COMPONENT[k];
-    return { label: c[0], amount: c[1],
-             why: 'derived from ' + c[2] + ' postings whose entire ask was this' + (c[5] ? ' (thin evidence, directional)' : '') };
+    const amt = floorUpPrice(k);
+    return { label: c[0], amount: amt,
+             why: 'cost to deliver plus warranty, connects on losing bids and tooling',
+             basis: 'floor_up', price_source: 'DERIVED',
+             demand_rank_postings: c[3], budget_median_evidence_only: c[1] };
   });
   let total0 = lines0.reduce(function (a, l) { return a + l.amount; }, 0);
   let matched = false;
@@ -257,6 +310,10 @@ if (detected.length && componentSum < __classFloor && isCertified) {
     component_below_delivery_floor: belowFloor,
     delivery_floor: deliveryFloor,
     delivery_floor_source: DELIVERY.source,
+    component_price_basis: 'floor_up',
+    component_price_source: BASIS.source,
+    component_price_assumptions: BASIS.assumptions,
+    component_win_rate_assumed: BASIS.win_rate,
     class_floor_bypassed: __classFloor,
     pricing_note: 'Class 0. ' + detected.length + ' component' + (detected.length > 1 ? 's' : '') +
       ', summing to ' + money0(lines0.reduce(function (a, l) { return a + l.amount; }, 0)) +
