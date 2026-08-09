@@ -438,19 +438,38 @@ function askForToken(reason){
   var box = document.createElement('div');
   box.className = 'card stack';
   box.id = 'tokengate';
-  box.innerHTML = '<p class="eyebrow">Dashboard token</p>' +
-    '<p class="client-sub">' + (reason || 'This device has not been authorised yet.') +
-    ' Paste the token from n8n: Ops: Dashboard API, the Code in JavaScript node, __DASHBOARD_TOKEN__.</p>' +
-    '<div class="field"><input id="tokengate_input" placeholder="40-character token" autocomplete="off"></div>' +
-    '<div class="btnrow"><button class="btn primary" id="tokengate_save">Save on this device</button></div>';
+  /* A REAL form with a username field and type=password, because that is what
+     makes Apple Passwords / Chrome / 1Password offer to save it and autofill it
+     forever after. The old version was a bare text input, which no password
+     manager recognises -- so every new device meant opening n8n and copying a
+     40-character hex string by hand. That is not a security measure, it is a
+     tax. The username is fixed and readonly; it exists so the manager has
+     something to key the saved entry on. */
+  box.innerHTML =
+    '<p class="eyebrow">Command Center</p>' +
+    '<p class="client-sub">' + (reason || 'Sign in to this device once. Your password manager can save it.') + '</p>' +
+    '<form id="tokengate_form" method="post" action="#" autocomplete="on">' +
+    '<div class="field"><label for="tokengate_user">Account</label>' +
+    '<input id="tokengate_user" name="username" type="text" autocomplete="username" value="command@launchforte.com" readonly></div>' +
+    '<div class="field"><label for="tokengate_input">Password</label>' +
+    '<input id="tokengate_input" name="password" type="password" autocomplete="current-password" placeholder="Command Center password"></div>' +
+    '<div class="btnrow"><button class="btn primary" type="submit" id="tokengate_save">Unlock this device</button></div>' +
+    '</form>';
   host.appendChild(box);
-  document.getElementById('tokengate_save').addEventListener('click', function(){
+  var form = document.getElementById('tokengate_form');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
     var v = (document.getElementById('tokengate_input').value || '').trim();
-    if (v.length < 20) { alert('That does not look like the token.'); return; }
-    try { localStorage.setItem(TOKEN_KEY, v); } catch (e) {}
+    if (v.length < 8) { alert('That looks too short to be the password.'); return; }
+    try { localStorage.setItem(TOKEN_KEY, v); } catch (e2) {}
+    /* Reload rather than re-render, so the browser treats this as a completed
+       sign-in and offers to save the credential. */
     location.reload();
   });
+  var f = document.getElementById('tokengate_input');
+  if (f) f.focus();
 }
+
 function forgetToken(){ try { localStorage.removeItem(TOKEN_KEY); } catch (e) {} }
 var POLL_MS = 5 * 60 * 1000;
 
