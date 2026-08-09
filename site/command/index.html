@@ -220,7 +220,7 @@ height:64px;opacity:.55}
 </header>
 
 <section id="clientcontext">
-<p class="eyebrow" id="clientcontextToggle" style="cursor:pointer">Client context <button class="flipbtn" id="clientcontextFlip" type="button">Collapse &uarr;</button></p>
+<p class="eyebrow">Client context</p>
 <p class="client-sub" style="margin:0 0 14px">Paste an email, a call note, or anything you want me to know. I work out where it belongs.</p>
 <div id="clientcontextBody">
 <div class="card stack">
@@ -233,6 +233,10 @@ height:64px;opacity:.55}
 </section>
 
 <div id="banners"></div>
+<section id="needsme">
+<p class="eyebrow">Needs me<span id="needsmeCount"></span></p>
+<div id="needsmehost" class="stack"><div class="client-sub">Nothing is waiting on you.</div></div>
+</section>
 
 <p class="statusline" id="statusline"></p>
 
@@ -278,18 +282,29 @@ height:64px;opacity:.55}
 </section>
 
 <section id="board">
-<p class="eyebrow">Board</p>
+<p class="eyebrow" id="boardToggle" style="cursor:pointer">Board <button class="flipbtn" id="boardFlip" type="button">Expand &darr;</button></p>
+<div class="card rail-gray client-sub" id="boardCollapsed" style="cursor:pointer">&mdash;</div>
+<div id="boardBody" style="display:none">
 <div id="boardhost" class="stack"><div class="skel"></div></div>
+</div>
 </section>
 
 <section id="money">
-<p class="eyebrow">Money</p>
+<p class="eyebrow" id="moneyToggle" style="cursor:pointer">Money <button class="flipbtn" id="moneyFlip" type="button">Expand &darr;</button></p>
+<div class="card rail-gray client-sub" id="moneyCollapsed" style="cursor:pointer">&mdash;</div>
+<div id="moneyBody" style="display:none">
 <div id="moneybox" class="card stack"><div class="skel"></div></div>
+</div>
 </section>
 
-<section id="clients"><div class="field" style="margin:0 0 12px"><input id="client_search" placeholder="Search clients by name or ID..."></div>
-<p class="eyebrow">Clients<span id="clientCount"></span> <button class="flipbtn" id="clientFlip" type="button">Show all</button></p>
+<section id="clients">
+<p class="eyebrow" id="clientsToggle" style="cursor:pointer">Clients<span id="clientCount"></span> <button class="flipbtn" id="clientsFlip" type="button">Expand &darr;</button></p>
+<div class="card rail-gray client-sub" id="clientsCollapsed" style="cursor:pointer">&mdash;</div>
+<div id="clientsBody" style="display:none">
+<div class="field" style="margin:0 0 12px"><input id="client_search" placeholder="Search clients by name or ID..."></div>
+<div class="btnrow" style="margin:0 0 10px"><button class="flipbtn" id="clientFlip" type="button">Show all</button></div>
 <div id="clientlist" class="stack"><div class="skel"></div><div class="skel"></div></div>
+</div>
 </section>
 
 <section id="reports">
@@ -486,6 +501,7 @@ w.appendChild(el('div', 'v num' + (neg ? ' neg' : ''), v));
 return w;
 }
 function renderMoney(m){
+setSummary('money', m ? ('Total cost ' + money(m.total_cost_usd)) : 'No money data.');
 var host = $('moneybox'); host.className = 'card money-grid reveal'; host.innerHTML = '';
 if (!m){ host.appendChild(el('div','client-sub','No money data returned.')); return; }
 host.appendChild(metric('Total cost', money(m.total_cost_usd)));
@@ -504,6 +520,7 @@ node.textContent = (n === null || n === undefined) ? '' : ' - ' + n;
 }
 
 function renderClients(list){
+setSummary('clients', (list ? list.length : 0) + ' client' + ((list&&list.length===1)?'':'s') + ' shown.');
 var host = $('clientlist'); host.innerHTML = '';
 var all = list || [];
 var totalCount = (lastSnapshot && lastSnapshot.clients) ? lastSnapshot.clients.length : all.length;
@@ -708,6 +725,11 @@ renderStatusLine(clients, tasks);
 each card carries its own client name + contact name since there's no
 longer a per-client heading to imply that context. */
 function renderBoard(clients, tasks){
+(function(){
+  var bt = boardTasksFor(clients, tasks) || [];
+  var vis = visibleClients(clients) || [];
+  setSummary('board', bt.length + ' task' + (bt.length===1?'':'s') + ' across ' + vis.length + ' client' + (vis.length===1?'':'s') + '.');
+})();
 var host = $('boardhost'); host.innerHTML = '';
 var visible = visibleClients(clients);
 if (!visible || !visible.length || !tasks){
@@ -1236,14 +1258,6 @@ showResult('cx_result', false, 'Request failed: ' + e.message);
 }
 
 var clientcontextExpanded = true;
-function wireClientContextToggle(){
-function toggle(){
-clientcontextExpanded = !clientcontextExpanded;
-$('clientcontextBody').style.display = clientcontextExpanded ? '' : 'none';
-$('clientcontextFlip').textContent = clientcontextExpanded ? 'Collapse ↑' : 'Expand ↓';
-}
-$('clientcontextToggle').addEventListener('click', toggle);
-}
 
 function populateVideoClientList(list){
 var dl = $('v_client_datalist');
@@ -1355,6 +1369,59 @@ $('demandToggle').addEventListener('click', toggle);
 $('demandCollapsed').addEventListener('click', toggle);
 }
 
+/* --------------------------------------------------- console-first layout */
+/* One collapse mechanism for every section that has one. Five sections already
+   hand-rolled this; the four promoted in this pass share it instead. */
+function wireSection(name){
+  var expanded = false;
+  function toggle(){
+    expanded = !expanded;
+    $(name + 'Body').style.display = expanded ? '' : 'none';
+    $(name + 'Collapsed').style.display = expanded ? 'none' : '';
+    $(name + 'Flip').textContent = expanded ? 'Collapse \u2191' : 'Expand \u2193';
+  }
+  $(name + 'Toggle').addEventListener('click', toggle);
+  $(name + 'Collapsed').addEventListener('click', toggle);
+}
+function setSummary(name, text){
+  var e = $(name + 'Collapsed');
+  if (e) e.textContent = text;
+}
+
+/* NEEDS ME: the one thing the page exists to answer. Reuses taskNeedsMe, the
+   signal that was already being computed per board card after the old NEEDS ME
+   section was retired — this brings the roll-up back to the top without adding
+   a second definition of "needs me". */
+function renderNeedsMe(clients, tasks){
+  var host = $('needsmehost'); if (!host) return;
+  host.innerHTML = '';
+  var visible = visibleClients(clients) || [];
+  var bySlug = {}; visible.forEach(function(c){ bySlug[c.slug] = c; });
+  var hits = (tasks || []).filter(function(t){
+    return bySlug[t.client_slug] && taskNeedsMe(t, bySlug[t.client_slug]);
+  });
+  $('needsmeCount').textContent = hits.length ? ' (' + hits.length + ')' : '';
+  if (!hits.length){
+    host.appendChild(el('div','client-sub','Nothing is waiting on you.'));
+    return;
+  }
+  hits.slice(0, 12).forEach(function(t){
+    var c = bySlug[t.client_slug];
+    var card = el('div','card rail-warn');
+    card.style.cursor = 'pointer';
+    card.appendChild(el('div','', t.title || t.id));
+    var why = colOf(t.status) === 'blocked' ? 'blocked'
+            : (c && c.doorbell_one) ? 'phase complete, waiting on you'
+            : (c && c.doorbell_two) ? 'every card blocked'
+            : (c && c.replies_owed_age_days >= 7) ? 'reply overdue ' + c.replies_owed_age_days + 'd'
+            : 'report marked NEEDS YOU';
+    card.appendChild(el('div','client-sub', (c ? c.name + ' \u00b7 ' : '') + why));
+    card.addEventListener('click', function(){ openDetail(t); });
+    host.appendChild(card);
+  });
+  if (hits.length > 12) host.appendChild(el('div','client-sub', (hits.length - 12) + ' more on the board.'));
+}
+
 /* ------------------------------------------------------------------ fetch */
 function get(url){
 var headers = {};
@@ -1374,6 +1441,7 @@ $('dot').className = 'dot';
 $('asof').textContent = 'as of ' + shortTime(new Date().toISOString());
 renderMoney(data.money);
 renderClients(filteredClients(data.clients));
+renderNeedsMe(data.clients, data.tasks);
 updateBoard(filteredClients(data.clients), data.tasks);
 renderReports(data.latest_reports);
 renderHistory(data);
@@ -1399,6 +1467,7 @@ return get(SNAPSHOT_URL).then(paint).catch(offline);
 }
 
 function boot(){
+['board','money','clients'].forEach(wireSection);
 /* No token on this device: ask once, and do not fire a request that is
    guaranteed to 401. */
 if (!DASHBOARD_API_TOKEN) { askForToken('This device has not been authorised yet.'); return; }
@@ -1422,7 +1491,7 @@ wirePack();
 wireRed(); wireVideoRequest();
 wireVideoScript(); wireVideoscriptToggle();
 wireCockpit(); wireCockpitToggle();
-wireClientContext(); wireClientContextToggle();
+wireClientContext();
 wireClientFlip();
 wireDispatchFlip();
 wireHistoryToggle();
