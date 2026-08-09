@@ -63,7 +63,7 @@ bug is already fixed and the screenshot is stale.
 
 ## Phase 0.2 — the UI simplification pass
 
-**Not started.** The page is `site/command/eH2USoCjM4_Rwle4-JJ9sRPwuA5YMSXG/index.html`,
+**Not started.** The page is `site/command/index.html`,
 1,400 lines, one file, no build step. Current structure, in order:
 
 ```

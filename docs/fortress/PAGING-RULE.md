@@ -121,3 +121,45 @@ assertion part of the output so a reader can see it held.
 
 `checked N of M` for paging. `field check: [...]` for aggregates. If the audit
 cannot show its precondition, the audit is a guess with a number attached.
+
+---
+
+# Third instance, same night: repository visibility
+
+I designed the dashboard token so that the `/command/{token}` folder name **was**
+the API token — one value, two jobs. I committed it. Then I checked whether
+`Forte-Web-Designs/LaunchForte` was public.
+
+It is. A token in a folder name is a token on GitHub.
+
+The commit was dropped rather than amended, so the value never reached history,
+and nothing was exposed — but only because it happened to be caught before the
+push. The design was wrong from the moment it was written, and the thing that
+would have made it right was one look at a badge on a repo page.
+
+It also retired an assumption that had been load-bearing for longer: the page's
+own comment said it "sits behind the path token", which had never been true.
+
+**The rule:** before a secret is placed anywhere a repository can reach — a
+filename, a path, a config, a comment — confirm the repository's visibility and
+say which it is. "Private, checked" or "public, so this cannot hold a secret."
+
+And the wider version, since a URL token is a bad idea in a private repo too:
+**a secret in a URL leaks by design.** Browser history, referrer headers, proxy
+and analytics logs, shoulder-surfing, screenshots in a runbook. Repo visibility
+decides whether it is published; it does not decide whether it is safe. The token
+belongs in storage the browser will not transmit on its own — which is why it now
+lives in `localStorage` and travels only as an explicit header.
+
+## All three, in one line each
+
+| # | assumption | what it returned instead of an error |
+|---|---|---|
+| 1 | `/rest/workflows` returns everything | a valid list, just not the whole one |
+| 2 | the payload is keyed `task_id` | a valid count, just not over a real field |
+| 3 | the repo is private | a working design, just not a safe one |
+
+Same root every time: **a confident conclusion drawn from an unverified
+assumption that returned a plausible result instead of an error.** None of them
+threw. Each one needed a single cheap check first — page and compare to the
+total, print one record's keys, look at the repo badge.
