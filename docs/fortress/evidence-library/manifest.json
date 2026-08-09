@@ -1,5 +1,5 @@
 {
- "count": 766,
+ "count": 788,
  "shapes": [
   "_blockers",
   "_library",
@@ -10,6 +10,7 @@
   "books-reconciliation",
   "client-onboarding",
   "cold-outreach",
+  "conversation-design",
   "data-collection",
   "data-model-architecture",
   "document-assembly",
@@ -4623,6 +4624,138 @@
    "tool": "klaviyo",
    "view": "segment-definition-consent-and-exclusion",
    "file": "messaging-compliance/messaging-compliance--klaviyo--segment-definition-consent-and-exclusion.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "zoho-books",
+   "view": "ar-aging-summary-by-due-date",
+   "file": "reporting/reporting--zoho-books--ar-aging-summary-by-due-date.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "zoho-books",
+   "view": "invoice-ledger-paid-overdue-due",
+   "file": "reporting/reporting--zoho-books--invoice-ledger-paid-overdue-due.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "zoho-books",
+   "view": "payments-matched-to-invoices",
+   "file": "reporting/reporting--zoho-books--payments-matched-to-invoices.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "vapi",
+   "view": "assistant-write-versus-flag-boundary",
+   "file": "scheduling/scheduling--vapi--assistant-write-versus-flag-boundary.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "vapi",
+   "view": "tool-config-read-only-never-invent",
+   "file": "scheduling/scheduling--vapi--tool-config-read-only-never-invent.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho-books",
+   "view": "ar-aging-summary-by-due-date",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho-books--ar-aging-summary-by-due-date.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "vapi",
+   "view": "assistant-write-versus-flag-boundary",
+   "file": "ai-assistant/ai-assistant--vapi--assistant-write-versus-flag-boundary.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "vapi",
+   "view": "tool-config-read-only-never-invent",
+   "file": "ai-assistant/ai-assistant--vapi--tool-config-read-only-never-invent.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "zoho-books",
+   "view": "ar-aging-summary-by-due-date",
+   "file": "books-reconciliation/books-reconciliation--zoho-books--ar-aging-summary-by-due-date.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "zoho-books",
+   "view": "invoice-ledger-paid-overdue-due",
+   "file": "books-reconciliation/books-reconciliation--zoho-books--invoice-ledger-paid-overdue-due.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "zoho-books",
+   "view": "payment-matched-short-balance-remains",
+   "file": "books-reconciliation/books-reconciliation--zoho-books--payment-matched-short-balance-remains.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "zoho-books",
+   "view": "payments-matched-to-invoices",
+   "file": "books-reconciliation/books-reconciliation--zoho-books--payments-matched-to-invoices.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "zoho-books",
+   "view": "payment-matched-short-balance-remains",
+   "file": "alerting/alerting--zoho-books--payment-matched-short-balance-remains.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "zoho-books",
+   "view": "payments-matched-to-invoices",
+   "file": "data-model-architecture/data-model-architecture--zoho-books--payments-matched-to-invoices.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "vapi",
+   "view": "tool-config-read-only-never-invent",
+   "file": "system-sync/system-sync--vapi--tool-config-read-only-never-invent.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "zoho-books",
+   "view": "payment-matched-short-balance-remains",
+   "file": "system-sync/system-sync--zoho-books--payment-matched-short-balance-remains.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "zoho-books",
+   "view": "payments-matched-to-invoices",
+   "file": "system-sync/system-sync--zoho-books--payments-matched-to-invoices.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho-books",
+   "view": "ar-aging-summary-by-due-date",
+   "file": "quote-follow-up/quote-follow-up--zoho-books--ar-aging-summary-by-due-date.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho-books",
+   "view": "invoice-ledger-paid-overdue-due",
+   "file": "quote-follow-up/quote-follow-up--zoho-books--invoice-ledger-paid-overdue-due.jpg"
+  },
+  {
+   "shape": "conversation-design",
+   "tool": "vapi",
+   "view": "assistant-write-versus-flag-boundary",
+   "file": "conversation-design/conversation-design--vapi--assistant-write-versus-flag-boundary.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "vapi",
+   "view": "assistant-write-versus-flag-boundary",
+   "file": "voice-agent-intake/voice-agent-intake--vapi--assistant-write-versus-flag-boundary.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "vapi",
+   "view": "tool-config-read-only-never-invent",
+   "file": "voice-agent-intake/voice-agent-intake--vapi--tool-config-read-only-never-invent.jpg"
   }
  ]
 }
