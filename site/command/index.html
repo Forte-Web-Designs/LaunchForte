@@ -1436,7 +1436,12 @@ var headers = {};
 if (DASHBOARD_API_TOKEN) { headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN; headers['X-Dashboard-Token'] = DASHBOARD_API_TOKEN; }
 return fetch(url, {cache:'no-store', headers: headers})
 .then(function(r){
-if (r.status === 401) { var e401 = new Error('HTTP 401'); e401.auth = true; throw e401; }
+/* 403 as well as 401: n8n's built-in Header Auth on a webhook rejects with
+   403, and the guard node inside the workflow answers 401. Both mean the
+   same thing to this page -- the token is not being accepted -- and the
+   403 arm has to be in place BEFORE the webhook switches over, or a bad
+   token would surface as a generic offline banner instead of the gate. */
+if (r.status === 401 || r.status === 403) { var eAuth = new Error('HTTP ' + r.status); eAuth.auth = true; throw eAuth; }
 if (!r.ok) throw new Error('HTTP ' + r.status);
 return r.json();
 });
