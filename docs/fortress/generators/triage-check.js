@@ -84,7 +84,28 @@ const JOBS = [
       description: 'Need a sponsor signup form built in our GoHighLevel sub-account with payment collection wired to the existing pipeline.',
       skills: 'gohighlevel', client_spend: 1320, client_hires: 10 },
     shape: 'client-onboarding',
-    expect: { action: 'no_bid', room_below_floor: true, listing_candidate: true, certified: false } },
+    // REVISED Aug 9: the floor is dead. $100 posted against a $132 average is a
+    // number the buyer's own history agrees with, so it is believed — short
+    // reply, not silence. It still files as a listing candidate.
+    expect: { budget_test: 'cheap_room_confirmed', action: 'short_reply', listing_candidate: true, certified: false } },
+
+  { id: '1b', label: 'THE PLACEHOLDER: $50 posted by a buyer who averages $800',
+    job: { title: 'Need a HubSpot to Xero invoice sync built', job_type: 'FIXED', budget: '50 USD',
+      description: 'We need our hubspot deals to create invoices in xero automatically. About 400 deals a month, needs line items and a reconciliation report.',
+      skills: 'hubspot, xero', client_spend: 40000, client_hires: 50, score: 'A' },
+    shape: 'system-sync',
+    // 50 / 800 = 6% of what they actually pay. That is a required field being
+    // filled in. The number is ignored entirely and judge grade carries it.
+    expect: { budget_test: 'placeholder_budget', placeholder_budget: true, action: 'full_package', certified: false } },
+
+  { id: '1c', label: 'NO HISTORY: $75 posted by a buyer with no spend at all',
+    job: { title: 'Automate our lead handoff', job_type: 'FIXED', budget: '75 USD',
+      description: 'We want leads from our forms to route to the right rep automatically with a slack alert. Roughly 200 leads a month.',
+      skills: 'slack', client_spend: 0, client_hires: 0, score: 'B' },
+    shape: 'lead-routing',
+    // Nothing to test the number against. Judge grade alone decides, and B earns
+    // the package. A cheap-looking post is never refused on its face.
+    expect: { budget_test: 'no_spend_history', action: 'full_package', certified: false } },
 
   { id: 2, label: 'Verified lead list, 100 leads',
     job: { title: 'Need a verified lead list for my niche, 100 leads', job_type: 'FIXED', budget: '350 USD',
@@ -99,7 +120,7 @@ const JOBS = [
       description: 'Our zapier zap stopped firing last week. Need someone to get into our account and fix it. About 3 steps.',
       skills: 'zapier', client_spend: 900, client_hires: 4 },
     shape: 'alerting',
-    expect: { route: 'assisted', action: 'short_reply', room: 'auction', certified: false } },
+    expect: { route: 'assisted', action: 'short_reply', budget_test: 'cheap_room_confirmed', room: 'auction', certified: false } },
 
   { id: 4, label: 'HubSpot expert, hourly',
     job: { title: 'HubSpot expert needed', job_type: 'HOURLY', budget: '30-50/hr',
@@ -140,6 +161,8 @@ const eq = (label, got, want) => {
 };
 
 const MAP = { action: 'triage_action', hourly_convert: 'triage_hourly_convert' };
+const showBudget = (o) => '    budget_test=' + o.budget_test + '  posted=' + o.posted_budget_amount +
+  '  avg=' + o.buyer_avg_per_hire + '  ratio=' + o.posted_vs_avg_ratio;
 const check = (out, expect) => {
   Object.keys(expect).forEach(k => eq(k, out[MAP[k] || k], expect[k]));
   if (out.triage_rules_ok !== true) { failures++; console.log('    FAIL  triage_rules_ok is not true'); }
@@ -151,6 +174,7 @@ JOBS.forEach(j => {
   console.log('  Job ' + j.id + ': ' + j.label);
   console.log('    route=' + out.route + '  action=' + out.triage_action + '  psm=' + out.psm_estimate +
               '  room=' + out.room + '  avg=' + out.buyer_avg_per_hire + '  certified=' + out.certified);
+  console.log(showBudget(out));
   console.log('    failing checks: ' + (out.certified_failed_check || 'none'));
   check(out, j.expect);
   console.log('');
@@ -179,9 +203,32 @@ inv('no certified job needs a call or a client account',
   all.every(o => !(o.certified && (o.triage_needs_call || o.triage_needs_client_account))));
 inv('the lane never bids while it ships OFF',
   all.every(o => o.triage_action !== 'lane_bid'));
-inv('every below-floor job ends in no_bid',
+// THE FLOOR IS DEAD. The old invariant said the opposite of this one; it is
+// replaced rather than deleted, because the reversal is the point.
+inv('no posted number, however small, ever ends a job on its own',
   JOBS.map(j => runNode(Object.assign({ evidence_shape: j.shape }, j.job), TODAY))
-      .every(o => !o.room_below_floor || o.triage_action === 'no_bid'));
+      .every(o => o.triage_action !== 'no_bid' || o.route === 'hands_free_shape_client_access'));
+// A placeholder job may still get a short reply — but only for a reason that
+// would have applied with no budget stated at all. The number itself never costs
+// it anything.
+inv('a placeholder budget never reduces the treatment on its own',
+  JOBS.map(j => runNode(Object.assign({ evidence_shape: j.shape }, j.job), TODAY))
+      .every(o => !o.placeholder_budget || o.triage_action !== 'short_reply' || o.triage_judge_score === 'C' || o.triage_judge_score === 'U'));
+// The proof, run directly: strip the budget off the placeholder fixture and the
+// answer must not move.
+(() => {
+  const ph = JOBS.find(j => j.id === '1b');
+  const withBudget = runNode(Object.assign({ evidence_shape: ph.shape }, ph.job), TODAY);
+  const without = runNode(Object.assign({ evidence_shape: ph.shape }, ph.job, { budget: 'not stated' }), TODAY);
+  inv('a placeholder routes identically to the same job with no budget stated',
+    withBudget.triage_action === without.triage_action && withBudget.route === without.route,
+    'with=' + withBudget.triage_action + ' without=' + without.triage_action);
+})();
+inv('cheap_room_confirmed requires the buyer history to agree',
+  JOBS.map(j => runNode(Object.assign({ evidence_shape: j.shape }, j.job), TODAY))
+      .every(o => !o.cheap_room_confirmed || (o.buyer_avg_per_hire != null && o.buyer_avg_per_hire < 500)));
+inv('every job logs which budget test fired',
+  JOBS.map(j => runNode(Object.assign({ evidence_shape: j.shape }, j.job), TODAY)).every(o => !!o.budget_test));
 inv('certified false always names a check',
   all.every(o => o.certified || !!o.certified_failed_check));
 inv('an hourly post can never reach the volume lane',

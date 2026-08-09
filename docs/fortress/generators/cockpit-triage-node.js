@@ -33,15 +33,31 @@
 // still routed and still reported; it just does not bid.
 const LANE = {
   enabled: false,
-  floor: 200,                    // BID minimum for certified hands-free rooms. Nothing else.
+  bid: 200,                      // what a CERTIFIED lane job bids. A bid amount, never a gate.
   connects_budget_monthly: null, // unset. The lane cannot open with this null.
   rehearsal_max_age_days: 14     // check 6
 };
 
-// The catalogue floors. These govern every ladder and full-treatment quote
-// exactly as written in LAUNCH_FORTE_PRICING_CATALOG.md; triage only reads them
-// to decide whether a posted budget is worth a full package or a short reply.
-const CATALOG_FIX_FLOOR = 500;
+// THE FLOOR IS DEAD AS A GATE (revised Aug 9).
+//
+// It used to end a job outright: posted under $200, no bid, no reply. That was
+// wrong, and the corpus shows exactly how wrong — a buyer who has spent $70,000
+// posting "$50" is not offering $50 for the work, they are typing a number into
+// a required field. Killing 1,331 postings on that number threw away the best
+// buyers in the set alongside the worst.
+//
+// So: THE POSTED BUDGET IS A SIGNAL AND NEVER A GATE. It is compared against
+// what the buyer actually pays, and the comparison decides what the number
+// MEANS. Nothing is refused for being cheap on its face.
+//
+// The only number that still separates a thin buyer from a real one:
+const LOW_AVERAGE = 500;   // a buyer whose per-hire average sits under this is a thin room
+
+// The placeholder test. Posted ÷ average:
+//   below PLACEHOLDER_RATIO  → the number is a placeholder, ignore it entirely
+//   at or above it, thin avg → the number is real and the room is genuinely cheap
+//   at or above it, real avg → the number is real and the room is real
+const PLACEHOLDER_RATIO = 0.5;
 
 // Projected Seth-minutes. Each part is a thing that actually consumes his hands.
 const PSM = {
@@ -138,19 +154,60 @@ if (isFinite(spend) && isFinite(hires) && hires > 0) {
   buyerAvgPerHire = Number(input.avg_per_contract);
 }
 
+// The room is now read from what the buyer HAS PAID, never from what they typed
+// in the budget field. A posted number cannot make a room thin, because a posted
+// number is frequently not a number at all.
 let room = null;
-const postedAtOrUnderFixFloor = budget.kind === 'fixed' && budget.amount != null && budget.amount <= CATALOG_FIX_FLOOR;
-if (postedAtOrUnderFixFloor || (buyerAvgPerHire != null && buyerAvgPerHire < 500)) {
-  room = 'auction';
-} else if (budget.amount != null || buyerAvgPerHire != null) {
-  room = 'value';
+if (buyerAvgPerHire != null) {
+  room = buyerAvgPerHire < LOW_AVERAGE ? 'auction' : 'value';
 }
-// room stays null when nothing is known. Null never blocks.
+// room stays null when the buyer has no history. Null never blocks; judge grade
+// carries those.
 
-// A posted FIXED budget under the lane floor. The one figure that ends a job
-// with no reply at all, because there is no price at which the auction is worth
-// entering.
-const roomBelowFloor = budget.kind === 'fixed' && budget.amount != null && budget.amount < LANE.floor;
+// ---------------------------------------------------------------------------
+// THE PLACEHOLDER TEST. Runs on every posting with a stated FIXED budget.
+//
+// Hourly posts are excluded on purpose: an hourly rate compared against a
+// per-hire average is a category error ($40/hr against an $800 average says
+// nothing). Hourly converts to fixed in the letter, so for routing it is treated
+// exactly like a post with no budget stated.
+// ---------------------------------------------------------------------------
+
+const hasFixedBudget = budget.kind === 'fixed' && budget.amount != null;
+const postedVsAvg = (hasFixedBudget && buyerAvgPerHire) ? budget.amount / buyerAvgPerHire : null;
+
+let budgetTest, budgetTestWhy;
+if (!hasFixedBudget) {
+  budgetTest = budget.kind === 'hourly' ? 'hourly_no_fixed_budget' : 'no_budget_stated';
+  budgetTestWhy = budget.kind === 'hourly'
+    ? 'hourly post: there is no project budget to test. Routes on judge grade and shape.'
+    : 'no budget stated. Routes on judge grade and shape.';
+} else if (buyerAvgPerHire == null) {
+  budgetTest = 'no_spend_history';
+  budgetTestWhy = 'a number is posted but the buyer has no history to test it against. Routes on judge grade alone.';
+} else if (postedVsAvg < PLACEHOLDER_RATIO) {
+  budgetTest = 'placeholder_budget';
+  budgetTestWhy = 'posted ' + budget.amount + ' against a ' + Math.round(buyerAvgPerHire) +
+    ' per-hire average — ' + Math.round(postedVsAvg * 100) + '% of what this buyer actually pays. ' +
+    'That is a required field being filled in, not an offer. The number is ignored and this routes ' +
+    'on judge grade and shape as though no budget were stated.';
+} else if (buyerAvgPerHire < LOW_AVERAGE) {
+  budgetTest = 'cheap_room_confirmed';
+  budgetTestWhy = 'posted ' + budget.amount + ' against a ' + Math.round(buyerAvgPerHire) +
+    ' per-hire average. The number is in line with what this buyer pays, and what they pay is thin. ' +
+    'The room is real and it is cheap: short reply.';
+} else {
+  budgetTest = 'budget_confirmed';
+  budgetTestWhy = 'posted ' + budget.amount + ' against a ' + Math.round(buyerAvgPerHire) +
+    ' per-hire average. The number is real and so is the buyer.';
+}
+
+const placeholderBudget = budgetTest === 'placeholder_budget';
+const cheapRoomConfirmed = budgetTest === 'cheap_room_confirmed';
+
+// Kept as a REPORTING signal only, so the weekly report can still count the thin
+// end of the auction. It routes nothing. Nothing is refused for being cheap.
+const roomBelowFloor = hasFixedBudget && budget.amount < LANE.bid;
 
 // ---------------------------------------------------------------------------
 // THE TWO POSTING SIGNALS the shape record cannot supply.
@@ -328,16 +385,13 @@ if (needsCall || heavyShape) {
 }
 
 // The volume lane is fixed-price only. Hourly is impossible by mechanism,
-// because the time tracker screenshots the working screen.
+// because the time tracker screenshots the working screen. This is the ONE
+// budget-shaped condition left on routing, and it is a mechanism, not a price:
+// the lane cannot physically run on an hourly contract.
 const hourlyBlocksLane = budget.kind === 'hourly' || jobType === 'HOURLY';
 if (route === 'hands_free_house' && hourlyBlocksLane) {
   route = 'assisted';
   routeWhy = 'hourly post: the volume lane is impossible by mechanism, the tracker screenshots the screen';
-}
-// The lane also requires a stated budget at or above the floor.
-if (route === 'hands_free_house' && !(budget.kind === 'fixed' && budget.amount != null && budget.amount >= LANE.floor)) {
-  route = 'assisted';
-  routeWhy = 'no stated fixed budget at or above the $' + LANE.floor + ' lane floor';
 }
 
 // ---------------------------------------------------------------------------
@@ -351,28 +405,27 @@ const judgeScore = String(input.score || '').trim().toUpperCase() || null;
 let action, actionWhy, bid = null;
 const listingCandidate = route === 'hands_free_shape_client_access' || (needsClientAccount && !needsCall && !heavyShape);
 
-if (roomBelowFloor) {
-  action = 'no_bid';
-  actionWhy = 'posted $' + budget.amount + ' sits under the $' + LANE.floor + ' floor. No bid, no reply, nothing spends.';
-} else if (route === 'hands_free_shape_client_access') {
+// NOTE the order, and what is NOT in it: there is no budget branch above the
+// judge any more. A posted number never ends a job. The only no_bid left is the
+// listing lane, and that one is about WHERE the work lives, not what it pays.
+if (route === 'hands_free_shape_client_access') {
   action = 'no_bid';
   actionWhy = 'the tier gets served on a shelf instead of in an auction: this files a listing candidate, not a bid.';
 } else if (route === 'hands_free_house') {
   if (LANE.enabled && LANE.connects_budget_monthly != null) {
     action = 'lane_bid';
-    bid = LANE.floor;
-    actionWhy = 'certified hands-free. Bid the floor within minutes of the alert; speed is the weapon and the floor is the boundary.';
+    bid = LANE.bid;
+    actionWhy = 'certified hands-free. Bid within minutes of the alert; speed is the weapon.';
   } else {
     action = 'lane_held';
-    actionWhy = 'certified, but the volume lane ships OFF until the floor and the monthly connects budget are confirmed.';
+    actionWhy = 'certified, but the volume lane ships OFF until the bid and the monthly connects budget are confirmed.';
   }
-} else if (room === 'auction') {
-  // Heavy runs through this same test rather than around it. "Full treatment:
-  // calls, scoping, migrations — VALUE ROOMS ONLY." A job that needs a call is
-  // not thereby worth a package; needing a call in a thin room is the most
-  // expensive combination there is.
+} else if (cheapRoomConfirmed) {
+  // The ONLY place a posted number reduces effort — and only because the buyer's
+  // own history agrees with it. Joel: $100 posted, $132 average. Both say the
+  // same thing, so the number is believed.
   action = 'short_reply';
-  actionWhy = 'thin room on a job that costs real minutes. The short courteous template, no full package.';
+  actionWhy = 'the posted number and the buyer\'s history agree that the room is thin. Short courteous template, no full package.';
 } else if (judgeScore === 'C' || judgeScore === 'U') {
   // Triage adds lanes BELOW the judge; it does not overrule it. The A/B/C score
   // already answered "is this an A-fit", and a C is not one. Promoting a C to a
@@ -382,7 +435,10 @@ if (roomBelowFloor) {
   actionWhy = 'a real room, but the judge scored this ' + judgeScore + '. Lanes sit below the judge, they do not overrule it.';
 } else {
   action = 'full_package';
-  actionWhy = 'real minutes and a real room: ladder pricing, the articulation does the selling.';
+  actionWhy = placeholderBudget
+    ? 'the posted number is a placeholder and is ignored. Judge grade ' + (judgeScore || 'unscored') +
+      ' and the shape carry this: full package, priced from the catalogue.'
+    : 'real minutes and a real room: ladder pricing, the articulation does the selling.';
 }
 
 // The cockpit should not spend on anything that is not getting a package.
@@ -401,6 +457,17 @@ return [{ json: Object.assign({}, input, {
   // grade 2, the price adjuster. Never a gate.
   buyer_avg_per_hire: buyerAvgPerHire,
   room: room,
+
+  // the placeholder test — which one fired, and why
+  budget_test: budgetTest,
+  budget_test_why: budgetTestWhy,
+  placeholder_budget: placeholderBudget,
+  cheap_room_confirmed: cheapRoomConfirmed,
+  posted_vs_avg_ratio: postedVsAvg === null ? null : Math.round(postedVsAvg * 1000) / 1000,
+  posted_budget_amount: hasFixedBudget ? budget.amount : null,
+
+  // REPORTING ONLY. Routes nothing. Kept so the weekly report can still count
+  // the thin end of the auction.
   room_below_floor: roomBelowFloor,
 
   // the lane
@@ -430,7 +497,7 @@ return [{ json: Object.assign({}, input, {
   triage_judge_score: judgeScore,
   triage_tools: planTools.map(function (t) { return t.tool; }),
   lane_enabled: LANE.enabled,
-  lane_floor: LANE.floor,
+  lane_bid: LANE.bid,
 
   // guardrails, asserted not assumed
   triage_rules_ok:
@@ -440,6 +507,18 @@ return [{ json: Object.assign({}, input, {
     && (certified || !!certifiedFailedCheck)
     && !(route === 'hands_free_house' && (needsCall || needsClientAccount))
     && !(action === 'lane_bid' && !LANE.enabled)
-    && !(action === 'lane_bid' && bid < LANE.floor)
-    && !(roomBelowFloor && action !== 'no_bid')
+    && !!budgetTest
+    // THE FLOOR IS DEAD. A posted number may never, on its own, end a job.
+    && !(action === 'no_bid' && route !== 'hands_free_shape_client_access')
+    // A placeholder is ignored, so the BUDGET can never reduce the treatment.
+    // A placeholder job may still land on short_reply — but only ever because
+    // the judge graded it C or U, which is the same answer it would have got
+    // with no budget stated at all. That is the whole test: the outcome must be
+    // reachable without the number.
+    && !(placeholderBudget && action === 'short_reply' && judgeScore !== 'C' && judgeScore !== 'U')
+    // The two verdicts are mutually exclusive by construction. If both are ever
+    // true the test has been rewritten wrong.
+    && !(placeholderBudget && cheapRoomConfirmed)
+    // The cheap-room verdict requires the buyer's own history to agree.
+    && !(cheapRoomConfirmed && !(buyerAvgPerHire != null && buyerAvgPerHire < LOW_AVERAGE))
 }) }];

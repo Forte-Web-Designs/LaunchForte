@@ -77,6 +77,18 @@ const __TRIAGE_BRIEF = (function () {
     bits.push('Thin room. The articulation does the selling, not the number. Do not shave the number to meet it ' +
       'and do not mention that the budget is thin.');
   }
+  // THE POSTED NUMBER IS NEVER A CEILING. Two separate prohibitions, because the
+  // model will otherwise quietly anchor on whatever figure the buyer typed.
+  if (t.placeholder_budget) {
+    bits.push('THE POSTED BUDGET IS A PLACEHOLDER. This buyer posted ' + t.posted_budget_amount +
+      ' while averaging ' + Math.round(t.buyer_avg_per_hire) + ' per hire — ' +
+      Math.round((t.posted_vs_avg_ratio || 0) * 100) + '% of what they actually pay. They filled in a required field. ' +
+      'Do NOT bid that number. Do NOT reference it, work toward it, apologise for exceeding it, or let it ' +
+      'shape the scope. Quote the derived figure exactly as it comes from the catalogue and let the build justify it.');
+  }
+  bits.push('A posted budget is NEVER a ceiling on the derivation. The number comes from the parts, and the parts ' +
+    'come from the catalogue. If the derived figure lands above what they posted, the phase split carries it — ' +
+    'never a discount, never a trimmed scope quietly priced to fit, and never a remark about their budget.');
   bits.push('=== END TRIAGE ===', '');
   return bits.join('\n');
 })();
