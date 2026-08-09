@@ -57,6 +57,30 @@ const __p = (function () {
   const A={1:'Published 2026 freelancer bands put a single workflow at $1,000 to $6,000.',2:'Published 2026 benchmarks put a build this shape at $2,000 to $8,000 for three to ten workflows with APIs.',3:'Custom bots run $1,000 to $5,000 bare and $10,000 to $30,000 at an agency.',4:'Complex multi-system work runs $8,000 to $20,000+ at the top of published bands.'};
   return {k:k,wf:wf,sn:sn,tot:tot,lines:lines.join('\n'),ph:ph,anchor:A[k],src:'inline-fallback'};
 })();
+// Triage v2 context. The route was decided before this prompt was ever built;
+// the letter only needs to know two things from it, because both change how the
+// letter reads: whether the post was hourly (it converts to fixed, silently),
+// and whether the room is thin (the articulation carries more weight than the
+// number). Fails soft — the node is not upstream on every branch.
+const __TRIAGE_BRIEF = (function () {
+  let t = null;
+  try { t = $('Route the job').first().json; } catch (e) { return ''; }
+  if (!t || !t.triaged) return '';
+  const bits = ['', '=== TRIAGE, ALREADY DECIDED. DO NOT RE-LITIGATE ==='];
+  bits.push('Route: ' + t.route + '. ' + t.route_why);
+  if (t.triage_hourly_convert) {
+    bits.push('The post is HOURLY. Convert to a fixed price in the letter without announcing the conversion. ' +
+      'Do not name an hourly rate, do not repeat theirs, do not explain why we do not work hourly unless asked. ' +
+      'Quote the fixed number as if fixed were the only way the work is ever sold.');
+  }
+  if (t.room === 'auction') {
+    bits.push('Thin room. The articulation does the selling, not the number. Do not shave the number to meet it ' +
+      'and do not mention that the budget is thin.');
+  }
+  bits.push('=== END TRIAGE ===', '');
+  return bits.join('\n');
+})();
+
 const __PRICING_BRIEF = ['','=== PRICING, DERIVED. USE THESE PARTS, DO NOT INVENT A NUMBER ===',
   'Class '+__p.k+'. '+__p.wf+' workflow(s) across '+__p.sn+' system(s).','Lines:',__p.lines,
   'Derived total: $'+__p.tot.toLocaleString('en-US')+'. Quote this exact figure. Never round it, never end it in 997, never discount it. Remove a line instead and the number drops with it.',
@@ -64,6 +88,7 @@ const __PRICING_BRIEF = ['','=== PRICING, DERIVED. USE THESE PARTS, DO NOT INVEN
   'Retainer: treat it as a conversation, not a fixed line. Say it scales with the work — the number of client accounts covered, the build volume week to week, and how much of the calls-and-oversight side they want. Two floors you may quote: monitoring-shaped retainers start at $750 a month; ongoing retainer work starts at $2,500 a month and scales with accounts and builds. Offer a more accurate number once they confirm how many client accounts you would be covering and the build volume they expect week to week. 43% of businesses using freelancers for automation hit at least one critical workflow failure from lack of ongoing support (Zapier, State of Business Automation).',
   'Why it costs this: what they pay for is the part invisible until it fails. Input validation with a refusal path so malformed data never becomes a half-record. Deduplication, because the same event arrives twice more often than anyone expects. Rate limiting so the vendor ceiling is respected rather than discovered in production. Retries with an error branch so a failed call alerts instead of failing silently. Logging on both paths. And a second scheduled trigger that keeps finding what nobody noticed. Those are the lines a cheaper quote skips, and the buyer does not learn which until something breaks quietly. They are visible node by node in the attached build.',
   'ABSOLUTE: no hourly rates, no hour counts, no time in hours anywhere. Never mention what other buyers have spent.',
+  'ABSOLUTE: never call out a lowball budget, a cheap offer, or another bidder. Do not say the posted budget is low, do not say what others will charge, do not contrast us with "cheaper freelancers", do not mention the number of applicants. The inclusion line carries the contrast without naming anyone: state what is inside this number, and let the omission speak. A letter that argues with the posted price has already lost the frame.',
   '=== END PRICING ===',''].join('\n');
 
 // PATCH __LF_NO_OWN_URLS — the model was shown our own image URLs (referenceBuilds
@@ -310,5 +335,5 @@ const __walk = (o) => {
   return __clean(o);
 };
 const __w = __walk(__out);
-(function(){var a=Array.isArray(__w)?__w:[__w];for(var i=0;i<a.length;i++){var o=a[i]&&a[i].json?a[i].json:a[i];if(!o||typeof o!=='object')continue;var bk=null,bl=0;for(var kk in o){if(typeof o[kk]==='string'&&o[kk].length>bl){bl=o[kk].length;bk=kk;}}if(bk&&bl>400){o[bk]=o[bk]+__PRICING_BRIEF;o.pricing_total=__p.tot;o.pricing_class=__p.k;o.pricing_source=__p.src;}}})();
+(function(){var a=Array.isArray(__w)?__w:[__w];for(var i=0;i<a.length;i++){var o=a[i]&&a[i].json?a[i].json:a[i];if(!o||typeof o!=='object')continue;var bk=null,bl=0;for(var kk in o){if(typeof o[kk]==='string'&&o[kk].length>bl){bl=o[kk].length;bk=kk;}}if(bk&&bl>400){o[bk]=o[bk]+__PRICING_BRIEF+__TRIAGE_BRIEF;o.pricing_total=__p.tot;o.pricing_class=__p.k;o.pricing_source=__p.src;}}})();
 return __w;
