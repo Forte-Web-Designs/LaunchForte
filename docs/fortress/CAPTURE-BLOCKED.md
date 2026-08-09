@@ -103,3 +103,11 @@ the record shot has something in it. The rest carry name, stage and job type.
 arrived with four active rules, two of them "AI Prioritize". They set a priority
 on every task created, so a sample job appears with an Urgent flag nobody chose.
 Worth knowing before a shot: the flag in frame is ClickUp's, not the design's.
+
+**Upwork is never driven by automation. Ever.** Not the job feed, not contract
+history, not messages, not sending. Upwork bans accounts for bot activity and
+that account IS the business — no screenshot, posting or price is worth the
+risk. Anything that needs Upwork is Seth's to do by hand, and the right move is
+to ask him to copy across what is needed. The `upwork_jobs` data table inside
+the Cockpit is the sanctioned way to reach posting data: it is our own table,
+already scraped, and reading it touches nothing at upwork.com.

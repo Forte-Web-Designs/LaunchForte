@@ -178,3 +178,62 @@ the row, and `class-disagrees` in `pricing-check.py` holds that line.
 The Prompt of Record keeps the inline derivation as a FALLBACK only, for a
 branch where the node is not upstream, and reports which one ran via
 `pricing_source`. A missing node degrades to a number instead of an exception.
+
+
+## What 653 real postings said about the pricing (9 August)
+
+`pricing-check.py` asserts the rules against twelve hand-written fixtures and
+all twelve pass. They passed while the arithmetic was degenerate, because a
+fixture is a case somebody already thought of.
+
+So the live nodes were run over the Cockpit's own `upwork_jobs` table: 6,800
+postings, 2,281 graded A or B, narrowed to the **653** fixed-price jobs with a
+real dollar budget and a substantial posting that actually priced.
+
+**The machinery is sound.** 0 errors. 653/653 pass their own guardrails. Every
+one of the 44 quotes that broke the $3,500 Upwork ceiling produced a phase
+split — 44 of 44.
+
+**The arithmetic is not.**
+
+- **49% of the 653 price at exactly $2,500.** Thirty distinct totals across 653
+  genuinely different jobs. Quartiles p25 $2,500, p50 $2,500, p75 $2,800.
+- **92% count exactly one workflow** — on postings averaging 1,679 characters.
+- The systems counter under-reads by about one tool on **45%** of postings
+  (2.13 average against 3.08 from a fuller list). The surface line only starts
+  paying at the third system, so that missing tool is $300-500 on half of them.
+- **Every posting with a budget of $3,000 or more priced under it. 34 of 34.**
+
+The cause is in the counters, not the rates. `workflows` only increments on a
+literal "6 automations" or a stack of words from a short list; `systems` only
+counts names from a fixed 26-tool list. On real prose neither fires, so almost
+everything collapses to the class-2 base and stops.
+
+### Why it was not fixed on the spot
+
+The obvious fix — count deliverables from prose, widen the tool list — was
+prototyped against the same 653 and **overshoots**: median $2,500 to $3,600,
+the flatline breaks (commonest value 49% to 12%), but quotes over the ceiling
+go from 44 to **332**. Half of every Upwork proposal would need a phase split.
+
+Sweeping the two dials (asks-per-workflow / cap) gives a usable curve:
+
+| dials | median | p75 | over ceiling | commonest value | distinct |
+|-------|-------:|----:|-------------:|----------------:|---------:|
+| current | $2,500 | $2,800 | 7% | 49% | 30 |
+| 2 / 8 | $3,400 | $5,700 | 49% | 13% | 79 |
+| 3 / 6 | $2,800 | $4,100 | 34% | 19% | 60 |
+| 4 / 6 | $2,800 | $3,600 | 27% | 22% | 49 |
+| 5 / 6 | $2,800 | $3,400 | 20% | 25% | 43 |
+| 6 / 6 | $2,800 | $3,100 | 16% | 26% | 39 |
+
+That table shows the shape of a fix. It cannot say which row is RIGHT, because
+**not one of the 6,800 postings carries a price a client agreed to.** The
+budget field is a placeholder — median $150, and 91% of derived quotes exceed
+it. Choosing a row off this table is choosing a number that feels good, and
+"the derived number stands" only means something if the derivation was
+calibrated against something real.
+
+So the dials stay where they are until there are settled prices to fit them
+against: the closed book, or a handful of won jobs with their postings. What
+ships instead is `corpus-check.js`, which holds the line.
