@@ -210,17 +210,27 @@ if (!hasFixedBudget) {
 } else if (buyerAvgPerHire == null) {
   budgetTest = 'no_spend_history';
   budgetTestWhy = 'a number is posted but the buyer has no history to test it against. Routes on judge grade alone.';
+} else if (buyerAvgPerHire < LOW_AVERAGE) {
+  // FIX, Aug 9: the placeholder test needs a credible average to be a test at
+  // all. A buyer who averages $12 a hire posting $5 produced a ratio of 0.42 and
+  // was called a placeholder — then quoted like a real room. But at a $12
+  // average ANY small number scores low, because the denominator is already
+  // tiny. Their history is not contradicting the posted number, it is agreeing
+  // with it.
+  //
+  // So: below the thin-room line, the ratio is not consulted. A buyer who has
+  // never paid real money has not typed a placeholder — they have typed the
+  // truth. This check sits ABOVE the ratio test on purpose.
+  budgetTest = 'cheap_room_confirmed';
+  budgetTestWhy = 'posted ' + budget.amount + ' against a ' + Math.round(buyerAvgPerHire) +
+    ' per-hire average. The average is under the ' + LOW_AVERAGE + ' thin-room line, so there is no ' +
+    'room for the posted number to be a placeholder OF. Both numbers say the same thing: short reply.';
 } else if (postedVsAvg < PLACEHOLDER_RATIO) {
   budgetTest = 'placeholder_budget';
   budgetTestWhy = 'posted ' + budget.amount + ' against a ' + Math.round(buyerAvgPerHire) +
     ' per-hire average — ' + Math.round(postedVsAvg * 100) + '% of what this buyer actually pays. ' +
     'That is a required field being filled in, not an offer. The number is ignored and this routes ' +
     'on judge grade and shape as though no budget were stated.';
-} else if (buyerAvgPerHire < LOW_AVERAGE) {
-  budgetTest = 'cheap_room_confirmed';
-  budgetTestWhy = 'posted ' + budget.amount + ' against a ' + Math.round(buyerAvgPerHire) +
-    ' per-hire average. The number is in line with what this buyer pays, and what they pay is thin. ' +
-    'The room is real and it is cheap: short reply.';
 } else {
   budgetTest = 'budget_confirmed';
   budgetTestWhy = 'posted ' + budget.amount + ' against a ' + Math.round(buyerAvgPerHire) +
@@ -283,6 +293,21 @@ if (shape && shapesRows) {
 // to be there repeatedly, because the expensive error is the other one.
 if (needsClientAccount && accessSource === 'posting') { signInOnce = false; }
 const repeatedAccess = needsClientAccount && !signInOnce;
+
+// ---------------------------------------------------------------------------
+// ROLE-SHAPED POSTINGS. Staffing, VA work, training, an embedded fractional
+// seat — these are not systems builds and the catalogue has no price for them.
+// They were reaching the board anyway: 26% of it, and RANKING ABOVE AVERAGE,
+// because a staffing post with a big budget and few Seth-minutes scores well on
+// every axis the board measures. Five of the first fifteen were staffing.
+//
+// The judge already pushes back on these (they pass at 0.68x the base rate) but
+// it does not stop them, and "specialist" in particular leaks at 35%. This is
+// the deterministic guard that does stop them, sitting in front of the judge
+// rather than arguing with it.
+const ROLE_TITLE = /\b(specialist|assistant|coordinator|admin(?:istrator)?|trainer|training|part[\s-]?time|full[\s-]?time|hours?\s*\/\s*week|hours per week|virtual assistant|staffing|recruiter|recruiting|intern|team member|executive assistant|operations manager|project manager|social media manager|content writer|bookkeeper|customer service|data entry)\b/i;
+const ROLE_BODY  = /\b(join our team|part of our team|ongoing basis|hours per week|hrs per week|long[\s-]term (role|position)|reporting to|daily tasks|your availability|fractional|embedded)\b/i;
+const roleShaped = ROLE_TITLE.test(String(input.title || '')) || ROLE_BODY.test(String(input.description || ''));
 
 // Thread weight: how many rounds of back-and-forth this posting is going to cost
 // before it is even scoped. Vague postings cost more rounds.
@@ -484,6 +509,11 @@ if (route === 'hands_free_shape_client_access') {
     action = 'lane_held';
     actionWhy = 'certified, but the volume lane ships OFF until the bid and the monthly connects budget are confirmed.';
   }
+} else if (roleShaped) {
+  // Not our shape at all. Not refused on price — refused on kind.
+  action = 'short_reply';
+  actionWhy = 'this reads as a staffing, VA or training seat rather than a systems build. ' +
+    'The catalogue has no price for a role, so it never earns a package regardless of budget.';
 } else if (cheapRoomConfirmed) {
   // The ONLY place a posted number reduces effort — and only because the buyer's
   // own history agrees with it. Joel: $100 posted, $132 average. Both say the
@@ -590,6 +620,7 @@ return [{ json: Object.assign({}, input, {
   triage_hourly_convert: hourlyBlocksLane,
   triage_shape: shape,
   triage_judge_score: judgeScore,
+  role_shaped: roleShaped,
   triage_tools: planTools.map(function (t) { return t.tool; }),
   lane_enabled: LANE.enabled,
   lane_bid_rule: LANE.bid_rule,
@@ -606,6 +637,11 @@ return [{ json: Object.assign({}, input, {
     && !(action === 'lane_bid' && !LANE.enabled)
     && !(action === 'lane_bid' && typeof bid === 'number')
     && !!budgetTest
+    // Role-shaped work never reaches a package.
+    && !(roleShaped && action === 'full_package')
+    // A placeholder verdict requires a buyer with a credible average to be a
+    // placeholder OF.
+    && !(placeholderBudget && !(buyerAvgPerHire != null && buyerAvgPerHire >= LOW_AVERAGE))
     // Freshness is derived, never inherited. A row that arrived carrying its own
     // bid_eligible cannot smuggle it past this node.
     && (bidEligible === (ageDays !== null && ageDays >= 0 && ageDays <= BID_WINDOW_DAYS))
@@ -616,7 +652,7 @@ return [{ json: Object.assign({}, input, {
     // the judge graded it C or U, which is the same answer it would have got
     // with no budget stated at all. That is the whole test: the outcome must be
     // reachable without the number.
-    && !(placeholderBudget && action === 'short_reply' && judgeScore !== 'C' && judgeScore !== 'U')
+    && !(placeholderBudget && action === 'short_reply' && judgeScore !== 'C' && judgeScore !== 'U' && !roleShaped)
     // The two verdicts are mutually exclusive by construction. If both are ever
     // true the test has been rewritten wrong.
     && !(placeholderBudget && cheapRoomConfirmed)

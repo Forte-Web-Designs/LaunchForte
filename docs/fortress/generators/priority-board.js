@@ -49,6 +49,7 @@ const WRITE_RANKS = false;   // true also stamps priority_rank onto proposals ro
       const gm = [{ evidence_shape: e.evidence_shape }];
       const t = FN.triage(j, mk({ 'Merge Context': [j], 'Ground Match': gm }))[0].json;
       if (!t.bid_eligible || t.triage_action !== 'full_package') continue;   // the bid pool, nothing else
+      if (t.role_shaped) continue;                                          // staffing seats are not builds
       const p = FN.price(Object.assign({}, e, t), mk({ 'Merge Context': [j], 'Ground Match': gm, 'Pick the evidence to attach': [e], 'Route the job': [t] }))[0].json;
       if (!p.priced || !(p.quote_total > 0)) continue;
       rows.push({ j: j, t: t, p: p });
@@ -89,6 +90,26 @@ const WRITE_RANKS = false;   // true also stamps priority_rank onto proposals ro
     console.log('   ' + b.r.j.url);
   });
   const top = board.slice(0, TOP_N);
+  console.log('');
+  // HONEST FRAMING (corrected Aug 9). The top 15 is not 11x the pool because the
+  // ranking is clever. It is 11x because psm_estimate takes two values and the
+  // top of the board is drawn entirely from the 10-minute bucket. Decomposed:
+  //   10-min bucket vs whole pool ...... 2.2x   (the bucket, not the ranking)
+  //   top 15 vs the 10-min bucket ...... 5.1x   (what the ordering adds)
+  // And WITHIN that bucket, ordering by score and ordering by quote alone agree
+  // 15 of 15 in the top slots, Spearman 0.977 — the judge, buyer and freshness
+  // multipliers are very nearly decorative. Report it as bucket-versus-pool.
+  const buckets = {};
+  board.forEach(b => { (buckets[b.psm] = buckets[b.psm] || []).push(b); });
+  console.log('');
+  console.log('BY PSM BUCKET (the bucket does most of the work, not the ranking):');
+  Object.keys(buckets).sort((a, b) => a - b).forEach(k => {
+    const a = buckets[k];
+    console.log('  psm ' + k + 'min  n=' + a.length + '  mean $/min ' + Math.round(a.reduce((x, y) => x + y.perMin, 0) / a.length));
+  });
+  const topBucket = buckets[top[0].psm] || [];
+  console.log('  top ' + TOP_N + ' vs its own bucket: ' +
+    (top.reduce((a, b) => a + b.perMin, 0) / top.length / (topBucket.reduce((a, b) => a + b.perMin, 0) / topBucket.length)).toFixed(1) + 'x');
   console.log('');
   console.log('top ' + TOP_N + ': mean quote $' + Math.round(top.reduce((a, b) => a + b.quote, 0) / top.length) +
               ', mean psm ' + Math.round(top.reduce((a, b) => a + b.psm, 0) / top.length) + 'min, mean $' +

@@ -213,7 +213,7 @@ inv('no posted number, however small, ever ends a job on its own',
 // it anything.
 inv('a placeholder budget never reduces the treatment on its own',
   JOBS.map(j => runNode(Object.assign({ evidence_shape: j.shape }, j.job), TODAY))
-      .every(o => !o.placeholder_budget || o.triage_action !== 'short_reply' || o.triage_judge_score === 'C' || o.triage_judge_score === 'U'));
+      .every(o => !o.placeholder_budget || o.triage_action !== 'short_reply' || o.triage_judge_score === 'C' || o.triage_judge_score === 'U' || o.role_shaped));
 // The proof, run directly: strip the budget off the placeholder fixture and the
 // answer must not move.
 (() => {
@@ -253,6 +253,22 @@ inv('an open wall on a resolved surface closes the gate',
 
 inv('no upstream registries at all closes the gate',
   runNode(Object.assign({ evidence_shape: 'data-collection-house' }, JOBS[1].job), {}).certified === false);
+
+inv('role-shaped work never reaches a package',
+  JOBS.map(j => runNode(Object.assign({ evidence_shape: j.shape }, j.job), TODAY))
+      .every(o => !o.role_shaped || o.triage_action !== 'full_package'));
+inv('a placeholder verdict requires a buyer averaging at least the thin-room line',
+  JOBS.map(j => runNode(Object.assign({ evidence_shape: j.shape }, j.job), TODAY))
+      .every(o => !o.placeholder_budget || (o.buyer_avg_per_hire != null && o.buyer_avg_per_hire >= 500)));
+// The entry-7 case, as a fixture: $5 posted by a buyer averaging $12 a hire.
+(() => {
+  const tiny = runNode({ evidence_shape: 'alerting', title: 'Small automation task', job_type: 'FIXED', budget: '5 USD',
+    description: 'Need a small automation built to move records between two tools.',
+    client_spend: 120, client_hires: 10, score: 'B' }, TODAY);
+  inv('a $5 post from a $12-a-hire buyer is cheap, not a placeholder',
+    tiny.budget_test === 'cheap_room_confirmed' && tiny.placeholder_budget === false,
+    'got ' + tiny.budget_test);
+})();
 
 console.log('\n' + (failures === 0 ? 'PASS — every assertion holds.' : 'FAIL — ' + failures + ' assertion(s) broke.'));
 process.exit(failures === 0 ? 0 : 1);
