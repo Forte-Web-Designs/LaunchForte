@@ -402,19 +402,79 @@ if (__classSource === 'posting') {
   if (reSpec) { floor = reSpec[1]; typLow = reSpec[2]; typHigh = reSpec[3]; note = reSpec[4]; }
 }
 
-// how many workflows are they describing?
-let workflows = 1;
-const wfWords = hay.match(/(\d+)\s*(?:automation|workflow|sequence|zap|scenario)/);
-if (wfWords) { workflows = Math.min(parseInt(wfWords[1], 10) || 1, 12); }
-else {
-  const listed = (hay.match(/\bnurture\b|\brecovery\b|\bonboarding\b|\bretention\b|\bchurn\b|\breferral\b|\breminder\b|\bfollow[- ]?up\b/g) || []).length;
-  if (listed > 1) { workflows = Math.min(listed, 12); }
+// ---- THE SCOPE COUNTER, reworked Aug 9 -------------------------------------
+// The old counter needed a literal DIGIT sitting next to the word "workflow",
+// and failed over to counting occurrences of eight hard-coded nurture words. It
+// read 1 workflow on 92% of postings, which is why half of every quote came out
+// at exactly $2,500.
+//
+// This stopped being only a pricing problem the moment the priority board began
+// ranking on the derived quote: within a psm bucket the board's ordering IS the
+// quote (Spearman 0.977), so a job that reads 1 workflow when it is really 6
+// sinks down the board and is never seen. One under-reading counter, two systems
+// downstream.
+//
+// So: SIX INDEPENDENT SIGNALS, each conservative on its own, and the count is
+// the strongest of them. Every signal is emitted in scope_signals so the number
+// can be argued with line by line — which is the whole defence of the quote.
+const WORDNUM = { one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8, nine:9, ten:10, eleven:11, twelve:12,
+                  a:1, an:1, couple:2, few:3, several:4, handful:4, multiple:3, various:3, many:5 };
+const UNIT = '(?:automation|automations|workflow|workflows|sequence|sequences|zap|zaps|scenario|scenarios|flow|flows|integration|integrations|pipeline|pipelines|process|processes|bot|bots|agent|agents)';
+
+// 1. an explicit count, digits OR words: "3 workflows", "several automations"
+let sigExplicit = 0;
+const numRe = new RegExp('\\b(\\d{1,2}|' + Object.keys(WORDNUM).join('|') + ')\\s+(?:different\\s+|separate\\s+|distinct\\s+)?' + UNIT + '\\b', 'gi');
+let nm;
+while ((nm = numRe.exec(hay)) !== null) {
+  const raw = nm[1].toLowerCase();
+  const v = /^\d+$/.test(raw) ? parseInt(raw, 10) : (WORDNUM[raw] || 0);
+  if (v > sigExplicit) sigExplicit = v;
 }
+
+// 2. enumerated list items that actually describe work (a verb, not a skill list)
+const rawPost = String(postText || '');
+const listLines = rawPost.split(/\r?\n/).filter(function (l) {
+  return /^\s*(?:[-*\u2022\u2013]|\d+[.)])\s+/.test(l) && l.trim().length > 12 &&
+         /\b(build|create|set ?up|send|sync|connect|update|add|move|notify|alert|generate|assign|route|trigger|pull|push|capture|log|tag|schedule|remind|import|export|integrat|automat)\b/i.test(l);
+});
+const sigList = listLines.length;
+
+// 3. trigger -> action pairs: each "when X, do Y" is one workflow by definition
+const sigTriggers = (hay.match(/\b(?:when|whenever|if|once|after|as soon as|every time)\b[^.!?]{10,140}?\b(?:then|it should|we want|send|create|add|update|sync|notify|assign|move|trigger|generate)\b/g) || []).length;
+
+// 4. distinct components asked for — the Class 0 detector, reused as a scope signal
+const sigComponents = detected.length;
+
+// 5. distinct named outcomes, from a real vocabulary rather than eight words
+const OUTCOMES = ['nurture','recovery','onboarding','retention','churn','referral','reminder','follow up','follow-up',
+  'abandoned cart','welcome','reactivation','upsell','cross-sell','win-back','renewal','invoice','receipt','quote',
+  'proposal','contract','booking','appointment','intake','qualification','routing','assignment','escalation',
+  'reporting','digest','alert','notification','sync','backup','reconciliation','enrichment','verification','dedup'];
+const sigOutcomes = OUTCOMES.filter(function (w) { return hay.indexOf(w) !== -1; }).length;
+
+// 6. explicit connection pairs: "connect A to B" / "sync A with B"
+const sigPairs = (hay.match(/\b(?:connect|sync|integrat\w*|push|send|pull)\b[^.!?]{0,60}?\b(?:to|with|into|from)\b/g) || []).length;
+
+const scopeSignals = { explicit: sigExplicit, list_items: sigList, triggers: sigTriggers,
+                       components: sigComponents, outcomes: sigOutcomes, pairs: sigPairs };
+
+// The strongest signal governs. Under-reading is silent and costs money twice
+// over; over-reading is visible and the client can remove a line, which is the
+// documented lever. Capped at 12 so one runaway regex cannot invent a migration.
+const workflows = Math.max(1, Math.min(12,
+  Math.max(sigExplicit, sigList, sigTriggers, sigComponents, sigOutcomes, Math.ceil(sigPairs / 2))));
 
 // how many systems does it touch?
 const TOOLS = ['gohighlevel','ghl','hubspot','pipedrive','salesforce','zoho','shopify','stripe',
   'quickbooks','xero','airtable','monday','clickup','notion','twilio','slack','zapier','make',
-  'n8n','instantly','klaviyo','activecampaign','calendly','wordpress','google sheets','hyros'];
+  'n8n','instantly','klaviyo','activecampaign','calendly','wordpress','google sheets','hyros',
+  // added Aug 9 — every one of these appeared in the corpus and was counted as no system at all
+  'mailchimp','sendgrid','intercom','zendesk','freshdesk','typeform','jotform','webflow','squarespace',
+  'wix','woocommerce','bigcommerce','square','paypal','xero','sage','netsuite','dynamics','pipedream',
+  'retool','bubble','glide','softr','supabase','firebase','postgres','mysql','snowflake','bigquery',
+  'looker','tableau','power bi','google analytics','segment','openai','anthropic','claude','gemini',
+  'vapi','retell','elevenlabs','whatsapp','telegram','discord','teams','outlook','gmail','dropbox',
+  'box','onedrive','docusign','pandadoc','asana','trello','jira','linear','basecamp','smartsheet'];
 const named = TOOLS.filter(function (t) { return hay.indexOf(t) !== -1; });
 const systems = Math.max(named.length, (ev && (ev.client_tools || []).length) || 1, 1);
 
@@ -577,6 +637,8 @@ return [{ json: Object.assign({}, input, {
   pricing_anchor: ANCHOR[klass],
   pricing_post_source: postSource,
   pricing_post_chars: postText.length,
+  scope_signals: scopeSignals,
+  scope_counter_version: 'v2',
 
   // Class 0 context, emitted even when the normal derivation governed, so the
   // weekly report can see where the tier declined and why.

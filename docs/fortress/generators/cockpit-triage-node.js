@@ -305,9 +305,19 @@ const repeatedAccess = needsClientAccount && !signInOnce;
 // it does not stop them, and "specialist" in particular leaks at 35%. This is
 // the deterministic guard that does stop them, sitting in front of the judge
 // rather than arguing with it.
-const ROLE_TITLE = /\b(specialist|assistant|coordinator|admin(?:istrator)?|trainer|training|part[\s-]?time|full[\s-]?time|hours?\s*\/\s*week|hours per week|virtual assistant|staffing|recruiter|recruiting|intern|team member|executive assistant|operations manager|project manager|social media manager|content writer|bookkeeper|customer service|data entry)\b/i;
-const ROLE_BODY  = /\b(join our team|part of our team|ongoing basis|hours per week|hrs per week|long[\s-]term (role|position)|reporting to|daily tasks|your availability|fractional|embedded)\b/i;
-const roleShaped = ROLE_TITLE.test(String(input.title || '')) || ROLE_BODY.test(String(input.description || ''));
+// HARD: the role phrase IS the job. Unambiguous staffing seats.
+const ROLE_HARD = /\b(virtual assistant|executive assistant|personal assistant|administrative (assistant|specialist|coordinator)|admin assistant|data entry|customer (service|support) (rep|representative|agent|specialist)|social media (manager|assistant)|content writer|copywriter|bookkeeper|recruiter|recruiting|staffing|intern(ship)?|appointment setter|cold caller|telemarketer|receptionist)\b/i;
+// SOFT: the word can sit perfectly well on a real build — "GoHighLevel
+// Specialist Needed to Build Workflows" is automation work wearing a role-shaped
+// title. Only disqualifying when NOTHING in the posting reads as a build.
+const ROLE_SOFT = /\b(specialist|coordinator|admin(?:istrator)?|trainer|training|part[\s-]?time|full[\s-]?time|hours?\s*\/\s*week|hours per week|team member|operations manager|project manager|assistant)\b/i;
+const ROLE_BODY = /\b(join our team|part of our team|ongoing basis|long[\s-]term (role|position)|reporting to|daily tasks|your availability|fractional|embedded)\b/i;
+const BUILD_SIGNAL = /\b(automat|workflow|integrat|api|webhook|zapier|make\.com|n8n|gohighlevel|ghl|hubspot|salesforce|crm|pipeline|sync|dashboard|scrape|database|airtable|notion|sequence|funnel|trigger|script|no-?code|saas|software|develop|engineer)\b/i;
+const __roleTitle = String(input.title || ''), __roleHay = __roleTitle + ' ' + String(input.description || '');
+const __buildSignal = BUILD_SIGNAL.test(__roleHay);
+const roleShaped = ROLE_HARD.test(__roleTitle)
+  || (ROLE_SOFT.test(__roleTitle) && !__buildSignal)
+  || (ROLE_BODY.test(String(input.description || '')) && !__buildSignal);
 
 // Thread weight: how many rounds of back-and-forth this posting is going to cost
 // before it is even scoped. Vague postings cost more rounds.
