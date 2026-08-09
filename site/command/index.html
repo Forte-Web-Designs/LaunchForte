@@ -516,7 +516,7 @@ return (list || []).filter(function(c){ return c.status === 'active'; });
 function updateClientCount(n){
 var node = $('clientCount');
 if (!node) return;
-node.textContent = (n === null || n === undefined) ? '' : ' - ' + n;
+node.textContent = (n === null || n === undefined) ? '' : ' (' + n + ')';
 }
 
 function renderClients(list){
@@ -728,7 +728,9 @@ function renderBoard(clients, tasks){
 (function(){
   var bt = boardTasksFor(clients, tasks) || [];
   var vis = visibleClients(clients) || [];
-  setSummary('board', bt.length + ' task' + (bt.length===1?'':'s') + ' across ' + vis.length + ' client' + (vis.length===1?'':'s') + '.');
+  var total = (tasks || []).length;
+  setSummary('board', bt.length + ' of ' + total + ' task' + (total===1?'':'s') +
+    ', across ' + vis.length + ' active client' + (vis.length===1?'':'s') + '.');
 })();
 var host = $('boardhost'); host.innerHTML = '';
 var visible = visibleClients(clients);
@@ -1395,10 +1397,15 @@ function setSummary(name, text){
 function renderNeedsMe(clients, tasks){
   var host = $('needsmehost'); if (!host) return;
   host.innerHTML = '';
-  var visible = visibleClients(clients) || [];
-  var bySlug = {}; visible.forEach(function(c){ bySlug[c.slug] = c; });
+  /* Deliberately NOT filtered by visibleClients. The board shows active clients
+     only, which is right for a board — but every one of the blocked tasks in
+     this snapshot belongs to a client not marked active, so inheriting that
+     filter made this strip say "nothing is waiting on you" while 13 things
+     were. "What needs me" is a different question from "what is on my board",
+     and it does not get to be scoped by a view setting. */
+  var bySlug = {}; (clients || []).forEach(function(c){ bySlug[c.slug] = c; });
   var hits = (tasks || []).filter(function(t){
-    return bySlug[t.client_slug] && taskNeedsMe(t, bySlug[t.client_slug]);
+    return taskNeedsMe(t, bySlug[t.client_slug]);
   });
   $('needsmeCount').textContent = hits.length ? ' (' + hits.length + ')' : '';
   if (!hits.length){
@@ -1419,7 +1426,7 @@ function renderNeedsMe(clients, tasks){
     card.addEventListener('click', function(){ openDetail(t); });
     host.appendChild(card);
   });
-  if (hits.length > 12) host.appendChild(el('div','client-sub', (hits.length - 12) + ' more on the board.'));
+  if (hits.length > 12) host.appendChild(el('div','client-sub', (hits.length - 12) + ' more.'));
 }
 
 /* ------------------------------------------------------------------ fetch */
