@@ -501,7 +501,8 @@ w.appendChild(el('div', 'v num' + (neg ? ' neg' : ''), v));
 return w;
 }
 function renderMoney(m){
-setSummary('money', m ? ('Total cost ' + money(m.total_cost_usd)) : 'No money data.');
+setSummary('money', m ? ('Total cost ' + money(m.total_cost_usd) +
+(m.__unfiltered ? ' \u2014 still counts pre-run development spend' : '')) : 'No money data.');
 var host = $('moneybox'); host.className = 'card money-grid reveal'; host.innerHTML = '';
 if (!m){ host.appendChild(el('div','client-sub','No money data returned.')); return; }
 host.appendChild(metric('Total cost', money(m.total_cost_usd)));
@@ -1492,10 +1493,45 @@ $('banners').appendChild(b);
    in again. That is the whole reason this felt like every single time.
    Now: one silent retry, a failure NEVER deletes the token (only submitting a
    new one overwrites it), and auth errors never reach offline(). */
+/* ---------------------------------------------------------- the run epoch
+   Aug 9. Everything before this timestamp is pre-hardening development
+   exhaust, not work in flight: 103 task rows written between Jul 31 and
+   Aug 9, an Aug 2 bulk import of 77 clients (only 3 of which ever carried a
+   task), and 3 engagements from Jul 31. Seth's read is correct -- there is
+   no backlog, so the board should be empty.
+
+   Nothing is deleted. This hides, and it hides on the READ side only, so
+   setting RUN_EPOCH to '' brings every row back exactly as it was.
+
+   Visibility is derived from tasks: a client appears once it has a card
+   dated after the epoch. RUN_CLIENTS is the escape hatch for a client that
+   exists before its first card is written. */
+var RUN_EPOCH = '2026-08-09T13:45:00Z';
+var RUN_CLIENTS = [];
+
+function withinRun(data){
+if (!RUN_EPOCH || !data) return data;
+var tasks = (data.tasks || []).filter(function(t){ return String(t.created_ts || '') >= RUN_EPOCH; });
+var live = {};
+tasks.forEach(function(t){ live[t.client_slug] = true; });
+RUN_CLIENTS.forEach(function(s){ live[s] = true; });
+var clients = (data.clients || []).filter(function(c){ return live[c.slug]; });
+var reports = (data.latest_reports || []).filter(function(r){
+var ts = r.created_ts || r.ts || r.updated_ts || r.createdAt || '';
+return ts ? String(ts) >= RUN_EPOCH : false;   /* undated means pre-run */
+});
+/* money is a server-side aggregate (total_cost_usd / api / infra) computed in
+   the n8n snapshot node over every row. It cannot be recomputed here, because
+   the payload does not carry per-task cost. Flagged rather than faked. */
+var m = data.money ? Object.assign({}, data.money, { __unfiltered: true }) : data.money;
+return { tasks: tasks, clients: clients, latest_reports: reports, money: m,
+         queue_depth: data.queue_depth, __prerun: data };
+}
+
 function onSnapshot(data){
 var gate = document.getElementById('tokengate');
 if (gate && gate.parentNode) gate.parentNode.removeChild(gate);
-paint(data);
+paint(withinRun(data));
 }
 
 function pull(){
