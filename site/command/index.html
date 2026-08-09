@@ -460,7 +460,13 @@ function askForToken(reason){
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var v = (document.getElementById('tokengate_input').value || '').trim();
-    if (v.length < 8) { alert('That looks too short to be the password.'); return; }
+    /* Minimum 4, at Seth's explicit call. Worth knowing what that means: this
+       page is on a guessable public URL and shows client names, task titles and
+       money figures, and the endpoint has no failed-attempt limit, so a 4-digit
+       PIN is ten thousand guesses a script gets through in seconds. The fix is
+       lockout on the guard node, not a longer password. Until that exists, the
+       PIN is the only thing in front of the data. */
+    if (v.length < 4) { alert('Needs at least 4 characters.'); return; }
     try { localStorage.setItem(TOKEN_KEY, v); } catch (e2) {}
     /* Reload rather than re-render, so the browser treats this as a completed
        sign-in and offers to save the credential. */
