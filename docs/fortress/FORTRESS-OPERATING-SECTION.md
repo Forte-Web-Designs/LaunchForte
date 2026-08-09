@@ -129,8 +129,37 @@ works because a human did it, the client can revoke by removing Seth's access, a
 action is attributable to the account they actually invited — which is correct, because
 that account is the contractor they hired.
 
-What it costs is that **sessions expire**, and that is a first-class state, not an error.
-Every surface in the map carries `session: live, verified <date>` or `session: none`.
+**Sign-in is rare, and that is the whole reason this works.** It is not a per-task event,
+it is a per-surface event that happens roughly once. Browser profiles hold sessions for
+weeks to months. So the pattern is: Seth signs in once on the runner's Chrome, using
+whatever password manager he already uses to autofill, and Fortress then works inside that
+tenant for months without a credential going anywhere near it.
+
+No vault, no secrets service, no migration. If the day comes when there are enough clients
+and enough expiries that this hurts, a secrets manager is the upgrade — but buying one to
+solve a handful of thirty-second sign-ins is the kind of infrastructure that becomes a
+project of its own.
+
+**Sessions expiring is a first-class state, not an error.** Every surface carries
+`session: live, verified <date>` or `session: none`, and two rules fall out:
+
+1. **Probe before starting, not halfway through.** A card checks its declared surfaces are
+   live before it does anything. Discovering a dead session after three steps of work is
+   how a build ends up in an unknown half-state.
+2. **Batch the sign-ins.** If four surfaces are stale, that is *one* card asking for all
+   four, not four cards trickling in. Same rule as intake questions.
+
+Also record **how** access was granted, because it changes who to ask when it breaks:
+- **named user** — the client invited Seth's email and he set his own password. Preferred:
+  revocable by them, auditable, and his actions are attributable to him.
+- **shared login** — the client handed over an account. Works, but everything done on that
+  account is attributable to Seth including things he did not do, and several platforms
+  prohibit it in their terms. Worth steering new clients to a named invite where they will
+  wear it.
+
+One hygiene note that follows: signing into a client's shared account saves those
+credentials into Seth's personal password manager. That is normal, and it should be
+cleaned out when the engagement ends.
 
 ### The three lanes
 
