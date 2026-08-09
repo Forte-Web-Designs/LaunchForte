@@ -39,6 +39,23 @@ which is the shot that mattered, and the rule saved with a tag, an instant task
 and a scheduled second-pass task instead. Nothing about the story changes; the
 handoff is real either way.
 
+**Notion automations are a paid feature.** The database automation panel —
+"automatically edit properties, create pages, send updates" — opens on the free
+plan and shows nothing but an Upgrade button. So the Notion capture has no
+automation shot and will not have one until the workspace is on a paid plan.
+What replaced it is better evidence anyway: a saved **Stalled 7+ days** view
+whose filter is the escalation rule written down, and a job page whose body
+carries the runbook the automation would run. Both are things a buyer can read
+without knowing what Notion charges for.
+
+**Notion's view toolbar will not open its popovers under automation.** The
+filter chip, sort chip and the rest of the row above the table refuse to open
+their panels when driven through the extension — the `+ Add property` button in
+the same page opens its menu fine, so it is that toolbar specifically. Every
+Notion view in the library was therefore built through the internal
+`saveTransactionsFanout` API and shot as a rendered result, not as a config
+panel mid-edit. The filter chip still reads "2 rules" in frame.
+
 ## Worth a look, not blocking
 
 **A long post-purchase brief matched books-reconciliation.** A 1,300-character
@@ -48,3 +65,22 @@ paragraph about refunds not reaching QuickBooks, resolved to
 heavy — quickbooks, refund, reconcil, attribution — and they outscored the
 storefront ones. It is a scoring question, not a pack question, and the pack
 did exactly what it was told. Flagging it rather than tuning weights blind.
+
+**A tool name that is also an English word.** "posted **Monday** morning" put
+Monday.com in `client_tools`; "contacted **instantly**" put Instantly.ai there;
+"pick up the **slack**" put Slack there. Substring matching did it, and on a
+posting that named Notion three times the pack still led with Monday.com
+screenshots. Fixed by `TOOL_GUARD` in `buildnode.py`: for the ambiguous names
+the bare word is no longer enough — the posting has to carry the domain
+(`monday.com`), a product noun (`monday board`, `instantly campaign`, `slack
+channel`, `notion database`) or a preposition that only makes sense in front of
+a tool (`in Monday`, `using Instantly`). Missing a real mention costs a
+substitution note. Inventing one costs the pack.
+
+**The conversation-design alias went dead the moment its folder filled.**
+`ALIAS` used to borrow only when the alias shape had no folder of its own. Two
+Vapi shots got filed under `conversation-design`, the folder stopped being
+empty, and the shape quietly dropped from thirteen GoHighLevel Conversation-AI
+screenshots to a pack of **one**. Borrowing is additive now: the alias keeps
+whatever it holds and inherits the rest. Minimum pack across all 24 shapes went
+1 → 3.

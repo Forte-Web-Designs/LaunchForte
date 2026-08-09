@@ -1,33 +1,304 @@
 {
- "count": 788,
- "shapes": [
-  "_blockers",
-  "_library",
-  "ai-assistant",
-  "ai-research-agent",
-  "alerting",
-  "approval-routing",
-  "books-reconciliation",
-  "client-onboarding",
-  "cold-outreach",
-  "conversation-design",
-  "data-collection",
-  "data-model-architecture",
-  "document-assembly",
-  "lead-routing",
-  "messaging-compliance",
-  "platform-migration",
-  "production-takeover",
-  "project-ops",
-  "quote-follow-up",
-  "reactivation",
-  "reporting",
-  "scheduling",
-  "stalled-deal-escalation",
-  "storefront-upsell",
-  "system-sync",
-  "voice-agent-intake"
- ],
+ "count": 797,
+ "shapes": {
+  "_blockers": {
+   "count": 14,
+   "tools": [
+    "ghl",
+    "instantly",
+    "shopify"
+   ]
+  },
+  "_library": {
+   "count": 32,
+   "tools": [
+    "activecampaign",
+    "airtable",
+    "ghl",
+    "google-sheets",
+    "hubspot",
+    "instantly",
+    "make",
+    "pipedrive",
+    "quickbooks",
+    "shopify",
+    "stripe",
+    "twilio",
+    "zapier"
+   ]
+  },
+  "ai-assistant": {
+   "count": 38,
+   "tools": [
+    "ghl",
+    "instantly",
+    "n8n",
+    "vapi"
+   ]
+  },
+  "ai-research-agent": {
+   "count": 9,
+   "tools": [
+    "n8n",
+    "supabase"
+   ]
+  },
+  "alerting": {
+   "count": 31,
+   "tools": [
+    "airtable",
+    "google-sheets",
+    "klaviyo",
+    "make",
+    "n8n",
+    "slack",
+    "supabase",
+    "zapier",
+    "zoho",
+    "zoho-books"
+   ]
+  },
+  "approval-routing": {
+   "count": 28,
+   "tools": [
+    "airtable",
+    "n8n",
+    "pipedrive",
+    "slack",
+    "zoho"
+   ]
+  },
+  "books-reconciliation": {
+   "count": 56,
+   "tools": [
+    "make",
+    "n8n",
+    "quickbooks",
+    "stripe",
+    "zoho-books"
+   ]
+  },
+  "client-onboarding": {
+   "count": 33,
+   "tools": [
+    "airtable",
+    "calendly",
+    "ghl",
+    "hubspot",
+    "n8n",
+    "notion"
+   ]
+  },
+  "cold-outreach": {
+   "count": 11,
+   "tools": [
+    "instantly",
+    "n8n"
+   ]
+  },
+  "conversation-design": {
+   "count": 1,
+   "tools": [
+    "vapi"
+   ]
+  },
+  "data-collection": {
+   "count": 64,
+   "tools": [
+    "activecampaign",
+    "airtable",
+    "calendly",
+    "ghl",
+    "google-sheets",
+    "hubspot",
+    "instantly",
+    "klaviyo",
+    "n8n",
+    "shopify",
+    "stripe",
+    "supabase",
+    "zapier"
+   ]
+  },
+  "data-model-architecture": {
+   "count": 33,
+   "tools": [
+    "airtable",
+    "hubspot",
+    "klaviyo",
+    "n8n",
+    "pipedrive",
+    "supabase",
+    "zoho-books"
+   ]
+  },
+  "document-assembly": {
+   "count": 12,
+   "tools": [
+    "n8n",
+    "slack"
+   ]
+  },
+  "lead-routing": {
+   "count": 53,
+   "tools": [
+    "activecampaign",
+    "calendly",
+    "ghl",
+    "hubspot",
+    "n8n",
+    "slack",
+    "zapier",
+    "zoho"
+   ]
+  },
+  "messaging-compliance": {
+   "count": 21,
+   "tools": [
+    "calendly",
+    "ghl",
+    "instantly",
+    "klaviyo",
+    "n8n",
+    "slack",
+    "supabase"
+   ]
+  },
+  "platform-migration": {
+   "count": 16,
+   "tools": [
+    "ghl",
+    "hubspot",
+    "n8n",
+    "supabase"
+   ]
+  },
+  "production-takeover": {
+   "count": 8,
+   "tools": [
+    "n8n"
+   ]
+  },
+  "project-ops": {
+   "count": 29,
+   "tools": [
+    "airtable",
+    "clickup",
+    "monday",
+    "n8n",
+    "notion",
+    "zoho"
+   ]
+  },
+  "quote-follow-up": {
+   "count": 27,
+   "tools": [
+    "activecampaign",
+    "calendly",
+    "ghl",
+    "make",
+    "n8n",
+    "pipedrive",
+    "zoho",
+    "zoho-books"
+   ]
+  },
+  "reactivation": {
+   "count": 28,
+   "tools": [
+    "calendly",
+    "ghl",
+    "klaviyo",
+    "n8n",
+    "slack",
+    "supabase"
+   ]
+  },
+  "reporting": {
+   "count": 39,
+   "tools": [
+    "activecampaign",
+    "airtable",
+    "ghl",
+    "google-sheets",
+    "hubspot",
+    "n8n",
+    "notion",
+    "pipedrive",
+    "quickbooks",
+    "shopify",
+    "slack",
+    "stripe",
+    "supabase",
+    "zoho",
+    "zoho-books"
+   ]
+  },
+  "scheduling": {
+   "count": 33,
+   "tools": [
+    "calendly",
+    "ghl",
+    "google-sheets",
+    "n8n",
+    "notion",
+    "quickbooks",
+    "slack",
+    "vapi"
+   ]
+  },
+  "stalled-deal-escalation": {
+   "count": 56,
+   "tools": [
+    "activecampaign",
+    "ghl",
+    "hubspot",
+    "n8n",
+    "notion",
+    "pipedrive",
+    "zapier",
+    "zoho",
+    "zoho-books"
+   ]
+  },
+  "storefront-upsell": {
+   "count": 45,
+   "tools": [
+    "klaviyo",
+    "n8n",
+    "shopify",
+    "supabase"
+   ]
+  },
+  "system-sync": {
+   "count": 54,
+   "tools": [
+    "airtable",
+    "hubspot",
+    "instantly",
+    "make",
+    "n8n",
+    "quickbooks",
+    "shopify",
+    "slack",
+    "stripe",
+    "supabase",
+    "vapi",
+    "zapier",
+    "zoho",
+    "zoho-books"
+   ]
+  },
+  "voice-agent-intake": {
+   "count": 26,
+   "tools": [
+    "ghl",
+    "n8n",
+    "twilio",
+    "vapi"
+   ]
+  }
+ },
  "images": [
   {
    "shape": "_blockers",
@@ -522,6 +793,18 @@
    "file": "ai-assistant/ai-assistant--n8n--node-write-versus-flag-the-decision.jpg"
   },
   {
+   "shape": "ai-assistant",
+   "tool": "vapi",
+   "view": "assistant-write-versus-flag-boundary",
+   "file": "ai-assistant/ai-assistant--vapi--assistant-write-versus-flag-boundary.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "vapi",
+   "view": "tool-config-read-only-never-invent",
+   "file": "ai-assistant/ai-assistant--vapi--tool-config-read-only-never-invent.jpg"
+  },
+  {
    "shape": "ai-research-agent",
    "tool": "n8n",
    "view": "canvas-knowledge-base-grounded-answer",
@@ -544,6 +827,36 @@
    "tool": "n8n",
    "view": "node-v2-gap-report",
    "file": "ai-research-agent/ai-research-agent--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "rls-policy-using-clause",
+   "file": "ai-research-agent/ai-research-agent--supabase--rls-policy-using-clause.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "row-level-security-policies",
+   "file": "ai-research-agent/ai-research-agent--supabase--row-level-security-policies.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "run-log-failed-then-retried",
+   "file": "ai-research-agent/ai-research-agent--supabase--run-log-failed-then-retried.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "schema-visualizer-foreign-keys",
+   "file": "ai-research-agent/ai-research-agent--supabase--schema-visualizer-foreign-keys.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "weekly-rollup-query",
+   "file": "ai-research-agent/ai-research-agent--supabase--weekly-rollup-query.jpg"
   },
   {
    "shape": "alerting",
@@ -574,6 +887,18 @@
    "tool": "google-sheets",
    "view": "logevent-disabled-email-hook",
    "file": "alerting/alerting--google-sheets--logevent-disabled-email-hook.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "klaviyo",
+   "view": "flow-both-branches-send-and-suppress",
+   "file": "alerting/alerting--klaviyo--flow-both-branches-send-and-suppress.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "klaviyo",
+   "view": "internal-alert-suppressed-with-reason",
+   "file": "alerting/alerting--klaviyo--internal-alert-suppressed-with-reason.jpg"
   },
   {
    "shape": "alerting",
@@ -662,14 +987,62 @@
   {
    "shape": "alerting",
    "tool": "slack",
+   "view": "alert-message-step",
+   "file": "alerting/alerting--slack--alert-message-step.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "approval-step-config",
+   "file": "alerting/alerting--slack--approval-step-config.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "approval-workflow-steps",
+   "file": "alerting/alerting--slack--approval-workflow-steps.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
    "view": "channel-alert-and-approval-landing",
    "file": "alerting/alerting--slack--channel-alert-and-approval-landing.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "alerting/alerting--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "workflow-trigger-picker",
+   "file": "alerting/alerting--slack--workflow-trigger-picker.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "supabase",
+   "view": "run-log-failed-then-retried",
+   "file": "alerting/alerting--supabase--run-log-failed-then-retried.jpg"
   },
   {
    "shape": "alerting",
    "tool": "zapier",
    "view": "zap-history-autoreplay",
    "file": "alerting/alerting--zapier--zap-history-autoreplay.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "alerting/alerting--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "zoho-books",
+   "view": "payment-matched-short-balance-remains",
+   "file": "alerting/alerting--zoho-books--payment-matched-short-balance-remains.jpg"
   },
   {
    "shape": "approval-routing",
@@ -782,8 +1155,62 @@
   {
    "shape": "approval-routing",
    "tool": "slack",
+   "view": "alert-message-step",
+   "file": "approval-routing/approval-routing--slack--alert-message-step.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "approval-step-config",
+   "file": "approval-routing/approval-routing--slack--approval-step-config.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "approval-workflow-steps",
+   "file": "approval-routing/approval-routing--slack--approval-workflow-steps.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
    "view": "approve-write-back-and-flagged-not-written",
    "file": "approval-routing/approval-routing--slack--approve-write-back-and-flagged-not-written.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "approval-routing/approval-routing--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "workflow-trigger-picker",
+   "file": "approval-routing/approval-routing--slack--workflow-trigger-picker.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "approval-routing/approval-routing--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "zoho",
+   "view": "escalation-task-config",
+   "file": "approval-routing/approval-routing--zoho--escalation-task-config.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "zoho",
+   "view": "webhook-handoff-config",
+   "file": "approval-routing/approval-routing--zoho--webhook-handoff-config.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "zoho",
+   "view": "workflow-rules-list",
+   "file": "approval-routing/approval-routing--zoho--workflow-rules-list.jpg"
   },
   {
    "shape": "books-reconciliation",
@@ -1098,10 +1525,58 @@
    "file": "books-reconciliation/books-reconciliation--stripe--unpaid-open-invoice.jpg"
   },
   {
+   "shape": "books-reconciliation",
+   "tool": "zoho-books",
+   "view": "ar-aging-summary-by-due-date",
+   "file": "books-reconciliation/books-reconciliation--zoho-books--ar-aging-summary-by-due-date.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "zoho-books",
+   "view": "invoice-ledger-paid-overdue-due",
+   "file": "books-reconciliation/books-reconciliation--zoho-books--invoice-ledger-paid-overdue-due.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "zoho-books",
+   "view": "payment-matched-short-balance-remains",
+   "file": "books-reconciliation/books-reconciliation--zoho-books--payment-matched-short-balance-remains.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "zoho-books",
+   "view": "payments-matched-to-invoices",
+   "file": "books-reconciliation/books-reconciliation--zoho-books--payments-matched-to-invoices.jpg"
+  },
+  {
    "shape": "client-onboarding",
    "tool": "airtable",
    "view": "deal-to-project-handoff",
    "file": "client-onboarding/client-onboarding--airtable--deal-to-project-handoff.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "calendly",
+   "view": "no-show-workflow-trigger",
+   "file": "client-onboarding/client-onboarding--calendly--no-show-workflow-trigger.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "calendly",
+   "view": "routing-form-question",
+   "file": "client-onboarding/client-onboarding--calendly--routing-form-question.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "calendly",
+   "view": "routing-rule-if-then",
+   "file": "client-onboarding/client-onboarding--calendly--routing-rule-if-then.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "client-onboarding/client-onboarding--calendly--routing-rule-saved.jpg"
   },
   {
    "shape": "client-onboarding",
@@ -1254,6 +1729,24 @@
    "file": "client-onboarding/client-onboarding--n8n--node-validate-what-arrived.jpg"
   },
   {
+   "shape": "client-onboarding",
+   "tool": "notion",
+   "view": "clients-relation-rollup",
+   "file": "client-onboarding/client-onboarding--notion--clients-relation-rollup.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "notion",
+   "view": "intake-checklist-template",
+   "file": "client-onboarding/client-onboarding--notion--intake-checklist-template.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "notion",
+   "view": "job-record-properties",
+   "file": "client-onboarding/client-onboarding--notion--job-record-properties.jpg"
+  },
+  {
    "shape": "cold-outreach",
    "tool": "instantly",
    "view": "advanced-options",
@@ -1320,6 +1813,12 @@
    "file": "cold-outreach/cold-outreach--n8n--node-v2-gap-report.jpg"
   },
   {
+   "shape": "conversation-design",
+   "tool": "vapi",
+   "view": "assistant-write-versus-flag-boundary",
+   "file": "conversation-design/conversation-design--vapi--assistant-write-versus-flag-boundary.jpg"
+  },
+  {
    "shape": "data-collection",
    "tool": "activecampaign",
    "view": "contacts-sample",
@@ -1366,6 +1865,24 @@
    "tool": "airtable",
    "view": "incidents-table-populated",
    "file": "data-collection/data-collection--airtable--incidents-table-populated.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "calendly",
+   "view": "routing-form-question",
+   "file": "data-collection/data-collection--calendly--routing-form-question.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "calendly",
+   "view": "routing-rule-if-then",
+   "file": "data-collection/data-collection--calendly--routing-rule-if-then.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "data-collection/data-collection--calendly--routing-rule-saved.jpg"
   },
   {
    "shape": "data-collection",
@@ -1550,6 +2067,12 @@
   {
    "shape": "data-collection",
    "tool": "klaviyo",
+   "view": "segment-members-example-addresses",
+   "file": "data-collection/data-collection--klaviyo--segment-members-example-addresses.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "klaviyo",
    "view": "waitlist-40-profiles-imported",
    "file": "data-collection/data-collection--klaviyo--waitlist-40-profiles-imported.jpg"
   },
@@ -1642,6 +2165,24 @@
    "tool": "stripe",
    "view": "customers-list",
    "file": "data-collection/data-collection--stripe--customers-list.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "supabase",
+   "view": "dedupe-query-in-sql-editor",
+   "file": "data-collection/data-collection--supabase--dedupe-query-in-sql-editor.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "supabase",
+   "view": "raw-inbox-landing-table",
+   "file": "data-collection/data-collection--supabase--raw-inbox-landing-table.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "supabase",
+   "view": "run-log-failed-then-retried",
+   "file": "data-collection/data-collection--supabase--run-log-failed-then-retried.jpg"
   },
   {
    "shape": "data-collection",
@@ -1765,6 +2306,18 @@
   },
   {
    "shape": "data-model-architecture",
+   "tool": "klaviyo",
+   "view": "profile-consent-and-companion-properties",
+   "file": "data-model-architecture/data-model-architecture--klaviyo--profile-consent-and-companion-properties.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "klaviyo",
+   "view": "segment-definition-consent-and-exclusion",
+   "file": "data-model-architecture/data-model-architecture--klaviyo--segment-definition-consent-and-exclusion.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
    "tool": "n8n",
    "view": "canvas-dedupe-with-merge-rule",
    "file": "data-model-architecture/data-model-architecture--n8n--canvas-dedupe-with-merge-rule.jpg"
@@ -1798,6 +2351,54 @@
    "tool": "pipedrive",
    "view": "custom-fields-list",
    "file": "data-model-architecture/data-model-architecture--pipedrive--custom-fields-list.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "companion-gap-query",
+   "file": "data-model-architecture/data-model-architecture--supabase--companion-gap-query.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "dedupe-query-in-sql-editor",
+   "file": "data-model-architecture/data-model-architecture--supabase--dedupe-query-in-sql-editor.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "orders-table-editor",
+   "file": "data-model-architecture/data-model-architecture--supabase--orders-table-editor.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "rls-policy-using-clause",
+   "file": "data-model-architecture/data-model-architecture--supabase--rls-policy-using-clause.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "row-level-security-policies",
+   "file": "data-model-architecture/data-model-architecture--supabase--row-level-security-policies.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "schema-visualizer-foreign-keys",
+   "file": "data-model-architecture/data-model-architecture--supabase--schema-visualizer-foreign-keys.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "weekly-rollup-query",
+   "file": "data-model-architecture/data-model-architecture--supabase--weekly-rollup-query.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "zoho-books",
+   "view": "payments-matched-to-invoices",
+   "file": "data-model-architecture/data-model-architecture--zoho-books--payments-matched-to-invoices.jpg"
   },
   {
    "shape": "document-assembly",
@@ -1860,6 +2461,18 @@
    "file": "document-assembly/document-assembly--n8n--node-validate-what-arrived.jpg"
   },
   {
+   "shape": "document-assembly",
+   "tool": "slack",
+   "view": "approval-step-config",
+   "file": "document-assembly/document-assembly--slack--approval-step-config.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "slack",
+   "view": "approval-workflow-steps",
+   "file": "document-assembly/document-assembly--slack--approval-workflow-steps.jpg"
+  },
+  {
    "shape": "lead-routing",
    "tool": "activecampaign",
    "view": "segment-builder-compound",
@@ -1870,6 +2483,30 @@
    "tool": "activecampaign",
    "view": "segments-list-saved",
    "file": "lead-routing/lead-routing--activecampaign--segments-list-saved.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "calendly",
+   "view": "routing-condition-detail",
+   "file": "lead-routing/lead-routing--calendly--routing-condition-detail.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "calendly",
+   "view": "routing-form-question",
+   "file": "lead-routing/lead-routing--calendly--routing-form-question.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "calendly",
+   "view": "routing-rule-if-then",
+   "file": "lead-routing/lead-routing--calendly--routing-rule-if-then.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "lead-routing/lead-routing--calendly--routing-rule-saved.jpg"
   },
   {
    "shape": "lead-routing",
@@ -2119,9 +2756,45 @@
   },
   {
    "shape": "lead-routing",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "lead-routing/lead-routing--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "lead-routing",
    "tool": "zapier",
    "view": "filter-real-conditions",
    "file": "lead-routing/lead-routing--zapier--filter-real-conditions.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "lead-routing/lead-routing--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zoho",
+   "view": "stalled-deals-kanban",
+   "file": "lead-routing/lead-routing--zoho--stalled-deals-kanban.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zoho",
+   "view": "stalled-view-criteria",
+   "file": "lead-routing/lead-routing--zoho--stalled-view-criteria.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zoho",
+   "view": "webhook-handoff-config",
+   "file": "lead-routing/lead-routing--zoho--webhook-handoff-config.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "messaging-compliance/messaging-compliance--calendly--routing-rule-saved.jpg"
   },
   {
    "shape": "messaging-compliance",
@@ -2168,8 +2841,38 @@
   {
    "shape": "messaging-compliance",
    "tool": "klaviyo",
+   "view": "flow-both-branches-send-and-suppress",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--flow-both-branches-send-and-suppress.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "flow-canvas-companion-split-full",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--flow-canvas-companion-split-full.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "internal-alert-suppressed-with-reason",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--internal-alert-suppressed-with-reason.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "profile-consent-and-companion-properties",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--profile-consent-and-companion-properties.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
    "view": "profile-consent-state-and-custom-properties",
    "file": "messaging-compliance/messaging-compliance--klaviyo--profile-consent-state-and-custom-properties.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "segment-definition-consent-and-exclusion",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--segment-definition-consent-and-exclusion.jpg"
   },
   {
    "shape": "messaging-compliance",
@@ -2194,6 +2897,24 @@
    "tool": "n8n",
    "view": "node-v2-gap-report",
    "file": "messaging-compliance/messaging-compliance--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "messaging-compliance/messaging-compliance--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "supabase",
+   "view": "rls-policy-using-clause",
+   "file": "messaging-compliance/messaging-compliance--supabase--rls-policy-using-clause.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "supabase",
+   "view": "row-level-security-policies",
+   "file": "messaging-compliance/messaging-compliance--supabase--row-level-security-policies.jpg"
   },
   {
    "shape": "platform-migration",
@@ -2278,6 +2999,18 @@
    "tool": "n8n",
    "view": "node-validate-what-arrived",
    "file": "platform-migration/platform-migration--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "supabase",
+   "view": "dedupe-query-in-sql-editor",
+   "file": "platform-migration/platform-migration--supabase--dedupe-query-in-sql-editor.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "supabase",
+   "view": "raw-inbox-landing-table",
+   "file": "platform-migration/platform-migration--supabase--raw-inbox-landing-table.jpg"
   },
   {
    "shape": "production-takeover",
@@ -2478,6 +3211,30 @@
    "file": "project-ops/project-ops--n8n--node-v2-gap-report.jpg"
   },
   {
+   "shape": "project-ops",
+   "tool": "notion",
+   "view": "board-by-stage",
+   "file": "project-ops/project-ops--notion--board-by-stage.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "notion",
+   "view": "job-handoff-runbook",
+   "file": "project-ops/project-ops--notion--job-handoff-runbook.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "notion",
+   "view": "jobs-database-table",
+   "file": "project-ops/project-ops--notion--jobs-database-table.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "zoho",
+   "view": "stalled-deals-kanban",
+   "file": "project-ops/project-ops--zoho--stalled-deals-kanban.jpg"
+  },
+  {
    "shape": "quote-follow-up",
    "tool": "activecampaign",
    "view": "automation-canvas-branching",
@@ -2488,6 +3245,12 @@
    "tool": "activecampaign",
    "view": "reply-gate-condition",
    "file": "quote-follow-up/quote-follow-up--activecampaign--reply-gate-condition.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "calendly",
+   "view": "no-show-workflow-trigger",
+   "file": "quote-follow-up/quote-follow-up--calendly--no-show-workflow-trigger.jpg"
   },
   {
    "shape": "quote-follow-up",
@@ -2592,6 +3355,60 @@
    "file": "quote-follow-up/quote-follow-up--pipedrive--automation-action-call-in-2-days.jpg"
   },
   {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "quote-follow-up/quote-follow-up--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "escalation-task-config",
+   "file": "quote-follow-up/quote-follow-up--zoho--escalation-task-config.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "stalled-deals-kanban",
+   "file": "quote-follow-up/quote-follow-up--zoho--stalled-deals-kanban.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "stalled-deals-list",
+   "file": "quote-follow-up/quote-follow-up--zoho--stalled-deals-list.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "stalled-view-criteria",
+   "file": "quote-follow-up/quote-follow-up--zoho--stalled-view-criteria.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho-books",
+   "view": "ar-aging-summary-by-due-date",
+   "file": "quote-follow-up/quote-follow-up--zoho-books--ar-aging-summary-by-due-date.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho-books",
+   "view": "invoice-ledger-paid-overdue-due",
+   "file": "quote-follow-up/quote-follow-up--zoho-books--invoice-ledger-paid-overdue-due.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "calendly",
+   "view": "no-show-email-template",
+   "file": "reactivation/reactivation--calendly--no-show-email-template.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "calendly",
+   "view": "no-show-workflow-trigger",
+   "file": "reactivation/reactivation--calendly--no-show-workflow-trigger.jpg"
+  },
+  {
    "shape": "reactivation",
    "tool": "ghl",
    "view": "canvas-after-sms",
@@ -2644,6 +3461,36 @@
    "tool": "ghl",
    "view": "win-back-sms-merge-field",
    "file": "reactivation/reactivation--ghl--win-back-sms-merge-field.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "flow-both-branches-send-and-suppress",
+   "file": "reactivation/reactivation--klaviyo--flow-both-branches-send-and-suppress.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "flow-canvas-companion-split-full",
+   "file": "reactivation/reactivation--klaviyo--flow-canvas-companion-split-full.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "profile-consent-and-companion-properties",
+   "file": "reactivation/reactivation--klaviyo--profile-consent-and-companion-properties.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "segment-definition-consent-and-exclusion",
+   "file": "reactivation/reactivation--klaviyo--segment-definition-consent-and-exclusion.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "segment-members-example-addresses",
+   "file": "reactivation/reactivation--klaviyo--segment-members-example-addresses.jpg"
   },
   {
    "shape": "reactivation",
@@ -2704,6 +3551,18 @@
    "tool": "n8n",
    "view": "node-validate-what-arrived",
    "file": "reactivation/reactivation--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "reactivation/reactivation--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "supabase",
+   "view": "companion-gap-query",
+   "file": "reactivation/reactivation--supabase--companion-gap-query.jpg"
   },
   {
    "shape": "reporting",
@@ -2851,6 +3710,12 @@
   },
   {
    "shape": "reporting",
+   "tool": "notion",
+   "view": "worst-first-with-totals",
+   "file": "reporting/reporting--notion--worst-first-with-totals.jpg"
+  },
+  {
+   "shape": "reporting",
    "tool": "pipedrive",
    "view": "insights-pipeline-health",
    "file": "reporting/reporting--pipedrive--insights-pipeline-health.jpg"
@@ -2893,15 +3758,87 @@
   },
   {
    "shape": "reporting",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "reporting/reporting--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "reporting",
    "tool": "stripe",
    "view": "billing-mrr-arr",
    "file": "reporting/reporting--stripe--billing-mrr-arr.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "supabase",
+   "view": "weekly-rollup-query",
+   "file": "reporting/reporting--supabase--weekly-rollup-query.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "zoho",
+   "view": "stalled-deals-list",
+   "file": "reporting/reporting--zoho--stalled-deals-list.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "zoho-books",
+   "view": "ar-aging-summary-by-due-date",
+   "file": "reporting/reporting--zoho-books--ar-aging-summary-by-due-date.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "zoho-books",
+   "view": "invoice-ledger-paid-overdue-due",
+   "file": "reporting/reporting--zoho-books--invoice-ledger-paid-overdue-due.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "zoho-books",
+   "view": "payments-matched-to-invoices",
+   "file": "reporting/reporting--zoho-books--payments-matched-to-invoices.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "no-show-email-template",
+   "file": "scheduling/scheduling--calendly--no-show-email-template.jpg"
   },
   {
    "shape": "scheduling",
    "tool": "calendly",
    "view": "no-show-workflow-config",
    "file": "scheduling/scheduling--calendly--no-show-workflow-config.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "no-show-workflow-trigger",
+   "file": "scheduling/scheduling--calendly--no-show-workflow-trigger.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "routing-condition-detail",
+   "file": "scheduling/scheduling--calendly--routing-condition-detail.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "routing-form-question",
+   "file": "scheduling/scheduling--calendly--routing-form-question.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "routing-rule-if-then",
+   "file": "scheduling/scheduling--calendly--routing-rule-if-then.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "scheduling/scheduling--calendly--routing-rule-saved.jpg"
   },
   {
    "shape": "scheduling",
@@ -3031,9 +3968,33 @@
   },
   {
    "shape": "scheduling",
+   "tool": "notion",
+   "view": "site-visit-calendar",
+   "file": "scheduling/scheduling--notion--site-visit-calendar.jpg"
+  },
+  {
+   "shape": "scheduling",
    "tool": "quickbooks",
    "view": "recurring-transactions",
    "file": "scheduling/scheduling--quickbooks--recurring-transactions.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "scheduling/scheduling--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "vapi",
+   "view": "assistant-write-versus-flag-boundary",
+   "file": "scheduling/scheduling--vapi--assistant-write-versus-flag-boundary.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "vapi",
+   "view": "tool-config-read-only-never-invent",
+   "file": "scheduling/scheduling--vapi--tool-config-read-only-never-invent.jpg"
   },
   {
    "shape": "stalled-deal-escalation",
@@ -3247,6 +4208,12 @@
   },
   {
    "shape": "stalled-deal-escalation",
+   "tool": "notion",
+   "view": "stalled-jobs-filtered-view",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--notion--stalled-jobs-filtered-view.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
    "tool": "pipedrive",
    "view": "automation-canvas-stage-criteria",
    "file": "stalled-deal-escalation/stalled-deal-escalation--pipedrive--automation-canvas-stage-criteria.jpg"
@@ -3318,6 +4285,66 @@
    "file": "stalled-deal-escalation/stalled-deal-escalation--zapier--paths-canvas.jpg"
   },
   {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "escalation-task-config",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--escalation-task-config.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "stalled-deals-kanban",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--stalled-deals-kanban.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "stalled-deals-list",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--stalled-deals-list.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "stalled-view-criteria",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--stalled-view-criteria.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "webhook-handoff-config",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--webhook-handoff-config.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "workflow-rules-list",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--workflow-rules-list.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho-books",
+   "view": "ar-aging-summary-by-due-date",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho-books--ar-aging-summary-by-due-date.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "flow-both-branches-send-and-suppress",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--flow-both-branches-send-and-suppress.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "flow-canvas-companion-split-full",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--flow-canvas-companion-split-full.jpg"
+  },
+  {
    "shape": "storefront-upsell",
    "tool": "klaviyo",
    "view": "flow-companion-offer-email-on-the-reachable-path",
@@ -3332,8 +4359,32 @@
   {
    "shape": "storefront-upsell",
    "tool": "klaviyo",
+   "view": "internal-alert-suppressed-with-reason",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--internal-alert-suppressed-with-reason.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "profile-consent-and-companion-properties",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--profile-consent-and-companion-properties.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
    "view": "segment-companion-never-bought-and-reachable",
    "file": "storefront-upsell/storefront-upsell--klaviyo--segment-companion-never-bought-and-reachable.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "segment-definition-consent-and-exclusion",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--segment-definition-consent-and-exclusion.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "segment-members-example-addresses",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--segment-members-example-addresses.jpg"
   },
   {
    "shape": "storefront-upsell",
@@ -3538,6 +4589,18 @@
    "tool": "shopify",
    "view": "variants-and-inventory",
    "file": "storefront-upsell/storefront-upsell--shopify--variants-and-inventory.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "supabase",
+   "view": "companion-gap-query",
+   "file": "storefront-upsell/storefront-upsell--supabase--companion-gap-query.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "supabase",
+   "view": "orders-table-editor",
+   "file": "storefront-upsell/storefront-upsell--supabase--orders-table-editor.jpg"
   },
   {
    "shape": "system-sync",
@@ -3763,6 +4826,24 @@
   },
   {
    "shape": "system-sync",
+   "tool": "slack",
+   "view": "approval-workflow-steps",
+   "file": "system-sync/system-sync--slack--approval-workflow-steps.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "system-sync/system-sync--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "slack",
+   "view": "workflow-trigger-picker",
+   "file": "system-sync/system-sync--slack--workflow-trigger-picker.jpg"
+  },
+  {
+   "shape": "system-sync",
    "tool": "stripe",
    "view": "api-keys-masked",
    "file": "system-sync/system-sync--stripe--api-keys-masked.jpg"
@@ -3772,6 +4853,42 @@
    "tool": "stripe",
    "view": "webhooks",
    "file": "system-sync/system-sync--stripe--webhooks.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "dedupe-query-in-sql-editor",
+   "file": "system-sync/system-sync--supabase--dedupe-query-in-sql-editor.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "orders-table-editor",
+   "file": "system-sync/system-sync--supabase--orders-table-editor.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "raw-inbox-landing-table",
+   "file": "system-sync/system-sync--supabase--raw-inbox-landing-table.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "run-log-failed-then-retried",
+   "file": "system-sync/system-sync--supabase--run-log-failed-then-retried.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "schema-visualizer-foreign-keys",
+   "file": "system-sync/system-sync--supabase--schema-visualizer-foreign-keys.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "vapi",
+   "view": "tool-config-read-only-never-invent",
+   "file": "system-sync/system-sync--vapi--tool-config-read-only-never-invent.jpg"
   },
   {
    "shape": "system-sync",
@@ -3790,6 +4907,24 @@
    "tool": "zapier",
    "view": "canvas-sync-echo-guard",
    "file": "system-sync/system-sync--zapier--canvas-sync-echo-guard.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "zoho",
+   "view": "webhook-handoff-config",
+   "file": "system-sync/system-sync--zoho--webhook-handoff-config.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "zoho-books",
+   "view": "payment-matched-short-balance-remains",
+   "file": "system-sync/system-sync--zoho-books--payment-matched-short-balance-remains.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "zoho-books",
+   "view": "payments-matched-to-invoices",
+   "file": "system-sync/system-sync--zoho-books--payments-matched-to-invoices.jpg"
   },
   {
    "shape": "voice-agent-intake",
@@ -3934,816 +5069,6 @@
    "tool": "twilio",
    "view": "widget-config-gather-input",
    "file": "voice-agent-intake/voice-agent-intake--twilio--widget-config-gather-input.jpg"
-  },
-  {
-   "shape": "reporting",
-   "tool": "supabase",
-   "view": "weekly-rollup-query",
-   "file": "reporting/reporting--supabase--weekly-rollup-query.jpg"
-  },
-  {
-   "shape": "reporting",
-   "tool": "zoho",
-   "view": "stalled-deals-list",
-   "file": "reporting/reporting--zoho--stalled-deals-list.jpg"
-  },
-  {
-   "shape": "stalled-deal-escalation",
-   "tool": "zoho",
-   "view": "escalation-rule-diagram",
-   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--escalation-rule-diagram.jpg"
-  },
-  {
-   "shape": "stalled-deal-escalation",
-   "tool": "zoho",
-   "view": "escalation-task-config",
-   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--escalation-task-config.jpg"
-  },
-  {
-   "shape": "stalled-deal-escalation",
-   "tool": "zoho",
-   "view": "stalled-deals-kanban",
-   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--stalled-deals-kanban.jpg"
-  },
-  {
-   "shape": "stalled-deal-escalation",
-   "tool": "zoho",
-   "view": "stalled-deals-list",
-   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--stalled-deals-list.jpg"
-  },
-  {
-   "shape": "stalled-deal-escalation",
-   "tool": "zoho",
-   "view": "stalled-view-criteria",
-   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--stalled-view-criteria.jpg"
-  },
-  {
-   "shape": "stalled-deal-escalation",
-   "tool": "zoho",
-   "view": "webhook-handoff-config",
-   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--webhook-handoff-config.jpg"
-  },
-  {
-   "shape": "stalled-deal-escalation",
-   "tool": "zoho",
-   "view": "workflow-rules-list",
-   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--workflow-rules-list.jpg"
-  },
-  {
-   "shape": "project-ops",
-   "tool": "zoho",
-   "view": "stalled-deals-kanban",
-   "file": "project-ops/project-ops--zoho--stalled-deals-kanban.jpg"
-  },
-  {
-   "shape": "storefront-upsell",
-   "tool": "supabase",
-   "view": "companion-gap-query",
-   "file": "storefront-upsell/storefront-upsell--supabase--companion-gap-query.jpg"
-  },
-  {
-   "shape": "storefront-upsell",
-   "tool": "supabase",
-   "view": "orders-table-editor",
-   "file": "storefront-upsell/storefront-upsell--supabase--orders-table-editor.jpg"
-  },
-  {
-   "shape": "platform-migration",
-   "tool": "supabase",
-   "view": "dedupe-query-in-sql-editor",
-   "file": "platform-migration/platform-migration--supabase--dedupe-query-in-sql-editor.jpg"
-  },
-  {
-   "shape": "platform-migration",
-   "tool": "supabase",
-   "view": "raw-inbox-landing-table",
-   "file": "platform-migration/platform-migration--supabase--raw-inbox-landing-table.jpg"
-  },
-  {
-   "shape": "alerting",
-   "tool": "supabase",
-   "view": "run-log-failed-then-retried",
-   "file": "alerting/alerting--supabase--run-log-failed-then-retried.jpg"
-  },
-  {
-   "shape": "alerting",
-   "tool": "zoho",
-   "view": "escalation-rule-diagram",
-   "file": "alerting/alerting--zoho--escalation-rule-diagram.jpg"
-  },
-  {
-   "shape": "reactivation",
-   "tool": "supabase",
-   "view": "companion-gap-query",
-   "file": "reactivation/reactivation--supabase--companion-gap-query.jpg"
-  },
-  {
-   "shape": "approval-routing",
-   "tool": "zoho",
-   "view": "escalation-rule-diagram",
-   "file": "approval-routing/approval-routing--zoho--escalation-rule-diagram.jpg"
-  },
-  {
-   "shape": "approval-routing",
-   "tool": "zoho",
-   "view": "escalation-task-config",
-   "file": "approval-routing/approval-routing--zoho--escalation-task-config.jpg"
-  },
-  {
-   "shape": "approval-routing",
-   "tool": "zoho",
-   "view": "webhook-handoff-config",
-   "file": "approval-routing/approval-routing--zoho--webhook-handoff-config.jpg"
-  },
-  {
-   "shape": "approval-routing",
-   "tool": "zoho",
-   "view": "workflow-rules-list",
-   "file": "approval-routing/approval-routing--zoho--workflow-rules-list.jpg"
-  },
-  {
-   "shape": "data-model-architecture",
-   "tool": "supabase",
-   "view": "companion-gap-query",
-   "file": "data-model-architecture/data-model-architecture--supabase--companion-gap-query.jpg"
-  },
-  {
-   "shape": "data-model-architecture",
-   "tool": "supabase",
-   "view": "dedupe-query-in-sql-editor",
-   "file": "data-model-architecture/data-model-architecture--supabase--dedupe-query-in-sql-editor.jpg"
-  },
-  {
-   "shape": "data-model-architecture",
-   "tool": "supabase",
-   "view": "orders-table-editor",
-   "file": "data-model-architecture/data-model-architecture--supabase--orders-table-editor.jpg"
-  },
-  {
-   "shape": "data-model-architecture",
-   "tool": "supabase",
-   "view": "rls-policy-using-clause",
-   "file": "data-model-architecture/data-model-architecture--supabase--rls-policy-using-clause.jpg"
-  },
-  {
-   "shape": "data-model-architecture",
-   "tool": "supabase",
-   "view": "row-level-security-policies",
-   "file": "data-model-architecture/data-model-architecture--supabase--row-level-security-policies.jpg"
-  },
-  {
-   "shape": "data-model-architecture",
-   "tool": "supabase",
-   "view": "schema-visualizer-foreign-keys",
-   "file": "data-model-architecture/data-model-architecture--supabase--schema-visualizer-foreign-keys.jpg"
-  },
-  {
-   "shape": "data-model-architecture",
-   "tool": "supabase",
-   "view": "weekly-rollup-query",
-   "file": "data-model-architecture/data-model-architecture--supabase--weekly-rollup-query.jpg"
-  },
-  {
-   "shape": "ai-research-agent",
-   "tool": "supabase",
-   "view": "rls-policy-using-clause",
-   "file": "ai-research-agent/ai-research-agent--supabase--rls-policy-using-clause.jpg"
-  },
-  {
-   "shape": "ai-research-agent",
-   "tool": "supabase",
-   "view": "row-level-security-policies",
-   "file": "ai-research-agent/ai-research-agent--supabase--row-level-security-policies.jpg"
-  },
-  {
-   "shape": "ai-research-agent",
-   "tool": "supabase",
-   "view": "run-log-failed-then-retried",
-   "file": "ai-research-agent/ai-research-agent--supabase--run-log-failed-then-retried.jpg"
-  },
-  {
-   "shape": "ai-research-agent",
-   "tool": "supabase",
-   "view": "schema-visualizer-foreign-keys",
-   "file": "ai-research-agent/ai-research-agent--supabase--schema-visualizer-foreign-keys.jpg"
-  },
-  {
-   "shape": "ai-research-agent",
-   "tool": "supabase",
-   "view": "weekly-rollup-query",
-   "file": "ai-research-agent/ai-research-agent--supabase--weekly-rollup-query.jpg"
-  },
-  {
-   "shape": "lead-routing",
-   "tool": "zoho",
-   "view": "escalation-rule-diagram",
-   "file": "lead-routing/lead-routing--zoho--escalation-rule-diagram.jpg"
-  },
-  {
-   "shape": "lead-routing",
-   "tool": "zoho",
-   "view": "stalled-deals-kanban",
-   "file": "lead-routing/lead-routing--zoho--stalled-deals-kanban.jpg"
-  },
-  {
-   "shape": "lead-routing",
-   "tool": "zoho",
-   "view": "stalled-view-criteria",
-   "file": "lead-routing/lead-routing--zoho--stalled-view-criteria.jpg"
-  },
-  {
-   "shape": "lead-routing",
-   "tool": "zoho",
-   "view": "webhook-handoff-config",
-   "file": "lead-routing/lead-routing--zoho--webhook-handoff-config.jpg"
-  },
-  {
-   "shape": "system-sync",
-   "tool": "supabase",
-   "view": "dedupe-query-in-sql-editor",
-   "file": "system-sync/system-sync--supabase--dedupe-query-in-sql-editor.jpg"
-  },
-  {
-   "shape": "system-sync",
-   "tool": "supabase",
-   "view": "orders-table-editor",
-   "file": "system-sync/system-sync--supabase--orders-table-editor.jpg"
-  },
-  {
-   "shape": "system-sync",
-   "tool": "supabase",
-   "view": "raw-inbox-landing-table",
-   "file": "system-sync/system-sync--supabase--raw-inbox-landing-table.jpg"
-  },
-  {
-   "shape": "system-sync",
-   "tool": "supabase",
-   "view": "run-log-failed-then-retried",
-   "file": "system-sync/system-sync--supabase--run-log-failed-then-retried.jpg"
-  },
-  {
-   "shape": "system-sync",
-   "tool": "supabase",
-   "view": "schema-visualizer-foreign-keys",
-   "file": "system-sync/system-sync--supabase--schema-visualizer-foreign-keys.jpg"
-  },
-  {
-   "shape": "system-sync",
-   "tool": "zoho",
-   "view": "webhook-handoff-config",
-   "file": "system-sync/system-sync--zoho--webhook-handoff-config.jpg"
-  },
-  {
-   "shape": "quote-follow-up",
-   "tool": "zoho",
-   "view": "escalation-rule-diagram",
-   "file": "quote-follow-up/quote-follow-up--zoho--escalation-rule-diagram.jpg"
-  },
-  {
-   "shape": "quote-follow-up",
-   "tool": "zoho",
-   "view": "escalation-task-config",
-   "file": "quote-follow-up/quote-follow-up--zoho--escalation-task-config.jpg"
-  },
-  {
-   "shape": "quote-follow-up",
-   "tool": "zoho",
-   "view": "stalled-deals-kanban",
-   "file": "quote-follow-up/quote-follow-up--zoho--stalled-deals-kanban.jpg"
-  },
-  {
-   "shape": "quote-follow-up",
-   "tool": "zoho",
-   "view": "stalled-deals-list",
-   "file": "quote-follow-up/quote-follow-up--zoho--stalled-deals-list.jpg"
-  },
-  {
-   "shape": "quote-follow-up",
-   "tool": "zoho",
-   "view": "stalled-view-criteria",
-   "file": "quote-follow-up/quote-follow-up--zoho--stalled-view-criteria.jpg"
-  },
-  {
-   "shape": "data-collection",
-   "tool": "supabase",
-   "view": "dedupe-query-in-sql-editor",
-   "file": "data-collection/data-collection--supabase--dedupe-query-in-sql-editor.jpg"
-  },
-  {
-   "shape": "data-collection",
-   "tool": "supabase",
-   "view": "raw-inbox-landing-table",
-   "file": "data-collection/data-collection--supabase--raw-inbox-landing-table.jpg"
-  },
-  {
-   "shape": "data-collection",
-   "tool": "supabase",
-   "view": "run-log-failed-then-retried",
-   "file": "data-collection/data-collection--supabase--run-log-failed-then-retried.jpg"
-  },
-  {
-   "shape": "messaging-compliance",
-   "tool": "supabase",
-   "view": "rls-policy-using-clause",
-   "file": "messaging-compliance/messaging-compliance--supabase--rls-policy-using-clause.jpg"
-  },
-  {
-   "shape": "messaging-compliance",
-   "tool": "supabase",
-   "view": "row-level-security-policies",
-   "file": "messaging-compliance/messaging-compliance--supabase--row-level-security-policies.jpg"
-  },
-  {
-   "shape": "reporting",
-   "tool": "slack",
-   "view": "ops-channel-full-cycle",
-   "file": "reporting/reporting--slack--ops-channel-full-cycle.jpg"
-  },
-  {
-   "shape": "client-onboarding",
-   "tool": "calendly",
-   "view": "no-show-workflow-trigger",
-   "file": "client-onboarding/client-onboarding--calendly--no-show-workflow-trigger.jpg"
-  },
-  {
-   "shape": "client-onboarding",
-   "tool": "calendly",
-   "view": "routing-form-question",
-   "file": "client-onboarding/client-onboarding--calendly--routing-form-question.jpg"
-  },
-  {
-   "shape": "client-onboarding",
-   "tool": "calendly",
-   "view": "routing-rule-if-then",
-   "file": "client-onboarding/client-onboarding--calendly--routing-rule-if-then.jpg"
-  },
-  {
-   "shape": "client-onboarding",
-   "tool": "calendly",
-   "view": "routing-rule-saved",
-   "file": "client-onboarding/client-onboarding--calendly--routing-rule-saved.jpg"
-  },
-  {
-   "shape": "scheduling",
-   "tool": "calendly",
-   "view": "no-show-email-template",
-   "file": "scheduling/scheduling--calendly--no-show-email-template.jpg"
-  },
-  {
-   "shape": "scheduling",
-   "tool": "calendly",
-   "view": "no-show-workflow-trigger",
-   "file": "scheduling/scheduling--calendly--no-show-workflow-trigger.jpg"
-  },
-  {
-   "shape": "scheduling",
-   "tool": "calendly",
-   "view": "routing-condition-detail",
-   "file": "scheduling/scheduling--calendly--routing-condition-detail.jpg"
-  },
-  {
-   "shape": "scheduling",
-   "tool": "calendly",
-   "view": "routing-form-question",
-   "file": "scheduling/scheduling--calendly--routing-form-question.jpg"
-  },
-  {
-   "shape": "scheduling",
-   "tool": "calendly",
-   "view": "routing-rule-if-then",
-   "file": "scheduling/scheduling--calendly--routing-rule-if-then.jpg"
-  },
-  {
-   "shape": "scheduling",
-   "tool": "calendly",
-   "view": "routing-rule-saved",
-   "file": "scheduling/scheduling--calendly--routing-rule-saved.jpg"
-  },
-  {
-   "shape": "scheduling",
-   "tool": "slack",
-   "view": "ops-channel-full-cycle",
-   "file": "scheduling/scheduling--slack--ops-channel-full-cycle.jpg"
-  },
-  {
-   "shape": "alerting",
-   "tool": "slack",
-   "view": "alert-message-step",
-   "file": "alerting/alerting--slack--alert-message-step.jpg"
-  },
-  {
-   "shape": "alerting",
-   "tool": "slack",
-   "view": "approval-step-config",
-   "file": "alerting/alerting--slack--approval-step-config.jpg"
-  },
-  {
-   "shape": "alerting",
-   "tool": "slack",
-   "view": "approval-workflow-steps",
-   "file": "alerting/alerting--slack--approval-workflow-steps.jpg"
-  },
-  {
-   "shape": "alerting",
-   "tool": "slack",
-   "view": "ops-channel-full-cycle",
-   "file": "alerting/alerting--slack--ops-channel-full-cycle.jpg"
-  },
-  {
-   "shape": "alerting",
-   "tool": "slack",
-   "view": "workflow-trigger-picker",
-   "file": "alerting/alerting--slack--workflow-trigger-picker.jpg"
-  },
-  {
-   "shape": "document-assembly",
-   "tool": "slack",
-   "view": "approval-step-config",
-   "file": "document-assembly/document-assembly--slack--approval-step-config.jpg"
-  },
-  {
-   "shape": "document-assembly",
-   "tool": "slack",
-   "view": "approval-workflow-steps",
-   "file": "document-assembly/document-assembly--slack--approval-workflow-steps.jpg"
-  },
-  {
-   "shape": "reactivation",
-   "tool": "calendly",
-   "view": "no-show-email-template",
-   "file": "reactivation/reactivation--calendly--no-show-email-template.jpg"
-  },
-  {
-   "shape": "reactivation",
-   "tool": "calendly",
-   "view": "no-show-workflow-trigger",
-   "file": "reactivation/reactivation--calendly--no-show-workflow-trigger.jpg"
-  },
-  {
-   "shape": "reactivation",
-   "tool": "slack",
-   "view": "ops-channel-full-cycle",
-   "file": "reactivation/reactivation--slack--ops-channel-full-cycle.jpg"
-  },
-  {
-   "shape": "approval-routing",
-   "tool": "slack",
-   "view": "alert-message-step",
-   "file": "approval-routing/approval-routing--slack--alert-message-step.jpg"
-  },
-  {
-   "shape": "approval-routing",
-   "tool": "slack",
-   "view": "approval-step-config",
-   "file": "approval-routing/approval-routing--slack--approval-step-config.jpg"
-  },
-  {
-   "shape": "approval-routing",
-   "tool": "slack",
-   "view": "approval-workflow-steps",
-   "file": "approval-routing/approval-routing--slack--approval-workflow-steps.jpg"
-  },
-  {
-   "shape": "approval-routing",
-   "tool": "slack",
-   "view": "ops-channel-full-cycle",
-   "file": "approval-routing/approval-routing--slack--ops-channel-full-cycle.jpg"
-  },
-  {
-   "shape": "approval-routing",
-   "tool": "slack",
-   "view": "workflow-trigger-picker",
-   "file": "approval-routing/approval-routing--slack--workflow-trigger-picker.jpg"
-  },
-  {
-   "shape": "lead-routing",
-   "tool": "calendly",
-   "view": "routing-condition-detail",
-   "file": "lead-routing/lead-routing--calendly--routing-condition-detail.jpg"
-  },
-  {
-   "shape": "lead-routing",
-   "tool": "calendly",
-   "view": "routing-form-question",
-   "file": "lead-routing/lead-routing--calendly--routing-form-question.jpg"
-  },
-  {
-   "shape": "lead-routing",
-   "tool": "calendly",
-   "view": "routing-rule-if-then",
-   "file": "lead-routing/lead-routing--calendly--routing-rule-if-then.jpg"
-  },
-  {
-   "shape": "lead-routing",
-   "tool": "calendly",
-   "view": "routing-rule-saved",
-   "file": "lead-routing/lead-routing--calendly--routing-rule-saved.jpg"
-  },
-  {
-   "shape": "lead-routing",
-   "tool": "slack",
-   "view": "ops-channel-full-cycle",
-   "file": "lead-routing/lead-routing--slack--ops-channel-full-cycle.jpg"
-  },
-  {
-   "shape": "system-sync",
-   "tool": "slack",
-   "view": "approval-workflow-steps",
-   "file": "system-sync/system-sync--slack--approval-workflow-steps.jpg"
-  },
-  {
-   "shape": "system-sync",
-   "tool": "slack",
-   "view": "ops-channel-full-cycle",
-   "file": "system-sync/system-sync--slack--ops-channel-full-cycle.jpg"
-  },
-  {
-   "shape": "system-sync",
-   "tool": "slack",
-   "view": "workflow-trigger-picker",
-   "file": "system-sync/system-sync--slack--workflow-trigger-picker.jpg"
-  },
-  {
-   "shape": "quote-follow-up",
-   "tool": "calendly",
-   "view": "no-show-workflow-trigger",
-   "file": "quote-follow-up/quote-follow-up--calendly--no-show-workflow-trigger.jpg"
-  },
-  {
-   "shape": "data-collection",
-   "tool": "calendly",
-   "view": "routing-form-question",
-   "file": "data-collection/data-collection--calendly--routing-form-question.jpg"
-  },
-  {
-   "shape": "data-collection",
-   "tool": "calendly",
-   "view": "routing-rule-if-then",
-   "file": "data-collection/data-collection--calendly--routing-rule-if-then.jpg"
-  },
-  {
-   "shape": "data-collection",
-   "tool": "calendly",
-   "view": "routing-rule-saved",
-   "file": "data-collection/data-collection--calendly--routing-rule-saved.jpg"
-  },
-  {
-   "shape": "messaging-compliance",
-   "tool": "calendly",
-   "view": "routing-rule-saved",
-   "file": "messaging-compliance/messaging-compliance--calendly--routing-rule-saved.jpg"
-  },
-  {
-   "shape": "messaging-compliance",
-   "tool": "slack",
-   "view": "ops-channel-full-cycle",
-   "file": "messaging-compliance/messaging-compliance--slack--ops-channel-full-cycle.jpg"
-  },
-  {
-   "shape": "storefront-upsell",
-   "tool": "klaviyo",
-   "view": "flow-both-branches-send-and-suppress",
-   "file": "storefront-upsell/storefront-upsell--klaviyo--flow-both-branches-send-and-suppress.jpg"
-  },
-  {
-   "shape": "storefront-upsell",
-   "tool": "klaviyo",
-   "view": "flow-canvas-companion-split-full",
-   "file": "storefront-upsell/storefront-upsell--klaviyo--flow-canvas-companion-split-full.jpg"
-  },
-  {
-   "shape": "storefront-upsell",
-   "tool": "klaviyo",
-   "view": "internal-alert-suppressed-with-reason",
-   "file": "storefront-upsell/storefront-upsell--klaviyo--internal-alert-suppressed-with-reason.jpg"
-  },
-  {
-   "shape": "storefront-upsell",
-   "tool": "klaviyo",
-   "view": "profile-consent-and-companion-properties",
-   "file": "storefront-upsell/storefront-upsell--klaviyo--profile-consent-and-companion-properties.jpg"
-  },
-  {
-   "shape": "storefront-upsell",
-   "tool": "klaviyo",
-   "view": "segment-definition-consent-and-exclusion",
-   "file": "storefront-upsell/storefront-upsell--klaviyo--segment-definition-consent-and-exclusion.jpg"
-  },
-  {
-   "shape": "storefront-upsell",
-   "tool": "klaviyo",
-   "view": "segment-members-example-addresses",
-   "file": "storefront-upsell/storefront-upsell--klaviyo--segment-members-example-addresses.jpg"
-  },
-  {
-   "shape": "alerting",
-   "tool": "klaviyo",
-   "view": "flow-both-branches-send-and-suppress",
-   "file": "alerting/alerting--klaviyo--flow-both-branches-send-and-suppress.jpg"
-  },
-  {
-   "shape": "alerting",
-   "tool": "klaviyo",
-   "view": "internal-alert-suppressed-with-reason",
-   "file": "alerting/alerting--klaviyo--internal-alert-suppressed-with-reason.jpg"
-  },
-  {
-   "shape": "reactivation",
-   "tool": "klaviyo",
-   "view": "flow-both-branches-send-and-suppress",
-   "file": "reactivation/reactivation--klaviyo--flow-both-branches-send-and-suppress.jpg"
-  },
-  {
-   "shape": "reactivation",
-   "tool": "klaviyo",
-   "view": "flow-canvas-companion-split-full",
-   "file": "reactivation/reactivation--klaviyo--flow-canvas-companion-split-full.jpg"
-  },
-  {
-   "shape": "reactivation",
-   "tool": "klaviyo",
-   "view": "profile-consent-and-companion-properties",
-   "file": "reactivation/reactivation--klaviyo--profile-consent-and-companion-properties.jpg"
-  },
-  {
-   "shape": "reactivation",
-   "tool": "klaviyo",
-   "view": "segment-definition-consent-and-exclusion",
-   "file": "reactivation/reactivation--klaviyo--segment-definition-consent-and-exclusion.jpg"
-  },
-  {
-   "shape": "reactivation",
-   "tool": "klaviyo",
-   "view": "segment-members-example-addresses",
-   "file": "reactivation/reactivation--klaviyo--segment-members-example-addresses.jpg"
-  },
-  {
-   "shape": "data-model-architecture",
-   "tool": "klaviyo",
-   "view": "profile-consent-and-companion-properties",
-   "file": "data-model-architecture/data-model-architecture--klaviyo--profile-consent-and-companion-properties.jpg"
-  },
-  {
-   "shape": "data-model-architecture",
-   "tool": "klaviyo",
-   "view": "segment-definition-consent-and-exclusion",
-   "file": "data-model-architecture/data-model-architecture--klaviyo--segment-definition-consent-and-exclusion.jpg"
-  },
-  {
-   "shape": "data-collection",
-   "tool": "klaviyo",
-   "view": "segment-members-example-addresses",
-   "file": "data-collection/data-collection--klaviyo--segment-members-example-addresses.jpg"
-  },
-  {
-   "shape": "messaging-compliance",
-   "tool": "klaviyo",
-   "view": "flow-both-branches-send-and-suppress",
-   "file": "messaging-compliance/messaging-compliance--klaviyo--flow-both-branches-send-and-suppress.jpg"
-  },
-  {
-   "shape": "messaging-compliance",
-   "tool": "klaviyo",
-   "view": "flow-canvas-companion-split-full",
-   "file": "messaging-compliance/messaging-compliance--klaviyo--flow-canvas-companion-split-full.jpg"
-  },
-  {
-   "shape": "messaging-compliance",
-   "tool": "klaviyo",
-   "view": "internal-alert-suppressed-with-reason",
-   "file": "messaging-compliance/messaging-compliance--klaviyo--internal-alert-suppressed-with-reason.jpg"
-  },
-  {
-   "shape": "messaging-compliance",
-   "tool": "klaviyo",
-   "view": "profile-consent-and-companion-properties",
-   "file": "messaging-compliance/messaging-compliance--klaviyo--profile-consent-and-companion-properties.jpg"
-  },
-  {
-   "shape": "messaging-compliance",
-   "tool": "klaviyo",
-   "view": "segment-definition-consent-and-exclusion",
-   "file": "messaging-compliance/messaging-compliance--klaviyo--segment-definition-consent-and-exclusion.jpg"
-  },
-  {
-   "shape": "reporting",
-   "tool": "zoho-books",
-   "view": "ar-aging-summary-by-due-date",
-   "file": "reporting/reporting--zoho-books--ar-aging-summary-by-due-date.jpg"
-  },
-  {
-   "shape": "reporting",
-   "tool": "zoho-books",
-   "view": "invoice-ledger-paid-overdue-due",
-   "file": "reporting/reporting--zoho-books--invoice-ledger-paid-overdue-due.jpg"
-  },
-  {
-   "shape": "reporting",
-   "tool": "zoho-books",
-   "view": "payments-matched-to-invoices",
-   "file": "reporting/reporting--zoho-books--payments-matched-to-invoices.jpg"
-  },
-  {
-   "shape": "scheduling",
-   "tool": "vapi",
-   "view": "assistant-write-versus-flag-boundary",
-   "file": "scheduling/scheduling--vapi--assistant-write-versus-flag-boundary.jpg"
-  },
-  {
-   "shape": "scheduling",
-   "tool": "vapi",
-   "view": "tool-config-read-only-never-invent",
-   "file": "scheduling/scheduling--vapi--tool-config-read-only-never-invent.jpg"
-  },
-  {
-   "shape": "stalled-deal-escalation",
-   "tool": "zoho-books",
-   "view": "ar-aging-summary-by-due-date",
-   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho-books--ar-aging-summary-by-due-date.jpg"
-  },
-  {
-   "shape": "ai-assistant",
-   "tool": "vapi",
-   "view": "assistant-write-versus-flag-boundary",
-   "file": "ai-assistant/ai-assistant--vapi--assistant-write-versus-flag-boundary.jpg"
-  },
-  {
-   "shape": "ai-assistant",
-   "tool": "vapi",
-   "view": "tool-config-read-only-never-invent",
-   "file": "ai-assistant/ai-assistant--vapi--tool-config-read-only-never-invent.jpg"
-  },
-  {
-   "shape": "books-reconciliation",
-   "tool": "zoho-books",
-   "view": "ar-aging-summary-by-due-date",
-   "file": "books-reconciliation/books-reconciliation--zoho-books--ar-aging-summary-by-due-date.jpg"
-  },
-  {
-   "shape": "books-reconciliation",
-   "tool": "zoho-books",
-   "view": "invoice-ledger-paid-overdue-due",
-   "file": "books-reconciliation/books-reconciliation--zoho-books--invoice-ledger-paid-overdue-due.jpg"
-  },
-  {
-   "shape": "books-reconciliation",
-   "tool": "zoho-books",
-   "view": "payment-matched-short-balance-remains",
-   "file": "books-reconciliation/books-reconciliation--zoho-books--payment-matched-short-balance-remains.jpg"
-  },
-  {
-   "shape": "books-reconciliation",
-   "tool": "zoho-books",
-   "view": "payments-matched-to-invoices",
-   "file": "books-reconciliation/books-reconciliation--zoho-books--payments-matched-to-invoices.jpg"
-  },
-  {
-   "shape": "alerting",
-   "tool": "zoho-books",
-   "view": "payment-matched-short-balance-remains",
-   "file": "alerting/alerting--zoho-books--payment-matched-short-balance-remains.jpg"
-  },
-  {
-   "shape": "data-model-architecture",
-   "tool": "zoho-books",
-   "view": "payments-matched-to-invoices",
-   "file": "data-model-architecture/data-model-architecture--zoho-books--payments-matched-to-invoices.jpg"
-  },
-  {
-   "shape": "system-sync",
-   "tool": "vapi",
-   "view": "tool-config-read-only-never-invent",
-   "file": "system-sync/system-sync--vapi--tool-config-read-only-never-invent.jpg"
-  },
-  {
-   "shape": "system-sync",
-   "tool": "zoho-books",
-   "view": "payment-matched-short-balance-remains",
-   "file": "system-sync/system-sync--zoho-books--payment-matched-short-balance-remains.jpg"
-  },
-  {
-   "shape": "system-sync",
-   "tool": "zoho-books",
-   "view": "payments-matched-to-invoices",
-   "file": "system-sync/system-sync--zoho-books--payments-matched-to-invoices.jpg"
-  },
-  {
-   "shape": "quote-follow-up",
-   "tool": "zoho-books",
-   "view": "ar-aging-summary-by-due-date",
-   "file": "quote-follow-up/quote-follow-up--zoho-books--ar-aging-summary-by-due-date.jpg"
-  },
-  {
-   "shape": "quote-follow-up",
-   "tool": "zoho-books",
-   "view": "invoice-ledger-paid-overdue-due",
-   "file": "quote-follow-up/quote-follow-up--zoho-books--invoice-ledger-paid-overdue-due.jpg"
-  },
-  {
-   "shape": "conversation-design",
-   "tool": "vapi",
-   "view": "assistant-write-versus-flag-boundary",
-   "file": "conversation-design/conversation-design--vapi--assistant-write-versus-flag-boundary.jpg"
   },
   {
    "shape": "voice-agent-intake",

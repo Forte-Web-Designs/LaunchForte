@@ -113,3 +113,41 @@ reads a lone backslash-b as a backspace character, so the regex shipped with
 every boundary silently deleted and matched almost nothing. The pattern now
 uses hyphen and underscore as its boundaries, which is what view names actually
 separate on, and nothing in it needs escaping.
+
+
+## Which tools count as "theirs" (added 9 August)
+
+Pack width is decided from `clientTools`, so anything that lands in that list
+wrongly leads the pack wrongly. Three tool names are also ordinary English —
+**Monday**, **Instantly**, **Slack** — and a fourth, **Notion**, is a noun. The
+matcher used plain substring containment, so a posting that said "we run
+delivery in Notion … digest posted Monday morning" came back with
+`client_tools: [monday, notion, slack]` and led with Monday.com.
+
+`TOOL_GUARD` in `buildnode.py` is a per-tool regex that a posting has to satisfy
+*in addition to* containing the word. Three ways to satisfy it:
+
+1. the domain — `monday.com`, `instantly.ai`, `notion.so`, `slack.com`
+2. a product noun after it — `monday board`, `instantly campaign`,
+   `slack channel`, `notion database`
+3. a preposition that only precedes a tool — `in Monday`, `using Instantly`,
+   `posted to Slack`, `from Notion`
+
+Guarded today: monday, instantly, slack, notion, retell, make, close, wix.
+Everything else still matches on the word alone, because "klaviyo" and
+"supabase" are not words anybody uses by accident.
+
+The trade is deliberate and one-directional. A missed mention costs a
+substitution note — we show a neighbouring tool and say so. An invented mention
+costs the whole pack, because the buyer opens a PDF full of a tool they do not
+own. So the guards are tight, not generous.
+
+## Borrowed evidence is additive (added 9 August)
+
+`ALIAS` lets a shape with its own story point at a sibling's screenshots —
+`conversation-design` borrows from `ai-assistant`. It used to fill only when the
+alias had no folder of its own. Then two Vapi shots got filed under
+`conversation-design`, and the borrow silently stopped: the shape went from
+thirteen GoHighLevel Conversation-AI shots to a pack of one. The merge is
+additive now. Sweep of all 24 shapes: minimum pack 3, maximum 5 on a synthetic
+posting, 19 of 24 multi-tool, zero weak shots reaching a pack.

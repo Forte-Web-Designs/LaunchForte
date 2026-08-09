@@ -1,5 +1,5 @@
 {
- "count": 632,
+ "count": 797,
  "shapes": {
   "_blockers": {
    "count": 14,
@@ -10,7 +10,7 @@
    ]
   },
   "_library": {
-   "count": 29,
+   "count": 32,
    "tools": [
     "activecampaign",
     "airtable",
@@ -18,6 +18,7 @@
     "google-sheets",
     "hubspot",
     "instantly",
+    "make",
     "pipedrive",
     "quickbooks",
     "shopify",
@@ -26,114 +27,150 @@
     "zapier"
    ]
   },
-  "_rejects": {
-   "count": 68,
-   "tools": [
-    "unknown"
-   ]
-  },
   "ai-assistant": {
-   "count": 34,
+   "count": 38,
    "tools": [
     "ghl",
     "instantly",
-    "n8n"
+    "n8n",
+    "vapi"
+   ]
+  },
+  "ai-research-agent": {
+   "count": 9,
+   "tools": [
+    "n8n",
+    "supabase"
    ]
   },
   "alerting": {
-   "count": 15,
+   "count": 31,
    "tools": [
     "airtable",
     "google-sheets",
+    "klaviyo",
+    "make",
     "n8n",
-    "zapier"
+    "slack",
+    "supabase",
+    "zapier",
+    "zoho",
+    "zoho-books"
    ]
   },
   "approval-routing": {
-   "count": 17,
+   "count": 28,
    "tools": [
     "airtable",
     "n8n",
-    "pipedrive"
+    "pipedrive",
+    "slack",
+    "zoho"
    ]
   },
   "books-reconciliation": {
-   "count": 49,
+   "count": 56,
    "tools": [
+    "make",
     "n8n",
     "quickbooks",
-    "stripe"
+    "stripe",
+    "zoho-books"
    ]
   },
   "client-onboarding": {
-   "count": 23,
+   "count": 33,
    "tools": [
+    "airtable",
+    "calendly",
     "ghl",
     "hubspot",
-    "n8n"
+    "n8n",
+    "notion"
    ]
   },
   "cold-outreach": {
-   "count": 10,
+   "count": 11,
    "tools": [
     "instantly",
     "n8n"
    ]
   },
+  "conversation-design": {
+   "count": 1,
+   "tools": [
+    "vapi"
+   ]
+  },
   "data-collection": {
-   "count": 53,
+   "count": 64,
    "tools": [
     "activecampaign",
     "airtable",
+    "calendly",
     "ghl",
     "google-sheets",
     "hubspot",
     "instantly",
+    "klaviyo",
     "n8n",
     "shopify",
     "stripe",
+    "supabase",
     "zapier"
    ]
   },
   "data-model-architecture": {
-   "count": 18,
+   "count": 33,
    "tools": [
     "airtable",
     "hubspot",
+    "klaviyo",
     "n8n",
-    "pipedrive"
+    "pipedrive",
+    "supabase",
+    "zoho-books"
    ]
   },
   "document-assembly": {
-   "count": 9,
+   "count": 12,
    "tools": [
-    "n8n"
+    "n8n",
+    "slack"
    ]
   },
   "lead-routing": {
-   "count": 43,
+   "count": 53,
    "tools": [
     "activecampaign",
+    "calendly",
     "ghl",
     "hubspot",
     "n8n",
-    "zapier"
+    "slack",
+    "zapier",
+    "zoho"
    ]
   },
   "messaging-compliance": {
-   "count": 10,
+   "count": 21,
    "tools": [
+    "calendly",
     "ghl",
     "instantly",
-    "n8n"
+    "klaviyo",
+    "n8n",
+    "slack",
+    "supabase"
    ]
   },
   "platform-migration": {
-   "count": 13,
+   "count": 16,
    "tools": [
     "ghl",
     "hubspot",
-    "n8n"
+    "n8n",
+    "supabase"
    ]
   },
   "production-takeover": {
@@ -143,30 +180,42 @@
    ]
   },
   "project-ops": {
-   "count": 18,
+   "count": 29,
    "tools": [
+    "airtable",
+    "clickup",
     "monday",
-    "n8n"
+    "n8n",
+    "notion",
+    "zoho"
    ]
   },
   "quote-follow-up": {
-   "count": 15,
+   "count": 27,
    "tools": [
     "activecampaign",
+    "calendly",
     "ghl",
+    "make",
     "n8n",
-    "pipedrive"
+    "pipedrive",
+    "zoho",
+    "zoho-books"
    ]
   },
   "reactivation": {
-   "count": 17,
+   "count": 28,
    "tools": [
+    "calendly",
     "ghl",
-    "n8n"
+    "klaviyo",
+    "n8n",
+    "slack",
+    "supabase"
    ]
   },
   "reporting": {
-   "count": 29,
+   "count": 39,
    "tools": [
     "activecampaign",
     "airtable",
@@ -174,57 +223,79 @@
     "google-sheets",
     "hubspot",
     "n8n",
+    "notion",
     "pipedrive",
     "quickbooks",
     "shopify",
-    "stripe"
+    "slack",
+    "stripe",
+    "supabase",
+    "zoho",
+    "zoho-books"
    ]
   },
   "scheduling": {
-   "count": 19,
+   "count": 33,
    "tools": [
+    "calendly",
     "ghl",
     "google-sheets",
     "n8n",
-    "quickbooks"
+    "notion",
+    "quickbooks",
+    "slack",
+    "vapi"
    ]
   },
   "stalled-deal-escalation": {
-   "count": 46,
+   "count": 56,
    "tools": [
     "activecampaign",
     "ghl",
     "hubspot",
     "n8n",
+    "notion",
     "pipedrive",
-    "zapier"
+    "zapier",
+    "zoho",
+    "zoho-books"
    ]
   },
   "storefront-upsell": {
-   "count": 32,
+   "count": 45,
    "tools": [
+    "klaviyo",
     "n8n",
-    "shopify"
+    "shopify",
+    "supabase"
    ]
   },
   "system-sync": {
-   "count": 20,
+   "count": 54,
    "tools": [
+    "airtable",
     "hubspot",
     "instantly",
+    "make",
     "n8n",
     "quickbooks",
     "shopify",
+    "slack",
     "stripe",
-    "zapier"
+    "supabase",
+    "vapi",
+    "zapier",
+    "zoho",
+    "zoho-books"
    ]
   },
   "voice-agent-intake": {
-   "count": 23,
+   "count": 26,
    "tools": [
     "ghl",
     "n8n",
-    "twilio"
+    "twilio",
+    "vapi"
    ]
   }
  },
@@ -423,6 +494,24 @@
   },
   {
    "shape": "_library",
+   "tool": "make",
+   "view": "module-picker-all-apps",
+   "file": "_library/_library--make--module-picker-all-apps.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "make",
+   "view": "scenarios-list-all-inactive",
+   "file": "_library/_library--make--scenarios-list-all-inactive.jpg"
+  },
+  {
+   "shape": "_library",
+   "tool": "make",
+   "view": "webhooks-module-list",
+   "file": "_library/_library--make--webhooks-module-list.jpg"
+  },
+  {
+   "shape": "_library",
    "tool": "pipedrive",
    "view": "automations-list-all-inactive",
    "file": "_library/_library--pipedrive--automations-list-all-inactive.jpg"
@@ -486,414 +575,6 @@
    "tool": "zapier",
    "view": "zaps-list-all-off",
    "file": "_library/_library--zapier--zaps-list-all-off.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048501505-0",
-   "file": "_rejects/screenshot-1786048501505-0.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048519281-1",
-   "file": "_rejects/screenshot-1786048519281-1.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048527261-2",
-   "file": "_rejects/screenshot-1786048527261-2.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048527261-3",
-   "file": "_rejects/screenshot-1786048527261-3.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048588703-4",
-   "file": "_rejects/screenshot-1786048588703-4.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048602337-5",
-   "file": "_rejects/screenshot-1786048602337-5.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048602337-6",
-   "file": "_rejects/screenshot-1786048602337-6.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048612101-7",
-   "file": "_rejects/screenshot-1786048612101-7.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048625195-8",
-   "file": "_rejects/screenshot-1786048625195-8.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048625196-9",
-   "file": "_rejects/screenshot-1786048625196-9.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048634011-10",
-   "file": "_rejects/screenshot-1786048634011-10.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048644050-11",
-   "file": "_rejects/screenshot-1786048644050-11.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048658359-12",
-   "file": "_rejects/screenshot-1786048658359-12.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048668431-13",
-   "file": "_rejects/screenshot-1786048668431-13.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048708217-14",
-   "file": "_rejects/screenshot-1786048708217-14.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048716885-15",
-   "file": "_rejects/screenshot-1786048716885-15.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048730028-16",
-   "file": "_rejects/screenshot-1786048730028-16.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048741163-17",
-   "file": "_rejects/screenshot-1786048741163-17.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048760709-18",
-   "file": "_rejects/screenshot-1786048760709-18.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048776738-19",
-   "file": "_rejects/screenshot-1786048776738-19.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048787418-20",
-   "file": "_rejects/screenshot-1786048787418-20.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048798169-21",
-   "file": "_rejects/screenshot-1786048798169-21.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048818531-22",
-   "file": "_rejects/screenshot-1786048818531-22.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048834923-23",
-   "file": "_rejects/screenshot-1786048834923-23.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048874135-24",
-   "file": "_rejects/screenshot-1786048874135-24.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048892356-25",
-   "file": "_rejects/screenshot-1786048892356-25.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048970191-26",
-   "file": "_rejects/screenshot-1786048970191-26.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048977436-27",
-   "file": "_rejects/screenshot-1786048977436-27.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786048997700-28",
-   "file": "_rejects/screenshot-1786048997700-28.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786049022765-29",
-   "file": "_rejects/screenshot-1786049022765-29.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786049183264-30",
-   "file": "_rejects/screenshot-1786049183264-30.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786049605087-31",
-   "file": "_rejects/screenshot-1786049605087-31.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786049745821-32",
-   "file": "_rejects/screenshot-1786049745821-32.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786049781026-33",
-   "file": "_rejects/screenshot-1786049781026-33.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786069101228-131",
-   "file": "_rejects/screenshot-1786069101228-131.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786069158833-135",
-   "file": "_rejects/screenshot-1786069158833-135.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786069227404-137",
-   "file": "_rejects/screenshot-1786069227404-137.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786069281596-139",
-   "file": "_rejects/screenshot-1786069281596-139.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786069297864-141",
-   "file": "_rejects/screenshot-1786069297864-141.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786069561103-144",
-   "file": "_rejects/screenshot-1786069561103-144.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786069676539-147",
-   "file": "_rejects/screenshot-1786069676539-147.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786072103542-169",
-   "file": "_rejects/screenshot-1786072103542-169.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786072460794-170",
-   "file": "_rejects/screenshot-1786072460794-170.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786072621648-172",
-   "file": "_rejects/screenshot-1786072621648-172.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786072669844-174",
-   "file": "_rejects/screenshot-1786072669844-174.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786072708041-176",
-   "file": "_rejects/screenshot-1786072708041-176.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786072756166-177",
-   "file": "_rejects/screenshot-1786072756166-177.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786072756166-178",
-   "file": "_rejects/screenshot-1786072756166-178.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786072768807-180",
-   "file": "_rejects/screenshot-1786072768807-180.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786072783884-181",
-   "file": "_rejects/screenshot-1786072783884-181.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786073104650-182",
-   "file": "_rejects/screenshot-1786073104650-182.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786073273571-184",
-   "file": "_rejects/screenshot-1786073273571-184.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786073749587-186",
-   "file": "_rejects/screenshot-1786073749587-186.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786074021476-190",
-   "file": "_rejects/screenshot-1786074021476-190.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786074365721-191",
-   "file": "_rejects/screenshot-1786074365721-191.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786074412694-192",
-   "file": "_rejects/screenshot-1786074412694-192.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786074744096-193",
-   "file": "_rejects/screenshot-1786074744096-193.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786074744099-195",
-   "file": "_rejects/screenshot-1786074744099-195.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786074948127-196",
-   "file": "_rejects/screenshot-1786074948127-196.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786074948128-198",
-   "file": "_rejects/screenshot-1786074948128-198.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786075056123-199",
-   "file": "_rejects/screenshot-1786075056123-199.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786075277509-200",
-   "file": "_rejects/screenshot-1786075277509-200.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786075277510-201",
-   "file": "_rejects/screenshot-1786075277510-201.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786075393856-202",
-   "file": "_rejects/screenshot-1786075393856-202.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786075393857-203",
-   "file": "_rejects/screenshot-1786075393857-203.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786075462796-204",
-   "file": "_rejects/screenshot-1786075462796-204.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786075541654-205",
-   "file": "_rejects/screenshot-1786075541654-205.jpg"
-  },
-  {
-   "shape": "_rejects",
-   "tool": "unknown",
-   "view": "screenshot-1786075627073-207",
-   "file": "_rejects/screenshot-1786075627073-207.jpg"
   },
   {
    "shape": "ai-assistant",
@@ -1084,6 +765,12 @@
   {
    "shape": "ai-assistant",
    "tool": "n8n",
+   "view": "canvas-support-assistant-handoff-rule",
+   "file": "ai-assistant/ai-assistant--n8n--canvas-support-assistant-handoff-rule.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "n8n",
    "view": "kit-canvas-18-nodes",
    "file": "ai-assistant/ai-assistant--n8n--kit-canvas-18-nodes.jpg"
   },
@@ -1098,6 +785,78 @@
    "tool": "n8n",
    "view": "node-v2-gap-report",
    "file": "ai-assistant/ai-assistant--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "n8n",
+   "view": "node-write-versus-flag-the-decision",
+   "file": "ai-assistant/ai-assistant--n8n--node-write-versus-flag-the-decision.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "vapi",
+   "view": "assistant-write-versus-flag-boundary",
+   "file": "ai-assistant/ai-assistant--vapi--assistant-write-versus-flag-boundary.jpg"
+  },
+  {
+   "shape": "ai-assistant",
+   "tool": "vapi",
+   "view": "tool-config-read-only-never-invent",
+   "file": "ai-assistant/ai-assistant--vapi--tool-config-read-only-never-invent.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "n8n",
+   "view": "canvas-knowledge-base-grounded-answer",
+   "file": "ai-research-agent/ai-research-agent--n8n--canvas-knowledge-base-grounded-answer.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "n8n",
+   "view": "kit-canvas-18-nodes",
+   "file": "ai-research-agent/ai-research-agent--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "n8n",
+   "view": "node-v2-decision-if",
+   "file": "ai-research-agent/ai-research-agent--n8n--node-v2-decision-if.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "n8n",
+   "view": "node-v2-gap-report",
+   "file": "ai-research-agent/ai-research-agent--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "rls-policy-using-clause",
+   "file": "ai-research-agent/ai-research-agent--supabase--rls-policy-using-clause.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "row-level-security-policies",
+   "file": "ai-research-agent/ai-research-agent--supabase--row-level-security-policies.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "run-log-failed-then-retried",
+   "file": "ai-research-agent/ai-research-agent--supabase--run-log-failed-then-retried.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "schema-visualizer-foreign-keys",
+   "file": "ai-research-agent/ai-research-agent--supabase--schema-visualizer-foreign-keys.jpg"
+  },
+  {
+   "shape": "ai-research-agent",
+   "tool": "supabase",
+   "view": "weekly-rollup-query",
+   "file": "ai-research-agent/ai-research-agent--supabase--weekly-rollup-query.jpg"
   },
   {
    "shape": "alerting",
@@ -1131,6 +890,36 @@
   },
   {
    "shape": "alerting",
+   "tool": "klaviyo",
+   "view": "flow-both-branches-send-and-suppress",
+   "file": "alerting/alerting--klaviyo--flow-both-branches-send-and-suppress.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "klaviyo",
+   "view": "internal-alert-suppressed-with-reason",
+   "file": "alerting/alerting--klaviyo--internal-alert-suppressed-with-reason.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "make",
+   "view": "scenario-canvas-full",
+   "file": "alerting/alerting--make--scenario-canvas-full.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "make",
+   "view": "schedule-panel-15min-off",
+   "file": "alerting/alerting--make--schedule-panel-15min-off.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "n8n",
+   "view": "canvas-alerting-when-something-goes-quiet",
+   "file": "alerting/alerting--n8n--canvas-alerting-when-something-goes-quiet.jpg"
+  },
+  {
+   "shape": "alerting",
    "tool": "n8n",
    "view": "canvas-watchtower",
    "file": "alerting/alerting--n8n--canvas-watchtower.jpg"
@@ -1152,6 +941,18 @@
    "tool": "n8n",
    "view": "node-deduplicate-on-job-id",
    "file": "alerting/alerting--n8n--node-deduplicate-on-job-id.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "n8n",
+   "view": "node-http-timeout-and-retry-config",
+   "file": "alerting/alerting--n8n--node-http-timeout-and-retry-config.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "n8n",
+   "view": "node-retry-three-tries-then-error-branch",
+   "file": "alerting/alerting--n8n--node-retry-three-tries-then-error-branch.jpg"
   },
   {
    "shape": "alerting",
@@ -1185,9 +986,63 @@
   },
   {
    "shape": "alerting",
+   "tool": "slack",
+   "view": "alert-message-step",
+   "file": "alerting/alerting--slack--alert-message-step.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "approval-step-config",
+   "file": "alerting/alerting--slack--approval-step-config.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "approval-workflow-steps",
+   "file": "alerting/alerting--slack--approval-workflow-steps.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "channel-alert-and-approval-landing",
+   "file": "alerting/alerting--slack--channel-alert-and-approval-landing.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "alerting/alerting--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "slack",
+   "view": "workflow-trigger-picker",
+   "file": "alerting/alerting--slack--workflow-trigger-picker.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "supabase",
+   "view": "run-log-failed-then-retried",
+   "file": "alerting/alerting--supabase--run-log-failed-then-retried.jpg"
+  },
+  {
+   "shape": "alerting",
    "tool": "zapier",
    "view": "zap-history-autoreplay",
    "file": "alerting/alerting--zapier--zap-history-autoreplay.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "alerting/alerting--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "alerting",
+   "tool": "zoho-books",
+   "view": "payment-matched-short-balance-remains",
+   "file": "alerting/alerting--zoho-books--payment-matched-short-balance-remains.jpg"
   },
   {
    "shape": "approval-routing",
@@ -1212,6 +1067,12 @@
    "tool": "airtable",
    "view": "rollup-manager-approval-gate",
    "file": "approval-routing/approval-routing--airtable--rollup-manager-approval-gate.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "n8n",
+   "view": "canvas-approval-routing-with-timeout",
+   "file": "approval-routing/approval-routing--n8n--canvas-approval-routing-with-timeout.jpg"
   },
   {
    "shape": "approval-routing",
@@ -1292,10 +1153,88 @@
    "file": "approval-routing/approval-routing--pipedrive--on-hold-reason-field-options.jpg"
   },
   {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "alert-message-step",
+   "file": "approval-routing/approval-routing--slack--alert-message-step.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "approval-step-config",
+   "file": "approval-routing/approval-routing--slack--approval-step-config.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "approval-workflow-steps",
+   "file": "approval-routing/approval-routing--slack--approval-workflow-steps.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "approve-write-back-and-flagged-not-written",
+   "file": "approval-routing/approval-routing--slack--approve-write-back-and-flagged-not-written.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "approval-routing/approval-routing--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "slack",
+   "view": "workflow-trigger-picker",
+   "file": "approval-routing/approval-routing--slack--workflow-trigger-picker.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "approval-routing/approval-routing--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "zoho",
+   "view": "escalation-task-config",
+   "file": "approval-routing/approval-routing--zoho--escalation-task-config.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "zoho",
+   "view": "webhook-handoff-config",
+   "file": "approval-routing/approval-routing--zoho--webhook-handoff-config.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "zoho",
+   "view": "workflow-rules-list",
+   "file": "approval-routing/approval-routing--zoho--workflow-rules-list.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "make",
+   "view": "scenario-canvas-full",
+   "file": "books-reconciliation/books-reconciliation--make--scenario-canvas-full.jpg"
+  },
+  {
    "shape": "books-reconciliation",
    "tool": "n8n",
    "view": "canvas-books-bridge",
    "file": "books-reconciliation/books-reconciliation--n8n--canvas-books-bridge.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "n8n",
+   "view": "canvas-invoice-chasing-by-age",
+   "file": "books-reconciliation/books-reconciliation--n8n--canvas-invoice-chasing-by-age.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "n8n",
+   "view": "canvas-payment-matched-to-invoice",
+   "file": "books-reconciliation/books-reconciliation--n8n--canvas-payment-matched-to-invoice.jpg"
   },
   {
    "shape": "books-reconciliation",
@@ -1586,6 +1525,60 @@
    "file": "books-reconciliation/books-reconciliation--stripe--unpaid-open-invoice.jpg"
   },
   {
+   "shape": "books-reconciliation",
+   "tool": "zoho-books",
+   "view": "ar-aging-summary-by-due-date",
+   "file": "books-reconciliation/books-reconciliation--zoho-books--ar-aging-summary-by-due-date.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "zoho-books",
+   "view": "invoice-ledger-paid-overdue-due",
+   "file": "books-reconciliation/books-reconciliation--zoho-books--invoice-ledger-paid-overdue-due.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "zoho-books",
+   "view": "payment-matched-short-balance-remains",
+   "file": "books-reconciliation/books-reconciliation--zoho-books--payment-matched-short-balance-remains.jpg"
+  },
+  {
+   "shape": "books-reconciliation",
+   "tool": "zoho-books",
+   "view": "payments-matched-to-invoices",
+   "file": "books-reconciliation/books-reconciliation--zoho-books--payments-matched-to-invoices.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "airtable",
+   "view": "deal-to-project-handoff",
+   "file": "client-onboarding/client-onboarding--airtable--deal-to-project-handoff.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "calendly",
+   "view": "no-show-workflow-trigger",
+   "file": "client-onboarding/client-onboarding--calendly--no-show-workflow-trigger.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "calendly",
+   "view": "routing-form-question",
+   "file": "client-onboarding/client-onboarding--calendly--routing-form-question.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "calendly",
+   "view": "routing-rule-if-then",
+   "file": "client-onboarding/client-onboarding--calendly--routing-rule-if-then.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "client-onboarding/client-onboarding--calendly--routing-rule-saved.jpg"
+  },
+  {
    "shape": "client-onboarding",
    "tool": "ghl",
    "view": "canvas-full-7-nodes",
@@ -1678,6 +1671,18 @@
   {
    "shape": "client-onboarding",
    "tool": "n8n",
+   "view": "canvas-onboarding-kickoff-to-access",
+   "file": "client-onboarding/client-onboarding--n8n--canvas-onboarding-kickoff-to-access.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "n8n",
+   "view": "canvas-welcome-series-consent-check",
+   "file": "client-onboarding/client-onboarding--n8n--canvas-welcome-series-consent-check.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "n8n",
    "view": "kit-canvas-18-nodes",
    "file": "client-onboarding/client-onboarding--n8n--kit-canvas-18-nodes.jpg"
   },
@@ -1724,6 +1729,24 @@
    "file": "client-onboarding/client-onboarding--n8n--node-validate-what-arrived.jpg"
   },
   {
+   "shape": "client-onboarding",
+   "tool": "notion",
+   "view": "clients-relation-rollup",
+   "file": "client-onboarding/client-onboarding--notion--clients-relation-rollup.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "notion",
+   "view": "intake-checklist-template",
+   "file": "client-onboarding/client-onboarding--notion--intake-checklist-template.jpg"
+  },
+  {
+   "shape": "client-onboarding",
+   "tool": "notion",
+   "view": "job-record-properties",
+   "file": "client-onboarding/client-onboarding--notion--job-record-properties.jpg"
+  },
+  {
    "shape": "cold-outreach",
    "tool": "instantly",
    "view": "advanced-options",
@@ -1768,6 +1791,12 @@
   {
    "shape": "cold-outreach",
    "tool": "n8n",
+   "view": "canvas-cold-outreach-reply-guard",
+   "file": "cold-outreach/cold-outreach--n8n--canvas-cold-outreach-reply-guard.jpg"
+  },
+  {
+   "shape": "cold-outreach",
+   "tool": "n8n",
    "view": "kit-canvas-18-nodes",
    "file": "cold-outreach/cold-outreach--n8n--kit-canvas-18-nodes.jpg"
   },
@@ -1782,6 +1811,12 @@
    "tool": "n8n",
    "view": "node-v2-gap-report",
    "file": "cold-outreach/cold-outreach--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "conversation-design",
+   "tool": "vapi",
+   "view": "assistant-write-versus-flag-boundary",
+   "file": "conversation-design/conversation-design--vapi--assistant-write-versus-flag-boundary.jpg"
   },
   {
    "shape": "data-collection",
@@ -1830,6 +1865,24 @@
    "tool": "airtable",
    "view": "incidents-table-populated",
    "file": "data-collection/data-collection--airtable--incidents-table-populated.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "calendly",
+   "view": "routing-form-question",
+   "file": "data-collection/data-collection--calendly--routing-form-question.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "calendly",
+   "view": "routing-rule-if-then",
+   "file": "data-collection/data-collection--calendly--routing-rule-if-then.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "data-collection/data-collection--calendly--routing-rule-saved.jpg"
   },
   {
    "shape": "data-collection",
@@ -2013,6 +2066,30 @@
   },
   {
    "shape": "data-collection",
+   "tool": "klaviyo",
+   "view": "segment-members-example-addresses",
+   "file": "data-collection/data-collection--klaviyo--segment-members-example-addresses.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "klaviyo",
+   "view": "waitlist-40-profiles-imported",
+   "file": "data-collection/data-collection--klaviyo--waitlist-40-profiles-imported.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
+   "view": "canvas-applicant-flow-to-shortlist",
+   "file": "data-collection/data-collection--n8n--canvas-applicant-flow-to-shortlist.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
+   "view": "canvas-intake-form-clean-record",
+   "file": "data-collection/data-collection--n8n--canvas-intake-form-clean-record.jpg"
+  },
+  {
+   "shape": "data-collection",
    "tool": "n8n",
    "view": "canvas-list-to-ledger",
    "file": "data-collection/data-collection--n8n--canvas-list-to-ledger.jpg"
@@ -2068,6 +2145,12 @@
   {
    "shape": "data-collection",
    "tool": "n8n",
+   "view": "node-validate-or-refuse-never-half-a-record",
+   "file": "data-collection/data-collection--n8n--node-validate-or-refuse-never-half-a-record.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "n8n",
    "view": "node-validate-what-arrived",
    "file": "data-collection/data-collection--n8n--node-validate-what-arrived.jpg"
   },
@@ -2082,6 +2165,24 @@
    "tool": "stripe",
    "view": "customers-list",
    "file": "data-collection/data-collection--stripe--customers-list.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "supabase",
+   "view": "dedupe-query-in-sql-editor",
+   "file": "data-collection/data-collection--supabase--dedupe-query-in-sql-editor.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "supabase",
+   "view": "raw-inbox-landing-table",
+   "file": "data-collection/data-collection--supabase--raw-inbox-landing-table.jpg"
+  },
+  {
+   "shape": "data-collection",
+   "tool": "supabase",
+   "view": "run-log-failed-then-retried",
+   "file": "data-collection/data-collection--supabase--run-log-failed-then-retried.jpg"
   },
   {
    "shape": "data-collection",
@@ -2110,8 +2211,26 @@
   {
    "shape": "data-model-architecture",
    "tool": "airtable",
+   "view": "days-in-phase-formula",
+   "file": "data-model-architecture/data-model-architecture--airtable--days-in-phase-formula.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "airtable",
+   "view": "deals-field-schema",
+   "file": "data-model-architecture/data-model-architecture--airtable--deals-field-schema.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "airtable",
    "view": "field-type-picker",
    "file": "data-model-architecture/data-model-architecture--airtable--field-type-picker.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "airtable",
+   "view": "link-to-deals-field-config",
+   "file": "data-model-architecture/data-model-architecture--airtable--link-to-deals-field-config.jpg"
   },
   {
    "shape": "data-model-architecture",
@@ -2187,9 +2306,33 @@
   },
   {
    "shape": "data-model-architecture",
+   "tool": "klaviyo",
+   "view": "profile-consent-and-companion-properties",
+   "file": "data-model-architecture/data-model-architecture--klaviyo--profile-consent-and-companion-properties.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "klaviyo",
+   "view": "segment-definition-consent-and-exclusion",
+   "file": "data-model-architecture/data-model-architecture--klaviyo--segment-definition-consent-and-exclusion.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "n8n",
+   "view": "canvas-dedupe-with-merge-rule",
+   "file": "data-model-architecture/data-model-architecture--n8n--canvas-dedupe-with-merge-rule.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
    "tool": "n8n",
    "view": "kit-canvas-18-nodes",
    "file": "data-model-architecture/data-model-architecture--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "n8n",
+   "view": "node-dedupe-idempotency-key",
+   "file": "data-model-architecture/data-model-architecture--n8n--node-dedupe-idempotency-key.jpg"
   },
   {
    "shape": "data-model-architecture",
@@ -2208,6 +2351,60 @@
    "tool": "pipedrive",
    "view": "custom-fields-list",
    "file": "data-model-architecture/data-model-architecture--pipedrive--custom-fields-list.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "companion-gap-query",
+   "file": "data-model-architecture/data-model-architecture--supabase--companion-gap-query.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "dedupe-query-in-sql-editor",
+   "file": "data-model-architecture/data-model-architecture--supabase--dedupe-query-in-sql-editor.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "orders-table-editor",
+   "file": "data-model-architecture/data-model-architecture--supabase--orders-table-editor.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "rls-policy-using-clause",
+   "file": "data-model-architecture/data-model-architecture--supabase--rls-policy-using-clause.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "row-level-security-policies",
+   "file": "data-model-architecture/data-model-architecture--supabase--row-level-security-policies.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "schema-visualizer-foreign-keys",
+   "file": "data-model-architecture/data-model-architecture--supabase--schema-visualizer-foreign-keys.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "supabase",
+   "view": "weekly-rollup-query",
+   "file": "data-model-architecture/data-model-architecture--supabase--weekly-rollup-query.jpg"
+  },
+  {
+   "shape": "data-model-architecture",
+   "tool": "zoho-books",
+   "view": "payments-matched-to-invoices",
+   "file": "data-model-architecture/data-model-architecture--zoho-books--payments-matched-to-invoices.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "n8n",
+   "view": "canvas-document-assembly-and-signature",
+   "file": "document-assembly/document-assembly--n8n--canvas-document-assembly-and-signature.jpg"
   },
   {
    "shape": "document-assembly",
@@ -2264,6 +2461,18 @@
    "file": "document-assembly/document-assembly--n8n--node-validate-what-arrived.jpg"
   },
   {
+   "shape": "document-assembly",
+   "tool": "slack",
+   "view": "approval-step-config",
+   "file": "document-assembly/document-assembly--slack--approval-step-config.jpg"
+  },
+  {
+   "shape": "document-assembly",
+   "tool": "slack",
+   "view": "approval-workflow-steps",
+   "file": "document-assembly/document-assembly--slack--approval-workflow-steps.jpg"
+  },
+  {
    "shape": "lead-routing",
    "tool": "activecampaign",
    "view": "segment-builder-compound",
@@ -2274,6 +2483,30 @@
    "tool": "activecampaign",
    "view": "segments-list-saved",
    "file": "lead-routing/lead-routing--activecampaign--segments-list-saved.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "calendly",
+   "view": "routing-condition-detail",
+   "file": "lead-routing/lead-routing--calendly--routing-condition-detail.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "calendly",
+   "view": "routing-form-question",
+   "file": "lead-routing/lead-routing--calendly--routing-form-question.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "calendly",
+   "view": "routing-rule-if-then",
+   "file": "lead-routing/lead-routing--calendly--routing-rule-if-then.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "lead-routing/lead-routing--calendly--routing-rule-saved.jpg"
   },
   {
    "shape": "lead-routing",
@@ -2464,6 +2697,12 @@
   {
    "shape": "lead-routing",
    "tool": "n8n",
+   "view": "canvas-speed-to-lead-five-minutes",
+   "file": "lead-routing/lead-routing--n8n--canvas-speed-to-lead-five-minutes.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "n8n",
    "view": "canvas-speed-to-lead",
    "file": "lead-routing/lead-routing--n8n--canvas-speed-to-lead.jpg"
   },
@@ -2517,9 +2756,45 @@
   },
   {
    "shape": "lead-routing",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "lead-routing/lead-routing--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "lead-routing",
    "tool": "zapier",
    "view": "filter-real-conditions",
    "file": "lead-routing/lead-routing--zapier--filter-real-conditions.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "lead-routing/lead-routing--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zoho",
+   "view": "stalled-deals-kanban",
+   "file": "lead-routing/lead-routing--zoho--stalled-deals-kanban.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zoho",
+   "view": "stalled-view-criteria",
+   "file": "lead-routing/lead-routing--zoho--stalled-view-criteria.jpg"
+  },
+  {
+   "shape": "lead-routing",
+   "tool": "zoho",
+   "view": "webhook-handoff-config",
+   "file": "lead-routing/lead-routing--zoho--webhook-handoff-config.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "messaging-compliance/messaging-compliance--calendly--routing-rule-saved.jpg"
   },
   {
    "shape": "messaging-compliance",
@@ -2565,6 +2840,48 @@
   },
   {
    "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "flow-both-branches-send-and-suppress",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--flow-both-branches-send-and-suppress.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "flow-canvas-companion-split-full",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--flow-canvas-companion-split-full.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "internal-alert-suppressed-with-reason",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--internal-alert-suppressed-with-reason.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "profile-consent-and-companion-properties",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--profile-consent-and-companion-properties.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "profile-consent-state-and-custom-properties",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--profile-consent-state-and-custom-properties.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "klaviyo",
+   "view": "segment-definition-consent-and-exclusion",
+   "file": "messaging-compliance/messaging-compliance--klaviyo--segment-definition-consent-and-exclusion.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "n8n",
+   "view": "canvas-consent-reachability-audit",
+   "file": "messaging-compliance/messaging-compliance--n8n--canvas-consent-reachability-audit.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
    "tool": "n8n",
    "view": "kit-canvas-18-nodes",
    "file": "messaging-compliance/messaging-compliance--n8n--kit-canvas-18-nodes.jpg"
@@ -2580,6 +2897,24 @@
    "tool": "n8n",
    "view": "node-v2-gap-report",
    "file": "messaging-compliance/messaging-compliance--n8n--node-v2-gap-report.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "messaging-compliance/messaging-compliance--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "supabase",
+   "view": "rls-policy-using-clause",
+   "file": "messaging-compliance/messaging-compliance--supabase--rls-policy-using-clause.jpg"
+  },
+  {
+   "shape": "messaging-compliance",
+   "tool": "supabase",
+   "view": "row-level-security-policies",
+   "file": "messaging-compliance/messaging-compliance--supabase--row-level-security-policies.jpg"
   },
   {
    "shape": "platform-migration",
@@ -2610,6 +2945,12 @@
    "tool": "hubspot",
    "view": "import-summary-26-records-0-errors",
    "file": "platform-migration/platform-migration--hubspot--import-summary-26-records-0-errors.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "n8n",
+   "view": "canvas-migration-verified-test-batch",
+   "file": "platform-migration/platform-migration--n8n--canvas-migration-verified-test-batch.jpg"
   },
   {
    "shape": "platform-migration",
@@ -2660,6 +3001,18 @@
    "file": "platform-migration/platform-migration--n8n--node-validate-what-arrived.jpg"
   },
   {
+   "shape": "platform-migration",
+   "tool": "supabase",
+   "view": "dedupe-query-in-sql-editor",
+   "file": "platform-migration/platform-migration--supabase--dedupe-query-in-sql-editor.jpg"
+  },
+  {
+   "shape": "platform-migration",
+   "tool": "supabase",
+   "view": "raw-inbox-landing-table",
+   "file": "platform-migration/platform-migration--supabase--raw-inbox-landing-table.jpg"
+  },
+  {
    "shape": "production-takeover",
    "tool": "n8n",
    "view": "kit-canvas-18-nodes",
@@ -2706,6 +3059,30 @@
    "tool": "n8n",
    "view": "node-validate-what-arrived",
    "file": "production-takeover/production-takeover--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "airtable",
+   "view": "delivery-projects-linked-to-deals",
+   "file": "project-ops/project-ops--airtable--delivery-projects-linked-to-deals.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "airtable",
+   "view": "phase-board-kanban",
+   "file": "project-ops/project-ops--airtable--phase-board-kanban.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "clickup",
+   "view": "jobs-board-by-stage",
+   "file": "project-ops/project-ops--clickup--jobs-board-by-stage.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "clickup",
+   "view": "jobs-list-grouped-by-status-with-custom-fields",
+   "file": "project-ops/project-ops--clickup--jobs-list-grouped-by-status-with-custom-fields.jpg"
   },
   {
    "shape": "project-ops",
@@ -2800,8 +3177,26 @@
   {
    "shape": "project-ops",
    "tool": "n8n",
+   "view": "canvas-project-ops-template-to-workload",
+   "file": "project-ops/project-ops--n8n--canvas-project-ops-template-to-workload.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "n8n",
    "view": "kit-canvas-18-nodes",
    "file": "project-ops/project-ops--n8n--kit-canvas-18-nodes.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "n8n",
+   "view": "node-decision-over-their-limit",
+   "file": "project-ops/project-ops--n8n--node-decision-over-their-limit.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "n8n",
+   "view": "node-the-sweep-what-nobody-noticed",
+   "file": "project-ops/project-ops--n8n--node-the-sweep-what-nobody-noticed.jpg"
   },
   {
    "shape": "project-ops",
@@ -2816,6 +3211,30 @@
    "file": "project-ops/project-ops--n8n--node-v2-gap-report.jpg"
   },
   {
+   "shape": "project-ops",
+   "tool": "notion",
+   "view": "board-by-stage",
+   "file": "project-ops/project-ops--notion--board-by-stage.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "notion",
+   "view": "job-handoff-runbook",
+   "file": "project-ops/project-ops--notion--job-handoff-runbook.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "notion",
+   "view": "jobs-database-table",
+   "file": "project-ops/project-ops--notion--jobs-database-table.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "zoho",
+   "view": "stalled-deals-kanban",
+   "file": "project-ops/project-ops--zoho--stalled-deals-kanban.jpg"
+  },
+  {
    "shape": "quote-follow-up",
    "tool": "activecampaign",
    "view": "automation-canvas-branching",
@@ -2826,6 +3245,12 @@
    "tool": "activecampaign",
    "view": "reply-gate-condition",
    "file": "quote-follow-up/quote-follow-up--activecampaign--reply-gate-condition.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "calendly",
+   "view": "no-show-workflow-trigger",
+   "file": "quote-follow-up/quote-follow-up--calendly--no-show-workflow-trigger.jpg"
   },
   {
    "shape": "quote-follow-up",
@@ -2844,6 +3269,30 @@
    "tool": "ghl",
    "view": "email-action-merge-chip",
    "file": "quote-follow-up/quote-follow-up--ghl--email-action-merge-chip.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "make",
+   "view": "router-reply-gate",
+   "file": "quote-follow-up/quote-follow-up--make--router-reply-gate.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "make",
+   "view": "scenario-canvas-full",
+   "file": "quote-follow-up/quote-follow-up--make--scenario-canvas-full.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "n8n",
+   "view": "canvas-quote-follow-up-ladder",
+   "file": "quote-follow-up/quote-follow-up--n8n--canvas-quote-follow-up-ladder.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "n8n",
+   "view": "canvas-review-request-after-delivery",
+   "file": "quote-follow-up/quote-follow-up--n8n--canvas-review-request-after-delivery.jpg"
   },
   {
    "shape": "quote-follow-up",
@@ -2906,6 +3355,60 @@
    "file": "quote-follow-up/quote-follow-up--pipedrive--automation-action-call-in-2-days.jpg"
   },
   {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "quote-follow-up/quote-follow-up--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "escalation-task-config",
+   "file": "quote-follow-up/quote-follow-up--zoho--escalation-task-config.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "stalled-deals-kanban",
+   "file": "quote-follow-up/quote-follow-up--zoho--stalled-deals-kanban.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "stalled-deals-list",
+   "file": "quote-follow-up/quote-follow-up--zoho--stalled-deals-list.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho",
+   "view": "stalled-view-criteria",
+   "file": "quote-follow-up/quote-follow-up--zoho--stalled-view-criteria.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho-books",
+   "view": "ar-aging-summary-by-due-date",
+   "file": "quote-follow-up/quote-follow-up--zoho-books--ar-aging-summary-by-due-date.jpg"
+  },
+  {
+   "shape": "quote-follow-up",
+   "tool": "zoho-books",
+   "view": "invoice-ledger-paid-overdue-due",
+   "file": "quote-follow-up/quote-follow-up--zoho-books--invoice-ledger-paid-overdue-due.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "calendly",
+   "view": "no-show-email-template",
+   "file": "reactivation/reactivation--calendly--no-show-email-template.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "calendly",
+   "view": "no-show-workflow-trigger",
+   "file": "reactivation/reactivation--calendly--no-show-workflow-trigger.jpg"
+  },
+  {
    "shape": "reactivation",
    "tool": "ghl",
    "view": "canvas-after-sms",
@@ -2961,6 +3464,48 @@
   },
   {
    "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "flow-both-branches-send-and-suppress",
+   "file": "reactivation/reactivation--klaviyo--flow-both-branches-send-and-suppress.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "flow-canvas-companion-split-full",
+   "file": "reactivation/reactivation--klaviyo--flow-canvas-companion-split-full.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "profile-consent-and-companion-properties",
+   "file": "reactivation/reactivation--klaviyo--profile-consent-and-companion-properties.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "segment-definition-consent-and-exclusion",
+   "file": "reactivation/reactivation--klaviyo--segment-definition-consent-and-exclusion.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "klaviyo",
+   "view": "segment-members-example-addresses",
+   "file": "reactivation/reactivation--klaviyo--segment-members-example-addresses.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "n8n",
+   "view": "canvas-review-ask-after-job-closes",
+   "file": "reactivation/reactivation--n8n--canvas-review-ask-after-job-closes.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "n8n",
+   "view": "canvas-winback-lapsed-full-cycle",
+   "file": "reactivation/reactivation--n8n--canvas-winback-lapsed-full-cycle.jpg"
+  },
+  {
+   "shape": "reactivation",
    "tool": "n8n",
    "view": "kit-canvas-18-nodes",
    "file": "reactivation/reactivation--n8n--kit-canvas-18-nodes.jpg"
@@ -3008,6 +3553,18 @@
    "file": "reactivation/reactivation--n8n--node-validate-what-arrived.jpg"
   },
   {
+   "shape": "reactivation",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "reactivation/reactivation--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "reactivation",
+   "tool": "supabase",
+   "view": "companion-gap-query",
+   "file": "reactivation/reactivation--supabase--companion-gap-query.jpg"
+  },
+  {
    "shape": "reporting",
    "tool": "activecampaign",
    "view": "deal-funnel-report",
@@ -3042,6 +3599,12 @@
    "tool": "airtable",
    "view": "monthly-evaluations-scores",
    "file": "reporting/reporting--airtable--monthly-evaluations-scores.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "airtable",
+   "view": "sync-health-deal-count-by-status",
+   "file": "reporting/reporting--airtable--sync-health-deal-count-by-status.jpg"
   },
   {
    "shape": "reporting",
@@ -3088,6 +3651,12 @@
   {
    "shape": "reporting",
    "tool": "n8n",
+   "view": "canvas-reporting-rollup-two-sources-agree",
+   "file": "reporting/reporting--n8n--canvas-reporting-rollup-two-sources-agree.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "n8n",
    "view": "kit-canvas-18-nodes",
    "file": "reporting/reporting--n8n--kit-canvas-18-nodes.jpg"
   },
@@ -3102,6 +3671,12 @@
    "tool": "n8n",
    "view": "node-deduplicate-on-period",
    "file": "reporting/reporting--n8n--node-deduplicate-on-period.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "n8n",
+   "view": "node-log-the-run-both-paths",
+   "file": "reporting/reporting--n8n--node-log-the-run-both-paths.jpg"
   },
   {
    "shape": "reporting",
@@ -3132,6 +3707,12 @@
    "tool": "n8n",
    "view": "node-validate-what-arrived",
    "file": "reporting/reporting--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "notion",
+   "view": "worst-first-with-totals",
+   "file": "reporting/reporting--notion--worst-first-with-totals.jpg"
   },
   {
    "shape": "reporting",
@@ -3177,9 +3758,93 @@
   },
   {
    "shape": "reporting",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "reporting/reporting--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "reporting",
    "tool": "stripe",
    "view": "billing-mrr-arr",
    "file": "reporting/reporting--stripe--billing-mrr-arr.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "supabase",
+   "view": "weekly-rollup-query",
+   "file": "reporting/reporting--supabase--weekly-rollup-query.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "zoho",
+   "view": "stalled-deals-list",
+   "file": "reporting/reporting--zoho--stalled-deals-list.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "zoho-books",
+   "view": "ar-aging-summary-by-due-date",
+   "file": "reporting/reporting--zoho-books--ar-aging-summary-by-due-date.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "zoho-books",
+   "view": "invoice-ledger-paid-overdue-due",
+   "file": "reporting/reporting--zoho-books--invoice-ledger-paid-overdue-due.jpg"
+  },
+  {
+   "shape": "reporting",
+   "tool": "zoho-books",
+   "view": "payments-matched-to-invoices",
+   "file": "reporting/reporting--zoho-books--payments-matched-to-invoices.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "no-show-email-template",
+   "file": "scheduling/scheduling--calendly--no-show-email-template.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "no-show-workflow-config",
+   "file": "scheduling/scheduling--calendly--no-show-workflow-config.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "no-show-workflow-trigger",
+   "file": "scheduling/scheduling--calendly--no-show-workflow-trigger.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "routing-condition-detail",
+   "file": "scheduling/scheduling--calendly--routing-condition-detail.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "routing-form-question",
+   "file": "scheduling/scheduling--calendly--routing-form-question.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "routing-rule-if-then",
+   "file": "scheduling/scheduling--calendly--routing-rule-if-then.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "routing-rule-saved",
+   "file": "scheduling/scheduling--calendly--routing-rule-saved.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "calendly",
+   "view": "workflow-list-no-show-trigger",
+   "file": "scheduling/scheduling--calendly--workflow-list-no-show-trigger.jpg"
   },
   {
    "shape": "scheduling",
@@ -3238,8 +3903,20 @@
   {
    "shape": "scheduling",
    "tool": "n8n",
+   "view": "canvas-appointment-reminders-confirmations",
+   "file": "scheduling/scheduling--n8n--canvas-appointment-reminders-confirmations.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "n8n",
    "view": "canvas-booked-solid",
    "file": "scheduling/scheduling--n8n--canvas-booked-solid.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "n8n",
+   "view": "canvas-no-show-recovery",
+   "file": "scheduling/scheduling--n8n--canvas-no-show-recovery.jpg"
   },
   {
    "shape": "scheduling",
@@ -3291,9 +3968,33 @@
   },
   {
    "shape": "scheduling",
+   "tool": "notion",
+   "view": "site-visit-calendar",
+   "file": "scheduling/scheduling--notion--site-visit-calendar.jpg"
+  },
+  {
+   "shape": "scheduling",
    "tool": "quickbooks",
    "view": "recurring-transactions",
    "file": "scheduling/scheduling--quickbooks--recurring-transactions.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "scheduling/scheduling--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "vapi",
+   "view": "assistant-write-versus-flag-boundary",
+   "file": "scheduling/scheduling--vapi--assistant-write-versus-flag-boundary.jpg"
+  },
+  {
+   "shape": "scheduling",
+   "tool": "vapi",
+   "view": "tool-config-read-only-never-invent",
+   "file": "scheduling/scheduling--vapi--tool-config-read-only-never-invent.jpg"
   },
   {
    "shape": "stalled-deal-escalation",
@@ -3454,6 +4155,12 @@
   {
    "shape": "stalled-deal-escalation",
    "tool": "n8n",
+   "view": "canvas-stalled-deal-stage-clock",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--canvas-stalled-deal-stage-clock.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "n8n",
    "view": "kit-canvas-18-nodes",
    "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--kit-canvas-18-nodes.jpg"
   },
@@ -3498,6 +4205,12 @@
    "tool": "n8n",
    "view": "node-validate-what-arrived",
    "file": "stalled-deal-escalation/stalled-deal-escalation--n8n--node-validate-what-arrived.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "notion",
+   "view": "stalled-jobs-filtered-view",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--notion--stalled-jobs-filtered-view.jpg"
   },
   {
    "shape": "stalled-deal-escalation",
@@ -3572,10 +4285,124 @@
    "file": "stalled-deal-escalation/stalled-deal-escalation--zapier--paths-canvas.jpg"
   },
   {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "escalation-rule-diagram",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--escalation-rule-diagram.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "escalation-task-config",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--escalation-task-config.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "stalled-deals-kanban",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--stalled-deals-kanban.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "stalled-deals-list",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--stalled-deals-list.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "stalled-view-criteria",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--stalled-view-criteria.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "webhook-handoff-config",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--webhook-handoff-config.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho",
+   "view": "workflow-rules-list",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho--workflow-rules-list.jpg"
+  },
+  {
+   "shape": "stalled-deal-escalation",
+   "tool": "zoho-books",
+   "view": "ar-aging-summary-by-due-date",
+   "file": "stalled-deal-escalation/stalled-deal-escalation--zoho-books--ar-aging-summary-by-due-date.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "flow-both-branches-send-and-suppress",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--flow-both-branches-send-and-suppress.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "flow-canvas-companion-split-full",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--flow-canvas-companion-split-full.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "flow-companion-offer-email-on-the-reachable-path",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--flow-companion-offer-email-on-the-reachable-path.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "flow-post-purchase-companion-split",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--flow-post-purchase-companion-split.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "internal-alert-suppressed-with-reason",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--internal-alert-suppressed-with-reason.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "profile-consent-and-companion-properties",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--profile-consent-and-companion-properties.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "segment-companion-never-bought-and-reachable",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--segment-companion-never-bought-and-reachable.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "segment-definition-consent-and-exclusion",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--segment-definition-consent-and-exclusion.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "klaviyo",
+   "view": "segment-members-example-addresses",
+   "file": "storefront-upsell/storefront-upsell--klaviyo--segment-members-example-addresses.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "n8n",
+   "view": "canvas-abandoned-checkout-full-cycle",
+   "file": "storefront-upsell/storefront-upsell--n8n--canvas-abandoned-checkout-full-cycle.jpg"
+  },
+  {
    "shape": "storefront-upsell",
    "tool": "n8n",
    "view": "canvas-ecommerce-order-ops",
    "file": "storefront-upsell/storefront-upsell--n8n--canvas-ecommerce-order-ops.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "n8n",
+   "view": "canvas-post-purchase-companion-full-cycle",
+   "file": "storefront-upsell/storefront-upsell--n8n--canvas-post-purchase-companion-full-cycle.jpg"
   },
   {
    "shape": "storefront-upsell",
@@ -3764,6 +4591,84 @@
    "file": "storefront-upsell/storefront-upsell--shopify--variants-and-inventory.jpg"
   },
   {
+   "shape": "storefront-upsell",
+   "tool": "supabase",
+   "view": "companion-gap-query",
+   "file": "storefront-upsell/storefront-upsell--supabase--companion-gap-query.jpg"
+  },
+  {
+   "shape": "storefront-upsell",
+   "tool": "supabase",
+   "view": "orders-table-editor",
+   "file": "storefront-upsell/storefront-upsell--supabase--orders-table-editor.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "airtable",
+   "view": "automation-off-not-enabled",
+   "file": "system-sync/system-sync--airtable--automation-off-not-enabled.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "airtable",
+   "view": "automation-push-back-condition",
+   "file": "system-sync/system-sync--airtable--automation-push-back-condition.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "airtable",
+   "view": "automation-push-back-flow",
+   "file": "system-sync/system-sync--airtable--automation-push-back-flow.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "airtable",
+   "view": "deals-table-source-system-external-id",
+   "file": "system-sync/system-sync--airtable--deals-table-source-system-external-id.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "airtable",
+   "view": "last-write-origin-echo-guard",
+   "file": "system-sync/system-sync--airtable--last-write-origin-echo-guard.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "airtable",
+   "view": "needs-attention-filter-condition",
+   "file": "system-sync/system-sync--airtable--needs-attention-filter-condition.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "airtable",
+   "view": "needs-attention-filtered-view",
+   "file": "system-sync/system-sync--airtable--needs-attention-filtered-view.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "airtable",
+   "view": "sync-log-audit-trail",
+   "file": "system-sync/system-sync--airtable--sync-log-audit-trail.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "airtable",
+   "view": "sync-log-echo-skipped",
+   "file": "system-sync/system-sync--airtable--sync-log-echo-skipped.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "airtable",
+   "view": "sync-log-grouped-by-result",
+   "file": "system-sync/system-sync--airtable--sync-log-grouped-by-result.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "airtable",
+   "view": "sync-log-result-group-counts",
+   "file": "system-sync/system-sync--airtable--sync-log-result-group-counts.jpg"
+  },
+  {
    "shape": "system-sync",
    "tool": "hubspot",
    "view": "connected-apps",
@@ -3783,9 +4688,69 @@
   },
   {
    "shape": "system-sync",
+   "tool": "make",
+   "view": "data-store-checkpoints",
+   "file": "system-sync/system-sync--make--data-store-checkpoints.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "make",
+   "view": "error-handler-config-retry",
+   "file": "system-sync/system-sync--make--error-handler-config-retry.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "make",
+   "view": "error-handler-on-http",
+   "file": "system-sync/system-sync--make--error-handler-on-http.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "make",
+   "view": "router-filter-echo-guard",
+   "file": "system-sync/system-sync--make--router-filter-echo-guard.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "make",
+   "view": "scenario-canvas-full",
+   "file": "system-sync/system-sync--make--scenario-canvas-full.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "make",
+   "view": "scenario-settings-advanced",
+   "file": "system-sync/system-sync--make--scenario-settings-advanced.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "make",
+   "view": "scenario-settings-sequential",
+   "file": "system-sync/system-sync--make--scenario-settings-sequential.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "make",
+   "view": "schedule-panel-off",
+   "file": "system-sync/system-sync--make--schedule-panel-off.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "n8n",
+   "view": "canvas-inventory-oversell-guard",
+   "file": "system-sync/system-sync--n8n--canvas-inventory-oversell-guard.jpg"
+  },
+  {
+   "shape": "system-sync",
    "tool": "n8n",
    "view": "canvas-two-way-bridge",
    "file": "system-sync/system-sync--n8n--canvas-two-way-bridge.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "n8n",
+   "view": "canvas-two-way-sync-conflict-rule",
+   "file": "system-sync/system-sync--n8n--canvas-two-way-sync-conflict-rule.jpg"
   },
   {
    "shape": "system-sync",
@@ -3804,6 +4769,12 @@
    "tool": "n8n",
    "view": "node-deduplicate-on-record_id",
    "file": "system-sync/system-sync--n8n--node-deduplicate-on-record_id.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "n8n",
+   "view": "node-hold-the-rate-limit",
+   "file": "system-sync/system-sync--n8n--node-hold-the-rate-limit.jpg"
   },
   {
    "shape": "system-sync",
@@ -3855,6 +4826,24 @@
   },
   {
    "shape": "system-sync",
+   "tool": "slack",
+   "view": "approval-workflow-steps",
+   "file": "system-sync/system-sync--slack--approval-workflow-steps.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "slack",
+   "view": "ops-channel-full-cycle",
+   "file": "system-sync/system-sync--slack--ops-channel-full-cycle.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "slack",
+   "view": "workflow-trigger-picker",
+   "file": "system-sync/system-sync--slack--workflow-trigger-picker.jpg"
+  },
+  {
+   "shape": "system-sync",
    "tool": "stripe",
    "view": "api-keys-masked",
    "file": "system-sync/system-sync--stripe--api-keys-masked.jpg"
@@ -3864,6 +4853,42 @@
    "tool": "stripe",
    "view": "webhooks",
    "file": "system-sync/system-sync--stripe--webhooks.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "dedupe-query-in-sql-editor",
+   "file": "system-sync/system-sync--supabase--dedupe-query-in-sql-editor.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "orders-table-editor",
+   "file": "system-sync/system-sync--supabase--orders-table-editor.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "raw-inbox-landing-table",
+   "file": "system-sync/system-sync--supabase--raw-inbox-landing-table.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "run-log-failed-then-retried",
+   "file": "system-sync/system-sync--supabase--run-log-failed-then-retried.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "supabase",
+   "view": "schema-visualizer-foreign-keys",
+   "file": "system-sync/system-sync--supabase--schema-visualizer-foreign-keys.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "vapi",
+   "view": "tool-config-read-only-never-invent",
+   "file": "system-sync/system-sync--vapi--tool-config-read-only-never-invent.jpg"
   },
   {
    "shape": "system-sync",
@@ -3882,6 +4907,24 @@
    "tool": "zapier",
    "view": "canvas-sync-echo-guard",
    "file": "system-sync/system-sync--zapier--canvas-sync-echo-guard.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "zoho",
+   "view": "webhook-handoff-config",
+   "file": "system-sync/system-sync--zoho--webhook-handoff-config.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "zoho-books",
+   "view": "payment-matched-short-balance-remains",
+   "file": "system-sync/system-sync--zoho-books--payment-matched-short-balance-remains.jpg"
+  },
+  {
+   "shape": "system-sync",
+   "tool": "zoho-books",
+   "view": "payments-matched-to-invoices",
+   "file": "system-sync/system-sync--zoho-books--payments-matched-to-invoices.jpg"
   },
   {
    "shape": "voice-agent-intake",
@@ -3936,6 +4979,12 @@
    "tool": "n8n",
    "view": "canvas-always-on-desk",
    "file": "voice-agent-intake/voice-agent-intake--n8n--canvas-always-on-desk.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "n8n",
+   "view": "canvas-voice-intake-write-versus-flag",
+   "file": "voice-agent-intake/voice-agent-intake--n8n--canvas-voice-intake-write-versus-flag.jpg"
   },
   {
    "shape": "voice-agent-intake",
@@ -4020,6 +5069,18 @@
    "tool": "twilio",
    "view": "widget-config-gather-input",
    "file": "voice-agent-intake/voice-agent-intake--twilio--widget-config-gather-input.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "vapi",
+   "view": "assistant-write-versus-flag-boundary",
+   "file": "voice-agent-intake/voice-agent-intake--vapi--assistant-write-versus-flag-boundary.jpg"
+  },
+  {
+   "shape": "voice-agent-intake",
+   "tool": "vapi",
+   "view": "tool-config-read-only-never-invent",
+   "file": "voice-agent-intake/voice-agent-intake--vapi--tool-config-read-only-never-invent.jpg"
   }
  ]
 }

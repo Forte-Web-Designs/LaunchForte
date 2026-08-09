@@ -187,7 +187,7 @@ PAIN = {
 # seam     : what crosses the boundary, and why that crossing is the hard part
 STACK = {
 "stalled-deal-escalation": dict(
-  partners=["ghl", "hubspot", "pipedrive", "monday", "airtable"],
+  partners=["ghl", "hubspot", "pipedrive", "monday", "notion", "airtable"],
   seam="The CRM knows the deal stalled. It does not know who to chase, on what ladder, or how to prove it chased. That state has to live somewhere the CRM cannot hold it."),
 "lead-routing": dict(
   partners=["ghl", "hubspot", "twilio", "airtable", "monday"],
@@ -199,16 +199,16 @@ STACK = {
   partners=["shopify", "klaviyo", "stripe", "airtable"],
   seam="The store knows the order. The email tool knows the person. The companion mapping belongs to neither, so it needs a home that both can read."),
 "scheduling": dict(
-  partners=["ghl", "twilio", "hubspot", "airtable"],
+  partners=["ghl", "calendly", "twilio", "hubspot", "notion", "airtable"],
   seam="The calendar owns the slot, the messaging system owns the reminder, and the no-show recovery has to survive both. A reschedule that only updates one side is the classic failure."),
 "reporting": dict(
-  partners=["hubspot", "ghl", "airtable", "google-sheets", "shopify", "stripe"],
+  partners=["hubspot", "ghl", "airtable", "notion", "google-sheets", "shopify", "stripe"],
   seam="Every source counts a lead slightly differently. The reporting layer is where you decide, once and in writing, whose definition wins."),
 "system-sync": dict(
   partners=["hubspot", "airtable", "shopify", "ghl", "pipedrive", "monday"],
   seam="This pattern IS the seam. Two systems, one record, and an echo gate so our own write coming back does not start a loop at 3am."),
 "client-onboarding": dict(
-  partners=["ghl", "hubspot", "monday", "airtable", "google-sheets"],
+  partners=["ghl", "hubspot", "monday", "notion", "airtable", "google-sheets"],
   seam="Won in the CRM has to become tasks in the project tool, a folder somewhere, and an intake the client actually returns. Three systems, one moment."),
 "data-collection": dict(
   partners=["airtable", "ghl", "hubspot", "google-sheets", "shopify"],
@@ -244,7 +244,7 @@ STACK = {
   partners=["hubspot", "airtable", "pipedrive", "ghl"],
   seam="The schema has to hold for every system that writes into it. A property that only makes sense in one tool is the one that breaks the reporting later."),
 "project-ops": dict(
-  partners=["monday", "clickup", "airtable", "hubspot", "ghl"],
+  partners=["monday", "clickup", "notion", "airtable", "hubspot", "ghl"],
   seam="The board is downstream of the CRM and upstream of the invoice. Work arriving without its deal context is what makes a board go stale."),
 "messaging-compliance": dict(
   partners=["ghl", "twilio", "instantly", "hubspot"],
@@ -295,6 +295,28 @@ PRETTY = {"ghl":"GoHighLevel","hubspot":"HubSpot","shopify":"Shopify","stripe":"
  "freshbooks":"FreshBooks","keap":"Keap","whatsapp":"WhatsApp"}
 
 
+# Some tool names are also ordinary English. "Monday morning", "contacted
+# instantly", "pick up the slack", "the notion that" — every one of those was
+# putting a tool in the client_tools list, and a Notion job that said "posted
+# Monday morning" led its pack with Monday.com screenshots. Substring matching
+# is what did it.
+#
+# So for the ambiguous names, the plain word is not enough: the posting has to
+# ALSO carry a qualifier — the domain, a product noun, or a preposition that
+# only makes sense in front of a tool. Missing a real mention costs us a
+# substitution note. Inventing one costs us the pack.
+TOOL_GUARD = {
+ "monday": r"monday\.com|monday\s*(?:board|boards|item|items|subitem|subitems|workspace|crm|automation|automations|dashboard|column|columns|pulse|group)|(?:in|on|into|from|using|use|with|via|inside|to)\s+monday(?![a-z])(?!\s*(?:morning|afternoon|evening|night|through|thru|to\s+friday|-\s*friday|and|or|,|\.))",
+ "instantly": r"instantly\.ai|instantly\s*(?:campaign|campaigns|sequence|sequences|inbox|inboxes|account|accounts|warmup|warm-up|api|lead\s|leads\s)|(?:in|on|into|from|using|use|with|via|inside)\s+instantly(?![a-z])",
+ "slack": r"slack\.com|slack\s*(?:channel|channels|message|messages|msg|workspace|bot|app|notification|notifications|alert|alerts|dm|dms|thread|threads|integration|workflow|webhook)|(?:in|on|into|from|using|use|with|via|inside|to)\s+slack(?![a-z])",
+ "notion": r"notion\.so|notion\s*(?:database|databases|db|page|pages|workspace|board|boards|doc|docs|document|template|templates|api|table|tables)|(?:in|on|into|from|using|use|with|via|inside|to)\s+notion(?![a-z])",
+ "retell": r"retell\.ai|retell\s*(?:ai|agent|agents|voice)|(?:in|on|using|with|via)\s+retell(?![a-z])",
+ "make": r"make\.com|integromat|(?:in|on|into|from|using|use|with|via|inside|to)\s+make(?![a-z])\s*(?:\.com)?(?=\W*(?:scenario|automation|and|,|\.|$))",
+ "close": r"close\.com|close\s*crm|(?:in|on|using|with|via)\s+close(?![a-z])",
+ "wix": r"wix\.com|wix\s*(?:site|website|store|studio)|(?:in|on|using|with|via|to)\s+wix(?![a-z])",
+}
+
+
 # A pattern can be a genuinely distinct ASK while the proof already sits under a
 # sibling. A conversation-design job and an ai-assistant job get different words,
 # different pain and a different product name — but the GoHighLevel Conversation
@@ -314,9 +336,20 @@ def main():
 
     # A shape that borrows its shots keeps its OWN story and points at the
     # sibling's evidence. Separate ask, separate words, same proof.
+    # This used to be `if alias not in lib` — fill only when the alias folder
+    # was empty. Then two Vapi shots got filed under conversation-design, the
+    # folder stopped being empty, and the alias silently stopped borrowing: a
+    # shape that had thirteen GoHighLevel Conversation-AI screenshots behind it
+    # started sending a pack of one. Borrowing is now additive. The alias keeps
+    # whatever it holds itself and inherits the rest.
     for alias, source in ALIAS.items():
-        if source in lib and alias not in lib:
-            lib[alias] = lib[source]
+        if source not in lib:
+            continue
+        merged = {t: list(v) for t, v in lib.get(alias, {}).items()}
+        for tool, shots in lib[source].items():
+            own = {s["f"] for s in merged.get(tool, [])}
+            merged.setdefault(tool, []).extend(s for s in shots if s["f"] not in own)
+        lib[alias] = merged
 
     story = {s: {"product": v["product"], "open": v["open"], "beats": v["beats"]}
              for s, v in SHAPES.items() if s in lib}
@@ -382,6 +415,7 @@ const KW     = %s;
 const WEIGHT = %s;
 const PAIN   = %s;
 const TOOLS  = %s;
+const GUARD  = %s;
 const PRETTY = %s;
 
 // Pack size is decided per posting now, in section 4a. These are the walls.
@@ -592,7 +626,11 @@ const toolsIn = (hay) => {
   if (!hay) return found;
   const seen = new Set();
   Object.keys(TOOLS)
-    .filter(w => hay.includes(w))
+    .filter(w => {
+      if (!hay.includes(w)) return false;
+      const g = GUARD[TOOLS[w]];
+      return !g || new RegExp(g, 'i').test(hay);
+    })
     .sort((a, b) => (title.includes(b) ? 1 : 0) - (title.includes(a) ? 1 : 0) || b.length - a.length)
     .forEach(w => { const t = TOOLS[w]; if (!seen.has(t)) { seen.add(t); found.push(t); } });
   return found;
@@ -1046,6 +1084,7 @@ return [{ json: {
        json.dumps(_ns["HINT"], separators=(',', ':')),
        json.dumps(STACK, separators=(',', ':')),
        json.dumps(KW, separators=(',', ':')), json.dumps(WEIGHT, separators=(',', ':')), json.dumps(PAIN, separators=(',', ':')), json.dumps(TOOL_WORDS, separators=(',', ':')),
+       json.dumps(TOOL_GUARD, separators=(',', ':')),
        json.dumps(PRETTY, separators=(',', ':')))
 
     open(OUT, "w").write(js)
