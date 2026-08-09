@@ -80,19 +80,50 @@ dropped the rest. So log each one the moment it occurs, tagged:
 
 ## 3. THE HANDOFF BLOCK
 
-When Seth asks for a handoff, output exactly this shape and nothing else. He pastes it
-into the Command Center console; Fortress applies it and echoes what it did.
+### Do not emit one until it is complete
+
+A partial handoff is worse than none. It gets filed against a guessed client, produces
+questions instead of work, and has to be undone. This happened on the first real test:
+the same document pasted twice landed against two different clients, once at high
+confidence and once at low, and produced eleven tasks, none of which Fortress could build.
+
+**When Seth asks for a handoff, check the required list below first.** If anything is
+missing, emit NO handoff. Instead ask for everything missing in one batched set of
+questions, and wait. One round, not a conversation.
+
+### Required, all of them
+
+| field | why it blocks |
+|---|---|
+| `CLIENT` | the slug, explicitly. Never leave this to be inferred. |
+| `ENGAGEMENT` | what this body of work is called |
+| `SURFACE` | at least one, with tenant and session state |
+| `SCOPE` | every work item, enumerated, each assigned to a phase |
+| `LANE` | on every item |
+| `RED` | a reason from the four, on every RED item |
+| `ACCEPTANCE` | how each item is verified, as a step someone could execute |
+| `MONEY` | what is agreed, what is funded |
+| `NEXT` | what happens next and what it waits on |
+
+**`CLIENT` is the one that matters most.** The console classifies pastes against the
+existing roster, and on a document with no name in it, it reached for the nearest
+plausible prospect and filed against a stranger. State the slug and no guessing happens.
+If the client does not exist yet, write `CLIENT: NEW, proposed slug <slug>` and the
+console creates it rather than hunting for a match.
+
+### The block
 
 ```
-HANDOFF — <engagement name>
+HANDOFF - <engagement>
+CLIENT   <existing slug, or NEW with a proposed slug>
 STATUS   <where the build actually is, one line>
-SURFACE  <system> — <tenant: ours / theirs> — <session: live, verified <date> / none>
+SURFACE  <system> - <ours / theirs> - <session live, verified date / none>
 DONE     <cards finished since the last handoff>
-NEW      <work that now exists and didn't before>
-LANE     <card> — GREEN | AMBER | RED
-RED      <card> — <why, from the four reasons only>
-BLOCKED  <blocker — its named unblock>
-DECIDED  <choice — reason>
+NEW      <work that now exists and did not before>
+CARD     <title> - LANE <GREEN|AMBER|RED> - <surface> - ACCEPTANCE <the step that proves it>
+RED      <card> - <one of the four reasons>
+BLOCKED  <blocker - its named unblock>
+DECIDED  <choice - reason>
 MONEY    <quoted / funded / delivered / unbilled>
 PROMISED <anything owed to the client, including favours>
 RULE     <standing instruction about this client>
@@ -100,15 +131,16 @@ NEEDS ME <decisions only Seth can make, batched>
 NEXT     <what happens next and what it waits on>
 ```
 
-**Every RED must name its reason, and the reason must be one of exactly four:**
-`no session`, `destructive`, `client-facing`, `commercial`. If you cannot pick one, the
-card is not RED — you are just being cautious, and unnecessary RED is what turns a system
-into a queue of things waiting on Seth.
+**A CARD line without an ACCEPTANCE clause is not a card.** If the acceptance cannot be
+written as a step someone could execute, that item belongs in NEEDS ME instead, and the
+handoff waits.
 
-Omit a line only if it is genuinely empty. **Never omit PROMISED or RULE because they seem
-minor** — those two slots exist because those two categories are the ones that disappear.
+Every RED names one of exactly four reasons: `no session`, `destructive`,
+`client-facing`, `commercial`. If none of the four fits, the card is not RED, and
+unnecessary RED turns the system into a queue of things waiting on Seth.
 
----
+Never omit PROMISED or RULE because they look minor. Those two slots exist precisely
+because those two categories are the ones that disappear.
 
 ## 4. LANES, AND WORKING INSIDE A CLIENT'S TENANT
 
