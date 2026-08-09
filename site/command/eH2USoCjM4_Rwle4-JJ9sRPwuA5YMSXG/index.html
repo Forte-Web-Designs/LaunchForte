@@ -404,7 +404,39 @@ yet (Ops: Dashboard API's guard is still the __SET_BY_SETH__ placeholder,
 observation only). Once enforcement lands, set this string and it ships as
 a header on every call below -- the page already sits behind the path
 token, so shipping it in public JS is acceptable for house data only. */
+/* THE TOKEN IS NOT IN THIS FILE, AND NOT IN THE PATH (revised Aug 9).
+   The repo is PUBLIC, so a token in the folder name is a token on GitHub —
+   the first cut of this got that wrong. The API token now lives in this
+   browser's localStorage, entered once per device. Nothing token-shaped is
+   ever committed, and the folder name below is just a URL again, not a
+   credential. Read the real value in n8n: Ops: Dashboard API -> "Code in
+   JavaScript" -> __DASHBOARD_TOKEN__. */
+var TOKEN_KEY = 'lf_dashboard_token';
 var DASHBOARD_API_TOKEN = '';
+try { DASHBOARD_API_TOKEN = localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { DASHBOARD_API_TOKEN = ''; }
+
+/* Inline, never a native prompt() — a browser dialog blocks automation and
+   cannot be styled. This renders into the banners strip. */
+function askForToken(reason){
+  var host = document.getElementById('banners');
+  if (!host || document.getElementById('tokengate')) return;
+  var box = document.createElement('div');
+  box.className = 'card stack';
+  box.id = 'tokengate';
+  box.innerHTML = '<p class="eyebrow">Dashboard token</p>' +
+    '<p class="client-sub">' + (reason || 'This device has not been authorised yet.') +
+    ' Paste the token from n8n: Ops: Dashboard API, the Code in JavaScript node, __DASHBOARD_TOKEN__.</p>' +
+    '<div class="field"><input id="tokengate_input" placeholder="40-character token" autocomplete="off"></div>' +
+    '<div class="btnrow"><button class="btn primary" id="tokengate_save">Save on this device</button></div>';
+  host.appendChild(box);
+  document.getElementById('tokengate_save').addEventListener('click', function(){
+    var v = (document.getElementById('tokengate_input').value || '').trim();
+    if (v.length < 20) { alert('That does not look like the token.'); return; }
+    try { localStorage.setItem(TOKEN_KEY, v); } catch (e) {}
+    location.reload();
+  });
+}
+function forgetToken(){ try { localStorage.removeItem(TOKEN_KEY); } catch (e) {} }
 var POLL_MS = 5 * 60 * 1000;
 
 /* Operator Contract 15.5: active-only default view. Dashboard shows only
@@ -870,7 +902,7 @@ host.appendChild(el('div','resultbox ' + (ok ? 'ok' : 'err'), text));
 
 function postJSON(url, body){
 var headers = {'Content-Type':'application/json'};
-if (DASHBOARD_API_TOKEN) headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN;
+if (DASHBOARD_API_TOKEN) { headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN; headers['X-Dashboard-Token'] = DASHBOARD_API_TOKEN; }
 return fetch(url, {method:'POST', headers: headers, body: JSON.stringify(body)})
 .then(function(r){ return r.json().then(function(j){ return {status:r.status, body:j}; }); });
 }
@@ -1326,9 +1358,10 @@ $('demandCollapsed').addEventListener('click', toggle);
 /* ------------------------------------------------------------------ fetch */
 function get(url){
 var headers = {};
-if (DASHBOARD_API_TOKEN) headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN;
+if (DASHBOARD_API_TOKEN) { headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN; headers['X-Dashboard-Token'] = DASHBOARD_API_TOKEN; }
 return fetch(url, {cache:'no-store', headers: headers})
 .then(function(r){
+if (r.status === 401) { forgetToken(); askForToken('That token was rejected.'); throw new Error('HTTP 401'); }
 if (!r.ok) throw new Error('HTTP ' + r.status);
 return r.json();
 });
@@ -1366,6 +1399,9 @@ return get(SNAPSHOT_URL).then(paint).catch(offline);
 }
 
 function boot(){
+/* No token on this device: ask once, and do not fire a request that is
+   guaranteed to 401. */
+if (!DASHBOARD_API_TOKEN) { askForToken('This device has not been authorised yet.'); return; }
 pull();
 setInterval(pull, POLL_MS);
 document.addEventListener('visibilitychange', function(){

@@ -64,3 +64,60 @@ const pull = async (url) => {
 
 Any audit that reports a negative should print `checked N of M` alongside the
 finding, so an unpaged read is visible in the output rather than hidden in it.
+
+---
+
+# The sibling failure: an aggregate over a field that was never there
+
+**Added Aug 9, the same night, after the second instance.**
+
+## What happened
+
+Auditing the Command Center's snapshot endpoint, I counted distinct `task_id`
+across the returned tasks and reported **"103 rows, 1 distinct task_id — 103×
+fan-out, the bug is the snapshot builder."**
+
+The payload keys tasks on **`id`**, not `task_id`. Every row returned `undefined`.
+"One distinct value" was one distinct `undefined`. Checked on the real key:
+**103 rows, 103 distinct ids, 103 distinct objects. Completely clean.**
+
+The wrong conclusion then survived four more queries, because each one took the
+fan-out as established and went looking for its cause — a merge node, a `.first()`
+versus `.all()`, a closure shadowing bug. All of it was archaeology on a bug that
+did not exist, and it nearly ended in a fix to a working node.
+
+## The rule
+
+**Before any `count`, `distinct`, `filter`, `group` or `map` over a named field,
+print one raw record and confirm the field exists.**
+
+One line, before the aggregate:
+
+```js
+console.log('field check:', Object.keys(rows[0]));
+// or, cheaper and self-asserting:
+if (!(FIELD in rows[0])) throw new Error(FIELD + ' is not on these records: ' + Object.keys(rows[0]));
+```
+
+An aggregate over a missing field does not throw. `undefined` is a legal value, a
+`Set` of them has size 1, and `filter(x => x.missing === y)` returns `[]`. Every
+one of those is a plausible-looking answer.
+
+## The shared root
+
+Both instances have the same shape, and it is worth naming because it will
+recur in a third form:
+
+> **A confident conclusion drawn from an unverified assumption that returned a
+> plausible result instead of an error.**
+
+- The unpaged read returned a valid list — just not the whole one.
+- The aggregate returned a valid number — just not over a real field.
+
+Neither failed loudly. Both produced output that looked exactly like a correct
+answer, which is why neither got a second look. The defence is the same in both
+cases: **assert the precondition before trusting the result**, and make the
+assertion part of the output so a reader can see it held.
+
+`checked N of M` for paging. `field check: [...]` for aggregates. If the audit
+cannot show its precondition, the audit is a guess with a number attached.
