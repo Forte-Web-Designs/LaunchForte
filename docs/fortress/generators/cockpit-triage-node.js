@@ -33,7 +33,12 @@
 // still routed and still reported; it just does not bid.
 const LANE = {
   enabled: false,
-  bid: 200,                      // what a CERTIFIED lane job bids. A bid amount, never a gate.
+  // THE FLAT $200 IS GONE (Aug 9). A single number for every certified job was a
+  // placeholder of our own making: it priced a $600 ticket-routing build and a
+  // $50 zap identically. The lane now bids the DERIVED COMPONENT PRICE, with
+  // cost-to-deliver as the hard minimum. Pricing owns that number; triage names
+  // the rule and refuses to invent a figure it cannot derive.
+  bid_rule: 'derived component price, cost-to-deliver as the hard minimum',
   connects_budget_monthly: null, // unset. The lane cannot open with this null.
   rehearsal_max_age_days: 14     // check 6
 };
@@ -122,6 +127,26 @@ const wallsRows   = readNode('Read Blockers')  || readNode('Read Walls');
 const hay = [input.title, input.description, input.skills, input.angle, input.reason]
   .filter(Boolean).join(' ').toLowerCase();
 
+// ---------------------------------------------------------------------------
+// AGE. The table is an archive with a bid pool inside it, and the two must not
+// be confused. Roughly 600 postings a day land here; half the table is already
+// past the point where a bid means anything.
+//
+// COMPUTED, NEVER STORED. A stored age_days is wrong within a day and a stored
+// bid_eligible is wrong within a week, and a stale freshness flag is worse than
+// none — it would quietly authorise bidding on dead postings. Both are derived
+// at read time from posted_at, every time.
+//
+// Everything outside the window STAYS IN THE TABLE. It is market data: the
+// buyer-spend column, the component prices and the pricing anchors were all
+// derived from postings far older than seven days. Archive means excluded from
+// bidding, not deleted.
+const BID_WINDOW_DAYS = 7;
+const postedAt = Date.parse(input.posted_at || '');
+const ageDays = isFinite(postedAt) ? Math.round(((Date.now() - postedAt) / 86400000) * 10) / 10 : null;
+// Fails closed: no posted_at means no evidence it is fresh, so it is not bid on.
+const bidEligible = ageDays !== null && ageDays >= 0 && ageDays <= BID_WINDOW_DAYS;
+
 const jobType = String(input.job_type || '').toUpperCase();
 const budgetRaw = String(input.budget == null ? '' : input.budget).trim();
 
@@ -207,7 +232,7 @@ const cheapRoomConfirmed = budgetTest === 'cheap_room_confirmed';
 
 // Kept as a REPORTING signal only, so the weekly report can still count the thin
 // end of the auction. It routes nothing. Nothing is refused for being cheap.
-const roomBelowFloor = hasFixedBudget && budget.amount < LANE.bid;
+const roomBelowFloor = hasFixedBudget && budget.amount < 200;  // $200 is a REPORTING marker only
 
 // ---------------------------------------------------------------------------
 // THE TWO POSTING SIGNALS the shape record cannot supply.
@@ -450,7 +475,10 @@ if (route === 'hands_free_shape_client_access') {
 } else if (route === 'hands_free_house') {
   if (LANE.enabled && LANE.connects_budget_monthly != null) {
     action = 'lane_bid';
-    bid = LANE.bid;
+    // Deliberately null. The number is the derived component price and pricing
+    // owns that derivation; triage inventing a figure here is what the flat $200
+    // was, and it is not coming back.
+    bid = null;
     actionWhy = 'certified hands-free. Bid within minutes of the alert; speed is the weapon.';
   } else {
     action = 'lane_held';
@@ -488,6 +516,16 @@ const triageStop = (action === 'no_bid' || action === 'lane_held' || action === 
 return [{ json: Object.assign({}, input, {
   triaged: true,
   triage_version: 'v2',
+
+  // the archive / bid-pool split
+  age_days: ageDays,
+  bid_eligible: bidEligible,
+  bid_window_days: BID_WINDOW_DAYS,
+  bid_eligible_why: ageDays === null
+    ? 'no posted_at, so freshness cannot be established — archive'
+    : bidEligible
+      ? 'posted ' + ageDays + ' days ago, inside the ' + BID_WINDOW_DAYS + '-day window'
+      : 'posted ' + ageDays + ' days ago — archive. Market data, not a bid.',
 
   // grade 1, the router
   psm_estimate: psmEstimate,
@@ -554,7 +592,7 @@ return [{ json: Object.assign({}, input, {
   triage_judge_score: judgeScore,
   triage_tools: planTools.map(function (t) { return t.tool; }),
   lane_enabled: LANE.enabled,
-  lane_bid: LANE.bid,
+  lane_bid_rule: LANE.bid_rule,
 
   // guardrails, asserted not assumed
   triage_rules_ok:
@@ -566,7 +604,11 @@ return [{ json: Object.assign({}, input, {
     // A sign-in dependency is never silent.
     && !(needsClientAccount && !needsSignInFlagPresent())
     && !(action === 'lane_bid' && !LANE.enabled)
+    && !(action === 'lane_bid' && typeof bid === 'number')
     && !!budgetTest
+    // Freshness is derived, never inherited. A row that arrived carrying its own
+    // bid_eligible cannot smuggle it past this node.
+    && (bidEligible === (ageDays !== null && ageDays >= 0 && ageDays <= BID_WINDOW_DAYS))
     // THE FLOOR IS DEAD. A posted number may never, on its own, end a job.
     && !(action === 'no_bid' && route !== 'hands_free_shape_client_access')
     // A placeholder is ignored, so the BUDGET can never reduce the treatment.

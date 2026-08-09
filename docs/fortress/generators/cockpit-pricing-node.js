@@ -126,11 +126,17 @@ const COMPONENT_RE = {
 // confirms it, every cost-to-deliver figure carries delivery_floor_source
 // 'ESTIMATED' and should be read as a shape, not a number.
 const DELIVERY = {
-  connects_per_bid: 6,
-  connect_cost: 0.15,
-  upwork_fee: 0.10,
-  seth_minute_cost: 2.00,   // $120/hr equivalent. UNCONFIRMED.
-  source: 'ESTIMATED'
+  connects_per_bid: 6,      // assumption
+  connect_cost: 0.15,       // Upwork published
+  upwork_fee: 0.10,         // Upwork published
+  seth_minute_cost: 2.50,   // DERIVED: the catalogue's own $150/hr specialist band floor
+  source: 'DERIVED',
+  provenance: {
+    seth_minute_cost: 'catalogue specialist band floor, $150/hr',
+    upwork_fee: 'Upwork published rate',
+    connect_cost: 'Upwork published rate',
+    connects_per_bid: 'ASSUMPTION — the one input still unmeasured'
+  }
 };
 const costToDeliver = function (psmMinutes) {
   const direct = DELIVERY.connects_per_bid * DELIVERY.connect_cost +

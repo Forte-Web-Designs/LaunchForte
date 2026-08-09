@@ -62,8 +62,20 @@ const THRESHOLD = 8; // a shape needs this many listing candidates before it ear
     return { all: () => rows.map(r => ({ json: r })), first: () => ({ json: rows[0] }) };
   };
 
-  const out = []; let errors = 0;
-  for (const j of corpus) { try { out.push(fn(j, $r)[0].json); } catch (e) { errors++; } }
+  const all = []; let errors = 0;
+  for (const j of corpus) { try { all.push(fn(j, $r)[0].json); } catch (e) { errors++; } }
+
+  // THE SPLIT. Everything routes — that is how the market data stays honest —
+  // but the board and any auto-draft see only the bid pool. An archived posting
+  // is a fact about the market, not an opportunity.
+  const out = all.filter(o => o.bid_eligible);
+  const archive = all.filter(o => !o.bid_eligible);
+  console.log('ARCHIVE / BID POOL');
+  console.log('  routed total     ', all.length);
+  console.log('  bid_eligible     ', out.length, '(' + (100 * out.length / all.length).toFixed(1) + '%)  <= ' + (all[0] ? all[0].bid_window_days : 7) + ' days');
+  console.log('  archive          ', archive.length, ' — market data, excluded from bidding');
+  console.log('');
+  if (!out.length) { console.log('NOTHING IS FRESH. Check the ingest before reading anything below.'); return { bid_eligible: 0 }; }
 
   // --- hard invariants. A sweep that finds these broken must not write. ----
   const bad = [];
@@ -87,7 +99,7 @@ const THRESHOLD = 8; // a shape needs this many listing candidates before it ear
   const earned = Object.keys(byShape).filter(k => byShape[k].length >= THRESHOLD).sort((a, b) => byShape[b].length - byShape[a].length);
 
   const t = (k) => { const m = {}; out.forEach(o => { m[String(o[k])] = (m[String(o[k])] || 0) + 1; }); return m; };
-  console.log('TRIAGE SWEEP');
+  console.log('TRIAGE SWEEP — bid pool only');
   console.log('  postings      ', out.length, ' errors', errors);
   console.log('  invariants    ', bad.length ? 'BROKEN: ' + bad.join('; ') : 'all hold');
   console.log('  route         ', t('route'));
@@ -97,6 +109,14 @@ const THRESHOLD = 8; // a shape needs this many listing candidates before it ear
   console.log('  listing_candidate ' + listing.length + '   room_below_floor ' + belowFloor.length);
   console.log('  shelf menu (>= ' + THRESHOLD + '): ' + (earned.length ? earned.map(k => k + ' x' + byShape[k].length).join(', ') : 'nothing clears the threshold'));
   console.log('  certified today: ' + out.filter(o => o.certified).length);
+  console.log('');
+  console.log('WEEKLY SUPPLY (this is the number that matters against 10 proposals a week):');
+  console.log('  fresh full-package jobs: ' + out.filter(o => o.triage_action === 'full_package').length);
+  const ages = out.map(o => o.age_days).filter(a => a != null).sort((a, b) => a - b);
+  if (ages.length) console.log('  bid-pool age: median ' + ages[Math.floor(ages.length / 2)] + 'd, oldest ' + ages[ages.length - 1] + 'd');
+  // An ingest that stopped is invisible until you look for it.
+  const freshest = ages.length ? ages[0] : null;
+  if (freshest != null && freshest > 1.5) console.log('  WARNING: newest posting is ' + freshest + ' days old. The ingest may have stopped.');
 
   if (!WRITE) { console.log('\nDRY RUN. Set WRITE = true to file the ideas rows.'); return { listing: listing.length, below_floor: belowFloor.length, earned: earned }; }
   if (bad.length) { console.log('\nREFUSING TO WRITE: ' + bad.join('; ')); return; }
