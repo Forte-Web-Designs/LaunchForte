@@ -221,8 +221,22 @@ const needsCall = CALL_RE.test(hay);
 // a fallback, and the fallback is deliberately broad because a false "no access
 // needed" is the expensive error.
 const ACCESS_RE = /(our|my|their|the client'?s?)\s+(account|crm|portal|instance|workspace|sub[\s-]?account|system|dashboard|backend|admin|tenant|environment|site)|admin\s+access|give\s+(you|us)\s+access|grant\s+access|provide\s+(you\s+)?(with\s+)?(access|credentials|logins?)|credentials\s+will|access\s+to\s+our/;
+// CHECK 4 AMENDED (Aug 9). A one-time sign-in no longer fails certification.
+// Seth signing in once at the start — to mint an API key, authorise an OAuth
+// app, create a private app — and Fortress running unattended afterwards is
+// acceptable on certified work. What still fails is a job that needs him back
+// INSIDE their account repeatedly, mid-delivery.
+//
+// The distinction is machine-readable off the shape record: an access_list that
+// asks for a credential is a handover; one that asks for collaborator, admin or
+// sub-account presence is a residency.
+const ONETIME_ACCESS = /\bapi key|private app|oauth|access token|restricted key|read-?only|developer (account|access)|app credentials|api (access|token|credential)|service account|integration key|connect (the )?app/i;
+
 let accessSource = 'posting';
 let needsClientAccount = ACCESS_RE.test(hay);
+let signInOnce = false;
+let signInAccount = null;
+let accessList = '';
 if (shape && shapesRows) {
   const row = shapesRows.filter(function (r) { return r.shape === shape; })[0];
   if (row) {
@@ -231,8 +245,19 @@ if (shape && shapesRows) {
     // account the delivery needs. That is a record, not an inference.
     needsClientAccount = al.length > 0 && !/^(none|n\/a|no access)/i.test(al);
     accessSource = 'shape_record';
+    accessList = al;
+    if (needsClientAccount) {
+      signInOnce = ONETIME_ACCESS.test(al);
+      // Name the account, so NEEDS SIGN-IN is never a vague warning.
+      const m = al.match(/^([A-Z][A-Za-z0-9. ]{1,24}?)(?=\s+(?:account|admin|super|restricted|custom|cloud|online|organization|team|sub-?account|api|developer|workspace|access|login|owner))/);
+      signInAccount = m ? m[1].trim() : al.split(/[|,]/)[0].trim().slice(0, 40);
+    }
   }
 }
+// Access is needed but nothing tells us WHICH KIND. Fail closed: assume he has
+// to be there repeatedly, because the expensive error is the other one.
+if (needsClientAccount && accessSource === 'posting') { signInOnce = false; }
+const repeatedAccess = needsClientAccount && !signInOnce;
 
 // Thread weight: how many rounds of back-and-forth this posting is going to cost
 // before it is even scoped. Vague postings cost more rounds.
@@ -310,9 +335,12 @@ const check = function (n, name, pass, detail) { checks.push({ n: n, name: name,
                 : 'no open wall on the resolved surfaces');
 })();
 
-// 4. NO CLIENT-ACCOUNT ACCESS.
-check(4, 'no_client_account', !needsClientAccount,
-  needsClientAccount ? 'delivery needs their account (' + accessSource + ')' : 'house-deliverable, no client account');
+// 4. NO REPEATED CLIENT-ACCOUNT ACCESS. A one-time sign-in passes; a residency
+//    inside their account does not.
+check(4, 'no_repeated_client_access', !repeatedAccess,
+  repeatedAccess ? 'delivery needs him back inside their account mid-build (' + accessSource + ')'
+    : signInOnce ? 'one sign-in at the start on ' + (signInAccount || 'their account') + ', unattended after'
+    : 'house-deliverable, no client account');
 
 // 5. NO CALL.
 check(5, 'no_call', !needsCall, needsCall ? 'the posting asks for a call' : 'no call asked for');
@@ -349,8 +377,16 @@ const psmParts = [];
 const addPsm = function (label, minutes, why) { if (minutes > 0) psmParts.push({ label: label, minutes: minutes, why: why }); };
 
 if (needsClientAccount) {
-  addPsm('Sign-in assist', PSM.signin_assist, 'his hands on the login, then the session hands over');
-  addPsm('RED confirm taps', PSM.red_confirm, 'the rollback law: every live-system change validated and reversible');
+  addPsm('Sign-in assist', signInOnce ? PSM.signin_assist : PSM.signin_assist * 2,
+    signInOnce ? 'one sign-in at the start, then the session hands over'
+               : 'he is back inside their account through the build, not once at the front');
+}
+// RED CONFIRMS ARE UNCHANGED AND UNCONDITIONAL. Every write to a client's
+// production system gates on his recorded confirm — cheap job or not, certified
+// or not — and every one of those taps costs real minutes, so they stay in the
+// estimate. The component tier does not buy an exemption from the rollback law.
+if (needsClientAccount) {
+  addPsm('RED confirm taps', PSM.red_confirm, 'the rollback law: every live-system write validated and reversible');
 }
 if (needsCall) addPsm('Call', PSM.call, 'scheduling, the call, and the notes after it');
 addPsm('Thread', threadRounds * PSM.thread_round, threadRounds + ' rounds of back-and-forth before it is even scoped');
@@ -403,7 +439,7 @@ if (route === 'hands_free_house' && hourlyBlocksLane) {
 const judgeScore = String(input.score || '').trim().toUpperCase() || null;
 
 let action, actionWhy, bid = null;
-const listingCandidate = route === 'hands_free_shape_client_access' || (needsClientAccount && !needsCall && !heavyShape);
+const listingCandidate = route === 'hands_free_shape_client_access' || (repeatedAccess && !needsCall && !heavyShape);
 
 // NOTE the order, and what is NOT in it: there is no budget branch above the
 // judge any more. A posted number never ends a job. The only no_bid left is the
@@ -440,6 +476,9 @@ if (route === 'hands_free_shape_client_access') {
       ' and the shape carry this: full package, priced from the catalogue.'
     : 'real minutes and a real room: ladder pricing, the articulation does the selling.';
 }
+
+// Asserted below: a job needing their account always carries the visible flag.
+const needsSignInFlagPresent = function () { return !!signInAccount || accessSource === 'posting'; };
 
 // The cockpit should not spend on anything that is not getting a package.
 const triageStop = (action === 'no_bid' || action === 'lane_held' || action === 'lane_bid');
@@ -489,7 +528,25 @@ return [{ json: Object.assign({}, input, {
   // context the letter and the pricing node read
   triage_needs_call: needsCall,
   triage_needs_client_account: needsClientAccount,
+  triage_repeated_client_access: repeatedAccess,
   triage_access_source: accessSource,
+
+  // NEEDS SIGN-IN, called out by name. Goes in the pack and on the weekly board
+  // so a sign-in dependency is visible BEFORE anything is committed to.
+  needs_sign_in: needsClientAccount,
+  sign_in_once: signInOnce,
+  sign_in_account: signInAccount,
+  needs_sign_in_flag: needsClientAccount
+    ? 'NEEDS SIGN-IN: ' + (signInAccount || 'their account') +
+      (signInOnce ? ' — once at the start, unattended after.' : ' — repeatedly, through the build.')
+    : null,
+
+  // The two psm constants are UNMEASURED GUESSES and are labelled as such, so a
+  // number nobody has timed can never be mistaken for a number somebody did.
+  // Instrumentation contract: log actual elapsed Seth-time per part on the next
+  // ten jobs carrying each, then replace the constant with the measured median.
+  psm_constants_source: 'estimated',
+  psm_constants: { signin_assist: PSM.signin_assist, red_confirm: PSM.red_confirm, measured_n: 0 },
   triage_budget_kind: budget.kind,
   triage_budget_amount: budget.amount,
   triage_hourly_convert: hourlyBlocksLane,
@@ -505,7 +562,9 @@ return [{ json: Object.assign({}, input, {
     && checks.length === 6
     && (certified === (checks.filter(function (c) { return c.pass; }).length === 6))
     && (certified || !!certifiedFailedCheck)
-    && !(route === 'hands_free_house' && (needsCall || needsClientAccount))
+    && !(route === 'hands_free_house' && (needsCall || repeatedAccess))
+    // A sign-in dependency is never silent.
+    && !(needsClientAccount && !needsSignInFlagPresent())
     && !(action === 'lane_bid' && !LANE.enabled)
     && !!budgetTest
     // THE FLOOR IS DEAD. A posted number may never, on its own, end a job.
