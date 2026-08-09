@@ -151,3 +151,30 @@ alias had no folder of its own. Then two Vapi shots got filed under
 thirteen GoHighLevel Conversation-AI shots to a pack of one. The merge is
 additive now. Sweep of all 24 shapes: minimum pack 3, maximum 5 on a synthetic
 posting, 19 of 24 multi-tool, zero weak shots reaching a pack.
+
+
+## One pricing implementation (added 9 August)
+
+`cockpit-pricing-node.js` was generated, tested by `pricing-check.py`, and never
+wired into the workflow. Meanwhile the Prompt of Record carried its OWN copy of
+the same arithmetic, inline, which nothing tested. Two implementations, one of
+them live, and they did not agree: the standalone keyed class off the resolved
+SHAPE, the inline keyed it off the POSTING — and the inline was right about why
+("a bad shape resolution must not become a confidently wrong price").
+
+Resolved rather than picked: the node is now wired in as **Price the build**,
+between the evidence node and the prompt, and it takes the posting-derived rule
+with it. The shape proposes a class, the posting disposes, and the disagreement
+is emitted as `pricing_class_source` so a number can be audited after the fact.
+Re-deriving 53 historical postings, 12 would have taken their class from the
+posting rather than the shape.
+
+One trap found on the way: a class-4 posting is not automatically a class-4
+rebuild. "Take over an undocumented system" is the $650 audit; "migrate four
+systems" is the $2,500 base. The first cut picked whichever class-4 row sorted
+first and quoted an audit at $2,500. The posting's own audit signal now chooses
+the row, and `class-disagrees` in `pricing-check.py` holds that line.
+
+The Prompt of Record keeps the inline derivation as a FALLBACK only, for a
+branch where the node is not upstream, and reports which one ran via
+`pricing_source`. A missing node degrades to a number instead of an exception.

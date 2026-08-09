@@ -84,3 +84,22 @@ empty, and the shape quietly dropped from thirteen GoHighLevel Conversation-AI
 screenshots to a pack of **one**. Borrowing is additive now: the alias keeps
 whatever it holds and inherits the rest. Minimum pack across all 24 shapes went
 1 → 3.
+
+**ClickUp's list grid eats keystrokes as hotkeys.** A single click on a cell
+SELECTS it; the characters you type next are read as global shortcuts, not as
+cell input. Driving a column of edits blind flagged five sample jobs as
+Priorities and assigned one to the account owner before anything was typed into
+a field. Cleared afterwards. The working pattern is `double_click` the cell,
+type, then `double_click` the next one — and never batch it across a scroll,
+because the grid re-flows between actions and the coordinates go stale mid-batch.
+
+**Empty custom fields are what make a ClickUp board look like a demo.** Filling
+eighteen rows by hand is dozens of interactions; the cheaper fix is
+`Customize → Show empty fields → off`, which drops the "-" rows from the cards
+and leaves a board that reads as a real pipeline. Two jobs carry full fields so
+the record shot has something in it. The rest carry name, stage and job type.
+
+**ClickUp's AI automations are on by default and they write to tasks.** The list
+arrived with four active rules, two of them "AI Prioritize". They set a priority
+on every task created, so a sample job appears with an Urgent flag nobody chose.
+Worth knowing before a shot: the flag in frame is ClickUp's, not the design's.

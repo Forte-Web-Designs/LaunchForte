@@ -1,5 +1,5 @@
 {
- "count": 797,
+ "count": 801,
  "shapes": {
   "_blockers": {
    "count": 14,
@@ -59,9 +59,10 @@
    ]
   },
   "approval-routing": {
-   "count": 28,
+   "count": 29,
    "tools": [
     "airtable",
+    "clickup",
     "n8n",
     "pipedrive",
     "slack",
@@ -180,7 +181,7 @@
    ]
   },
   "project-ops": {
-   "count": 29,
+   "count": 32,
    "tools": [
     "airtable",
     "clickup",
@@ -1067,6 +1068,12 @@
    "tool": "airtable",
    "view": "rollup-manager-approval-gate",
    "file": "approval-routing/approval-routing--airtable--rollup-manager-approval-gate.jpg"
+  },
+  {
+   "shape": "approval-routing",
+   "tool": "clickup",
+   "view": "automations-manage-five-active",
+   "file": "approval-routing/approval-routing--clickup--automations-manage-five-active.jpg"
   },
   {
    "shape": "approval-routing",
@@ -3075,14 +3082,32 @@
   {
    "shape": "project-ops",
    "tool": "clickup",
+   "view": "automation-builder-invoiced-triggers-chase",
+   "file": "project-ops/project-ops--clickup--automation-builder-invoiced-triggers-chase.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "clickup",
    "view": "jobs-board-by-stage",
    "file": "project-ops/project-ops--clickup--jobs-board-by-stage.jpg"
   },
   {
    "shape": "project-ops",
    "tool": "clickup",
+   "view": "jobs-board-seven-stage-pipeline",
+   "file": "project-ops/project-ops--clickup--jobs-board-seven-stage-pipeline.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "clickup",
    "view": "jobs-list-grouped-by-status-with-custom-fields",
    "file": "project-ops/project-ops--clickup--jobs-list-grouped-by-status-with-custom-fields.jpg"
+  },
+  {
+   "shape": "project-ops",
+   "tool": "clickup",
+   "view": "status-pipeline-config",
+   "file": "project-ops/project-ops--clickup--status-pipeline-config.jpg"
   },
   {
    "shape": "project-ops",

@@ -44,6 +44,13 @@ CASES = [
      "6 workflows in total, two-way, and it has to stay in sync."),
     ("no-shape",        None,                      "Upwork",
      "Something we could not resolve."),
+    # The shape says class 2. The posting says take over an undocumented system,
+    # which is a class 4 audit. The posting has to win, or a shape that resolved
+    # badly becomes a confidently wrong number.
+    ("class-disagrees",  "system-sync",            "Upwork",
+     "We inherited an undocumented setup from a previous contractor and nobody here knows "
+     "what it does. We need someone to take over, review the whole thing and tell us what "
+     "is actually running before anything is touched or rebuilt."),
 ]
 
 src = open(NODE).read()
@@ -117,6 +124,17 @@ for name, amount, post in CLOSED_BOOK:
               f"so this cannot be re-derived. Paste it into CLOSED_BOOK to check it.")
     else:
         print(f"  {name:<20} ${amount:,}")
+print()
+print("  Searched 9 Aug 2026: not in the repo, and not in the Cockpit's `proposals` data")
+print("  table under any of the three names or the three amounts.")
+print()
+print("  The proposals table WAS evaluated as a replacement closed book and rejected.")
+print("  53 of its rows carry a real posting and a number. Re-deriving all 53 against the")
+print("  live node put the median at -22% with a long tail of +525% — because most of those")
+print("  numbers are the BUYER'S posted budget ($100, $400), not a price we settled on.")
+print("  Comparing our arithmetic against a buyer's budget field measures nothing. A")
+print("  regression built on it would go green while being meaningless, which is worse")
+print("  than the honest gap. The three numbers still need Seth to paste the postings.")
 
 print()
 print("RESULT:", "PASS" if not failures else "FAIL")

@@ -42,7 +42,28 @@ if (!spec) {
   })}];
 }
 
-const [klass, floor, typLow, typHigh, note] = spec;
+let [klass, floor, typLow, typHigh, note] = spec;
+
+// ---- class comes from the POSTING, not only from the resolved shape --------
+// The Prompt of Record used to carry its own copy of this arithmetic, and it
+// derived class from the posting's own words on purpose: "a bad shape
+// resolution must not become a confidently wrong price." That principle is
+// right and it belongs here, in the one place the number is derived, rather
+// than in a second implementation nobody tests.
+//
+// So: the shape proposes a class, the posting disposes. When they disagree the
+// posting wins and the disagreement is emitted, because a quote nobody can
+// audit is a quote nobody can defend.
+const __AUD = /(audit|review our|review the|assess|take over|inherit|undocumented|transcript)/;
+const __BOT = /(chatbot|chat bot|conversation ai|ai agent|ai assistant|voice ai|receptionist)/;
+const __SYS = /(crm|pipeline|dashboard|integrat|sync|migrat|onboard|full system|build out|end to end|ecosystem)/;
+const __classFromPosting = function (hayStr) {
+  const aud = __AUD.test(hayStr), bot = __BOT.test(hayStr), sys = __SYS.test(hayStr);
+  if (aud && !sys) return 4;
+  if (bot) return 3;
+  if (sys) return 2;
+  return 1;
+};
 
 // ---- count the scope from the posting -------------------------------------
 // The payload reaching this node has usually lost the posting: "Match Product"
@@ -69,6 +90,26 @@ const postText = POSTING_KEYS.map(function (f) { return src[f]; })
   .sort(function (a, b) { return b.length - a.length; })[0] || '';
 const hay = String(postText + ' ' + (src.jobTitle || src.title || '')).toLowerCase();
 
+const __shapeClass = klass;
+const __postClass = __classFromPosting(hay);
+// A posting too short to say anything is not a disagreement, it is silence.
+const __postSpeaks = hay.trim().length >= 120;
+const __classSource = (__postSpeaks && __postClass !== __shapeClass) ? 'posting' : 'shape';
+// A class-4 posting is not automatically a class-4 REBUILD. "Take over an
+// undocumented system" is the 650 audit; "migrate four systems" is the 2,500
+// base. Picking whichever class-4 row happens to sort first turned the audit
+// into a full-system quote, so the posting's own audit signal chooses the row.
+const __postAudit = __AUD.test(hay) && !__SYS.test(hay);
+if (__classSource === 'posting') {
+  klass = __postClass;
+  const canon = klass === 4 ? (__postAudit ? 'production-takeover' : 'platform-migration')
+              : klass === 3 ? (/transcript|review/.test(hay) ? 'conversation-design' : 'ai-assistant')
+              : klass === 2 ? 'system-sync'
+              : 'quote-follow-up';
+  const reSpec = CLASS[canon];
+  if (reSpec) { floor = reSpec[1]; typLow = reSpec[2]; typHigh = reSpec[3]; note = reSpec[4]; }
+}
+
 // how many workflows are they describing?
 let workflows = 1;
 const wfWords = hay.match(/(\d+)\s*(?:automation|workflow|sequence|zap|scenario)/);
@@ -93,9 +134,9 @@ const add = function (label, amount, why) {
   subtotal += amount;
 };
 
-if (klass === 4 && shape === 'production-takeover') {
+if (klass === 4 && (shape === 'production-takeover' || (__classSource === 'posting' && __postAudit))) {
   add('Audit, week one', RATE.audit, 'Nothing changes in week one except the map. The rebuild quotes after it exists.');
-} else if (klass === 3 && shape === 'conversation-design') {
+} else if (klass === 3 && (shape === 'conversation-design' || (__classSource === 'posting' && /transcript|review/.test(hay)))) {
   add('Transcript audit', RATE.audit, 'Twenty real transcripts in, the three failure turns named. No rebuild is quoted before this.');
 } else if (klass === 1) {
   const isJudged = floor >= RATE.judgedWorkflow;
@@ -221,6 +262,9 @@ const whyItCostsThis = [
 return [{ json: Object.assign({}, input, {
   priced: true,
   pricing_class: klass,
+  pricing_class_source: __classSource,
+  pricing_class_from_shape: __shapeClass,
+  pricing_class_from_posting: __postSpeaks ? __postClass : null,
   pricing_shape: shape,
   workflows_counted: workflows,
   systems_counted: systems,
