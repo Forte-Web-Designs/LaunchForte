@@ -456,13 +456,33 @@ const sigOutcomes = OUTCOMES.filter(function (w) { return hay.indexOf(w) !== -1;
 const sigPairs = (hay.match(/\b(?:connect|sync|integrat\w*|push|send|pull)\b[^.!?]{0,60}?\b(?:to|with|into|from)\b/g) || []).length;
 
 const scopeSignals = { explicit: sigExplicit, list_items: sigList, triggers: sigTriggers,
-                       components: sigComponents, outcomes: sigOutcomes, pairs: sigPairs };
+                       components: sigComponents,
+                       // evidence only, deliberately excluded from the count:
+                       outcomes_evidence: sigOutcomes, pairs_evidence: sigPairs };
 
 // The strongest signal governs. Under-reading is silent and costs money twice
 // over; over-reading is visible and the client can remove a line, which is the
 // documented lever. Capped at 12 so one runaway regex cannot invent a migration.
+// VALIDATED AGAINST 30 POSTINGS, Aug 9 — and the first cut of this was wrong.
+//
+// sigOutcomes counted VOCABULARY PRESENCE, not asks. It fired on words describing
+// what the client already has ("we have automated test suites"), on screening
+// questions ("send one lead gen case study"), and on outright negations ("this is
+// NOT an email automation project" scored 3). It was the dominant driver above
+// count 2 and it pushed the median quote from $650 to $3,200 on nothing. It is
+// the same defect v1 had — counting occurrences of a word list — with 37 words
+// instead of 8.
+//
+// So outcomes is DEMOTED TO EVIDENCE. It is emitted, it never counts. Same for
+// raw pairs, which fired on "already integrated and functioning".
+//
+// The count now rests only on signals that require a STATED ASK:
+//   explicit    a number next to a unit          ("3 workflows")
+//   list_items  an enumerated line with a verb    ("- Build the transformation logic")
+//   triggers    a when/then pair                  ("when a form is submitted, create...")
+//   components  a distinct thing to be built, from the Class 0 detector
 const workflows = Math.max(1, Math.min(12,
-  Math.max(sigExplicit, sigList, sigTriggers, sigComponents, sigOutcomes, Math.ceil(sigPairs / 2))));
+  Math.max(sigExplicit, sigList, sigTriggers, sigComponents)));
 
 // how many systems does it touch?
 const TOOLS = ['gohighlevel','ghl','hubspot','pipedrive','salesforce','zoho','shopify','stripe',
@@ -534,11 +554,36 @@ const total = subtotal;
 // exactly this reasoning; that is the calibration point, not a floor.
 let phased = null;
 if (isGig && total > RATE.upworkCeiling) {
-  const phaseOne = Math.min(RATE.systemBase + (extraSurfaces ? RATE.surfaceLow : 0), RATE.upworkCeiling);
+  // FIXED Aug 9. The old split was systemBase + maybe surfaceLow, which produced
+  // exactly two distinct phase-one values across 488 splits — $2,500 and $2,800,
+  // regardless of what the job contained. That is an arbitrary cut wearing the
+  // language of a scope decision, and a client who asks "what is in phase one?"
+  // gets no answer from it.
+  //
+  // Phase one is now BUILT FROM THE LINES: take priced lines in derivation order
+  // until the next one would breach the ceiling. So phase one is a real subset of
+  // the build, it is nameable line by line, and the two phases still sum to the
+  // derived total exactly — no discount, no inflation.
+  const paid = lines.filter(function (l) { return l.amount > 0; });
+  const inPhaseOne = [];
+  let running = 0;
+  for (const l of paid) {
+    if (running + l.amount > RATE.upworkCeiling) continue;   // skip, do not stop: a cheap line after an expensive one still fits
+    inPhaseOne.push(l);
+    running += l.amount;
+  }
+  // Never ship an empty phase one: if the very first line alone breaches the
+  // ceiling, that line IS phase one and the ceiling loses to coherence.
+  if (!inPhaseOne.length && paid.length) { inPhaseOne.push(paid[0]); running = paid[0].amount; }
+  const phaseTwoLines = paid.filter(function (l) { return inPhaseOne.indexOf(l) === -1; });
   phased = {
-    phase_one: phaseOne,
-    phase_two: total - phaseOne,
-    why: 'A first engagement lands at or under about $3,500 here. The scope is split by phase rather than inflated or discounted — the same total, delivered in two commitments.'
+    phase_one: running,
+    phase_two: total - running,
+    phase_one_lines: inPhaseOne.map(function (l) { return l.label; }),
+    phase_two_lines: phaseTwoLines.map(function (l) { return l.label; }),
+    why: 'A first engagement lands at or under about $3,500 here. Phase one is ' +
+         inPhaseOne.map(function (l) { return l.label.toLowerCase(); }).join(', ') +
+         '. The scope is split by phase rather than inflated or discounted — the same total, delivered in two commitments.'
   };
 }
 

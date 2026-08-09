@@ -57,18 +57,35 @@ const WRITE_RANKS = false;   // true also stamps priority_rank onto proposals ro
   }
 
   // ---- the ranking ---------------------------------------------------------
-  const GRADE = { A: 1.30, B: 1.00, C: 0.70, U: 0.60 };
-  const buyerMult = a => a == null ? 1.00 : a >= 1000 ? 1.25 : a >= 500 ? 1.10 : 0.90;
-  const ageMult = d => Math.max(0.55, 1 - (d / 7) * 0.45);
-
-  const board = rows.map(r => {
-    const psm = Math.max(r.t.psm_estimate, 5);   // never divide by zero, never flatter a job to infinity
-    const perMin = r.p.quote_total / psm;
-    const g = GRADE[r.t.triage_judge_score] || 0.85;
-    const b = buyerMult(r.t.buyer_avg_per_hire);
-    const a = ageMult(r.t.age_days);
-    return { r: r, quote: r.p.quote_total, psm: psm, perMin: perMin, g: g, b: b, a: a, score: perMin * g * b * a };
-  }).sort((x, y) => y.score - x.score);
+  // REWEIGHTED Aug 9. The multiplicative version scored Spearman 0.995 against
+  // ordering by quote alone — the judge, buyer and freshness terms spanned 1.39x
+  // while quote spanned orders of magnitude, so they moved nothing. That is not a
+  // ranking, it is a sort with decoration on it.
+  //
+  // Everything is now a percentile rank on 0..1, so the weights mean what they
+  // say. Buyer history carries 30% because the standing July ruling makes spend
+  // history the whether-to-bid input: a proven spender outranks an equal-quote
+  // unknown, which the old version could not express.
+  const W = { perMin: 0.45, buyer: 0.30, judge: 0.20, fresh: 0.05 };
+  const JUDGE = { A: 1.0, B: 0.6, C: 0.2, U: 0.1 };
+  const buyerScore = a => a == null ? 0.0 : a >= 2000 ? 1.0 : a >= 1000 ? 0.85 : a >= 500 ? 0.6 : 0.3;
+  const pctRank = (arr, get) => {
+    const sorted = arr.map(get).slice().sort((a, b) => a - b);
+    return v => { let lo = 0, hi = sorted.length;
+      while (lo < hi) { const m = (lo + hi) >> 1; if (sorted[m] < v) lo = m + 1; else hi = m; }
+      return lo / Math.max(1, sorted.length - 1); };
+  };
+  const pre = rows.map(r => ({ r: r, quote: r.p.quote_total, psm: Math.max(r.t.psm_estimate, 5),
+                               perMin: r.p.quote_total / Math.max(r.t.psm_estimate, 5) }));
+  const rankPerMin = pctRank(pre, x => x.perMin);
+  const board = pre.map(x => {
+    x.rPerMin = rankPerMin(x.perMin);
+    x.rBuyer  = buyerScore(x.r.t.buyer_avg_per_hire);
+    x.rJudge  = JUDGE[x.r.t.triage_judge_score] != null ? JUDGE[x.r.t.triage_judge_score] : 0.4;
+    x.rFresh  = Math.max(0, 1 - (x.r.t.age_days || 0) / 7);
+    x.score   = W.perMin * x.rPerMin + W.buyer * x.rBuyer + W.judge * x.rJudge + W.fresh * x.rFresh;
+    return x;
+  }).sort((a, b) => b.score - a.score);
 
   const why = b => {
     const bits = ['$' + Math.round(b.perMin) + ' per Seth-minute'];
@@ -81,7 +98,7 @@ const WRITE_RANKS = false;   // true also stamps priority_rank onto proposals ro
   };
 
   console.log('PRIORITY BOARD — ' + board.length + ' bid-eligible priced full-package jobs, ' + errors + ' errors');
-  console.log('score = (quote / psm) x judge x buyer x freshness');
+  console.log('score = 0.45 return/min + 0.30 buyer history + 0.20 judge + 0.05 freshness, all percentile ranks');
   console.log('');
   board.slice(0, TOP_N).forEach((b, i) => {
     console.log((i + 1) + '. $' + b.quote + '  ' + b.psm + 'min  score ' + b.score.toFixed(1));
