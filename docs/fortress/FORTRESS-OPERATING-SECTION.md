@@ -215,6 +215,20 @@ A RED card still carries the paste-ready content and the clicks enumerated, so S
 is thirty seconds rather than a research project. **One staged assist, complete, not a
 conversation.**
 
+### Confirm the instance before doing anything
+
+**The first action of every card is to prove it is where it thinks it is.** Read back the
+account, agency or workspace name the session actually landed on, compare it to the surface
+the card declares, and abort if they differ. Never assume an inherited session is the right
+one.
+
+This is not caution, it is the failure that has already happened. `app.gohighlevel.com`
+opens on a live session for a *different* agency, one belonging to a former client, and
+nothing in the URL or the login says so. A card that trusted its session would have built
+inside a stranger's account, and nobody would have found out until someone opened it.
+
+The check costs one read. Skipping it costs an incident in somebody else's business.
+
 ### Per-card scoping
 
 Scoping access per card is not enforceable at the browser — a live session is a live
