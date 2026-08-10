@@ -1536,23 +1536,23 @@ $('banners').appendChild(b);
    Visibility is derived from tasks: a client appears once it has a card
    dated after the epoch. RUN_CLIENTS is the escape hatch for a client that
    exists before its first card is written. */
-var RUN_EPOCH = '2026-08-09T13:45:00Z';
-var RUN_CLIENTS = [];
+var RUN_EPOCH = '';                 /* kept for reference, no longer used to filter */
+/* RUN_CLIENTS is the live filter. The epoch could not work: the snapshot carries
+   no date on a task, not one of 159, so a date comparison hid every card on the
+   board including brand new ones. It looked correct all afternoon only because
+   every task really was old. Filtering on the client slug uses a field the
+   payload actually has. Empty list shows everything. */
+var RUN_CLIENTS = ['hardening-run-ghl'];
 
 function withinRun(data){
-if (!RUN_EPOCH || !data) return data;
-var tasks = (data.tasks || []).filter(function(t){ return String(t.created_ts || '') >= RUN_EPOCH; });
+if (!RUN_CLIENTS.length || !data) return data;
 var live = {};
-tasks.forEach(function(t){ live[t.client_slug] = true; });
 RUN_CLIENTS.forEach(function(s){ live[s] = true; });
+var tasks = (data.tasks || []).filter(function(t){ return live[t.client_slug]; });
 var clients = (data.clients || []).filter(function(c){ return live[c.slug]; });
-var reports = (data.latest_reports || []).filter(function(r){
-var ts = r.created_ts || r.ts || r.updated_ts || r.createdAt || '';
-return ts ? String(ts) >= RUN_EPOCH : false;   /* undated means pre-run */
-});
-/* money is a server-side aggregate (total_cost_usd / api / infra) computed in
-   the n8n snapshot node over every row. It cannot be recomputed here, because
-   the payload does not carry per-task cost. Flagged rather than faked. */
+var reports = (data.latest_reports || []).filter(function(r){ return live[r.client_slug]; });
+/* money is a server side aggregate over every row and cannot be recomputed here,
+   so it is flagged rather than faked */
 var m = data.money ? Object.assign({}, data.money, { __unfiltered: true }) : data.money;
 return { tasks: tasks, clients: clients, latest_reports: reports, money: m,
          queue_depth: data.queue_depth, __prerun: data };
