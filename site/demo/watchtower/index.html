@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" data-theme-lock="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Watchtower - catch what changed on your site before a client does | Launch Forte</title>
+<meta name="description" content="Paste yesterday's scrape and today's. Every field gets diffed live in your browser and marked critical, worth a look, or fine in plain English - the change log a client shouldn't have to hand you.">
+<link rel="canonical" href="https://launchforte.com/demo/watchtower/">
+<meta name="robots" content="index,follow">
+<style>
+:root{
+  --bg:#0A0D14;
+  --bg-2:#0E1220;
+  --panel:#121729;
+  --panel-2:#161c33;
+  --line:rgba(255,255,255,.08);
+  --line-strong:rgba(255,255,255,.16);
+  --text:#E7EDF5;
+  --text-soft:#B7C4D6;
+  --muted:#7C8AA0;
+  --accent:#0088DB;
+  --accent-2:#4AB5ED;
+  --good:#33C481;
+  --good-bg:rgba(51,196,129,.10);
+  --good-line:rgba(51,196,129,.35);
+  --warn:#F5B944;
+  --warn-bg:rgba(245,185,68,.10);
+  --warn-line:rgba(245,185,68,.35);
+  --danger:#FF5C5C;
+  --danger-bg:rgba(255,92,92,.12);
+  --danger-line:rgba(255,92,92,.4);
+  --radius:16px;
+  --radius-sm:10px;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 20px 60px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--sans);color:var(--text);background:var(--bg);
+  line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.wrap-narrow{max-width:820px;margin:0 auto;padding:0 24px}
+a{color:var(--accent-2)}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px;border-radius:6px}
+
+/* ---- header (studio nav, matches site) ---- */
+.studio-nav.site-header{background:rgba(10,13,20,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+.studio-nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}
+.studio-nav-cta{background:var(--accent);color:#fff;padding:9px 16px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;transition:transform .15s}
+.studio-nav-cta:hover{transform:translateY(-1px)}
+.header-logo .logo-img{filter:brightness(0) invert(1)}
+
+/* ---- hero ---- */
+.hero{position:relative;padding:80px 0 56px;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 900px 460px at 50% 0%,rgba(0,136,219,.20),transparent 60%);pointer-events:none}
+.eyebrow{position:relative;display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#B7DBF3;background:rgba(0,136,219,.14);border:1px solid rgba(0,136,219,.3);padding:7px 14px;border-radius:999px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(0,136,219,.5);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+h1{position:relative;font-size:clamp(32px,5vw,52px);line-height:1.1;letter-spacing:-.025em;font-weight:800;margin:22px 0 18px;max-width:22ch}
+h1 .accent{background:linear-gradient(180deg,#4AB5ED 0%,#0088DB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{position:relative;font-size:18px;color:var(--text-soft);max-width:62ch;margin:0}
+.hero-meta{position:relative;display:flex;flex-wrap:wrap;gap:20px;margin-top:26px}
+.hero-meta-item{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--muted)}
+.hero-meta-item svg{color:var(--accent-2);flex:0 0 auto}
+
+/* ---- sections ---- */
+.section{padding:64px 0}
+.section-head{max-width:640px;margin:0 auto 40px;text-align:center}
+.kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-2);margin-bottom:12px}
+h2{font-size:clamp(24px,3vw,32px);line-height:1.2;letter-spacing:-.02em;margin:0 0 12px;font-weight:800}
+.section-sub{font-size:16.5px;color:var(--muted);margin:0}
+
+/* how it works */
+.hiw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:820px){.hiw-grid{grid-template-columns:1fr}}
+.hiw-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.hiw-num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:rgba(0,136,219,.16);color:var(--accent-2);font-weight:800;font-size:14px;margin-bottom:14px}
+.hiw-title{font-size:16.5px;font-weight:700;margin:0 0 6px;letter-spacing:-.01em}
+.hiw-body{font-size:14.5px;color:var(--muted);line-height:1.6;margin:0}
+
+/* try-it card */
+.tool{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
+.tool + .tool{margin-top:18px}
+.field-lbl{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
+.field-lbl label{font-size:13.5px;font-weight:700;color:var(--text)}
+.field-lbl .hint{font-size:12.5px;color:var(--muted)}
+textarea{
+  width:100%;min-height:280px;resize:vertical;
+  background:var(--bg-2);color:var(--text-soft);
+  border:1px solid var(--line-strong);border-radius:var(--radius-sm);
+  padding:14px 16px;font-family:var(--mono);font-size:12.5px;line-height:1.75;
+  transition:border-color .15s,box-shadow .15s;
+}
+textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,136,219,.18)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.two-col{grid-template-columns:1fr}}
+.run-row{display:flex;align-items:center;gap:16px;margin-top:22px;flex-wrap:wrap}
+.btn-run{
+  cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(180deg,var(--accent) 0%,#0077C4 100%);color:#fff;border:none;
+  border-radius:12px;padding:15px 26px;font-size:15.5px;font-weight:700;
+  box-shadow:0 10px 28px rgba(0,136,219,.35);transition:transform .15s,box-shadow .2s;
+}
+.btn-run:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,136,219,.45)}
+.btn-run:active{transform:translateY(0)}
+.run-note{font-size:13px;color:var(--muted)}
+
+/* results */
+#results{display:none}
+#results.show{display:block}
+.hero-stat{text-align:center;padding:8px 0 6px}
+.hero-stat .figure{font-family:var(--mono);font-size:clamp(64px,12vw,104px);font-weight:700;color:var(--danger);letter-spacing:-.02em;line-height:1;text-shadow:0 0 40px rgba(255,92,92,.35)}
+.hero-stat .figure.zero{color:var(--good);text-shadow:0 0 40px rgba(51,196,129,.35)}
+.hero-stat .cap{font-size:16.5px;color:var(--text-soft);max-width:52ch;margin:10px auto 0}
+
+.counters{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 8px}
+@media(max-width:760px){.counters{grid-template-columns:repeat(2,1fr)}}
+.counter{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px;text-align:center}
+.counter .n{font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:-.01em}
+.counter .n.good{color:var(--good)}
+.counter .n.warn{color:var(--warn)}
+.counter .n.danger{color:var(--danger)}
+.counter .k{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4}
+
+.sec-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:40px 0 16px}
+
+.finding{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--line-strong);border-radius:var(--radius);padding:22px 24px;margin-bottom:14px}
+.finding.tier-red{border-left-color:var(--danger)}
+.finding.tier-amber{border-left-color:var(--warn)}
+.finding.tier-green{border-left-color:var(--good)}
+.f-badge{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:14px}
+.tier-red .f-badge{color:var(--danger);background:var(--danger-bg);border:1px solid var(--danger-line)}
+.tier-amber .f-badge{color:var(--warn);background:var(--warn-bg);border:1px solid var(--warn-line)}
+.tier-green .f-badge{color:var(--good);background:var(--good-bg);border:1px solid var(--good-line)}
+.f-badge .g{width:6px;height:6px;border-radius:50%;background:currentColor}
+.f-field{font-size:16px;font-weight:700;color:var(--text);margin:0 0 10px;letter-spacing:-.01em}
+.f-diff{font-family:var(--mono);font-size:13px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 14px;padding:11px 13px;background:rgba(255,255,255,.03);border-radius:10px}
+.f-diff .old{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,92,92,.5)}
+.f-diff .new{color:var(--text)}
+.f-diff .arrow{color:var(--muted)}
+.f-diff .same{color:var(--text-soft)}
+.f-reason{font-size:14.5px;color:var(--text-soft);line-height:1.6;margin:0}
+
+.disclaim{font-size:12.5px;color:var(--muted);line-height:1.7;margin:40px 0 0;padding-top:20px;border-top:1px solid var(--line);max-width:760px}
+
+/* cta */
+.cta-band{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:36px 32px;text-align:center;margin-top:56px}
+.cta-band h3{font-size:22px;margin:0 0 10px;letter-spacing:-.01em}
+.cta-band p{font-size:15px;color:var(--muted);margin:0 0 22px;max-width:52ch;margin-left:auto;margin-right:auto}
+.cta-band .btn-run{text-decoration:none}
+
+/* footer */
+.studio-footer{background:#05070C;border-top:1px solid var(--line);padding:48px 0 36px;color:var(--muted)}
+.studio-footer-inner{max-width:1120px;margin:0 auto;padding:0 24px}
+.footer-email-main{color:var(--text)!important}
+.studio-footer-cols{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;margin:34px 0}
+.studio-footer-col h4{font-size:13px;color:var(--text-soft);margin:0 0 12px;text-transform:uppercase;letter-spacing:.06em}
+.studio-footer-col ul{list-style:none;margin:0;padding:0}
+.studio-footer-col li{margin-bottom:9px}
+.studio-footer-col a{color:var(--muted);text-decoration:none;font-size:14px}
+.studio-footer-col a:hover{color:var(--accent-2)}
+.studio-footer-bottom{border-top:1px solid var(--line);padding-top:20px;font-size:13px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+
+@media(max-width:560px){
+  .hero{padding:56px 0 40px}
+  .section{padding:48px 0}
+  .tool{padding:20px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="studio-nav site-header">
+    <div class="studio-nav-inner">
+        <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
+        </a>
+        <div class="studio-nav-right">
+            <a href="/contact.html" class="studio-nav-cta">Contact</a>
+        </div>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap-narrow">
+    <span class="eyebrow"><span class="dot"></span>Live demo &middot; runs entirely in this page</span>
+    <h1>Something on your site changed overnight.<br>A <span class="accent">customer</span> noticed before you did.</h1>
+    <p class="hero-sub">A monitored scrape compares yesterday's snapshot to today's, field by field, and flags anything that moved &mdash; a price, a phone number, a certificate &mdash; before someone has to tell you about it.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Diffed in your browser</span>
+      </div>
+      <div class="hero-meta-item">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Prefilled, works on arrival</span>
+      </div>
+      <div class="hero-meta-item">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Every field, plain English</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="wrap-narrow">
+    <div class="section-head">
+      <div class="kicker">How the watch works</div>
+      <h2>Two scrapes, one diff, a change log you can read.</h2>
+      <p class="section-sub">Not a screenshot. Every field is compared to what it read the day before.</p>
+    </div>
+    <div class="hiw-grid">
+      <div class="hiw-card">
+        <div class="hiw-num">1</div>
+        <h3 class="hiw-title">Two scrapes, a day apart</h3>
+        <p class="hiw-body">Yesterday's snapshot and today's are already filled in below. This is what an overnight watch looks like.</p>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">2</div>
+        <h3 class="hiw-title">Diff runs in your browser</h3>
+        <p class="hiw-body">Press the button and every field gets compared right here. Nothing uploaded, nothing to sign in to.</p>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">3</div>
+        <h3 class="hiw-title">Read the change log</h3>
+        <p class="hiw-body">Each row gets a verdict and one plain-English sentence &mdash; critical, worth a look, or fine. The reason is the point.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRY IT -->
+<section class="section" style="padding-top:0">
+  <div class="wrap-narrow">
+    <div class="section-head">
+      <div class="kicker">Try it</div>
+      <h2>Diff two scrapes of the same site</h2>
+      <p class="section-sub">Both boxes are prefilled with a sample company's data. Edit them or just press the button.</p>
+    </div>
+
+    <div class="tool">
+      <div class="two-col">
+        <div>
+          <div class="field-lbl"><label for="snapA">Yesterday's scrape (baseline)</label><span class="hint">6:02 AM</span></div>
+          <textarea id="snapA" spellcheck="false"></textarea>
+        </div>
+        <div>
+          <div class="field-lbl"><label for="snapB">Today's scrape</label><span class="hint">6:04 AM</span></div>
+          <textarea id="snapB" spellcheck="false"></textarea>
+        </div>
+      </div>
+      <div class="run-row">
+        <button type="button" class="btn-run" id="runBtn">
+          Run the diff
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <span class="run-note">Nothing leaves this tab. Every field below is compared against the text in the two boxes above.</span>
+      </div>
+    </div>
+
+    <div id="results">
+      <div class="hero-stat">
+        <div class="figure" id="heroFigure">0</div>
+        <p class="cap" id="heroCaption">critical changes were live on the site before anyone signed off on them.</p>
+      </div>
+
+      <div class="counters">
+        <div class="counter"><div class="n danger" id="cRed">0</div><div class="k">Critical &mdash; held</div></div>
+        <div class="counter"><div class="n warn" id="cAmber">0</div><div class="k">Worth a look</div></div>
+        <div class="counter"><div class="n good" id="cGreen">0</div><div class="k">Fine</div></div>
+        <div class="counter"><div class="n" id="cTotal">0</div><div class="k">Fields watched</div></div>
+      </div>
+
+      <div class="sec-label">Every field, watched</div>
+      <div id="findings"></div>
+
+      <p class="disclaim">This diff only checks the two scrapes pasted above. Fields are matched by label between yesterday's snapshot and today's, and anything whose value changed gets a verdict. Money and access fields &mdash; price, phone, booking link, contact endpoint, SSL status &mdash; are marked critical when they move, because those are the ones that cost a call or a quote. Discoverability and presentation fields &mdash; title, meta description, hours, address, category, headline &mdash; are marked worth a look. A handful of fields (footer year, asset version, internal timestamp) are always marked fine, because they're supposed to change on every scrape. It does not know whether a change was authorized, does not screenshot anything, and cannot see anything that isn't in the text you pasted.</p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap-narrow">
+  <div class="cta-band">
+    <h3>Want this watching your real site?</h3>
+    <p>This page diffs two pasted snapshots. Pointing a Watchtower at your real site and scraping it daily is a short conversation, not a rebuild.</p>
+    <a href="/contact.html" class="btn-run">Talk about a watcher</a>
+  </div>
+</div>
+
+<footer class="studio-footer">
+    <div class="studio-footer-inner">
+        <a href="mailto:seth@launchforte.com" class="footer-email-main" style="display:block;text-align:center;font-size:20px;font-weight:600;margin-bottom:16px;text-decoration:none;letter-spacing:-0.015em;">seth@launchforte.com</a>
+        <div class="studio-footer-cols">
+            <div class="studio-footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="/#audit">Audit</a></li>
+                    <li><a href="/#core-systems-build">Build</a></li>
+                    <li><a href="/partnership.html">Partnership</a></li>
+                    <li><a href="/what-we-build.html">What We Build</a></li>
+                </ul>
+            </div>
+            <div class="studio-footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/results.html">Results</a></li>
+                    <li><a href="/tools">Free Tools</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                    <li><a href="/faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="studio-footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
+                    <li><a href="mailto:seth@launchforte.com">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="studio-footer-bottom">
+            <p>Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
+            <p><a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">Terms</a></p>
+            <p>&copy; 2026 Launch Forte. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var NL = String.fromCharCode(10);
+
+  var snapASample = [
+    "Page title: Bluebonnet Plumbing Co. | 24/7 Emergency Plumber in Round Rock, TX",
+    "Meta description: Licensed, insured plumbers serving Round Rock and Williamson County since 2011. Same-day service, upfront pricing, no overtime fees.",
+    "Header phone number: (512) 555-0142",
+    "Hours - Saturday: 8:00 AM - 4:00 PM",
+    "Hours - Sunday: Closed",
+    "Street address: 4410 Gattis School Rd, Suite 140, Round Rock, TX 78664",
+    "Drain cleaning starting price: $89",
+    "Water heater install starting price: $1,450",
+    "Booking button link: https://booking.bluebonnetplumbing.com/schedule",
+    "Contact form endpoint: https://api.bluebonnetplumbing.com/v2/leads",
+    "SSL certificate status: Valid, expires 2026-11-02",
+    "Google Business Profile category: Plumber",
+    "Homepage hero headline: Round Rock's top-rated emergency plumber, at your door in under an hour",
+    "Footer copyright year: 2026",
+    "CSS bundle version: main.css?v=8841",
+    "Last updated (internal): 2026-08-09 06:02 CT"
+  ].join(NL);
+
+  var snapBSample = [
+    "Page title: Bluebonnet Plumbing Co. | 24/7 Emergency Plumber in Round Rock, TX",
+    "Meta description: Cheap plumber Round Rock TX call now best price plumbing repair 24 hour",
+    "Header phone number: (512) 555-8890",
+    "Hours - Saturday: 8:00 AM - 4:00 PM",
+    "Hours - Sunday: 10:00 AM - 2:00 PM",
+    "Street address: 4410 Gattis School Rd, Suite 140, Round Rock, TX 78664",
+    "Drain cleaning starting price: $59",
+    "Water heater install starting price: $1,450",
+    "Booking button link: https://booking.bluebonnet-plumbing-tx.com/schedule",
+    "Contact form endpoint: https://api.bluebonnetplumbing.com/v2/leads",
+    "SSL certificate status: Expired 2026-08-08",
+    "Google Business Profile category: Plumber",
+    "Homepage hero headline: Round Rock's top-rated emergency plumber, at your door in under an hour",
+    "Footer copyright year: 2026",
+    "CSS bundle version: main.css?v=8847",
+    "Last updated (internal): 2026-08-10 06:04 CT"
+  ].join(NL);
+
+  var $ = function(id){ return document.getElementById(id); };
+  $("snapA").value = snapASample;
+  $("snapB").value = snapBSample;
+
+  var ALWAYS_GREEN = ["footer copyright year", "css bundle version", "last updated (internal)"];
+  var RED_LABELS = ["header phone number", "drain cleaning starting price", "water heater install starting price", "booking button link", "contact form endpoint", "ssl certificate status"];
+  var AMBER_LABELS = ["page title", "meta description", "hours - saturday", "hours - sunday", "street address", "google business profile category", "homepage hero headline"];
+
+  var REASONS = {
+    "page title": function(l, o, n, c){ return c ? ('The title tag changed from "' + o + '" to "' + n + '". That’s an SEO signal nobody should touch without telling you.') : ('Unchanged. Still reads "' + n + '".'); },
+    "meta description": function(l, o, n, c){ return c ? ('The meta description flipped to "' + n + '" from "' + o + '". That doesn’t read like a copy edit — it reads like keyword spam got dropped into the CMS.') : ('Unchanged. Still reads "' + n + '".'); },
+    "header phone number": function(l, o, n, c){ return c ? ('The number in the header changed from ' + o + ' to ' + n + '. If nobody on your team made that change, every call from the site is ringing somewhere else right now.') : ('Unchanged. Still ' + n + '.'); },
+    "hours - saturday": function(l, o, n, c){ return c ? ('Saturday hours moved from "' + o + '" to "' + n + '" with no note anywhere.') : ('Unchanged. Still "' + n + '".'); },
+    "hours - sunday": function(l, o, n, c){ return c ? ('Sunday hours moved from "' + o + '" to "' + n + '" with no note anywhere. Staff and customers are both about to be surprised.') : ('Unchanged. Still "' + n + '".'); },
+    "street address": function(l, o, n, c){ return c ? ('The address changed from "' + o + '" to "' + n + '". That breaks map pins, mailers, and anything printed with the old one.') : ('Unchanged. Still "' + n + '".'); },
+    "drain cleaning starting price": function(l, o, n, c){ return c ? ('The advertised starting price moved from ' + o + ' to ' + n + ' overnight. Every quote given since is off, in one direction or the other.') : ('Unchanged. Still ' + n + '.'); },
+    "water heater install starting price": function(l, o, n, c){ return c ? ('The advertised starting price moved from ' + o + ' to ' + n + ' overnight. Every quote given since is off, in one direction or the other.') : ('Unchanged. Still ' + n + '.'); },
+    "booking button link": function(l, o, n, c){ return c ? ('The booking button now points to ' + n + ' instead of ' + o + '. A different domain behind your own call-to-action is exactly what a hijacked funnel looks like.') : ('Unchanged. Still points to ' + n + '.'); },
+    "contact form endpoint": function(l, o, n, c){ return c ? ('The form now submits to ' + n + ' instead of ' + o + '. Leads may be landing somewhere nobody is watching.') : ('Unchanged. Still submits to ' + n + '.'); },
+    "ssl certificate status": function(l, o, n, c){ return c ? ('Certificate status moved from "' + o + '" to "' + n + '". That’s the kind of change that turns the whole site into a red warning screen in every visitor’s browser.') : ('Unchanged. Still "' + n + '".'); },
+    "google business profile category": function(l, o, n, c){ return c ? ('The listing category changed from "' + o + '" to "' + n + '". That changes who Google shows you to.') : ('Unchanged. Still "' + n + '".'); },
+    "homepage hero headline": function(l, o, n, c){ return c ? ('The homepage headline changed from "' + o + '" to "' + n + '" without a ticket or a note.') : ('Unchanged. Still reads "' + n + '".'); },
+    "footer copyright year": function(l, o, n, c){ return 'Unchanged. Still "' + n + '". Cosmetic even on the years it does move.'; },
+    "css bundle version": function(l, o, n, c){ return c ? ('Bumped from "' + o + '" to "' + n + '". A cache-busting version string is supposed to move on every deploy — expected drift, nothing to act on.') : ('Unchanged. Still "' + n + '".'); },
+    "last updated (internal)": function(l, o, n, c){ return c ? ('Moved from "' + o + '" to "' + n + '". An internal timestamp that’s supposed to change on every scrape.') : ('Unchanged. Still "' + n + '".'); }
+  };
+
+  function genericReason(label, o, n, c){
+    if(!c) return 'Unchanged. Still "' + n + '".';
+    return '"' + label + '" changed from "' + o + '" to "' + n + '" with nothing logged about why. Worth a look.';
+  }
+
+  function classify(key, changed){
+    if(ALWAYS_GREEN.indexOf(key) !== -1) return "green";
+    if(!changed) return "green";
+    if(RED_LABELS.indexOf(key) !== -1) return "red";
+    if(AMBER_LABELS.indexOf(key) !== -1) return "amber";
+    if(/phone|price|\$|booking|checkout|payment|link|url|endpoint|ssl|certificate/.test(key)) return "red";
+    return "amber";
+  }
+
+  function parseSnapshot(text){
+    var lines = text.split(NL);
+    var order = [], map = {};
+    lines.forEach(function(line){
+      var idx = line.indexOf(":");
+      if(idx === -1) return;
+      var label = line.slice(0, idx).trim();
+      var value = line.slice(idx + 1).trim();
+      if(!label) return;
+      var key = label.toLowerCase();
+      if(!(key in map)) order.push(key);
+      map[key] = { label: label, value: value };
+    });
+    return { order: order, map: map };
+  }
+
+  function unionKeys(a, b){
+    var keys = a.order.slice();
+    var seen = {};
+    keys.forEach(function(k){ seen[k] = true; });
+    b.order.forEach(function(k){ if(!seen[k]){ keys.push(k); seen[k] = true; } });
+    return keys;
+  }
+
+  function buildRow(key, snapA, snapB){
+    var aEntry = snapA.map[key], bEntry = snapB.map[key];
+    var label = (bEntry && bEntry.label) || (aEntry && aEntry.label) || key;
+    var oldVal = aEntry ? aEntry.value : null;
+    var newVal = bEntry ? bEntry.value : null;
+    var reason, tier, changed;
+    if(oldVal === null && newVal !== null){
+      changed = true; tier = classify(key, true);
+      reason = '"' + label + '" appeared in today’s scrape and wasn’t there yesterday: "' + newVal + '". New fields on a live page are worth confirming.';
+    } else if(newVal === null && oldVal !== null){
+      changed = true; tier = classify(key, true);
+      reason = '"' + label + '" was live yesterday and is gone from today’s scrape: it read "' + oldVal + '". Confirm that was intentional.';
+    } else {
+      changed = (oldVal !== newVal);
+      tier = classify(key, changed);
+      reason = (REASONS[key] || genericReason)(label, oldVal, newVal, changed);
+    }
+    return { key: key, label: label, oldVal: oldVal, newVal: newVal, changed: changed, tier: tier, reason: reason };
+  }
+
+  function esc(s){
+    return String(s == null ? "—" : s).replace(/[&<>"']/g, function(c){
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function tierRank(t){ return t === "red" ? 0 : (t === "amber" ? 1 : 2); }
+  function badgeFor(t){ return t === "red" ? "Critical — held" : (t === "amber" ? "Worth a look" : "Fine"); }
+
+  function animateCount(el, to){
+    var from = 0;
+    var t0 = null, dur = 700;
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(reduce){ el.textContent = to; return; }
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(from + (to - from) * e);
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function render(rows){
+    var total = rows.length;
+    var counts = { red: 0, amber: 0, green: 0 };
+    rows.forEach(function(r){ counts[r.tier]++; });
+
+    var figure = $("heroFigure");
+    figure.classList.toggle("zero", counts.red === 0);
+    animateCount(figure, counts.red);
+
+    var cap = $("heroCaption");
+    if(counts.red > 0){
+      cap.textContent = counts.red + (counts.red === 1 ? " critical change was" : " critical changes were") + " live on the site last night with nobody signing off — the kind that costs a call, a quote, or a customer's trust before anyone catches it.";
+    } else {
+      cap.textContent = "Nothing critical moved between the two scrapes. " + counts.amber + " field" + (counts.amber === 1 ? "" : "s") + " worth a second look; the rest held steady.";
+    }
+
+    animateCount($("cRed"), counts.red);
+    animateCount($("cAmber"), counts.amber);
+    animateCount($("cGreen"), counts.green);
+    animateCount($("cTotal"), total);
+
+    var sorted = rows.slice().sort(function(a, b){ return tierRank(a.tier) - tierRank(b.tier); });
+    var host = $("findings");
+    host.innerHTML = "";
+    sorted.forEach(function(r){
+      var card = document.createElement("div");
+      card.className = "finding tier-" + r.tier;
+      var diffHtml;
+      if(r.changed){
+        diffHtml = '<div class="f-diff"><span class="old">' + esc(r.oldVal) + '</span><span class="arrow">→</span><span class="new">' + esc(r.newVal) + '</span></div>';
+      } else {
+        diffHtml = '<div class="f-diff"><span class="same">' + esc(r.newVal) + '</span></div>';
+      }
+      card.innerHTML =
+        '<span class="f-badge"><span class="g"></span>' + esc(badgeFor(r.tier)) + '</span>' +
+        '<p class="f-field">' + esc(r.label) + '</p>' +
+        diffHtml +
+        '<p class="f-reason">' + esc(r.reason) + '</p>';
+      host.appendChild(card);
+    });
+
+    $("results").classList.add("show");
+    $("results").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  $("runBtn").addEventListener("click", function(){
+    var snapA = parseSnapshot($("snapA").value);
+    var snapB = parseSnapshot($("snapB").value);
+    var keys = unionKeys(snapA, snapB);
+    var rows = keys.map(function(key){ return buildRow(key, snapA, snapB); });
+    render(rows);
+  });
+})();
+</script>
+
+<script src="/hamburger.js?v=q2j" defer></script>
+</body>
+</html>
