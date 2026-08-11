@@ -9,6 +9,21 @@
 # always called itself /ask internally). /demo/blueprint/ is a different
 # product now — The Blueprint, a one-shot map — no cross-redirect between them.
 
+# Pricing retired 2026-08-06. Prices removed sitewide (homepage cards + the
+# dedicated /pricing page). Two Contact Us CTAs on the old page already led
+# to /contact.html, so the retired URLs land there.
+[[redirects]]
+  from = "/pricing"
+  to = "/contact.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pricing.html"
+  to = "/contact.html"
+  status = 301
+  force = true
+
 # One Connected System retired 2026-07-28 per runbook. Homepage engine
 # section + /what-we-build now carry that story. Both URL forms redirected.
 [[redirects]]
