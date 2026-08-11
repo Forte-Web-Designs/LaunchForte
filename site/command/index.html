@@ -340,18 +340,7 @@ height:64px;opacity:.55}
 </div>
 </section>
 
-<section id="videoscript">
-<p class="eyebrow" id="videoscriptToggle" style="cursor:pointer">Video script <button class="flipbtn" id="videoscriptFlip" type="button">Expand &darr;</button></p>
-<div class="card rail-gray client-sub" id="videoscriptCollapsed" style="cursor:pointer">Get a script pack or turn a prompt into a script.</div>
-<div id="videoscriptBody" style="display:none">
-<div class="card stack">
-<div class="btnrow"><button class="btn primary" id="vs_pack_btn">Send me a script pack</button></div>
-<div class="field"><input id="vs_prompt" placeholder="Or describe the video you want..."></div>
-<div class="btnrow"><button class="btn primary" id="vs_prompt_btn">Turn this into a script</button></div>
-<div id="vs_result"></div>
-</div>
-</div>
-</section>
+
 
 <section id="dispatch" style="display:none">
 <p class="eyebrow">Dispatch<span id="dispatchCount"></span> <button class="flipbtn" id="dispatchFlip" type="button">Show all</button></p>
@@ -426,9 +415,22 @@ height:64px;opacity:.55}
 </section>
 
 <section id="demand">
-<p class="eyebrow" id="demandToggle" style="cursor:pointer">Demand <button class="flipbtn" id="demandFlip" type="button">Expand &darr;</button></p>
-<div class="card rail-gray client-sub" id="demandCollapsed" style="cursor:pointer">Loading demand data…</div>
-<div id="demandBody" style="display:none"></div>
+<p class="eyebrow" id="demandToggle" style="cursor:pointer">Demand <button class="flipbtn" id="demandFlip" type="button">Collapse &uarr;</button></p>
+<div class="card rail-gray client-sub" id="demandCollapsed" style="cursor:pointer;display:none">Loading demand data…</div>
+<div id="demandBody"></div>
+</section>
+
+<section id="videoscript">
+<p class="eyebrow" id="videoscriptToggle" style="cursor:pointer">Video script <button class="flipbtn" id="videoscriptFlip" type="button">Collapse &uarr;</button></p>
+<div class="card rail-gray client-sub" id="videoscriptCollapsed" style="cursor:pointer;display:none">Get a script pack or turn a prompt into a script.</div>
+<div id="videoscriptBody">
+<div class="card stack">
+<div class="btnrow"><button class="btn primary" id="vs_pack_btn">Send me a script pack</button></div>
+<div class="field"><input id="vs_prompt" placeholder="Or describe the video you want..."></div>
+<div class="btnrow"><button class="btn primary" id="vs_prompt_btn">Turn this into a script</button></div>
+<div id="vs_result"></div>
+</div>
+</div>
 </section>
 
 <footer>
@@ -1145,7 +1147,9 @@ send({prompt: v});
 });
 }
 
-var videoscriptExpanded = false;
+/* Open on arrival. A section you have to click to see is a section you forget
+   exists, and both of these are read, not acted on. */
+var videoscriptExpanded = true;
 function wireVideoscriptToggle(){
 function toggle(){
 videoscriptExpanded = !videoscriptExpanded;
@@ -1356,13 +1360,16 @@ $('dispatchFlip').textContent = dispatchExpanded ? 'Hide' : 'Show all';
 }
 
 /* ------------------------------------------------------------------ demand */
-var demandExpanded = false;
+/* Open on arrival, same reason. */
+var demandExpanded = true;
 var demandLoaded = null;
 
 function demandUnavailable(){
 $('demandCollapsed').textContent = 'Demand data unavailable right now.';
 $('demandBody').innerHTML = '';
-$('demandBody').style.display = 'none';
+/* Leave the body in whatever state the reader put it in. Hiding it here used to
+   collapse an open section behind the reader on a single failed fetch. */
+$('demandCollapsed').style.display = '';
 }
 
 function renderAskDetail(a){
