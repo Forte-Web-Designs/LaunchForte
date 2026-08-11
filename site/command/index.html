@@ -139,7 +139,7 @@ border:2px solid transparent;background-clip:padding-box}
 background:transparent;border:0;border-radius:var(--radius-lg);padding:0;box-shadow:none}
 .board-col-head{display:flex;align-items:center;gap:8px;height:40px;flex:0 0 auto;padding:0 4px 0 2px}
 .board-col-dot{width:8px;height:8px;border-radius:999px;flex:0 0 auto;background:var(--gray)}
-.board-col-title{font-size:13px;line-height:20px;letter-spacing:-.005em;text-transform:none;
+.board-col-title{font-size:13px;line-height:20px;letter-spacing:-.005em;text-transform:capitalize;
 font-weight:600;color:var(--ink)}
 .board-col-count{font-size:12px;color:var(--muted-2);font-weight:500;margin-left:2px}
 /* min-height:0 or the inner scroll silently refuses to engage inside flex. */
@@ -173,7 +173,13 @@ color:var(--brand-ink);font-weight:500;letter-spacing:.01em;white-space:nowrap}
 .taskcard.needsme{border-left:4px solid var(--warn)}
 
 /* quick dispatch buttons on cards */
-.t-actions{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap;align-items:center}
+/* Nothing that is true of every card should be visible on every card. The status
+   select and the two buttons sat on all of them, so forty cards showed forty
+   dropdowns and the titles had to compete with their own controls. */
+.t-actions{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap;align-items:center;
+opacity:0;max-height:0;overflow:hidden;transition:opacity .12s ease,max-height .12s ease}
+.taskcard:hover .t-actions,.taskcard:focus-within .t-actions{opacity:1;max-height:80px}
+@media (hover:none){.t-actions{opacity:1;max-height:none}}
 .qbtn{font:inherit;font-size:10.5px;font-weight:700;padding:4px 8px;border-radius:8px;
 border:1px solid var(--line-strong);background:var(--card);color:var(--ink);cursor:pointer}
 .qbtn:hover{border-color:var(--brand);color:var(--brand-ink)}
@@ -538,9 +544,13 @@ function num(v, dp){
 if (v === null || v === undefined || isNaN(v)) return null;
 return Number(v).toLocaleString('en-US', {maximumFractionDigits: dp === undefined ? 0 : dp, minimumFractionDigits: dp === undefined ? 0 : dp});
 }
+/* THE CENTS ARE THE MARGIN. num(v, 0) rounded to whole dollars, so a card that
+   cost $3.80 read $4 and one that cost $0.66 read $1. Across ninety cards that
+   is real money rounded away on the one screen that exists to show it. */
 function money(v){
-var n = num(v, 0);
-return n === null ? '—' : '$' + n;
+var n = Number(v);
+if (v === null || v === undefined || v === '' || !isFinite(n)) return '—';
+return '$' + n.toFixed(2);
 }
 function shortTime(iso){
 if (!iso) return 'unknown';
