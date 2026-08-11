@@ -219,15 +219,30 @@ height:64px;opacity:.55}
 <div class="asof"><span class="dot" id="dot"></span><span id="asof">loading</span></div>
 </header>
 
-<section id="clientcontext">
-<p class="eyebrow">Client context</p>
-<p class="client-sub" style="margin:0 0 14px">Paste an email, a call note, or anything you want me to know. I work out where it belongs.</p>
-<div id="clientcontextBody">
+<section id="cockpit">
+<p class="eyebrow" id="cockpitToggle" style="cursor:pointer">Cockpit <button class="flipbtn" id="cockpitFlip" type="button">Collapse &uarr;</button></p>
+<div class="card rail-gray client-sub" id="cockpitCollapsed" style="cursor:pointer;display:none">Paste a job posting and it drafts the proposal, the pack and the PDF.</div>
+<div id="cockpitBody">
 <div class="card stack">
-<div class="field"><label for="cx_text">Paste it</label><textarea id="cx_text" rows="8" placeholder="Paste an email, a call note, a Slack message."></textarea></div>
-<div class="field"><label for="cx_hint">Hint</label><input id="cx_hint" placeholder="Any hint, for example this is the Koo project."></div>
-<div class="btnrow"><button class="btn primary" id="cx_read">Read it</button></div>
-<div id="cx_result"></div>
+<div class="field">
+<label for="ck_channel">Channel</label>
+<select id="ck_channel">
+<option value="Upwork">Upwork</option>
+<option value="External client">External client</option>
+</select>
+<div class="client-sub">Upwork signs as Seth Forte with no links. External allows Launch Forte and a booking link.</div>
+</div>
+<div class="field">
+<label for="ck_uid">Upwork job ID</label>
+<input id="ck_uid" placeholder="optional, from the JOBS tab">
+<div class="client-sub">Pulls the judge's angle and buyer snapshot as context.</div>
+</div>
+<div class="field"><label for="ck_post">Job post</label><textarea id="ck_post" placeholder="Paste the whole posting."></textarea></div>
+<div class="field"><label for="ck_company">Company</label><input id="ck_company" placeholder="optional"></div>
+<div class="field"><label for="ck_notes">Notes for the draft</label><input id="ck_notes" placeholder="optional, anything the post does not say"></div>
+<div class="btnrow"><button class="btn primary" id="ck_submit">Draft it</button></div>
+<div class="client-sub">Usually about two minutes. You can close this page, the package also lands in your inbox.</div>
+<div id="ck_result"></div>
 </div>
 </div>
 </section>
@@ -253,33 +268,6 @@ height:64px;opacity:.55}
 </div>
 </section>
 
-<section id="cockpit">
-<p class="eyebrow" id="cockpitToggle" style="cursor:pointer">Cockpit <button class="flipbtn" id="cockpitFlip" type="button">Expand &darr;</button></p>
-<div class="card rail-gray client-sub" id="cockpitCollapsed" style="cursor:pointer">Paste a job posting and it drafts the proposal, the pack and the PDF.</div>
-<div id="cockpitBody" style="display:none">
-<div class="card stack">
-<div class="field">
-<label for="ck_channel">Channel</label>
-<select id="ck_channel">
-<option value="Upwork">Upwork</option>
-<option value="External client">External client</option>
-</select>
-<div class="client-sub">Upwork signs as Seth Forte with no links. External allows Launch Forte and a booking link.</div>
-</div>
-<div class="field">
-<label for="ck_uid">Upwork job ID</label>
-<input id="ck_uid" placeholder="optional, from the JOBS tab">
-<div class="client-sub">Pulls the judge's angle and buyer snapshot as context.</div>
-</div>
-<div class="field"><label for="ck_post">Job post</label><textarea id="ck_post" placeholder="Paste the whole posting."></textarea></div>
-<div class="field"><label for="ck_company">Company</label><input id="ck_company" placeholder="optional"></div>
-<div class="field"><label for="ck_notes">Notes for the draft</label><input id="ck_notes" placeholder="optional, anything the post does not say"></div>
-<div class="btnrow"><button class="btn primary" id="ck_submit">Draft it</button></div>
-<div class="client-sub">Usually about two minutes. You can close this page, the package also lands in your inbox.</div>
-<div id="ck_result"></div>
-</div>
-</div>
-</section>
 
 <section id="board">
 <p class="eyebrow" id="boardToggle" style="cursor:pointer">Board <button class="flipbtn" id="boardFlip" type="button">Expand &darr;</button></p>
@@ -1116,7 +1104,7 @@ $('reportsToggle').addEventListener('click', toggle);
 $('reportsCollapsed').addEventListener('click', toggle);
 }
 
-var cockpitExpanded = false;
+var cockpitExpanded = true;
 function wireCockpitToggle(){
 function toggle(){
 cockpitExpanded = !cockpitExpanded;
@@ -1259,33 +1247,9 @@ discardBtn.addEventListener('click', function(){ commit(false); });
 host.appendChild(card);
 }
 
-function wireClientContext(){
-var readBtn = $('cx_read');
-readBtn.addEventListener('click', function(){
-var text = $('cx_text').value.trim();
-var hint = $('cx_hint').value.trim();
-if (!text){ $('cx_text').focus(); return; }
-$('cx_result').innerHTML = '';
-readBtn.disabled = true;
-readBtn.textContent = 'Reading';
-postJSON(PASTE_CONTEXT_URL, {text: text, hint: hint}).then(function(res){
-readBtn.disabled = false;
-readBtn.textContent = 'Read it';
-var b = res.body || {};
-if (b.ok === true){
-renderContextReview(b);
-} else {
-showResult('cx_result', false, b.error || JSON.stringify(b));
-}
-}).catch(function(e){
-readBtn.disabled = false;
-readBtn.textContent = 'Read it';
-showResult('cx_result', false, 'Request failed: ' + e.message);
-});
-});
-}
+/* client context lived here. Removed: Claude Desktop holds that job now,
+   and the Cockpit took its place at the top of the page. */
 
-var clientcontextExpanded = true;
 
 function populateVideoClientList(list){
 var dl = $('v_client_datalist');
@@ -1602,7 +1566,6 @@ wirePack();
 wireRed(); wireVideoRequest();
 wireVideoScript(); wireVideoscriptToggle();
 wireCockpit(); wireCockpitToggle();
-wireClientContext();
 wireClientFlip();
 wireDispatchFlip();
 wireHistoryToggle();
