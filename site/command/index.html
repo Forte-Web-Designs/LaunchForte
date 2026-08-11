@@ -11,12 +11,24 @@
 <link rel="icon" href="data:,">
 <style>
 :root{
---brand:#0088DB; --brand-soft:#E6F2FA; --brand-ink:#075A8F;
---ok:#1E7A4F; --warn:#B4541B; --danger:#C23B3B; --gray:#8892A0;
---bg:#EEF2F8; --card:#FFFFFF; --ink:#0B1220; --muted:#4A5566; --muted-2:#6B7788;
---line:#DDE3EC; --line-strong:#C4CDDA;
---radius:16px; --radius-lg:22px;
---shadow:0 1px 2px rgba(20,25,34,.06),0 6px 18px rgba(20,25,34,.07);
+/* Three text weights, one accent, and every soft badge pair checked against its
+   own background. The old set had a mid blue doing duty as both a fill and as
+   text, which is how a badge ends up at 2.9:1 and nobody notices. */
+--brand:#0070F3; --brand-soft:#EFF5FF; --brand-ink:#0057C2;
+--accent-600:#0063DB; --accent-100:#DBE9FE; --accent-ring:rgba(0,112,243,.35);
+--ok:#0B7A47; --ok-soft:#E8F7EF; --ok-solid:#16A34A;
+--warn:#8A5300; --warn-soft:#FFF4E0; --warn-solid:#F5A623;
+--danger:#C4262B; --danger-soft:#FDECEC; --danger-solid:#E5484D;
+--violet-solid:#7928CA;
+--gray:#8A9099;
+--bg:#F7F8FA; --bg-sunken:#F1F3F5; --card:#FFFFFF; --card-hover:#FAFBFC;
+--ink:#16181D; --muted:#5B6472; --muted-2:#8A9099;
+--line:#E6E8EC; --line-strong:#D4D8E0;
+--radius:8px; --radius-lg:12px; --radius-sm:6px;
+/* Blue-black, never pure black: a black shadow on a grey page reads as dirt. */
+--shadow:0 1px 2px rgba(16,24,40,.04);
+--shadow-sm:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.04);
+--shadow-lg:0 12px 24px -6px rgba(16,24,40,.14),0 4px 8px -4px rgba(16,24,40,.06);
 --font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
 --pad:16px;
@@ -27,6 +39,10 @@
    a room; it does not get to be low contrast because the laptop is. */
 }
 *{box-sizing:border-box}
+/* Every count, date and dollar on this page aligns to the same column. It is one
+   line and it is the difference between a dashboard and a spreadsheet screenshot. */
+body{font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important}}
 html,body{margin:0;padding:0}
 body{
 background:var(--bg); color:var(--ink); font-family:var(--font);
@@ -106,23 +122,50 @@ border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--sha
 .allclear .sub{margin-top:10px;color:var(--muted-2);font-size:13px}
 
 /* board */
-.board-cols{display:grid;gap:12px;grid-template-columns:1fr}
-@media(min-width:760px){.board-cols{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}}
-.board-col{background:#F8FAFD;border:1px solid var(--line-strong);border-radius:var(--radius);
-padding:12px;box-shadow:var(--shadow)}
-.board-col-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
-.board-col-title{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#37424F}
-.board-col-count{font-size:11px;color:var(--muted-2);font-weight:700}
-.board-col-cards{display:grid;gap:8px}
-.taskcard{background:var(--bg);border:1px solid var(--line-strong);border-radius:12px;
-padding:7px 9px;cursor:pointer;font-size:13.5px}
-.taskcard:hover{border-color:var(--brand)}
-.taskcard .t-client{font-size:11px;font-weight:700;letter-spacing:.01em;color:var(--brand-ink);margin-bottom:2px}
-.taskcard .t-title{font-weight:650;letter-spacing:-.01em;line-height:1.3}
-.taskcard .t-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+ /* A KANBAN BOARD IS HORIZONTAL. This was a responsive grid that reflowed
+   columns underneath each other, so on a narrow window Done sat below Backlog
+   and the left-to-right reading that makes a board a board was gone. Fixed
+   width track, horizontal scroll, each column scrolling its own cards. */
+.board-cols{display:flex;gap:16px;align-items:stretch;overflow-x:auto;overflow-y:hidden;
+padding:4px 2px 10px;scrollbar-gutter:stable;overscroll-behavior-x:contain;
+max-height:calc(100vh - 220px)}
+.board-cols::after{content:'';flex:0 0 8px}
+.board-cols::-webkit-scrollbar{height:10px}
+.board-cols::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:5px;
+border:2px solid transparent;background-clip:padding-box}
+/* flex-basis, not width: width lets the columns shrink to fit and the horizontal
+   scroll silently disappears, which is the whole Jira complaint. */
+.board-col{flex:0 0 300px;display:flex;flex-direction:column;min-height:0;
+background:transparent;border:0;border-radius:var(--radius-lg);padding:0;box-shadow:none}
+.board-col-head{display:flex;align-items:center;gap:8px;height:40px;flex:0 0 auto;padding:0 4px 0 2px}
+.board-col-dot{width:8px;height:8px;border-radius:999px;flex:0 0 auto;background:var(--gray)}
+.board-col-title{font-size:13px;line-height:20px;letter-spacing:-.005em;text-transform:none;
+font-weight:600;color:var(--ink)}
+.board-col-count{font-size:12px;color:var(--muted-2);font-weight:500;margin-left:2px}
+/* min-height:0 or the inner scroll silently refuses to engage inside flex. */
+.board-col-cards{flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;
+gap:8px;padding:0 4px 8px;scrollbar-width:thin}
+.board-col-cards:empty::after{content:'Nothing here';display:block;text-align:center;
+padding:22px 10px;font-size:12px;color:var(--muted-2);
+border:1px dashed var(--line);border-radius:var(--radius)}
+ /* One boundary per surface: a hairline border and a shadow so faint it reads as
+   a seam. Elevation is reserved for things that are actually lifted. */
+.taskcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+padding:12px;cursor:pointer;font-size:13px;box-shadow:var(--shadow);
+transition:border-color .12s ease,box-shadow .12s ease,background .12s ease}
+.taskcard:hover{border-color:var(--line-strong);background:var(--card-hover);box-shadow:var(--shadow-sm)}
+.taskcard:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+ /* Title and meta sit 1px apart in size on purpose. The separation is weight and
+   colour; making the title 16px and the meta 10px reads as two unrelated
+   documents stacked on top of each other. */
+.taskcard .t-client{font-size:11px;font-weight:500;letter-spacing:.01em;color:var(--muted-2);margin-bottom:6px}
+.taskcard .t-title{font-size:13px;line-height:18px;font-weight:500;letter-spacing:-.006em;color:var(--ink);
+display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.taskcard .t-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
 #demandBody .t-chips{display:flex;flex-wrap:wrap;gap:6px 8px}
-.chip{font-size:10.5px;padding:1px 6px;border-radius:999px;background:var(--brand-soft);
-color:var(--brand-ink);font-weight:700;white-space:nowrap}
+.chip{font-size:11px;line-height:16px;height:20px;display:inline-flex;align-items:center;
+padding:0 7px;border-radius:999px;background:var(--brand-soft);border:1px solid var(--accent-100);
+color:var(--brand-ink);font-weight:500;letter-spacing:.01em;white-space:nowrap}
 .chip.cost{background:transparent;border:1px solid var(--line-strong);color:var(--muted)}
 .chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}
 .chip.access{background:transparent;border:1px solid var(--warn);color:var(--warn);text-transform:uppercase}
@@ -244,7 +287,7 @@ height:64px;opacity:.55}
 </section>
 
 <div id="banners"></div>
-<section id="needsme">
+<section id="needsme" style="display:none">
 <p class="eyebrow">Needs me<span id="needsmeCount"></span></p>
 <div id="needsmehost" class="stack"><div class="client-sub">Nothing is waiting on you.</div></div>
 </section>
@@ -765,10 +808,11 @@ return;
 }
 /* only render columns that actually have a status present on the board,
 in BACKLOG-through-DONE order, per the runbook */
-var present = BOARD_COLS.filter(function(col){
-return boardTasks.some(function(t){ return colOf(t.status) === col; });
-});
-if (!present.length) present = ['backlog'];
+/* EVERY COLUMN, EVERY TIME. Columns used to render only when something was in
+   them, so the board changed shape as work moved and Done did not exist until
+   the first card finished. You cannot build muscle memory on a layout that
+   rearranges itself. */
+var present = BOARD_COLS.slice();
 var cols = el('div','board-cols');
 present.forEach(function(col){
 var colTasks = boardTasks.filter(function(t){ return colOf(t.status) === col; })
@@ -779,6 +823,13 @@ return an - bn;
 });
 var colBox = el('div','board-col');
 var head = el('div','board-col-head');
+/* Grey for not-started matters: backlog is usually the fullest column and it
+   does not get to shout. */
+var DOT = { backlog:'#8A9099', ready:'#0070F3', in_progress:'#F5A623',
+            review:'#7928CA', blocked:'#E5484D', done:'#16A34A' };
+var dot = el('div','board-col-dot');
+dot.style.background = DOT[col] || '#8A9099';
+head.appendChild(dot);
 head.appendChild(el('div','board-col-title', colLabel(col)));
 head.appendChild(el('div','board-col-count', String(colTasks.length)));
 colBox.appendChild(head);
