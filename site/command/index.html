@@ -158,7 +158,13 @@ transition:border-color .12s ease,box-shadow .12s ease,background .12s ease}
  /* Title and meta sit 1px apart in size on purpose. The separation is weight and
    colour; making the title 16px and the meta 10px reads as two unrelated
    documents stacked on top of each other. */
-.taskcard .t-client{font-size:11px;font-weight:500;letter-spacing:.01em;color:var(--muted-2);margin-bottom:6px}
+.taskcard .t-client{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.taskcard .t-who{font-size:11px;font-weight:600;letter-spacing:.01em;color:var(--muted)}
+.taskcard .t-who.t-internal{color:var(--brand-ink)}
+/* The person's name sits behind a hairline divider rather than a middle dot, so
+   the eye separates company from human without another punctuation mark. */
+.taskcard .t-contact{font-size:11px;font-weight:450;color:var(--muted-2);
+padding-left:6px;border-left:1px solid var(--line-strong)}
 .taskcard .t-title{font-size:13px;line-height:18px;font-weight:500;letter-spacing:-.006em;color:var(--ink);
 display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .taskcard .t-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
@@ -166,16 +172,34 @@ display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hi
 .chip{font-size:11px;line-height:16px;height:20px;display:inline-flex;align-items:center;
 padding:0 7px;border-radius:999px;background:var(--brand-soft);border:1px solid var(--accent-100);
 color:var(--brand-ink);font-weight:500;letter-spacing:.01em;white-space:nowrap}
+/* Every soft pair below is checked against its OWN background, not against
+   white. Taking a mid-tone foreground and dropping it on a tint is how a badge
+   quietly ends up at 2.9:1. */
+.chip.st-bad{background:var(--danger-soft);border-color:#F7C9C9;color:var(--danger)}
+.chip.st-warn{background:var(--warn-soft);border-color:#FADFA8;color:var(--warn)}
+.chip.st-ok{background:var(--ok-soft);border-color:#B7E4CC;color:var(--ok)}
+.chip.st-live{background:var(--brand-soft);border-color:var(--accent-100);color:var(--brand-ink)}
 .chip.cost{background:transparent;border:1px solid var(--line-strong);color:var(--muted)}
 .chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}
 .chip.access{background:transparent;border:1px solid var(--warn);color:var(--warn);text-transform:uppercase}
 .taskcard.empty{opacity:.5;font-style:italic;cursor:default;text-align:center;padding:14px 10px}
-.taskcard.needsme{border-left:4px solid var(--warn)}
+.taskcard.needsme{border-left:3px solid var(--danger-solid);padding-left:10px}
 
 /* quick dispatch buttons on cards */
 /* Nothing that is true of every card should be visible on every card. The status
    select and the two buttons sat on all of them, so forty cards showed forty
    dropdowns and the titles had to compete with their own controls. */
+/* demand */
+.demand-row{padding:9px 2px;border-bottom:1px solid var(--line)}
+.demand-row:last-child{border-bottom:0}
+.demand-label{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px}
+.demand-name{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-.005em}
+.demand-num{font-size:12px;color:var(--muted-2);white-space:nowrap}
+.demand-track{height:6px;border-radius:999px;background:var(--bg-sunken);overflow:hidden}
+.demand-fill{height:100%;border-radius:999px;background:var(--brand);
+transition:width .3s cubic-bezier(.2,0,0,1)}
+.demand-row:hover .demand-fill{background:var(--accent-600)}
+
 .t-actions{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap;align-items:center;
 opacity:0;max-height:0;overflow:hidden;transition:opacity .12s ease,max-height .12s ease}
 .taskcard:hover .t-actions,.taskcard:focus-within .t-actions{opacity:1;max-height:80px}
@@ -850,15 +874,55 @@ colTasks.forEach(function(t){
 var c = clientBySlug[t.client_slug] || {};
 var card = el('div','taskcard' + (taskNeedsMe(t, c) ? ' needsme' : ''));
 if (t.id) card.title = t.id;
-var clientLine = c.name || t.client_slug || t.engagement_id || 'Fortress';
-if (c.contact_name) clientLine += ' · ' + c.contact_name;
-card.appendChild(el('div','t-client', clientLine));
+/* WHOSE WORK IS THIS. The owner line was a muted 11px whisper and, for anything
+   without a resolved client, it printed a slug. Reading the board should never
+   require holding in your head which ref belongs to whom. The client leads, the
+   person we actually talk to follows, and our own work says so in plain words
+   rather than wearing an id. */
+var who = el('div','t-client');
+var clientName = c.name || t.client_slug || '';
+if (clientName) {
+  who.appendChild(el('span','t-who', clientName));
+  if (c.contact_name) who.appendChild(el('span','t-contact', c.contact_name));
+} else {
+  who.appendChild(el('span','t-who t-internal', 'Launch Forte'));
+  if (t.engagement_id) who.appendChild(el('span','t-contact', String(t.engagement_id).toUpperCase()));
+}
+card.appendChild(who);
 card.appendChild(el('div','t-title', t.title || t.id));
+/* A CARD THAT IS BROKEN SHOULD LOOK BROKEN. Every card rendered identically:
+   the same grey chips whether the job finished clean, burned its budget half way
+   through a build, or was sitting waiting to be signed in to. The state has been
+   in the data the whole time; it just was not on the card. */
+var STATE = {
+  failed:      { mark:'\u26D4', label:'Failed',      cls:'st-bad'  },
+  rejected:    { mark:'\u26D4', label:'Rejected',    cls:'st-bad'  },
+  refused:     { mark:'\u26D4', label:'Refused',     cls:'st-bad'  },
+  blocked:     { mark:'\u26D4', label:'Blocked',     cls:'st-bad'  },
+  no_changes:  { mark:'\u23F3', label:'No changes',  cls:'st-warn' },
+  stuck:       { mark:'\u23F3', label:'Stuck',       cls:'st-warn' },
+  review:      { mark:'\u23F3', label:'Needs review',cls:'st-warn' },
+  running:     { mark:'\uD83D\uDD28', label:'Building',  cls:'st-live' },
+  in_progress: { mark:'',        label:'Building',    cls:'st-live' },
+  done:        { mark:'\u2705', label:'Done',        cls:'st-ok'   },
+  verified:    { mark:'\u2705', label:'Verified',    cls:'st-ok'   }
+};
 var chips = el('div','t-chips');
-if (t.autonomy && String(t.autonomy).toLowerCase() !== 'green') chips.appendChild(el('span','chip', t.autonomy));
+var raw = String(t.status || '').toLowerCase();
+var st = STATE[raw];
+if (t.access_needed) {
+  var k = el('span','chip st-warn', '\uD83D\uDD11 Sign in needed');
+  chips.appendChild(k);
+} else if (st && st.cls !== 'st-ok') {
+  chips.appendChild(el('span','chip ' + st.cls, (st.mark ? st.mark + ' ' : '') + st.label));
+} else if (st) {
+  chips.appendChild(el('span','chip ' + st.cls, st.label));
+}
+if (t.autonomy && String(t.autonomy).toLowerCase() !== 'green') chips.appendChild(el('span','chip st-bad', t.autonomy));
 if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
 if (t.branch) chips.appendChild(el('span','chip branch', t.branch));
-if (t.access_needed) chips.appendChild(el('span','chip access', 'ACCESS' + (t.access_status ? ' ' + t.access_status : '')));
+/* The sign-in chip above already says this; a second ACCESS pill next to it was
+   the same fact twice. */
 card.appendChild(chips);
 var actions = el('div','t-actions');
 var statusSel = el('select','statussel');
@@ -1384,12 +1448,23 @@ function renderDemandBody(d){
 var host = $('demandBody'); host.innerHTML = '';
 var asks = (d.asks || []).slice().sort(function(a,b){ return (b.count||0) - (a.count||0); }).slice(0,8);
 var askCard = el('div','card stack');
-askCard.appendChild(el('div','dispatch-title','The ask'));
+askCard.appendChild(el('div','dispatch-title','What the market is asking for'));
+/* THREE NUMBERS SEPARATED BY DOTS IS NOT A CHART. This read "412 - 18% - $2,400"
+   per row, which makes the reader do the comparing. A bar does it for them: the
+   longest one is the answer and you see it without reading a digit. */
+var topCount = Math.max.apply(null, asks.map(function(a){ return a.count || 0; }).concat([1]));
 asks.forEach(function(a){
-var row = el('div','report-row');
+var row = el('div','demand-row');
 row.style.cursor = 'pointer';
-row.appendChild(el('div','report-subject', a.name));
-row.appendChild(el('div','report-meta', a.count + ' · ' + a.pct + '% · ' + money(a.spend)));
+var lab = el('div','demand-label');
+lab.appendChild(el('span','demand-name', a.name));
+lab.appendChild(el('span','demand-num', a.count + ' \u00b7 ' + a.pct + '% \u00b7 ' + money(a.spend)));
+row.appendChild(lab);
+var track = el('div','demand-track');
+var fill = el('div','demand-fill');
+fill.style.width = Math.max(2, Math.round(((a.count || 0) / topCount) * 100)) + '%';
+track.appendChild(fill);
+row.appendChild(track);
 var detail = renderAskDetail(a);
 detail.style.display = 'none';
 row.addEventListener('click', function(){ detail.style.display = detail.style.display === 'none' ? '' : 'none'; });
