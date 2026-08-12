@@ -1,0 +1,176 @@
+{
+  "name": "SIM HS: Lead to HubSpot",
+  "nodes": [
+    {
+      "id": "webhook1",
+      "name": "Lead Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-200, 0],
+      "webhookId": "sim-hs-lead-to-hubspot",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sim-hs-lead-to-hubspot",
+        "responseMode": "lastNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "code1",
+      "name": "Read Lead Fields",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [40, 0],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const lead = $json.body || $json;\nconst name = (lead.name || '').toString().trim();\nconst parts = name.split(/\\s+/).filter(Boolean);\nconst rawCompany = (lead.company || '').toString().trim();\nconst PREFIX = 'LF SAMPLE - ';\nconst company = rawCompany\n  ? (rawCompany.startsWith(PREFIX) ? rawCompany : (PREFIX + rawCompany))\n  : PREFIX + 'Unknown Company';\nreturn [{\n  json: {\n    name: name || 'Unknown',\n    firstName: parts[0] || '',\n    lastName: parts.slice(1).join(' ') || '',\n    email: (lead.email || '').toString().trim(),\n    phone: (lead.phone || '').toString().trim(),\n    company: company,\n    message: (lead.message || '').toString().trim(),\n    source: (lead.source || 'unknown').toString().trim()\n  }\n}];"
+      }
+    },
+    {
+      "id": "hs1",
+      "name": "Upsert Contact",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [280, 0],
+      "credentials": {
+        "hubspotOAuth2Api": { "id": "3OwEFkTWFPZDcds1", "name": "Launch Forte HubSpot" }
+      },
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "contact",
+        "operation": "upsert",
+        "email": "={{ $json.email }}",
+        "additionalFields": {
+          "firstName": "={{ $json.firstName }}",
+          "lastName": "={{ $json.lastName }}",
+          "phoneNumber": "={{ $json.phone }}",
+          "companyName": "={{ $json.company }}",
+          "message": "={{ $json.message + ($json.source ? ' (source: ' + $json.source + ')' : '') }}"
+        }
+      }
+    },
+    {
+      "id": "set1",
+      "name": "Merge After Contact",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [520, 0],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "assignments": {
+          "assignments": [
+            { "id": "a1", "name": "name", "type": "string", "value": "={{ $('Read Lead Fields').item.json.name }}" },
+            { "id": "a2", "name": "firstName", "type": "string", "value": "={{ $('Read Lead Fields').item.json.firstName }}" },
+            { "id": "a3", "name": "lastName", "type": "string", "value": "={{ $('Read Lead Fields').item.json.lastName }}" },
+            { "id": "a4", "name": "email", "type": "string", "value": "={{ $('Read Lead Fields').item.json.email }}" },
+            { "id": "a5", "name": "phone", "type": "string", "value": "={{ $('Read Lead Fields').item.json.phone }}" },
+            { "id": "a6", "name": "company", "type": "string", "value": "={{ $('Read Lead Fields').item.json.company }}" },
+            { "id": "a7", "name": "message", "type": "string", "value": "={{ $('Read Lead Fields').item.json.message }}" },
+            { "id": "a8", "name": "source", "type": "string", "value": "={{ $('Read Lead Fields').item.json.source }}" },
+            { "id": "a9", "name": "contactId", "type": "string", "value": "={{ $json.vid }}" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hs2",
+      "name": "Create Deal",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [760, 0],
+      "credentials": {
+        "hubspotOAuth2Api": { "id": "3OwEFkTWFPZDcds1", "name": "Launch Forte HubSpot" }
+      },
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "deal",
+        "operation": "create",
+        "stage": "appointmentscheduled",
+        "additionalFields": {
+          "dealName": "={{ $json.company + ' - ' + $json.name }}",
+          "pipeline": "default",
+          "description": "={{ $json.message }}",
+          "associatedVids": "={{ [String($json.contactId)] }}"
+        }
+      }
+    },
+    {
+      "id": "set2",
+      "name": "Merge After Deal",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1000, 0],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "assignments": {
+          "assignments": [
+            { "id": "b1", "name": "name", "type": "string", "value": "={{ $('Merge After Contact').item.json.name }}" },
+            { "id": "b2", "name": "firstName", "type": "string", "value": "={{ $('Merge After Contact').item.json.firstName }}" },
+            { "id": "b3", "name": "lastName", "type": "string", "value": "={{ $('Merge After Contact').item.json.lastName }}" },
+            { "id": "b4", "name": "email", "type": "string", "value": "={{ $('Merge After Contact').item.json.email }}" },
+            { "id": "b5", "name": "phone", "type": "string", "value": "={{ $('Merge After Contact').item.json.phone }}" },
+            { "id": "b6", "name": "company", "type": "string", "value": "={{ $('Merge After Contact').item.json.company }}" },
+            { "id": "b7", "name": "message", "type": "string", "value": "={{ $('Merge After Contact').item.json.message }}" },
+            { "id": "b8", "name": "source", "type": "string", "value": "={{ $('Merge After Contact').item.json.source }}" },
+            { "id": "b9", "name": "contactId", "type": "string", "value": "={{ $('Merge After Contact').item.json.contactId }}" },
+            { "id": "b10", "name": "dealId", "type": "string", "value": "={{ $json.dealId }}" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hs3",
+      "name": "Create Task",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [1240, 0],
+      "credentials": {
+        "hubspotOAuth2Api": { "id": "3OwEFkTWFPZDcds1", "name": "Launch Forte HubSpot" }
+      },
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "engagement",
+        "operation": "create",
+        "type": "task",
+        "dueDate": "={{ $now.plus({ days: 2 }).toISO() }}",
+        "metadata": {
+          "subject": "={{ 'Follow up with ' + $json.name + ' (' + $json.company + ')' }}",
+          "body": "={{ $json.message }}",
+          "status": "NOT_STARTED",
+          "forObjectType": "CONTACT"
+        },
+        "additionalFields": {
+          "associations": {
+            "contactIds": "={{ $json.contactId }}"
+          }
+        }
+      }
+    },
+    {
+      "id": "code2",
+      "name": "Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1480, 0],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const c = $('Merge After Deal').item.json;\nconst taskId = $json.id || ($json.engagement && $json.engagement.id) || '';\nreturn [{\n  json: {\n    summary: 'Lead ' + c.name + ' <' + c.email + '> -> HubSpot: contact ' + c.contactId + ', deal ' + c.dealId + ', task ' + taskId,\n    contactId: c.contactId,\n    dealId: c.dealId,\n    taskId: taskId,\n    name: c.name,\n    email: c.email,\n    phone: c.phone,\n    company: c.company,\n    message: c.message,\n    source: c.source\n  }\n}];"
+      }
+    }
+  ],
+  "connections": {
+    "Lead Webhook": { "main": [[{ "node": "Read Lead Fields", "type": "main", "index": 0 }]] },
+    "Read Lead Fields": { "main": [[{ "node": "Upsert Contact", "type": "main", "index": 0 }]] },
+    "Upsert Contact": { "main": [[{ "node": "Merge After Contact", "type": "main", "index": 0 }]] },
+    "Merge After Contact": { "main": [[{ "node": "Create Deal", "type": "main", "index": 0 }]] },
+    "Create Deal": { "main": [[{ "node": "Merge After Deal", "type": "main", "index": 0 }]] },
+    "Merge After Deal": { "main": [[{ "node": "Create Task", "type": "main", "index": 0 }]] },
+    "Create Task": { "main": [[{ "node": "Summary", "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}
