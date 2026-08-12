@@ -19,7 +19,7 @@ STATUS   Inventory fix half-installed: the fulfillment decrement is live on
          real fulfilments produce free dry runs. PO staging change and fetch fix not
          installed.
 
-SURFACE  n8n (modbung.app.n8n.cloud) — theirs — session live
+SURFACE  n8n (modbung.app.n8n.cloud)  <-- HISTORY, NOT AN INSTRUCTION: a client tenant, never a surface for Fortress. See INSTANCE.md. — theirs — session live
 SURFACE  Shopify admin (modern-bungalow-inc) — theirs — session live, Seth has admin
 SURFACE  Xero (org "Modern Bungalow") — theirs — session none, Seth has no login
 SURFACE  Twilio console — theirs — session none, Seth has no access
