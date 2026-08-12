@@ -48,7 +48,19 @@ The same unpushed branch also defeats the reviewing agent, which verifies by loo
 for the commit, and whose generated self-check tells Seth to run `git log` and expect a
 sha that is not on `main`.
 
-**Therefore: a card always pushes its own branch.** `git push origin runner/<job_id>-…`
+**BLOCKER, Aug 12 — the runner cannot push.** `hs-4` tried and was denied twice:
+"the tool call itself was blocked", on a `runner/*` branch, not `main`. So no card can
+currently satisfy a push criterion, the proof pipeline can never fire on its own, and
+every frame Fortress captures is stranded on a local branch. Until the runner is
+granted push rights for `refs/heads/runner/*`, somebody has to run the push by hand:
+
+```bash
+git push origin runner/<job_id>-...
+```
+
+The older `runner/*` branches on origin were pushed by Seth, not by the runner.
+
+**Therefore, once push rights exist: a card always pushes its own branch.** `git push origin runner/<job_id>-…`
 is safe — Netlify publishes `main` only, so a branch push deploys nothing. Never tell a
 card not to push. Never let a card push `main`, open a pull request, or merge; those are
 Seth's, and the runner's permission set blocks a `main` push anyway.
