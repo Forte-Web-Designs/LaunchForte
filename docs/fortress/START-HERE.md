@@ -95,6 +95,23 @@ queued  ->  runner claims  ->  builds on a runner/<job_id> branch  ->  commits
         ->  doorbell email to Seth with accept / request-changes buttons
 ```
 
+**Queue a card through the endpoint, never by writing the table.**
+
+```
+POST https://launchforte.app.n8n.cloud/webhook/build-enqueue
+{ job_id, title, job_class, repo, prompt, autonomy, criteria }
+```
+
+`Ops: Dashboard API` (`XOjXyxgywZJK3G5x`) handles that path and writes **two** rows:
+one in `build_queue` for the runner, one in `tasks` for the Command Center board.
+Inserting straight into `build_queue` over the data-table REST API works — the runner
+picks the card up and builds it — but no `tasks` row is ever created, so the card is
+invisible on the board and the board looks frozen while work is plainly happening.
+That is not a bug in the board. Every card in this session was queued the wrong way.
+
+Required fields are `job_id, title, job_class, repo, prompt, autonomy`. Duplicate
+`job_id` is rejected. The endpoint locks `autonomy` to `green`.
+
 **Card fields** (`build_queue` row): `job_id`, `title`, `job_class`, `repo`, `prompt`,
 `status`, `autonomy`, `engagement`, `unit`, `criteria`, `difficulty`, `task_shape`.
 The runner fills in `branch`, `commit_sha`, `cost_usd`, `session_id`, `detail`, `runner`.
