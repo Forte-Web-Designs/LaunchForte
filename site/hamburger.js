@@ -106,8 +106,13 @@
         });
     }
 
-    /* Site-wide extras that aren't in every page's .header-nav (Writing) */
-    var extras = [{ href: '/writing.html', text: 'Writing' }];
+    /* Site-wide extras that aren't in every page's .header-nav.
+       FAQ added to bring the mobile menu to an even 8, so the last row
+       fills without the odd-cell-spans-columns fallback. */
+    var extras = [
+        { href: '/writing.html', text: 'Writing' },
+        { href: '/faq.html', text: 'FAQ' }
+    ];
     extras.forEach(function (item) {
         if (grid.querySelector('a[href$="' + item.href + '"]')) return;
         var a = document.createElement('a');
