@@ -1,0 +1,50 @@
+{
+  "description": "Sample input payloads for the Content Platform release run (release-run.workflow.json). Feed either object into the 'Approved Asset Arrives' trigger to exercise the Website Isolation Check node. All sites, domains, and people are invented for this simulation.",
+  "runs": [
+    {
+      "label": "same-site — asset belongs to its target website",
+      "expected": {
+        "isolationCheck": "pass",
+        "path": "WordPress Hand-off (Stub)"
+      },
+      "input": {
+        "asset": {
+          "id": "asset-1001",
+          "websiteId": "site-northwind-example",
+          "clusterId": "cluster-composting-101",
+          "type": "supporting article",
+          "title": "How to Start a Backyard Compost Bin",
+          "status": "Scheduled"
+        },
+        "targetWebsite": {
+          "id": "site-northwind-example",
+          "domain": "northwind.example.com",
+          "name": "Northwind Garden Supply"
+        }
+      }
+    },
+    {
+      "label": "cross-site — asset does not belong to its target website",
+      "expected": {
+        "isolationCheck": "fail",
+        "path": "Record Isolation Failure",
+        "reason": "Asset belongs to website site-northwind-example but was routed for release to website site-cobalt-example. Cross-website release is not permitted."
+      },
+      "input": {
+        "asset": {
+          "id": "asset-1002",
+          "websiteId": "site-northwind-example",
+          "clusterId": "cluster-composting-101",
+          "type": "buying guide",
+          "title": "Best Compost Tumblers Compared",
+          "status": "Scheduled"
+        },
+        "targetWebsite": {
+          "id": "site-cobalt-example",
+          "domain": "cobalt.example.com",
+          "name": "Cobalt Fitness Studio"
+        }
+      }
+    }
+  ]
+}

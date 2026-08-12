@@ -1,0 +1,123 @@
+{
+  "name": "Content Platform — Release Run (Simulation)",
+  "active": false,
+  "nodes": [
+    {
+      "id": "a1b2c3d4-0001-4a1a-9c1a-000000000001",
+      "name": "Approved Asset Arrives",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "notes": "Stands in for an asset reaching 'Scheduled' status against the Publishing Calendar / cluster publishing sequence (spec.md section 4, Trigger). No live trigger is wired up in this simulation.",
+      "parameters": {}
+    },
+    {
+      "id": "a1b2c3d4-0002-4a1a-9c1a-000000000002",
+      "name": "Website Isolation Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [480, 300],
+      "notes": "Enforces the rule that one website's information must never leak into another website's AI content (spec.md section 3). Compares the asset's owning website against the website it is being released to; only an exact match may proceed to the WordPress hand-off.",
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "isolation-condition-1",
+              "leftValue": "={{ $json.asset.websiteId }}",
+              "rightValue": "={{ $json.targetWebsite.id }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "a1b2c3d4-0003-4a1a-9c1a-000000000003",
+      "name": "WordPress Hand-off (Stub)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [740, 180],
+      "notes": "Stub for the vendor hand-off described in spec.md section 4 (Allowed to write: the target WordPress site, the asset's status Scheduled -> Published, and the cluster's completeness view). No WordPress account, credential, or connection exists in this simulation — this node stands in for that step only.",
+      "parameters": {}
+    },
+    {
+      "id": "a1b2c3d4-0004-4a1a-9c1a-000000000004",
+      "name": "Record Isolation Failure",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [740, 420],
+      "notes": "Run stops here when the asset's owning website does not match the release target. Records the reason instead of writing anything to WordPress.",
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "failure-status",
+              "name": "status",
+              "type": "string",
+              "value": "blocked"
+            },
+            {
+              "id": "failure-reason",
+              "name": "reason",
+              "type": "string",
+              "value": "=Asset belongs to website {{ $json.asset.websiteId }} but was routed for release to website {{ $json.targetWebsite.id }}. Cross-website release is not permitted."
+            },
+            {
+              "id": "failure-asset",
+              "name": "assetId",
+              "type": "string",
+              "value": "={{ $json.asset.id }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Approved Asset Arrives": {
+      "main": [
+        [
+          {
+            "node": "Website Isolation Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Website Isolation Check": {
+      "main": [
+        [
+          {
+            "node": "WordPress Hand-off (Stub)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Record Isolation Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}
