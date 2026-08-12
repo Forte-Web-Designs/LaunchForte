@@ -1,7 +1,7 @@
 {
  "_comment": "shape -> tool -> the one PDF to attach. Unguessable suffix; this index is the only way to resolve one.",
  "base": "https://launchforte.com/built-with/packs/",
- "count": 96,
+ "count": 98,
  "packs": {
   "ai-assistant": {
    "ghl": {
@@ -113,6 +113,11 @@
     "pdf": "client-onboarding--n8n-81fff01d35.pdf",
     "product": "The Onboarding Build",
     "pages": 5
+   },
+   "notion": {
+    "pdf": "client-onboarding--notion-3b42ebc9fa.pdf",
+    "product": "The Onboarding Run",
+    "pages": 4
    }
   },
   "cold-outreach": {
@@ -289,6 +294,11 @@
    },
    "n8n": {
     "pdf": "project-ops--n8n-bb722b990a.pdf",
+    "product": "The Operations Board",
+    "pages": 4
+   },
+   "notion": {
+    "pdf": "project-ops--notion-3e9826465a.pdf",
     "product": "The Operations Board",
     "pages": 4
    }
