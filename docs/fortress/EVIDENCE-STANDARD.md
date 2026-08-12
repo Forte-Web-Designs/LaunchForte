@@ -46,8 +46,27 @@ Sample data only in the frame. Never capture a sign-in screen, a billing screen,
 the n8n workflow list — that list carries real client names. Crop Slack sidebars at
 x > 437.
 
-A proof frame committed to an unpushed runner branch is invisible to Seth. Name the
-exact path in the report so he can pull it out in one command:
+**A card pushes its own branch. Never tell a card not to push.**
+
+`git push origin runner/<job_id>-...` is the normal path and it is safe: Netlify
+publishes `main` only, so a branch push deploys nothing. Pushing is what makes the
+work checkable — the reviewing agent verifies the commit exists, Seth can open the
+proof frame on GitHub, and the branch is ready for a pull request. The digest line
+"Branches are pushed but not merged. Open a pull request to ship." describes the
+intended flow.
+
+On Aug 12 three cards in a row — `hs-1b`, `hs-2`, `hs-3` — were told "do not push".
+All three built correctly. All three were rejected or failed, because the reviewer
+was sent to look for a commit that existed nowhere it could reach, and its own
+self-check instructions told Seth to run `git log` and expect a sha that is not on
+`main`. `hs-3` was rejected while the same email's rationale block said the work
+answered the ask. The instruction caused the rejection, not the work.
+
+What a card must still never do: push `main`, open a pull request, or merge. Those
+are Seth's. The runner's permission set blocks a `main` push anyway.
+
+If a frame ever does sit on an unpushed branch, name the exact path so it can be
+pulled out in one command:
 
 ```bash
 git show <branch>:docs/proof/<file>.png > /tmp/proof.png && open /tmp/proof.png
