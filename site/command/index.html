@@ -742,10 +742,33 @@ if (n && n.scrollIntoView) n.scrollIntoView({behavior:'smooth', block:'start'});
 
 /* ------------------------------------------------------------------ board */
 var BOARD_COLS = ['backlog','ready','in_progress','blocked','done'];
+/* Every real status the tasks table can hold, mapped explicitly. 'archived'
+   is deliberately absent -- it is not a column, it is filtered out of the
+   board before colOf ever runs and counted on the glance line instead. An
+   unrecognised status must never fall to backlog (that is the bug this
+   fixes): it lands in blocked, with the raw status shown on the card. */
+var STATUS_TO_COL = {
+  '':            'backlog',
+  'backlog':     'backlog',
+  'queued':      'backlog',
+  'ready':       'ready',
+  'claimed':     'ready',
+  'in_progress': 'in_progress',
+  'running':     'in_progress',
+  'blocked':     'blocked',
+  'stuck':       'blocked',
+  'refused':     'blocked',
+  'failed':      'blocked',
+  'done':        'done',
+  'no_changes':  'done',
+  'review':      'done'
+};
 function colLabel(s){ return String(s || '').replace(/_/g,' ').toUpperCase(); }
 function colOf(status){
 var s = String(status || '').toLowerCase();
-return BOARD_COLS.indexOf(s) > -1 ? s : 'backlog';
+if (s === 'archived') return 'archived';
+if (STATUS_TO_COL.hasOwnProperty(s)) return STATUS_TO_COL[s];
+return 'blocked';
 }
 var lastSnapshot = null; var clientSearchTerm = ''; function filteredClients(list){ if (!clientSearchTerm) return list; var t = clientSearchTerm.toLowerCase(); return (list || []).filter(function(c){ return (c.name || '').toLowerCase().indexOf(t) > -1 || (c.slug || '').toLowerCase().indexOf(t) > -1; }); }
 
@@ -803,11 +826,14 @@ from the same snapshot data the board renders, not a hardcoded guess. */
 function renderStatusLine(clients, tasks){
 var host = $('statusline');
 if (!host) return;
-var boardTasks = boardTasksFor(clients, tasks);
+var allTasks = boardTasksFor(clients, tasks);
+var archivedCount = allTasks.filter(function(t){ return colOf(t.status) === 'archived'; }).length;
+var boardTasks = allTasks.filter(function(t){ return colOf(t.status) !== 'archived'; });
 var total = boardTasks.length;
 var blockedAccess = boardTasks.filter(function(t){ return !!t.access_needed; }).length;
 var inProgress = boardTasks.filter(function(t){ return colOf(t.status) === 'in_progress'; }).length;
 host.textContent = total + ' card' + (total === 1 ? '' : 's') + ' · ' +
+(archivedCount ? '+' + archivedCount + ' archived · ' : '') +
 blockedAccess + ' blocked on access · ' + inProgress + ' in progress';
 }
 
@@ -837,7 +863,9 @@ return;
    both is what hid Fortress's own cards. */
 var clientBySlug = {};
 (clients || []).forEach(function(c){ clientBySlug[c.slug] = c; });
-var boardTasks = tasks.slice();
+/* 'archived' is not a column -- it never reaches the board. The count lives
+   on the glance line above (renderStatusLine), not here. */
+var boardTasks = tasks.filter(function(t){ return colOf(t.status) !== 'archived'; });
 if (!boardTasks.length){
 host.appendChild(el('div','card rail-gray client-sub','No tasks on the board yet.'));
 return;
@@ -917,6 +945,10 @@ if (t.access_needed) {
   chips.appendChild(el('span','chip ' + st.cls, (st.mark ? st.mark + ' ' : '') + st.label));
 } else if (st) {
   chips.appendChild(el('span','chip ' + st.cls, st.label));
+} else if (raw && raw !== 'archived' && !STATUS_TO_COL.hasOwnProperty(raw)) {
+  /* A status we've never seen. It landed in blocked (colOf's fallback) --
+     show the raw string so it doesn't get mistaken for anything mapped. */
+  chips.appendChild(el('span','chip st-bad', raw));
 }
 if (t.autonomy && String(t.autonomy).toLowerCase() !== 'green') chips.appendChild(el('span','chip st-bad', t.autonomy));
 if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
