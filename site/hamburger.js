@@ -39,6 +39,10 @@
 
         '#mobile-nav .mn-cell{position:relative;isolate:isolate;display:block;background:#0A0A0A;padding:1rem 1.5rem;font-family:"Mona Sans",-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;font-weight:500;font-size:1.15rem;letter-spacing:-0.01em;line-height:1.3;color:#FFFFFF;text-decoration:none;overflow:hidden;transition:color 0.2s ease}',
         '@media(min-width:640px){#mobile-nav .mn-cell{padding:1.25rem 1.75rem;font-size:1.25rem}#mobile-nav .mn-cell:nth-child(even){border-left:1px solid #262626}}',
+        /* Odd link count: make the last cell span both columns so no empty grid
+           slot is left showing the grid background. Only kicks in when the
+           final cell is at an odd index (i.e. it would otherwise be alone). */
+        '@media(min-width:640px){#mobile-nav .mn-cell:last-child:nth-child(odd){grid-column:1 / -1}}',
         '#mobile-nav .mn-cell::before{content:"";position:absolute;inset:0;z-index:-1;background:#171717;opacity:0;transition:opacity 0.2s ease}',
         '#mobile-nav .mn-cell:hover{color:var(--accent,#4AB5ED)}',
         '#mobile-nav .mn-cell:hover::before{opacity:1}',
