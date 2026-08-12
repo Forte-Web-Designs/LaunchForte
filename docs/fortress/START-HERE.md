@@ -112,6 +112,12 @@ That is not a bug in the board. Every card in this session was queued the wrong 
 Required fields are `job_id, title, job_class, repo, prompt, autonomy`. Duplicate
 `job_id` is rejected. The endpoint locks `autonomy` to `green`.
 
+**Always send `client_slug` and `engagement_id` too.** They are not required by the
+endpoint, but the board groups tasks by client — a card with an empty `client_slug`
+is written to both tables, builds normally, and is invisible on the board. It reads
+exactly like the board being broken. `Write Task` maps both fields, so sending them
+is all it takes.
+
 **Card fields** (`build_queue` row): `job_id`, `title`, `job_class`, `repo`, `prompt`,
 `status`, `autonomy`, `engagement`, `unit`, `criteria`, `difficulty`, `task_shape`.
 The runner fills in `branch`, `commit_sha`, `cost_usd`, `session_id`, `detail`, `runner`.
