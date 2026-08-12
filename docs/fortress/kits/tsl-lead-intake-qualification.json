@@ -1,0 +1,282 @@
+{
+  "name": "SIM TSL: Lead Intake and Qualification",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sim-tsl-lead-intake",
+        "options": {}
+      },
+      "id": "tsl0001-0000-4000-8000-000000000001",
+      "name": "A lead arrives",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "tsl0900-0000-4000-8000-000000000900"
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "tsl0101-0000-4000-8000-000000000101",
+              "name": "practice_area_served",
+              "value": "={{ [\"personal injury\", \"family\", \"criminal defence\", \"estate planning\", \"hvac\", \"roofing\", \"plumbing\", \"electrical\", \"pest control\"].includes((($json.practice_area || '').toString().toLowerCase().trim())) }}",
+              "type": "boolean"
+            },
+            {
+              "id": "tsl0102-0000-4000-8000-000000000102",
+              "name": "has_usable_contact",
+              "value": "={{ (!!$json.email && /\\S+@\\S+\\.\\S+/.test($json.email)) || (!!$json.phone && $json.phone.toString().replace(/\\D/g, '').length >= 7) }}",
+              "type": "boolean"
+            },
+            {
+              "id": "tsl0103-0000-4000-8000-000000000103",
+              "name": "message_is_substantive",
+              "value": "={{ (($json.message || '').toString().trim().split(/\\s+/).filter(w => w.length > 0).length) > 5 }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "tsl0002-0000-4000-8000-000000000002",
+      "name": "Test the rules: area, contact, message length",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        260,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "tsl0201-0000-4000-8000-000000000201",
+              "name": "score",
+              "value": "={{ ($json.practice_area_served ? 1 : 0) + ($json.has_usable_contact ? 1 : 0) + ($json.message_is_substantive ? 1 : 0) }}",
+              "type": "number"
+            },
+            {
+              "id": "tsl0202-0000-4000-8000-000000000202",
+              "name": "qualified",
+              "value": "={{ $json.practice_area_served && $json.has_usable_contact && $json.message_is_substantive }}",
+              "type": "boolean"
+            },
+            {
+              "id": "tsl0203-0000-4000-8000-000000000203",
+              "name": "hold_reason",
+              "value": "={{ [ !$json.practice_area_served ? ('practice area (' + ($json.practice_area || 'none given') + ') is not one we serve') : null, !$json.has_usable_contact ? 'no usable email or phone was provided' : null, !$json.message_is_substantive ? 'the message is too short to act on' : null ].filter(Boolean).join('; ') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "tsl0003-0000-4000-8000-000000000003",
+      "name": "Score the lead and write the reason",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "tsl0500-0000-4000-8000-000000000500",
+              "leftValue": "={{ $json.qualified }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "tsl0004-0000-4000-8000-000000000004",
+      "name": "Qualified or held?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        780,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "tsl0301-0000-4000-8000-000000000301",
+              "name": "crm_score",
+              "value": "={{ $json.score }}",
+              "type": "number"
+            },
+            {
+              "id": "tsl0302-0000-4000-8000-000000000302",
+              "name": "crm_reason",
+              "value": "={{ 'Serves ' + $json.practice_area + '; reachable at ' + ($json.email || $json.phone) + '; message gives enough to act on.' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "tsl0005-0000-4000-8000-000000000005",
+      "name": "Prepare the CRM record (score + reason)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        170
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "tsl0006-0000-4000-8000-000000000006",
+      "name": "Stub: send to GoHighLevel CRM (not connected)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        170
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "tsl0401-0000-4000-8000-000000000401",
+              "name": "hold_summary",
+              "value": "={{ 'Lead from ' + ($json.name || 'unknown') + ' held: ' + $json.hold_reason + '.' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "tsl0007-0000-4000-8000-000000000007",
+      "name": "Prepare the hold record (reason)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        430
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "tsl0008-0000-4000-8000-000000000008",
+      "name": "Stub: hold lead with reason (not connected)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        430
+      ]
+    }
+  ],
+  "connections": {
+    "A lead arrives": {
+      "main": [
+        [
+          {
+            "node": "Test the rules: area, contact, message length",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Test the rules: area, contact, message length": {
+      "main": [
+        [
+          {
+            "node": "Score the lead and write the reason",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score the lead and write the reason": {
+      "main": [
+        [
+          {
+            "node": "Qualified or held?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qualified or held?": {
+      "main": [
+        [
+          {
+            "node": "Prepare the CRM record (score + reason)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare the hold record (reason)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare the CRM record (score + reason)": {
+      "main": [
+        [
+          {
+            "node": "Stub: send to GoHighLevel CRM (not connected)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare the hold record (reason)": {
+      "main": [
+        [
+          {
+            "node": "Stub: hold lead with reason (not connected)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}
