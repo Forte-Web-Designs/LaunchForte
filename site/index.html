@@ -350,8 +350,33 @@
             justify-content: center;
             align-items: center;
             gap: 0.75rem;
-            margin: 0 auto 3rem;
+            margin: 0 auto 1rem;
         }
+
+        /* Tertiary hero link — quiet third option under the two buttons,
+           for the person who isn't ready to click either. Smaller than the
+           button labels, secondary text color, no button chrome. Sits in the
+           space that used to be pure margin so mobile layout doesn't shift. */
+        .hero-tertiary-row {
+            text-align: center;
+            margin: 0 auto 2.5rem;
+            padding: 0 1rem;
+        }
+        .hero-tertiary-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.55);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            padding-bottom: 2px;
+            transition: color 0.15s ease, border-color 0.15s ease;
+        }
+        .hero-tertiary-link:hover {
+            color: rgba(255,255,255,0.85);
+            border-bottom-color: rgba(255,255,255,0.4);
+        }
+        .hero-tertiary-link .arrow { margin-left: 0.35em; transition: transform 0.15s ease; display: inline-block; }
+        .hero-tertiary-link:hover .arrow { transform: translateX(2px); }
         .hero-btn {
             display: inline-flex;
             align-items: center;
@@ -768,6 +793,13 @@
                     Book the Audit
                     <span class="hero-btn-arrow" aria-hidden="true">&rarr;</span>
                 </a>
+            </div>
+
+            <!-- Tertiary hero link: quiet third option for someone not ready to
+                 click either button. Points at Our Services (the plain-English
+                 explanation of what "systems" actually means). -->
+            <div class="hero-tertiary-row">
+                <a href="/what-we-build.html" class="hero-tertiary-link" data-gtm-event="homepage_hero_what_this_means">What this actually means <span class="arrow" aria-hidden="true">&rarr;</span></a>
             </div>
 
             <!-- Tools row: one muted line under the CTA pair, dot-separated, no logos.

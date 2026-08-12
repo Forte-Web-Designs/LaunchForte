@@ -5,18 +5,18 @@
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What We Build: Revenue Infrastructure, Lead Systems, AI | Launch Forte</title>
-    <meta name="description" content="Six categories of engineering work: outbound and lead systems, revenue infrastructure, AI orchestration, reporting, custom builds, and reliability. The full stack of systems we build.">
+    <title>Our Services: What I Actually Build | Launch Forte</title>
+    <meta name="description" content="Plain-English explanation of what 'systems' means for a growing business, and the seven categories of work I engineer. Founder-voice, no jargon.">
     <link rel="canonical" href="https://launchforte.com/what-we-build">
     <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
-    <meta property="og:title" content="What We Build: Revenue Infrastructure, Lead Systems, AI | Launch Forte">
-    <meta property="og:description" content="Six categories of engineering work: outbound and lead systems, revenue infrastructure, AI orchestration, reporting, custom builds, and reliability. The full stack of systems we build.">
+    <meta property="og:title" content="Our Services: What I Actually Build | Launch Forte">
+    <meta property="og:description" content="Plain-English explanation of what 'systems' means for a growing business, and the seven categories of work I engineer. Founder-voice, no jargon.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://launchforte.com/what-we-build">
     <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="What We Build: Revenue Infrastructure, Lead Systems, AI | Launch Forte">
-    <meta name="twitter:description" content="Six categories of engineering work: outbound and lead systems, revenue infrastructure, AI orchestration, reporting, custom builds, and reliability. The full stack of systems we build.">
+    <meta name="twitter:title" content="Our Services: What I Actually Build | Launch Forte">
+    <meta name="twitter:description" content="Plain-English explanation of what 'systems' means for a growing business, and the seven categories of work I engineer. Founder-voice, no jargon.">
     <link rel="stylesheet" href="/studio.css?v=q2j">
     <link rel="stylesheet" href="/hero.css?v=q2j">
     <script src="/studio-theme.js?v=q2j"></script>
@@ -27,8 +27,8 @@
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "What We Build",
-      "description": "Six categories of engineering work: outbound and lead systems, revenue infrastructure, AI orchestration, reporting, custom builds, and reliability. The full stack of systems we build.",
+      "name": "Our Services",
+      "description": "Plain-English explanation of what 'systems' means for a growing business, and the seven categories of work I engineer.",
       "url": "https://launchforte.com/what-we-build",
       "publisher": {
         "@type": "ProfessionalService",
@@ -44,7 +44,7 @@
       "@type": "BreadcrumbList",
       "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://launchforte.com/"},
-        {"@type": "ListItem", "position": 2, "name": "What We Build", "item": "https://launchforte.com/what-we-build"}
+        {"@type": "ListItem", "position": 2, "name": "Our Services", "item": "https://launchforte.com/what-we-build"}
       ]
     }
     </script>
@@ -128,10 +128,29 @@
       .wwb-pitch { text-align: center; padding: var(--sp-20) 0; }
       .wwb-pitch p { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.375rem, 2.75vw, 1.75rem); line-height: 1.3; letter-spacing: -0.018em; color: var(--ink); margin: 0; max-width: 900px; margin-left: auto; margin-right: auto; }
 
+      /* Plain-English founder-voice section — sits above the category grid.
+         Narrow measure (~65ch), generous line height, no icons/cards.
+         The "group chat" paragraph gets a bordered pull-quote treatment. */
+      .plain-talk { max-width: 65ch; margin: 0 auto; padding: 0 1.5rem; }
+      .plain-talk-eyebrow { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--n-500); margin: 0 0 1rem; }
+      .plain-talk h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: clamp(1.75rem, 3.6vw, 2.5rem); line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin: 0 0 2rem; }
+      .plain-talk p { font-size: 1.0625rem; line-height: 1.75; color: var(--ink); margin: 0 0 1.5rem; }
+      .plain-talk p strong { font-weight: 700; color: var(--ink); }
+      .plain-talk-chat { border-left: 3px solid var(--accent); background: var(--n-50); padding: 1.5rem 1.75rem; border-radius: 0 var(--radius-lg) var(--radius-lg) 0; margin: 2rem 0; }
+      .plain-talk-chat p { font-size: 1.1875rem; line-height: 1.6; margin: 0; }
+      .plain-talk-divider { border: 0; border-top: 1px solid var(--border); max-width: 65ch; margin: var(--sp-16) auto var(--sp-12); }
+      .plain-talk-list-hint { max-width: 65ch; margin: 0 auto var(--sp-8); padding: 0 1.5rem; text-align: center; font-size: var(--text-sm); color: var(--n-500); font-style: italic; }
+      @media (max-width: 640px) {
+        .plain-talk { padding: 0 1.25rem; }
+        .plain-talk p { font-size: 1rem; line-height: 1.7; }
+        .plain-talk-chat p { font-size: 1.0625rem; }
+      }
+
       /* Final CTA */
       .cta-banner { margin-top: var(--sp-16); padding: var(--sp-20) 2rem; background: var(--ink); color: var(--paper); border-radius: var(--radius-4xl); text-align: center; }
       .cta-banner h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.75rem, 3.6vw, 2.5rem); color: var(--paper); margin: 0 0 1rem; letter-spacing: -0.025em; }
       .cta-banner p { color: var(--n-400); font-size: var(--text-lg); margin: 0 auto 2rem; max-width: 640px; }
+      .cta-banner-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
     </style>
 </head>
 <body>
@@ -163,12 +182,12 @@
 
     <div class="hero-content">
         <div class="hero-content-inner">
-            <span class="hero-eyebrow-line"><span class="dot"></span><span class="mark">What We Build</span></span>
+            <span class="hero-eyebrow-line"><span class="dot"></span><span class="mark">Our Services</span></span>
             <h1 class="hero-h1">
-                <span class="hero-h1-line-1">The systems</span>
-                <span class="hero-h1-line-2">that hold the business together.</span>
+                <span class="hero-h1-line-1">What I</span>
+                <span class="hero-h1-line-2">actually build.</span>
             </h1>
-            <p class="hero-sub-dark">Revenue infrastructure, reporting, custom builds, and the reliability layer underneath.</p>
+            <p class="hero-sub-dark">Plain English first. Then the seven categories, in case you're the kind of person who wants the list.</p>
         </div>
     </div>
 </div>
@@ -189,6 +208,38 @@
             </button>
         </div>
     </section>
+
+    <!-- PLAIN-ENGLISH FOUNDER-VOICE SECTION.
+         First person throughout, deliberately. The homepage is brand voice ("we");
+         this page is the founder explaining how he thinks about the work ("I").
+         Sits above the category grid so someone reading top to bottom gets the
+         explanation before the list. The seven categories still live below for
+         anyone who wants the taxonomy. -->
+    <section class="studio-container studio-section">
+        <div class="plain-talk studio-reveal">
+            <span class="plain-talk-eyebrow">Plain English</span>
+            <h2>What I actually build.</h2>
+
+            <p><strong>Systems just means the apps your business runs on.</strong> QuickBooks, Notion, a CRM, whatever you're paying for. Or the lack of them, which is more common than people think.</p>
+
+            <p>When there's no system, somebody's head is the system. They remember to follow up, they know which client is which, they copy the order into the books because they always have. That works fine right up until they take a week off, or quit, and then everyone finds out how much of the business was living in one person's memory. It also means the company can't grow past what that person can hold, and usually that person is the owner.</p>
+
+            <p><strong>The apps themselves make it harder.</strong> Each one stores things its own way and breaks its own way, so getting two of them to agree is a translation job. A third isn't 50% more work, it's a whole new language, and now all three have to agree on what a customer even is.</p>
+
+            <div class="plain-talk-chat">
+                <p><strong>Think group chat.</strong> Two people is just a conversation. Get five in there and somebody's always out of the loop, so now you need rules about who tells who what and when. That's basically my job, except with the apps a business runs on.</p>
+            </div>
+
+            <p><strong>So what I build is the connections between them, plus the rules that decide what happens.</strong> A lead comes in, gets checked, goes to the right person, and gets followed up whether or not anyone remembers. The order lands in the books without anyone typing it. And the whole thing writes down what it did, so after a few months you can see which marketing actually brought in customers instead of guessing.</p>
+
+            <p><strong>I'm careful about where that stops.</strong> The call where somebody's upset, the quote that needs judgment, a relationship you've had for years, those should stay human. I take the parts that are just information moving around, so people spend their time where it matters.</p>
+
+            <p><strong>AI didn't replace any of this, it made the problem bigger.</strong> Every AI tool has to read from something and write to something, so if the underlying stuff is a mess you now have a very fast, very confident mess. Somebody still has to decide what counts as a lead, when the system is allowed to act on its own, and when it should stop and ask a person. That part is judgment about your business, and it doesn't come out of a box.</p>
+        </div>
+    </section>
+
+    <hr class="plain-talk-divider">
+    <p class="plain-talk-list-hint">The seven categories, in case you're the kind of person who wants the list.</p>
 
     <!-- ANCHOR PILLS -->
     <section class="studio-container">
@@ -291,12 +342,15 @@
         <p>Every build does one of two things. Makes you more money, or <span style="color:var(--accent);font-weight:600">keeps more of what you earn</span>.</p>
     </section>
 
-    <!-- CLOSING CTA -->
+    <!-- CLOSING CTA — same two calls to action the homepage hero uses. Nothing else. -->
     <section class="studio-container" id="next-step">
         <div class="cta-banner studio-reveal">
             <h2>Not sure which you need?</h2>
             <p>That's what the audit is for. A fast diagnostic that shows you what's worth building and what it's worth.</p>
-            <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-accent">Book a Growth Systems Audit</a>
+            <div class="cta-banner-actions">
+                <a href="/#ask-forte" class="studio-btn studio-btn-accent">Ask Forte</a>
+                <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-ghost" style="color:#fff;border-color:rgba(255,255,255,0.35);">Book the Audit &rarr;</a>
+            </div>
         </div>
     </section>
 
