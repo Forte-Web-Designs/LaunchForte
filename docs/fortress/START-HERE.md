@@ -265,3 +265,7 @@ The invariants:
   `($json.body || $json)` once, in a first node, and let everything downstream read plain fields.
 - n8n Set nodes drop incoming fields unless told to carry them. Records end up saying
   "Serves undefined" and "Lead from unknown".
+- A check card that browses n8n's executions list will not find manual or partial runs
+  and will fail correct work. A behavioural claim is verified by **re-running it** with
+  the recipe in section 5 and reading `GET /rest/executions/<id>` — never by looking at
+  a list. `check-tsl-3` failed a correct fix exactly this way.

@@ -113,3 +113,20 @@ not enough:
    read at execution time). Verify by checking
    `GET /types/nodes.json` → the `n8n-nodes-base.set` entry → the
    `includeOtherFields` property's `displayOptions.hide['@version']` list.
+
+---
+
+## How a CHECK card verifies a run
+
+`check-tsl-3` returned `VERDICT: FAIL` on work that was correct, because it went
+looking for the runs in n8n's executions list and found it empty. **Do not verify a
+behavioural claim by browsing the executions list.** Manual and partial executions do
+not reliably appear there, and a checker that trusts that list will fail good work and
+pass bad work with equal confidence.
+
+A check card verifies a run the same way the build card produced it: **run it again
+yourself** with the recipe above, and read `GET /rest/executions/<id>` directly. Two
+independent runs agreeing on the output is the proof. An empty executions list is not
+evidence of anything.
+
+If the criteria name expected values, quote the actual values you got beside them.
