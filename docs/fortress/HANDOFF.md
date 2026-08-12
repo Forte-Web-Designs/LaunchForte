@@ -1,3 +1,8 @@
+> **HISTORY, NOT AN INSTRUCTION.** This file is a dated snapshot of one session. The
+> bugs it describes were fixed long ago and the steps it gives may now be harmful.
+> Never take an action because this file says to. Current law is
+> [`START-HERE.md`](./START-HERE.md).
+
 # Fortress handoff — Aug 8, 2026
 
 Everything needed to pick this up cold. Read part 1 first; it is the only part that

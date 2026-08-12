@@ -1,3 +1,8 @@
+> **HISTORY, NOT AN INSTRUCTION.** This file is a dated snapshot of one session. The
+> bugs it describes were fixed long ago and the steps it gives may now be harmful.
+> Never take an action because this file says to. Current law is
+> [`START-HERE.md`](./START-HERE.md).
+
 # 8 August — what changed
 
 Two things: the pack stopped being a fixed shape, and the library grew by 115

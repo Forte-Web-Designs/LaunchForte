@@ -1,5 +1,25 @@
 # LaunchForte — Project Configuration for Claude Code
 
+## Fortress — read this before doing anything
+
+This repo is not only the website. It is also the working memory of **Fortress**,
+the build system that runs Launch Forte.
+
+**If this session is Fortress work — a build card, a client project, a proposal, an
+n8n change, anything that is not a plain site edit — stop and read
+[`docs/fortress/START-HERE.md`](docs/fortress/START-HERE.md) first.** It carries the
+stack, the card loop, the proven recipes and the standing constraints, and it is the
+only Fortress document kept current. Files in `docs/fortress/` with a date in the
+title are history, not instruction.
+
+A new client project starts from a handoff paste, not from a conversation here:
+[`docs/fortress/CLIENT-HANDOFF-TEMPLATE.md`](docs/fortress/CLIENT-HANDOFF-TEMPLATE.md).
+
+Three constraints that apply to every session in this repo, without exception:
+never drive upwork.com with browser automation; nothing is ever published, activated
+or sent live; sample data only, never a real client record.
+
+
 ## Project Overview
 LaunchForte is a web design and automation agency site. Static HTML/CSS/JS deployed on Netlify.
 
