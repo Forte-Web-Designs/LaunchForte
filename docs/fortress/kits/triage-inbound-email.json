@@ -1,0 +1,321 @@
+{
+  "name": "SIM TRIAGE: Inbound Email Agent",
+  "nodes": [
+    {
+      "id": "4e7bb620-f439-4903-8a2c-be6876ea8269",
+      "name": "Run trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-680, 300],
+      "parameters": { "httpMethod": "POST", "path": "sim-triage-inbound-email", "responseMode": "lastNode", "options": {} },
+      "webhookId": "dc31eb31-45a7-4cdc-8728-a1711bb37970"
+    },
+    {
+      "id": "c8afd0c6-6576-4d83-bd57-1b3b11fe2b3e",
+      "name": "Fetch recent mail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [-440, 140],
+      "parameters": { "resource": "message", "operation": "getAll", "returnAll": false, "limit": 5, "simple": true, "filters": {}, "options": {} },
+      "credentials": { "gmailOAuth2": { "id": "zlluwophmluOUsTP", "name": "Fortress Launch Forte Gmail" } },
+      "webhookId": "cb194410-8989-4a9b-8cc6-ab4548a16a77"
+    },
+    {
+      "id": "b92b9ca2-0663-4de9-9d24-08109d165cf1",
+      "name": "Ask Claude to triage",
+      "type": "@n8n/n8n-nodes-langchain.anthropic",
+      "typeVersion": 1,
+      "position": [-200, 140],
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "modelId": { "mode": "id", "value": "claude-sonnet-4-5-20250929" },
+        "messages": { "values": [ { "content": "=Subject: {{ $json.subject || $json.Subject || '(no subject)' }}\nFrom: {{ $json.from || $json.From || '(unknown sender)' }}\n\nBody (first 1500 characters):\n{{ (($json.text || $json.textPlain || $json.snippet || '') + '').slice(0, 1500) }}", "role": "user" } ] },
+        "simplify": true,
+        "options": {
+          "system": "You are an inbound email triage assistant. Read the subject and the body excerpt and respond with STRICT JSON only -- no markdown, no code fences, no commentary before or after. The JSON object must have exactly these keys: summary (one sentence), category (one of: client, sales, vendor, notification, spam), urgent (boolean), needs_reply (boolean), draft (a short reply if needs_reply is true, otherwise an empty string). Output only the JSON object and nothing else.",
+          "maxTokens": 500,
+          "temperature": 0,
+          "includeMergedResponse": true
+        }
+      },
+      "credentials": { "anthropicApi": { "id": "UzSqXhbmbxLh09m6", "name": "Anthropic" } }
+    },
+    {
+      "id": "07f47ad7-4bb9-4ac7-89e3-0c5a80dadc08",
+      "name": "Read the triage",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [40, 140],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "const mail = $('Fetch recent mail').item.json;\n\nfunction extractText(json) {\n  if (typeof json.content === 'string') return json.content;\n  if (Array.isArray(json.content)) {\n    return json.content.filter(b => b && b.type === 'text').map(b => b.text).join('\\n');\n  }\n  if (typeof json.text === 'string') return json.text;\n  if (json.message && typeof json.message.content === 'string') return json.message.content;\n  return JSON.stringify(json);\n}\n\nconst raw = extractText($json);\nlet parsed = null;\ntry {\n  const match = raw.match(/\\{[\\s\\S]*\\}/);\n  parsed = JSON.parse(match ? match[0] : raw);\n} catch (e) {\n  parsed = null;\n}\n\nconst validCategories = ['client', 'sales', 'vendor', 'notification', 'spam'];\n\nconst triage = {\n  summary: parsed && typeof parsed.summary === 'string' ? parsed.summary : 'Could not parse a summary from the model output.',\n  category: parsed && validCategories.includes(parsed.category) ? parsed.category : 'unknown',\n  urgent: parsed && typeof parsed.urgent === 'boolean' ? parsed.urgent : false,\n  needs_reply: parsed && typeof parsed.needs_reply === 'boolean' ? parsed.needs_reply : false,\n  draft: parsed && typeof parsed.draft === 'string' ? parsed.draft : '',\n  raw_triage_text: raw,\n};\n\nreturn {\n  json: {\n    ...triage,\n    messageId: mail.id,\n    threadId: mail.threadId,\n    from: mail.from || mail.From || '(unknown sender)',\n    subject: mail.subject || mail.Subject || '(no subject)',\n  },\n};"
+      }
+    },
+    {
+      "id": "310527c6-815a-4341-a18c-b7c946abfcb2",
+      "name": "List Gmail labels",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [-440, 560],
+      "parameters": { "resource": "label", "operation": "getAll", "returnAll": true },
+      "credentials": { "gmailOAuth2": { "id": "zlluwophmluOUsTP", "name": "Fortress Launch Forte Gmail" } },
+      "webhookId": "49fa9493-a48d-474f-96b0-2ae47951f38b"
+    },
+    {
+      "id": "59124197-f5cc-4604-9cb4-1b02ec6b7cd4",
+      "name": "Find Triaged label",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-200, 560],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const items = $input.all();\nconst found = items.find(i => i.json && i.json.name === 'Triaged');\nreturn [{\n  json: {\n    triagedLabelExists: !!found,\n    triagedLabelId: found ? found.json.id : null,\n  },\n}];"
+      }
+    },
+    {
+      "id": "d7b74fcd-b3ae-43e5-9539-be1deb411e8c",
+      "name": "Triaged label exists?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [40, 560],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2 },
+          "combinator": "and",
+          "conditions": [ { "id": "7d703ba9-5bd5-4deb-8786-f168246df108", "leftValue": "={{ $json.triagedLabelExists }}", "rightValue": "", "operator": { "type": "boolean", "operation": "true", "singleValue": true } } ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "2e9085a4-15db-40fa-a4f8-03e1ea28dca7",
+      "name": "Create Triaged label",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [280, 680],
+      "parameters": { "resource": "label", "operation": "create", "name": "Triaged", "options": {} },
+      "credentials": { "gmailOAuth2": { "id": "zlluwophmluOUsTP", "name": "Fortress Launch Forte Gmail" } },
+      "webhookId": "e593c463-21c9-4269-afbf-92e58d2b3d1c"
+    },
+    {
+      "id": "02c7671f-db43-4d5b-a27f-f6072ecdeeaa",
+      "name": "Note new label id",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [520, 680],
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            { "id": "bdea9bcc-7c66-44a2-8970-20c13fe7206f", "name": "triagedLabelId", "type": "string", "value": "={{ $json.id }}" },
+            { "id": "0750026d-d9c1-441f-bd81-168ca2069744", "name": "triagedLabelExists", "type": "boolean", "value": true }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "b0ebd625-280c-4df2-8a38-fd055822bbfe",
+      "name": "Attach label id to messages",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [280, 300],
+      "parameters": { "mode": "combine", "combineBy": "combineAll", "options": {} }
+    },
+    {
+      "id": "1ee6556c-85a1-4e54-ac1d-727463af134d",
+      "name": "Urgent?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [520, 300],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2 },
+          "combinator": "and",
+          "conditions": [ { "id": "209b6a40-456d-4f82-bbb5-f2fcecb24861", "leftValue": "={{ $json.urgent }}", "rightValue": "", "operator": { "type": "boolean", "operation": "true", "singleValue": true } } ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "faf476d3-e76f-4485-bd02-be233cb1e0db",
+      "name": "Post the Slack alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [760, 180],
+      "onError": "continueErrorOutput",
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "channel",
+        "channelId": { "mode": "name", "value": "#fortress-test" },
+        "text": "=:rotating_light: Urgent email triaged\n*From:* {{ $json.from }}\n*Subject:* {{ $json.subject }}\n*Summary:* {{ $json.summary }}",
+        "otherOptions": {}
+      },
+      "credentials": { "slackApi": { "id": "E6dQrIPqPq7K9p2I", "name": "Launch Forte Slack" } },
+      "webhookId": "163f2f0d-300f-49c5-964f-f8e6e9656cb0"
+    },
+    {
+      "id": "95163a1f-1f38-443a-89b8-c401fc6934c1",
+      "name": "Create fortress-test channel",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [1000, 300],
+      "parameters": { "resource": "channel", "operation": "create", "channelId": "fortress-test", "options": {} },
+      "credentials": { "slackApi": { "id": "E6dQrIPqPq7K9p2I", "name": "Launch Forte Slack" } },
+      "webhookId": "639e14ba-4f54-45d4-b77f-0b2888e281f0"
+    },
+    {
+      "id": "232cde33-579b-4a56-808e-b6704dc8d4e6",
+      "name": "Post the Slack alert (after create)",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [1240, 300],
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "channel",
+        "channelId": { "mode": "id", "value": "={{ $json.id }}" },
+        "text": "=:rotating_light: Urgent email triaged\n*From:* {{ $('Urgent?').item.json.from }}\n*Subject:* {{ $('Urgent?').item.json.subject }}\n*Summary:* {{ $('Urgent?').item.json.summary }}",
+        "otherOptions": {}
+      },
+      "credentials": { "slackApi": { "id": "E6dQrIPqPq7K9p2I", "name": "Launch Forte Slack" } },
+      "webhookId": "8da7ea6f-a0b3-436c-900b-00171cfaa154"
+    },
+    {
+      "id": "b0afa372-5d91-41cd-88e7-e979987c4075",
+      "name": "Mark alert sent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, 140],
+      "parameters": { "mode": "runOnceForEachItem", "language": "javaScript", "jsCode": "const prior = $('Urgent?').item.json;\nreturn { json: { ...prior, slack_alert_sent: true } };" }
+    },
+    {
+      "id": "a1e819e6-a303-427a-bb2e-3893de05ae81",
+      "name": "Mark alert skipped",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [760, 420],
+      "parameters": { "mode": "runOnceForEachItem", "language": "javaScript", "jsCode": "const prior = $('Urgent?').item.json;\nreturn { json: { ...prior, slack_alert_sent: false } };" }
+    },
+    {
+      "id": "f6f984fd-e80c-4292-9b3f-abbf9d420c3e",
+      "name": "Needs a reply?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [1240, 300],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2 },
+          "combinator": "and",
+          "conditions": [ { "id": "dfe21ca3-93d5-4952-b0ea-9205175eb760", "leftValue": "={{ $json.needs_reply }}", "rightValue": "", "operator": { "type": "boolean", "operation": "true", "singleValue": true } } ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "dd3bcc1f-efc2-4d34-90ea-db511490a253",
+      "name": "Create the reply draft",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [1480, 180],
+      "parameters": { "resource": "draft", "operation": "create", "subject": "=Re: {{ $json.subject }}", "message": "={{ $json.draft }}", "options": { "threadId": "={{ $json.threadId }}" } },
+      "credentials": { "gmailOAuth2": { "id": "zlluwophmluOUsTP", "name": "Fortress Launch Forte Gmail" } },
+      "webhookId": "7d32a315-e52e-4067-935b-73d6ce71265d"
+    },
+    {
+      "id": "dffd4a5e-c565-4c8b-945e-09f7fee80808",
+      "name": "Mark draft created",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1720, 180],
+      "parameters": { "mode": "runOnceForEachItem", "language": "javaScript", "jsCode": "const prior = $('Needs a reply?').item.json;\nreturn { json: { ...prior, draft_created: true } };" }
+    },
+    {
+      "id": "7cf77762-ac71-42d5-8096-a8de07dcb6d8",
+      "name": "Mark draft skipped",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1480, 420],
+      "parameters": { "mode": "runOnceForEachItem", "language": "javaScript", "jsCode": "const prior = $('Needs a reply?').item.json;\nreturn { json: { ...prior, draft_created: false } };" }
+    },
+    {
+      "id": "f5fe53ff-5714-446c-9c3f-dbcdf8e09054",
+      "name": "Apply the label",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [1960, 300],
+      "onError": "continueErrorOutput",
+      "parameters": { "resource": "message", "operation": "addLabels", "messageId": "={{ $json.messageId }}", "labelIds": "={{ [$json.triagedLabelId] }}" },
+      "credentials": { "gmailOAuth2": { "id": "zlluwophmluOUsTP", "name": "Fortress Launch Forte Gmail" } },
+      "webhookId": "2b13e6a7-ec3f-404b-b676-913e1c8d07bd"
+    },
+    {
+      "id": "9b3c05fb-8add-48c2-a8b1-0f81bf589e0a",
+      "name": "Record label result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2200, 220],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "let prior;\ntry { prior = $('Mark draft created').item.json; } catch (e) {\n  prior = $('Mark draft skipped').item.json;\n}\nconst labelResult = $json;\nreturn {\n  json: {\n    ...prior,\n    label_applied: true,\n    label_result_id: labelResult && labelResult.id ? labelResult.id : null,\n  },\n};"
+      }
+    },
+    {
+      "id": "060031d5-3f0b-4b6f-83ab-ba7808411988",
+      "name": "Record label result (failed)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2200, 420],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "let prior;\ntry { prior = $('Mark draft created').item.json; } catch (e) {\n  prior = $('Mark draft skipped').item.json;\n}\nreturn { json: { ...prior, label_applied: false, label_result_id: null } };"
+      }
+    },
+    {
+      "id": "f53039a2-0963-4bdc-bf5d-975d4742f630",
+      "name": "Summarise the run",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2440, 300],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "return {\n  json: {\n    sender: $json.from,\n    subject: $json.subject,\n    category: $json.category,\n    urgent: $json.urgent,\n    draft_created: $json.draft_created,\n    slack_alert_sent: $json.slack_alert_sent,\n    label_applied: $json.label_applied,\n    summary: $json.summary,\n  },\n};"
+      }
+    }
+  ],
+  "connections": {
+    "Run trigger": { "main": [ [ { "node": "Fetch recent mail", "type": "main", "index": 0 }, { "node": "List Gmail labels", "type": "main", "index": 0 } ] ] },
+    "Fetch recent mail": { "main": [ [ { "node": "Ask Claude to triage", "type": "main", "index": 0 } ] ] },
+    "Ask Claude to triage": { "main": [ [ { "node": "Read the triage", "type": "main", "index": 0 } ] ] },
+    "Read the triage": { "main": [ [ { "node": "Attach label id to messages", "type": "main", "index": 0 } ] ] },
+    "List Gmail labels": { "main": [ [ { "node": "Find Triaged label", "type": "main", "index": 0 } ] ] },
+    "Find Triaged label": { "main": [ [ { "node": "Triaged label exists?", "type": "main", "index": 0 } ] ] },
+    "Triaged label exists?": { "main": [ [ { "node": "Attach label id to messages", "type": "main", "index": 1 } ], [ { "node": "Create Triaged label", "type": "main", "index": 0 } ] ] },
+    "Create Triaged label": { "main": [ [ { "node": "Note new label id", "type": "main", "index": 0 } ] ] },
+    "Note new label id": { "main": [ [ { "node": "Attach label id to messages", "type": "main", "index": 1 } ] ] },
+    "Attach label id to messages": { "main": [ [ { "node": "Urgent?", "type": "main", "index": 0 } ] ] },
+    "Urgent?": { "main": [ [ { "node": "Post the Slack alert", "type": "main", "index": 0 } ], [ { "node": "Mark alert skipped", "type": "main", "index": 0 } ] ] },
+    "Post the Slack alert": { "main": [ [ { "node": "Mark alert sent", "type": "main", "index": 0 } ], [ { "node": "Create fortress-test channel", "type": "main", "index": 0 } ] ] },
+    "Create fortress-test channel": { "main": [ [ { "node": "Post the Slack alert (after create)", "type": "main", "index": 0 } ] ] },
+    "Post the Slack alert (after create)": { "main": [ [ { "node": "Mark alert sent", "type": "main", "index": 0 } ] ] },
+    "Mark alert sent": { "main": [ [ { "node": "Needs a reply?", "type": "main", "index": 0 } ] ] },
+    "Mark alert skipped": { "main": [ [ { "node": "Needs a reply?", "type": "main", "index": 0 } ] ] },
+    "Needs a reply?": { "main": [ [ { "node": "Create the reply draft", "type": "main", "index": 0 } ], [ { "node": "Mark draft skipped", "type": "main", "index": 0 } ] ] },
+    "Create the reply draft": { "main": [ [ { "node": "Mark draft created", "type": "main", "index": 0 } ] ] },
+    "Mark draft created": { "main": [ [ { "node": "Apply the label", "type": "main", "index": 0 } ] ] },
+    "Mark draft skipped": { "main": [ [ { "node": "Apply the label", "type": "main", "index": 0 } ] ] },
+    "Apply the label": { "main": [ [ { "node": "Record label result", "type": "main", "index": 0 } ], [ { "node": "Record label result (failed)", "type": "main", "index": 0 } ] ] },
+    "Record label result": { "main": [ [ { "node": "Summarise the run", "type": "main", "index": 0 } ] ] },
+    "Record label result (failed)": { "main": [ [ { "node": "Summarise the run", "type": "main", "index": 0 } ] ] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "active": false,
+  "id": "L4mveckCHNk5OucN"
+}
