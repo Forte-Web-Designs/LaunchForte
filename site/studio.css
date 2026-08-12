@@ -648,22 +648,41 @@ a:hover { color: var(--accent-hover); }
 @media (max-width: 640px) { .post-card { grid-template-columns: 1fr; gap: var(--sp-3); } .post-meta { flex-direction: row; justify-content: space-between; } }
 
 /* ---- Article page: /posts/*.html renders inside <main class="studio-pane">.
-     Article variants override the listing-card versions of .post-title, .post-meta
-     when they appear as direct children of the main pane. Prose gets a readable
-     measure and generous line-height. Applies sitewide via studio.css so all 23+
-     posts inherit the fix. ---- */
-.studio-pane > .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9375rem; font-weight: 500; color: var(--n-500); text-decoration: none; margin: 0 0 var(--sp-8); transition: color 0.15s ease; }
+     Post files place .back-link / .post-tag / .post-title / .post-meta / .post-body
+     as DIRECT children of the pane, with no .studio-container wrapper — the pane
+     itself has no horizontal padding, so we give the article's direct children
+     a shared container: centered, max-width 720px, generous left/right padding.
+     One CSS change fixes layout + typography for all 23+ posts. ---- */
+.studio-pane > .back-link,
+.studio-pane > .post-tag,
+.studio-pane > .post-title,
+.studio-pane > .post-meta,
+.studio-pane > .post-body {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  box-sizing: border-box;
+}
+@media (min-width: 1024px) { .studio-pane > .back-link,
+  .studio-pane > .post-tag,
+  .studio-pane > .post-title,
+  .studio-pane > .post-meta,
+  .studio-pane > .post-body { padding-left: 2rem; padding-right: 2rem; } }
+
+.studio-pane > .back-link { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9375rem; font-weight: 500; color: var(--n-500); text-decoration: none; margin-top: 0; margin-bottom: var(--sp-8); transition: color 0.15s ease; }
 .studio-pane > .back-link:hover { color: var(--accent); }
 .studio-pane > .back-link::before { content: "\2190"; display: inline-block; transition: transform 0.15s ease; }
 .studio-pane > .back-link:hover::before { transform: translateX(-3px); }
 
-.studio-pane > .post-tag { display: inline-block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 1rem; }
+.studio-pane > .post-tag { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-top: 0; margin-bottom: 1rem; }
 
-.studio-pane > .post-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: clamp(2rem, 4.5vw, 3.25rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; color: var(--ink); margin: 0 0 1.25rem; max-width: 22ch; }
+.studio-pane > .post-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: clamp(2rem, 4.5vw, 3.25rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; color: var(--ink); margin-top: 0; margin-bottom: 1.25rem; }
 
-.studio-pane > .post-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; font-size: 0.9375rem; color: var(--n-600); font-family: inherit; margin: 0 0 var(--sp-12); padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+.studio-pane > .post-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; font-size: 0.9375rem; color: var(--n-600); font-family: inherit; margin-top: 0; margin-bottom: var(--sp-12); padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
 
-.studio-pane > .post-body { max-width: 68ch; margin: 0; font-size: 1.0625rem; line-height: 1.75; color: var(--ink); }
+.studio-pane > .post-body { font-size: 1.0625rem; line-height: 1.75; color: var(--ink); margin-top: 0; }
 .studio-pane > .post-body > * + * { margin-top: 1.25rem; }
 .studio-pane > .post-body p { margin: 0 0 1.25rem; }
 .studio-pane > .post-body p:last-child { margin-bottom: 0; }
