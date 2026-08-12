@@ -63,6 +63,16 @@ The bridge between them is a handoff paste — see section 3.
 
 ---
 
+## 2a. Proving a capability before a client sees it
+
+The standard rehearsal — a real Upwork posting, built for real in Seth's own tools with
+sample data, for nobody — is [`SIMULATION-LOOP.md`](./SIMULATION-LOOP.md). Step 0 of it
+never changes: **Seth signs in to whatever tool the job needs, before anything else.**
+
+Before any rehearsal and before any client work, run `python3 runner.py --selftest` in
+`~/assembly-line-runner`. It spawns nothing and spends nothing. `--check` proves the
+runner can start; `--selftest` proves it reports itself honestly.
+
 ## 3. How a project starts
 
 A new project always begins as a conversation on the `seth@launchforte.com` Desktop,
