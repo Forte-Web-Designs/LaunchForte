@@ -269,3 +269,13 @@ The invariants:
   and will fail correct work. A behavioural claim is verified by **re-running it** with
   the recipe in section 5 and reading `GET /rest/executions/<id>` — never by looking at
   a list. `check-tsl-3` failed a correct fix exactly this way.
+- An n8n expression needs the braces. `=$json.total` is not an expression that reads
+  `total` — it is the literal string `$json.total`, and a number-typed column rejects
+  it as `Invalid input for '<column>'`. It must be `={{ $json.total }}`. This survived
+  three rounds of "add number coercion" because the value arriving was never a number
+  in the first place. When a type error will not die, print what actually arrived.
+- `onError: continueRegularOutput` does not catch a bad parameter. Input validation
+  runs before the node does, so the workflow still errors and still pages Seth.
+- Before chasing an error email, check its DATE. Aug 11 produced 24 alarm emails that
+  were all a rule that no longer exists. An error watcher with no history reads like a
+  system on fire when the fire was put out yesterday.
