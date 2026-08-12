@@ -129,6 +129,12 @@ The runner fills in `branch`, `commit_sha`, `cost_usd`, `session_id`, `detail`, 
 **`autonomy`:** `green` runs unattended. `red` gates on Seth's recorded confirm before
 it may touch a client's production system.
 
+**Done has to prove itself.** A build card that closes without an `EVIDENCE` block —
+one line per criterion, quoted, marked PASS or FAIL, naming the artifact — is
+downgraded to `stuck`, not accepted. `client_ui`, `site_pass` and `generator` cards
+must also commit a frame under `docs/proof/` and name it. Full rules and the block
+format: [`EVIDENCE-STANDARD.md`](./EVIDENCE-STANDARD.md).
+
 **`criteria` is the contract.** Write it as observable facts a second agent can check
 without reading the prompt. If the criteria name a file path, a check card is queued
 automatically. Criteria that name only a feeling ("works well") cannot be checked and
