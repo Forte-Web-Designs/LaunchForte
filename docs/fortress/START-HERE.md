@@ -156,6 +156,18 @@ that finds Chrome on another tenant stops and says so.
 
 ---
 
+## 4a. What happens after a card finishes
+
+The reporting path — status grading, the doorbell email, and the screenshot
+attachment pipeline — is written up in [`REPORT-PIPELINE.md`](./REPORT-PIPELINE.md).
+Read it before writing a card prompt. The one-line version: **a card always pushes its
+own branch**, because the proof frames and the reviewing agent are both fetched from
+the pushed commit on GitHub.
+
+For anything this prose does not cover, do not guess and do not trust memory —
+regenerate [`SYSTEM-MAP.md`](./SYSTEM-MAP.md) with `generators/system-map.js` and read
+the machine instead.
+
 ## 5. Proven recipes
 
 These exist because doing it the obvious way already cost real money. Use them.
