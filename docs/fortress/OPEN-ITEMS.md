@@ -5,32 +5,36 @@ would take them. Everything here is known, reproduced, and unfixed.
 
 ## Blocking a clean autonomous run
 
-**1. The worktree collision.** Every card's FIRST attempt can fail at setup with
-"a branch named ... already exists", at $0.00, before any work. The retry then
-succeeds, so no work is lost — but Seth gets a red failure email per card, and an
-operator who learns to ignore alerts is the real damage.
-Cause: `git worktree add -b` CREATES the branch and then fails for a reason git does
-not report (stderr is empty apart from "Preparing worktree"). The retry trips over the
-branch its own predecessor made.
-Tried and reverted: `-B` instead of `-b`. It removed the collision and introduced a
-worse failure — two cards died with "worktree landed on protected branch main", caught
-by the guard that refuses to build on main. Not worth it. Reverted to `-b`.
-Next idea, untried: give each attempt a unique branch suffix so collision is impossible
-by construction, rather than racing git's ref handling.
-
-**1a. The worktree setup is the blocker, and it needs a rewrite not another patch.**
-Symptoms seen on Aug 13, all at $0.00 before any work: "a branch named ... already
-exists", and "worktree landed on protected branch main" (the guard doing its job).
-Four changes were made to this code in one night -- a cleanup pass, an ordering fix,
-a switch to `-B`, and a revert of that switch because it produced the protected-branch
-failure. The reverted code is what is running now and it still fails.
-
-Do NOT patch it again in place. The design that removes the whole class:
-**give every attempt its own branch name** -- `runner/<job_id>-<short-slug>-<attempt>`
--- so a collision is impossible by construction and no fallback path can ever end up
-checking out base. Write it fresh, with `runner.py --selftest` extended to cover:
-a clean create, a create when the branch already exists, a create when a stale
-worktree directory is present, and an assertion that HEAD is never `main` afterwards.
+**1. SOLVED — the worktree collision.** Root cause: two runner daemons alive at
+once, racing for the same card. A LaunchAgent at
+`~/Library/LaunchAgents/com.launchforte.assembly-runner.plist` has supervised a
+runner since Aug 4; every manual start added a second one. Nothing in `runner.py`
+stopped a second process from starting, so a restart added a daemon instead of
+replacing one.
+The winner built, the loser died on the branch and path the winner had just taken
+and mailed a failure for a card that was building fine. "a branch named ... already
+exists", `'<path>' already exists`, "worktree landed on main", duplicate emails and
+$0.00 failures were all the same one fault.
+Seven patches went into the worktree block, two were reverted, none touched the
+real fault.
+Found by four measurements, not by reading: out-of-order timestamps in a stream
+that flushes every write; a log line missing its first 110 characters with its tail
+intact; `drain()` claims serially at `max_parallel` 1 so one process cannot claim
+twice in one second; and n8n claim-call gaps that came in pairs summing to one 30s
+poll, drifting from 10.1s apart to 0.1s apart over ten minutes. After the fix the
+gaps are flat at about 32s.
+Fix: `take_singleton_lock()` in `runner.py`, an `fcntl.flock` on `logs/runner.lock`,
+taken before the queue exists, held for the poll loop and `--once` and `--dry-run`,
+not for `--check` or `--selftest`. A second process exits naming the PID that holds
+it. `flock` is released by the OS when the holder dies. `runner.py --selftest`
+asserts a second holder is refused and a dead holder frees it.
+Operating rule: launchd owns the runner, never start it by hand.
+Second fix: `worktrees_dir` sits inside `~/assembly-line-runner`, which is itself a
+git checkout on `main`, so `rev-parse --abbrev-ref HEAD` in a directory that is not
+a worktree walks UP and answers `main`. That is the whole origin of "worktree
+landed on main". The setup now checks `rev-parse --git-common-dir` against the
+intended repo first, and preflight prints a note naming the enclosing repo at every
+startup.
 
 ## Silent failures that look like facts
 
