@@ -1036,7 +1036,13 @@ startLink.rel = 'noopener';
 startLink.style.display = 'inline-block';
 startLink.addEventListener('click', function(e){ e.stopPropagation(); });
 actions.appendChild(startLink);
-} else if (col === 'blocked' || col === 'backlog'){
+/* RESUME IS NOT A RELEASE, Aug 13. A held card kept the red Resume button, and
+   Resume writes 'queued' straight to the row -- so one click released card 2 of a
+   chain that was waiting on sign-off for card 1. The gate is the whole product; a
+   control that walks around it is not a convenience. A genuinely stuck card in
+   backlog or blocked keeps Resume, and the status dropdown above is still there
+   for a deliberate override. */
+} else if ((col === 'blocked' || col === 'backlog') && String(t.status || '').toLowerCase() !== 'hold'){
 var resumeBtn = el('button','qbtn qdanger','Resume');
 resumeBtn.type = 'button';
 resumeBtn.addEventListener('click', function(e){ e.stopPropagation(); quickResume(t); });
