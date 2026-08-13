@@ -182,6 +182,11 @@ color:var(--brand-ink);font-weight:500;letter-spacing:.01em;white-space:nowrap}
 .chip.cost{background:transparent;border:1px solid var(--line-strong);color:var(--muted)}
 .chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}
 .chip.access{background:transparent;border:1px solid var(--warn);color:var(--warn);text-transform:uppercase}
+/* Waiting its turn is not a fault -- it gets a calm, neutral badge of its own,
+   never the amber/red used for blocked or access-needed so it can't be misread
+   as an alarm at a glance. */
+.chip.st-hold{background:var(--bg-sunken);border-color:var(--line-strong);color:var(--muted)}
+.chip.phase{background:transparent;border:1px solid var(--line-strong);color:var(--muted-2);font-weight:600}
 .taskcard.empty{opacity:.5;font-style:italic;cursor:default;text-align:center;padding:14px 10px}
 .taskcard.needsme{border-left:3px solid var(--danger-solid);padding-left:10px}
 
@@ -208,6 +213,7 @@ opacity:0;max-height:0;overflow:hidden;transition:opacity .12s ease,max-height .
 border:1px solid var(--line-strong);background:var(--card);color:var(--ink);cursor:pointer}
 .qbtn:hover{border-color:var(--brand);color:var(--brand-ink)}
 .qbtn.qdanger{border-color:var(--danger);color:var(--danger)}
+.qbtn.qgo{border-color:var(--brand);color:var(--brand-ink);background:var(--brand-soft)}
 .statussel{font:inherit;font-size:10.5px;font-weight:700;padding:4px 6px;border-radius:8px;
 border:1px solid var(--line-strong);background:var(--card);color:var(--ink);cursor:pointer}
 .statussel:disabled{opacity:.5;cursor:default}
@@ -746,11 +752,14 @@ var BOARD_COLS = ['backlog','ready','in_progress','blocked','review','done'];
    is deliberately absent -- it is not a column, it is filtered out of the
    board before colOf ever runs and counted on the glance line instead. An
    unrecognised status must never fall to backlog (that is the bug this
-   fixes): it lands in blocked, with the raw status shown on the card. */
+   fixes): it lands in blocked, with the raw status shown on the card.
+   'hold' is a card parked waiting for sign-off to start its chain -- nothing
+   is wrong with it, so it belongs in backlog, not blocked. */
 var STATUS_TO_COL = {
   '':            'backlog',
   'backlog':     'backlog',
   'queued':      'backlog',
+  'hold':        'backlog',
   'ready':       'ready',
   'claimed':     'ready',
   'in_progress': 'in_progress',
@@ -887,12 +896,33 @@ in BACKLOG-through-DONE order, per the runbook */
    rearranges itself. */
 var present = BOARD_COLS.slice();
 var cols = el('div','board-cols');
+/* The Start control belongs on exactly one card per engagement: the held
+   task with the lowest phase_number. Cards behind it release by sign-off,
+   not by hand -- so this map is the only thing that decides who gets the
+   button, computed once across the whole board rather than per column. */
+var firstHoldByEngagement = {};
+boardTasks.forEach(function(t){
+if (String(t.status || '').toLowerCase() !== 'hold' || !t.engagement_id) return;
+var pn = (t.phase_number === null || t.phase_number === undefined || t.phase_number === '') ? Infinity : Number(t.phase_number);
+var existing = firstHoldByEngagement[t.engagement_id];
+var ep = existing ? ((existing.phase_number === null || existing.phase_number === undefined || existing.phase_number === '') ? Infinity : Number(existing.phase_number)) : Infinity;
+if (!existing || pn < ep) firstHoldByEngagement[t.engagement_id] = t;
+});
 present.forEach(function(col){
 var colTasks = boardTasks.filter(function(t){ return colOf(t.status) === col; })
 .sort(function(a,b){
 var an = taskNeedsMe(a, clientBySlug[a.client_slug]) ? 0 : 1;
 var bn = taskNeedsMe(b, clientBySlug[b.client_slug]) ? 0 : 1;
-return an - bn;
+if (an !== bn) return an - bn;
+/* Backlog reads top-to-bottom as the running order for held cards:
+   1..6, phase_number ascending. Cards without a phase_number keep
+   their existing relative order (stable sort) at the bottom. */
+if (col === 'backlog') {
+var ap = (a.phase_number === null || a.phase_number === undefined || a.phase_number === '') ? Infinity : Number(a.phase_number);
+var bp = (b.phase_number === null || b.phase_number === undefined || b.phase_number === '') ? Infinity : Number(b.phase_number);
+if (ap !== bp) return ap - bp;
+}
+return 0;
 });
 var colBox = el('div','board-col');
 var head = el('div','board-col-head');
@@ -942,7 +972,8 @@ var STATE = {
   running:     { mark:'\uD83D\uDD28', label:'Building',  cls:'st-live' },
   in_progress: { mark:'',        label:'Building',    cls:'st-live' },
   done:        { mark:'\u2705', label:'Done',        cls:'st-ok'   },
-  verified:    { mark:'\u2705', label:'Verified',    cls:'st-ok'   }
+  verified:    { mark:'\u2705', label:'Verified',    cls:'st-ok'   },
+  hold:        { mark:'\u23F8', label:'Waiting its turn', cls:'st-hold' }
 };
 var chips = el('div','t-chips');
 var raw = String(t.status || '').toLowerCase();
@@ -963,6 +994,11 @@ if (t.access_needed) {
   /* A status we've never seen. It landed in blocked (colOf's fallback) --
      show the raw string so it doesn't get mistaken for anything mapped. */
   chips.appendChild(el('span','chip st-bad', raw));
+}
+/* Its place in the running order -- a plain number, not a warning, so a
+   parked card reads as "third in line" rather than "something's wrong". */
+if (t.phase_number !== null && t.phase_number !== undefined && t.phase_number !== '') {
+  chips.appendChild(el('span','chip phase', 'Phase ' + t.phase_number));
 }
 if (t.autonomy && String(t.autonomy).toLowerCase() !== 'green') chips.appendChild(el('span','chip st-bad', t.autonomy));
 if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
@@ -988,7 +1024,19 @@ e.stopPropagation();
 moveTaskStatus(t, statusSel.value, statusSel, col);
 });
 actions.appendChild(statusSel);
-if (col === 'blocked' || col === 'backlog'){
+/* Only the held card with the lowest phase_number in its engagement gets a
+   Start link -- everything behind it releases by sign-off, not by hand.
+   No start_token, no link: a broken href is worse than no button. */
+var isFirstHold = String(t.status || '').toLowerCase() === 'hold' && firstHoldByEngagement[t.engagement_id] === t;
+if (isFirstHold && t.start_token){
+var startLink = el('a','qbtn qgo','Start');
+startLink.href = 'https://launchforte.app.n8n.cloud/webhook/start-chain?engagement=' + encodeURIComponent(t.engagement_id) + '&token=' + encodeURIComponent(t.start_token);
+startLink.target = '_blank';
+startLink.rel = 'noopener';
+startLink.style.display = 'inline-block';
+startLink.addEventListener('click', function(e){ e.stopPropagation(); });
+actions.appendChild(startLink);
+} else if (col === 'blocked' || col === 'backlog'){
 var resumeBtn = el('button','qbtn qdanger','Resume');
 resumeBtn.type = 'button';
 resumeBtn.addEventListener('click', function(e){ e.stopPropagation(); quickResume(t); });
