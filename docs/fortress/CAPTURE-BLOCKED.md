@@ -4,6 +4,33 @@ Short list. Everything else is either done or in progress.
 
 ## Needs one click from Seth
 
+**HubSpot custom reports/dashboards — the Launch Forte portal (51819426) is on
+Free tools, not Marketing Hub Professional.** `SIM-EO-1-spec.md` (section 6)
+asks for a dashboard, `LF SAMPLE - Target Account Pipeline Dashboard`, holding
+four custom reports. `/discover/51819426/create/reports` → "Create from
+scratch" opens a dialog on every attempt: "Unlock deeper insights to close
+more deals — Get access to custom reporting with Marketing Hub Professional,"
+with only "Talk to Sales" or "Start 14-day trial" as ways past it — both a
+plan-tier change, which is Seth's call, not a runner's. Same shape as the
+Workflows and Sequences blocks below: this portal is Free tools across every
+hub, confirmed again here. The Reports list page itself loads fine and shows
+32 pre-built default reports and 4 default dashboards already in the portal,
+but none of them can be customized to reference the SIM-EO-1 properties,
+pipeline or sequence — the report *builder* is what's gated, not the report
+*viewer*. Nothing was built. Screenshot:
+`docs/proof/eo-7-1-reports-locked-marketing-hub-pro.png`.
+
+Even with the paywall lifted, three of the four spec'd reports have no data
+to report on yet: Report 2 and Report 3 need the 6-stage custom deal pipeline
+(blocked in `eo-4` — portal allows exactly 1 pipeline, already in use by the
+real "Sales Pipeline"), and Report 4 needs the sales sequence (blocked in
+`eo-5` — Sequences is paywalled the same way). Report 1 (`LF SAMPLE - Target
+Accounts by Tier`) is the only one whose source property,
+`LF SAMPLE - Target Account Tier`, already exists in the portal (built in
+`eo-2`) — it is blocked only by the reporting paywall above, not by missing
+data. What it unblocks: card `eo-7` (the SIM-EO-1 dashboard) in full.
+
+
 **Zoho Books — the organisation does not exist yet.**
 `books.zoho.com` opens on "Welcome Seth Forte, let us know where your business
 is" with two fields: Organization Name and Organization Location. Creating an
