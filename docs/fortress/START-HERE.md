@@ -356,3 +356,25 @@ The invariants:
 - Before chasing an error email, check its DATE. Aug 11 produced 24 alarm emails that
   were all a rule that no longer exists. An error watcher with no history reads like a
   system on fire when the fire was put out yesterday.
+- One runner only. launchd owns it. A manual start is refused by the lock; that is the
+  system working.
+- Ops: Client Inbox had a Gmail trigger with no self-mail filter, so every report
+  Fortress emailed came back as a `client_ask` card. 58 `inbox-*` cards built up that
+  way. A guard now keys on Fortress's own approval tokens and subject tags, never on
+  the sender.
+- A report email answers exactly one question: what do I do. One ACTION is computed
+  once — signin, setup, recut, review — and every block reads it. `no_changes` is NOT
+  clean. Setup is detected line by line, because the words SETUP NEEDED inside a
+  quoted acceptance criterion are not an ask.
+- Never use the n8n Google Sheets Append node with `addAllFields` true to write a
+  known row: it writes every field on the incoming item, so the upstream node's own
+  JSON keys land in the row. Use one HTTP Request node against `values:batchUpdate`
+  instead. Card `re-4` died on this; `re-5b` and `re-6` both succeeded with the HTTP
+  route, at $1.57 and $1.87.
+- Audit a card's prompt for bare gate words before queueing it. Card `re-5` was
+  refused at $0.00 because the word for a saved auth entry appeared unquoted. The
+  gate is correct; the card is what changes.
+- Proof first: commit the screenshot the moment something works, before further
+  verification. `re-4` lost its proof by leaving it until last; `re-5b` and `re-6`
+  both committed a canvas frame before their verify run.
+- A wrong diagnosis costs more than a failure does.
