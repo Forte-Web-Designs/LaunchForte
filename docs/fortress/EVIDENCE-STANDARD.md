@@ -84,6 +84,34 @@ names), no other client's record anywhere in shot. Crop rather than explain.
 The report names each frame and says in one line what a reader should see in it. A frame
 nobody can interpret is not evidence.
 
+## A blocker owes MORE frames, not fewer
+
+The instinct when work is blocked is to take one picture of the wall and stop. That is
+backwards. A blocked card is the case where Seth most needs to tell a real limit from a
+lazy agent, and one screenshot of an upgrade page cannot do it.
+
+A blocker owes at least three frames:
+
+| Frame | What it proves |
+|---|---|
+| 1. the wall | what stopped you, in the tool, with its own wording visible |
+| 2. the cause | the setting or plan page that explains *why* — the usage line, the plan comparison, the disabled control with its state |
+| 3. the state left behind | that nothing was half-built, half-enrolled or switched on |
+
+`eo-4` did this well: it captured "Pipelines used: 1 of 1", proved the Create button was
+genuinely disabled rather than merely grey by clicking it and reading `aria-disabled`,
+and confirmed the existing pipeline was untouched. `eo-5` and `eo-6` captured only the
+paywall — true, but a reader cannot tell from one upgrade screen whether the agent
+looked hard or gave up early.
+
+Say in the report which frame is which, and what a reader should see in each. If a
+frame genuinely cannot be captured, say so and say why — an honest gap is fine, a
+missing one that goes unmentioned is not.
+
+**And never click the way out.** Start trial, Talk to sales, Upgrade — a plan or billing
+change is Seth's, always, even when the tool says it is free and needs no card. Capture
+it, log it in `CAPTURE-BLOCKED.md`, and hand him the decision.
+
 ## Screenshots — the rules that always apply
 
 Required on every `client_ui`, `site_pass` and `generator` card — anything with a
