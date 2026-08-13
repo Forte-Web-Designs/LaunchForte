@@ -142,6 +142,8 @@ max-width:480px;width:100%;padding:22px;box-shadow:var(--shadow);max-height:80vh
 .sheet-title{font-weight:800;font-size:17px;letter-spacing:-.01em;margin-bottom:10px}
 .sheet-close{margin-top:10px;width:100%;padding:11px;border-radius:12px;border:1px solid var(--line-strong);
 background:transparent;color:var(--ink);font-weight:700;font-size:14px;cursor:pointer}
+.card.intent{border-left:3px solid #0070F3;background:#F5F9FF}
+.card.intent .report-line{color:#16181D}
 </style>
 </head>
 <body>
@@ -172,6 +174,11 @@ background:transparent;color:var(--ink);font-weight:700;font-size:14px;cursor:po
 <span class="updated" id="r_updated"></span>
 </div>
 </div>
+
+<section id="sec_intent">
+<p class="eyebrow">The intent — the pain and what done looks like</p>
+<div class="card intent" id="r_intent"></div>
+</section>
 
 <section id="sec_ask">
 <p class="eyebrow">What was asked</p>
@@ -339,9 +346,45 @@ return String(s || '')
 function stripMarker(line){
 return String(line || '').replace(/^\s*(?:[-*•]|\d+[\.\)])\s+/, '').trim();
 }
+/* INTENT IS NOT THE ASK, Aug 13. Seth: "each thing should have acceptance criteria,
+   intent check, and all that -- so we know it checked and validated the actual intent."
+   The WHY THIS CARD EXISTS preamble was being dumped into the middle of WHAT WAS ASKED,
+   where it read as just more instructions. It gets its own block. A card written with no
+   intent at all says so out loud rather than hiding the omission -- if the machine was
+   never told the pain, Seth should be able to see that at a glance. */
+function splitIntent(raw){
+var lines = String(raw || "").split(/\r?\n/);
+var start = -1, i;
+for (i = 0; i < lines.length; i++){ if (/^\s*WHY THIS CARD EXISTS/i.test(lines[i])){ start = i; break; } }
+if (start === -1) return { intent: "", ask: String(raw || "") };
+function isHeading(l){
+var s = String(l).replace(/\(.*\)\s*$/, "").trim();
+if (s.length < 3 || s.length > 60) return false;
+if (!/[A-Za-z]/.test(s)) return false;
+return s === s.toUpperCase();
+}
+var end = lines.length;
+for (i = start + 1; i < lines.length; i++){ if (isHeading(lines[i])){ end = i; break; } }
+return {
+intent: lines.slice(start, end).join("\n").trim(),
+ask: lines.slice(0, start).concat(lines.slice(end)).join("\n").trim()
+};
+}
 function parseCriteria(raw){
 if (!raw) return [];
-var lines = Array.isArray(raw) ? raw.slice() : String(raw).split(/\r?\n+/);
+/* CRITERIA ARE STORED AS A JSON ARRAY, Aug 13. This only split on newlines, so a row
+   written as ["a","b","c"] -- which is how every card writes them, and what the report
+   emails already parse correctly -- collapsed into one unreadable line that could never
+   be matched against the evidence. The page then printed "not judged in the report"
+   about work that had been judged, criterion by criterion. */
+var lines;
+if (Array.isArray(raw)) { lines = raw.slice(); }
+else {
+var s = String(raw).trim();
+var parsed = null;
+if (s.charAt(0) === '[') { try { parsed = JSON.parse(s); } catch (e) { parsed = null; } }
+lines = Array.isArray(parsed) ? parsed : s.split(/\r?\n+/);
+}
 return lines
 .map(function(l){ return stripMarker(String(l)); })
 .filter(function(l){ return l.length > 0; });
@@ -521,15 +564,20 @@ var branchEl = $('r_branch');
 if (task.branch){ branchEl.textContent = task.branch; branchEl.style.display = ''; } else { branchEl.style.display = 'none'; }
 $('r_updated').textContent = 'updated ' + shortTime(task.updated);
 
-var askHost = $('r_ask');
-askHost.innerHTML = '';
-if (task.ask_verbatim){
-String(task.ask_verbatim).split(/\r?\n+/).filter(function(l){ return l.trim(); }).forEach(function(l){
-askHost.appendChild(el('div','report-line', l.trim()));
+var __parts = splitIntent(task.ask_verbatim);
+function fill(host, text, emptyMsg){
+host.innerHTML = '';
+if (text){
+String(text).split(/\r?\n+/).filter(function(l){ return l.trim(); }).forEach(function(l){
+host.appendChild(el('div','report-line', l.trim()));
 });
 } else {
-askHost.appendChild(el('div','client-sub','No ask recorded on this card.'));
+host.appendChild(el('div','client-sub', emptyMsg));
 }
+}
+fill($('r_intent'), __parts.intent,
+  'No intent recorded on this card. It was written as instructions only, so nothing states the pain it was meant to solve or what done looks like. Judge it on the criteria below and treat that gap as a fault in the card, not in the work.');
+fill($('r_ask'), __parts.intent ? __parts.ask : task.ask_verbatim, 'No ask recorded on this card.');
 
 var detail = report ? report.detail : '';
 renderChecks($('r_checks'), task.acceptance_criteria, detail);
