@@ -32,6 +32,36 @@ checking out base. Write it fresh, with `runner.py --selftest` extended to cover
 a clean create, a create when the branch already exists, a create when a stale
 worktree directory is present, and an assertion that HEAD is never `main` afterwards.
 
+**1b. SOLVED — a card cannot verify a page it had to open itself.** The runner
+drives the browser one of two ways, and the file that decides is `playwright-mcp.json`
+in the runner directory. Extension mode attaches to the real Chrome where the
+signed-in sessions live. Profile mode launches a browser the runner owns, with its
+own user-data-dir.
+
+Extension mode could not hold a page a card opened for itself: `browser_navigate`
+reported success and the correct title, then every following call executed against
+the extension's own connect.html relay tab. Cards cc-chip-1, cc-chip-2 and
+cc-review-col all hit it, across eleven-plus attempts and several strategies, and
+all three correctly refused to fake a frame. Work in a tab that is ALREADY open was
+never affected -- re-5b and re-6 both captured n8n canvas frames in extension mode
+the same night.
+
+Switching to profile mode fixed it outright. Card cc-review-col-2 then served the
+page locally, injected four rows, read the column order off the live DOM as
+BACKLOG, READY, IN PROGRESS, BLOCKED, NEEDS REVIEW, DONE, and committed two real
+frames, for $0.94.
+
+THE RULE: a card that must open its own page needs profile mode. A card that must
+work inside a signed-in surface needs extension mode. Today that is one global
+file, so it is a switch, not a setting: `use-profile-mode.sh` and
+`use-extension-mode.sh` flip it, and the change takes effect on the next card with
+no runner restart.
+
+STILL OPEN: the two modes cannot both be available at once. The fix would be a
+second entry in `playwright-mcp.json` under its own server name plus that name
+added to the tool allowlist in `runner.config.json`, which does need a runner
+restart.
+
 ## Silent failures that look like facts
 
 **2. The Command Center renders an empty board on a 401.** The page holds a dashboard
