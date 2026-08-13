@@ -741,7 +741,7 @@ if (n && n.scrollIntoView) n.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 /* ------------------------------------------------------------------ board */
-var BOARD_COLS = ['backlog','ready','in_progress','blocked','done'];
+var BOARD_COLS = ['backlog','ready','in_progress','blocked','review','done'];
 /* Every real status the tasks table can hold, mapped explicitly. 'archived'
    is deliberately absent -- it is not a column, it is filtered out of the
    board before colOf ever runs and counted on the glance line instead. An
@@ -759,11 +759,11 @@ var STATUS_TO_COL = {
   'stuck':       'blocked',
   'refused':     'blocked',
   'failed':      'blocked',
+  'review':      'review',
   'done':        'done',
-  'no_changes':  'done',
-  'review':      'done'
+  'no_changes':  'done'
 };
-function colLabel(s){ return String(s || '').replace(/_/g,' ').toUpperCase(); }
+function colLabel(s){ if (String(s || '').toLowerCase() === 'review') return 'NEEDS REVIEW'; return String(s || '').replace(/_/g,' ').toUpperCase(); }
 function colOf(status){
 var s = String(status || '').toLowerCase();
 if (s === 'archived') return 'archived';
@@ -962,6 +962,10 @@ if (t.access_needed) {
 if (t.autonomy && String(t.autonomy).toLowerCase() !== 'green') chips.appendChild(el('span','chip st-bad', t.autonomy));
 if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
 if (t.branch) chips.appendChild(el('span','chip branch', t.branch));
+if (t.client_signoff_ts) {
+  chips.appendChild(el('span','chip st-ok', '✅ Client signed off'));
+  if (t.client_signoff_note) card.title = t.client_signoff_note;
+}
 /* The sign-in chip above already says this; a second ACCESS pill next to it was
    the same fact twice. */
 card.appendChild(chips);
