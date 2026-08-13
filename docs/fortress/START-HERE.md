@@ -139,6 +139,21 @@ The runner fills in `branch`, `commit_sha`, `cost_usd`, `session_id`, `detail`, 
 **`autonomy`:** `green` runs unattended. `red` gates on Seth's recorded confirm before
 it may touch a client's production system.
 
+**One card, one surface.** A card that has to work in n8n *and* Gmail *and* Slack will
+run out of budget before it finishes, and you lose the whole card — not the last part of
+it. `triage-2` died at **$5.07 against a $5.00 cap** having already done the real work:
+the workflow ran and succeeded, and the budget was spent on screenshots afterwards, so
+the run was proven and the proof was lost.
+
+Size a card by how many applications it must touch, not by how hard the thinking is.
+Running a workflow and reading its execution is one card. Photographing what it did in
+Gmail is another. Slack is another. Class caps today: `doc_update` $1, `export` $1.50,
+`site_pass` $3, `generator` $4, `client_ui` $5.
+
+If a card needs more than one surface, split it before queueing it — and put the work
+that produces something durable first, so a budget death costs you the evidence rather
+than the deliverable.
+
 **Done has to prove itself.** A build card that closes without an `EVIDENCE` block —
 one line per criterion, quoted, marked PASS or FAIL, naming the artifact — is
 downgraded to `stuck`, not accepted. `client_ui`, `site_pass` and `generator` cards
