@@ -1487,6 +1487,24 @@ return d;
 
 function renderDemandBody(d){
 var host = $('demandBody'); host.innerHTML = '';
+/* SAY HOW OLD IT IS. The corpus is rebuilt about monthly, so a reader cannot tell
+   this week's market from last quarter's without a date -- and a stale number read
+   as current is worse than no number. The payload has carried `updated` all along;
+   nothing was showing it. */
+(function(){
+  var raw = d.updated || d.refreshed || d.generated_at;
+  if (!raw) { return; }
+  var when = new Date(raw);
+  if (isNaN(when.getTime())) { return; }
+  var days = Math.floor((Date.now() - when.getTime()) / 86400000);
+  var age = days <= 0 ? 'today' : (days === 1 ? 'yesterday' : days + ' days ago');
+  var line = el('div','client-sub');
+  line.style.cssText = 'margin:0 0 10px;color:var(--muted-2);font-size:12.5px';
+  line.textContent = 'Corpus last refreshed ' + when.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}) + ' \u00b7 ' + age +
+    (d.sample ? ' \u00b7 ' + d.sample + ' postings' : '');
+  if (days > 45) { line.style.color = '#b45309'; line.textContent += ' \u2014 overdue for a rebuild'; }
+  host.appendChild(line);
+})();
 var asks = (d.asks || []).slice().sort(function(a,b){ return (b.count||0) - (a.count||0); }).slice(0,8);
 var askCard = el('div','card stack');
 askCard.appendChild(el('div','dispatch-title','What the market is asking for'));
