@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#F2F5FA">
+<meta name="color-scheme" content="light">
+<title>Review — Command</title>
+<link rel="icon" href="data:,">
+<style>
+:root{
+--brand:#0070F3; --brand-soft:#EFF5FF; --brand-ink:#0057C2;
+--accent-600:#0063DB; --accent-100:#DBE9FE; --accent-ring:rgba(0,112,243,.35);
+--ok:#0B7A47; --ok-soft:#E8F7EF; --ok-solid:#16A34A;
+--warn:#8A5300; --warn-soft:#FFF4E0; --warn-solid:#F5A623;
+--danger:#C4262B; --danger-soft:#FDECEC; --danger-solid:#E5484D;
+--violet-solid:#7928CA;
+--gray:#8A9099;
+--bg:#F7F8FA; --bg-sunken:#F1F3F5; --card:#FFFFFF; --card-hover:#FAFBFC;
+--ink:#16181D; --muted:#5B6472; --muted-2:#8A9099;
+--line:#E6E8EC; --line-strong:#D4D8E0;
+--radius:8px; --radius-lg:12px; --radius-sm:6px;
+--shadow:0 1px 2px rgba(16,24,40,.04);
+--shadow-sm:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.04);
+--shadow-lg:0 12px 24px -6px rgba(16,24,40,.14),0 4px 8px -4px rgba(16,24,40,.06);
+--font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+--pad:16px;
+}
+*{box-sizing:border-box}
+body{font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important}}
+html,body{margin:0;padding:0}
+body{
+background:var(--bg); color:var(--ink); font-family:var(--font);
+font-size:16px; line-height:1.45; -webkit-font-smoothing:antialiased;
+padding:0 var(--pad) 64px; padding-bottom:calc(64px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:860px;margin:0 auto}
+.mono{font-family:var(--mono);font-size:12px}
+a{color:var(--brand-ink);text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
+
+header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+padding:22px 0 14px;position:sticky;top:0;background:var(--bg);z-index:20;
+border-bottom:1px solid var(--line)}
+.mark{font-weight:800;letter-spacing:-.03em;font-size:19px}
+.mark span{color:var(--brand)}
+.backlink{font-size:12.5px;font-weight:700;color:var(--brand-ink)}
+
+.banner{margin:14px 0;padding:12px 14px;border-radius:12px;font-size:14px;
+border:1px solid var(--line-strong);background:var(--card)}
+.banner.bad{border-color:var(--danger);color:var(--danger)}
+.banner.ok{border-color:var(--ok);color:var(--ok)}
+
+section{margin:0;padding:30px 0 0;border-top:1px solid var(--line)}
+section:first-of-type{padding-top:0;border-top:none}
+.eyebrow{font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+color:var(--muted-2);font-weight:800;margin:0 0 12px}
+
+.card{position:relative;background:var(--card);border:1px solid var(--line);
+border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
+
+.client-sub{color:var(--muted);font-size:13.5px}
+
+.chip{font-size:11px;line-height:16px;height:20px;display:inline-flex;align-items:center;
+padding:0 7px;border-radius:999px;background:var(--brand-soft);border:1px solid var(--accent-100);
+color:var(--brand-ink);font-weight:500;letter-spacing:.01em;white-space:nowrap}
+.chip.st-bad{background:var(--danger-soft);border-color:#F7C9C9;color:var(--danger)}
+.chip.st-warn{background:var(--warn-soft);border-color:#FADFA8;color:var(--warn)}
+.chip.st-ok{background:var(--ok-soft);border-color:#B7E4CC;color:var(--ok)}
+.chip.st-live{background:var(--brand-soft);border-color:var(--accent-100);color:var(--brand-ink)}
+.chip.cost{background:transparent;border:1px solid var(--line-strong);color:var(--muted)}
+.chip.branch{background:transparent;border:1px solid var(--line-strong);color:var(--muted);font-family:var(--mono);font-size:10px}
+
+.field{display:grid;gap:5px;margin-bottom:10px}
+.field label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-2)}
+.field textarea{
+font:inherit;font-size:14px;padding:10px 11px;border-radius:10px;border:1px solid var(--line-strong);
+background:var(--bg);color:var(--ink);width:100%;min-height:110px;resize:vertical}
+.field input{
+font:inherit;font-size:14px;padding:10px 11px;border-radius:10px;border:1px solid var(--line-strong);
+background:var(--bg);color:var(--ink);width:100%}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.btn{font:inherit;font-weight:700;font-size:13.5px;padding:11px 16px;border-radius:12px;
+border:1px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.danger{background:transparent;border-color:var(--danger);color:var(--danger)}
+.btn:disabled{opacity:.5;cursor:default}
+.resultbox{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--bg);
+border:1px solid var(--line-strong);font-size:13px}
+.resultbox.ok{border-color:var(--ok);color:var(--ok)}
+.resultbox.err{border-color:var(--danger);color:var(--danger)}
+
+.action-bar{padding:16px 0}
+
+/* title block */
+.review-title{font-size:22px;font-weight:800;letter-spacing:-.01em;margin:0 0 10px}
+.review-meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.review-meta .client-name{font-weight:700;font-size:14px;margin-right:2px}
+.review-meta .updated{font-size:12.5px;color:var(--muted-2)}
+
+/* checks */
+.check-row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.check-row:last-child{border-bottom:none}
+.check-mark{flex:0 0 24px;height:24px;width:24px;border-radius:50%;display:flex;align-items:center;
+justify-content:center;font-weight:800;font-size:14px}
+.check-mark.pass{background:var(--ok-soft);color:var(--ok)}
+.check-mark.fail{background:var(--danger-soft);color:var(--danger)}
+.check-mark.unjudged{background:var(--bg-sunken);color:var(--muted-2)}
+.check-text{flex:1;min-width:0}
+.check-criterion{font-size:14px;line-height:1.6;color:var(--ink)}
+.check-artifact{font-size:11.5px;color:var(--muted-2);margin-top:4px;font-family:var(--mono);word-break:break-all}
+.check-artifact.muted{font-style:italic;font-family:var(--font)}
+
+/* proof */
+.proof-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.proof-item{border:1px solid var(--line);border-radius:var(--radius);padding:10px;background:var(--card)}
+.proof-item img{width:100%;display:block;border-radius:6px;border:1px solid var(--line);background:var(--bg-sunken)}
+.proof-filename{font-family:var(--mono);font-size:11px;color:var(--muted-2);margin-top:8px;word-break:break-all}
+.proof-failtext{font-size:12px;color:var(--danger);margin-top:8px;font-weight:600}
+
+/* formatted report body */
+.report-heading{font-weight:800;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;
+color:var(--muted-2);margin:16px 0 6px}
+.report-heading:first-child{margin-top:0}
+.report-line{font-size:14px;line-height:1.7;margin:3px 0;color:var(--ink)}
+.report-list{margin:4px 0 12px;padding-left:22px}
+.report-list li{font-size:14px;line-height:1.7;margin:2px 0}
+code{font-family:var(--mono);font-size:12.5px;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+
+/* overlay */
+.overlay{position:fixed;inset:0;background:rgba(10,15,25,.5);z-index:50;
+display:flex;align-items:flex-end;justify-content:center}
+@media(min-width:640px){.overlay{align-items:center}}
+.overlay.hide{display:none}
+.sheet{background:var(--card);border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+max-width:480px;width:100%;padding:22px;box-shadow:var(--shadow);max-height:80vh;overflow-y:auto}
+@media(min-width:640px){.sheet{border-radius:var(--radius-lg)}}
+.sheet-title{font-weight:800;font-size:17px;letter-spacing:-.01em;margin-bottom:10px}
+.sheet-close{margin-top:10px;width:100%;padding:11px;border-radius:12px;border:1px solid var(--line-strong);
+background:transparent;color:var(--ink);font-weight:700;font-size:14px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+<div class="mark">LAUNCH FORTE <span>COMMAND V2</span></div>
+<a class="backlink" href="index.html">&larr; Back to board</a>
+</header>
+
+<div id="banners"></div>
+
+<div id="content" style="display:none">
+
+<div class="btnrow action-bar">
+<button class="btn primary js-approve" type="button">Mark complete</button>
+<button class="btn danger js-changes" type="button">Request changes</button>
+</div>
+<div id="actionResult"></div>
+
+<div class="card">
+<div class="review-title" id="r_title"></div>
+<div class="review-meta">
+<span class="client-name" id="r_client"></span>
+<span class="chip" id="r_status"></span>
+<span class="chip cost" id="r_cost"></span>
+<span class="chip branch" id="r_branch"></span>
+<span class="updated" id="r_updated"></span>
+</div>
+</div>
+
+<section id="sec_ask">
+<p class="eyebrow">What was asked</p>
+<div class="card" id="r_ask"></div>
+</section>
+
+<section id="sec_checks">
+<p class="eyebrow">The checks</p>
+<div class="card" id="r_checks"></div>
+</section>
+
+<section id="sec_proof">
+<p class="eyebrow">Proof</p>
+<div id="r_proof"></div>
+</section>
+
+<section id="sec_report">
+<p class="eyebrow">What the worker reported</p>
+<div class="card" id="r_report"></div>
+</section>
+
+<section id="sec_check_steps">
+<p class="eyebrow">How to check it yourself</p>
+<div class="card" id="r_check_steps"></div>
+</section>
+
+<div class="btnrow action-bar">
+<button class="btn primary js-approve" type="button">Mark complete</button>
+<button class="btn danger js-changes" type="button">Request changes</button>
+</div>
+
+</div>
+
+</div>
+
+<div class="overlay hide" id="changesOverlay">
+<div class="sheet" id="changesSheet"></div>
+</div>
+
+<script>
+var $ = function(id){ return document.getElementById(id); };
+function el(tag, cls, txt){
+var n = document.createElement(tag);
+if (cls) n.className = cls;
+if (txt !== undefined && txt !== null) n.textContent = txt;
+return n;
+}
+
+/* ------------------------------------------------------------------ config
+   Same origin, same header names, same localStorage key as the board --
+   this page is not a second auth path, it's the same one read from a
+   different page. */
+var API_BASE = 'https://launchforte.app.n8n.cloud/webhook';
+var SNAPSHOT_URL = API_BASE + '/dashboard-snapshot';
+var APPROVE_URL = API_BASE + '/approve-report';
+var CHANGES_URL = API_BASE + '/request-changes';
+var REPO_RAW_BASE = 'https://raw.githubusercontent.com/Forte-Web-Designs/LaunchForte/refs/heads/';
+
+var TOKEN_KEY = 'lf_dashboard_token';
+var DASHBOARD_API_TOKEN = '';
+try { DASHBOARD_API_TOKEN = localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { DASHBOARD_API_TOKEN = ''; }
+
+function askForToken(reason){
+  var host = $('banners');
+  if (!host || $('tokengate')) return;
+  var box = document.createElement('div');
+  box.className = 'card';
+  box.id = 'tokengate';
+  box.innerHTML =
+    '<p class="eyebrow">Command Center</p>' +
+    '<p class="client-sub">' + (reason || 'Sign in to this device once. Your password manager can save it.') + '</p>' +
+    '<form id="tokengate_form" method="post" action="#" autocomplete="on">' +
+    '<div class="field"><label for="tokengate_user">Account</label>' +
+    '<input id="tokengate_user" name="username" type="text" autocomplete="username" value="command@launchforte.com" readonly></div>' +
+    '<div class="field"><label for="tokengate_input">Password</label>' +
+    '<input id="tokengate_input" name="password" type="password" autocomplete="current-password" placeholder="Command Center password"></div>' +
+    '<div class="btnrow"><button class="btn primary" type="submit" id="tokengate_save">Unlock this device</button></div>' +
+    '</form>';
+  host.appendChild(box);
+  var form = $('tokengate_form');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = ($('tokengate_input').value || '').trim();
+    if (v.length < 4) { alert('Needs at least 4 characters.'); return; }
+    try { localStorage.setItem(TOKEN_KEY, v); } catch (e2) {}
+    location.reload();
+  });
+  var f = $('tokengate_input');
+  if (f) f.focus();
+}
+
+function get(url){
+var headers = {};
+if (DASHBOARD_API_TOKEN) { headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN; headers['X-Dashboard-Token'] = DASHBOARD_API_TOKEN; }
+return fetch(url, {cache:'no-store', headers: headers})
+.then(function(r){
+if (r.status === 401 || r.status === 403) { var eAuth = new Error('HTTP ' + r.status); eAuth.auth = true; throw eAuth; }
+if (!r.ok) throw new Error('HTTP ' + r.status);
+return r.json();
+});
+}
+
+function postJSON(url, body){
+var headers = {'Content-Type':'application/json'};
+if (DASHBOARD_API_TOKEN) { headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN; headers['X-Dashboard-Token'] = DASHBOARD_API_TOKEN; }
+return fetch(url, {method:'POST', headers: headers, body: JSON.stringify(body)})
+.then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return {status:r.status, body:j}; }); });
+}
+
+function offline(e){
+var host = $('banners');
+var b = el('div','banner bad');
+b.appendChild(document.createTextNode('The dashboard cannot reach n8n right now. ' + (e && e.message ? '(' + e.message + ') ' : '')));
+var retry = el('button','btn','Retry');
+retry.type = 'button';
+retry.style.marginLeft = '8px';
+retry.addEventListener('click', function(){ boot(); });
+b.appendChild(retry);
+host.appendChild(b);
+}
+
+/* ------------------------------------------------------------------ helpers */
+function money(v){
+var n = Number(v);
+if (v === null || v === undefined || v === '' || !isFinite(n)) return '—';
+return '$' + n.toFixed(2);
+}
+function shortTime(iso){
+if (!iso) return 'unknown';
+var d = new Date(iso);
+if (isNaN(d)) return 'unknown';
+return d.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+}
+var STATE = {
+  failed:      { mark:'⛔', label:'Failed',      cls:'st-bad'  },
+  rejected:    { mark:'⛔', label:'Rejected',    cls:'st-bad'  },
+  refused:     { mark:'⛔', label:'Refused',     cls:'st-bad'  },
+  blocked:     { mark:'⛔', label:'Blocked',     cls:'st-bad'  },
+  no_changes:  { mark:'⏳', label:'No changes',  cls:'st-warn' },
+  stuck:       { mark:'⏳', label:'Stuck',       cls:'st-warn' },
+  review:      { mark:'⏳', label:'Needs review',cls:'st-warn' },
+  running:     { mark:'🔨', label:'Building',  cls:'st-live' },
+  in_progress: { mark:'',        label:'Building',    cls:'st-live' },
+  done:        { mark:'✅', label:'Done',        cls:'st-ok'   },
+  verified:    { mark:'✅', label:'Verified',    cls:'st-ok'   }
+};
+function statusChip(status){
+var raw = String(status || '').toLowerCase();
+var st = STATE[raw];
+if (st) return { cls: 'chip ' + st.cls, label: (st.mark ? st.mark + ' ' : '') + st.label };
+return { cls: 'chip', label: raw || 'unknown' };
+}
+
+/* ------------------------------------------------------------------ text parsing
+   Best-effort reading of free-text report fields. Never invents a verdict --
+   a criterion with no matching EVIDENCE line renders grey/unjudged, not a
+   guess either way. */
+function normalize(s){
+return String(s || '')
+.toLowerCase()
+.replace(/^["'“‘]+|["'”’]+$/g, '')
+.replace(/[^a-z0-9]+/g, ' ')
+.trim();
+}
+function stripMarker(line){
+return String(line || '').replace(/^\s*(?:[-*•]|\d+[\.\)])\s+/, '').trim();
+}
+function parseCriteria(raw){
+if (!raw) return [];
+var lines = Array.isArray(raw) ? raw.slice() : String(raw).split(/\r?\n+/);
+return lines
+.map(function(l){ return stripMarker(String(l)); })
+.filter(function(l){ return l.length > 0; });
+}
+function parseEvidence(detail){
+if (!detail) return [];
+var lines = String(detail).split(/\r?\n/);
+var re = /["“]([^"”]{3,300})["”]\s*[-–—:]*\s*\b(PASS|FAIL)\b\s*[-–—:]*\s*(.*)$/i;
+var out = [];
+lines.forEach(function(line){
+var m = re.exec(line);
+if (m) out.push({ quoted: m[1].trim(), verdict: m[2].toUpperCase(), artifact: (m[3] || '').trim() });
+});
+return out;
+}
+function matchEvidence(criterionText, evidence){
+var key = normalize(criterionText);
+if (!key) return null;
+var i;
+for (i = 0; i < evidence.length; i++){
+if (normalize(evidence[i].quoted) === key) return evidence[i];
+}
+for (i = 0; i < evidence.length; i++){
+var ek = normalize(evidence[i].quoted);
+if (ek && (ek.indexOf(key) > -1 || key.indexOf(ek) > -1)) return evidence[i];
+}
+return null;
+}
+function parseProofFrames(detail){
+if (!detail) return [];
+var re = /docs\/proof\/[A-Za-z0-9_\-.\/]+\.png/g;
+var seen = {}; var out = [];
+var m;
+while ((m = re.exec(String(detail)))){
+if (!seen[m[0]]) { seen[m[0]] = true; out.push(m[0]); }
+}
+return out;
+}
+function isHeaderLine(line){
+var t = String(line || '').trim();
+if (t.length < 3) return false;
+return /^[A-Z0-9][A-Z0-9 \-\/:]{2,60}$/.test(t) && /[A-Z]/.test(t) && !/[a-z]/.test(t);
+}
+function extractSection(text, headerRe){
+if (!text) return null;
+var lines = String(text).split(/\r?\n/);
+var start = -1, i;
+for (i = 0; i < lines.length; i++){ if (headerRe.test(lines[i].trim())) { start = i; break; } }
+if (start === -1) return null;
+var collected = [];
+for (i = start + 1; i < lines.length; i++){
+if (isHeaderLine(lines[i])) break;
+collected.push(lines[i]);
+}
+while (collected.length && !collected[collected.length - 1].trim()) collected.pop();
+while (collected.length && !collected[0].trim()) collected.shift();
+var joined = collected.join('\n').trim();
+return joined || null;
+}
+function formatInline(text){
+var esc = String(text)
+.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+esc = esc.replace(/`([^`]+)`/g, '<code>$1</code>');
+esc = esc.replace(/(^|[\s(])([A-Za-z0-9_.\-]+\/[A-Za-z0-9_.\-\/]+\.[A-Za-z0-9]{1,6})/g, function(m, pre, p){ return pre + '<code>' + p + '</code>'; });
+return esc;
+}
+function renderFormattedText(container, text){
+container.innerHTML = '';
+if (!text || !String(text).trim()){
+container.appendChild(el('div','client-sub','Nothing reported.'));
+return;
+}
+var lines = String(text).split(/\r?\n/);
+var pendingUl = null;
+lines.forEach(function(line){
+var t = line.trim();
+if (!t){ pendingUl = null; return; }
+var bulletMatch = t.match(/^[-*•]\s+(.*)$/);
+if (bulletMatch){
+if (!pendingUl){ pendingUl = document.createElement('ul'); pendingUl.className = 'report-list'; container.appendChild(pendingUl); }
+var li = document.createElement('li');
+li.innerHTML = formatInline(bulletMatch[1]);
+pendingUl.appendChild(li);
+return;
+}
+pendingUl = null;
+if (isHeaderLine(t)){
+container.appendChild(el('div','report-heading', t));
+return;
+}
+var p = document.createElement('div');
+p.className = 'report-line';
+p.innerHTML = formatInline(t);
+container.appendChild(p);
+});
+}
+function rawUrl(branch, path){
+var b = String(branch || '').split('/').map(encodeURIComponent).join('/');
+var p = String(path || '').split('/').map(encodeURIComponent).join('/');
+return REPO_RAW_BASE + b + '/' + p;
+}
+
+/* ------------------------------------------------------------------ render */
+var currentTask = null;
+var currentReport = null;
+
+function renderChecks(host, criteriaRaw, detail){
+host.innerHTML = '';
+var criteria = parseCriteria(criteriaRaw);
+if (!criteria.length){
+host.appendChild(el('div','client-sub','No acceptance criteria recorded on this card.'));
+return;
+}
+var evidence = parseEvidence(detail);
+criteria.forEach(function(c){
+var match = matchEvidence(c, evidence);
+var row = el('div','check-row');
+var mark = document.createElement('div');
+if (match && match.verdict === 'PASS'){ mark.className = 'check-mark pass'; mark.textContent = '✓'; }
+else if (match && match.verdict === 'FAIL'){ mark.className = 'check-mark fail'; mark.textContent = '✗'; }
+else { mark.className = 'check-mark unjudged'; mark.textContent = '—'; }
+row.appendChild(mark);
+var textWrap = el('div','check-text');
+textWrap.appendChild(el('div','check-criterion', c));
+if (match && match.artifact){
+textWrap.appendChild(el('div','check-artifact', match.artifact));
+} else if (!match){
+textWrap.appendChild(el('div','check-artifact muted','not judged in the report'));
+}
+row.appendChild(textWrap);
+host.appendChild(row);
+});
+}
+
+function renderProof(host, detail, branch){
+host.innerHTML = '';
+var frames = parseProofFrames(detail);
+if (!frames.length){
+host.appendChild(el('div','card client-sub','No proof frames named in this report.'));
+return;
+}
+var grid = el('div','proof-grid');
+frames.forEach(function(path){
+var item = el('div','proof-item');
+var filename = path.split('/').pop();
+var link = document.createElement('a');
+link.href = rawUrl(branch, path);
+link.target = '_blank';
+link.rel = 'noopener';
+var img = document.createElement('img');
+img.alt = filename;
+img.loading = 'lazy';
+img.src = rawUrl(branch, path);
+img.addEventListener('error', function(){
+img.style.display = 'none';
+var fail = el('div','proof-failtext', 'frame did not load');
+item.insertBefore(fail, item.querySelector('.proof-filename'));
+});
+link.appendChild(img);
+item.appendChild(link);
+item.appendChild(el('div','proof-filename', filename));
+grid.appendChild(item);
+});
+host.appendChild(grid);
+}
+
+function paint(task, report, client){
+currentTask = task;
+currentReport = report;
+$('r_title').textContent = task.title || task.id;
+$('r_client').textContent = (client && client.name) || task.client_slug || 'Launch Forte';
+var chip = statusChip(task.status);
+$('r_status').className = chip.cls;
+$('r_status').textContent = chip.label;
+$('r_cost').textContent = money(task.cost_usd);
+var branchEl = $('r_branch');
+if (task.branch){ branchEl.textContent = task.branch; branchEl.style.display = ''; } else { branchEl.style.display = 'none'; }
+$('r_updated').textContent = 'updated ' + shortTime(task.updated);
+
+var askHost = $('r_ask');
+askHost.innerHTML = '';
+if (task.ask_verbatim){
+String(task.ask_verbatim).split(/\r?\n+/).filter(function(l){ return l.trim(); }).forEach(function(l){
+askHost.appendChild(el('div','report-line', l.trim()));
+});
+} else {
+askHost.appendChild(el('div','client-sub','No ask recorded on this card.'));
+}
+
+var detail = report ? report.detail : '';
+renderChecks($('r_checks'), task.acceptance_criteria, detail);
+renderProof($('r_proof'), detail, task.branch);
+renderFormattedText($('r_report'), detail);
+
+var steps = extractSection(detail, /^(HOW TO CHECK|CHECK STEPS)/i);
+var stepsHost = $('r_check_steps');
+if (steps){
+renderFormattedText(stepsHost, steps);
+} else {
+stepsHost.innerHTML = '';
+stepsHost.appendChild(el('div','client-sub','No check steps given in the report.'));
+}
+
+var reportToken = task.report_token || (report && report.report_token);
+if (!reportToken){
+Array.prototype.forEach.call(document.querySelectorAll('.js-approve, .js-changes'), function(b){
+b.disabled = true;
+b.title = 'No report token on this card yet -- these actions are unavailable.';
+});
+showActionResult(false, 'No report token on this card yet. Mark complete / Request changes are unavailable until the report carries one.');
+}
+
+$('content').style.display = '';
+}
+
+function showActionResult(ok, text){
+var host = $('actionResult');
+host.innerHTML = '';
+host.appendChild(el('div','resultbox ' + (ok ? 'ok' : 'err'), text));
+}
+
+function fireApprove(btn){
+var reportToken = currentTask.report_token || (currentReport && currentReport.report_token);
+if (!reportToken) return;
+var all = document.querySelectorAll('.js-approve, .js-changes');
+Array.prototype.forEach.call(all, function(b){ b.disabled = true; });
+postJSON(APPROVE_URL, { report_token: reportToken, task_id: currentTask.id }).then(function(res){
+Array.prototype.forEach.call(all, function(b){ b.disabled = false; });
+if (res.status === 200){
+showActionResult(true, 'Marked complete.');
+} else {
+showActionResult(false, (res.body && (res.body.error || res.body.message)) || ('Could not mark complete (HTTP ' + res.status + ').'));
+}
+}).catch(function(e){
+Array.prototype.forEach.call(all, function(b){ b.disabled = false; });
+showActionResult(false, 'Request failed: ' + e.message);
+});
+}
+
+function fireChanges(note){
+var reportToken = currentTask.report_token || (currentReport && currentReport.report_token);
+if (!reportToken) return Promise.reject(new Error('no report token'));
+return postJSON(CHANGES_URL, { report_token: reportToken, task_id: currentTask.id, note: note });
+}
+
+function openChangesModal(){
+var sheet = $('changesSheet');
+sheet.innerHTML = '';
+sheet.appendChild(el('div','sheet-title','Request changes'));
+sheet.appendChild(el('div','client-sub','This goes back to the worker with your note attached. Say what needs to change before it can ship.'));
+var field = el('div','field');
+var label = el('label', null, 'Feedback');
+label.setAttribute('for','changesNote');
+var ta = document.createElement('textarea');
+ta.id = 'changesNote';
+ta.placeholder = 'What needs to change...';
+field.appendChild(label);
+field.appendChild(ta);
+sheet.appendChild(field);
+var resultHost = el('div');
+sheet.appendChild(resultHost);
+var sendBtn = el('button','btn danger','Send request');
+sendBtn.type = 'button';
+sendBtn.style.width = '100%';
+sendBtn.style.marginTop = '4px';
+sendBtn.addEventListener('click', function(){
+var note = ta.value.trim();
+if (!note){ ta.focus(); return; }
+sendBtn.disabled = true;
+fireChanges(note).then(function(res){
+sendBtn.disabled = false;
+if (res.status === 200){
+closeChangesModal();
+showActionResult(true, 'Changes requested.');
+} else {
+resultHost.innerHTML = '';
+resultHost.appendChild(el('div','resultbox err', (res.body && (res.body.error || res.body.message)) || ('Could not send (HTTP ' + res.status + ').')));
+}
+}).catch(function(e){
+sendBtn.disabled = false;
+resultHost.innerHTML = '';
+resultHost.appendChild(el('div','resultbox err', 'Request failed: ' + e.message));
+});
+});
+var cancelBtn = el('button','sheet-close','Cancel');
+cancelBtn.type = 'button';
+cancelBtn.addEventListener('click', closeChangesModal);
+sheet.appendChild(sendBtn);
+sheet.appendChild(cancelBtn);
+$('changesOverlay').classList.remove('hide');
+ta.focus();
+}
+function closeChangesModal(){ $('changesOverlay').classList.add('hide'); }
+
+function wireActions(){
+Array.prototype.forEach.call(document.querySelectorAll('.js-approve'), function(b){
+b.addEventListener('click', function(){ fireApprove(b); });
+});
+Array.prototype.forEach.call(document.querySelectorAll('.js-changes'), function(b){
+b.addEventListener('click', openChangesModal);
+});
+$('changesOverlay').addEventListener('click', function(e){
+if (e.target === $('changesOverlay')) closeChangesModal();
+});
+document.addEventListener('keydown', function(e){
+if (e.key === 'Escape') closeChangesModal();
+});
+}
+
+/* ------------------------------------------------------------------ boot */
+function taskIdFromQuery(){
+var params = new URLSearchParams(location.search);
+return params.get('task') || '';
+}
+
+function boot(){
+$('banners').innerHTML = '';
+wireActions();
+if (!DASHBOARD_API_TOKEN) { askForToken('This device has not been authorised yet.'); return; }
+var taskId = taskIdFromQuery();
+if (!taskId){
+offlineMissingId();
+return;
+}
+get(SNAPSHOT_URL).then(function(data){
+var gate = $('tokengate');
+if (gate && gate.parentNode) gate.parentNode.removeChild(gate);
+var task = (data.tasks || []).find(function(t){ return t.id === taskId; });
+if (!task){
+notFound(taskId);
+return;
+}
+var client = (data.clients || []).find(function(c){ return c.slug === task.client_slug; });
+var report = (data.latest_reports || []).find(function(r){ return r.job_id === task.id; });
+paint(task, report, client);
+}).catch(function(e){
+if (e && e.auth){
+askForToken('That token was rejected. Paste it again — the saved one stays until you do.');
+} else {
+offline(e);
+}
+});
+}
+function notFound(taskId){
+var b = el('div','banner bad', 'No task found for id "' + taskId + '". It may have moved off the board, or the id in the link is stale.');
+$('banners').appendChild(b);
+}
+function offlineMissingId(){
+var b = el('div','banner bad', 'No task specified. Open this page from a card’s Review link.');
+$('banners').appendChild(b);
+}
+
+window.addEventListener('load', boot);
+</script>
+</body>
+</html>

@@ -998,6 +998,14 @@ var packBtn = el('button','qbtn','Pack');
 packBtn.type = 'button';
 packBtn.addEventListener('click', function(e){ e.stopPropagation(); quickPack(t); });
 actions.appendChild(packBtn);
+} else if (col === 'review'){
+var reviewLink = el('a','qbtn','Review');
+reviewLink.href = 'review.html?task=' + encodeURIComponent(t.id || '');
+reviewLink.target = '_blank';
+reviewLink.rel = 'noopener';
+reviewLink.style.display = 'inline-block';
+reviewLink.addEventListener('click', function(e){ e.stopPropagation(); });
+actions.appendChild(reviewLink);
 }
 card.appendChild(actions);
 card.addEventListener('click', function(){ openDetail(t); });
