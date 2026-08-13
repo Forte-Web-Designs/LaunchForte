@@ -1,0 +1,101 @@
+{
+  "name": "SIM RE: Write Suite Headers",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "trigger-1",
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sheets.googleapis.com/v4/spreadsheets/1n8G5-wfVj7otXdynZ6ULo7cWLlU0MRh_MAQYaFDVDtU/values:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"valueInputOption\": \"RAW\",\n  \"data\": [\n    {\n      \"range\": \"buyers!A1\",\n      \"values\": [\n        [\n          \"buyer_id\",\n          \"name\",\n          \"phone\",\n          \"email\",\n          \"budget_min\",\n          \"budget_max\",\n          \"beds\",\n          \"area\",\n          \"notes\",\n          \"created_at\"\n        ]\n      ]\n    },\n    {\n      \"range\": \"listings!A1\",\n      \"values\": [\n        [\n          \"listing_id\",\n          \"address\",\n          \"area\",\n          \"price\",\n          \"beds\",\n          \"status\",\n          \"owner_name\",\n          \"owner_phone\"\n        ]\n      ]\n    },\n    {\n      \"range\": \"visits!A1\",\n      \"values\": [\n        [\n          \"visit_id\",\n          \"buyer_id\",\n          \"listing_id\",\n          \"visit_date\",\n          \"slot_start\",\n          \"slot_end\",\n          \"status\"\n        ]\n      ]\n    },\n    {\n      \"range\": \"documents!A1\",\n      \"values\": [\n        [\n          \"listing_id\",\n          \"doc_name\",\n          \"required\",\n          \"present\",\n          \"verified_by\",\n          \"verified_at\"\n        ]\n      ]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "write-headers-1",
+      "name": "Write Suite Headers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "9hFwUbyL5i7GTJ3y",
+          "name": "Launch Forte Google Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://sheets.googleapis.com/v4/spreadsheets/1n8G5-wfVj7otXdynZ6ULo7cWLlU0MRh_MAQYaFDVDtU/values/buyers!A1:Z1",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "options": {}
+      },
+      "id": "verify-headers-1",
+      "name": "Verify Buyers Headers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        680,
+        300
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "9hFwUbyL5i7GTJ3y",
+          "name": "Launch Forte Google Sheets"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Write Suite Headers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Suite Headers": {
+      "main": [
+        [
+          {
+            "node": "Verify Buyers Headers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "launchforte.app.n8n.cloud",
+    "workflowId": "OMZHBu3mGW0SLXcm",
+    "active": false,
+    "source": "SIM-RE-1 rehearsal, Upwork 2083114668777115157",
+    "note": "Draft only. active:false. Writes the four SIM RE - Agent Suite tab headers via Sheets batchUpdate; never uses the Sheets node's Append+addAllFields route, which wrote upstream JSON keys into row 1 on card re-4."
+  }
+}
