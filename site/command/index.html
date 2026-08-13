@@ -849,9 +849,18 @@ function renderBoard(clients, tasks){
 (function(){
   var bt = boardTasksFor(clients, tasks) || [];
   var vis = visibleClients(clients) || [];
-  var total = (tasks || []).length;
+  /* COUNT WHAT IS ON THE BOARD, NOT WHAT IS IN THE TABLE. This counted every row
+     including 259 archived ones, so the header read "273 cards on the board" over
+     a board showing 14. Archived work is not on the board -- it is excluded from
+     the columns two lines below and it is excluded here. Same for clients: the
+     count now means clients with a card you can see, not every client ever. */
+  var boardOnly = (tasks || []).filter(function(t){ return colOf(t.status) !== 'archived'; });
+  var total = boardOnly.length;
+  var liveSlugs = {};
+  boardOnly.forEach(function(t){ if (t.client_slug) liveSlugs[t.client_slug] = 1; });
+  var visCount = vis.filter(function(c){ return liveSlugs[c.slug]; }).length;
   setSummary('board', total + ' card' + (total===1?'':'s') + ' on the board, ' +
-    vis.length + ' active client' + (vis.length===1?'':'s') + '.');
+    visCount + ' active client' + (visCount===1?'':'s') + '.');
 })();
 var host = $('boardhost'); host.innerHTML = '';
 if (!tasks || !tasks.length){
