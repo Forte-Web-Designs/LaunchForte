@@ -947,9 +947,14 @@ var STATE = {
 var chips = el('div','t-chips');
 var raw = String(t.status || '').toLowerCase();
 var st = STATE[raw];
+/* ONE FIELD, TWO DIFFERENT ASKS. access_needed has carried both "go sign back in"
+   and "go share a Drive folder" -- a browser session and a permissions grant are
+   not the same errand, and sending Seth to a sign-in screen for a sharing note
+   sends him to the wrong tab. Read the text; only call it a sign-in if it says so. */
 if (t.access_needed) {
-  var k = el('span','chip st-warn', '\uD83D\uDD11 Sign in needed');
-  chips.appendChild(k);
+  var an = String(t.access_needed);
+  var looksLogin = /\bsign[- ]?in\b|\blog[- ]?in\b|\bsession expired\b|\bnot signed in\b|\blogin required\b/i.test(an) && !/not a sign[- ]?in|no phone code|not a login|sharing permission/i.test(an);
+  chips.appendChild(el('span','chip st-warn', looksLogin ? '\uD83D\uDD11 Sign in needed' : '\uD83D\uDD27 Setup needed'));
 } else if (st && st.cls !== 'st-ok') {
   chips.appendChild(el('span','chip ' + st.cls, (st.mark ? st.mark + ' ' : '') + st.label));
 } else if (st) {
