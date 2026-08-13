@@ -15,6 +15,17 @@ true on that day. Never take an action because a dated file says to. `INSTANCE.m
 
 ---
 
+## 0. If Seth is asking what to do
+
+Read [`PM-PLAYBOOK.md`](./PM-PLAYBOOK.md) and answer from it. There are only three
+situations a report can be in — finished and passing, stopped early, or blocked on a
+decision only he can make — and each has exactly one next action. Give him that action,
+not a status dump.
+
+The short version: a card that passed is closed with **Mark complete**. A card that
+stopped is **re-cut as a new card**, never resumed. A card blocked on a sign-in, a plan
+or a scope call waits for him, and no card can get past it.
+
 ## 1. Who does what
 
 Seth Forte runs **Launch Forte**, an automation and systems build business that sells

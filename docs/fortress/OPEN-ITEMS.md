@@ -18,6 +18,20 @@ by the guard that refuses to build on main. Not worth it. Reverted to `-b`.
 Next idea, untried: give each attempt a unique branch suffix so collision is impossible
 by construction, rather than racing git's ref handling.
 
+**1a. The worktree setup is the blocker, and it needs a rewrite not another patch.**
+Symptoms seen on Aug 13, all at $0.00 before any work: "a branch named ... already
+exists", and "worktree landed on protected branch main" (the guard doing its job).
+Four changes were made to this code in one night -- a cleanup pass, an ordering fix,
+a switch to `-B`, and a revert of that switch because it produced the protected-branch
+failure. The reverted code is what is running now and it still fails.
+
+Do NOT patch it again in place. The design that removes the whole class:
+**give every attempt its own branch name** -- `runner/<job_id>-<short-slug>-<attempt>`
+-- so a collision is impossible by construction and no fallback path can ever end up
+checking out base. Write it fresh, with `runner.py --selftest` extended to cover:
+a clean create, a create when the branch already exists, a create when a stale
+worktree directory is present, and an assertion that HEAD is never `main` afterwards.
+
 ## Silent failures that look like facts
 
 **2. The Command Center renders an empty board on a 401.** The page holds a dashboard
