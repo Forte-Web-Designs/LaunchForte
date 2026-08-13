@@ -4,6 +4,41 @@ Short list. Everything else is either done or in progress.
 
 ## Needs one click from Seth
 
+**HubSpot Workflows — the Launch Forte portal (51819426) is on Free Marketing
+tools, not Marketing Hub Professional.** `SIM-EO-1-spec.md` (section 5) asks for
+two workflows — `LF SAMPLE - New Tier 1 Target Account Enrollment` (Company-based)
+and `LF SAMPLE - Proposal Sent Follow-Up Reminder` (Deal-based) — but
+`/workflows/51819426` redirects straight to
+`/pricing/51819426/upgrade/locked-nav-item?upgradeSource=workflows-marketing-locked-nav-item`
+every time, regardless of which object the workflow would be built on: "Run
+powerful automated email campaigns... Unlock this and more with Marketing Hub
+Professional," with the plan-comparison table showing "Free Marketing tools" as
+"Your current plan" (disabled) and a blank cell for "Omni-channel marketing
+automation" there vs. "Up to 300 workflows for 10 teams" under Professional.
+The account & billing usage page (`Other Limits`) carries no workflow limit at
+all for this plan — there is no free-tier workflow allowance to work within, not
+even a reduced one. Same shape as the Sequences block below: the only ways past
+it are "Talk to Sales" or "Start 14-day trial," both a plan-tier change, which is
+Seth's call, not a runner's. Nothing was built. Screenshot:
+`docs/proof/eo-6-1-workflows-locked-marketing-hub-pro.png`. What it unblocks:
+card `eo-6` (the SIM-EO-1 workflows) and anything later in the simulation that
+assumes Workflows exists.
+
+**HubSpot Sequences — the Launch Forte portal (51819426) is on Free Sales tools,
+not Sales Hub Professional.** `SIM-EO-1-spec.md` (section 4) assumes Sales Hub
+Professional and asks for a 5-step sequence, `LF SAMPLE - Target Account
+Outreach - Corporate Gifting`. `/sequences/51819426` redirects straight to
+`/pricing/51819426/upgrade/locked-nav-item?upgradeSource=sequences-locked-nav-item`
+— "Never let a lead go cold... Unlock this and more with Sales Hub Professional,"
+with the plan-comparison table showing "Free Sales tools" as "Your current plan"
+(disabled) and Sequences with an empty cell there vs. "5,000 sequences per
+account" under Professional. The only ways past it are "Talk to Sales" or
+"Start 14-day trial" — both a plan-tier change, which is Seth's call, not a
+runner's, even though the trial claims no card is required. Nothing was built;
+no trial was started. Screenshot: `docs/proof/eo-5-1-sequences-locked-sales-hub-pro.png`.
+What it unblocks: card `eo-5` (the SIM-EO-1 sequence) and anything later in the
+simulation that assumes Sequences exists.
+
 **Zoho Books — the organisation does not exist yet.**
 `books.zoho.com` opens on "Welcome Seth Forte, let us know where your business
 is" with two fields: Organization Name and Organization Location. Creating an
