@@ -12,6 +12,20 @@ Build Queue API now downgrades it to `stuck` rather than closing the card.
 
 ---
 
+## The report's last two sections, in this order
+
+A report ends with **EVIDENCE, then SCREENSHOTS**. Nothing after them.
+
+That order is the rule, and a card prompt must never say "end with an EVIDENCE block"
+while also asking for a screenshots section — on Aug 12 that exact contradiction got a
+correct frame rejected for putting SCREENSHOTS last, which is the only place it can go.
+Say: *include an EVIDENCE block, followed by a SCREENSHOTS section, and nothing after.*
+
+An open question or a flagged judgment call goes **inside** the EVIDENCE block as its own
+line, not appended after the sections. Workers surface good ones — one cropped a personal
+address out of a frame and asked whether that was over-cautious — and they must have a
+home that does not break the ordering rule.
+
 ## Every build card ends with this block
 
 ```
