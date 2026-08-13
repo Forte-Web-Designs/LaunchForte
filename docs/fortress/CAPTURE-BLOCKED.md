@@ -4,6 +4,21 @@ Short list. Everything else is either done or in progress.
 
 ## Needs one click from Seth
 
+**HubSpot Sequences — the Launch Forte portal (51819426) is on Free Sales tools,
+not Sales Hub Professional.** `SIM-EO-1-spec.md` (section 4) assumes Sales Hub
+Professional and asks for a 5-step sequence, `LF SAMPLE - Target Account
+Outreach - Corporate Gifting`. `/sequences/51819426` redirects straight to
+`/pricing/51819426/upgrade/locked-nav-item?upgradeSource=sequences-locked-nav-item`
+— "Never let a lead go cold... Unlock this and more with Sales Hub Professional,"
+with the plan-comparison table showing "Free Sales tools" as "Your current plan"
+(disabled) and Sequences with an empty cell there vs. "5,000 sequences per
+account" under Professional. The only ways past it are "Talk to Sales" or
+"Start 14-day trial" — both a plan-tier change, which is Seth's call, not a
+runner's, even though the trial claims no card is required. Nothing was built;
+no trial was started. Screenshot: `docs/proof/eo-5-1-sequences-locked-sales-hub-pro.png`.
+What it unblocks: card `eo-5` (the SIM-EO-1 sequence) and anything later in the
+simulation that assumes Sequences exists.
+
 **Zoho Books — the organisation does not exist yet.**
 `books.zoho.com` opens on "Welcome Seth Forte, let us know where your business
 is" with two fields: Organization Name and Organization Location. Creating an
