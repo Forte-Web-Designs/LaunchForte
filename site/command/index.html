@@ -1688,7 +1688,13 @@ var RUN_EPOCH = '';                 /* kept for reference, no longer used to fil
    board including brand new ones. It looked correct all afternoon only because
    every task really was old. Filtering on the client slug uses a field the
    payload actually has. Empty list shows everything. */
-var RUN_CLIENTS = ['sim-hubspot-pipeline'];
+/* EMPTY MEANS EVERYTHING, and it must stay empty unless a run is actually being
+   scoped. This held ['sim-hubspot-pipeline'] -- one stale demo client from an old
+   run -- so withinRun() silently discarded every other client's cards before the
+   board ever saw them. The snapshot was arriving with 267 tasks and 86 clients and
+   painting 3 cards and 1 client, for hours, with no error anywhere. If you scope a
+   run here, clear it when the run ends. */
+var RUN_CLIENTS = [];
 
 function withinRun(data){
 if (!RUN_CLIENTS.length || !data) return data;
