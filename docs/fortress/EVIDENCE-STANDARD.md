@@ -37,7 +37,40 @@ An artifact is a thing someone else can open, not a sentence. In order of prefer
 "Verified", "confirmed", "tested successfully" are not artifacts. Neither is a
 description of what the output looked like. Paste the values.
 
-## Screenshots
+## Screenshots — a pack, not a frame
+
+**One picture is almost never enough.** A single canvas shot proves a thing was drawn.
+It does not prove the thing works, and it is not something Seth can send a client to
+show the job is done. That is the actual purpose of the frames: a client-shareable
+proof that the work is complete.
+
+So the default is a **pack**, ordered so a stranger can follow it:
+
+| Frame | What it proves |
+|---|---|
+| 1. the build | the thing exists, in the tool, in the state promised (draft/inactive) |
+| 2. the run | it executed — the execution view with real output visible, not an empty canvas |
+| 3. the result | what it produced, *inside the tool the client actually opens* — the CRM record, the draft, the label, the message |
+
+Add frames when a deliverable has more surfaces than that. A workflow that writes to
+three places owes a frame per place. **One frame is acceptable only when there is
+genuinely one surface to photograph, and the report must say why.**
+
+Name them so the order is obvious and a stranger can tell what they are looking at:
+
+```
+docs/proof/<job_id>-1-<what-it-shows>.png
+docs/proof/<job_id>-2-<what-it-shows>.png
+```
+
+Every frame is client-shareable or it does not ship: sample data only, no account chip,
+no billing or settings screen, no sign-in page, no workflow list (it carries real client
+names), no other client's record anywhere in shot. Crop rather than explain.
+
+The report names each frame and says in one line what a reader should see in it. A frame
+nobody can interpret is not evidence.
+
+## Screenshots — the rules that always apply
 
 Required on every `client_ui`, `site_pass` and `generator` card — anything with a
 surface a human would look at. Commit to `docs/proof/<job_id>-<what>.png`.
