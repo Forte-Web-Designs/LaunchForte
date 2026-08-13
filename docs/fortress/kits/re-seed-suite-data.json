@@ -1,0 +1,95 @@
+{
+  "name": "SIM RE: Seed Suite Data",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "trigger-1",
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sheets.googleapis.com/v4/spreadsheets/1n8G5-wfVj7otXdynZ6ULo7cWLlU0MRh_MAQYaFDVDtU/values:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"valueInputOption\": \"RAW\",\n  \"data\": [\n    {\n      \"range\": \"listings!A2\",\n      \"values\": [\n        [\"LST-001\",\"12 Maple Heights Ave\",\"Maple Heights\",425000,3,\"available\",\"Dana Whitfield\",\"555-0142\"],\n        [\"LST-002\",\"47 Maple Heights Ct\",\"Maple Heights\",389000,2,\"available\",\"Carl Nguyen\",\"555-0177\"],\n        [\"LST-003\",\"88 Riverside Commons Dr\",\"Riverside Commons\",512000,4,\"available\",\"Priya Anand\",\"555-0198\"],\n        [\"LST-004\",\"15 Riverside Commons Way\",\"Riverside Commons\",468000,3,\"pending\",\"Marcus Boyle\",\"555-0163\"],\n        [\"LST-005\",\"210 Cedar Grove Ln\",\"Cedar Grove\",355000,2,\"available\",\"Elena Sato\",\"555-0119\"],\n        [\"LST-006\",\"6 Cedar Grove Terrace\",\"Cedar Grove\",601000,5,\"sold\",\"Owen Fitch\",\"555-0184\"]\n      ]\n    },\n    {\n      \"range\": \"documents!A2\",\n      \"values\": [\n        [\"LST-001\",\"Title Deed\",true,true,\"Jordan Blake\",\"2026-08-01\"],\n        [\"LST-001\",\"ID Verification\",true,true,\"Jordan Blake\",\"2026-08-01\"],\n        [\"LST-001\",\"Proof of Ownership\",true,false,\"\",\"\"],\n        [\"LST-001\",\"Property Tax Receipt\",true,true,\"Jordan Blake\",\"2026-08-02\"],\n        [\"LST-001\",\"Mortgage Clearance Letter\",false,false,\"\",\"\"],\n        [\"LST-001\",\"Floor Plan\",false,true,\"Jordan Blake\",\"2026-08-01\"]\n      ]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "seed-suite-data-1",
+      "name": "Seed Suite Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        200
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "9hFwUbyL5i7GTJ3y",
+          "name": "Launch Forte Google Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://sheets.googleapis.com/v4/spreadsheets/1n8G5-wfVj7otXdynZ6ULo7cWLlU0MRh_MAQYaFDVDtU/values/listings!A1:Z8",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "options": {}
+      },
+      "id": "verify-listings-1",
+      "name": "Verify Listings Rows",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        420
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "9hFwUbyL5i7GTJ3y",
+          "name": "Launch Forte Google Sheets"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Seed Suite Data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Verify Listings Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "launchforte.app.n8n.cloud",
+    "workflowId": "ToAqW6pQ1akXR7Lg",
+    "active": false,
+    "source": "SIM-RE-1 rehearsal, Upwork 2083114668777115157",
+    "note": "Draft only. active:false. Seeds 6 invented listings across 3 areas (listings!A2:H7) and the document checklist for LST-001 (documents!A2:F7) via Sheets batchUpdate, without touching row 1. Never uses the Sheets node's Append operation or resourceMapper, which wrote upstream JSON keys into row 1 on card re-4. Write and verify nodes both branch directly off the trigger (not chained to each other) so a partial run targeting only 'Verify Listings Rows' as startNodes never re-executes the write in isolation; in practice n8n's partial-execution engine ran both branches on every invocation regardless of the targeted startNode, which was safe here only because the write targets a fixed range (listings!A2:H7, documents!A2:F7) and is idempotent -- re-running it overwrites the same cells with the same values rather than appending duplicate rows. Executions 42381 (initial write + read) and 42390 (independent re-run) both returned identical rows. Ran via the two-fetch recipe in docs/fortress/RUN-A-WORKFLOW.md, never via the canvas Execute button or /webhook-test."
+  }
+}
