@@ -147,6 +147,20 @@ pulled out in one command:
 git show <branch>:docs/proof/<file>.png > /tmp/proof.png && open /tmp/proof.png
 ```
 
+## Name what the frame shows, not what it is called
+
+Card cc-review-col-2 did the work correctly and was rejected by the second agent
+for one reason: the criteria named `docs/proof/cc-review-col-1-board.png` and the
+worker committed `cc-review-col-2-board.png`, prefixed with its own job id.
+
+Acceptance criteria state what a frame must SHOW and where it must live, never its
+exact filename. "a frame under `docs/proof/` showing all six columns with NEEDS
+REVIEW between BLOCKED and DONE" passes or fails on the picture. A filename passes
+or fails on a typo.
+
+The same rule applies to any artifact a criterion names: describe the thing, pin
+the location, leave the exact string to the worker.
+
 ## What a check card owes
 
 A check card verifies behaviour by **producing** behaviour, not by reading. Re-run the
