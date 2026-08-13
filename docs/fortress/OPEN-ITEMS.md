@@ -32,6 +32,32 @@ checking out base. Write it fresh, with `runner.py --selftest` extended to cover
 a clean create, a create when the branch already exists, a create when a stale
 worktree directory is present, and an assertion that HEAD is never `main` afterwards.
 
+**1b. A card cannot verify a page it had to open itself.** The runner drives the
+browser through the Playwright MCP in `--extension` mode (see `playwright-mcp.json`
+in the runner directory), which attaches to the real Chrome the signed-in sessions
+live in. In that mode `browser_navigate` and `browser_evaluate` operate on two
+different underlying sessions. Navigate reports success and the correct page title,
+then the very next call executes against the extension's own connect.html relay tab.
+Observed by two independent cards on Aug 13, cc-chip-1 and cc-chip-2, across eleven
+attempts between them, with three distinct strategies: new tab, current tab, and
+closing the relay tab first. Representative evidence: `browser_navigate` returned
+"Page URL http://127.0.0.1:8934/command/index.html, Page Title: Command" and
+`browser_evaluate` of `location.href` immediately after returned a
+`chrome-extension://.../connect.html` URL. Work on a page that is ALREADY open is
+unaffected -- cards re-5b and re-6 both screenshotted the n8n canvas the same night
+without trouble, because the tab was already there and signed in. So the limit is
+specific: a card can prove work in a surface that is already open, and cannot prove
+work in a page it had to open for itself. Any card whose evidence depends on loading
+a local build, a preview server or a fresh URL will stall at the proof step after
+doing the work correctly. Both cards refused to substitute a code-level check for a
+browser and call it browser-verified. That is the behaviour we want and should not be
+tuned out. Untried options, in the order worth trying: switch that one card to the
+profile mode script that ships beside the extension one, which drives its own Chrome
+and its own tabs but does not carry the signed-in sessions; or have the card assert
+against the served HTML through a real DOM implementation and label the evidence as
+what it is, never as a browser screenshot. Do not add a rule that lets a card claim
+browser verification it did not perform.
+
 ## Silent failures that look like facts
 
 **2. The Command Center renders an empty board on a 401.** The page holds a dashboard
