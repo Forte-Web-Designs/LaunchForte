@@ -64,7 +64,6 @@ border-bottom:1px solid var(--line)}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
 .dot.stale{background:var(--warn)} .dot.down{background:var(--danger)}
 
-.statusline{margin:14px 0 0;font-size:13px;color:var(--muted);font-weight:600}
 
 .banner{margin:14px 0;padding:12px 14px;border-radius:12px;font-size:14px;
 border:1px solid var(--line-strong);background:var(--card)}
@@ -121,33 +120,6 @@ border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--sha
 .allclear .big{font-size:clamp(20px,6vw,28px);font-weight:800;letter-spacing:-.03em}
 .allclear .sub{margin-top:10px;color:var(--muted-2);font-size:13px}
 
-/* board */
- /* A KANBAN BOARD IS HORIZONTAL. This was a responsive grid that reflowed
-   columns underneath each other, so on a narrow window Done sat below Backlog
-   and the left-to-right reading that makes a board a board was gone. Fixed
-   width track, horizontal scroll, each column scrolling its own cards. */
-.board-cols{display:flex;gap:16px;align-items:stretch;overflow-x:auto;overflow-y:hidden;
-padding:4px 2px 10px;scrollbar-gutter:stable;overscroll-behavior-x:contain;
-max-height:calc(100vh - 220px)}
-.board-cols::after{content:'';flex:0 0 8px}
-.board-cols::-webkit-scrollbar{height:10px}
-.board-cols::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:5px;
-border:2px solid transparent;background-clip:padding-box}
-/* flex-basis, not width: width lets the columns shrink to fit and the horizontal
-   scroll silently disappears, which is the whole Jira complaint. */
-.board-col{flex:0 0 300px;display:flex;flex-direction:column;min-height:0;
-background:transparent;border:0;border-radius:var(--radius-lg);padding:0;box-shadow:none}
-.board-col-head{display:flex;align-items:center;gap:8px;height:40px;flex:0 0 auto;padding:0 4px 0 2px}
-.board-col-dot{width:8px;height:8px;border-radius:999px;flex:0 0 auto;background:var(--gray)}
-.board-col-title{font-size:13px;line-height:20px;letter-spacing:-.005em;text-transform:capitalize;
-font-weight:600;color:var(--ink)}
-.board-col-count{font-size:12px;color:var(--muted-2);font-weight:500;margin-left:2px}
-/* min-height:0 or the inner scroll silently refuses to engage inside flex. */
-.board-col-cards{flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;
-gap:8px;padding:0 4px 8px;scrollbar-width:thin}
-.board-col-cards:empty::after{content:'Nothing here';display:block;text-align:center;
-padding:22px 10px;font-size:12px;color:var(--muted-2);
-border:1px dashed var(--line);border-radius:var(--radius)}
  /* One boundary per surface: a hairline border and a shadow so faint it reads as
    a seam. Elevation is reserved for things that are actually lifted. */
 .taskcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
@@ -195,13 +167,16 @@ color:var(--brand-ink);font-weight:500;letter-spacing:.01em;white-space:nowrap}
    select and the two buttons sat on all of them, so forty cards showed forty
    dropdowns and the titles had to compete with their own controls. */
 /* demand */
-.demand-row{padding:9px 2px;border-bottom:1px solid var(--line)}
+.demand-row{padding:12px 2px;border-bottom:1px solid var(--line);transition:background .15s ease}
 .demand-row:last-child{border-bottom:0}
-.demand-label{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px}
-.demand-name{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-.005em}
-.demand-num{font-size:12px;color:var(--muted-2);white-space:nowrap}
-.demand-track{height:6px;border-radius:999px;background:var(--bg-sunken);overflow:hidden}
-.demand-fill{height:100%;border-radius:999px;background:var(--brand);
+.demand-row:hover{background:var(--bg-sunken)}
+.demand-label{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px}
+.demand-name{font-size:14.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.demand-num{font-size:12.5px;color:var(--muted-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.demand-num b{color:var(--ink);font-weight:600}
+.demand-track{height:10px;border-radius:999px;background:var(--bg-sunken);overflow:hidden;
+ box-shadow:inset 0 1px 2px rgba(0,0,0,.06)}
+.demand-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--brand),var(--accent-600));
 transition:width .3s cubic-bezier(.2,0,0,1)}
 .demand-row:hover .demand-fill{background:var(--accent-600)}
 
@@ -321,26 +296,17 @@ height:64px;opacity:.55}
 </div>
 </div>
 </section>
+<section id="demand">
+<p class="eyebrow" id="demandToggle" style="cursor:pointer">Demand <button class="flipbtn" id="demandFlip" type="button">Collapse &uarr;</button></p>
+<div class="card rail-gray client-sub" id="demandCollapsed" style="cursor:pointer;display:none">Loading demand data…</div>
+<div id="demandBody"></div>
+</section>
 
 <div id="banners"></div>
 <section id="needsme" style="display:none">
 <p class="eyebrow">Needs me<span id="needsmeCount"></span></p>
 <div id="needsmehost" class="stack"><div class="client-sub">Nothing is waiting on you.</div></div>
 </section>
-
-<p class="statusline" id="statusline"></p>
-
-<section id="board">
-<p class="eyebrow">Board <span class="client-sub" id="boardCollapsed" style="font-weight:400;letter-spacing:0;text-transform:none"></span></p>
-<div id="boardBody">
-<div id="boardhost" class="stack"><div class="skel"></div></div>
-</div>
-</section>
-
-
-
-
-
 
 <section id="money" style="display:none">
 <p class="eyebrow" id="moneyToggle" style="cursor:pointer">Money <button class="flipbtn" id="moneyFlip" type="button">Expand &darr;</button></p>
@@ -444,11 +410,6 @@ height:64px;opacity:.55}
 </div>
 </section>
 
-<section id="demand">
-<p class="eyebrow" id="demandToggle" style="cursor:pointer">Demand <button class="flipbtn" id="demandFlip" type="button">Collapse &uarr;</button></p>
-<div class="card rail-gray client-sub" id="demandCollapsed" style="cursor:pointer;display:none">Loading demand data…</div>
-<div id="demandBody"></div>
-</section>
 
 <section id="videoscript">
 <p class="eyebrow" id="videoscriptToggle" style="cursor:pointer">Video script <button class="flipbtn" id="videoscriptFlip" type="button">Collapse &uarr;</button></p>
@@ -459,6 +420,19 @@ height:64px;opacity:.55}
 <div class="field"><input id="vs_prompt" placeholder="Or describe the video you want..."></div>
 <div class="btnrow"><button class="btn primary" id="vs_prompt_btn">Turn this into a script</button></div>
 <div id="vs_result"></div>
+</div>
+</div>
+</section>
+<section id="linkedin">
+<p class="eyebrow" id="linkedinToggle" style="cursor:pointer">LinkedIn post <button class="flipbtn" id="linkedinFlip" type="button">Collapse &uarr;</button></p>
+<div class="card rail-gray client-sub" id="linkedinCollapsed" style="cursor:pointer;display:none">Run the post engine, or turn an idea into a post.</div>
+<div id="linkedinBody">
+<div class="card stack">
+<div class="dispatch-help">Runs the same engine the daily schedule used to run. Leave the box empty and it picks its own angle off the source ladder. Paste an idea and it writes from that instead. The draft lands in your inbox, nothing posts itself.</div>
+<div class="btnrow"><button class="btn primary" id="li_run_btn">Write me a post</button></div>
+<div class="field"><input id="li_prompt" placeholder="Or paste an idea, an angle, a link…"></div>
+<div class="btnrow"><button class="btn primary" id="li_prompt_btn">Turn this into a post</button></div>
+<div id="li_result"></div>
 </div>
 </div>
 </section>
@@ -747,7 +721,6 @@ if (n && n.scrollIntoView) n.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 /* ------------------------------------------------------------------ board */
-var BOARD_COLS = ['backlog','ready','in_progress','blocked','review','done'];
 /* Every real status the tasks table can hold, mapped explicitly. 'archived'
    is deliberately absent -- it is not a column, it is filtered out of the
    board before colOf ever runs and counted on the glance line instead. An
@@ -816,288 +789,9 @@ var reports = (lastSnapshot && lastSnapshot.latest_reports) || [];
 return reports.some(function(r){ return r.job_id === t.id && (r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '')); });
 }
 
-/* Tasks that actually land on the board: belonging to a currently-visible
-client. Shared by renderBoard and the glance status line so both count the
-same set. */
-/* A CARD WITH NO CLIENT IS STILL A CARD. This used to return only tasks whose
-   client_slug matched an ACTIVE client, so every piece of Fortress's own work --
-   proof builds, demos, internal passes -- was invisible on the board while the
-   emails announced it. Three cards would report as started and the board would
-   show three unrelated stale ones. The board is what is happening, so it shows
-   everything and lets the card say who it belongs to. */
-function boardTasksFor(clients, tasks){
-return (tasks || []).slice();
-}
-
-/* The one-line glance above BOARD: total cards, how many are blocked on
-access, how many are actually in progress right now. Every number comes
-from the same snapshot data the board renders, not a hardcoded guess. */
-function renderStatusLine(clients, tasks){
-var host = $('statusline');
-if (!host) return;
-var allTasks = boardTasksFor(clients, tasks);
-var archivedCount = allTasks.filter(function(t){ return colOf(t.status) === 'archived'; }).length;
-var boardTasks = allTasks.filter(function(t){ return colOf(t.status) !== 'archived'; });
-var total = boardTasks.length;
-var blockedAccess = boardTasks.filter(function(t){ return !!t.access_needed; }).length;
-var inProgress = boardTasks.filter(function(t){ return colOf(t.status) === 'in_progress'; }).length;
-host.textContent = total + ' card' + (total === 1 ? '' : 's') + ' · ' +
-(archivedCount ? '+' + archivedCount + ' archived · ' : '') +
-blockedAccess + ' blocked on access · ' + inProgress + ' in progress';
-}
-
-function updateBoard(clients, tasks){
-renderBoard(clients, tasks);
-renderStatusLine(clients, tasks);
-}
-
-/* Single board across all visible clients (not one board per client) --
-each card carries its own client name + contact name since there's no
-longer a per-client heading to imply that context. */
-function renderBoard(clients, tasks){
-(function(){
-  var bt = boardTasksFor(clients, tasks) || [];
-  var vis = visibleClients(clients) || [];
-  /* COUNT WHAT IS ON THE BOARD, NOT WHAT IS IN THE TABLE. This counted every row
-     including 259 archived ones, so the header read "273 cards on the board" over
-     a board showing 14. Archived work is not on the board -- it is excluded from
-     the columns two lines below and it is excluded here. Same for clients: the
-     count now means clients with a card you can see, not every client ever. */
-  var boardOnly = (tasks || []).filter(function(t){ return colOf(t.status) !== 'archived'; });
-  var total = boardOnly.length;
-  var liveSlugs = {};
-  boardOnly.forEach(function(t){ if (t.client_slug) liveSlugs[t.client_slug] = 1; });
-  var visCount = vis.filter(function(c){ return liveSlugs[c.slug]; }).length;
-  setSummary('board', total + ' card' + (total===1?'':'s') + ' on the board, ' +
-    visCount + ' active client' + (visCount===1?'':'s') + '.');
-})();
-var host = $('boardhost'); host.innerHTML = '';
-if (!tasks || !tasks.length){
-host.appendChild(el('div','card rail-gray client-sub','No board data yet.'));
-return;
-}
-/* Names come off the FULL client list, not the active one. Resolving a name and
-   deciding what to show are two different questions, and using one list for
-   both is what hid Fortress's own cards. */
-var clientBySlug = {};
-(clients || []).forEach(function(c){ clientBySlug[c.slug] = c; });
-/* 'archived' is not a column -- it never reaches the board. The count lives
-   on the glance line above (renderStatusLine), not here. */
-var boardTasks = tasks.filter(function(t){ return colOf(t.status) !== 'archived'; });
-if (!boardTasks.length){
-host.appendChild(el('div','card rail-gray client-sub','No tasks on the board yet.'));
-return;
-}
-/* only render columns that actually have a status present on the board,
-in BACKLOG-through-DONE order, per the runbook */
-/* EVERY COLUMN, EVERY TIME. Columns used to render only when something was in
-   them, so the board changed shape as work moved and Done did not exist until
-   the first card finished. You cannot build muscle memory on a layout that
-   rearranges itself. */
-var present = BOARD_COLS.slice();
-var cols = el('div','board-cols');
-/* The Start control belongs on exactly one card per engagement: the held
-   task with the lowest phase_number. Cards behind it release by sign-off,
-   not by hand -- so this map is the only thing that decides who gets the
-   button, computed once across the whole board rather than per column. */
-var firstHoldByEngagement = {};
-boardTasks.forEach(function(t){
-if (String(t.status || '').toLowerCase() !== 'hold' || !t.engagement_id) return;
-var pn = (t.phase_number === null || t.phase_number === undefined || t.phase_number === '') ? Infinity : Number(t.phase_number);
-var existing = firstHoldByEngagement[t.engagement_id];
-var ep = existing ? ((existing.phase_number === null || existing.phase_number === undefined || existing.phase_number === '') ? Infinity : Number(existing.phase_number)) : Infinity;
-if (!existing || pn < ep) firstHoldByEngagement[t.engagement_id] = t;
-});
-present.forEach(function(col){
-var colTasks = boardTasks.filter(function(t){ return colOf(t.status) === col; })
-.sort(function(a,b){
-var an = taskNeedsMe(a, clientBySlug[a.client_slug]) ? 0 : 1;
-var bn = taskNeedsMe(b, clientBySlug[b.client_slug]) ? 0 : 1;
-if (an !== bn) return an - bn;
-/* Backlog reads top-to-bottom as the running order for held cards:
-   1..6, phase_number ascending. Cards without a phase_number keep
-   their existing relative order (stable sort) at the bottom. */
-if (col === 'backlog') {
-var ap = (a.phase_number === null || a.phase_number === undefined || a.phase_number === '') ? Infinity : Number(a.phase_number);
-var bp = (b.phase_number === null || b.phase_number === undefined || b.phase_number === '') ? Infinity : Number(b.phase_number);
-if (ap !== bp) return ap - bp;
-}
-return 0;
-});
-var colBox = el('div','board-col');
-var head = el('div','board-col-head');
-/* Grey for not-started matters: backlog is usually the fullest column and it
-   does not get to shout. */
-var DOT = { backlog:'#8A9099', ready:'#0070F3', in_progress:'#F5A623',
-            review:'#7928CA', blocked:'#E5484D', done:'#16A34A' };
-var dot = el('div','board-col-dot');
-dot.style.background = DOT[col] || '#8A9099';
-head.appendChild(dot);
-head.appendChild(el('div','board-col-title', colLabel(col)));
-head.appendChild(el('div','board-col-count', String(colTasks.length)));
-colBox.appendChild(head);
-var cardsBox = el('div','board-col-cards');
-colTasks.forEach(function(t){
-var c = clientBySlug[t.client_slug] || {};
-var card = el('div','taskcard' + (taskNeedsMe(t, c) ? ' needsme' : ''));
-if (t.id) card.title = t.id;
-/* WHOSE WORK IS THIS. The owner line was a muted 11px whisper and, for anything
-   without a resolved client, it printed a slug. Reading the board should never
-   require holding in your head which ref belongs to whom. The client leads, the
-   person we actually talk to follows, and our own work says so in plain words
-   rather than wearing an id. */
-var who = el('div','t-client');
-var clientName = c.name || t.client_slug || '';
-if (clientName) {
-  who.appendChild(el('span','t-who', clientName));
-  if (c.contact_name) who.appendChild(el('span','t-contact', c.contact_name));
-} else {
-  who.appendChild(el('span','t-who t-internal', 'Launch Forte'));
-  if (t.engagement_id) who.appendChild(el('span','t-contact', String(t.engagement_id).toUpperCase()));
-}
-card.appendChild(who);
-card.appendChild(el('div','t-title', t.title || t.id));
-/* A CARD THAT IS BROKEN SHOULD LOOK BROKEN. Every card rendered identically:
-   the same grey chips whether the job finished clean, burned its budget half way
-   through a build, or was sitting waiting to be signed in to. The state has been
-   in the data the whole time; it just was not on the card. */
-var STATE = {
-  failed:      { mark:'\u26D4', label:'Failed',      cls:'st-bad'  },
-  rejected:    { mark:'\u26D4', label:'Rejected',    cls:'st-bad'  },
-  refused:     { mark:'\u26D4', label:'Refused',     cls:'st-bad'  },
-  blocked:     { mark:'\u26D4', label:'Blocked',     cls:'st-bad'  },
-  no_changes:  { mark:'\u23F3', label:'No changes',  cls:'st-warn' },
-  stuck:       { mark:'\u23F3', label:'Stuck',       cls:'st-warn' },
-  review:      { mark:'\u23F3', label:'Needs review',cls:'st-warn' },
-  running:     { mark:'\uD83D\uDD28', label:'Building',  cls:'st-live' },
-  in_progress: { mark:'',        label:'Building',    cls:'st-live' },
-  done:        { mark:'\u2705', label:'Done',        cls:'st-ok'   },
-  verified:    { mark:'\u2705', label:'Verified',    cls:'st-ok'   },
-  hold:        { mark:'\u23F8', label:'Waiting its turn', cls:'st-hold' }
-};
-var chips = el('div','t-chips');
-var raw = String(t.status || '').toLowerCase();
-var st = STATE[raw];
-/* ONE FIELD, TWO DIFFERENT ASKS. access_needed has carried both "go sign back in"
-   and "go share a Drive folder" -- a browser session and a permissions grant are
-   not the same errand, and sending Seth to a sign-in screen for a sharing note
-   sends him to the wrong tab. Read the text; only call it a sign-in if it says so. */
-if (t.access_needed) {
-  var an = String(t.access_needed);
-  var looksLogin = /\bsign[- ]?in\b|\blog[- ]?in\b|\bsession expired\b|\bnot signed in\b|\blogin required\b/i.test(an) && !/not a sign[- ]?in|no phone code|not a login|sharing permission/i.test(an);
-  chips.appendChild(el('span','chip st-warn', looksLogin ? '\uD83D\uDD11 Sign in needed' : '\uD83D\uDD27 Setup needed'));
-} else if (st && st.cls !== 'st-ok') {
-  chips.appendChild(el('span','chip ' + st.cls, (st.mark ? st.mark + ' ' : '') + st.label));
-} else if (st) {
-  chips.appendChild(el('span','chip ' + st.cls, st.label));
-} else if (raw && raw !== 'archived' && !STATUS_TO_COL.hasOwnProperty(raw)) {
-  /* A status we've never seen. It landed in blocked (colOf's fallback) --
-     show the raw string so it doesn't get mistaken for anything mapped. */
-  chips.appendChild(el('span','chip st-bad', raw));
-}
-/* Its place in the running order -- a plain number, not a warning, so a
-   parked card reads as "third in line" rather than "something's wrong". */
-if (t.phase_number !== null && t.phase_number !== undefined && t.phase_number !== '') {
-  chips.appendChild(el('span','chip phase', 'Phase ' + t.phase_number));
-}
-if (t.autonomy && String(t.autonomy).toLowerCase() !== 'green') chips.appendChild(el('span','chip st-bad', t.autonomy));
-if (t.cost_usd !== null && t.cost_usd !== undefined) chips.appendChild(el('span','chip cost', money(t.cost_usd)));
-if (t.branch) chips.appendChild(el('span','chip branch', t.branch));
-if (t.client_signoff_ts) {
-  chips.appendChild(el('span','chip st-ok', '✅ Client signed off'));
-  if (t.client_signoff_note) card.title = t.client_signoff_note;
-}
-/* The sign-in chip above already says this; a second ACCESS pill next to it was
-   the same fact twice. */
-card.appendChild(chips);
-var actions = el('div','t-actions');
-var statusSel = el('select','statussel');
-BOARD_COLS.forEach(function(colOpt){
-var opt = el('option', null, colLabel(colOpt));
-opt.value = colOpt;
-if (colOpt === col) opt.selected = true;
-statusSel.appendChild(opt);
-});
-statusSel.addEventListener('click', function(e){ e.stopPropagation(); });
-statusSel.addEventListener('change', function(e){
-e.stopPropagation();
-moveTaskStatus(t, statusSel.value, statusSel, col);
-});
-actions.appendChild(statusSel);
-/* Only the held card with the lowest phase_number in its engagement gets a
-   Start link -- everything behind it releases by sign-off, not by hand.
-   No start_token, no link: a broken href is worse than no button. */
-var isFirstHold = String(t.status || '').toLowerCase() === 'hold' && firstHoldByEngagement[t.engagement_id] === t;
-if (isFirstHold && t.start_token){
-var startLink = el('a','qbtn qgo','Start');
-startLink.href = 'https://launchforte.app.n8n.cloud/webhook/start-chain?engagement=' + encodeURIComponent(t.engagement_id) + '&token=' + encodeURIComponent(t.start_token);
-startLink.target = '_blank';
-startLink.rel = 'noopener';
-startLink.style.display = 'inline-block';
-startLink.addEventListener('click', function(e){ e.stopPropagation(); });
-actions.appendChild(startLink);
-/* RESUME IS NOT A RELEASE, Aug 13. A held card kept the red Resume button, and
-   Resume writes 'queued' straight to the row -- so one click released card 2 of a
-   chain that was waiting on sign-off for card 1. The gate is the whole product; a
-   control that walks around it is not a convenience. A genuinely stuck card in
-   backlog or blocked keeps Resume, and the status dropdown above is still there
-   for a deliberate override. */
-} else if ((col === 'blocked' || col === 'backlog') && String(t.status || '').toLowerCase() !== 'hold'){
-var resumeBtn = el('button','qbtn qdanger','Resume');
-resumeBtn.type = 'button';
-resumeBtn.addEventListener('click', function(e){ e.stopPropagation(); quickResume(t); });
-actions.appendChild(resumeBtn);
-} else if (col === 'ready' || col === 'in_progress'){
-var packBtn = el('button','qbtn','Pack');
-packBtn.type = 'button';
-packBtn.addEventListener('click', function(e){ e.stopPropagation(); quickPack(t); });
-actions.appendChild(packBtn);
-} else if (col === 'review'){
-var reviewLink = el('a','qbtn','Review');
-reviewLink.href = 'review.html?task=' + encodeURIComponent(t.id || '');
-reviewLink.target = '_blank';
-reviewLink.rel = 'noopener';
-reviewLink.style.display = 'inline-block';
-reviewLink.addEventListener('click', function(e){ e.stopPropagation(); });
-actions.appendChild(reviewLink);
-}
-card.appendChild(actions);
-card.addEventListener('click', function(){ openDetail(t); });
-cardsBox.appendChild(card);
-});
-colBox.appendChild(cardsBox);
-cols.appendChild(colBox);
-});
-host.appendChild(cols);
-}
-
-/* Moves a card between statuses from the board select control. Persists via
-task-note (NOTE_URL) -- the same write path wireRed/wireVideoRequest already
-use for task-scoped writes -- with type: 'status_change'. Whether the n8n
-workflow behind task-note also updates the task record's status field (vs.
-only logging a note) is not confirmed from this repo; if it only logs, the
-card reverts to the server's status on the next 5-minute poll. */
-function moveTaskStatus(t, newStatus, selectEl, oldCol){
-if (colOf(newStatus) === oldCol) return;
-var oldStatus = t.status;
-selectEl.disabled = true;
-postJSON(NOTE_URL, {type:'amend', task_id: t.id, client_slug: t.client_slug, from_status: oldStatus, to_status: newStatus, note: 'Status changed to ' + colLabel(newStatus) + ' via Command Center board.'})
-.then(function(res){
-selectEl.disabled = false;
-if (res.status === 200){
-t.status = newStatus;
-if (lastSnapshot) updateBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
-} else {
-selectEl.value = oldCol;
-selectEl.title = 'Save failed: ' + JSON.stringify(res.body);
-}
-}).catch(function(e){
-selectEl.disabled = false;
-selectEl.value = oldCol;
-selectEl.title = 'Save failed: ' + e.message;
-});
-}
-
+/* The board, its glance line, and the drag-between-columns control all lived here.
+   Trello is the board now, so none of it renders and none of it is computed. colOf and
+   colLabel stay because Needs me and the detail sheet still read a task's status. */
 function openDetail(t){
 var sheet = $('detailSheet'); sheet.innerHTML = '';
 sheet.appendChild(el('div','detail-title', t.title || t.id));
@@ -1170,6 +864,7 @@ var ENQUEUE_URL = API_BASE + '/build-enqueue';
 var PACK_URL = API_BASE + '/pack-request';
 var NOTE_URL = API_BASE + '/task-note';
 var VIDEO_SCRIPT_URL = API_BASE + '/video-script-now';
+var LINKEDIN_URL = API_BASE + '/linkedin-post-now';
 var DEMAND_URL = API_BASE + '/demand-data';
 var COCKPIT_URL = API_BASE + '/cockpit-submit-754cf2072a1fa8eb684043f8';
 var PASTE_CONTEXT_URL = API_BASE + '/paste-context';
@@ -1299,6 +994,40 @@ btn.disabled = false;
 showResult('v_result', false, 'Request failed: ' + e.message);
 });
 });
+}
+
+
+function wireLinkedIn(){
+var runBtn = $('li_run_btn'), promptBtn = $('li_prompt_btn'), input = $('li_prompt');
+function lock(){
+runBtn.disabled = true; promptBtn.disabled = true;
+setTimeout(function(){ runBtn.disabled = false; promptBtn.disabled = false; }, 5000);
+}
+function send(body){
+lock();
+postJSON(LINKEDIN_URL, body).then(function(res){
+showResult('li_result', res.status === 200, res.status === 200 ? 'Queued. The draft will land in your inbox shortly.' : 'Could not queue that. Try again.');
+}).catch(function(){
+showResult('li_result', false, 'Could not queue that. Try again.');
+});
+}
+runBtn.addEventListener('click', function(){ send({}); });
+promptBtn.addEventListener('click', function(){
+var v = input.value.trim();
+if (!v){ input.focus(); return; }
+send({prompt: v});
+});
+}
+var linkedinExpanded = true;
+function wireLinkedinToggle(){
+function toggle(){
+linkedinExpanded = !linkedinExpanded;
+$('linkedinBody').style.display = linkedinExpanded ? '' : 'none';
+$('linkedinCollapsed').style.display = linkedinExpanded ? 'none' : '';
+$('linkedinFlip').textContent = linkedinExpanded ? 'Collapse \u2191' : 'Expand \u2193';
+}
+$('linkedinToggle').addEventListener('click', toggle);
+$('linkedinCollapsed').addEventListener('click', toggle);
 }
 
 function wireVideoScript(){
@@ -1516,7 +1245,6 @@ showAllClients = clientsExpanded;
 $('clientFlip').textContent = clientsExpanded ? 'Hide' : 'Show all';
 if (lastSnapshot){
 renderClients(filteredClients(lastSnapshot.clients));
-updateBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks);
 }
 });
 }
@@ -1724,7 +1452,6 @@ $('asof').textContent = 'as of ' + shortTime(new Date().toISOString());
 renderMoney(data.money);
 renderClients(filteredClients(data.clients));
 renderNeedsMe(data.clients, data.tasks);
-updateBoard(filteredClients(data.clients), data.tasks);
 renderReports(data.latest_reports);
 renderHistory(data);
 populateVideoClientList(data.clients);
@@ -1847,11 +1574,13 @@ if (e.target === $('redOverlay')) closeRed();
 document.addEventListener('keydown', function(e){
 if (e.key === 'Escape'){ closeDetail(); closeRed(); }
 });
-wireQueueForm('q', 'q_job_id'); $('client_search').addEventListener('input', function(){ clientSearchTerm = this.value.trim(); if (lastSnapshot){ renderClients(filteredClients(lastSnapshot.clients)); updateBoard(filteredClients(lastSnapshot.clients), lastSnapshot.tasks); } });
+wireQueueForm('q', 'q_job_id'); $('client_search').addEventListener('input', function(){ clientSearchTerm = this.value.trim(); if (lastSnapshot){ renderClients(filteredClients(lastSnapshot.clients)); } });
 wireQueueForm('r', 'r_job_id');
 wirePack();
 wireRed(); wireVideoRequest();
-wireVideoScript(); wireVideoscriptToggle();
+wireVideoScript();
+wireLinkedIn(); wireVideoscriptToggle();
+wireLinkedinToggle();
 wireCockpit(); wireCockpitToggle();
 wireClientFlip();
 wireDispatchFlip();
