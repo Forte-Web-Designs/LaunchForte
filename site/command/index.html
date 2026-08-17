@@ -269,6 +269,17 @@ height:64px;opacity:.55}
 <div class="asof"><span class="dot" id="dot"></span><span id="asof">loading</span></div>
 </header>
 
+<section id="quote">
+<p class="eyebrow">Quick quote</p>
+<div class="card stack">
+<div class="field"><label for="q_post">Job post, or your own notes</label><textarea id="q_post" placeholder="Paste the posting, or just write what they want built."></textarea></div>
+<div class="field"><label for="q_who">Client or company</label><input id="q_who" placeholder="optional"></div>
+<div class="btnrow"><button class="btn primary" id="q_submit">Price it</button></div>
+<div class="client-sub">Prices the pieces and stops. Nothing is saved, nothing is emailed, no card is created. Runs on its own workflow, so it works even when the banner above says the dashboard cannot reach n8n.</div>
+<div id="q_result"></div>
+</div>
+</section>
+
 <section id="cockpit">
 <p class="eyebrow" id="cockpitToggle" style="cursor:pointer">Cockpit <button class="flipbtn" id="cockpitFlip" type="button">Collapse &uarr;</button></p>
 <div class="card rail-gray client-sub" id="cockpitCollapsed" style="cursor:pointer;display:none">Paste a job posting and it drafts the proposal, the pack and the PDF.</div>
@@ -1582,6 +1593,7 @@ wireVideoScript();
 wireLinkedIn(); wireVideoscriptToggle();
 wireLinkedinToggle();
 wireCockpit(); wireCockpitToggle();
+wireQuote();
 wireClientFlip();
 wireDispatchFlip();
 wireHistoryToggle();
@@ -1589,6 +1601,49 @@ wireReportsToggle();
 wireDemandToggle();
 loadDemand();
 }
+
+/* QUICK QUOTE
+   Posts the paste to Ops: Quick Quote and renders the quote page inline.
+   It reads nothing from the snapshot API on purpose, so a dashboard that
+   cannot reach n8n does not take pricing down with it. */
+var QUOTE_RUN_URL = API_BASE + '/quote-run';
+function wireQuote(){
+var btn = $('q_submit'); if (!btn) { return; }
+btn.addEventListener('click', function(){
+var post = ($('q_post').value || '').trim();
+var who = ($('q_who').value || '').trim();
+var out = $('q_result');
+if (post.length < 20) { out.innerHTML = '<div class="client-sub">Give it more to read than that before it will put a number on it.</div>'; return; }
+btn.disabled = true; btn.textContent = 'Pricing…';
+out.innerHTML = '<div class="skel"></div>';
+var body = 'paste=' + encodeURIComponent(post) + '&who=' + encodeURIComponent(who);
+fetch(QUOTE_RUN_URL, {method:'POST', headers:{'content-type':'application/x-www-form-urlencoded'}, body:body})
+.then(function(r){ if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.text(); })
+.then(function(html){
+out.innerHTML = '';
+var f = document.createElement('iframe');
+f.style.width = '100%'; f.style.height = '620px'; f.style.border = '1px solid #e2e2e2';
+f.style.borderRadius = '8px'; f.style.background = '#fff';
+f.addEventListener('load', function(){
+try { var h = f.contentDocument.body.scrollHeight; if (h > 120) { f.style.height = (h + 40) + 'px'; } } catch (e) {}
+});
+f.srcdoc = html;
+out.appendChild(f);
+})
+.catch(function(e){
+/* CORS, offline, or the workflow down. A plain form post needs no CORS at all,
+   so fall back to that and let the quote open in its own tab rather than failing. */
+out.innerHTML = '<div class="client-sub">Could not show it inline (' + (e && e.message ? e.message : 'failed') + '), opening it in a new tab instead.</div>';
+var form = document.createElement('form');
+form.method = 'POST'; form.action = QUOTE_RUN_URL; form.target = '_blank'; form.style.display = 'none';
+var a = document.createElement('input'); a.name = 'paste'; a.value = post; form.appendChild(a);
+var b = document.createElement('input'); b.name = 'who'; b.value = who; form.appendChild(b);
+document.body.appendChild(form); form.submit(); document.body.removeChild(form);
+})
+.then(function(){ btn.disabled = false; btn.textContent = 'Price it'; });
+});
+}
+
 window.addEventListener('load', boot);
 </script>
 </body>
