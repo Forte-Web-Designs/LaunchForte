@@ -274,7 +274,7 @@ height:64px;opacity:.55}
 <div class="field"><label for="q_post">Job post, or your own notes</label><textarea id="q_post" placeholder="Paste the posting, or just write what they want built."></textarea></div>
 <div class="field"><label for="q_who">Client or company</label><input id="q_who" placeholder="optional"></div>
 <div class="btnrow"><button class="btn primary" id="q_submit">Price it</button></div>
-<div class="client-sub">Prices the pieces and stops. Nothing is saved, nothing is emailed, no card is created. Runs on its own workflow, so it works even when the banner above says the dashboard cannot reach n8n.</div>
+<div class="client-sub">Prices the pieces and stops. Nothing is saved, nothing is emailed, no card is created. Priced unproven, since nothing of this shape has been delivered yet.</div>
 <div id="q_result"></div>
 </div>
 </section>
@@ -645,8 +645,7 @@ loadDemand();
 
 /* QUICK QUOTE
    Posts the paste to Ops: Quick Quote and renders the quote page inline.
-   It reads nothing from the snapshot API on purpose, so a dashboard that
-   cannot reach n8n does not take pricing down with it. */
+   The model names the pieces, the workflow does the arithmetic. */
 function wireQuote(){
 var btn = $('q_submit'); if (!btn) { return; }
 btn.addEventListener('click', function(){
