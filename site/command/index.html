@@ -266,7 +266,6 @@ height:64px;opacity:.55}
 
 <header>
 <div class="mark">LAUNCH FORTE <span>COMMAND V2</span></div>
-<div class="asof"><span class="dot" id="dot"></span><span id="asof">loading</span></div>
 </header>
 
 <section id="quote">
@@ -313,115 +312,6 @@ height:64px;opacity:.55}
 <div id="demandBody"></div>
 </section>
 
-<div id="banners"></div>
-<section id="needsme" style="display:none">
-<p class="eyebrow">Needs me<span id="needsmeCount"></span></p>
-<div id="needsmehost" class="stack"><div class="client-sub">Nothing is waiting on you.</div></div>
-</section>
-
-<section id="money" style="display:none">
-<p class="eyebrow" id="moneyToggle" style="cursor:pointer">Money <button class="flipbtn" id="moneyFlip" type="button">Expand &darr;</button></p>
-<div class="card rail-gray client-sub" id="moneyCollapsed" style="cursor:pointer">&mdash;</div>
-<div id="moneyBody" style="display:none">
-<div id="moneybox" class="card stack"><div class="skel"></div></div>
-</div>
-</section>
-
-<section id="clients" style="display:none">
-<p class="eyebrow" id="clientsToggle" style="cursor:pointer">Clients<span id="clientCount"></span> <button class="flipbtn" id="clientsFlip" type="button">Expand &darr;</button></p>
-<div class="card rail-gray client-sub" id="clientsCollapsed" style="cursor:pointer">&mdash;</div>
-<div id="clientsBody" style="display:none">
-<div class="field" style="margin:0 0 12px"><input id="client_search" placeholder="Search clients by name or ID..."></div>
-<div class="btnrow" style="margin:0 0 10px"><button class="flipbtn" id="clientFlip" type="button">Show all</button></div>
-<div id="clientlist" class="stack"><div class="skel"></div><div class="skel"></div></div>
-</div>
-</section>
-
-<section id="reports" style="display:none">
-<p class="eyebrow" id="reportsToggle" style="cursor:pointer">Latest reports <button class="flipbtn" id="reportsFlip" type="button">Expand &darr;</button></p>
-<div class="card rail-gray client-sub" id="reportsCollapsed" style="cursor:pointer">See the latest report cards and full history.</div>
-<div id="reportsBody" style="display:none">
-<div id="reportlist" class="stack"><div class="skel"></div></div>
-<button class="history-toggle" id="historyToggle" type="button">Show full history &darr;</button>
-<div id="historylist" class="history-list stack"></div>
-</div>
-</section>
-
-
-
-<section id="dispatch" style="display:none">
-<p class="eyebrow">Dispatch<span id="dispatchCount"></span> <button class="flipbtn" id="dispatchFlip" type="button">Show all</button></p>
-<div class="card rail-gray client-sub" id="dispatchCollapsed"></div>
-<div id="dispatchBody" style="display:none">
-
-<div class="dispatch-block card">
-<div class="dispatch-title">Queue</div>
-<div class="dispatch-help">Posts straight to build-enqueue. Autonomy is locked to green -- the endpoint refuses anything else.</div>
-<div class="field"><label>Job ID</label><input id="q_job_id" placeholder="e.g. site-copy-fix-2026-07-31"></div>
-<div class="field"><label>Title</label><input id="q_title" placeholder="Short human title"></div>
-<div class="field"><label>Job class</label>
-<select id="q_job_class">
-<option value="doc_update">doc_update</option>
-<option value="site_pass">site_pass</option>
-<option value="generator">generator</option>
-<option value="export">export</option>
-</select></div>
-<div class="field"><label>Repo</label>
-<select id="q_repo">
-<option value="launchforte">launchforte</option>
-<option value="sethfortewebsite">sethfortewebsite</option>
-<option value="meh-site">meh-site</option>
-</select></div>
-<div class="field"><label>Prompt</label><textarea id="q_prompt" placeholder="Full prompt, name the endpoint contracts verbatim if this touches the flows"></textarea></div>
-<div class="field readonly"><label>Autonomy</label><input value="green" disabled></div>
-<div class="btnrow"><button class="btn primary" id="q_submit">Queue it</button></div>
-<div id="q_result"></div>
-</div>
-
-<div class="dispatch-block card">
-<div class="dispatch-title">Resume a stalled job</div>
-<div class="dispatch-help">The dashboard doesn't have the original prompt on hand (dashboard-snapshot doesn't return it), so this isn't a one-click re-queue yet -- it's the same Queue form, framed for picking a job back up. Give it a fresh job_id (the endpoint rejects duplicates) and note which job it's resuming in the prompt.</div>
-<div class="field"><label>Resuming job ID (for reference)</label><input id="r_ref_id" placeholder="the stalled job's id"></div>
-<div class="field"><label>New job ID</label><input id="r_job_id" placeholder="e.g. old-id-retry"></div>
-<div class="field"><label>Title</label><input id="r_title"></div>
-<div class="field"><label>Job class</label>
-<select id="r_job_class">
-<option value="doc_update">doc_update</option>
-<option value="site_pass">site_pass</option>
-<option value="generator">generator</option>
-<option value="export">export</option>
-</select></div>
-<div class="field"><label>Repo</label>
-<select id="r_repo">
-<option value="launchforte">launchforte</option>
-<option value="sethfortewebsite">sethfortewebsite</option>
-<option value="meh-site">meh-site</option>
-</select></div>
-<div class="field"><label>Prompt</label><textarea id="r_prompt" placeholder="Scope it smaller than the original attempt if it stalled on size"></textarea></div>
-<div class="btnrow"><button class="btn primary" id="r_submit">Resume</button></div>
-<div id="r_result"></div>
-</div>
-
-<div class="dispatch-block card">
-<div class="dispatch-title">Pack</div>
-<div class="dispatch-help">Pulls a task's boot pack and copies it to your clipboard.</div>
-<div class="field"><label>Task ID</label><input id="p_task_id" placeholder="e.g. task-test-1"></div>
-<div class="btnrow"><button class="btn primary" id="p_submit">Paste into a fresh session: ten seconds</button></div>
-<div id="p_result"></div>
-</div>
-
-<div class="dispatch-block card">
-<div class="dispatch-title">Red action</div>
-<div class="dispatch-help">Records a go on something high-stakes. This does not execute anything itself -- it only logs that you said go.</div>
-<div class="field"><label>Task ID</label><input id="red_task_id" placeholder="which task this is about"></div>
-<div class="field"><label>What are you confirming</label><textarea id="red_note" placeholder="describe the action being confirmed"></textarea></div>
-<div class="btnrow"><button class="btn danger" id="red_open">Confirm a red action</button></div>
-<div id="red_result"></div></div><div class="dispatch-block card"><div class="dispatch-title">Request a new video</div><div class="dispatch-help">Logs a video request against a client, or against your own channel if it's not for a client. This does not queue a Video Engine run itself -- it records the ask so it surfaces in the client's notes/brief (personal asks land in a dedicated internal log instead).</div><div class="field"><label style="display:flex;align-items:center;gap:7px;text-transform:none;letter-spacing:0;font-size:13.5px;color:var(--ink);font-weight:500"><input type="checkbox" id="v_personal" style="width:auto"> Not for a client -- this is for my own channel</label></div><div class="field" id="v_client_slug_field"><label>Client slug</label><input id="v_client_slug" list="v_client_datalist" placeholder="start typing a client name or slug…"><datalist id="v_client_datalist"></datalist></div><div class="field"><label>What the video is about</label><textarea id="v_note" placeholder="describe the ask -- product, angle, deadline if any"></textarea></div><div class="btnrow"><button class="btn primary" id="v_submit">Request video</button></div><div id="v_result"></div></div>
-
-</div>
-</section>
-
-
 <section id="videoscript">
 <p class="eyebrow" id="videoscriptToggle" style="cursor:pointer">Video script <button class="flipbtn" id="videoscriptFlip" type="button">Collapse &uarr;</button></p>
 <div class="card rail-gray client-sub" id="videoscriptCollapsed" style="cursor:pointer;display:none">Get a script pack or turn a prompt into a script.</div>
@@ -449,29 +339,23 @@ height:64px;opacity:.55}
 </section>
 
 <footer>
-<div id="refreshline">Waiting for the first refresh.</div>
-<div class="note">Command Center v2 -- paste anything above, I'll work out the client.</div>
+<div class="note">Command Center v2 -- the board lives in Trello now. This page is the things you run.</div>
 </footer>
 
-</div>
-
-<div class="detail-overlay hide" id="detailOverlay">
-<div class="detail-sheet" id="detailSheet"></div>
-</div>
-
-<div class="detail-overlay hide" id="redOverlay">
-<div class="detail-sheet" id="redSheet"></div>
 </div>
 
 <script>
 /* ------------------------------------------------------------------ config */
 var API_BASE = 'https://launchforte.app.n8n.cloud/webhook';
-var SNAPSHOT_URL = API_BASE + '/dashboard-snapshot';
-/* Constants node placeholder: no dashboard API token is enforced server-side
-yet (Ops: Dashboard API's guard is still the __SET_BY_SETH__ placeholder,
-observation only). Once enforcement lands, set this string and it ships as
-a header on every call below -- the page already sits behind the path
-token, so shipping it in public JS is acceptable for house data only. */
+
+/* One endpoint per thing this page can still run. Everything that pointed at
+   Ops: Dashboard API (the snapshot, the build queue, task notes, pack
+   requests) came out with the board -- Trello holds that now. */
+var COCKPIT_URL        = API_BASE + '/cockpit-submit-754cf2072a1fa8eb684043f8';
+var QUOTE_RUN_URL      = API_BASE + '/quote-run';
+var VIDEO_SCRIPT_URL   = API_BASE + '/video-script-now';
+var LINKEDIN_URL       = API_BASE + '/linkedin-post-now';
+var DEMAND_URL         = API_BASE + '/demand-data';
 /* THE TOKEN IS NOT IN THIS FILE, AND NOT IN THE PATH (revised Aug 9).
    The repo is PUBLIC, so a token in the folder name is a token on GitHub —
    the first cut of this got that wrong. The API token now lives in this
@@ -479,76 +363,10 @@ token, so shipping it in public JS is acceptable for house data only. */
    ever committed, and the folder name below is just a URL again, not a
    credential. Read the real value in n8n: Ops: Dashboard API -> "Code in
    JavaScript" -> __DASHBOARD_TOKEN__. */
-var TOKEN_KEY = 'lf_dashboard_token';
-var DASHBOARD_API_TOKEN = '';
-try { DASHBOARD_API_TOKEN = localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { DASHBOARD_API_TOKEN = ''; }
 
-/* Inline, never a native prompt() — a browser dialog blocks automation and
-   cannot be styled. This renders into the banners strip. */
-function askForToken(reason){
-  var host = document.getElementById('banners');
-  if (!host || document.getElementById('tokengate')) return;
-  var box = document.createElement('div');
-  box.className = 'card stack';
-  box.id = 'tokengate';
-  /* A REAL form with a username field and type=password, because that is what
-     makes Apple Passwords / Chrome / 1Password offer to save it and autofill it
-     forever after. The old version was a bare text input, which no password
-     manager recognises -- so every new device meant opening n8n and copying a
-     40-character hex string by hand. That is not a security measure, it is a
-     tax. The username is fixed and readonly; it exists so the manager has
-     something to key the saved entry on. */
-  box.innerHTML =
-    '<p class="eyebrow">Command Center</p>' +
-    '<p class="client-sub">' + (reason || 'Sign in to this device once. Your password manager can save it.') + '</p>' +
-    '<form id="tokengate_form" method="post" action="#" autocomplete="on">' +
-    '<div class="field"><label for="tokengate_user">Account</label>' +
-    '<input id="tokengate_user" name="username" type="text" autocomplete="username" value="command@launchforte.com" readonly></div>' +
-    '<div class="field"><label for="tokengate_input">Password</label>' +
-    '<input id="tokengate_input" name="password" type="password" autocomplete="current-password" placeholder="Command Center password"></div>' +
-    '<div class="btnrow"><button class="btn primary" type="submit" id="tokengate_save">Unlock this device</button></div>' +
-    '</form>';
-  host.appendChild(box);
-  var form = document.getElementById('tokengate_form');
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var v = (document.getElementById('tokengate_input').value || '').trim();
-    /* Minimum 4, at Seth's explicit call. Worth knowing what that means: this
-       page is on a guessable public URL and shows client names, task titles and
-       money figures, and the endpoint has no failed-attempt limit, so a 4-digit
-       PIN is ten thousand guesses a script gets through in seconds. The fix is
-       lockout on the guard node, not a longer password. Until that exists, the
-       PIN is the only thing in front of the data. */
-    if (v.length < 4) { alert('Needs at least 4 characters.'); return; }
-    try { localStorage.setItem(TOKEN_KEY, v); } catch (e2) {}
-    /* Reload rather than re-render, so the browser treats this as a completed
-       sign-in and offers to save the credential. */
-    location.reload();
-  });
-  var f = document.getElementById('tokengate_input');
-  if (f) f.focus();
-}
 
-function forgetToken(){ try { localStorage.removeItem(TOKEN_KEY); } catch (e) {} }
-/* The board is the page now, so it refreshes on the scale of a card moving. */
-var POLL_MS = 60 * 1000;
 
-/* Operator Contract 15.5: active-only default view. Dashboard shows only
-status === 'active' clients (and their board columns) by default; the flip
-button toggles to show paused/dormant/unknown too. State is in-memory only
-(resets to active-only on reload), matching "default view" intent. */
-var showAllClients = false;
 
-/* Clients list is collapsed to a count by default so the sixty-plus roster
-doesn't push Board/Reports/Dispatch below the fold; the existing Show all
-button expands it (and, as before, also flips active-only vs every status). */
-var clientsExpanded = false;
-
-/* Dispatch is one of the heaviest static sections on the page -- collapsed
-by default behind the same flip-button shape Clients uses, since it isn't
-read at a glance the way Board/Reports are. Client context sits at the top of
-the page and stays expanded by default so it's usable with no click. */
-var dispatchExpanded = false;
 
 var $ = function(id){ return document.getElementById(id); };
 function el(tag, cls, txt){
@@ -577,310 +395,6 @@ return d.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minu
 }
 
 /* ------------------------------------------------------------------ render */
-function metric(k, v, neg){
-var w = el('div','metric');
-w.appendChild(el('div','k',k));
-w.appendChild(el('div', 'v num' + (neg ? ' neg' : ''), v));
-return w;
-}
-function renderMoney(m){
-setSummary('money', m ? ('Total cost ' + money(m.total_cost_usd) +
-(m.__unfiltered ? ' \u2014 still counts pre-run development spend' : '')) : 'No money data.');
-var host = $('moneybox'); host.className = 'card money-grid reveal'; host.innerHTML = '';
-if (!m){ host.appendChild(el('div','client-sub','No money data returned.')); return; }
-host.appendChild(metric('Total cost', money(m.total_cost_usd)));
-host.appendChild(metric('API + infra', money(m.total_api_spend_usd) + ' / ' + money(m.total_infra_cost_usd)));
-}
-
-function visibleClients(list){
-if (showAllClients) return list || [];
-return (list || []).filter(function(c){ return c.status === 'active'; });
-}
-
-function updateClientCount(n){
-var node = $('clientCount');
-if (!node) return;
-node.textContent = (n === null || n === undefined) ? '' : ' (' + n + ')';
-}
-
-function renderClients(list){
-setSummary('clients', (list ? list.length : 0) + ' client' + ((list&&list.length===1)?'':'s') + ' shown.');
-var host = $('clientlist'); host.innerHTML = '';
-var all = list || [];
-var totalCount = (lastSnapshot && lastSnapshot.clients) ? lastSnapshot.clients.length : all.length;
-updateClientCount(totalCount);
-if (!clientsExpanded && !clientSearchTerm){
-host.appendChild(el('div','card rail-gray client-sub', totalCount + ' client' + (totalCount === 1 ? '' : 's') + ' collapsed -- click "Show all" above to view.'));
-return;
-}
-var visible = visibleClients(all);
-if (!visible.length){
-var box = el('div','allclear reveal');
-box.appendChild(el('div','big', all.length ? (showAllClients ? 'No clients on the book yet' : 'No active clients right now') : 'No clients on the book yet'));
-var hidden = all.length - visible.length;
-if (!showAllClients && hidden > 0){
-box.appendChild(el('div','sub', hidden + ' paused/inactive client' + (hidden === 1 ? '' : 's') + ' hidden -- click "Show all" above.'));
-}
-host.appendChild(box);
-return;
-}
-visible.forEach(function(c, i){
-var statusClass = c.status === 'active' ? 'active' : (c.status === 'paused' ? 'paused' : 'gray');
-var card = el('div','card reveal ' + (statusClass === 'active' ? 'rail-ok' : statusClass === 'paused' ? 'rail-warn' : 'rail-gray'));
-card.id = 'client-' + (c.slug || i);
-card.style.animationDelay = Math.min(i,6) * 24 + 'ms';
-var head = el('div','client-head');
-head.appendChild(el('div','client-name', c.name || c.slug || 'unnamed client'));
-head.appendChild(el('div','tag ' + statusClass, c.status || 'unknown'));
-if (c.doorbell_one){
-var bell = el('span','doorbell-badge');
-bell.textContent = '🔔 Doorbell';
-bell.title = 'Phase ' + (c.current_phase || 1) + ' complete -- every task in this phase is done or waiting only on the client.';
-head.appendChild(bell);
-}
-if (c.doorbell_two){
-var bell2 = el('span','doorbell-badge blocked');
-bell2.textContent = '⛔ Blocked';
-bell2.title = 'Every remaining task for this engagement is waiting on Seth or the client -- zero workable cards right now.';
-head.appendChild(bell2);
-}
-card.appendChild(head);
-if (c.waiting_on) card.appendChild(el('div','client-sub', 'Waiting on: ' + c.waiting_on));
-if (c.current_phase !== null && c.current_phase !== undefined) card.appendChild(el('div','client-sub', 'Phase ' + c.current_phase));
-if (c.replies_owed_age_days !== null && c.replies_owed_age_days !== undefined){
-var owed = el('div','owed' + (c.replies_owed_age_days >= 7 ? ' overdue' : ''));
-owed.appendChild(document.createTextNode('reply owed '));
-owed.appendChild(el('span','n', c.replies_owed_age_days + 'd'));
-card.appendChild(owed);
-}
-host.appendChild(card);
-});
-}
-
-function renderReports(list){
-var host = $('reportlist'); host.innerHTML = '';
-if (!list || !list.length){
-host.appendChild(el('div','card rail-gray client-sub','No reports yet.'));
-return;
-}
-list.slice(0, 8).forEach(function(r, i){
-var rail = r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '') ? 'rail-warn' : 'rail-ok';
-var card = el('div','card clickable reveal ' + rail);
-card.style.animationDelay = Math.min(i,6) * 24 + 'ms';
-var row = el('div','report-row');
-row.appendChild(el('div','report-subject', r.subject || r.job_id || 'untitled report'));
-row.appendChild(el('div','report-meta', (r.triage || '') + (r.cost_usd ? ' · ' + money(r.cost_usd) : '')));
-card.appendChild(row);
-if (r.status) card.appendChild(el('div','report-meta', 'status: ' + r.status));
-card.addEventListener('click', function(){ openReportDetail(r); });
-host.appendChild(card);
-});
-}
-
-function renderHistory(data){
-var host = $('historylist'); host.innerHTML = '';
-var reports = data.latest_reports || [];
-var doneTasks = (data.tasks || []).filter(function(t){ return colOf(t.status) === 'done'; });
-if (!reports.length && !doneTasks.length){
-host.appendChild(el('div','card rail-gray client-sub','No history yet.'));
-return;
-}
-if (reports.length){
-host.appendChild(el('div','history-kind', 'All reports (' + reports.length + ')'));
-reports.forEach(function(r, i){
-var rail = r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '') ? 'rail-warn' : 'rail-ok';
-var card = el('div','card clickable reveal ' + rail);
-card.style.animationDelay = Math.min(i,10) * 16 + 'ms';
-var row = el('div','report-row');
-row.appendChild(el('div','report-subject', r.subject || r.job_id || 'untitled report'));
-row.appendChild(el('div','report-meta', (r.triage || '') + (r.cost_usd ? ' · ' + money(r.cost_usd) : '')));
-card.appendChild(row);
-if (r.status) card.appendChild(el('div','report-meta', 'status: ' + r.status));
-card.addEventListener('click', function(){ openReportDetail(r); });
-host.appendChild(card);
-});
-}
-if (doneTasks.length){
-host.appendChild(el('div','history-kind', 'Done tasks (' + doneTasks.length + ')'));
-doneTasks
-.slice()
-.sort(function(a,b){ return new Date(b.updated || 0) - new Date(a.updated || 0); })
-.forEach(function(t, i){
-var card = el('div','card clickable reveal rail-ok');
-card.style.animationDelay = Math.min(i,10) * 16 + 'ms';
-var row = el('div','report-row');
-row.appendChild(el('div','report-subject', t.title || t.id));
-row.appendChild(el('div','report-meta', shortTime(t.updated)));
-card.appendChild(row);
-card.addEventListener('click', function(){ openDetail(t); });
-host.appendChild(card);
-});
-}
-}
-
-function wireHistoryToggle(){
-$('historyToggle').addEventListener('click', function(){
-var list = $('historylist');
-var showing = list.classList.toggle('show');
-$('historyToggle').textContent = showing ? 'Hide full history ↑' : 'Show full history ↓';
-});
-}
-
-function scrollToId(id){
-var n = document.getElementById(id);
-if (n && n.scrollIntoView) n.scrollIntoView({behavior:'smooth', block:'start'});
-}
-
-/* ------------------------------------------------------------------ board */
-/* Every real status the tasks table can hold, mapped explicitly. 'archived'
-   is deliberately absent -- it is not a column, it is filtered out of the
-   board before colOf ever runs and counted on the glance line instead. An
-   unrecognised status must never fall to backlog (that is the bug this
-   fixes): it lands in blocked, with the raw status shown on the card.
-   'hold' is a card parked waiting for sign-off to start its chain -- nothing
-   is wrong with it, so it belongs in backlog, not blocked. */
-var STATUS_TO_COL = {
-  '':            'backlog',
-  'backlog':     'backlog',
-  'queued':      'backlog',
-  'hold':        'backlog',
-  'ready':       'ready',
-  'claimed':     'ready',
-  'in_progress': 'in_progress',
-  'running':     'in_progress',
-  'blocked':     'blocked',
-  'stuck':       'blocked',
-  'refused':     'blocked',
-  'failed':      'blocked',
-  'review':      'review',
-  'done':        'done',
-  'no_changes':  'done'
-};
-function colLabel(s){ if (String(s || '').toLowerCase() === 'review') return 'NEEDS REVIEW'; return String(s || '').replace(/_/g,' ').toUpperCase(); }
-function colOf(status){
-var s = String(status || '').toLowerCase();
-if (s === 'archived') return 'archived';
-if (STATUS_TO_COL.hasOwnProperty(s)) return STATUS_TO_COL[s];
-return 'blocked';
-}
-var lastSnapshot = null; var clientSearchTerm = ''; function filteredClients(list){ if (!clientSearchTerm) return list; var t = clientSearchTerm.toLowerCase(); return (list || []).filter(function(c){ return (c.name || '').toLowerCase().indexOf(t) > -1 || (c.slug || '').toLowerCase().indexOf(t) > -1; }); }
-
-function focusField(id){
-var n = $(id);
-if (!n) return;
-var field = n.closest('.field') || n;
-field.classList.remove('flash');
-void field.offsetWidth;
-field.classList.add('flash');
-n.focus();
-}
-
-function quickResume(t){
-scrollToId('dispatch');
-$('r_ref_id').value = t.id || '';
-$('r_title').value = t.title || '';
-focusField('r_job_id');
-}
-function quickPack(t){
-scrollToId('dispatch');
-$('p_task_id').value = t.id || '';
-focusField('p_task_id');
-}
-
-/* Needs-me signal, carried over from the retired NEEDS ME section onto board
-cards: a card is marked when its task is blocked, or its client has an
-overdue reply (>=7d), a doorbell (phase-complete or fully-blocked client), or
-a NEEDS YOU report tied to this task's job_id. */
-function taskNeedsMe(t, c){
-if (colOf(t.status) === 'blocked') return true;
-if (c && c.replies_owed_age_days !== null && c.replies_owed_age_days !== undefined && c.replies_owed_age_days >= 7) return true;
-if (c && c.doorbell_one) return true;
-if (c && c.doorbell_two) return true;
-var reports = (lastSnapshot && lastSnapshot.latest_reports) || [];
-return reports.some(function(r){ return r.job_id === t.id && (r.triage === 'NEEDS YOU' || /needs you/i.test(r.triage || '')); });
-}
-
-/* The board, its glance line, and the drag-between-columns control all lived here.
-   Trello is the board now, so none of it renders and none of it is computed. colOf and
-   colLabel stay because Needs me and the detail sheet still read a task's status. */
-function openDetail(t){
-var sheet = $('detailSheet'); sheet.innerHTML = '';
-sheet.appendChild(el('div','detail-title', t.title || t.id));
-function row(k, v){
-if (v === null || v === undefined || v === '') return;
-var r = el('div','detail-row');
-r.appendChild(el('div','k', k));
-r.appendChild(el('div','v', String(v)));
-sheet.appendChild(r);
-}
-row('Status', colLabel(t.status));
-row('Autonomy', t.autonomy);
-row('Cost', t.cost_usd !== null && t.cost_usd !== undefined ? money(t.cost_usd) : null);
-row('Branch', t.branch);
-row('Phase', t.phase_number);
-row('Waiting on', t.waiting_on);
-row('Evidence', t.evidence);
-row('Task type', t.task_type);
-row('Updated', shortTime(t.updated));
-var report = (lastSnapshot && lastSnapshot.latest_reports || []).find(function(r){ return r.job_id === t.id; });
-if (report){
-row('Report subject', report.subject);
-row('Report triage', report.triage);
-row('Report status', report.status);
-row('Report detail', report.detail);
-} else {
-row('Report', 'No matching report yet for this task.');
-}
-if (colOf(t.status) === 'blocked' || colOf(t.status) === 'backlog'){
-var resumeBtn = el('button','detail-action','Resume this job');
-resumeBtn.addEventListener('click', function(){ closeDetail(); quickResume(t); });
-sheet.appendChild(resumeBtn);
-}
-var close = el('button','detail-close','Close');
-close.addEventListener('click', closeDetail);
-sheet.appendChild(close);
-$('detailOverlay').classList.remove('hide');
-}
-function closeDetail(){ $('detailOverlay').classList.add('hide'); }
-
-function openReportDetail(r){
-var sheet = $('detailSheet'); sheet.innerHTML = '';
-sheet.appendChild(el('div','detail-title', r.subject || r.job_id || 'untitled report'));
-function row(k, v){
-if (v === null || v === undefined || v === '') return;
-var rr = el('div','detail-row');
-rr.appendChild(el('div','k', k));
-rr.appendChild(el('div','v', String(v)));
-sheet.appendChild(rr);
-}
-row('Triage', r.triage);
-row('Status', r.status);
-row('Cost', r.cost_usd !== null && r.cost_usd !== undefined ? money(r.cost_usd) : null);
-row('Job ID', r.job_id);
-row('Detail', r.detail);
-var matchedTask = (lastSnapshot && lastSnapshot.tasks || []).find(function(t){ return t.id === r.job_id; });
-if (matchedTask){
-var viewBtn = el('button','detail-action','View matching task');
-viewBtn.addEventListener('click', function(){ openDetail(matchedTask); });
-sheet.appendChild(viewBtn);
-}
-var close = el('button','detail-close','Close');
-close.addEventListener('click', closeDetail);
-sheet.appendChild(close);
-$('detailOverlay').classList.remove('hide');
-}
-
-/* ------------------------------------------------------------------ dispatch */
-var ENQUEUE_URL = API_BASE + '/build-enqueue';
-var PACK_URL = API_BASE + '/pack-request';
-var NOTE_URL = API_BASE + '/task-note';
-var VIDEO_SCRIPT_URL = API_BASE + '/video-script-now';
-var LINKEDIN_URL = API_BASE + '/linkedin-post-now';
-var DEMAND_URL = API_BASE + '/demand-data';
-var COCKPIT_URL = API_BASE + '/cockpit-submit-754cf2072a1fa8eb684043f8';
-var PASTE_CONTEXT_URL = API_BASE + '/paste-context';
-var COMMIT_CONTEXT_URL = API_BASE + '/commit-context';
-
 function showResult(hostId, ok, text){
 var host = $(hostId);
 host.innerHTML = '';
@@ -889,124 +403,9 @@ host.appendChild(el('div','resultbox ' + (ok ? 'ok' : 'err'), text));
 
 function postJSON(url, body){
 var headers = {'Content-Type':'application/json'};
-if (DASHBOARD_API_TOKEN) { headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN; headers['X-Dashboard-Token'] = DASHBOARD_API_TOKEN; }
 return fetch(url, {method:'POST', headers: headers, body: JSON.stringify(body)})
 .then(function(r){ return r.json().then(function(j){ return {status:r.status, body:j}; }); });
 }
-
-function wireQueueForm(prefix, jobIdEl, extra){
-$(prefix + '_submit').addEventListener('click', function(){
-var btn = $(prefix + '_submit');
-var body = {
-job_id: $(jobIdEl).value.trim(),
-title: $(prefix + '_title').value.trim(),
-job_class: $(prefix + '_job_class').value,
-repo: $(prefix + '_repo').value,
-prompt: $(prefix + '_prompt').value,
-autonomy: 'green'
-};
-if (extra) Object.assign(body, extra());
-if (!body.job_id || !body.title || !body.prompt){
-showResult(prefix + '_result', false, 'job_id, title, and prompt are all required.');
-return;
-}
-btn.disabled = true;
-postJSON(ENQUEUE_URL, body).then(function(res){
-btn.disabled = false;
-showResult(prefix + '_result', res.status === 200 && res.body.queued, JSON.stringify(res.body, null, 2));
-}).catch(function(e){
-btn.disabled = false;
-showResult(prefix + '_result', false, 'Request failed: ' + e.message);
-});
-});
-}
-
-function wirePack(){
-$('p_submit').addEventListener('click', function(){
-var taskId = $('p_task_id').value.trim();
-if (!taskId){ showResult('p_result', false, 'Task ID is required.'); return; }
-var btn = $('p_submit');
-btn.disabled = true;
-postJSON(PACK_URL, {task_id: taskId}).then(function(res){
-btn.disabled = false;
-if (res.status === 200 && res.body.pack){
-navigator.clipboard.writeText(res.body.pack).then(function(){
-showResult('p_result', true, 'Copied ' + res.body.pack.length + ' characters to clipboard for ' + (res.body.client_slug || 'this task') + '.');
-}).catch(function(){
-showResult('p_result', true, res.body.pack);
-});
-} else {
-showResult('p_result', false, JSON.stringify(res.body, null, 2));
-}
-}).catch(function(e){
-btn.disabled = false;
-showResult('p_result', false, 'Request failed: ' + e.message);
-});
-});
-}
-
-function wireRed(){
-$('red_open').addEventListener('click', function(){
-var taskId = $('red_task_id').value.trim();
-var note = $('red_note').value.trim();
-if (!taskId || !note){ showResult('red_result', false, 'Task ID and a description are both required before confirming.'); return; }
-var sheet = $('redSheet'); sheet.innerHTML = '';
-sheet.appendChild(el('div','detail-title', 'Confirm this red action?'));
-var row = el('div','detail-row');
-row.appendChild(el('div','k','Task'));
-row.appendChild(el('div','v', taskId));
-sheet.appendChild(row);
-var row2 = el('div','detail-row');
-row2.appendChild(el('div','k','Confirming'));
-row2.appendChild(el('div','v', note));
-sheet.appendChild(row2);
-var warn = el('div','client-sub','This only records that you said go -- it does not execute anything by itself.');
-sheet.appendChild(warn);
-var goBtn = el('button','btn danger','Yes, record the go');
-goBtn.style.marginTop = '14px';
-goBtn.style.width = '100%';
-goBtn.addEventListener('click', function(){
-goBtn.disabled = true;
-postJSON(NOTE_URL, {type: 'red_confirm', task_id: taskId, note: note}).then(function(res){
-closeRed();
-showResult('red_result', res.status === 200, JSON.stringify(res.body, null, 2));
-}).catch(function(e){
-goBtn.disabled = false;
-showResult('red_result', false, 'Request failed: ' + e.message);
-});
-});
-var closeBtn = el('button','detail-close','Cancel');
-closeBtn.addEventListener('click', closeRed);
-sheet.appendChild(goBtn);
-sheet.appendChild(closeBtn);
-$('redOverlay').classList.remove('hide');
-});
-}
-function closeRed(){ $('redOverlay').classList.add('hide'); } var PERSONAL_VIDEO_SLUG = 'seth-youtube-channel';
-function wireVideoRequest(){
-if ($('v_personal')){
-$('v_personal').addEventListener('change', function(){
-var personal = this.checked;
-$('v_client_slug_field').style.display = personal ? 'none' : '';
-});
-}
-$('v_submit').addEventListener('click', function(){
-var personal = $('v_personal') && $('v_personal').checked;
-var slug = personal ? PERSONAL_VIDEO_SLUG : $('v_client_slug').value.trim();
-var note = $('v_note').value.trim();
-if (!slug || !note){ showResult('v_result', false, (personal ? 'A description is required.' : 'Client slug and a description are both required.')); return; }
-var btn = $('v_submit');
-btn.disabled = true;
-postJSON(NOTE_URL, {type: 'video_request', client_slug: slug, note: note}).then(function(res){
-btn.disabled = false;
-showResult('v_result', res.status === 200, JSON.stringify(res.body, null, 2));
-}).catch(function(e){
-btn.disabled = false;
-showResult('v_result', false, 'Request failed: ' + e.message);
-});
-});
-}
-
 
 function wireLinkedIn(){
 var runBtn = $('li_run_btn'), promptBtn = $('li_prompt_btn'), input = $('li_prompt');
@@ -1077,19 +476,6 @@ $('videoscriptToggle').addEventListener('click', toggle);
 $('videoscriptCollapsed').addEventListener('click', toggle);
 }
 
-var reportsExpanded = false;
-function wireReportsToggle(){
-function toggle(){
-reportsExpanded = !reportsExpanded;
-$('reportsBody').style.display = reportsExpanded ? '' : 'none';
-$('reportsCollapsed').style.display = reportsExpanded ? 'none' : '';
-$('reportsFlip').textContent = reportsExpanded ? 'Collapse ↑' : 'Expand ↓';
-}
-$('reportsToggle').addEventListener('click', toggle);
-$('reportsCollapsed').addEventListener('click', toggle);
-}
-
-var cockpitExpanded = true;
 function wireCockpitToggle(){
 function toggle(){
 cockpitExpanded = !cockpitExpanded;
@@ -1135,149 +521,6 @@ showResult('ck_result', false, 'Could not send that. Try again.');
 }
 
 /* ------------------------------------------------------------------ client context */
-var cxStagingId = null;
-
-function renderContextDiscarded(){
-var host = $('cx_result'); host.innerHTML = '';
-host.appendChild(el('div','card rail-gray client-sub','Discarded, nothing was written.'));
-}
-
-function renderContextCommitted(b){
-var host = $('cx_result'); host.innerHTML = '';
-var card = el('div','card stack rail-ok');
-card.appendChild(el('div','detail-title', 'Filed against ' + (b.client_name || 'client')));
-card.appendChild(el('div','client-sub', b.ledger_entry || ''));
-var tasks = b.tasks || [];
-var taskCount = b.task_count !== undefined && b.task_count !== null ? b.task_count : tasks.length;
-card.appendChild(el('div','dispatch-title', taskCount + ' task' + (taskCount === 1 ? '' : 's') + ' created'));
-tasks.forEach(function(t){
-card.appendChild(el('div','client-sub', (t && t.title) ? t.title : String(t)));
-});
-host.appendChild(card);
-}
-
-function renderContextReview(body){
-var host = $('cx_result'); host.innerHTML = '';
-cxStagingId = body.staging_id;
-var card = el('div','card stack rail-brand');
-
-function row(k, v){
-if (v === null || v === undefined || v === '') return;
-var r = el('div','detail-row');
-r.appendChild(el('div','k', k));
-r.appendChild(el('div','v', String(v)));
-card.appendChild(r);
-}
-row('Client', (body.client || '') + (body.slug ? ' (' + body.slug + ')' : ''));
-row('Confidence', body.confidence);
-row('Kind', body.kind);
-row('Why this client', body.why);
-row('Summary', body.summary);
-
-card.appendChild(el('div','dispatch-title','What goes in the record'));
-card.appendChild(el('div','client-sub', body.ledger_entry || '—'));
-
-var tasks = body.tasks || [];
-if (tasks.length){
-card.appendChild(el('div','dispatch-title','Tasks'));
-tasks.forEach(function(t){
-card.appendChild(el('div',null, (t && t.title) ? t.title : String(t)));
-if (t && t.why) card.appendChild(el('div','client-sub', t.why));
-});
-}
-
-var oq = (body.open_questions || '').split('|').map(function(s){ return s.trim(); }).filter(Boolean);
-if (oq.length){
-card.appendChild(el('div','dispatch-title','Open questions'));
-oq.forEach(function(q){ card.appendChild(el('div','client-sub', '• ' + q)); });
-}
-
-var slugField = el('div','field');
-var slugLabel = el('label', null, 'Client'); slugLabel.setAttribute('for','cx_slug');
-var slugInput = el('input'); slugInput.id = 'cx_slug'; slugInput.value = body.slug || '';
-slugField.appendChild(slugLabel); slugField.appendChild(slugInput);
-card.appendChild(slugField);
-
-var btnrow = el('div','btnrow');
-var fileBtn = el('button','btn primary','File it'); fileBtn.type = 'button';
-var discardBtn = el('button','btn danger','Discard'); discardBtn.type = 'button';
-btnrow.appendChild(fileBtn); btnrow.appendChild(discardBtn);
-card.appendChild(btnrow);
-
-var errBox = el('div');
-card.appendChild(errBox);
-
-function commit(approve){
-fileBtn.disabled = true; discardBtn.disabled = true;
-errBox.innerHTML = '';
-postJSON(COMMIT_CONTEXT_URL, {staging_id: cxStagingId, approve: approve, slug: slugInput.value.trim()})
-.then(function(res){
-var b = res.body || {};
-if (b.ok === true && b.action === 'committed'){
-renderContextCommitted(b);
-} else if (b.ok === true && b.action === 'rejected'){
-renderContextDiscarded();
-} else {
-fileBtn.disabled = false; discardBtn.disabled = false;
-errBox.appendChild(el('div','resultbox err', b.error || JSON.stringify(b)));
-}
-}).catch(function(e){
-fileBtn.disabled = false; discardBtn.disabled = false;
-errBox.appendChild(el('div','resultbox err', 'Request failed: ' + e.message));
-});
-}
-fileBtn.addEventListener('click', function(){ commit(true); });
-discardBtn.addEventListener('click', function(){ commit(false); });
-
-host.appendChild(card);
-}
-
-/* client context lived here. Removed: Claude Desktop holds that job now,
-   and the Cockpit took its place at the top of the page. */
-
-
-function populateVideoClientList(list){
-var dl = $('v_client_datalist');
-if (!dl) return;
-dl.innerHTML = '';
-(list || []).forEach(function(c){
-var opt = document.createElement('option');
-opt.value = c.slug || '';
-opt.label = (c.name || c.slug || '') + (c.slug ? ' (' + c.slug + ')' : '');
-dl.appendChild(opt);
-});
-}
-
-/* ------------------------------------------------------------------ view flip */
-function wireClientFlip(){
-$('clientFlip').addEventListener('click', function(){
-clientsExpanded = !clientsExpanded;
-showAllClients = clientsExpanded;
-$('clientFlip').textContent = clientsExpanded ? 'Hide' : 'Show all';
-if (lastSnapshot){
-renderClients(filteredClients(lastSnapshot.clients));
-}
-});
-}
-
-function wireDispatchFlip(){
-var count = document.querySelectorAll('#dispatchBody .dispatch-block').length;
-var collapsed = $('dispatchCollapsed');
-collapsed.textContent = count + ' action' + (count === 1 ? '' : 's') + ' collapsed -- click "Show all" above to view.';
-var cnode = $('dispatchCount');
-if (cnode) cnode.textContent = ' (' + count + ')';
-$('dispatchFlip').addEventListener('click', function(){
-dispatchExpanded = !dispatchExpanded;
-$('dispatchBody').style.display = dispatchExpanded ? '' : 'none';
-collapsed.style.display = dispatchExpanded ? 'none' : '';
-$('dispatchFlip').textContent = dispatchExpanded ? 'Hide' : 'Show all';
-});
-}
-
-/* ------------------------------------------------------------------ demand */
-/* Open on arrival, same reason. */
-var demandExpanded = true;
-var demandLoaded = null;
 
 function demandUnavailable(){
 $('demandCollapsed').textContent = 'Demand data unavailable right now.';
@@ -1380,224 +623,22 @@ $('demandCollapsed').addEventListener('click', toggle);
 /* --------------------------------------------------- console-first layout */
 /* One collapse mechanism for every section that has one. Five sections already
    hand-rolled this; the four promoted in this pass share it instead. */
-function wireSection(name){
-  var expanded = false;
-  function toggle(){
-    expanded = !expanded;
-    $(name + 'Body').style.display = expanded ? '' : 'none';
-    $(name + 'Collapsed').style.display = expanded ? 'none' : '';
-    $(name + 'Flip').textContent = expanded ? 'Collapse \u2191' : 'Expand \u2193';
-  }
-  /* The board lost its toggle when it became the page, so a section without
-     one is a normal state now rather than a bug. */
-  var tog = $(name + 'Toggle'); if (!tog) return;
-  tog.addEventListener('click', toggle);
-  var col = $(name + 'Collapsed'); if (col) col.addEventListener('click', toggle);
-}
-function setSummary(name, text){
-  var e = $(name + 'Collapsed');
-  if (e) e.textContent = text;
-}
-
-/* NEEDS ME: the one thing the page exists to answer. Reuses taskNeedsMe, the
-   signal that was already being computed per board card after the old NEEDS ME
-   section was retired — this brings the roll-up back to the top without adding
-   a second definition of "needs me". */
-function renderNeedsMe(clients, tasks){
-  var host = $('needsmehost'); if (!host) return;
-  host.innerHTML = '';
-  /* Deliberately NOT filtered by visibleClients. The board shows active clients
-     only, which is right for a board — but every one of the blocked tasks in
-     this snapshot belongs to a client not marked active, so inheriting that
-     filter made this strip say "nothing is waiting on you" while 13 things
-     were. "What needs me" is a different question from "what is on my board",
-     and it does not get to be scoped by a view setting. */
-  var bySlug = {}; (clients || []).forEach(function(c){ bySlug[c.slug] = c; });
-  var hits = (tasks || []).filter(function(t){
-    return taskNeedsMe(t, bySlug[t.client_slug]);
-  });
-  $('needsmeCount').textContent = hits.length ? ' (' + hits.length + ')' : '';
-  if (!hits.length){
-    host.appendChild(el('div','client-sub','Nothing is waiting on you.'));
-    return;
-  }
-  hits.slice(0, 12).forEach(function(t){
-    var c = bySlug[t.client_slug];
-    var card = el('div','card rail-warn');
-    card.style.cursor = 'pointer';
-    card.appendChild(el('div','', t.title || t.id));
-    var why = colOf(t.status) === 'blocked' ? 'blocked'
-            : (c && c.doorbell_one) ? 'phase complete, waiting on you'
-            : (c && c.doorbell_two) ? 'every card blocked'
-            : (c && c.replies_owed_age_days >= 7) ? 'reply overdue ' + c.replies_owed_age_days + 'd'
-            : 'report marked NEEDS YOU';
-    card.appendChild(el('div','client-sub', (c ? c.name + ' \u00b7 ' : '') + why));
-    card.addEventListener('click', function(){ openDetail(t); });
-    host.appendChild(card);
-  });
-  if (hits.length > 12) host.appendChild(el('div','client-sub', (hits.length - 12) + ' more.'));
-}
-
-/* ------------------------------------------------------------------ fetch */
 function get(url){
-var headers = {};
-if (DASHBOARD_API_TOKEN) { headers['X-Dashboard-API-Token'] = DASHBOARD_API_TOKEN; headers['X-Dashboard-Token'] = DASHBOARD_API_TOKEN; }
-return fetch(url, {cache:'no-store', headers: headers})
+return fetch(url, {cache:'no-store'})
 .then(function(r){
-/* 403 as well as 401: n8n's built-in Header Auth on a webhook rejects with
-   403, and the guard node inside the workflow answers 401. Both mean the
-   same thing to this page -- the token is not being accepted -- and the
-   403 arm has to be in place BEFORE the webhook switches over, or a bad
-   token would surface as a generic offline banner instead of the gate. */
-if (r.status === 401 || r.status === 403) { var eAuth = new Error('HTTP ' + r.status); eAuth.auth = true; throw eAuth; }
 if (!r.ok) throw new Error('HTTP ' + r.status);
 return r.json();
 });
 }
 
-function paint(data){
-lastSnapshot = data;
-clearBanners();
-$('dot').className = 'dot';
-$('asof').textContent = 'as of ' + shortTime(new Date().toISOString());
-renderMoney(data.money);
-renderClients(filteredClients(data.clients));
-renderNeedsMe(data.clients, data.tasks);
-renderReports(data.latest_reports);
-renderHistory(data);
-populateVideoClientList(data.clients);
-var qd = (data.queue_depth === null || data.queue_depth === undefined) ? '—' : data.queue_depth;
-$('refreshline').textContent = 'Last refresh ' + shortTime(new Date().toISOString()) +
-'. Queue depth: ' + qd + '. This page re-checks every 5 minutes while open. ';
-/* There was no forget control at all -- the only caller of forgetToken() was the
-   401 handler that should never have been calling it. */
-var fg = document.createElement('button');
-fg.className = 'retry'; fg.textContent = 'Forget token on this device';
-fg.addEventListener('click', function(){ forgetToken(); location.reload(); });
-$('refreshline').appendChild(fg);
-}
-
-function clearBanners(){
-var host = $('banners'); if (!host) return;
-/* Keep the token gate. It lives in this strip, and blowing the strip away is
-   how the form used to vanish the moment anything else went wrong. */
-var keep = document.getElementById('tokengate');
-while (host.firstChild) { if (host.firstChild === keep) break; host.removeChild(host.firstChild); }
-Array.prototype.slice.call(host.children).forEach(function(n){ if (n !== keep) host.removeChild(n); });
-}
-
-function offline(e){
-$('dot').className = 'dot down';
-clearBanners();
-var b = el('div','banner bad');
-b.appendChild(document.createTextNode('The dashboard cannot reach n8n right now. ' + (e && e.message ? '(' + e.message + ') ' : '') + 'The page will keep trying every 5 minutes.'));
-var retry = el('button','retry','Retry now');
-retry.addEventListener('click', function(){ retry.disabled = true; retry.textContent = 'Retrying…'; pull(); });
-b.appendChild(retry);
-$('banners').appendChild(b);
-}
-
-/* A 401 used to do two things at once: delete the stored token, and then hand
-   the error to offline(), which clears #banners -- the exact strip askForToken
-   renders into. So one transient 401 (an n8n cold start, a publish, any blip)
-   wiped the token, destroyed the form that would let you re-enter it, and left
-   an "cannot reach n8n" banner in its place. Reload and you are typing the token
-   in again. That is the whole reason this felt like every single time.
-   Now: one silent retry, a failure NEVER deletes the token (only submitting a
-   new one overwrites it), and auth errors never reach offline(). */
-/* ---------------------------------------------------------- the run epoch
-   Aug 9. Everything before this timestamp is pre-hardening development
-   exhaust, not work in flight: 103 task rows written between Jul 31 and
-   Aug 9, an Aug 2 bulk import of 77 clients (only 3 of which ever carried a
-   task), and 3 engagements from Jul 31. Seth's read is correct -- there is
-   no backlog, so the board should be empty.
-
-   Nothing is deleted. This hides, and it hides on the READ side only, so
-   setting RUN_EPOCH to '' brings every row back exactly as it was.
-
-   Visibility is derived from tasks: a client appears once it has a card
-   dated after the epoch. RUN_CLIENTS is the escape hatch for a client that
-   exists before its first card is written. */
-var RUN_EPOCH = '';                 /* kept for reference, no longer used to filter */
-/* RUN_CLIENTS is the live filter. The epoch could not work: the snapshot carries
-   no date on a task, not one of 159, so a date comparison hid every card on the
-   board including brand new ones. It looked correct all afternoon only because
-   every task really was old. Filtering on the client slug uses a field the
-   payload actually has. Empty list shows everything. */
-/* EMPTY MEANS EVERYTHING, and it must stay empty unless a run is actually being
-   scoped. This held ['sim-hubspot-pipeline'] -- one stale demo client from an old
-   run -- so withinRun() silently discarded every other client's cards before the
-   board ever saw them. The snapshot was arriving with 267 tasks and 86 clients and
-   painting 3 cards and 1 client, for hours, with no error anywhere. If you scope a
-   run here, clear it when the run ends. */
-var RUN_CLIENTS = [];
-
-function withinRun(data){
-if (!RUN_CLIENTS.length || !data) return data;
-var live = {};
-RUN_CLIENTS.forEach(function(s){ live[s] = true; });
-var tasks = (data.tasks || []).filter(function(t){ return live[t.client_slug]; });
-var clients = (data.clients || []).filter(function(c){ return live[c.slug]; });
-var reports = (data.latest_reports || []).filter(function(r){ return live[r.client_slug]; });
-/* money is a server side aggregate over every row and cannot be recomputed here,
-   so it is flagged rather than faked */
-var m = data.money ? Object.assign({}, data.money, { __unfiltered: true }) : data.money;
-return { tasks: tasks, clients: clients, latest_reports: reports, money: m,
-         queue_depth: data.queue_depth, __prerun: data };
-}
-
-function onSnapshot(data){
-var gate = document.getElementById('tokengate');
-if (gate && gate.parentNode) gate.parentNode.removeChild(gate);
-paint(withinRun(data));
-}
-
-function pull(){
-return get(SNAPSHOT_URL).then(onSnapshot).catch(function(e){
-if (!(e && e.auth)) { offline(e); return; }
-return new Promise(function(res){ setTimeout(res, 2000); })
-.then(function(){ return get(SNAPSHOT_URL); })
-.then(onSnapshot)
-.catch(function(e2){
-if (e2 && e2.auth) askForToken('That token was rejected. Paste it again \u2014 the saved one stays until you do.');
-else offline(e2);
-});
-});
-}
-
 function boot(){
-/* Board lost its toggle when it became the page; money and clients are off it. */
-[].forEach(wireSection);
-/* No token on this device: ask once, and do not fire a request that is
-   guaranteed to 401. */
-if (!DASHBOARD_API_TOKEN) { askForToken('This device has not been authorised yet.'); return; }
-pull();
-setInterval(pull, POLL_MS);
-document.addEventListener('visibilitychange', function(){
-if (!document.hidden) pull();
-});
-$('detailOverlay').addEventListener('click', function(e){
-if (e.target === $('detailOverlay')) closeDetail();
-});
-$('redOverlay').addEventListener('click', function(e){
-if (e.target === $('redOverlay')) closeRed();
-});
-document.addEventListener('keydown', function(e){
-if (e.key === 'Escape'){ closeDetail(); closeRed(); }
-});
-wireQueueForm('q', 'q_job_id'); $('client_search').addEventListener('input', function(){ clientSearchTerm = this.value.trim(); if (lastSnapshot){ renderClients(filteredClients(lastSnapshot.clients)); } });
-wireQueueForm('r', 'r_job_id');
-wirePack();
-wireRed(); wireVideoRequest();
-wireVideoScript();
-wireLinkedIn(); wireVideoscriptToggle();
-wireLinkedinToggle();
+/* The board moved to Trello, so this page stopped polling for a snapshot.
+   What is left is the things you run: a quote, a proposal, a script, a post,
+   and the demand read. Each one calls its own live endpoint on click. */
+wireVideoScript(); wireVideoscriptToggle();
+wireLinkedIn(); wireLinkedinToggle();
 wireCockpit(); wireCockpitToggle();
 wireQuote();
-wireClientFlip();
-wireDispatchFlip();
-wireHistoryToggle();
-wireReportsToggle();
 wireDemandToggle();
 loadDemand();
 }
@@ -1606,7 +647,6 @@ loadDemand();
    Posts the paste to Ops: Quick Quote and renders the quote page inline.
    It reads nothing from the snapshot API on purpose, so a dashboard that
    cannot reach n8n does not take pricing down with it. */
-var QUOTE_RUN_URL = API_BASE + '/quote-run';
 function wireQuote(){
 var btn = $('q_submit'); if (!btn) { return; }
 btn.addEventListener('click', function(){
