@@ -273,6 +273,7 @@ height:64px;opacity:.55}
 <div class="card stack">
 <div class="field"><label for="q_post">Job post, or your own notes</label><textarea id="q_post" placeholder="Paste the posting, or just write what they want built."></textarea></div>
 <div class="field"><label for="q_who">Client or company</label><input id="q_who" placeholder="optional"></div>
+<div class="field"><label for="q_channel">Channel</label><select id="q_channel"><option value="direct">External client &mdash; inclusions itemised as free lines</option><option value="upwork">Upwork &mdash; inclusions ride inside the price</option></select></div>
 <div class="btnrow"><button class="btn primary" id="q_submit">Price it</button></div>
 <div class="client-sub">Prices the pieces and stops. Nothing is saved, nothing is emailed, no card is created. Priced unproven, since nothing of this shape has been delivered yet.</div>
 <div id="q_result"></div>
@@ -655,7 +656,8 @@ var out = $('q_result');
 if (post.length < 20) { out.innerHTML = '<div class="client-sub">Give it more to read than that before it will put a number on it.</div>'; return; }
 btn.disabled = true; btn.textContent = 'Pricing…';
 out.innerHTML = '<div class="skel"></div>';
-var body = 'paste=' + encodeURIComponent(post) + '&who=' + encodeURIComponent(who);
+var chan = ($('q_channel') && $('q_channel').value) || 'direct';
+var body = 'paste=' + encodeURIComponent(post) + '&who=' + encodeURIComponent(who) + '&channel=' + encodeURIComponent(chan);
 fetch(QUOTE_RUN_URL, {method:'POST', headers:{'content-type':'application/x-www-form-urlencoded'}, body:body})
 .then(function(r){ if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.text(); })
 .then(function(html){
@@ -677,6 +679,7 @@ var form = document.createElement('form');
 form.method = 'POST'; form.action = QUOTE_RUN_URL; form.target = '_blank'; form.style.display = 'none';
 var a = document.createElement('input'); a.name = 'paste'; a.value = post; form.appendChild(a);
 var b = document.createElement('input'); b.name = 'who'; b.value = who; form.appendChild(b);
+var cf = document.createElement('input'); cf.name = 'channel'; cf.value = chan; form.appendChild(cf);
 document.body.appendChild(form); form.submit(); document.body.removeChild(form);
 })
 .then(function(){ btn.disabled = false; btn.textContent = 'Price it'; });
