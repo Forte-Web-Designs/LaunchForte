@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preload" as="image" href="/images/home/launch-forte.png" fetchpriority="high">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave a Video Review | Launch Forte</title>
+    <meta name="description" content="Record a short video review for Launch Forte. Text works too. Two minutes, done from your phone or laptop.">
+    <link rel="canonical" href="https://launchforte.com/leave-a-review">
+    <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
+    <!-- GTM -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
+    <meta property="og:title" content="Leave a Video Review | Launch Forte">
+    <meta property="og:description" content="Record a short video review for Launch Forte. Text works too. Two minutes, done from your phone or laptop.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://launchforte.com/leave-a-review">
+    <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Leave a Video Review | Launch Forte">
+    <meta name="twitter:description" content="Record a short video review for Launch Forte. Text works too. Two minutes, done from your phone or laptop.">
+    <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
+
+    <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/studio.css?v=q2j">
+    <script src="/studio-theme.js?v=q2j"></script>
+    <style>
+        /* Atmospheric hero (matches contact/results/about/homepage). */
+        .hero-zone {
+            position: relative;
+            background:
+              radial-gradient(ellipse 900px 600px at 15% 20%, rgba(74,181,237,0.18), transparent 60%),
+              radial-gradient(ellipse 700px 500px at 90% 90%, rgba(0,136,219,0.10), transparent 60%),
+              #0A0A0A;
+            color: #FFFFFF;
+            overflow: hidden;
+            padding-bottom: 6rem;
+        }
+        main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
+        main.studio-pane.hero-follows::before { display: none; }
+        main.studio-pane.hero-follows > :first-child { margin-top: 0 !important; padding-top: 3rem; }
+        .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+        .hero-overlay-btm { background: linear-gradient(180deg, transparent 82%, rgba(10,10,10,0.55) 94%, #FFFFFF 100%); }
+        [data-theme="dark"] .hero-overlay-btm { background: linear-gradient(180deg, transparent 82%, rgba(10,10,10,0.4) 94%, #0A0A0A 100%); }
+        .hero-nav { position: sticky; top: 0; z-index: 40; padding: 1.15rem 0; background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-bottom: 1px solid transparent !important; transition: background 0.2s ease, border-color 0.2s ease; }
+        .hero-nav.is-scrolled { background: rgba(10, 10, 10, 0.82) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; backdrop-filter: saturate(180%) blur(20px) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
+        @media (max-width: 640px) { .hero-nav { padding: 0.7rem 0 !important; } .hero-nav .studio-nav-inner { padding: 0 1rem; gap: 0.75rem; } .hero-nav .studio-nav-cta { display: none; } .hero-nav .studio-nav-right { gap: 0.5rem; } }
+        .hero-nav .studio-nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+        .hero-nav .studio-logo img { filter: brightness(0) invert(1); height: 28px; width: auto; display: block; }
+        .hero-nav .studio-nav-cta { background: #FFFFFF; color: #0A0A0A; }
+        .hero-nav .studio-nav-cta:hover { background: #F5F5F5; color: #0A0A0A; }
+        .hero-nav #hamburger { border-color: rgba(255,255,255,0.24); }
+        .hero-nav #hamburger span { background: #FFFFFF; }
+        .hero-content { position: relative; z-index: 20; padding: 5rem 0 3rem; }
+        .hero-content-inner { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; text-align: center; }
+        @media(min-width: 640px) { .hero-content-inner { padding: 0 2rem; } }
+        .hero-eyebrow-line { display: inline-flex; align-items: center; gap: 0.85rem; margin: 0 0 1.5rem; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #FFFFFF; }
+        .hero-eyebrow-line .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(0,136,219,0.18); flex: none; }
+        .hero-h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.06; letter-spacing: -0.03em; margin: 0 auto 1.5rem; max-width: 22ch; }
+        .hero-h1 .hero-h1-line-1 { display: block; background: linear-gradient(90deg, #FFFFFF 0%, #4AB5ED 55%, #0088DB 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+        .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 60ch; }
+
+        @media(max-width: 768px) {
+          .hero-zone { min-height: 55vh; display: flex; align-items: center; padding-bottom: 0.5rem; }
+          .hero-zone .hero-content { padding: var(--sp-4, 1rem) 0 !important; width: 100%; }
+          .hero-content-inner { text-align: center; }
+          .hero-h1 { max-width: 100% !important; }
+        }
+
+        /* Studio grammar */
+        .studio-container.studio-section { max-width: var(--max-content); margin: 0 auto; padding: 0 1.5rem; }
+        @media(min-width: 640px) { .studio-container.studio-section { padding: 0 2rem; } }
+        .section-eyebrow-block { margin-bottom: var(--sp-10); }
+        .section-eyebrow-block.left { text-align: left; }
+        .section-eyebrow-block .studio-eyebrow { display: inline-flex; align-items: center; gap: 0.55rem; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--n-500); margin: 0 0 0.85rem; }
+        .section-eyebrow-block .studio-eyebrow::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-tint, rgba(0,136,219,0.10)); flex: none; }
+        .section-eyebrow-block .studio-h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.5rem, 3.2vw, 2.25rem); line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin: 0; text-wrap: balance; }
+        .section-eyebrow-block .studio-h2 .lf-accent { color: var(--accent); }
+
+        /* Prompts card row */
+        .prompt-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+        .prompt-card { background: var(--paper); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+        .prompt-num { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+        .prompt-text { font-size: 0.9375rem; line-height: 1.55; color: var(--ink); margin: 0; }
+
+        /* Senja embed */
+        .senja-wrap { background: var(--paper); border: 1px solid var(--border); border-radius: 16px; padding: 1rem; overflow: hidden; }
+        .senja-wrap iframe { display: block; width: 100%; min-height: 720px; border: 0; border-radius: 8px; }
+        .senja-fallback { text-align: center; margin-top: 1.25rem; font-size: 0.9375rem; color: var(--n-500); }
+        .senja-fallback a { color: var(--accent); font-weight: 600; text-decoration: none; }
+        .senja-fallback a:hover { text-decoration: underline; }
+
+        .btn-primary { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.75rem 1.35rem; background: var(--accent); color: #FFFFFF; border: 0; border-radius: 8px; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.9375rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background var(--dur-hover), transform var(--dur-hover); }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="studio-nav site-header hero-nav">
+    <div class="studio-nav-inner">
+        <a href="/" class="studio-logo header-logo" aria-label="Launch Forte home">
+            <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
+        </a>
+        <div class="studio-nav-right">
+            <a href="/contact.html" class="studio-nav-cta">Contact</a>
+            <nav class="header-nav" aria-label="Primary" style="display:none">
+                <a href="/index.html">Home</a>
+                <a href="/what-we-build.html">What We Build</a>
+                <a href="/results.html">Results</a>
+                <a href="/tools">Free Tools</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="hero-zone">
+    <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
+    <div class="hero-content">
+        <div class="hero-content-inner">
+            <span class="hero-eyebrow-line"><span class="dot"></span><span class="mark">Leave a Review</span></span>
+            <h1 class="hero-h1">
+                <span class="hero-h1-line-1">Two minutes. Your camera.</span>
+            </h1>
+            <p class="hero-sub-dark">A short video from you carries more weight than anything we can write about ourselves. Record it on your phone or laptop in one take. Text works too if the camera isn't your thing.</p>
+        </div>
+    </div>
+</div>
+
+<main class="studio-pane hero-follows">
+
+    <!-- PROMPTS -->
+    <section class="studio-container studio-section reveal">
+        <div class="section-eyebrow-block left">
+            <p class="studio-eyebrow">What to Cover</p>
+            <h2 class="studio-h2">A few prompts if you want <span class="lf-accent">a starting point</span>.</h2>
+        </div>
+        <div class="prompt-row">
+            <div class="prompt-card">
+                <div class="prompt-num">01</div>
+                <p class="prompt-text">What was broken or slowing you down before we started working together?</p>
+            </div>
+            <div class="prompt-card">
+                <div class="prompt-num">02</div>
+                <p class="prompt-text">What did we build, and what changed once it was running?</p>
+            </div>
+            <div class="prompt-card">
+                <div class="prompt-num">03</div>
+                <p class="prompt-text">Who would you recommend this to, and what would you tell them?</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SENJA FORM -->
+    <section class="studio-container studio-section reveal">
+        <div class="section-eyebrow-block left">
+            <p class="studio-eyebrow">Record Your Review</p>
+            <h2 class="studio-h2">Hit record when <span class="lf-accent">you're ready</span>.</h2>
+        </div>
+        <div class="senja-wrap">
+            <iframe
+                id="senja-collector-iframe"
+                src="https://senja.io/p/launch-forte/r/qknnEe?mode=embed"
+                allow="camera; microphone"
+                title="Leave a video review for Launch Forte"
+                frameborder="0"
+                scrolling="no"
+                width="100%"
+                height="720"></iframe>
+        </div>
+        <p class="senja-fallback">
+            Form not loading? <a href="https://senja.io/p/launch-forte/r/qknnEe" target="_blank" rel="noopener">Open it in a new tab &rarr;</a>
+        </p>
+    </section>
+
+    <!-- THANK YOU -->
+    <section class="studio-container studio-section reveal">
+        <div class="section-eyebrow-block left">
+            <p class="studio-eyebrow">Thank You</p>
+            <h2 class="studio-h2">Truly, <span class="lf-accent">it matters</span>.</h2>
+        </div>
+        <p style="font-size: 1rem; line-height: 1.65; color: var(--n-700); max-width: 60ch;">
+            Every review helps another business owner figure out whether we're the right fit for them. That's how word-of-mouth work finds us, and it's how we stay picky about who we say yes to. Grateful you took the time.
+        </p>
+        <p style="margin-top: 1.5rem;">
+            <a href="/results.html" class="btn-primary">See who else we've worked with &rarr;</a>
+        </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="studio-footer">
+        <div class="studio-footer-inner">
+            <a href="mailto:seth@launchforte.com" class="footer-email-main" style="display:block;text-align:center;font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-2xl);font-weight:600;color:var(--ink);margin-bottom:var(--sp-16);text-decoration:none;letter-spacing:-0.015em;">seth@launchforte.com</a>
+            <div class="studio-footer-cols">
+                <div class="studio-footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="/#audit">Audit</a></li>
+                        <li><a href="/#core-systems-build">Build</a></li>
+                        <li><a href="/partnership.html">Partnership</a></li>
+                        <li><a href="/what-we-build.html">What We Build</a></li>
+                    </ul>
+                </div>
+                <div class="studio-footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about.html">About</a></li>
+                        <li><a href="/results.html">Results</a></li>
+                        <li><a href="/tools">Free Tools</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                        <li><a href="/faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="studio-footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
+                        <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
+                        <li><a href="mailto:seth@launchforte.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="studio-footer-bottom">
+                <p>Based in Dallas-Fort Worth, Texas. Serving clients nationwide.</p>
+                <p><a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">Terms</a></p>
+                <p>&copy; 2026 Launch Forte. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</main>
+
+<script src="/studio-motion.js?v=q2j" defer></script>
+<script src="/scroll-top.js?v=q2j" defer></script>
+<script src="/hamburger.js?v=q2j" defer></script>
+</body>
+</html>
