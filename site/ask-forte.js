@@ -65,10 +65,10 @@
         canvas_footer_note: "This is me thinking out loud. The audit is me measuring.",
         allowance_label: function (n) { return n === 1 ? "1 change left" : n + " changes left"; },
         keep_prompt_default: "Drop your email and I will map it out for you.",
-        keep_prompt_close: "That is my free brain for today. The audit is the unlimited version, or drop your email and I will send you the map.",
+        keep_prompt_close: "That is my free brain for today. The audit is the unlimited version, or drop your email and I will map it out for you.",
         gate_button: "Send it to me",
         gate_email_placeholder: "you@company.com",
-        gate_ok: "On its way. The map lands on screen right now, and in your inbox in a minute.",
+        gate_ok: "Got it. Drawing your map now.",
         gate_err_email: "That does not look like an email address.",
         gate_err_send: "Something on my side is off. Try again in a minute.",
         gate_sending: "Sending.",
@@ -415,6 +415,11 @@
         busy = true;
         var send = $("askf-send"); if (send) send.disabled = true;
         renderUserBubble(text);
+        // Decrement the allowance right when the visitor spends a message.
+        // 10 = messages, visible from the first send. (Overrides an earlier
+        // ruling that decremented only on visible drawing change.)
+        session.changeCount += 1;
+        updateAllowance();
 
         var typing = renderTypingIndicator();
         var botHolder = null;
@@ -941,10 +946,10 @@
             if (!data.sketch_svg) throw new Error("no svg");
 
             var visibleChanged = applyDiff(canvas, data.sketch_svg);
-            if (visibleChanged) {
-                session.changeCount += 1;
-                updateAllowance();
-                if (window.dataLayer) window.dataLayer.push({ event: "fortebot_draw_updated" });
+            // Allowance counts messages, not drawing edits. The message counter
+            // decremented in sendMessage(). Draws only fire GTM here.
+            if (visibleChanged && window.dataLayer) {
+                window.dataLayer.push({ event: "fortebot_draw_updated" });
             }
             updatePartsFooter(canvas);
             updateProofStrip(data.proof);
