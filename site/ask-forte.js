@@ -39,14 +39,26 @@
     var GROWTH_STAGGER_MS = 140;
     var REMOVE_FADE_MS = 300;
 
+    // Rotation of sample drawings on load (until first user message)
+    var ROTATION_HOLD_MS = 2200;
+    var ROTATION_FADE_MS = 700;
+    // Each sample: [file path, product name for the caption]
+    var ROTATION_SAMPLES = [
+        ["/samples/lead-routing.svg",         "The Lead Router"],
+        ["/samples/books-reconciliation.svg", "The Reconciliation Build"],
+        ["/samples/scheduling.svg",           "The Booking System"],
+        ["/samples/reporting.svg",            "The Numbers Board"],
+        ["/samples/system-sync.svg",          "The Bridge"]
+    ];
+
     /* -------------------- COPY of record --------------------
        Every visitor-readable string in one block. Voice-scanned.
        Banned: em dashes, rule-of-three lists, contrast framing,
        Latin abbreviations, "napkin", "sketch", any dollar sign. */
     var COPY = {
         opener: "What is going on in your business right now? Explain it your way and I will map out how it would work.",
-        placeholder_long: "Start anywhere.",
-        placeholder_med: "Start anywhere.",
+        placeholder_long: "What is going on in your business right now? Explain it your way and I will map out how it would work.",
+        placeholder_med: "Tell me what is going wrong.",
         placeholder_short: "Start anywhere.",
         capped_placeholder: "That is my free brain for today.",
         canvas_heading: "How it would work",
@@ -144,6 +156,10 @@
             sendMessage(pre.slice(0, CHAR_CAP), { prefill: true });
         } else {
             renderBotBubble(COPY.opener, { instant: true });
+            // Start the rotation on the empty canvas so it teaches the
+            // catalog while the visitor decides what to say. The rotation
+            // stops permanently the moment they send their first message.
+            startRotation();
         }
         updateAllowance();
     }
@@ -154,11 +170,6 @@
         updateCharCount();
     }
 
-    /* Homepage keystroke handoff. Any keystroke inside the bar sends the visitor
-       to /ask?q=<typed> so the full surface takes over. Empty typing does not
-       redirect; the user has to type something first. First keystroke also
-       stops the GHOST LOOP permanently and clears the canvas to empty before
-       routing, so their drawing never appears to start from somebody else's. */
     /* -------------------- input UX -------------------- */
     function applyPlaceholder() {
         var input = $("askf-input"); if (!input) return;
@@ -397,6 +408,10 @@
     function sendMessage(text, opts) {
         opts = opts || {};
         if (session.closed || busy) return;
+        // First message ever: stop the rotation and clear the canvas so the
+        // live surface takes over from an empty slate. Their drawing must
+        // never appear to start from somebody else's.
+        stopRotation({ clearCanvas: true });
         busy = true;
         var send = $("askf-send"); if (send) send.disabled = true;
         renderUserBubble(text);
@@ -743,6 +758,159 @@
             thinkingHandle.svg.parentNode.removeChild(thinkingHandle.svg);
         }
         thinkingHandle.svg = null;
+    }
+
+    /* -------------------- Homepage ROTATION --------------------
+       On load the homepage canvas cycles through ROTATION_SAMPLES so the
+       visitor sees the catalog while they decide what to say. Real renderer
+       output, five files, no cross-fade, product caption per sample.
+
+       Stops permanently the first time the visitor sends a message (in
+       sendMessage). Pauses when the section leaves the viewport or the tab
+       is hidden, resumes at the start of the current sample so no half-drawn
+       frame appears. Under reduced motion, plays ONE completed sample chosen
+       at random and does not cycle. */
+    var rotation = {
+        active: false,
+        paused: false,
+        canceled: false,
+        mount: null,
+        caption: null,
+        canvasPane: null,
+        cache: {},           // slug -> preloaded SVG text
+        idx: 0,
+        timers: [],
+        observer: null,
+        currentSvg: null
+    };
+
+    function startRotation() {
+        var canvas = $("askf-canvas"); if (!canvas) return;
+        var mount = canvas.querySelector(".askf-canvas-mount"); if (!mount) return;
+        rotation.canvasPane = canvas;
+        rotation.mount = mount;
+        rotation.canceled = false;
+        rotation.active = true;
+
+        // Random start index so the same sample doesn't do all the work.
+        rotation.idx = Math.floor((Date.now() >>> 0) % ROTATION_SAMPLES.length);
+
+        // Caption element under the canvas, above the parts footer.
+        rotation.caption = document.createElement("div");
+        rotation.caption.className = "askf-rotation-caption";
+        rotation.caption.setAttribute("aria-live", "polite");
+        var status = $("askf-canvas-status");
+        if (status && status.parentNode) status.parentNode.insertBefore(rotation.caption, status);
+        else canvas.appendChild(rotation.caption);
+
+        // Pause when the section leaves the viewport, resume when it returns.
+        if (typeof IntersectionObserver === "function") {
+            rotation.observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) resumeRotation();
+                    else pauseRotation();
+                });
+            }, { threshold: 0.15 });
+            rotation.observer.observe(canvas);
+        }
+        document.addEventListener("visibilitychange", onVisibility);
+
+        // Preload the SVGs in parallel, then start the cycle.
+        var loads = ROTATION_SAMPLES.map(function (pair) {
+            return fetch(pair[0], { cache: "force-cache" })
+                .then(function (r) { return r.ok ? r.text() : null; })
+                .then(function (text) { if (text) rotation.cache[pair[0]] = text; })
+                .catch(function () { });
+        });
+        Promise.all(loads).then(function () {
+            if (rotation.canceled) return;
+            playNextSample();
+        });
+    }
+
+    function onVisibility() {
+        if (document.hidden) pauseRotation(); else resumeRotation();
+    }
+    function pauseRotation() { rotation.paused = true; }
+    function resumeRotation() {
+        if (rotation.canceled || rotation.paused === false) return;
+        rotation.paused = false;
+        // If no sample is currently on canvas (paused between beats), play
+        // the current one now.
+        if (!rotation.currentSvg) playNextSample();
+    }
+
+    function playNextSample() {
+        if (rotation.canceled || !rotation.mount) return;
+        if (rotation.paused) return;
+
+        var pair = ROTATION_SAMPLES[rotation.idx];
+        rotation.idx = (rotation.idx + 1) % ROTATION_SAMPLES.length;
+        var text = rotation.cache[pair[0]];
+        if (!text) { scheduleNext(500); return; }
+
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(text, "image/svg+xml");
+        var svg = doc.documentElement;
+        if (!svg || svg.tagName.toLowerCase() !== "svg") { scheduleNext(500); return; }
+
+        rotation.mount.innerHTML = "";
+        rotation.mount.appendChild(svg);
+        rotation.currentSvg = svg;
+        primePenPaths(svg);
+
+        // Caption naming the product this sample belongs to.
+        if (rotation.caption) rotation.caption.textContent = pair[1];
+
+        var reduced = prefersReduced();
+        var drawMs = playBeatsAgainst(svg);
+
+        if (reduced) {
+            // Play one completed sample, hold it, do not cycle.
+            rotation.active = false;
+            return;
+        }
+
+        var t1 = setTimeout(function () {
+            if (rotation.canceled) return;
+            svg.style.transition = "opacity " + ROTATION_FADE_MS + "ms ease-in";
+            svg.style.opacity = "0";
+            var t2 = setTimeout(function () {
+                if (rotation.canceled) return;
+                if (svg.parentNode) svg.parentNode.removeChild(svg);
+                rotation.currentSvg = null;
+                if (rotation.caption) rotation.caption.textContent = "";
+                // Canvas is genuinely empty for one frame before the next
+                // sample begins, per the "nothing is ever pre placed" law.
+                requestAnimationFrame(function () {
+                    if (rotation.canceled || rotation.paused) return;
+                    playNextSample();
+                });
+            }, ROTATION_FADE_MS + 20);
+            rotation.timers.push(t2);
+        }, drawMs + ROTATION_HOLD_MS);
+        rotation.timers.push(t1);
+    }
+
+    function scheduleNext(ms) {
+        var t = setTimeout(playNextSample, ms);
+        rotation.timers.push(t);
+    }
+
+    function stopRotation(opts) {
+        opts = opts || {};
+        rotation.canceled = true;
+        rotation.active = false;
+        rotation.timers.forEach(function (t) { clearTimeout(t); });
+        rotation.timers = [];
+        if (rotation.observer) { rotation.observer.disconnect(); rotation.observer = null; }
+        document.removeEventListener("visibilitychange", onVisibility);
+        if (opts.clearCanvas && rotation.mount) rotation.mount.innerHTML = "";
+        if (rotation.caption && rotation.caption.parentNode) {
+            rotation.caption.parentNode.removeChild(rotation.caption);
+        }
+        rotation.caption = null;
+        rotation.currentSvg = null;
     }
 
     /* -------------------- canvas diff engine --------------------

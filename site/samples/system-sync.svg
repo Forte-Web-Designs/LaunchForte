@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 580" width="100%" font-family="'Patrick Hand', 'Bradley Hand', 'Segoe Print', cursive" role="img" aria-label="Inventory and Warehouse Sync">
+<rect width="340" height="580" fill="#FFFDFA"/>
+<g data-beat="0" data-role="frame">
+<text x="16" y="37" font-size="21" fill="#4A4A4F" text-anchor="start">Inventory and Warehouse Sync</text>
+<text x="16" y="62" font-size="12" fill="#4A4A4F" text-anchor="start">just taking a stab at it</text>
+<text x="16" y="92" font-size="12" fill="#4A4A4F" text-anchor="start">how I&#39;d start thinking about it</text>
+<path d="M16 98 C57.86 97.52 99.71 97.78 142.84 98" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16.4 98.3 C58.26 98.35 100.11 98.22 143.24 98.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g data-beat="1" data-role="nodes">
+<path d="M222 182 C217.6 189.02 212.18 195.24 206.77 201.8" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M222.4 182.3 C217.67 189.06 212.77 195.69 207.17 202.1" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M206.77 201.8 C194.72 204.91 182.64 207.84 170 210" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M207.17 202.1 C195.05 204.88 182.94 207.69 170.4 210.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170 210 C157.87 207.27 145.63 205.06 133.23 201.8" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170.4 210.3 C158.16 208.06 146.26 204.31 133.63 202.1" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M133.23 201.8 C127.66 195.68 123.24 188.68 118 182" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M133.63 202.1 C128.73 195.47 123.25 189.28 118.4 182.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M118 182 C122.54 175.09 127.49 168.5 133.23 162.2" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M118.4 182.3 C122.87 175.34 128.76 169.47 133.63 162.5" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M133.23 162.2 C145.33 159.34 157.53 156.93 170 154" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M133.63 162.5 C145.65 159.3 157.84 156.83 170.4 154.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170 154 C182.14 156.7 194.38 158.9 206.77 162.2" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170.4 154.3 C182.65 156.49 194.8 159.12 207.17 162.5" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M206.77 162.2 C211.62 168.87 217.15 175.02 222 182" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M207.17 162.5 C212.55 168.76 216.6 176.05 222.4 182.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g data-beat="2" data-role="arrows">
+<path d="M118 182 C104.8 182.89 91.6 182.45 78 182" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M118.4 182.3 C105.2 182.09 92 181.29 78.4 182.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M78 182 C80.19 180.52 82.48 179.2 85 178.15" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M78.4 182.3 C80.54 180.72 83.11 179.93 85.4 178.45" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M78 182 C80.5 182.93 82.82 184.18 85 185.85" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M78.4 182.3 C80.69 183.6 83.21 184.5 85.4 186.15" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170 210 C169.43 221.88 169.76 233.76 170 246" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170.4 210.3 C170.38 222.18 171.4 234.06 170.4 246.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170 246 C169.16 243.45 167.75 241.22 166.15 239" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170.4 246.3 C169.4 243.84 167.82 241.7 166.55 239.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170 246 C171.07 243.58 172.31 241.26 173.85 239" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170.4 246.3 C171.88 244.11 172.98 241.7 174.25 239.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M222 182 C235.2 182.03 248.4 181.97 262 182" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M222.4 182.3 C235.6 182.03 248.8 183.05 262.4 182.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262 182 C259.64 183.18 257.18 184.18 255 185.85" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.4 182.3 C259.88 183.18 257.94 185.14 255.4 186.15" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262 182 C259.65 180.8 257.14 179.89 255 178.15" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.4 182.3 C260.29 180.66 257.94 179.47 255.4 178.45" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g data-beat="3" data-role="labels">
+<text x="170" y="186" font-size="13" fill="#4A4A4F" text-anchor="middle">change detected</text>
+<text x="70" y="178" font-size="13" fill="#4A4A4F" text-anchor="middle">conflict rule</text>
+<text x="70" y="194" font-size="13" fill="#4A4A4F" text-anchor="middle">applied</text>
+<text x="170" y="250" font-size="13" fill="#4A4A4F" text-anchor="middle">winning value</text>
+<text x="170" y="266" font-size="13" fill="#4A4A4F" text-anchor="middle">written</text>
+<text x="270" y="178" font-size="13" fill="#4A4A4F" text-anchor="middle">both systems</text>
+<text x="270" y="194" font-size="13" fill="#4A4A4F" text-anchor="middle">updated</text>
+</g>
+<g data-beat="4" data-role="decision">
+<path d="M111.27 181 C106.73 185.2 103.6 190.59 99.18 195.14" pathLength="1" fill="none" stroke="#0088DB" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M111.67 181.3 C107.33 185.67 103.38 190.36 99.58 195.44" pathLength="1" fill="none" stroke="#0088DB" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M99.18 195.14 C89.5 196.83 80.06 199.7 70 201" pathLength="1" fill="none" stroke="#0088DB" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M99.58 195.44 C89.94 197.3 80.41 199.75 70.4 201.3" pathLength="1" fill="none" stroke="#0088DB" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M70 201 C60.26 199.61 50.83 196.7 40.82 195.14" pathLength="1" fill="none" stroke="#0088DB" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M70.4 201.3 C60.75 199.46 51.07 197.76 41.22 195.44" pathLength="1" fill="none" stroke="#0088DB" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M40.82 195.14 C36.33 190.9 33.4 185.33 28.73 181" pathLength="1" fill="none" stroke="#0088DB" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M41.22 195.44 C37.19 190.81 33.2 186.15 29.13 181.3" pathLength="1" fill="none" stroke="#0088DB" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M28.73 181 C32.65 176.28 36.46 171.45 40.82 166.86" pathLength="1" fill="none" stroke="#0088DB" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M29.13 181.3 C33.21 176.71 37.51 172.31 41.22 167.16" pathLength="1" fill="none" stroke="#0088DB" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M40.82 166.86 C50.57 165.53 60.23 163.77 70 161" pathLength="1" fill="none" stroke="#0088DB" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M41.22 167.16 C50.94 165.67 60.58 163.78 70.4 161.3" pathLength="1" fill="none" stroke="#0088DB" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M70 161 C79.52 163.46 89.24 164.95 99.18 166.86" pathLength="1" fill="none" stroke="#0088DB" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M70.4 161.3 C80.05 163.11 89.69 165.02 99.58 167.16" pathLength="1" fill="none" stroke="#0088DB" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M99.18 166.86 C103.33 171.39 107.76 175.68 111.27 181" pathLength="1" fill="none" stroke="#0088DB" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M99.58 167.16 C103.74 171.68 107.76 176.32 111.67 181.3" pathLength="1" fill="none" stroke="#0088DB" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g data-beat="5" data-role="close">
+<text x="16" y="442" font-size="14" fill="#4A4A4F" text-anchor="start">The win here is that one digit entered once lands correctly in</text>
+<text x="16" y="460" font-size="14" fill="#4A4A4F" text-anchor="start">both places, and neither system can drift away from the</text>
+<text x="16" y="478" font-size="14" fill="#4A4A4F" text-anchor="start">other without someone knowing immediately.</text>
+<text x="16" y="508" font-size="11" fill="#4A4A4F" text-anchor="start">treat this as a starting point</text>
+<text x="16" y="522" font-size="11" fill="#4A4A4F" text-anchor="start">nothing changes in live systems without your approval</text>
+<text x="16" y="554" font-size="10" fill="#4A4A4F" text-anchor="start">Seth Forte</text>
+
+</g>
+<g data-beat="6" data-role="scar">
+<text x="16" y="314" font-size="12" fill="#4A4A4F" text-anchor="start">checks and gotchas</text>
+<path d="M16 320 C43.19 319.38 70.37 319.71 98.38 320" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16.4 320.3 C43.59 320.88 70.77 320.52 98.78 320.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="16" y="336" font-size="11" fill="#4A4A4F" text-anchor="start">the stuff I check for before it goes live</text>
+<text x="24" y="359" font-size="12" fill="#4A4A4F" text-anchor="start">duplicates unknowingly popping up</text>
+<path d="M30 377 C39.9 376.98 49.8 376.63 60 377" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M30.4 377.3 C40.3 377.7 50.2 377.66 60.4 377.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M60 377 C57.8 376.01 56.07 374.32 54 373" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M60.4 377.3 C58.58 375.73 56.35 374.8 54.4 373.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M60 377 C57.86 378.09 55.86 379.38 54 381" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M60.4 377.3 C58.64 378.95 56.3 379.73 54.4 381.3" pathLength="1" fill="none" stroke="#4A4A4F" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="40" y="392" font-size="12" fill="#4A4A4F" text-anchor="start">checked before it writes</text>
+<text x="40" y="413" font-size="11" fill="#4A4A4F" text-anchor="start">we&#39;ve hit this one before</text>
+</g>
+</svg>
