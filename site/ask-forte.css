@@ -244,6 +244,51 @@
 }
 .askf-send:hover:not(:disabled) { transform: translateY(-1px); background: var(--accent-warm, #4ab5ed); }
 .askf-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ---- iMessage bar treatment (homepage v2 mount) ----
+   The composer reads as an iMessage input: pill-shaped textarea, circular
+   blue send button with an up-arrow icon. Bubble tails on messages already
+   exist via border-radius asymmetry on .askf-bubble. */
+.askf-composer-imsg {
+    background: var(--n-50, #fafafa);
+    border-top: 1px solid var(--border);
+}
+[data-theme="dark"] .askf-composer-imsg { background: var(--n-900, #171717); }
+.askf-composer-imsg .askf-input-row {
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+.askf-composer-imsg .askf-input {
+    background: var(--paper);
+    border-radius: 22px;
+    padding: 0.65rem 1rem;
+    box-shadow: inset 0 0 0 1px var(--border);
+    border: 0;
+}
+.askf-composer-imsg .askf-input:focus {
+    box-shadow: inset 0 0 0 1.5px var(--accent);
+}
+.askf-send-imsg {
+    width: 36px; height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+    flex-shrink: 0;
+}
+.askf-send-imsg svg { width: 18px; height: 18px; display: block; }
+.askf-send-imsg:hover:not(:disabled) { background: var(--accent-warm, #4ab5ed); transform: translateY(-1px); }
+.askf-send-imsg:disabled { opacity: 0.35; cursor: not-allowed; }
+.askf-composer-imsg .askf-mic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+}
 .askf-meta-row { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; font-size: 0.8125rem; color: var(--n-500); }
 .askf-charcount.warn { color: #dc2626; }
 .askf-allowance {

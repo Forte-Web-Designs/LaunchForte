@@ -901,6 +901,20 @@
   status = 301
   force = true
 
+# /ask retires 2026-08-25 per v2 ruling. The Ask Forte conversation runs
+# inline on the homepage now, so /ask jumps to the homepage anchor.
+[[redirects]]
+  from = "/ask/"
+  to = "/#ask-forte"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ask"
+  to = "/#ask-forte"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]

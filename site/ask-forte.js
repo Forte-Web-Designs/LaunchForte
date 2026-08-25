@@ -39,17 +39,12 @@
     var GROWTH_STAGGER_MS = 140;
     var REMOVE_FADE_MS = 300;
 
-    // Homepage GHOST LOOP timing
-    var GHOST_HOLD_MS = 2500;
-    var GHOST_FADE_MS = 700;
-    var GHOST_SAMPLE_URL = "/ask-forte-sample.svg";
-
     /* -------------------- COPY of record --------------------
        Every visitor-readable string in one block. Voice-scanned.
        Banned: em dashes, rule-of-three lists, contrast framing,
        Latin abbreviations, "napkin", "sketch", any dollar sign. */
     var COPY = {
-        opener: "What is going on in your business right now. Explain it your way and I will map out how it would work.",
+        opener: "What is going on in your business right now? Explain it your way and I will map out how it would work.",
         placeholder_long: "Start anywhere.",
         placeholder_med: "Start anywhere.",
         placeholder_short: "Start anywhere.",
@@ -57,13 +52,13 @@
         canvas_heading: "How it would work",
         canvas_footer_note: "This is me thinking out loud. The audit is me measuring.",
         allowance_label: function (n) { return n === 1 ? "1 change left" : n + " changes left"; },
-        keep_prompt_default: "Want it as a packet with the drawing and the parts. Drop your email.",
-        keep_prompt_close: "That is my free brain for today. The audit is the unlimited version, or drop your email and take the drawing with you.",
-        gate_button: "Email me the packet",
+        keep_prompt_default: "Drop your email and I will map it out for you.",
+        keep_prompt_close: "That is my free brain for today. The audit is the unlimited version, or drop your email and I will send you the map.",
+        gate_button: "Send it to me",
         gate_email_placeholder: "you@company.com",
-        gate_ok: "On its way. Check your inbox in a minute.",
+        gate_ok: "On its way. The map lands on screen right now, and in your inbox in a minute.",
         gate_err_email: "That does not look like an email address.",
-        gate_err_send: "I cannot email it just yet, but the drawing is yours on screen.",
+        gate_err_send: "Something on my side is off. Try again in a minute.",
         gate_sending: "Sending.",
         ask_err: "Something on my side is off. Try again in a minute, or email seth@launchforte.com and I will answer it myself.",
         draw_stalled_status: "the pen slipped. one more try.",
@@ -113,7 +108,16 @@
         var rand = Math.floor(Math.random() * 1e12).toString(36);
         return 'bot-' + rand + '-' + Date.now().toString(36).slice(-4);
     }
-    var session = { id: null, changeCount: 0, closed: false, keepUnlocked: false, currentShape: null, currentTrade: null };
+    var session = {
+        id: null,
+        changeCount: 0,
+        closed: false,
+        keepUnlocked: false,
+        currentShape: null,
+        currentTrade: null,
+        emailCaptured: false,   // gate-before-draw: draw only fires after this is true
+        pendingDraw: false      // an unfulfilled [[DRAW]] is waiting for email
+    };
     var busy = false;
 
     // Canvas node registry for the diff engine. Keys are data-node-id;
@@ -135,18 +139,6 @@
         wireMic();
         wireGate();
 
-        // Homepage bar-only surface: if there is no canvas mount on this page,
-        // the first keystroke routes to /ask?q= carrying the typed text.
-        // NOTE: on the homepage v2 mount the canvas pane exists but has no
-        // #askf-canvas id (that id is scoped to /ask/ only), so this detection
-        // still fires. The homepage GHOST LOOP runs on the visible canvas
-        // mount alongside the handoff wiring.
-        if (!$("askf-canvas")) {
-            wireHomepageHandoff();
-            startGhostLoop();
-            return;
-        }
-
         var pre = new URLSearchParams(location.search).get("q");
         if (pre) {
             sendMessage(pre.slice(0, CHAR_CAP), { prefill: true });
@@ -167,110 +159,6 @@
        redirect; the user has to type something first. First keystroke also
        stops the GHOST LOOP permanently and clears the canvas to empty before
        routing, so their drawing never appears to start from somebody else's. */
-    function wireHomepageHandoff() {
-        var input = $("askf-input"); if (!input) return;
-        applyPlaceholder();
-        window.addEventListener("resize", applyPlaceholder, { passive: true });
-        var stopped = false;
-        function stopLoopOnce() {
-            if (stopped) return;
-            stopped = true;
-            stopGhostLoop({ clearCanvas: true });
-        }
-        function go() {
-            var v = input.value.trim();
-            if (!v) return;
-            stopLoopOnce();
-            var url = "/ask/?q=" + encodeURIComponent(v.slice(0, CHAR_CAP));
-            location.href = url;
-        }
-        input.addEventListener("input", stopLoopOnce);
-        input.addEventListener("keydown", function (e) {
-            stopLoopOnce();
-            if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); go(); }
-        });
-        var send = $("askf-send");
-        if (send) { send.disabled = false; send.addEventListener("click", go); }
-    }
-
-    /* -------------------- Homepage GHOST LOOP --------------------
-       Fetches the static sample SVG once, plays the same choreography, holds
-       complete for GHOST_HOLD_MS, fades out over GHOST_FADE_MS, returns the
-       canvas to genuinely empty, and restarts from nothing. Same law as /ask:
-       nothing is ever pre placed. Under reduced motion, plays once and does
-       not cycle. Any state can be stopped with stopGhostLoop(). */
-    var ghostHandle = { active: false, timers: [], svgTemplate: null, mount: null };
-
-    function findHomepageCanvasMount() {
-        // The homepage uses the same partial DOM but no #askf-canvas id.
-        // The visible canvas mount is the first .askf-canvas-mount on the page.
-        var candidates = document.querySelectorAll(".askf-canvas-mount");
-        return candidates.length ? candidates[0] : null;
-    }
-
-    function startGhostLoop() {
-        var mount = findHomepageCanvasMount(); if (!mount) return;
-        ghostHandle.mount = mount;
-        if (ghostHandle.svgTemplate) { runGhostCycle(); return; }
-        fetch(GHOST_SAMPLE_URL, { cache: "force-cache" })
-            .then(function (r) { return r.ok ? r.text() : null; })
-            .then(function (text) {
-                if (!text) return;
-                ghostHandle.svgTemplate = text;
-                runGhostCycle();
-            })
-            .catch(function () { /* homepage stays empty; not a failure state */ });
-    }
-
-    function runGhostCycle() {
-        var mount = ghostHandle.mount;
-        if (!mount || !ghostHandle.svgTemplate) return;
-        if (ghostHandle.active) return;
-        ghostHandle.active = true;
-
-        // Parse a fresh copy so beat/label state is clean.
-        var parser = new DOMParser();
-        var doc = parser.parseFromString(ghostHandle.svgTemplate, "image/svg+xml");
-        var svg = doc.documentElement;
-        if (!svg || svg.tagName.toLowerCase() !== "svg") { ghostHandle.active = false; return; }
-
-        mount.innerHTML = "";
-        mount.appendChild(svg);
-        primePenPaths(svg);
-
-        var drawMs = playBeatsAgainst(svg);
-        var reduced = prefersReduced();
-
-        if (reduced) {
-            // Play once, hold complete, do not cycle.
-            ghostHandle.active = false;
-            return;
-        }
-
-        var t1 = setTimeout(function () {
-            // Fade the entire SVG out, then clear to genuinely empty and restart.
-            svg.style.transition = "opacity " + GHOST_FADE_MS + "ms ease-in";
-            svg.style.opacity = "0";
-            var t2 = setTimeout(function () {
-                if (!ghostHandle.active) return;
-                if (svg.parentNode) svg.parentNode.removeChild(svg);
-                ghostHandle.active = false;
-                if (ghostHandle.mount) runGhostCycle();
-            }, GHOST_FADE_MS + 20);
-            ghostHandle.timers.push(t2);
-        }, drawMs + GHOST_HOLD_MS);
-        ghostHandle.timers.push(t1);
-    }
-
-    function stopGhostLoop(opts) {
-        opts = opts || {};
-        ghostHandle.active = false;
-        ghostHandle.timers.forEach(function (t) { clearTimeout(t); });
-        ghostHandle.timers = [];
-        if (opts.clearCanvas && ghostHandle.mount) ghostHandle.mount.innerHTML = "";
-        ghostHandle.mount = null;
-    }
-
     /* -------------------- input UX -------------------- */
     function applyPlaceholder() {
         var input = $("askf-input"); if (!input) return;
@@ -437,6 +325,18 @@
                 if (!r.ok) throw new Error("gate " + r.status);
                 if (msg) { msg.classList.add("ok"); msg.textContent = COPY.gate_ok; }
                 if (window.dataLayer) window.dataLayer.push({ event: "fortebot_email_sent" });
+                session.emailCaptured = true;
+                // If a draw was waiting on the gate, fire it now. Close the
+                // gate visually after a short beat so the "on its way" message
+                // gets a moment to read.
+                if (session.pendingDraw) {
+                    session.pendingDraw = false;
+                    setTimeout(function () {
+                        var gate = $("askf-gate");
+                        if (gate) gate.classList.remove("open");
+                        drawCanvas();
+                    }, 900);
+                }
             }).catch(function () {
                 if (msg) { msg.classList.add("err"); msg.textContent = COPY.gate_err_send; }
                 btn.disabled = false;
@@ -646,7 +546,20 @@
             function finalizeReply() {
                 busy = false;
                 updateCharCount();
-                if (wantDraw) drawCanvas();
+                if (wantDraw) {
+                    // Gate-before-draw: only the model can decide the drawing is
+                    // ready. When it is, we either draw immediately (email
+                    // already captured earlier in the session) or open the gate
+                    // and let the visitor decide. If they refuse, the
+                    // conversation continues freely; the next [[DRAW]] on a
+                    // later turn will re-open the gate.
+                    if (session.emailCaptured) {
+                        drawCanvas();
+                    } else {
+                        session.pendingDraw = true;
+                        openKeepMoment(false);
+                    }
+                }
                 else if (session.changeCount >= ALLOWANCE_MESSAGES) closeSession();
             }
             return pump();
@@ -703,16 +616,18 @@
     }
 
     // Play one beat: stagger paths inside its <g> by BEAT_STAGGER_MS,
-    // fade labels LABEL_DELAY_MS after their path begins.
+    // stagger labels among themselves at BEAT_STAGGER_MS. Per the sample SVG
+    // spec (2026-08-25 correction): boxes and labels live in SEPARATE beat
+    // groups, so labels do NOT wait behind a path in their own group. A
+    // label-only beat animates its labels head-on.
     function playBeat(groupEl, startAtMs, durationMs) {
         var paths = groupEl.querySelectorAll("path");
         var labels = groupEl.querySelectorAll("text");
         Array.prototype.forEach.call(paths, function (p, i) {
             penReveal(p, startAtMs + i * BEAT_STAGGER_MS, durationMs || BEAT_STROKE_MS);
         });
-        // Labels arrive just behind the first path in their group.
         Array.prototype.forEach.call(labels, function (t, i) {
-            labelReveal(t, startAtMs + LABEL_DELAY_MS + i * BEAT_STAGGER_MS, LABEL_FADE_MS);
+            labelReveal(t, startAtMs + i * BEAT_STAGGER_MS, LABEL_FADE_MS);
         });
     }
 

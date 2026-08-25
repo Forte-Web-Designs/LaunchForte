@@ -823,32 +823,58 @@
     <section class="studio-container studio-section" id="ask-forte" style="scroll-margin-top:1rem">
         <div class="askf-intro studio-reveal">
             <p class="studio-eyebrow">Ask Forte</p>
-            <h2 class="studio-h2">Tell me what is going wrong. I will map out how it would work.</h2>
+            <h2 class="studio-h2">What is going on in your business right now? Explain it your way and I will map out how it would work.</h2>
         </div>
 
         <!-- ============================================================
-             ASK FORTE v2 HOMEPAGE MOUNT (bar + empty canvas only).
-             No #askf-canvas on this page; ask-forte.js detects that and
-             wires the bar as a handoff: first submit routes to /ask/?q=.
+             ASK FORTE v2 HOMEPAGE MOUNT (full inline surface).
+             Conversation runs here. /ask/ retires as a separate page.
              ============================================================ -->
         <div class="askf-layout studio-reveal">
-            <div class="askf-canvas-pane">
+
+            <div class="askf-canvas-pane" id="askf-canvas">
                 <div class="askf-canvas-head">How it would work</div>
                 <div class="askf-canvas">
-                    <div class="askf-canvas-mount" aria-hidden="true"></div>
+                    <div class="askf-canvas-mount" aria-label="A live drawing of the system"></div>
                 </div>
+                <div class="askf-canvas-status" id="askf-canvas-status" aria-live="polite"></div>
+                <div class="askf-parts" id="askf-parts" aria-live="polite"></div>
+                <div class="askf-proof" id="askf-proof"></div>
             </div>
+
             <div class="askf-chat" id="askf-chat">
-                <div class="askf-composer" id="askf-composer">
+
+                <div class="askf-holding askf-hide" id="askf-holding">
+                    <h2>Ask Forte is warming up.</h2>
+                    <p>The flows behind it land shortly.</p>
+                </div>
+
+                <div class="askf-log" id="askf-log" role="log" aria-live="polite" aria-label="Conversation with Ask Forte"></div>
+
+                <div class="askf-composer askf-composer-imsg" id="askf-composer">
                     <div class="askf-input-row">
-                        <textarea class="askf-input" id="askf-input" placeholder="Start anywhere." rows="1" maxlength="1000" aria-label="Your message to Ask Forte" autocomplete="off" spellcheck="true"></textarea>
-                        <button type="button" class="askf-send" id="askf-send">Send</button>
+                        <textarea class="askf-input" id="askf-input" placeholder="iMessage" rows="1" maxlength="1000" aria-label="Your message to Ask Forte" autocomplete="off" spellcheck="true"></textarea>
+                        <button type="button" class="askf-mic" id="askf-mic" aria-label="Speak your message">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                        </button>
+                        <button type="button" class="askf-send askf-send-imsg" id="askf-send" aria-label="Send message" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                        </button>
                     </div>
                     <div class="askf-meta-row">
                         <span class="askf-charcount" id="askf-charcount">0 / 1000</span>
                         <span class="askf-allowance" id="askf-allowance"></span>
                     </div>
                 </div>
+
+                <div class="askf-gate" id="askf-gate">
+                    <div class="askf-input-row">
+                        <input type="email" class="askf-gate-input" id="askf-gate-email" placeholder="you@company.com" aria-label="Your email" autocomplete="email" required>
+                        <button type="button" class="askf-send" id="askf-gate-send">Send it to me</button>
+                    </div>
+                    <p class="askf-gate-msg" id="askf-gate-msg"></p>
+                </div>
+
             </div>
         </div>
     </section>
