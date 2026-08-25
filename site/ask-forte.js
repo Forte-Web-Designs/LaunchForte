@@ -1,151 +1,222 @@
 /* ============================================================
-   Ask Forte — shared component. One mount, two pages.
-   Runbook: forte_bot_runbook.md § "ASK FORTE, OPEN"
-   Section 16 (page runbook): one component, two mounts — the DOM
-   is the partial. This script is a no-op on pages without #askf-chat.
-   ============================================================
-   Contract v2 (per flows-session handoff): n8n streams newline-delimited
-   JSON envelopes; the model splits content anywhere. The adapter unwraps
-   {"type":"item","content":"..."} lines, concatenates content, then scans
-   for [[SENTINELS]]. See processLine + parseSentinels below.
+   Ask Forte v2 — a drawing that happens to talk.
+   Spec of record: ASK FORTE v2: PAGE REBUILD SPEC (2026-08-25).
+   Supersedes v1.
+
+   One component, two mounts. Script is a no-op on pages without
+   #askf-chat.
 
    Endpoints:
      POST /forte-ask    - streaming; body: {session_id?, message, meta}
-     POST /forte-shape  - shape lookup; body: {session_id, shape}
-     POST /forte-draw   - napkin (SVG); body: {session_id}
-     POST /gate-request - email close; body: {tool_key:"bot", email, session_id}
-*/
-(function(){
+     POST /forte-draw   - drawing; body: {session_id}
+                          returns {sketch_svg, proof, unchanged?, scar?}
+     POST /gate-request - packet request; body: {tool_key:"bot", email, session_id}
+   (v1's /forte-shape fetch is retired; PRODUCTS map is client-side.)
+   ============================================================ */
+(function () {
     /* -------------------- config -------------------- */
-    var LIVE = true;                                // LIVE 2026-07-29: n8n verified end-to-end. /forte-ask streams first token at 1,753ms, emits [[SHAPE|slug]] and [[NAPKIN]] correctly. /forte-shape + /forte-draw up. Caps at prod values. /gate-request has no Capture workflow yet — errors handled honestly below.
-    var API_BASE  = "https://launchforte.app.n8n.cloud/webhook";
-    var ASK       = API_BASE + "/forte-ask";
-    var SHAPE     = API_BASE + "/forte-shape";
-    var DRAW      = API_BASE + "/forte-draw";
-    var GATE      = API_BASE + "/gate-request";
+    var LIVE = true;
+    var API_BASE = "https://launchforte.app.n8n.cloud/webhook";
+    var ASK = API_BASE + "/forte-ask";
+    var DRAW = API_BASE + "/forte-draw";
+    var GATE = API_BASE + "/gate-request";
 
-    var ALLOWANCE_MESSAGES = 10;
-    var DOOR_HINT_AT       = 7;
-    var CHAR_CAP           = 1000;
-    var DEFLECT            = "I only sketch business systems... describe yours and I'll draw it.";
+    var ALLOWANCE_MESSAGES = 10;      // 10 edits to the drawing
+    var KEEP_UNLOCK_AT = 3;           // remaining when the keep moment unlocks
+    var CHAR_CAP = 1000;
+    var CHAR_DELAY_MS = 28;
+    var PUNCT_EXTRA_MS = 140;
 
-    var BEATS = [[0,400],[1,900],[2,500],[3,700],[4,500],[5,600],[6,900]];
-    var PAUSE_BEFORE_SCAR = 400;
+    /* -------------------- COPY of record --------------------
+       Every visitor-readable string in one block. Voice-scanned.
+       Banned: em dashes, rule-of-three lists, contrast framing,
+       Latin abbreviations, "napkin", "sketch", any dollar sign. */
+    var COPY = {
+        opener: "What is going on in your business right now. Explain it your way and I will draw how it would work.",
+        placeholder_long: "Start anywhere. Rambling is fine.",
+        placeholder_med: "Start anywhere.",
+        placeholder_short: "Start anywhere.",
+        capped_placeholder: "That is my free brain for today.",
+        canvas_heading: "How it would work",
+        canvas_footer_note: "This is me thinking out loud. The audit is me measuring.",
+        allowance_label: function (n) { return n === 1 ? "1 change left" : n + " changes left"; },
+        keep_prompt_default: "Want it as a packet with the drawing and the parts. Drop your email.",
+        keep_prompt_close: "That is my free brain for today. The audit is the unlimited version, or drop your email and take the drawing with you.",
+        gate_button: "Email me the packet",
+        gate_email_placeholder: "you@company.com",
+        gate_ok: "On its way. Check your inbox in a minute.",
+        gate_err_email: "That does not look like an email address.",
+        gate_err_send: "I cannot email it just yet, but the drawing is yours on screen.",
+        gate_sending: "Sending.",
+        ask_err: "Something on my side is off. Try again in a minute, or email seth@launchforte.com and I will answer it myself.",
+        draw_stalled_status: "the pen slipped. one more try.",
+        draw_stalled_final: "The drawing stalled on my end. Leave your email and I will send it once it is back.",
+        cap_hit_bubble: "That is my free brain for today. The audit is the unlimited version, or drop your email and take the drawing with you.",
+        parts_intro: function (n) { return n === 1 ? "1 part." : n + " parts."; },
+        role_words: {
+            connection: "getting two systems talking",
+            config: "setup inside a tool you already have",
+            decision: "something that has to decide",
+            surface: "a dashboard or a report",
+            risk: "anything that moves money or records"
+        },
+        proof_cta: "See it live"
+    };
+
+    /* -------------------- PRODUCTS map (v2 sentinel grammar) --------------------
+       Model emits [[SHAPE|slug]]. The page holds the canonical product name so the
+       model can never mistype it. If a slug arrives that is not mapped, the reply
+       still streams as normal text; the SHAPE marker is dropped silently and a
+       console warning is logged for diagnostics. */
+    var PRODUCTS = {
+        "storefront-upsell": "The Upsell Engine",
+        "books-reconciliation": "The Reconciliation Build",
+        "scheduling": "The Booking System",
+        "reporting": "The Numbers Board",
+        "system-sync": "The Bridge",
+        "lead-routing": "The Lead Router",
+        "data-collection": "The Intake Build",
+        "client-onboarding": "The First Week",
+        "alerting": "The Watch",
+        "voice-agent-intake": "The After Hours Line",
+        "platform-migration": "The Migration Build",
+        "approval-routing": "The Sign Off",
+        "production-takeover": "The Takeover",
+        "document-assembly": "The Paperwork Run"
+    };
 
     /* -------------------- helpers -------------------- */
-    var $ = function(id){ return document.getElementById(id); };
-    function el(tag, cls){ var n = document.createElement(tag); if (cls) n.className = cls; return n; }
-    function scrollLog(){ var log = $("askf-log"); if (log) log.scrollTop = log.scrollHeight; }
-    function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+    var $ = function (id) { return document.getElementById(id); };
+    function el(tag, cls) { var n = document.createElement(tag); if (cls) n.className = cls; return n; }
+    function scrollLog() { var log = $("askf-log"); if (log) log.scrollTop = log.scrollHeight; }
+    function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
-    /* -------------------- state --------------------
-       session.id is minted CLIENT-SIDE on the first message (streaming mode
-       returns no session id, so we can't rely on the server for continuity).
-       The flows validator accepts bot-<random>. Once minted, we send it on
-       every subsequent turn so the model remembers the conversation. */
-    function mintSessionId(){
+    /* -------------------- state -------------------- */
+    function mintSessionId() {
         var rand = Math.floor(Math.random() * 1e12).toString(36);
         return 'bot-' + rand + '-' + Date.now().toString(36).slice(-4);
     }
-    var session = { id: null, messageCount: 0, closed: false };
+    var session = { id: null, changeCount: 0, closed: false, keepUnlocked: false, currentShape: null, currentTrade: null };
     var busy = false;
-    var cardsSeen = { SHAPE: false, SEEN: false, GOTCHA: false, NEXT: false };
+
+    // Canvas node registry for the diff engine. Keys are data-node-id;
+    // values are { role, groupClone } so we can honor keep-position semantics.
+    var canvasNodes = {};
 
     /* -------------------- init -------------------- */
-    function init(){
-        // No-op on pages without the partial DOM
+    function init() {
         if (!$("askf-chat")) return;
-        if (!LIVE){
+        if (!LIVE) {
             var holding = $("askf-holding");
             if (holding) holding.classList.remove("askf-hide");
             var log = $("askf-log"); if (log) log.classList.add("askf-hide");
             var composer = $("askf-composer"); if (composer) composer.classList.add("askf-hide");
-            var cards = $("askf-cards"); if (cards) cards.classList.add("askf-hide");
             return;
         }
         prefill();
         wireInput();
         wireMic();
         wireGate();
-        // Opener bubble per Seth: exactly this and nothing more.
-        // No introduction, no name, no capabilities list — just the question.
+
+        // Homepage bar-only surface: if there is no canvas mount on this page,
+        // the first keystroke routes to /ask?q= carrying the typed text.
+        if (!$("askf-canvas")) {
+            wireHomepageHandoff();
+            return;
+        }
+
         var pre = new URLSearchParams(location.search).get("q");
         if (pre) {
             sendMessage(pre.slice(0, CHAR_CAP), { prefill: true });
         } else {
-            renderBotBubble("What's eating your week? Explain what's going on and I'll draw it.", { instant: true });
+            renderBotBubble(COPY.opener, { instant: true });
         }
         updateAllowance();
     }
 
-    function prefill(){
+    function prefill() {
         var q = new URLSearchParams(location.search).get("q");
-        if (q) $("askf-input").value = q.slice(0, CHAR_CAP);
+        if (q && $("askf-input")) $("askf-input").value = q.slice(0, CHAR_CAP);
         updateCharCount();
     }
 
+    /* Homepage keystroke handoff. Any keystroke inside the bar sends the visitor
+       to /ask?q=<typed> so the full surface takes over. Empty typing does not
+       redirect; the user has to type something first. */
+    function wireHomepageHandoff() {
+        var input = $("askf-input"); if (!input) return;
+        applyPlaceholder();
+        window.addEventListener("resize", applyPlaceholder, { passive: true });
+        function go() {
+            var v = input.value.trim();
+            if (!v) return;
+            var url = "/ask/?q=" + encodeURIComponent(v.slice(0, CHAR_CAP));
+            location.href = url;
+        }
+        input.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); go(); }
+        });
+        var send = $("askf-send");
+        if (send) { send.disabled = false; send.addEventListener("click", go); }
+    }
+
     /* -------------------- input UX -------------------- */
-    /* Responsive placeholder: the long form is fine on desktop but gets
-       clipped on phones. Three tiers so it never truncates:
-         >= 640px : full "Got an automation idea or a pain point? Ask Forte."
-         480–639  : "What's broken? Ask Forte."
-         < 480    : "Ask Forte." */
-    var PH_LONG = "Got an automation idea or a pain point? Ask Forte.";
-    var PH_MED  = "What's broken? Ask Forte.";
-    var PH_SHORT = "Ask Forte.";
-    function applyPlaceholder(){
+    function applyPlaceholder() {
         var input = $("askf-input"); if (!input) return;
         var w = window.innerWidth;
-        input.setAttribute("placeholder", w < 480 ? PH_SHORT : w < 640 ? PH_MED : PH_LONG);
+        input.setAttribute("placeholder", w < 480 ? COPY.placeholder_short : w < 640 ? COPY.placeholder_med : COPY.placeholder_long);
     }
-    function wireInput(){
+    function wireInput() {
         var input = $("askf-input");
         var send = $("askf-send");
+        if (!input || !send) return;
         applyPlaceholder();
-        var ph_t;
-        window.addEventListener("resize", function(){
-            clearTimeout(ph_t);
-            ph_t = setTimeout(applyPlaceholder, 100);
+        var pht;
+        window.addEventListener("resize", function () {
+            clearTimeout(pht);
+            pht = setTimeout(applyPlaceholder, 100);
         }, { passive: true });
-        input.addEventListener("input", function(){
+        input.addEventListener("input", function () {
             autoGrow(input);
             updateCharCount();
         });
-        input.addEventListener("keydown", function(e){
-            if (e.key === "Enter" && !e.shiftKey && !send.disabled){ e.preventDefault(); trySend(); }
+        input.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" && !e.shiftKey && !send.disabled) { e.preventDefault(); trySend(); }
         });
         send.addEventListener("click", trySend);
     }
-    /* Single-line by default. Only grow past 44px when text actually wraps
-       so the composer never shows a scrollbar for a one-line message. */
-    function autoGrow(t){
+    function autoGrow(t) {
         t.style.height = 'auto';
         var natural = t.scrollHeight;
-        // 44px is the single-line height; if content fits, stay there.
         var target = natural <= 48 ? 44 : Math.min(140, natural);
         t.style.height = target + 'px';
     }
-    function updateCharCount(){
-        var v = $("askf-input").value;
-        var el = $("askf-charcount");
-        el.textContent = v.length + " / " + CHAR_CAP;
-        el.classList.toggle("warn", v.length >= CHAR_CAP);
-        $("askf-send").disabled = v.trim().length < 3 || busy || session.closed;
+    function updateCharCount() {
+        var input = $("askf-input"); if (!input) return;
+        var v = input.value;
+        var cel = $("askf-charcount");
+        if (cel) {
+            cel.textContent = v.length + " / " + CHAR_CAP;
+            cel.classList.toggle("warn", v.length >= CHAR_CAP);
+        }
+        var send = $("askf-send");
+        if (send) send.disabled = v.trim().length < 3 || busy || session.closed;
     }
-    function trySend(){
-        var v = $("askf-input").value.trim();
+    function trySend() {
+        var input = $("askf-input"); if (!input) return;
+        var v = input.value.trim();
         if (v.length < 3 || busy || session.closed) return;
-        $("askf-input").value = "";
-        autoGrow($("askf-input"));
+        input.value = "";
+        autoGrow(input);
         updateCharCount();
         sendMessage(v);
     }
 
-    /* -------------------- voice input (Web Speech API) -------------------- */
-    function wireMic(){
+    /* -------------------- voice input -------------------- */
+    function wireMic() {
         var Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!Rec) return;
         var mic = $("askf-mic");
+        if (!Rec || !mic) return;
         mic.classList.add("available");
         var recognizer = new Rec();
         recognizer.continuous = true;
@@ -153,15 +224,15 @@
         recognizer.lang = "en-US";
         var recording = false;
         var baseText = "";
-        mic.addEventListener("click", function(){
+        mic.addEventListener("click", function () {
             if (recording) { recognizer.stop(); return; }
             baseText = $("askf-input").value;
-            try { recognizer.start(); } catch(_){ return; }
+            try { recognizer.start(); } catch (_) { return; }
         });
-        recognizer.onstart = function(){ recording = true; mic.classList.add("recording"); mic.setAttribute("aria-label","Stop recording"); };
-        recognizer.onend   = function(){ recording = false; mic.classList.remove("recording"); mic.setAttribute("aria-label","Speak your message"); };
-        recognizer.onerror = function(){ recording = false; mic.classList.remove("recording"); };
-        recognizer.onresult = function(e){
+        recognizer.onstart = function () { recording = true; mic.classList.add("recording"); mic.setAttribute("aria-label", "Stop recording"); };
+        recognizer.onend = function () { recording = false; mic.classList.remove("recording"); mic.setAttribute("aria-label", "Speak your message"); };
+        recognizer.onerror = function () { recording = false; mic.classList.remove("recording"); };
+        recognizer.onresult = function (e) {
             var chunk = "";
             for (var i = e.resultIndex; i < e.results.length; i++) chunk += e.results[i][0].transcript;
             var input = $("askf-input");
@@ -172,301 +243,125 @@
         };
     }
 
-    /* -------------------- render bubbles / cards / napkin -------------------- */
-    function renderUserBubble(text){
-        var t = el("div","askf-turn user");
-        var b = el("div","askf-bubble");
+    /* -------------------- render bubbles -------------------- */
+    function renderUserBubble(text) {
+        var t = el("div", "askf-turn user");
+        var b = el("div", "askf-bubble");
         b.textContent = text;
         t.appendChild(b);
         $("askf-log").appendChild(t);
         scrollLog();
     }
-    function renderBotBubble(text, opts){
+    function renderBotBubble(text, opts) {
         opts = opts || {};
-        var t = el("div","askf-turn bot");
-        var b = el("div","askf-bubble");
+        var t = el("div", "askf-turn bot");
+        var b = el("div", "askf-bubble");
         b.textContent = opts.instant ? text : "";
         t.appendChild(b);
         $("askf-log").appendChild(t);
         scrollLog();
         return { turn: t, bubble: b };
     }
-    function renderTypingIndicator(){
-        var t = el("div","askf-turn bot");
-        var b = el("div","askf-typing");
-        b.appendChild(el("span"));
-        b.appendChild(el("span"));
-        b.appendChild(el("span"));
+    function renderTypingIndicator() {
+        var t = el("div", "askf-turn bot");
+        var b = el("div", "askf-typing");
+        b.appendChild(el("span")); b.appendChild(el("span")); b.appendChild(el("span"));
         t.appendChild(b);
         $("askf-log").appendChild(t);
         scrollLog();
         return t;
     }
-    /* Runbook: when [[NAPKIN]] arrives, render the napkin container. The
-       blur-ghost placeholder fades IN at draw start — not sitting there
-       before. Real strokes draw over it in strict order as they land, blur
-       lifts as strokes complete. Draw is fired automatically — no button.
-
-       Every ghost edge terminates in a drawn node at BOTH ends (renderer
-       rule from Seth's ruling). Shape below: three-node pipeline in a row,
-       one decision circle below the middle, book-out box under it. No
-       dangling connectors. */
-    function renderNapkinGhost(){
-        var t = el("div","askf-turn bot");
-        var b = el("div","askf-bubble napkin askf-napkin-loading");
-        var frame = el("div","askf-napkin-frame askf-napkin-frame-ghost");
-        // The ghost SVG is inserted with opacity:0; JS fades it in on next
-        // frame so the container appears BEFORE the ghost blooms into it.
-        frame.innerHTML =
-            '<svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-              '<g stroke="#4A4A4F" stroke-width="1.6" fill="none" stroke-linecap="round">' +
-                // Three nodes across the top
-                '<rect x="18"  y="30" width="80" height="46" rx="8"/>' +
-                '<rect x="130" y="30" width="80" height="46" rx="8"/>' +
-                '<rect x="242" y="30" width="80" height="46" rx="8"/>' +
-                // Book-out node, centered below the middle
-                '<rect x="130" y="150" width="80" height="46" rx="8"/>' +
-                // Edges — every endpoint touches a node bound
-                '<path d="M98 53 L130 53"/>' +      // top-left -> middle
-                '<path d="M210 53 L242 53"/>' +     // middle -> top-right
-                '<path d="M170 76 L170 150"/>' +    // middle down to book-out
-                // Blue decision ring around the middle node
-                '<rect x="130" y="30" width="80" height="46" rx="8" stroke="#0088DB" stroke-width="2"/>' +
-              '</g>' +
-            '</svg>';
-        b.appendChild(frame);
-        var status = el("div","askf-napkin-caption askf-napkin-status");
-        status.textContent = "drawing your sketch…";
-        b.appendChild(status);
-        t.appendChild(b);
-        $("askf-log").appendChild(t);
-        scrollLog();
-        // Fade the ghost in AT draw start rather than having it visible
-        // the instant the container mounts. Container appears first (paper
-        // only), then blur-ghost blooms.
-        frame.style.opacity = '0';
-        requestAnimationFrame(function(){
-            frame.style.transition = 'opacity 400ms ease-out';
-            frame.style.opacity = '1';
-        });
-        return { turn: t, bubble: b, frame: frame, status: status };
-    }
-    function renderCard(kind, body){
-        if (cardsSeen[kind]) return;
-        cardsSeen[kind] = true;
-        var empty = $("askf-cards-empty"); if (empty) empty.remove();
-        var cards = $("askf-cards"); if (!cards) return;
-        var card = el("div","askf-card");
-        var label = el("div","askf-card-label");
-        label.textContent = kind;
-        var b = el("div","askf-card-body");
-        b.textContent = body;
-        card.appendChild(label);
-        card.appendChild(b);
-        cards.appendChild(card);
-        requestAnimationFrame(function(){ card.classList.add("appear"); });
-    }
-    /* Take an existing ghost bubble (if present) and REPLACE its ghost SVG
-       with the real one, so the strokes appear to draw over the ghost. The
-       ghost fades as the real strokes land. If no ghost exists (shouldn't
-       happen post-runbook), create a fresh bubble. */
-    /* Renders the real napkin over the ghost. Per runbook "see free, keep
-       by email": napkin draws inline FREE end-to-end (all 7 beats including
-       scar). AFTER scar lands + one beat of stillness, the keep-moment
-       gate opens with the locked copy asking for email. */
-    function renderNapkin(svg, scar, mappedDemo, mappedLabel, ghost){
-        var bubble, frame;
-        if (ghost && ghost.bubble && ghost.frame){
-            bubble = ghost.bubble;
-            frame = ghost.frame;
-            bubble.classList.remove("askf-napkin-loading");
-            frame.classList.remove("askf-napkin-frame-ghost");
-            frame.innerHTML = svg;
-            if (ghost.status && ghost.status.parentNode) ghost.status.parentNode.removeChild(ghost.status);
-        } else {
-            var t = el("div","askf-turn bot");
-            bubble = el("div","askf-bubble napkin");
-            frame = el("div","askf-napkin-frame");
-            frame.innerHTML = svg;
-            bubble.appendChild(frame);
-            t.appendChild(bubble);
-            $("askf-log").appendChild(t);
-        }
-        if (scar){
-            var cap = el("div","askf-napkin-caption");
-            cap.textContent = scar;
-            bubble.appendChild(cap);
-        }
-        if (mappedDemo){
-            var link = el("div","askf-napkin-caption");
-            link.innerHTML = 'Live demo of this shape: <a href="' + esc(mappedDemo) + '">' + esc(mappedLabel || "See it running") + '</a>';
-            bubble.appendChild(link);
-        }
-        scrollLog();
-        // Play ALL beats including scar. Gate opens after scar + stillness.
-        playNapkinChoreography(frame.querySelector("svg"), /* stopBeforeScar */ false, function onScarLanded(){
-            setTimeout(openKeepMoment, 500);
-        });
-    }
-
-    /* Keep-moment prompt: opens AFTER the whole napkin has drawn (per
-       runbook "see free, keep by email"). Locked copy from the runbook.
-       On capture: /gate-request fires (which triggers Capture server-side:
-       PDF send + Twenty write + [ASK FORTE] notify). */
-    function openKeepMoment(){
-        var gate = $("askf-gate");
-        var msg = $("askf-gate-msg");
-        if (!gate || gate.classList.contains("open")) return;
-        gate.classList.add("open");
-        if (msg){
-            msg.textContent = "Want it as a PDF, plus which live demo matches your build? Drop your email.";
-            msg.classList.add("askf-gate-prompt");
-        }
-        var email = $("askf-gate-email");
-        if (email) { try { email.focus({ preventScroll: false }); } catch(_){} }
-    }
-
-    /* Draw the napkin one beat at a time. If stopBeforeScar=true, we play
-       beats 0..5 only and fire the callback when beat 5 lands (gate opens).
-       Beat 6 (scar) is revealed later via revealBeatSix() after email capture. */
-    function playNapkinChoreography(svg, stopBeforeScar, onLastBeat){
-        if (!svg) return;
-        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var groups = {};
-        svg.querySelectorAll('g[data-beat]').forEach(function(g){
-            var idx = parseInt(g.getAttribute('data-beat'), 10);
-            if (isNaN(idx)) return;
-            (groups[idx] = groups[idx] || []).push(g);
-        });
-        // Prime every group hidden
-        Object.keys(groups).forEach(function(k){
-            groups[k].forEach(function(g){
-                g.style.opacity = '0';
-                g.querySelectorAll('path').forEach(function(p){
-                    p.style.strokeDasharray = '1';
-                    p.style.strokeDashoffset = '1';
-                });
-            });
-        });
-        if (reduce){
-            // Show all beats immediately EXCEPT scar if withheld
-            Object.keys(groups).forEach(function(k){
-                var beatIdx = parseInt(k, 10);
-                if (stopBeforeScar && beatIdx === 6) return;
-                groups[k].forEach(function(g){
-                    g.style.opacity = '1';
-                    g.querySelectorAll('path').forEach(function(p){ p.style.strokeDashoffset = '0'; });
-                });
-            });
-            if (typeof onLastBeat === "function") onLastBeat();
-            return;
-        }
-        var elapsed = 0;
-        BEATS.forEach(function(pair){
-            var beatIdx = pair[0], durMs = pair[1];
-            if (stopBeforeScar && beatIdx === 6) return;   // withhold scar
-            setTimeout(function(){
-                var gs = groups[beatIdx] || [];
-                gs.forEach(function(g){
-                    g.style.transition = 'opacity ' + Math.min(durMs, 500) + 'ms ease-out';
-                    g.style.opacity = '1';
-                    g.querySelectorAll('path').forEach(function(p){
-                        p.style.transition = 'stroke-dashoffset ' + durMs + 'ms ease-out';
-                        p.style.strokeDashoffset = '0';
-                    });
-                });
-                // Fire callback when the LAST played beat lands
-                var isLast = stopBeforeScar ? (beatIdx === 5) : (beatIdx === 6);
-                if (isLast && typeof onLastBeat === "function"){
-                    setTimeout(onLastBeat, durMs);
-                }
-            }, elapsed);
-            elapsed += durMs;
-        });
-    }
 
     /* -------------------- allowance / close -------------------- */
-    function updateAllowance(){
-        var remaining = Math.max(0, ALLOWANCE_MESSAGES - session.messageCount);
+    function remainingChanges() { return Math.max(0, ALLOWANCE_MESSAGES - session.changeCount); }
+    function updateAllowance() {
         var el = $("askf-allowance"); if (!el) return;
-        el.textContent = (remaining <= 3) ? (remaining + " left in this session") : "";
+        el.textContent = COPY.allowance_label(remainingChanges());
     }
-    function closeSession(){
+    function closeSession() {
         session.closed = true;
-        $("askf-send").disabled = true;
-        $("askf-input").disabled = true;
-        // Locked runbook copy for the allowance cap
-        $("askf-input").placeholder = "That's my free brain for today.";
-        // Warm cap message shown in the log as one last bot bubble
-        var capMsg = "That's my free brain for today. The audit is the unlimited version. Or drop your email and take the sketch with you.";
-        var b = renderBotBubble(capMsg, { instant: true });
-        // Open the gate with the same locked copy the keep-moment uses
-        var gate = $("askf-gate");
-        var msg = $("askf-gate-msg");
-        if (gate && !gate.classList.contains("open")){
-            gate.classList.add("open");
-            if (msg){
-                msg.textContent = "Want it as a PDF, plus which live demo matches your build? Drop your email.";
-                msg.classList.add("askf-gate-prompt");
-            }
-        }
+        var send = $("askf-send"); if (send) send.disabled = true;
+        var input = $("askf-input");
+        if (input) { input.disabled = true; input.placeholder = COPY.capped_placeholder; }
+        renderBotBubble(COPY.cap_hit_bubble, { instant: true });
+        openKeepMoment(true);
         updateAllowance();
     }
 
-    /* -------------------- gate -------------------- */
-    function wireGate(){
+    /* -------------------- keep moment / gate -------------------- */
+    function openKeepMoment(atCap) {
+        var gate = $("askf-gate");
+        var msg = $("askf-gate-msg");
+        if (!gate) return;
+        if (gate.classList.contains("open") && !atCap) return;
+        gate.classList.add("open");
+        if (msg) {
+            msg.textContent = atCap ? COPY.keep_prompt_close : COPY.keep_prompt_default;
+            msg.classList.add("askf-gate-prompt");
+        }
+        session.keepUnlocked = true;
+        var email = $("askf-gate-email");
+        if (email && !atCap) { try { email.focus({ preventScroll: false }); } catch (_) { } }
+    }
+    function wireGate() {
         var btn = $("askf-gate-send"); if (!btn) return;
-        btn.addEventListener("click", function(){
-            var email = $("askf-gate-email").value.trim();
+        btn.textContent = COPY.gate_button;
+        var emailInput = $("askf-gate-email");
+        if (emailInput) emailInput.placeholder = COPY.gate_email_placeholder;
+        btn.addEventListener("click", function () {
+            var email = emailInput ? emailInput.value.trim() : "";
             var msg = $("askf-gate-msg");
-            msg.classList.remove("ok","err");
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-                msg.classList.add("err");
-                msg.textContent = "That doesn't look like an email address.";
+            if (msg) msg.classList.remove("ok", "err");
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                if (msg) { msg.classList.add("err"); msg.textContent = COPY.gate_err_email; }
                 return;
             }
             btn.disabled = true;
-            msg.textContent = "Sending...";
+            if (msg) msg.textContent = COPY.gate_sending;
             fetch(GATE, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ tool_key: "bot", email: email, session_id: session.id })
-            }).then(function(r){
+            }).then(function (r) {
                 if (!r.ok) throw new Error("gate " + r.status);
-                msg.classList.add("ok");
-                msg.textContent = "On its way. Check your inbox in a minute.";
+                if (msg) { msg.classList.add("ok"); msg.textContent = COPY.gate_ok; }
                 if (window.dataLayer) window.dataLayer.push({ event: "fortebot_email_sent" });
-            }).catch(function(){
-                msg.classList.add("err");
-                // Capture workflow isn't built yet — honest fallback, no false promise of email.
-                msg.textContent = "I can't email it just yet, but the sketch is yours on screen.";
+            }).catch(function () {
+                if (msg) { msg.classList.add("err"); msg.textContent = COPY.gate_err_send; }
                 btn.disabled = false;
             });
         });
     }
 
     /* -------------------- sentinel adapter --------------------
-       Sentinels ride inside the token stream as bracketed markers.
-       Since the model splits text anywhere, sentinels can arrive across
-       chunks. We buffer partial tails so [[NAP ... KIN]] never flashes. */
-    function parseSentinels(chunkText, carry){
+       Grammar v2:
+         [[SHAPE|<slug>]]  → look up PRODUCTS map; set current shape
+         [[TRADE|<slug>]]  → set current trade (proof pref)
+         [[DRAW]]          → after stream ends, POST /forte-draw
+         [[CLOSE]]         → unlock the keep moment (does not open by itself)
+         [[DEFLECT]]       → wipe bubble, render served refusal, block remaining tokens
+       Split-across-chunks handled via `carry`. */
+    function parseSentinels(chunkText, carry) {
         var buf = (carry || "") + chunkText;
         var frames = [];
         var re = /\[\[([^\[\]]+)\]\]/g;
         var lastIndex = 0;
         var m;
-        while ((m = re.exec(buf)) !== null){
+        while ((m = re.exec(buf)) !== null) {
             var pre = buf.slice(lastIndex, m.index);
             if (pre) frames.push({ type: "token", text: pre });
             var body = m[1].trim();
-            if (body.indexOf("SHAPE|") === 0){
-                var slug = body.slice(6).trim();
-                if (slug) frames.push({ type: "shape", name: slug });
-            } else if (body === "NAPKIN"){
-                frames.push({ type: "offer_napkin" });
-            } else if (body === "CLOSE"){
-                frames.push({ type: "suggest_close" });
-            } else if (body === "DEFLECT"){
+            if (body.indexOf("SHAPE|") === 0) {
+                var s = body.slice(6).trim();
+                if (s) frames.push({ type: "shape", slug: s });
+            } else if (body.indexOf("TRADE|") === 0) {
+                var t = body.slice(6).trim();
+                if (t) frames.push({ type: "trade", slug: t });
+            } else if (body === "DRAW") {
+                frames.push({ type: "draw" });
+            } else if (body === "CLOSE") {
+                frames.push({ type: "close" });
+            } else if (body === "DEFLECT") {
                 frames.push({ type: "deflect" });
             }
             lastIndex = re.lastIndex;
@@ -475,11 +370,11 @@
         var openIdx = tail.lastIndexOf("[[");
         var carryOut = "";
         var emitTail = tail;
-        if (openIdx !== -1 && tail.indexOf("]]", openIdx) === -1){
+        if (openIdx !== -1 && tail.indexOf("]]", openIdx) === -1) {
             emitTail = tail.slice(0, openIdx);
             carryOut = tail.slice(openIdx);
         }
-        if (!carryOut && emitTail.charAt(emitTail.length - 1) === "["){
+        if (!carryOut && emitTail.charAt(emitTail.length - 1) === "[") {
             carryOut = "[";
             emitTail = emitTail.slice(0, -1);
         }
@@ -488,21 +383,19 @@
     }
 
     /* -------------------- streaming send -------------------- */
-    function sendMessage(text, opts){
+    function sendMessage(text, opts) {
         opts = opts || {};
         if (session.closed || busy) return;
-        busy = true; $("askf-send").disabled = true;
+        busy = true;
+        var send = $("askf-send"); if (send) send.disabled = true;
         renderUserBubble(text);
-        session.messageCount += 1;
-        updateAllowance();
 
         var typing = renderTypingIndicator();
         var botHolder = null;
         var accumulated = "";
         var wasDeflected = false;
+        var wantDraw = false;
 
-        // Mint the session id on the first message. Every subsequent turn
-        // carries it so the model remembers turn 1 by turn 3.
         if (!session.id) session.id = mintSessionId();
         var payload = { session_id: session.id, message: text, meta: { referrer: document.referrer, prefill: !!opts.prefill } };
 
@@ -510,42 +403,37 @@
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
-        }).then(function(resp){
+        }).then(function (resp) {
             if (!resp.ok) throw new Error("ask " + resp.status);
             var newId = resp.headers.get("X-Forte-Session") || resp.headers.get("x-forte-session");
             if (newId && !session.id) session.id = newId;
 
             var reader = resp.body.getReader();
             var decoder = new TextDecoder();
-            // TWO BUFFERS per flows-session PAGE-HANDOFF.md §0:
-            //   lineBuf: bytes-side, partial JSON line across chunk boundaries
-            //   carry:   text-side, partial sentinel across concatenated content
-            // Envelope grammar from n8n:
-            //   {"type":"begin",...}                 -> ignore
-            //   {"type":"item","content":"..."}      -> concatenate content
-            //   {"type":"end",...}                   -> stream complete
             var lineBuf = "";
             var carry = "";
             var streamEnded = false;
+            var sawAnyContent = false;
 
-            function pump(){
-                return reader.read().then(function(res){
-                    if (res.done){
-                        if (lineBuf){ processLine(lineBuf); lineBuf = ""; }
-                        if (carry){ handleFrame({ type: "token", text: carry }); carry = ""; }
+            function pump() {
+                return reader.read().then(function (res) {
+                    if (res.done) {
+                        if (lineBuf) { processLine(lineBuf); lineBuf = ""; }
+                        if (carry) { handleFrame({ type: "token", text: carry }); carry = ""; }
                         finish();
                         return;
                     }
-                    if (streamEnded){ finish(); return; }
+                    if (streamEnded) { finish(); return; }
                     lineBuf += decoder.decode(res.value, { stream: true });
                     var lines = lineBuf.split("\n");
                     lineBuf = lines.pop();
                     var textOut = "";
-                    for (var i = 0; i < lines.length; i++){
+                    for (var i = 0; i < lines.length; i++) {
                         var contentPart = processLine(lines[i]);
                         if (contentPart) textOut += contentPart;
                     }
-                    if (textOut){
+                    if (textOut) {
+                        sawAnyContent = true;
                         var out = parseSentinels(textOut, carry);
                         carry = out.carry;
                         for (var j = 0; j < out.frames.length; j++) handleFrame(out.frames[j]);
@@ -554,185 +442,314 @@
                 });
             }
 
-            function processLine(line){
+            function processLine(line) {
                 var trimmed = line.replace(/^data:\s*/, "").trim();
                 if (!trimmed) return "";
-                if (trimmed.charAt(0) === "{"){
+                if (trimmed.charAt(0) === "{") {
                     try {
                         var obj = JSON.parse(trimmed);
                         if (obj.type === "begin") return "";
-                        if (obj.type === "end"){ streamEnded = true; return ""; }
+                        if (obj.type === "end") { streamEnded = true; return ""; }
                         if (obj.type === "item") return typeof obj.content === "string" ? obj.content : "";
                         if (typeof obj.content === "string") return obj.content;
                         if (typeof obj.text === "string") return obj.text;
                         if (typeof obj.token === "string") return obj.token;
                         if (typeof obj.delta === "string") return obj.delta;
                         return "";
-                    } catch(_){ return trimmed; }
+                    } catch (_) { return trimmed; }
                 }
                 return trimmed;
             }
 
-            /* ---- Token pacer ----
-               n8n streams tokens in bursts (sometimes many words per chunk).
-               Rendering each burst instantly reads as jerky. Instead, push
-               incoming characters into a queue and drain them at a slow,
-               human-readable pace using setTimeout with a per-character delay.
-               When the stream ends, the pump keeps draining until empty. */
-            var pendingChars = [];   // characters waiting to render
+            /* Token pacer — n8n emits in bursts, we render at ~35 chars/sec so
+               it reads as natural typing. Do not touch these constants. */
+            var pendingChars = [];
             var streamDone = false;
             var pacing = false;
-            // Base per-character delay in ms. ~28ms = ~35 chars/sec, a
-            // comfortable reading-along-as-it-types pace. Sentence-ending
-            // punctuation gets a slightly longer beat so the reply reads
-            // like natural speech instead of an even conveyor.
-            var CHAR_DELAY_MS = 28;
-            var PUNCT_EXTRA_MS = 140;
 
-            function ensureBotBubble(){
-                if (!botHolder){
+            function ensureBotBubble() {
+                if (!botHolder) {
                     if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
                     typing = null;
                     botHolder = renderBotBubble("", {});
                 }
             }
-            function startPacer(){
-                if (pacing) return;
-                pacing = true;
-                pace();
-            }
-            function pace(){
-                if (!botHolder){ pacing = false; return; }
-                if (pendingChars.length){
+            function startPacer() { if (pacing) return; pacing = true; pace(); }
+            function pace() {
+                if (!botHolder) { pacing = false; return; }
+                if (pendingChars.length) {
                     var ch = pendingChars.shift();
                     accumulated += ch;
                     botHolder.bubble.textContent = accumulated;
                     scrollLog();
-                    // Pause slightly on sentence-ending punctuation for cadence.
                     var extra = (ch === '.' || ch === '?' || ch === '!' || ch === '\n') ? PUNCT_EXTRA_MS : 0;
                     setTimeout(pace, CHAR_DELAY_MS + extra);
                     return;
                 }
-                if (streamDone){
-                    pacing = false;
-                    finalizeReply();
-                } else {
-                    // Empty queue but stream still open — wait for more bytes
-                    pacing = false;
-                }
+                if (streamDone) { pacing = false; finalizeReply(); }
+                else { pacing = false; }
             }
-            function pushToken(text){
+            function pushToken(text) {
                 for (var i = 0; i < text.length; i++) pendingChars.push(text.charAt(i));
                 startPacer();
             }
 
-            function handleFrame(f){
-                if (f.type === "token"){
+            function handleFrame(f) {
+                if (f.type === "token") {
                     if (wasDeflected) return;
                     ensureBotBubble();
                     pushToken(f.text);
                 }
-                else if (f.type === "shape"){
-                    if (f.name){ renderCard("SHAPE", f.name); lookupShape(f.name); }
+                else if (f.type === "shape") {
+                    var name = PRODUCTS[f.slug];
+                    if (name) { session.currentShape = f.slug; }
+                    else { if (window.console) console.warn("[askf] unmapped SHAPE slug:", f.slug); }
                 }
-                else if (f.type === "offer_napkin"){
-                    if (!$("askf-napkin-mount")){
-                        var ghost = renderNapkinGhost();
-                        ghost.turn.id = "askf-napkin-mount";
-                        drawNapkin(ghost);
-                    }
-                }
-                else if (f.type === "suggest_close"){
-                    renderCard("NEXT", "The audit is how a real one gets scoped.");
-                }
-                else if (f.type === "deflect"){
+                else if (f.type === "trade") { session.currentTrade = f.slug; }
+                else if (f.type === "draw") { wantDraw = true; }
+                else if (f.type === "close") { openKeepMoment(false); }
+                else if (f.type === "deflect") {
                     ensureBotBubble();
-                    // Deflection replaces whatever bubble content is queuing/rendered
                     pendingChars.length = 0;
-                    accumulated = DEFLECT;
-                    botHolder.bubble.textContent = accumulated;
+                    accumulated = "";
+                    botHolder.bubble.textContent = "";
                     wasDeflected = true;
+                    // Model streams the served refusal AFTER the sentinel.
                     scrollLog();
                 }
             }
-            function finish(){
+            function finish() {
                 if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
-                // Signal the pacer that no more bytes will arrive. If it's still
-                // draining, finalizeReply() runs when it hits an empty queue.
-                streamDone = true;
-                if (pendingChars.length > 0){
-                    startPacer();
-                } else {
-                    finalizeReply();
+                if (!sawAnyContent) {
+                    if (window.console) console.info("[askf] empty 200 — treating as daily limit");
+                    renderBotBubble(COPY.cap_hit_bubble, { instant: true });
+                    closeSession();
+                    busy = false;
+                    updateCharCount();
+                    return;
                 }
+                streamDone = true;
+                if (pendingChars.length > 0) startPacer();
+                else finalizeReply();
             }
-            function finalizeReply(){
+            function finalizeReply() {
                 busy = false;
                 updateCharCount();
-                if (session.messageCount >= DOOR_HINT_AT) renderCard("NEXT", "The audit is how a real one gets scoped.");
-                if (session.messageCount >= ALLOWANCE_MESSAGES) closeSession();
+                if (wantDraw) drawCanvas();
+                else if (session.changeCount >= ALLOWANCE_MESSAGES) closeSession();
             }
             return pump();
-        }).catch(function(){
+        }).catch(function () {
             if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
-            renderBotBubble("Something on my side is off. Try again in a moment, or email seth@launchforte.com.", { instant: true });
+            renderBotBubble(COPY.ask_err, { instant: true });
             busy = false;
             updateCharCount();
         });
     }
 
-    function lookupShape(slug){
-        if (!LIVE || !session.id) return;
-        fetch(SHAPE, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ session_id: session.id, shape: slug })
-        }).then(function(r){ return r.json(); })
-          .then(function(data){
-              if (!data) return;
-              if (data.plain) renderCard("SHAPE", data.plain);
-              if (data.seen) renderCard("SEEN", data.seen);
-          })
-          .catch(function(){});
-    }
-
-    /* Runbook: on a failed draw after retry, show Forte's honest line plus
-       the email offer. So we retry once, then fall through to the honest failure. */
-    function drawNapkin(ghost, attempt){
+    /* -------------------- canvas diff engine --------------------
+       Contract with flows: every <g> in returned SVG carries data-node-id
+       stable across redraws for the same logical node, and data-role for
+       parts-footer counting. If either is missing on a redraw, we fall
+       back to full replace and log for diagnostics. */
+    function drawCanvas(attempt) {
         if (!LIVE) return;
         attempt = attempt || 0;
+        var canvas = $("askf-canvas"); if (!canvas) return;
+        var status = $("askf-canvas-status");
+        if (status) status.textContent = "";
+
         fetch(DRAW, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ session_id: session.id })
-        }).then(function(r){
+        }).then(function (r) {
             if (!r.ok) throw new Error("draw " + r.status);
             return r.json();
-        })
-          .then(function(data){
-              if (!data || !data.sketch_svg) throw new Error("no svg");
-              renderNapkin(data.sketch_svg, data.scar, data.mapped_demo, data.mapped_demo_label, ghost);
-              if (data.scar) renderCard("GOTCHA", data.scar);
-              if (window.dataLayer) window.dataLayer.push({ event: "fortebot_napkin_drawn" });
-          })
-          .catch(function(){
-              if (attempt < 1){
-                  // Per flows-session #3: on a failed draw, show the in-voice
-                  // line and retry once. Keep the ghost visible so the visitor
-                  // sees the sketch is still coming.
-                  if (ghost && ghost.status){
-                      ghost.status.textContent = "my pen slipped... one more shot.";
-                  } else {
-                      renderBotBubble("My pen slipped. One more shot.", { instant: true });
-                  }
-                  setTimeout(function(){ drawNapkin(ghost, attempt + 1); }, 800);
-                  return;
-              }
-              // Failed even after retry — remove the ghost, honest line + keep-moment
-              if (ghost && ghost.turn && ghost.turn.parentNode) ghost.turn.parentNode.removeChild(ghost.turn);
-              renderBotBubble("The sketch isn't coming through on my side. Drop your email and I'll send the sketch once it's back, plus the demo that matches your build.", { instant: true });
-              openKeepMoment();
-          });
+        }).then(function (data) {
+            if (!data) throw new Error("no payload");
+            if (data.unchanged) { /* silent no-op; no change budget decrement */ return; }
+            if (!data.sketch_svg) throw new Error("no svg");
+
+            var visibleChanged = applyDiff(canvas, data.sketch_svg);
+            if (visibleChanged) {
+                session.changeCount += 1;
+                updateAllowance();
+                if (window.dataLayer) window.dataLayer.push({ event: "fortebot_draw_updated" });
+            }
+            updatePartsFooter(canvas);
+            updateProofStrip(data.proof);
+            if (remainingChanges() <= KEEP_UNLOCK_AT && !session.keepUnlocked) openKeepMoment(false);
+            if (session.changeCount >= ALLOWANCE_MESSAGES) closeSession();
+        }).catch(function () {
+            if (attempt < 1) {
+                if (status) status.textContent = COPY.draw_stalled_status;
+                setTimeout(function () { drawCanvas(attempt + 1); }, 800);
+                return;
+            }
+            if (status) status.textContent = "";
+            renderBotBubble(COPY.draw_stalled_final, { instant: true });
+            openKeepMoment(false);
+        });
+    }
+
+    /* Parse incoming SVG string, honor data-node-id keep-position semantics.
+       Returns true if the canvas visibly changed. */
+    function applyDiff(canvas, svgString) {
+        var mount = canvas.querySelector(".askf-canvas-mount");
+        if (!mount) return false;
+
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(svgString, "image/svg+xml");
+        var newSvg = doc.documentElement;
+        if (!newSvg || newSvg.tagName.toLowerCase() !== "svg") return false;
+
+        // Check contract: every <g> in the incoming SVG should carry data-node-id.
+        var incomingGroups = Array.prototype.slice.call(newSvg.querySelectorAll("g[data-node-id]"));
+        var allGroups = newSvg.querySelectorAll("g");
+        var contractHonored = incomingGroups.length > 0 && incomingGroups.length === allGroups.length;
+
+        if (!contractHonored) {
+            if (window.console) console.warn("[askf] SVG missing stable data-node-id on all <g>; falling back to full replace");
+            mount.innerHTML = "";
+            mount.appendChild(newSvg);
+            canvasNodes = {};
+            incomingGroups.forEach(function (g) {
+                var id = g.getAttribute("data-node-id");
+                canvasNodes[id] = { role: g.getAttribute("data-role") || "" };
+            });
+            return true;
+        }
+
+        // Diff path: preserve existing <g data-node-id> positions, fade in new,
+        // fade out gone. Edges are children of an outer <g> or top-level — we
+        // treat any element with data-node-id as a node candidate.
+        var existingSvg = mount.querySelector("svg");
+        var visiblyChanged = false;
+
+        if (!existingSvg) {
+            mount.innerHTML = "";
+            mount.appendChild(newSvg);
+            var installed = Array.prototype.slice.call(newSvg.querySelectorAll("g[data-node-id]"));
+            installed.forEach(function (g) {
+                g.style.opacity = "0";
+                requestAnimationFrame(function () {
+                    g.style.transition = "opacity 500ms ease-out";
+                    g.style.opacity = "1";
+                });
+                canvasNodes[g.getAttribute("data-node-id")] = { role: g.getAttribute("data-role") || "" };
+            });
+            return installed.length > 0;
+        }
+
+        // Diff: index existing groups by node id
+        var existingGroups = Array.prototype.slice.call(existingSvg.querySelectorAll("g[data-node-id]"));
+        var existingById = {};
+        existingGroups.forEach(function (g) { existingById[g.getAttribute("data-node-id")] = g; });
+
+        var incomingIds = {};
+        incomingGroups.forEach(function (g) { incomingIds[g.getAttribute("data-node-id")] = true; });
+
+        // 1. Remove groups that disappeared
+        Object.keys(existingById).forEach(function (id) {
+            if (!incomingIds[id]) {
+                var g = existingById[id];
+                g.style.transition = "opacity 300ms ease-out";
+                g.style.opacity = "0";
+                setTimeout(function () { if (g.parentNode) g.parentNode.removeChild(g); }, 320);
+                delete canvasNodes[id];
+                visiblyChanged = true;
+            }
+        });
+
+        // 2. Update / add. Replace SVG root attributes (viewBox etc) to match new.
+        var viewBox = newSvg.getAttribute("viewBox");
+        if (viewBox && existingSvg.getAttribute("viewBox") !== viewBox) existingSvg.setAttribute("viewBox", viewBox);
+
+        incomingGroups.forEach(function (g) {
+            var id = g.getAttribute("data-node-id");
+            var role = g.getAttribute("data-role") || "";
+            if (existingById[id]) {
+                // Keep position: only refresh label content, do not re-animate.
+                // If content diff is non-trivial (role changed or child count differs),
+                // we still keep its position but swap its inner markup.
+                var prev = existingById[id];
+                var prevRole = prev.getAttribute("data-role") || "";
+                if (prev.innerHTML !== g.innerHTML || prevRole !== role) {
+                    prev.innerHTML = g.innerHTML;
+                    prev.setAttribute("data-role", role);
+                    canvasNodes[id] = { role: role };
+                    visiblyChanged = true;
+                }
+            } else {
+                // New node: append with a fade-in beat.
+                var clone = g.cloneNode(true);
+                clone.style.opacity = "0";
+                existingSvg.appendChild(clone);
+                requestAnimationFrame(function () {
+                    clone.style.transition = "opacity 500ms ease-out";
+                    clone.style.opacity = "1";
+                });
+                canvasNodes[id] = { role: role };
+                visiblyChanged = true;
+            }
+        });
+
+        return visiblyChanged;
+    }
+
+    function updatePartsFooter(canvas) {
+        var footer = $("askf-parts"); if (!footer) return;
+        var mount = canvas.querySelector(".askf-canvas-mount");
+        var svg = mount ? mount.querySelector("svg") : null;
+        var groups = svg ? svg.querySelectorAll("g[data-node-id]") : [];
+        var n = groups.length;
+        if (n === 0) { footer.textContent = ""; return; }
+
+        var roleCounts = {};
+        Array.prototype.forEach.call(groups, function (g) {
+            var r = g.getAttribute("data-role");
+            if (!r) return;
+            roleCounts[r] = (roleCounts[r] || 0) + 1;
+        });
+        var pieces = [COPY.parts_intro(n)];
+        Object.keys(roleCounts).forEach(function (role) {
+            var word = COPY.role_words[role];
+            if (!word) return;
+            var count = roleCounts[role];
+            var phrase = count > 1 ? count + " of " + word : word;
+            // Sentence-case each fragment
+            pieces.push(phrase.charAt(0).toUpperCase() + phrase.slice(1) + ".");
+        });
+        footer.textContent = pieces.join("  ");
+    }
+
+    function updateProofStrip(proof) {
+        var strip = $("askf-proof"); if (!strip) return;
+        if (!proof) { strip.innerHTML = ""; strip.classList.remove("has-proof"); return; }
+        // Every field must be present and non-empty to render.
+        if (!proof.label || !proof.line || !proof.image_url || !proof.href) {
+            strip.innerHTML = ""; strip.classList.remove("has-proof");
+            return;
+        }
+        var safe = {
+            label: esc(proof.label),
+            line: esc(proof.line),
+            image_url: esc(proof.image_url),
+            href: esc(proof.href),
+            cta: esc(COPY.proof_cta)
+        };
+        strip.innerHTML =
+            '<a class="askf-proof-inner" href="' + safe.href + '" data-gtm-event="fortebot_proof_shown">' +
+              '<img class="askf-proof-img" src="' + safe.image_url + '" alt="" loading="lazy">' +
+              '<div class="askf-proof-body">' +
+                '<div class="askf-proof-label">' + safe.label + '</div>' +
+                '<div class="askf-proof-line">' + safe.line + '</div>' +
+                '<span class="askf-proof-cta">' + safe.cta + ' &rsaquo;</span>' +
+              '</div>' +
+            '</a>';
+        strip.classList.add("has-proof");
+        if (window.dataLayer) window.dataLayer.push({ event: "fortebot_proof_shown" });
     }
 
     /* -------------------- boot -------------------- */

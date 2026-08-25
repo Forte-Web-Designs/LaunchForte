@@ -823,89 +823,34 @@
     <section class="studio-container studio-section" id="ask-forte" style="scroll-margin-top:1rem">
         <div class="askf-intro studio-reveal">
             <p class="studio-eyebrow">Ask Forte</p>
-            <h2 class="studio-h2">Tell it what's broken. It sketches the fix.</h2>
-        </div>
-
-        <!-- Ghost napkin: canned sample conversation typing itself, then the sketch draws itself
-             stroke by stroke. Pre-rendered, zero API calls, ships today. The magic they watch
-             here is the same magic they'll get when the real flows go live. -->
-        <div class="ghost-napkin" aria-hidden="true">
-            <div class="ghost-frame" id="ghost-frame">
-                <div class="ghost-label">watch a sample</div>
-                <div class="ghost-thread" id="ghost-thread"></div>
-                <div class="ghost-sketch-wrap">
-                    <!-- Canvas starts EMPTY paper. JS injects the elements
-                         for the current canned sample and reveals them in
-                         strict order. Two samples loop indefinitely. -->
-                    <svg class="ghost-sketch" id="ghost-sketch" viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sample system sketch">
-                        <style>
-                            .g-node{fill:#FFFFFF;stroke:#0A0A0A;stroke-width:2}
-                            .g-decide{fill:#0088DB;stroke:#0088DB;stroke-width:2}
-                            .g-label{fill:#0A0A0A;font-family:'Mona Sans',sans-serif;font-size:14px;font-weight:600}
-                            .g-label-white{fill:#FFFFFF}
-                            .g-label-sm{font-size:11px;font-weight:500}
-                            .g-line{fill:none;stroke:#0A0A0A;stroke-width:2;stroke-linecap:round}
-                            .g-scar{font-family:'Mona Sans',sans-serif;font-size:12px;font-weight:500;fill:#525252;font-style:italic}
-                        </style>
-                    </svg>
-                </div>
-            </div>
+            <h2 class="studio-h2">Tell me what is going wrong. I will draw how it would work.</h2>
         </div>
 
         <!-- ============================================================
-             ASK FORTE PARTIAL (start) — Section 16 ruling: ONE component,
-             TWO mounts. This block is BYTE-IDENTICAL to the partial on
-             /ask/. ask-forte.js mounts on #askf-chat if present.
-             No iframe, no nested chrome, no form navigation. URL never
-             changes; the conversation happens right here in the card.
+             ASK FORTE v2 HOMEPAGE MOUNT (bar + empty canvas only).
+             No #askf-canvas on this page; ask-forte.js detects that and
+             wires the bar as a handoff: first submit routes to /ask/?q=.
              ============================================================ -->
         <div class="askf-layout studio-reveal">
-            <div class="askf-chat" id="askf-chat">
-
-                <div class="askf-holding askf-hide" id="askf-holding">
-                    <h2>Ask Forte is warming up.</h2>
-                    <p>The flows behind it land shortly. Come back in a minute.</p>
+            <div class="askf-canvas-pane">
+                <div class="askf-canvas-head">How it would work</div>
+                <div class="askf-canvas">
+                    <div class="askf-canvas-mount" aria-hidden="true"></div>
                 </div>
-
-                <div class="askf-log" id="askf-log" role="log" aria-live="polite" aria-label="Chat with Ask Forte"></div>
-
+            </div>
+            <div class="askf-chat" id="askf-chat">
                 <div class="askf-composer" id="askf-composer">
                     <div class="askf-input-row">
-                        <textarea class="askf-input" id="askf-input" placeholder="Ask Forte." rows="1" maxlength="1000" aria-label="Your message to Ask Forte" autocomplete="off" spellcheck="true"></textarea>
-                        <button type="button" class="askf-mic" id="askf-mic" aria-label="Speak your message">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-                        </button>
-                        <button type="button" class="askf-send" id="askf-send" disabled>Ask</button>
+                        <textarea class="askf-input" id="askf-input" placeholder="Start anywhere. Rambling is fine." rows="1" maxlength="1000" aria-label="Your message to Ask Forte" autocomplete="off" spellcheck="true"></textarea>
+                        <button type="button" class="askf-send" id="askf-send">Send</button>
                     </div>
                     <div class="askf-meta-row">
                         <span class="askf-charcount" id="askf-charcount">0 / 1000</span>
                         <span class="askf-allowance" id="askf-allowance"></span>
                     </div>
                 </div>
-
-                <div class="askf-gate" id="askf-gate">
-                    <div class="askf-input-row">
-                        <input type="email" class="askf-gate-input" id="askf-gate-email" placeholder="you@company.com" aria-label="Your email" autocomplete="email" required>
-                        <button type="button" class="askf-send" id="askf-gate-send">Email me the design</button>
-                    </div>
-                    <p class="askf-gate-msg" id="askf-gate-msg"></p>
-                </div>
-
             </div>
-
-            <aside class="askf-cards" id="askf-cards" aria-label="What Forte has picked up so far">
-                <div class="askf-cards-empty" id="askf-cards-empty">What Forte spots about your build shows up here.</div>
-            </aside>
         </div>
-        <!-- ============================================================ ASK FORTE PARTIAL (end) ============================================================ -->
-
-        <!-- Three-beat promise strip -->
-        <ul class="askf-promise studio-reveal" aria-label="What happens">
-            <li><span class="askf-arrow" aria-hidden="true">↷</span>say it</li>
-            <li><span class="askf-arrow" aria-hidden="true">↷</span>we draw it</li>
-            <li><span class="askf-arrow" aria-hidden="true">↷</span>it's yours by email</li>
-        </ul>
-
     </section>
 
     <!-- 3. WHAT WE DO (previously "The whole engine"). Copy rewritten per the
