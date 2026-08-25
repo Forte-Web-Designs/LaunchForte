@@ -75,7 +75,7 @@
         ask_err: "Something on my side is off. Try again in a minute, or email seth@launchforte.com and I will answer it myself.",
         draw_stalled_status: "the pen slipped. one more try.",
         draw_stalled_final: "The drawing stalled on my end. Leave your email and I will send it once it is back.",
-        cap_hit_bubble: "That is my free brain for today. The audit is the unlimited version, or drop your email and take the drawing with you.",
+        cap_hit_html: 'Shoot me an email at <a href="mailto:seth@launchforte.com">seth@launchforte.com</a> or <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener">book a call</a> to keep this going.',
         parts_intro: function (n) { return n === 1 ? "1 part." : n + " parts."; },
         role_words: {
             connection: "getting two systems talking",
@@ -266,7 +266,8 @@
         opts = opts || {};
         var t = el("div", "askf-turn bot");
         var b = el("div", "askf-bubble");
-        b.textContent = opts.instant ? text : "";
+        if (opts.html) b.innerHTML = text;
+        else if (opts.instant) b.textContent = text;
         t.appendChild(b);
         $("askf-log").appendChild(t);
         scrollLog();
@@ -293,7 +294,7 @@
         var send = $("askf-send"); if (send) send.disabled = true;
         var input = $("askf-input");
         if (input) { input.disabled = true; input.placeholder = COPY.capped_placeholder; }
-        renderBotBubble(COPY.cap_hit_bubble, { instant: true });
+        renderBotBubble(COPY.cap_hit_html, { html: true });
         openKeepMoment(true);
         updateAllowance();
     }
@@ -553,7 +554,7 @@
                 if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
                 if (!sawAnyContent) {
                     if (window.console) console.info("[askf] empty 200 — treating as daily limit");
-                    renderBotBubble(COPY.cap_hit_bubble, { instant: true });
+                    renderBotBubble(COPY.cap_hit_html, { html: true });
                     closeSession();
                     busy = false;
                     updateCharCount();
