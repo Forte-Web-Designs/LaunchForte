@@ -159,8 +159,13 @@
     display: flex;
     flex-direction: column;
     min-height: 620px;
+    /* Cap the chat pane so the thread does not push the page down as the
+       conversation grows. The log scrolls internally instead. Matches the
+       canvas pane min-height so both panes read as the same object. */
+    max-height: 720px;
 }
-.askf-log { padding: 1.25rem 1.25rem 0.5rem; flex: 1; overflow-y: auto; scroll-behavior: smooth; }
+/* min-height:0 unlocks flexbox overflow scrolling in the log */
+.askf-log { padding: 1.25rem 1.25rem 0.5rem; flex: 1 1 0; min-height: 0; overflow-y: auto; scroll-behavior: smooth; }
 @media(max-width: 640px) { .askf-log { padding: 1rem 1rem 0.25rem; } }
 
 .askf-turn { margin-bottom: 1rem; display: flex; }
@@ -354,7 +359,9 @@
     .askf-canvas { min-height: 520px; }
     .askf-canvas-mount { min-height: 500px; }
     .askf-canvas-mount svg { max-height: 500px; }
-    .askf-chat { min-height: 420px; }
+    /* Mobile chat also capped so the thread scrolls internally rather than
+       pushing content off the page. */
+    .askf-chat { min-height: 420px; max-height: 520px; }
 }
 
 /* ---- Pen effect: paths draw one stroke at a time ----

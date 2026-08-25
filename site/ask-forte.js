@@ -68,7 +68,8 @@
         keep_prompt_close: "That is my free brain for today. The audit is the unlimited version, or drop your email and I will map it out for you.",
         gate_button: "Send it to me",
         gate_email_placeholder: "you@company.com",
-        gate_ok: "Got it. Drawing your map now.",
+        gate_ok_pending_draw: "Got it. Drawing your map now.",
+        gate_ok_no_draw: "Got it. I will draw your map as soon as I have enough to go on. Keep talking.",
         gate_err_email: "That does not look like an email address.",
         gate_err_send: "Something on my side is off. Try again in a minute.",
         gate_sending: "Sending.",
@@ -342,19 +343,32 @@
                 body: JSON.stringify({ tool_key: "bot", email: email, session_id: session.id })
             }).then(function (r) {
                 if (!r.ok) throw new Error("gate " + r.status);
-                if (msg) { msg.classList.add("ok"); msg.textContent = COPY.gate_ok; }
                 if (window.dataLayer) window.dataLayer.push({ event: "fortebot_email_sent" });
                 session.emailCaptured = true;
-                // If a draw was waiting on the gate, fire it now. Close the
-                // gate visually after a short beat so the "on its way" message
-                // gets a moment to read.
-                if (session.pendingDraw) {
-                    session.pendingDraw = false;
+                var hadPending = session.pendingDraw;
+                session.pendingDraw = false;
+                // Copy branches on what actually happens next. If the model
+                // asked for a draw, one fires. If it did not (visitor gave
+                // email off a keep-moment or the cap-hit close), be honest
+                // about that so we do not promise a drawing that will not
+                // arrive.
+                if (msg) {
+                    msg.classList.add("ok");
+                    msg.textContent = hadPending ? COPY.gate_ok_pending_draw : COPY.gate_ok_no_draw;
+                }
+                if (hadPending) {
                     setTimeout(function () {
                         var gate = $("askf-gate");
                         if (gate) gate.classList.remove("open");
                         drawCanvas();
                     }, 900);
+                } else if (!session.closed) {
+                    // Not at cap; the visitor can keep talking. Close the gate
+                    // after the message has had a moment to read.
+                    setTimeout(function () {
+                        var gate = $("askf-gate");
+                        if (gate) gate.classList.remove("open");
+                    }, 1600);
                 }
             }).catch(function () {
                 if (msg) { msg.classList.add("err"); msg.textContent = COPY.gate_err_send; }
