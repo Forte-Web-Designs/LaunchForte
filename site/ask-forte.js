@@ -297,6 +297,13 @@
         renderBotBubble(COPY.cap_hit_html, { html: true });
         openKeepMoment(true);
         updateAllowance();
+        // Belt and suspenders: the email gate must always be reachable, even
+        // at cap. Guarantee the gate's email input and send button are
+        // enabled so the visitor can always finish the email step.
+        var gateEmail = $("askf-gate-email");
+        if (gateEmail) gateEmail.disabled = false;
+        var gateSend = $("askf-gate-send");
+        if (gateSend) gateSend.disabled = false;
     }
 
     /* -------------------- keep moment / gate -------------------- */
