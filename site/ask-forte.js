@@ -57,9 +57,9 @@
        Latin abbreviations, "napkin", "sketch", any dollar sign. */
     var COPY = {
         opener: "What is going on in your business right now? Explain it your way and I will map out how it would work.",
-        placeholder_long: "What is going on in your business right now? Explain it your way and I will map out how it would work.",
-        placeholder_med: "Tell me what is going wrong.",
-        placeholder_short: "Start anywhere.",
+        placeholder_long: "Type here.",
+        placeholder_med: "Type here.",
+        placeholder_short: "Type here.",
         capped_placeholder: "That is my free brain for today.",
         canvas_heading: "How it would work",
         canvas_footer_note: "This is me thinking out loud. The audit is me measuring.",
