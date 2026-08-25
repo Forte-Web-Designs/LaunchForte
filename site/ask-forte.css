@@ -53,6 +53,7 @@
         repeating-linear-gradient(0deg, transparent 0 27px, rgba(255,255,255,0.04) 27px 28px);
 }
 .askf-canvas-mount {
+    position: relative;
     width: 100%;
     height: 100%;
     min-height: 320px;
@@ -289,8 +290,40 @@
     .askf-chat { min-height: 420px; }
 }
 
+/* ---- Pen effect: paths draw one stroke at a time ----
+   The JS primes each path to dashoffset:1, then releases per beat with
+   transition on stroke-dashoffset. Groups are never faded as a unit, per
+   the animation ruling: "never animate the SVG's own opacity as a group." */
+.askf-canvas-mount svg path {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Thinking stroke: single wandering path, ink color, softened. */
+.askf-canvas-mount .askf-thinking {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--ink);
+}
+
 /* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
-    .askf-canvas-mount g[data-node-id] { transition: none !important; }
-    .askf-canvas-mount g[data-node-id] { opacity: 1 !important; }
+    .askf-canvas-mount svg path {
+        transition: none !important;
+        stroke-dashoffset: 0 !important;
+    }
+    .askf-canvas-mount svg text,
+    .askf-canvas-mount svg tspan {
+        transition: none !important;
+        opacity: 1 !important;
+    }
+    .askf-canvas-mount g[data-node-id] {
+        transition: none !important;
+        opacity: 1 !important;
+    }
+    /* The thinking stroke does not render under reduced motion; the canvas
+       simply stays empty during the fetch. */
+    .askf-canvas-mount .askf-thinking { display: none; }
 }

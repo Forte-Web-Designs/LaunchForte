@@ -27,6 +27,23 @@
     var CHAR_DELAY_MS = 28;
     var PUNCT_EXTRA_MS = 140;
 
+    // Pen animation schedule (v1's schedule, verbatim). Each pair is
+    // [beatIndex, msBeforeNextBeatStarts]. Total run about 4.4 seconds.
+    // Do not speed it up.
+    var BEATS = [[0, 400], [1, 900], [2, 500], [3, 700], [4, 500], [5, 600], [6, 900]];
+    var BEAT_STROKE_MS = 620;         // per-path draw duration
+    var BEAT_STAGGER_MS = 60;         // between paths inside one beat
+    var LABEL_FADE_MS = 260;
+    var LABEL_DELAY_MS = 120;         // after its path begins
+    var GROWTH_STROKE_MS = 220;
+    var GROWTH_STAGGER_MS = 140;
+    var REMOVE_FADE_MS = 300;
+
+    // Homepage GHOST LOOP timing
+    var GHOST_HOLD_MS = 2500;
+    var GHOST_FADE_MS = 700;
+    var GHOST_SAMPLE_URL = "/ask-forte-sample.svg";
+
     /* -------------------- COPY of record --------------------
        Every visitor-readable string in one block. Voice-scanned.
        Banned: em dashes, rule-of-three lists, contrast framing,
@@ -120,8 +137,13 @@
 
         // Homepage bar-only surface: if there is no canvas mount on this page,
         // the first keystroke routes to /ask?q= carrying the typed text.
+        // NOTE: on the homepage v2 mount the canvas pane exists but has no
+        // #askf-canvas id (that id is scoped to /ask/ only), so this detection
+        // still fires. The homepage GHOST LOOP runs on the visible canvas
+        // mount alongside the handoff wiring.
         if (!$("askf-canvas")) {
             wireHomepageHandoff();
+            startGhostLoop();
             return;
         }
 
@@ -142,22 +164,111 @@
 
     /* Homepage keystroke handoff. Any keystroke inside the bar sends the visitor
        to /ask?q=<typed> so the full surface takes over. Empty typing does not
-       redirect; the user has to type something first. */
+       redirect; the user has to type something first. First keystroke also
+       stops the GHOST LOOP permanently and clears the canvas to empty before
+       routing, so their drawing never appears to start from somebody else's. */
     function wireHomepageHandoff() {
         var input = $("askf-input"); if (!input) return;
         applyPlaceholder();
         window.addEventListener("resize", applyPlaceholder, { passive: true });
+        var stopped = false;
+        function stopLoopOnce() {
+            if (stopped) return;
+            stopped = true;
+            stopGhostLoop({ clearCanvas: true });
+        }
         function go() {
             var v = input.value.trim();
             if (!v) return;
+            stopLoopOnce();
             var url = "/ask/?q=" + encodeURIComponent(v.slice(0, CHAR_CAP));
             location.href = url;
         }
+        input.addEventListener("input", stopLoopOnce);
         input.addEventListener("keydown", function (e) {
+            stopLoopOnce();
             if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); go(); }
         });
         var send = $("askf-send");
         if (send) { send.disabled = false; send.addEventListener("click", go); }
+    }
+
+    /* -------------------- Homepage GHOST LOOP --------------------
+       Fetches the static sample SVG once, plays the same choreography, holds
+       complete for GHOST_HOLD_MS, fades out over GHOST_FADE_MS, returns the
+       canvas to genuinely empty, and restarts from nothing. Same law as /ask:
+       nothing is ever pre placed. Under reduced motion, plays once and does
+       not cycle. Any state can be stopped with stopGhostLoop(). */
+    var ghostHandle = { active: false, timers: [], svgTemplate: null, mount: null };
+
+    function findHomepageCanvasMount() {
+        // The homepage uses the same partial DOM but no #askf-canvas id.
+        // The visible canvas mount is the first .askf-canvas-mount on the page.
+        var candidates = document.querySelectorAll(".askf-canvas-mount");
+        return candidates.length ? candidates[0] : null;
+    }
+
+    function startGhostLoop() {
+        var mount = findHomepageCanvasMount(); if (!mount) return;
+        ghostHandle.mount = mount;
+        if (ghostHandle.svgTemplate) { runGhostCycle(); return; }
+        fetch(GHOST_SAMPLE_URL, { cache: "force-cache" })
+            .then(function (r) { return r.ok ? r.text() : null; })
+            .then(function (text) {
+                if (!text) return;
+                ghostHandle.svgTemplate = text;
+                runGhostCycle();
+            })
+            .catch(function () { /* homepage stays empty; not a failure state */ });
+    }
+
+    function runGhostCycle() {
+        var mount = ghostHandle.mount;
+        if (!mount || !ghostHandle.svgTemplate) return;
+        if (ghostHandle.active) return;
+        ghostHandle.active = true;
+
+        // Parse a fresh copy so beat/label state is clean.
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(ghostHandle.svgTemplate, "image/svg+xml");
+        var svg = doc.documentElement;
+        if (!svg || svg.tagName.toLowerCase() !== "svg") { ghostHandle.active = false; return; }
+
+        mount.innerHTML = "";
+        mount.appendChild(svg);
+        primePenPaths(svg);
+
+        var drawMs = playBeatsAgainst(svg);
+        var reduced = prefersReduced();
+
+        if (reduced) {
+            // Play once, hold complete, do not cycle.
+            ghostHandle.active = false;
+            return;
+        }
+
+        var t1 = setTimeout(function () {
+            // Fade the entire SVG out, then clear to genuinely empty and restart.
+            svg.style.transition = "opacity " + GHOST_FADE_MS + "ms ease-in";
+            svg.style.opacity = "0";
+            var t2 = setTimeout(function () {
+                if (!ghostHandle.active) return;
+                if (svg.parentNode) svg.parentNode.removeChild(svg);
+                ghostHandle.active = false;
+                if (ghostHandle.mount) runGhostCycle();
+            }, GHOST_FADE_MS + 20);
+            ghostHandle.timers.push(t2);
+        }, drawMs + GHOST_HOLD_MS);
+        ghostHandle.timers.push(t1);
+    }
+
+    function stopGhostLoop(opts) {
+        opts = opts || {};
+        ghostHandle.active = false;
+        ghostHandle.timers.forEach(function (t) { clearTimeout(t); });
+        ghostHandle.timers = [];
+        if (opts.clearCanvas && ghostHandle.mount) ghostHandle.mount.innerHTML = "";
+        ghostHandle.mount = null;
     }
 
     /* -------------------- input UX -------------------- */
@@ -547,6 +658,178 @@
         });
     }
 
+    /* -------------------- pen animation primitives --------------------
+       Contract from the flows side, already emitted today:
+         - every path carries pathLength="1"
+         - every <g> carries data-beat (0..6) and data-role
+       When data-node-id lands, all three attributes coexist.
+       Reduced motion is handled at CSS + the primitives via prefersReduced(). */
+
+    function prefersReduced() {
+        return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+
+    // Prime every path in the given root: dasharray/dashoffset ready to be
+    // released. Labels (text/tspan) get opacity 0, ready to fade in.
+    function primePenPaths(root) {
+        var paths = root.querySelectorAll("path[pathLength], path");
+        Array.prototype.forEach.call(paths, function (p) {
+            // Rects and circles that carry stroke also get the dashoffset trick
+            // via CSS; we prime path specifically since that is the majority case.
+            p.style.strokeDasharray = "1";
+            p.style.strokeDashoffset = "1";
+            p.style.transition = "none";
+        });
+        var labels = root.querySelectorAll("text, tspan");
+        Array.prototype.forEach.call(labels, function (t) {
+            t.style.opacity = "0";
+            t.style.transition = "none";
+        });
+    }
+
+    // Release one path with the pen effect at a scheduled delay.
+    function penReveal(pathEl, delayMs, durationMs) {
+        setTimeout(function () {
+            pathEl.style.transition = "stroke-dashoffset " + durationMs + "ms cubic-bezier(.4, 0, .2, 1)";
+            pathEl.style.strokeDashoffset = "0";
+        }, delayMs);
+    }
+    // Release one label with fade.
+    function labelReveal(textEl, delayMs, durationMs) {
+        setTimeout(function () {
+            textEl.style.transition = "opacity " + durationMs + "ms ease-out";
+            textEl.style.opacity = "1";
+        }, delayMs);
+    }
+
+    // Play one beat: stagger paths inside its <g> by BEAT_STAGGER_MS,
+    // fade labels LABEL_DELAY_MS after their path begins.
+    function playBeat(groupEl, startAtMs, durationMs) {
+        var paths = groupEl.querySelectorAll("path");
+        var labels = groupEl.querySelectorAll("text");
+        Array.prototype.forEach.call(paths, function (p, i) {
+            penReveal(p, startAtMs + i * BEAT_STAGGER_MS, durationMs || BEAT_STROKE_MS);
+        });
+        // Labels arrive just behind the first path in their group.
+        Array.prototype.forEach.call(labels, function (t, i) {
+            labelReveal(t, startAtMs + LABEL_DELAY_MS + i * BEAT_STAGGER_MS, LABEL_FADE_MS);
+        });
+    }
+
+    // Play the full BEATS schedule against a mounted SVG.
+    // For reduced motion, snap every path/label to final state immediately.
+    function playBeatsAgainst(svgRoot) {
+        var beatGroups = {};
+        svgRoot.querySelectorAll("g[data-beat]").forEach(function (g) {
+            var idx = parseInt(g.getAttribute("data-beat"), 10);
+            if (isNaN(idx)) return;
+            (beatGroups[idx] = beatGroups[idx] || []).push(g);
+        });
+
+        if (prefersReduced()) {
+            svgRoot.querySelectorAll("path").forEach(function (p) {
+                p.style.transition = "none";
+                p.style.strokeDashoffset = "0";
+            });
+            svgRoot.querySelectorAll("text, tspan").forEach(function (t) {
+                t.style.transition = "none";
+                t.style.opacity = "1";
+            });
+            return BEATS.reduce(function (acc, pair) { return acc + pair[1]; }, 0);
+        }
+
+        var elapsed = 0;
+        BEATS.forEach(function (pair) {
+            var idx = pair[0], nextGap = pair[1];
+            var groups = beatGroups[idx] || [];
+            groups.forEach(function (g) {
+                playBeat(g, elapsed, BEAT_STROKE_MS);
+            });
+            elapsed += nextGap;
+        });
+        return elapsed;
+    }
+
+    // GROWTH: fade in / draw a single new node with the pen effect on a
+    // compressed schedule (220ms per node, staggered 140ms apart).
+    function growNode(groupEl, orderIndex) {
+        primePenPaths(groupEl);
+        var startAt = orderIndex * GROWTH_STAGGER_MS;
+        if (prefersReduced()) {
+            groupEl.querySelectorAll("path").forEach(function (p) {
+                p.style.transition = "none";
+                p.style.strokeDashoffset = "0";
+            });
+            groupEl.querySelectorAll("text, tspan").forEach(function (t) {
+                t.style.transition = "none";
+                t.style.opacity = "1";
+            });
+            return;
+        }
+        var paths = groupEl.querySelectorAll("path");
+        var labels = groupEl.querySelectorAll("text");
+        Array.prototype.forEach.call(paths, function (p, i) {
+            penReveal(p, startAt + i * 40, GROWTH_STROKE_MS);
+        });
+        Array.prototype.forEach.call(labels, function (t, i) {
+            labelReveal(t, startAt + LABEL_DELAY_MS + i * 40, LABEL_FADE_MS);
+        });
+    }
+
+    /* -------------------- THINKING loop (during /forte-draw fetch) --------------------
+       A single gentle bezier wander, ink color, opacity .4, stroke-width 1.5.
+       Draws 900ms, holds 200ms, erases 600ms, loops until the SVG mounts.
+       Removed instantly on mount (no crossfade). Never renders under reduced
+       motion; the canvas simply stays empty during the fetch. */
+    var thinkingHandle = { svg: null, timer: null };
+    function startThinking(canvasMount) {
+        stopThinking(canvasMount);
+        if (prefersReduced()) return;
+        var NS = "http://www.w3.org/2000/svg";
+        var svg = document.createElementNS(NS, "svg");
+        svg.setAttribute("viewBox", "0 0 340 240");
+        svg.setAttribute("class", "askf-thinking");
+        svg.setAttribute("aria-hidden", "true");
+        var p = document.createElementNS(NS, "path");
+        p.setAttribute("d", "M60 130 C 100 90, 160 170, 200 120 S 280 140, 300 110");
+        p.setAttribute("fill", "none");
+        p.setAttribute("stroke", "currentColor");
+        p.setAttribute("stroke-width", "1.5");
+        p.setAttribute("stroke-linecap", "round");
+        p.setAttribute("pathLength", "1");
+        p.style.opacity = "0.4";
+        p.style.color = "currentColor";
+        p.style.strokeDasharray = "1";
+        p.style.strokeDashoffset = "1";
+        svg.appendChild(p);
+        canvasMount.appendChild(svg);
+        thinkingHandle.svg = svg;
+
+        function draw() {
+            p.style.transition = "stroke-dashoffset 900ms ease-out";
+            p.style.strokeDashoffset = "0";
+            thinkingHandle.timer = setTimeout(hold, 900);
+        }
+        function hold() {
+            thinkingHandle.timer = setTimeout(erase, 200);
+        }
+        function erase() {
+            p.style.transition = "stroke-dashoffset 600ms ease-in";
+            p.style.strokeDashoffset = "1";
+            thinkingHandle.timer = setTimeout(function () {
+                if (thinkingHandle.svg === svg) draw();
+            }, 600);
+        }
+        requestAnimationFrame(draw);
+    }
+    function stopThinking(canvasMount) {
+        if (thinkingHandle.timer) { clearTimeout(thinkingHandle.timer); thinkingHandle.timer = null; }
+        if (thinkingHandle.svg && thinkingHandle.svg.parentNode) {
+            thinkingHandle.svg.parentNode.removeChild(thinkingHandle.svg);
+        }
+        thinkingHandle.svg = null;
+    }
+
     /* -------------------- canvas diff engine --------------------
        Contract with flows: every <g> in returned SVG carries data-node-id
        stable across redraws for the same logical node, and data-role for
@@ -556,8 +839,10 @@
         if (!LIVE) return;
         attempt = attempt || 0;
         var canvas = $("askf-canvas"); if (!canvas) return;
+        var mount = canvas.querySelector(".askf-canvas-mount");
         var status = $("askf-canvas-status");
         if (status) status.textContent = "";
+        if (mount) startThinking(mount);
 
         fetch(DRAW, {
             method: "POST",
@@ -567,6 +852,7 @@
             if (!r.ok) throw new Error("draw " + r.status);
             return r.json();
         }).then(function (data) {
+            if (mount) stopThinking(mount);
             if (!data) throw new Error("no payload");
             if (data.unchanged) { /* silent no-op; no change budget decrement */ return; }
             if (!data.sketch_svg) throw new Error("no svg");
@@ -582,6 +868,7 @@
             if (remainingChanges() <= KEEP_UNLOCK_AT && !session.keepUnlocked) openKeepMoment(false);
             if (session.changeCount >= ALLOWANCE_MESSAGES) closeSession();
         }).catch(function () {
+            if (mount) stopThinking(mount);
             if (attempt < 1) {
                 if (status) status.textContent = COPY.draw_stalled_status;
                 setTimeout(function () { drawCanvas(attempt + 1); }, 800);
@@ -594,7 +881,9 @@
     }
 
     /* Parse incoming SVG string, honor data-node-id keep-position semantics.
-       Returns true if the canvas visibly changed. */
+       Returns true if the canvas visibly changed. First-mount plays the full
+       BEATS schedule against the incoming SVG (the wow beat). Subsequent
+       redraws only touch changed nodes and never re-animate kept ones. */
     function applyDiff(canvas, svgString) {
         var mount = canvas.querySelector(".askf-canvas-mount");
         if (!mount) return false;
@@ -609,40 +898,38 @@
         var allGroups = newSvg.querySelectorAll("g");
         var contractHonored = incomingGroups.length > 0 && incomingGroups.length === allGroups.length;
 
+        var existingSvg = mount.querySelector("svg");
+
         if (!contractHonored) {
-            if (window.console) console.warn("[askf] SVG missing stable data-node-id on all <g>; falling back to full replace");
+            // Fallback path: page ships correct today; the pen effect still
+            // plays via data-beat groups. Diff engine lights up when flows
+            // patch lands and every <g> carries data-node-id.
+            if (window.console) console.warn("[askf] SVG missing stable data-node-id on all <g>; using data-beat replay without diff");
             mount.innerHTML = "";
             mount.appendChild(newSvg);
+            primePenPaths(newSvg);
+            playBeatsAgainst(newSvg);
             canvasNodes = {};
-            incomingGroups.forEach(function (g) {
-                var id = g.getAttribute("data-node-id");
-                canvasNodes[id] = { role: g.getAttribute("data-role") || "" };
+            newSvg.querySelectorAll("g[data-node-id]").forEach(function (g) {
+                canvasNodes[g.getAttribute("data-node-id")] = { role: g.getAttribute("data-role") || "" };
             });
             return true;
         }
 
-        // Diff path: preserve existing <g data-node-id> positions, fade in new,
-        // fade out gone. Edges are children of an outer <g> or top-level — we
-        // treat any element with data-node-id as a node candidate.
-        var existingSvg = mount.querySelector("svg");
-        var visiblyChanged = false;
-
+        // FIRST MOUNT: paper is empty. Install the SVG, prime paths, play the
+        // full BEATS schedule. This is the wow beat.
         if (!existingSvg) {
             mount.innerHTML = "";
             mount.appendChild(newSvg);
-            var installed = Array.prototype.slice.call(newSvg.querySelectorAll("g[data-node-id]"));
-            installed.forEach(function (g) {
-                g.style.opacity = "0";
-                requestAnimationFrame(function () {
-                    g.style.transition = "opacity 500ms ease-out";
-                    g.style.opacity = "1";
-                });
+            primePenPaths(newSvg);
+            playBeatsAgainst(newSvg);
+            incomingGroups.forEach(function (g) {
                 canvasNodes[g.getAttribute("data-node-id")] = { role: g.getAttribute("data-role") || "" };
             });
-            return installed.length > 0;
+            return incomingGroups.length > 0;
         }
 
-        // Diff: index existing groups by node id
+        // GROWTH: index existing groups by node id.
         var existingGroups = Array.prototype.slice.call(existingSvg.querySelectorAll("g[data-node-id]"));
         var existingById = {};
         existingGroups.forEach(function (g) { existingById[g.getAttribute("data-node-id")] = g; });
@@ -650,49 +937,79 @@
         var incomingIds = {};
         incomingGroups.forEach(function (g) { incomingIds[g.getAttribute("data-node-id")] = true; });
 
-        // 1. Remove groups that disappeared
+        var visiblyChanged = false;
+
+        // 1. Remove groups that disappeared. Fade over REMOVE_FADE_MS then unmount.
         Object.keys(existingById).forEach(function (id) {
             if (!incomingIds[id]) {
                 var g = existingById[id];
-                g.style.transition = "opacity 300ms ease-out";
+                g.style.transition = "opacity " + REMOVE_FADE_MS + "ms ease-out";
                 g.style.opacity = "0";
-                setTimeout(function () { if (g.parentNode) g.parentNode.removeChild(g); }, 320);
+                setTimeout(function () { if (g.parentNode) g.parentNode.removeChild(g); }, REMOVE_FADE_MS + 20);
                 delete canvasNodes[id];
                 visiblyChanged = true;
             }
         });
 
-        // 2. Update / add. Replace SVG root attributes (viewBox etc) to match new.
+        // 2. Update / add. Refresh viewBox on the mounted SVG if it changed.
         var viewBox = newSvg.getAttribute("viewBox");
         if (viewBox && existingSvg.getAttribute("viewBox") !== viewBox) existingSvg.setAttribute("viewBox", viewBox);
 
+        // Separate edges (data-role="edge" or elements ONLY referencing endpoints)
+        // from nodes. Per spec: an edge animates only once BOTH its endpoints
+        // exist and are drawn. We identify edges heuristically by data-role or
+        // presence of data-from + data-to attributes.
+        var newNodes = [];
+        var newEdges = [];
+        incomingGroups.forEach(function (g) {
+            var id = g.getAttribute("data-node-id");
+            if (existingById[id]) return;    // handled below in the update pass
+            var role = g.getAttribute("data-role") || "";
+            var from = g.getAttribute("data-from");
+            var to = g.getAttribute("data-to");
+            if (role === "edge" || (from && to)) newEdges.push(g);
+            else newNodes.push(g);
+        });
+
+        // Update kept nodes: refresh contents in place, no re-animation.
         incomingGroups.forEach(function (g) {
             var id = g.getAttribute("data-node-id");
             var role = g.getAttribute("data-role") || "";
-            if (existingById[id]) {
-                // Keep position: only refresh label content, do not re-animate.
-                // If content diff is non-trivial (role changed or child count differs),
-                // we still keep its position but swap its inner markup.
-                var prev = existingById[id];
-                var prevRole = prev.getAttribute("data-role") || "";
-                if (prev.innerHTML !== g.innerHTML || prevRole !== role) {
-                    prev.innerHTML = g.innerHTML;
-                    prev.setAttribute("data-role", role);
-                    canvasNodes[id] = { role: role };
-                    visiblyChanged = true;
-                }
-            } else {
-                // New node: append with a fade-in beat.
-                var clone = g.cloneNode(true);
-                clone.style.opacity = "0";
-                existingSvg.appendChild(clone);
-                requestAnimationFrame(function () {
-                    clone.style.transition = "opacity 500ms ease-out";
-                    clone.style.opacity = "1";
-                });
+            var prev = existingById[id];
+            if (!prev) return;
+            var prevRole = prev.getAttribute("data-role") || "";
+            if (prev.innerHTML !== g.innerHTML || prevRole !== role) {
+                prev.innerHTML = g.innerHTML;
+                prev.setAttribute("data-role", role);
                 canvasNodes[id] = { role: role };
                 visiblyChanged = true;
             }
+        });
+
+        // Add new nodes with GROWTH pen effect, staggered by GROWTH_STAGGER_MS.
+        newNodes.forEach(function (g, i) {
+            var clone = g.cloneNode(true);
+            existingSvg.appendChild(clone);
+            growNode(clone, i);
+            canvasNodes[g.getAttribute("data-node-id")] = { role: g.getAttribute("data-role") || "" };
+            visiblyChanged = true;
+        });
+
+        // Add new edges only when BOTH endpoints are on canvas (kept or freshly grown).
+        // The node draw runs newNodes.length * GROWTH_STAGGER_MS + GROWTH_STROKE_MS,
+        // so we delay edges until after the last node completes drawing.
+        var edgeDelayBase = newNodes.length * GROWTH_STAGGER_MS + GROWTH_STROKE_MS;
+        newEdges.forEach(function (g, i) {
+            var from = g.getAttribute("data-from");
+            var to = g.getAttribute("data-to");
+            var endpointsExist = (!from || canvasNodes[from] || incomingIds[from]) &&
+                                 (!to || canvasNodes[to] || incomingIds[to]);
+            if (!endpointsExist) return;    // silently skip; server should not have emitted this
+            var clone = g.cloneNode(true);
+            existingSvg.appendChild(clone);
+            setTimeout(function () { growNode(clone, i); }, edgeDelayBase);
+            canvasNodes[g.getAttribute("data-node-id")] = { role: g.getAttribute("data-role") || "" };
+            visiblyChanged = true;
         });
 
         return visiblyChanged;
