@@ -49,8 +49,8 @@
        Banned: em dashes, rule-of-three lists, contrast framing,
        Latin abbreviations, "napkin", "sketch", any dollar sign. */
     var COPY = {
-        opener: "What is going on in your business right now. Explain it your way and I will draw how it would work.",
-        placeholder_long: "Start anywhere. Rambling is fine.",
+        opener: "What is going on in your business right now. Explain it your way and I will map out how it would work.",
+        placeholder_long: "Start anywhere.",
         placeholder_med: "Start anywhere.",
         placeholder_short: "Start anywhere.",
         capped_placeholder: "That is my free brain for today.",
