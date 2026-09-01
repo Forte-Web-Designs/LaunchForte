@@ -23,14 +23,10 @@
       #0A0A0A;
     color: #FFFFFF;
     overflow: hidden;
-    /* Real black space below the stats + room for the fade to sit lower.
-       Ask Forte peeks through the very bottom of the fade (see negative
-       margin-top on the first pane child below). */
+    /* Real black space below the CTAs + room for the fade to sit lower. */
     padding-bottom: 6rem;
 }
-/* Comfortable gap between hero and first pane section. Homepage overrides
-   inline to pull Ask Forte up into the fade (that's its specific "peek"
-   composition). Other pages keep this generous default. */
+/* Comfortable gap between hero and first pane section. */
 main.studio-pane.hero-follows > :first-child { margin-top: 0 !important; padding-top: 3rem; position: relative; z-index: 2; }
 main.studio-pane.hero-follows { margin-top: 0; padding-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
 main.studio-pane.hero-follows::before { display: none; }

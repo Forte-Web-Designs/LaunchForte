@@ -18,17 +18,6 @@
        url('/fonts/Mona-Sans.var.woff2') format('woff2');
 }
 
-/* Patrick Hand: only used by the Ask Forte sample drawings so their text
-   renders in the same face the live renderer stamps. Google Fonts Latin
-   subset, OFL, ~14KB. */
-@font-face {
-  font-family: 'Patrick Hand';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/PatrickHand-Regular.woff2') format('woff2');
-}
-
 /* ============================================================
    2. Tokens — the ONLY color: monochrome + one accent (canonical blue)
    ============================================================ */
