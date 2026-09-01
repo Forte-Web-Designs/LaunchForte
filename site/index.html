@@ -905,17 +905,6 @@
         </div>
     </section>
 
-    <!-- 3.5 ABOUT VIDEO — YouTube welcome video, autoplay muted with unmute button -->
-    <section class="studio-container studio-section" style="padding-top:0;">
-        <div class="about-us-video-wrap studio-reveal" style="position:relative;">
-            <div id="about-video-player"></div>
-            <button type="button" class="about-video-unmute" aria-label="Unmute video">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                <span>Tap to unmute</span>
-            </button>
-        </div>
-    </section>
-
     <!-- 4. HOW WE WORK — three engagements. Prices removed sitewide 2026-08-06;
          the /pricing page was retired at the same time and 301s to /contact.html.
          Now sits below proof (previously above it). -->
@@ -926,17 +915,17 @@
         </div>
         <div class="engage-grid studio-reveal-stagger">
             <div class="service-card studio-reveal" id="audit">
-                <h3>01 Audit</h3>
+                <h3>1. Audit</h3>
                 <p>We find what's costing you customers and put a number on it. It credits toward your first build.</p>
                 <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-primary">Book the Audit</a>
             </div>
             <div class="service-card studio-reveal" id="core-systems-build">
-                <h3>02 Build</h3>
+                <h3>2. Build</h3>
                 <p>The system the audit points to, built and tested on real data, shipped in 7 to 21 days.</p>
                 <a href="/contact.html" class="studio-btn studio-btn-primary">Contact Us</a>
             </div>
             <div class="service-card studio-reveal" id="partnership">
-                <h3>03 Partnership</h3>
+                <h3>3. Partnership</h3>
                 <p>We stay at the table after launch, with a monthly review and a result you can read in dollars.</p>
                 <a href="/contact.html" class="studio-btn studio-btn-primary">Contact Us</a>
             </div>
@@ -1059,41 +1048,6 @@
 </main>
 
 <script>
-// Welcome to Launch Forte video (YouTube IFrame API): autoplay muted, prominent unmute button
-(function(){
-    var slot = document.getElementById('about-video-player');
-    var btn = document.querySelector('.about-video-unmute');
-    if (!slot || !btn) return;
-
-    // Load the YouTube IFrame API once
-    if (!window.YT || !window.YT.Player) {
-        var tag = document.createElement('script');
-        tag.src = 'https://www.youtube.com/iframe_api';
-        document.head.appendChild(tag);
-    }
-
-    var player = null;
-    window.onYouTubeIframeAPIReady = function(){
-        player = new YT.Player('about-video-player', {
-            videoId: 'aIPT16f4oK8',
-            playerVars: {
-                autoplay: 1, mute: 1, controls: 1, modestbranding: 1,
-                rel: 0, playsinline: 1, loop: 1, playlist: 'aIPT16f4oK8'
-            },
-            events: {
-                onReady: function(e){ try { e.target.mute(); e.target.playVideo(); } catch(_){} }
-            }
-        });
-    };
-
-    btn.addEventListener('click', function(){
-        if (player && typeof player.unMute === 'function') {
-            try { player.unMute(); player.setVolume(100); player.playVideo(); } catch(_){}
-        }
-        btn.classList.add('is-hidden');
-    });
-})();
-
 // FAQ accordion: toggle open, aria-expanded; all closed by default
 (function(){
     document.querySelectorAll('.faq-q').forEach(function(btn){
