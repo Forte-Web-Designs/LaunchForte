@@ -18,9 +18,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Launch Forte | Business Automation and Revenue Systems, Built and Run">
     <meta name="twitter:description" content="Launch Forte builds and runs the revenue and operations systems your business runs on, the CRM, automation, funnels, and reporting. Built for coaches, service businesses, and financial firms.">
-    <link rel="stylesheet" href="/studio.css?v=q2j">
-    <link rel="stylesheet" href="/ask-forte.css?v=q2j">
-    <script src="/studio-theme.js?v=q2j"></script>
+    <link rel="stylesheet" href="/studio.css?v=q3a">
+    <script src="/studio-theme.js?v=q3a"></script>
     <!-- GTM -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <!-- Schema: ProfessionalService (superset of Organization + LocalBusiness) -->
@@ -217,7 +216,7 @@
         .hero-nav #studio-theme-toggle:not(.scrolled) { color: #FFFFFF !important; border-color: rgba(255,255,255,0.24) !important; }
         .hero-nav #studio-theme-toggle:not(.scrolled):hover { color: var(--accent) !important; border-color: var(--accent) !important; }
 
-        /* Hero content: eyebrow + gradient H1 + Ask Forte field + stats.
+        /* Hero content: eyebrow + gradient H1 + CTA row + tools line.
            Centered block, 960px cap so the composition reads as one focal
            unit sitting over the video (not two panes side-by-side). */
         .hero-content { position: relative; z-index: 20; padding: 6rem 0 3rem; }
@@ -265,58 +264,6 @@
             display: inline-block;
             transition: opacity 0.3s ease;
         }
-
-        /* Ask Forte field: paper field on dark ground */
-        .ask-forte-hero {
-            display: flex; align-items: center; gap: 0.5rem;
-            background: #FFFFFF;
-            border-radius: 999px;
-            padding: 0.5rem 0.5rem 0.5rem 1rem;
-            max-width: 640px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.35);
-            margin: 0 0 1rem;
-        }
-        .ask-forte-hero input {
-            flex: 1;
-            border: 0;
-            background: transparent;
-            font-family: inherit;
-            font-size: var(--text-base);
-            color: var(--ink);
-            padding: 0.65rem 0.35rem;
-            outline: none;
-            min-width: 0;
-        }
-        .ask-forte-hero input::placeholder { color: var(--n-500); }
-        .ask-mic {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 38px; height: 38px;
-            background: transparent;
-            border: 1px solid var(--border-strong);
-            border-radius: 50%;
-            color: var(--ink);
-            cursor: pointer;
-            padding: 0;
-            flex: none;
-            transition: border-color var(--dur-hover) var(--ease-out), color var(--dur-hover);
-        }
-        .ask-mic:hover { border-color: var(--accent); color: var(--accent); }
-        .ask-mic svg { width: 18px; height: 18px; display: block; }
-        .ask-submit {
-            display: inline-flex; align-items: center; justify-content: center;
-            padding: 0.75rem 1.5rem;
-            background: var(--accent);
-            color: #FFFFFF;
-            border: 0;
-            border-radius: 999px;
-            font-family: inherit;
-            font-weight: 700;
-            font-size: var(--text-sm);
-            cursor: pointer;
-            flex: none;
-            transition: transform var(--dur-hover) var(--ease-out), background var(--dur-hover);
-        }
-        .ask-submit:hover { transform: translateY(-1px); background: var(--accent-hover); color: #FFFFFF; }
 
         /* Hero sub — muted paragraph between H1 and CTAs */
         .hero-sub {
@@ -419,62 +366,6 @@
         }
         .hero-btn:hover .hero-btn-arrow { transform: translateX(3px); }
 
-        /* ============================================================
-           SECTION 9 + 10 + 11.1: Ask Forte section (in the paper pane)
-           ============================================================ */
-        .askf-intro { text-align: center; max-width: 780px; margin: 0 auto var(--sp-10); }
-        .askf-intro .studio-h2 { margin: 0.75rem auto 0; }
-        .askf-intro .studio-lead { color: var(--n-600); }
-
-        /* Ghost napkin — the wow, zero API calls. Runbook: canvas starts
-           EMPTY paper only, elements appear as the pen reaches them, in
-           strict order. JS drives the loop and swaps between two canned
-           samples. */
-        .ghost-napkin { max-width: 720px; margin: 0 auto var(--sp-10); }
-        .ghost-frame { position: relative; background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-3xl); padding: 1.5rem 1.5rem 1.75rem; box-shadow: 0 8px 30px rgba(10,10,10,0.05); }
-        .ghost-label { position: absolute; top: 0.9rem; right: 1.25rem; font-size: 11px; color: var(--n-500); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; opacity: 0; transition: opacity 400ms ease-out; }
-        .ghost-frame.gh-active .ghost-label { opacity: 1; }
-        .ghost-thread { display: flex; flex-direction: column; gap: 0.65rem; margin: 0.5rem 0 1.25rem; min-height: 90px; }
-        .ghost-bubble { padding: 0.6rem 0.85rem; border-radius: 14px; font-size: 0.9375rem; line-height: 1.45; max-width: 82%; opacity: 0; transition: opacity 300ms ease-out; }
-        .ghost-bubble.gh-visible { opacity: 1; }
-        .ghost-bubble-user { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 4px; }
-        .ghost-bubble-bot { align-self: flex-start; background: var(--n-100); color: var(--ink); border-bottom-left-radius: 4px; }
-        .ghost-caret { display: inline-block; width: 2px; height: 1.05em; background: currentColor; vertical-align: middle; margin-left: 2px; animation: gh-caret 900ms steps(2) infinite; }
-        .ghost-caret.gh-off { opacity: 0; animation: none; }
-        /* Frame fade between canned samples */
-        .ghost-frame { transition: opacity 500ms ease-out; }
-        .ghost-frame.gh-fading { opacity: 0.3; }
-        @keyframes gh-caret { 50% { opacity: 0; } }
-        /* Canvas + drawable elements: no CSS gating. JS sets initial opacity:0
-           inline on every element it creates, then flips to 1 on the beat.
-           If JS never runs, everything has default opacity:1 and renders
-           the finished sample as a visible fallback. */
-        .ghost-sketch-wrap { background: var(--paper-2); border-radius: var(--radius-2xl); padding: 1rem; min-height: 200px; }
-        .ghost-sketch { width: 100%; height: auto; display: block; max-height: 260px; }
-        .ghost-sketch .g-node,
-        .ghost-sketch .g-decide,
-        .ghost-sketch .g-line,
-        .ghost-sketch .g-label,
-        .ghost-sketch .g-scar { transition: opacity 500ms ease-out; }
-        .ghost-sketch .g-line { transition: opacity 250ms ease-out, stroke-dashoffset 700ms ease-out; }
-        @media(prefers-reduced-motion: reduce) {
-          .ghost-caret { animation: none; opacity: 0; }
-        }
-
-        /* Ask Forte massive bar + composer styles live in /ask-forte.css.
-           The shared partial replaces the old .askf-bar form pattern. */
-
-        /* Three-beat promise strip */
-        .askf-promise { list-style: none; margin: 1.5rem auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 2rem; max-width: 820px; color: var(--n-600); font-size: var(--text-sm); font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; }
-        .askf-promise li { display: inline-flex; align-items: center; gap: 0.5rem; }
-        .askf-arrow { display: inline-block; font-size: 1.15em; color: var(--accent); transform: rotate(15deg); }
-
-        /* Compressed tools line */
-        .askf-tools-line { margin: 2rem auto 0; text-align: center; color: var(--n-500); font-size: var(--text-sm); }
-        .askf-tools-line a { color: var(--accent); font-weight: 600; }
-
-        /* Ask Forte partial styles moved to /ask-forte.css (loaded in <head>). */
-
         /* WHO WE BUILD FOR one-liner (Section 11.3) */
         .who-line { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.5rem, 3.2vw, 2rem); line-height: 1.25; letter-spacing: -0.02em; color: var(--ink); margin: 1rem 0 0; max-width: 900px; }
         .who-line a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 0.2em; transition: color var(--dur-hover); }
@@ -575,6 +466,13 @@
         /* How to engage: three service cards */
         .engage-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: var(--sp-16); }
         @media(min-width: 900px) { .engage-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; } }
+
+        /* What We Build: scannable 7-item list. Each row is: strong noun colon short outcome. */
+        .wwb-list { list-style: none; margin: var(--sp-10) 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.85rem; max-width: 820px; }
+        .wwb-list li { display: flex; align-items: baseline; gap: 0.8rem; padding: 1rem 1.15rem; background: var(--paper); border: 1px solid var(--border); border-radius: 12px; font-size: 1rem; line-height: 1.5; color: var(--n-700); }
+        .wwb-list li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-tint, rgba(0,136,219,0.10)); flex: none; align-self: center; }
+        .wwb-list strong { color: var(--ink); font-weight: 600; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); }
+        .wwb-summary { margin: var(--sp-8) 0 0; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1.0625rem; line-height: 1.55; color: var(--ink); font-weight: 500; max-width: 720px; }
         .service-card { display: flex; flex-direction: column; padding: 2rem; background: var(--paper); border-radius: var(--radius-3xl); box-shadow: inset 0 0 0 1px var(--border); transition: background var(--dur-hover) var(--ease-out), transform var(--dur-hover); }
         .service-card:hover { background: var(--n-50); transform: translateY(-2px); }
         .service-card h3 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: var(--text-2xl); color: var(--ink); margin: 0 0 1rem; letter-spacing: -0.015em; }
@@ -721,19 +619,6 @@
           .hero-stat-label { font-size: 10px; letter-spacing: 0.08em; margin-bottom: 0.5rem; line-height: 1.2; min-height: calc(1.2em * 2); display: flex; align-items: flex-end; justify-content: center; }
           .hero-stat-value { font-size: 1.25rem !important; }
 
-          /* Ask bar: full width, comfortable height, 44px+ Ask button */
-          .askf-bar { padding: 0.5rem 0.5rem 0.5rem 0.85rem; }
-          .askf-mic { width: 40px; height: 40px; }
-          .askf-mic svg { width: 18px; height: 18px; }
-          .askf-bar input { font-size: var(--text-base); padding: 0.75rem 0.35rem; }
-          .askf-submit { min-height: 44px; padding: 0.75rem 1.35rem; }
-        }
-
-        @media(max-width: 480px) {
-          /* Ask bar: swap placeholder to the short mobile variant via CSS trick.
-             We hide the real placeholder attribute value visually and use a
-             ::before with the mobile string when the input is empty. But real
-             `placeholder` swap needs JS — see the small script at page bottom. */
         }
     </style>
 </head>
@@ -757,9 +642,8 @@
             <!-- header-nav is cloned into the hamburger overlay by hamburger.js; hidden on the header itself -->
             <nav class="header-nav" aria-label="Primary" style="display:none">
                 <a href="/index.html" class="active">Home</a>
-                <a href="/what-we-build.html">What We Build</a>
-                <a href="/results.html">Results</a>
-                <a href="/tools">Free Tools</a>
+                <a href="/what-we-build.html">Services</a>
+                <a href="/#who-we-build-for">Who We Build For</a>
                 <a href="/about.html">About</a>
                 <a href="/contact.html">Contact</a>
             </nav>
@@ -772,10 +656,10 @@
          Bottom fade dissolves the dark hero into the white pane below. -->
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
 
-    <!-- Hero content: H1, quiet CTA pair, stats row.
-         Section 9 supersedes the hero field: the massive Ask Forte bar lives
-         at the top of the pane below. The hero's primary action becomes a
-         scroll cue into that bar. -->
+    <!-- Hero content: H1, subhead, CTA pair, tertiary link, tools row.
+         Primary CTA opens Calendly for the Audit. Ghost scrolls to How We Work.
+         Tertiary link jumps to What We Do for anyone who wants a plain-English
+         explanation before booking. -->
     <div class="hero-content">
         <div class="hero-content-inner">
             <!-- Hero H1 — sethforte pattern verbatim: title case, single <br>,
@@ -788,18 +672,15 @@
             <p class="hero-sub">We build and run the automation behind growing businesses.</p>
 
             <div class="hero-cta-row">
-                <a href="#ask-forte" class="hero-btn hero-btn-primary" data-gtm-event="homepage_hero_ask_link">Ask Forte</a>
-                <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="hero-btn hero-btn-ghost" data-gtm-event="homepage_hero_audit_link">
-                    Book the Audit
+                <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="hero-btn hero-btn-primary" data-gtm-event="homepage_hero_audit_link">Book the Audit</a>
+                <a href="#how-we-work" class="hero-btn hero-btn-ghost" data-gtm-event="homepage_hero_see_how_link">
+                    See how it works
                     <span class="hero-btn-arrow" aria-hidden="true">&rarr;</span>
                 </a>
             </div>
 
-            <!-- Tertiary hero link: quiet third option for someone not ready to
-                 click either button. Points at Our Services (the plain-English
-                 explanation of what "systems" actually means). -->
             <div class="hero-tertiary-row">
-                <a href="/what-we-build.html" class="hero-tertiary-link" data-gtm-event="homepage_hero_what_this_means">What this actually means <span class="arrow" aria-hidden="true">&rarr;</span></a>
+                <a href="#what-we-do" class="hero-tertiary-link" data-gtm-event="homepage_hero_what_this_means">What this actually means <span class="arrow" aria-hidden="true">&rarr;</span></a>
             </div>
 
             <!-- Tools row: one muted line under the CTA pair, dot-separated, no logos.
@@ -813,73 +694,8 @@
 
 <main class="studio-pane hero-follows">
 
-    <!-- 2. ASK FORTE (Sections 9, 10, 11.1)
-         The white pane opens with Ask Forte as its first section. Ghost napkin
-         above the massive bar shows a stranger exactly what typing buys, with
-         zero API calls. Bar submits to /ask?q=<message> for prefill (the LIVE
-         flag governs whether the pane-mount conversation happens in place; for
-         now this is prefill-only). The old PLAY section retires per Section
-         11.1; the tools compress to one quiet line beneath the bar. -->
-    <section class="studio-container studio-section" id="ask-forte" style="scroll-margin-top:1rem">
-        <div class="askf-intro studio-reveal">
-            <p class="studio-eyebrow">Ask Forte</p>
-            <h2 class="studio-h2">Tell me what is going wrong. I will map out how it would work.</h2>
-        </div>
 
-        <!-- ============================================================
-             ASK FORTE v2 HOMEPAGE MOUNT (full inline surface).
-             Conversation runs here. /ask/ retires as a separate page.
-             ============================================================ -->
-        <div class="askf-layout studio-reveal">
-
-            <div class="askf-canvas-pane" id="askf-canvas">
-                <div class="askf-canvas-head">How it would work</div>
-                <div class="askf-canvas">
-                    <div class="askf-canvas-mount" aria-label="A live drawing of the system"></div>
-                </div>
-                <div class="askf-canvas-status" id="askf-canvas-status" aria-live="polite"></div>
-                <div class="askf-parts" id="askf-parts" aria-live="polite"></div>
-                <div class="askf-proof" id="askf-proof"></div>
-            </div>
-
-            <div class="askf-chat" id="askf-chat">
-
-                <div class="askf-holding askf-hide" id="askf-holding">
-                    <h2>Ask Forte is warming up.</h2>
-                    <p>The flows behind it land shortly.</p>
-                </div>
-
-                <div class="askf-log" id="askf-log" role="log" aria-live="polite" aria-label="Conversation with Ask Forte"></div>
-
-                <div class="askf-composer askf-composer-imsg" id="askf-composer">
-                    <div class="askf-input-row">
-                        <textarea class="askf-input" id="askf-input" placeholder="Type here." rows="1" maxlength="1000" aria-label="Your message to Ask Forte" autocomplete="off" spellcheck="true"></textarea>
-                        <button type="button" class="askf-mic" id="askf-mic" aria-label="Speak your message">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-                        </button>
-                        <button type="button" class="askf-send askf-send-imsg" id="askf-send" aria-label="Send message" disabled>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-                        </button>
-                    </div>
-                    <div class="askf-meta-row">
-                        <span class="askf-charcount" id="askf-charcount">0 / 1000</span>
-                        <span class="askf-allowance" id="askf-allowance"></span>
-                    </div>
-                </div>
-
-                <div class="askf-gate" id="askf-gate">
-                    <div class="askf-input-row">
-                        <input type="email" class="askf-gate-input" id="askf-gate-email" placeholder="you@company.com" aria-label="Your email" autocomplete="email" required>
-                        <button type="button" class="askf-send" id="askf-gate-send">Send it to me</button>
-                    </div>
-                    <p class="askf-gate-msg" id="askf-gate-msg"></p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. WHAT WE DO (previously "The whole engine"). Copy rewritten per the
+    <!-- 1. WHAT WE DO (previously "The whole engine"). Copy rewritten per the
          clarity pass; the engine SVG stays because it illustrates exactly the
          Found -> Captured -> Converted -> Paid flow this copy names. -->
     <section class="studio-container studio-section" id="what-we-do">
@@ -890,8 +706,8 @@
             <div class="engine-copy studio-reveal">
                 <p class="studio-eyebrow">What we do</p>
                 <h2 class="studio-h2">We connect the systems your business already runs on.</h2>
-                <p class="sub">Leads sitting in an inbox nobody checks. Invoices that don't match what you actually billed. The follow up that went out six hours late. Five dashboards and still no answer on whether the week was good. We build the connections that fix it, then we run them.</p>
-                <p class="engine-summary">Found. Captured. Converted. Paid. One connected system, one number at month end.</p>
+                <p class="sub">Leads sit in an inbox nobody checks, invoices don't match what you billed, follow up goes out six hours late after the lead already booked somewhere else, and nobody can say if the week was actually good. We build the connections that fix it, then we run them.</p>
+                <p class="engine-summary">Capture, CRM, follow up, reporting. One connected system, one number at month end.</p>
                 <div class="engine-ctas">
                     <a href="/what-we-build.html" class="studio-btn studio-btn-primary">See everything we build</a>
                 </div>
@@ -1005,7 +821,27 @@
         </div>
     </section>
 
-    <!-- 4. PROOF STRIP: the hero's stats row lives here now.
+    <!-- 1.5 WHAT WE BUILD — the seven-item scannable list.
+         Replaces the deep per-shape subpages on the homepage; each shape
+         is one line, strong noun then short outcome. -->
+    <section class="studio-container studio-section" id="what-we-build">
+        <div class="section-eyebrow-block studio-reveal">
+            <p class="studio-eyebrow">What we build</p>
+            <h2 class="studio-h2">The systems, one line each.</h2>
+        </div>
+        <ul class="wwb-list studio-reveal-stagger">
+            <li class="studio-reveal"><span><strong>Outbound and Lead Systems.</strong> Fills your calendar with qualified calls.</span></li>
+            <li class="studio-reveal"><span><strong>Revenue Infrastructure.</strong> The foundation every dollar compounds on.</span></li>
+            <li class="studio-reveal"><span><strong>AI Agents and Orchestration.</strong> Work that used to need a person, running on its own.</span></li>
+            <li class="studio-reveal"><span><strong>Reporting and Dashboards.</strong> The numbers that show you where the money is.</span></li>
+            <li class="studio-reveal"><span><strong>Custom Builds and Integrations.</strong> When nothing off the shelf fits, we build the one that does.</span></li>
+            <li class="studio-reveal"><span><strong>Engineering and Reliability.</strong> What keeps it running when volume doubles.</span></li>
+            <li class="studio-reveal"><span><strong>Inbound and Paid Systems.</strong> Gets you found, and makes the ad spend pay.</span></li>
+        </ul>
+        <p class="wwb-summary studio-reveal">Every build does one of two things. Makes you more money, or lets you keep more of what you already earn.</p>
+    </section>
+
+    <!-- 2. PROOF STRIP: the hero's stats row lives here now.
          Reuses .hero-stats-* styles, with the container providing the
          light-pane background so contrast stays right. -->
     <section class="studio-container studio-section" id="proof-strip" style="padding-top:0;">
@@ -1028,7 +864,7 @@
         </div>
     </section>
 
-    <!-- 5. TESTIMONIALS — moved above How We Work so proof lands before pricing.
+    <!-- 3. TESTIMONIALS — moved above How We Work so proof lands before pricing.
          Runbook: homepage-ripple-flow, 2026-08-27. -->
     <section class="studio-container studio-section">
         <div class="section-eyebrow-block studio-reveal">
@@ -1042,9 +878,9 @@
                     <video controls playsinline preload="metadata" poster="/videos/danielle-poster.jpg" src="/videos/danielle-review.mp4"></video>
                 </div>
                 <div class="vt-quote">
-                    <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He's enabled me to keep running my business with a very lean, super efficient team."</p>
+                    <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He's enabled me to keep running my business with a lean, efficient team."</p>
                     <div style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-sm);font-weight:600;color:var(--ink);">Danielle Sandusky, Modern Bungalow</div>
-                    <div style="font-size:var(--text-xs);color:var(--n-500);margin-top:4px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">Order and pricing automation for a furniture company</div>
+                    <div style="font-size:var(--text-xs);color:var(--n-500);margin-top:4px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">Order and pricing automation</div>
                 </div>
             </div>
             <div class="video-testi studio-reveal">
@@ -1053,46 +889,19 @@
                     <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="false" style="display:block;width:100%"></div>
                 </div>
                 <div class="vt-quote">
-                    <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He stood out from the pack real quickly. We'll use him for any job we ever have."</p>
-                    <div style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-sm);font-weight:600;color:var(--ink);">Matt Juels, 6 Months to Speech</div>
-                    <div style="font-size:var(--text-xs);color:var(--n-500);margin-top:4px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">CRM build and automation for an online coaching program</div>
+                    <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He stood out from the pack fast. We'll use him for any job we have."</p>
+                    <div style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-sm);font-weight:600;color:var(--ink);">Matt Juels, Six Months to Speech</div>
+                    <div style="font-size:var(--text-xs);color:var(--n-500);margin-top:4px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">CRM build and automation</div>
                 </div>
             </div>
-        </div>
-
-        <div class="review-grid studio-reveal" style="margin-top:3rem">
-            <div class="review-card">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-quote">"Seth is my go to for all of my automation projects now. His process in defining the project scope ahead of time ensures that I get everything I need and we're on the same page throughout."</p>
-                <h3 class="review-author">Danielle, Modern Bungalow</h3>
-                <div class="review-project">Product Sync Automation</div>
-            </div>
-            <div class="review-card">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-quote">"If you need an automation specialist, stop looking right now and hire Seth. He will blow your mind with his knowledge and his ability to take your idea and not only understand what you want to achieve but also build on it."</p>
-                <h3 class="review-author">Andrew, Kingfisher Ads</h3>
-                <div class="review-project">Automation</div>
-            </div>
-        </div>
-
-        <!-- Featured case study, folded into testimonials per runbook -->
-        <div class="studio-reveal" style="margin-top:2.5rem">
-            <p class="studio-eyebrow" style="margin-bottom:1rem;">Featured case study</p>
-            <a href="/work/between-generations-care.html" class="featured-case">
-                <div class="featured-case-content">
-                    <span class="featured-case-client">Between Generations Care</span>
-                    <span class="featured-case-metric">Full platform build from scratch inside GoHighLevel. CRM, booking calendars, email sequences, and a complete customer journey from Instagram follower to repeat client. Zero manual steps.</span>
-                </div>
-                <span class="featured-case-link">Read the full case study</span>
-            </a>
         </div>
 
         <div class="studio-reveal" style="margin-top:2.5rem;text-align:center;">
-            <a href="/results.html" class="studio-btn studio-btn-ghost">See more results</a>
+            <a href="/results.html" class="studio-btn studio-btn-ghost">See all results</a>
         </div>
     </section>
 
-    <!-- 5.5 ABOUT VIDEO — YouTube welcome video, autoplay muted with unmute button -->
+    <!-- 3.5 ABOUT VIDEO — YouTube welcome video, autoplay muted with unmute button -->
     <section class="studio-container studio-section" style="padding-top:0;">
         <div class="about-us-video-wrap studio-reveal" style="position:relative;">
             <div id="about-video-player"></div>
@@ -1103,7 +912,7 @@
         </div>
     </section>
 
-    <!-- 6. HOW WE WORK — three engagements. Prices removed sitewide 2026-08-06;
+    <!-- 4. HOW WE WORK — three engagements. Prices removed sitewide 2026-08-06;
          the /pricing page was retired at the same time and 301s to /contact.html.
          Now sits below proof (previously above it). -->
     <section class="studio-container studio-section" id="how-we-work" style="scroll-margin-top:80px">
@@ -1113,30 +922,30 @@
         </div>
         <div class="engage-grid studio-reveal-stagger">
             <div class="service-card studio-reveal" id="audit">
-                <h3>Audit</h3>
-                <p>We find what's costing you customers and put a number on it. Credits toward your first build.</p>
+                <h3>01 Audit</h3>
+                <p>We find what's costing you customers and put a number on it. It credits toward your first build.</p>
                 <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-btn studio-btn-primary">Book the Audit</a>
             </div>
             <div class="service-card studio-reveal" id="core-systems-build">
-                <h3>Build</h3>
-                <p>The system the audit points to. Built, tested on real data, shipped in 7 to 21 days.</p>
+                <h3>02 Build</h3>
+                <p>The system the audit points to, built and tested on real data, shipped in 7 to 21 days.</p>
                 <a href="/contact.html" class="studio-btn studio-btn-primary">Contact Us</a>
             </div>
             <div class="service-card studio-reveal" id="partnership">
-                <h3>Partnership</h3>
-                <p>The engineer stays at the table after launch. Monthly review, a result you can read in dollars.</p>
+                <h3>03 Partnership</h3>
+                <p>We stay at the table after launch, with a monthly review and a result you can read in dollars.</p>
                 <a href="/contact.html" class="studio-btn studio-btn-primary">Contact Us</a>
             </div>
         </div>
     </section>
 
-    <!-- 7. WHO WE BUILD FOR (Section 11.3: one line, no rows; vertical pages keep the depth) -->
+    <!-- 5. WHO WE BUILD FOR (Section 11.3: one line, no rows; vertical pages keep the depth) -->
     <section class="studio-container studio-section" id="who-we-build-for">
         <p class="studio-eyebrow studio-reveal">Who we build for</p>
         <p class="who-line studio-reveal">Built for <a href="/coaches">coaches</a>, <a href="/home-services">home services</a>, <a href="/financial-firms">financial firms</a>, <a href="/medspa">med spas</a>, <a href="/real-estate">real estate</a>, and plenty more.</p>
     </section>
 
-    <!-- 8. ABOUT -->
+    <!-- 6. ABOUT -->
     <section class="studio-container studio-section">
         <div class="section-eyebrow-block studio-reveal" style="text-align:left;margin-bottom:var(--sp-10);">
             <p class="studio-eyebrow">About</p>
@@ -1145,13 +954,13 @@
             <img src="/images/about/headshot-6.jpg" alt="Seth Forte, founder of Launch Forte, automation consultant in Dallas-Fort Worth Texas" class="about-avatar" loading="lazy" decoding="async">
             <div>
                 <p class="about-name">Seth Forte, Founder</p>
-                <p>Launch Forte builds the infrastructure growing businesses run on. I spent years as a reliability engineer keeping critical systems standing at a national bank, and now I build and run them for businesses that need that reliability from day one.</p>
-                <a href="/about.html" class="studio-btn studio-btn-ghost">More about us</a>
+                <p>I spent years as a reliability engineer keeping critical systems standing at a national bank. Now I build that same reliability for growing businesses. Every engagement starts with what the problem is costing. If the math doesn't work, I'll tell you.</p>
+                <a href="/about.html" class="studio-btn studio-btn-ghost">More about Seth</a>
             </div>
         </div>
     </section>
 
-    <!-- 9. FAQ -->
+    <!-- 7. FAQ -->
     <section class="studio-container studio-section" id="faq">
         <div class="section-eyebrow-block studio-reveal">
             <p class="studio-eyebrow">Common Questions</p>
@@ -1182,12 +991,12 @@
         </div>
     </section>
 
-    <!-- 10. FINAL CTA + CALENDLY -->
+    <!-- 8. FINAL CTA + CALENDLY -->
     <section class="studio-container">
         <div class="final-cta studio-reveal">
             <div class="final-cta-inner">
-                <h2>When the calendar's empty or growth has stalled, it usually traces back to the <span style="color:var(--accent)">system</span>.</h2>
-                <p class="sub">Start with the audit, and we'll tell you what's worth fixing. Pick a time below.</p>
+                <h2>Start with the <span style="color:var(--accent)">audit</span>.</h2>
+                <p class="sub">A 30 minute call is usually enough to know what's broken and what it's worth fixing.</p>
                 <div class="calendly-wrap">
                     <iframe src="https://calendly.com/seth-launchforte/30min" title="Book a call with Seth Forte" loading="lazy"></iframe>
                 </div>
@@ -1385,34 +1194,6 @@
     });
 })();
 
-// Ask Forte mic: browser Web Speech API, tap to talk, live transcript fills the field
-(function(){
-    var mic = document.getElementById('ask-mic');
-    var input = document.getElementById('ask-forte-input');
-    if (!mic || !input) return;
-    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SR) { mic.style.display = 'none'; return; }
-    var rec = null;
-    var listening = false;
-    function start(){
-        rec = new SR();
-        rec.lang = 'en-US';
-        rec.interimResults = true;
-        rec.continuous = false;
-        rec.onresult = function(e){
-            var t = '';
-            for (var k = e.resultIndex; k < e.results.length; k++) t += e.results[k][0].transcript;
-            input.value = t;
-        };
-        rec.onend = function(){ listening = false; mic.style.borderColor = ''; mic.style.color = ''; };
-        rec.onerror = function(){ listening = false; mic.style.borderColor = ''; mic.style.color = ''; };
-        try { rec.start(); listening = true; mic.style.borderColor = 'var(--accent)'; mic.style.color = 'var(--accent)'; } catch(_) {}
-    }
-    function stop(){ if (rec && listening) { try { rec.stop(); } catch(_) {} } }
-    mic.addEventListener('click', function(){
-        if (listening) stop(); else start();
-    });
-})();
 
 /* Hero H1 rotator per sethforte.com exactly. Two IIFEs on purpose so
    they map 1:1 to that reference:
@@ -1464,331 +1245,10 @@
     }, 2200);
 })();
 
-/* Section 13 mobile placeholder swap for the Ask bar is now inside
-   /ask-forte.js — it owns #askf-input at both mounts, so responsive
-   copy for the shared partial belongs with the component. */
 
-/* Homepage Ask Forte mount: NO inline JS here. The shared partial
-   (markup above) is initialized by /ask-forte.js (loaded at end of body).
-   Section 16 acceptance: URL never changes, one nav + one footer total,
-   no page-in-page. See /site/ask-forte.js and /site/ask-forte.css. */
-
-/* ============================================================
-   Ghost napkin loop (homepage only). AUTOPLAYS on load, unattended, forever.
-   Zero API calls, pure CSS/JS.
-
-   TIMELINE (locked per Seth):
-     t=0.0s   thread empty, canvas hidden
-     t=0.5s   visitor bubble types char by char
-     t=2.5s   recognition bubble appears
-     t=4.0s   canvas fades in as blank paper, strokes draw over ~6s in order:
-              first node -> arrows -> next nodes -> labels writing themselves ->
-              BLUE decide node arrives at its own beat -> scar note last
-     t=11.0s  one beat of stillness
-     t=12.5s  everything fades, loop restarts from empty with the OTHER sample
-
-   RENDERER RULE: every edge terminates in a drawn node at BOTH ends.
-   Self-audit drops any orphan edge before drawing.
-
-   REDUCED MOTION: no loop; renders the finished first sample as a static frame.
-   ============================================================ */
-(function(){
-    var frame = document.getElementById('ghost-frame');
-    var thread = document.getElementById('ghost-thread');
-    var sketch = document.getElementById('ghost-sketch');
-    var wrap = document.querySelector('.ghost-sketch-wrap');
-    if (!frame || !thread || !sketch || !wrap) return;
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Two canned samples. Copy per Seth's timeline. Every edge terminates in
-    // a drawn node — the audit below verifies both endpoints resolve.
-    var SAMPLES = [
-        {
-            user: "we miss calls all day",
-            bot: "Sounds like a missed call texter with a decision routing under it. Sketching.",
-            nodes: [
-                { id: 'in',  x: 30,  y: 30,  w: 140, h: 60, kind: 'node',   label: 'missed call' },
-                { id: 'dec', x: 250, y: 30,  w: 140, h: 60, kind: 'decide', label: 'DECIDE', sub: 'buyer? existing?' },
-                { id: 'out', x: 470, y: 30,  w: 140, h: 60, kind: 'node',   label: 'text back' },
-                { id: 'bk',  x: 250, y: 140, w: 140, h: 50, kind: 'node',   label: 'book on calendar' }
-            ],
-            edges: [
-                { from: 'in',  to: 'dec' },
-                { from: 'dec', to: 'out' },
-                { from: 'dec', to: 'bk' }
-            ],
-            scar: "checks and gotchas: the after-hours voicemail gap — we've hit this one before."
-        },
-        {
-            user: "my books are always off",
-            bot: "Sounds like a books-shaped sketch: reconciliation with a review branch. Drawing.",
-            nodes: [
-                { id: 'txn', x: 30,  y: 30,  w: 140, h: 60, kind: 'node',   label: 'transactions' },
-                { id: 'rec', x: 250, y: 30,  w: 140, h: 60, kind: 'decide', label: 'RECONCILE', sub: 'match? flag?' },
-                { id: 'cln', x: 470, y: 30,  w: 140, h: 60, kind: 'node',   label: 'clean books' },
-                { id: 'rev', x: 250, y: 140, w: 140, h: 50, kind: 'node',   label: 'review pile' }
-            ],
-            edges: [
-                { from: 'txn', to: 'rec' },
-                { from: 'rec', to: 'cln' },
-                { from: 'rec', to: 'rev' }
-            ],
-            scar: "checks and gotchas: the duplicate-fee category — we've hit this one before."
-        }
-    ];
-
-    // ---- SVG builders ---------------------------------------------------
-    var SVG_NS = 'http://www.w3.org/2000/svg';
-    function svgEl(tag, attrs){
-        var n = document.createElementNS(SVG_NS, tag);
-        if (attrs) Object.keys(attrs).forEach(function(k){ n.setAttribute(k, attrs[k]); });
-        return n;
-    }
-    function nodeBounds(n){
-        return { cx: n.x + n.w/2, cy: n.y + n.h/2, x1: n.x, y1: n.y, x2: n.x + n.w, y2: n.y + n.h };
-    }
-    // Renderer rule: verify both endpoints resolve.
-    function auditEdge(edge, nodesById){
-        return !!(nodesById[edge.from] && nodesById[edge.to]);
-    }
-    function edgePath(a, b){
-        var A = nodeBounds(a), B = nodeBounds(b);
-        var dx = B.cx - A.cx, dy = B.cy - A.cy;
-        var x1, y1, x2, y2;
-        if (Math.abs(dx) >= Math.abs(dy)){
-            if (dx >= 0) { x1 = A.x2; x2 = B.x1; } else { x1 = A.x1; x2 = B.x2; }
-            y1 = A.cy; y2 = B.cy;
-        } else {
-            if (dy >= 0) { y1 = A.y2; y2 = B.y1; } else { y1 = A.y1; y2 = B.y2; }
-            x1 = A.cx; x2 = B.cx;
-        }
-        return 'M' + x1 + ' ' + y1 + ' L' + x2 + ' ' + y2;
-    }
-
-    // Hide an element for animated reveal (inline style so it works
-    // regardless of CSS gating; JS reveals by flipping opacity to '1').
-    function hide(el, isLine){
-        el.style.opacity = '0';
-        if (isLine){
-            el.style.strokeDasharray = '1';
-            el.style.strokeDashoffset = '1';
-        }
-    }
-    function show(el, isLine){
-        el.style.opacity = '1';
-        if (isLine) el.style.strokeDashoffset = '0';
-    }
-
-    function buildSample(sample, hideForAnimation){
-        var style = sketch.querySelector('style');
-        while (sketch.firstChild) sketch.removeChild(sketch.firstChild);
-        if (style) sketch.appendChild(style);
-
-        var nodesById = {};
-        sample.nodes.forEach(function(n){ nodesById[n.id] = n; });
-
-        var els = { edges: [], nodes: [], labels: [], decide: [], decideLabels: [], scar: null, decideId: null };
-
-        sample.edges.forEach(function(edge){
-            if (!auditEdge(edge, nodesById)) return;
-            var a = nodesById[edge.from], b = nodesById[edge.to];
-            var path = svgEl('path', { class: 'g-line', d: edgePath(a, b), pathLength: '1' });
-            path.dataset.from = edge.from; path.dataset.to = edge.to;
-            sketch.appendChild(path);
-            if (hideForAnimation) hide(path, true);
-            els.edges.push({ el: path, from: edge.from, to: edge.to });
-        });
-
-        sample.nodes.forEach(function(n){
-            var isDecide = n.kind === 'decide';
-            var rect = svgEl('rect', {
-                class: isDecide ? 'g-decide' : 'g-node',
-                x: n.x, y: n.y, width: n.w, height: n.h, rx: 8
-            });
-            sketch.appendChild(rect);
-            if (hideForAnimation) hide(rect);
-            (isDecide ? els.decide : els.nodes).push({ el: rect, id: n.id });
-            if (isDecide) els.decideId = n.id;
-
-            var b = nodeBounds(n);
-            var labelClass = 'g-label' + (isDecide ? ' g-label-white' : '');
-            var label = svgEl('text', { class: labelClass, x: b.cx, y: b.cy + (n.sub ? -2 : 5), 'text-anchor': 'middle' });
-            label.textContent = n.label;
-            sketch.appendChild(label);
-            if (hideForAnimation) hide(label);
-            (isDecide ? els.decideLabels : els.labels).push({ el: label, nodeId: n.id });
-            if (n.sub){
-                var sub = svgEl('text', { class: labelClass + ' g-label-sm', x: b.cx, y: b.cy + 13, 'text-anchor': 'middle' });
-                sub.textContent = n.sub;
-                sketch.appendChild(sub);
-                if (hideForAnimation) hide(sub);
-                (isDecide ? els.decideLabels : els.labels).push({ el: sub, nodeId: n.id });
-            }
-        });
-
-        var scar = svgEl('text', { class: 'g-scar', x: 30, y: 240, 'text-anchor': 'start' });
-        scar.textContent = sample.scar;
-        sketch.appendChild(scar);
-        if (hideForAnimation) hide(scar);
-        els.scar = scar;
-        return els;
-    }
-
-    // Typewriter — types text into an already-appended bubble.
-    function typeInto(bubble, text, perChar, done){
-        bubble.el.classList.add('gh-visible');
-        var i = 0;
-        (function step(){
-            bubble.typed.textContent = text.slice(0, i);
-            if (i >= text.length){
-                bubble.caret.classList.add('gh-off');
-                return done && done();
-            }
-            i++;
-            setTimeout(step, perChar);
-        })();
-    }
-    function makeBubble(role){
-        var b = document.createElement('div');
-        b.className = 'ghost-bubble ghost-bubble-' + role;
-        var typed = document.createElement('span'); typed.className = 'ghost-typed';
-        var caret = document.createElement('span'); caret.className = 'ghost-caret';
-        b.appendChild(typed); b.appendChild(caret);
-        thread.appendChild(b);
-        return { el: b, typed: typed, caret: caret };
-    }
-
-    /* --------- SINGLE PLAY on the locked timeline --------- */
-    // Timeline is absolute from playSample start. Every step uses setTimeout
-    // with fixed offsets, so drift doesn't accumulate across loop iterations.
-    var timeouts = [];
-    function schedule(ms, fn){ timeouts.push(setTimeout(fn, ms)); }
-    function clearAll(){ timeouts.forEach(clearTimeout); timeouts = []; }
-
-    var currentSample = 0;
-
-    function playSample(idx){
-        clearAll();
-        var sample = SAMPLES[idx];
-
-        // t=0: RESET — thread empty, canvas visible but empty paper
-        thread.innerHTML = '';
-        var els = buildSample(sample, /* hideForAnimation */ true);
-        frame.classList.remove('gh-fading');
-        frame.classList.add('gh-active');
-
-        // t=0.5s: visitor bubble types character by character (~1500ms)
-        schedule(500, function(){
-            var u = makeBubble('user');
-            typeInto(u, sample.user, 42, null);
-        });
-
-        // t=2.5s: bot bubble types (~1200ms)
-        schedule(2500, function(){
-            var b = makeBubble('bot');
-            typeInto(b, sample.bot, 15, null);
-        });
-
-        // t=4s: canvas has been visible since paint — nothing to fade
-        // (kept the beat for pacing but no DOM change here)
-
-        // t=4.3s onward: strokes draw in choreography over ~6s.
-        var nonDecideNodes  = els.nodes;
-        var nonDecideLabels = els.labels;
-        var edges           = els.edges;
-
-        var t = 4300;
-        var STEP_A = 400;
-        var STEP_B = 200;
-
-        function beat(delay, fn){ schedule(delay, fn); }
-
-        function revealNodeAt(idx, offset){
-            var n = nonDecideNodes[idx];
-            if (!n) return offset;
-            beat(offset, function(){ show(n.el); });
-            var afterNode = offset + STEP_A;
-            var outEdge = edges.filter(function(e){ return e.from === n.id; })[0];
-            if (outEdge){
-                beat(afterNode, function(){ show(outEdge.el, true); });
-                afterNode += STEP_A;
-            }
-            var lb = nonDecideLabels.filter(function(l){ return l.nodeId === n.id; })[0];
-            if (lb){
-                beat(afterNode, function(){ show(lb.el); });
-                afterNode += STEP_B;
-            }
-            return afterNode;
-        }
-
-        var offset = t;
-        for (var i = 0; i < nonDecideNodes.length; i++){
-            offset = revealNodeAt(i, offset) + 80;
-        }
-
-        var laterEdgesTime = offset;
-        edges.forEach(function(e){
-            var fromNonDecide = nonDecideNodes.some(function(n){ return n.id === e.from; });
-            if (fromNonDecide) return;
-            beat(laterEdgesTime, function(){ show(e.el, true); });
-            laterEdgesTime += 300;
-        });
-
-        // BLUE decide node arrives at its OWN beat
-        var decideT = Math.max(offset, laterEdgesTime) + 300;
-        beat(decideT, function(){
-            els.decide.forEach(function(d){ show(d.el); });
-        });
-        beat(decideT + STEP_A, function(){
-            els.decideLabels.forEach(function(lb){ show(lb.el); });
-        });
-
-        // Scar note LAST
-        var scarT = decideT + 1400;
-        beat(scarT, function(){ show(els.scar); });
-
-        // t=11s: one beat of stillness
-        // t=12.5s: fade, then swap to the OTHER sample
-        schedule(12500, function(){ frame.classList.add('gh-fading'); });
-        schedule(13200, function(){
-            currentSample = (currentSample + 1) % SAMPLES.length;
-            playSample(currentSample);
-        });
-    }
-
-    /* --------- Reduced-motion / fallback static state ---------
-       Render the finished first sample all at once. Since buildSample
-       with hideForAnimation=false doesn't set opacity:0 on anything,
-       everything's visible immediately. */
-    function renderStatic(){
-        var sample = SAMPLES[0];
-        buildSample(sample, /* hideForAnimation */ false);
-        frame.classList.add('gh-active');
-        var u = makeBubble('user');  u.typed.textContent = sample.user; u.caret.classList.add('gh-off'); u.el.classList.add('gh-visible');
-        var b = makeBubble('bot');   b.typed.textContent = sample.bot;  b.caret.classList.add('gh-off'); b.el.classList.add('gh-visible');
-    }
-
-    function boot(){
-        // Two-stage boot: render the finished static sample IMMEDIATELY so
-        // the frame is never blank. Then, if the visitor doesn't opt out of
-        // motion, run the animated loop over the top a beat later.
-        try { renderStatic(); } catch(_){}
-        if (reduce) return;
-        // Give the static render a beat to paint, then swap into the loop.
-        setTimeout(function(){
-            try { playSample(0); } catch(err){
-                // If loop fails, we still have the static sample visible.
-                console && console.warn && console.warn('ghost loop error:', err);
-            }
-        }, 400);
-    }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
-    else boot();
-})();
 </script>
-<script src="/ask-forte.js?v=q2j" defer></script>
-<script src="/studio-motion.js?v=q2j" defer></script>
-<script src="/scroll-top.js?v=q2j" defer></script>
-<script src="/hamburger.js?v=q2j" defer></script>
+<script src="/studio-motion.js?v=q3a" defer></script>
+<script src="/scroll-top.js?v=q3a" defer></script>
+<script src="/hamburger.js?v=q3a" defer></script>
 </body>
 </html>
