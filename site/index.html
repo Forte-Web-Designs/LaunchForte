@@ -366,7 +366,12 @@
         }
         .hero-btn:hover .hero-btn-arrow { transform: translateX(3px); }
 
-        /* WHO WE BUILD FOR one-liner (Section 11.3) */
+        /* WHO WE BUILD FOR — five industries, one line each with strong noun + specific detail. */
+        .who-list { list-style: none; margin: var(--sp-10) 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.85rem; max-width: 900px; }
+        .who-list li { display: flex; align-items: baseline; gap: 0.8rem; padding: 1.15rem 1.25rem; background: var(--paper); border: 1px solid var(--border); border-radius: 12px; font-size: 1rem; line-height: 1.55; color: var(--n-700); }
+        .who-list li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-tint, rgba(0,136,219,0.10)); flex: none; align-self: center; }
+        .who-list strong { color: var(--ink); font-weight: 600; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); }
+        /* Legacy alias — kept in case old links remain */
         .who-line { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.5rem, 3.2vw, 2rem); line-height: 1.25; letter-spacing: -0.02em; color: var(--ink); margin: 1rem 0 0; max-width: 900px; }
         .who-line a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 0.2em; transition: color var(--dur-hover); }
         .who-line a:hover { color: var(--accent); }
@@ -699,8 +704,8 @@
          clarity pass; the engine SVG stays because it illustrates exactly the
          Found -> Captured -> Converted -> Paid flow this copy names. -->
     <section class="studio-container studio-section" id="what-we-do">
-        <!-- Alias anchor: five vertical pages (coaches, home-services, real-estate,
-             financial-firms, medspa) link here via /#the-engine. Keeps those jumps live. -->
+        <!-- Alias anchor kept: retired industry pages 301 to /#who-we-build-for now,
+             but external links or bookmarks pointing at /#the-engine still resolve. -->
         <span id="the-engine" style="position:relative;top:-80px" aria-hidden="true"></span>
         <div class="engine-inner">
             <div class="engine-copy studio-reveal">
@@ -939,10 +944,20 @@
         </div>
     </section>
 
-    <!-- 5. WHO WE BUILD FOR (Section 11.3: one line, no rows; vertical pages keep the depth) -->
+    <!-- 5. WHO WE BUILD FOR — industry pages retired 2026-09-01; the sharpest
+         one-liner from each folds up onto this section. Copy, not links. -->
     <section class="studio-container studio-section" id="who-we-build-for">
-        <p class="studio-eyebrow studio-reveal">Who we build for</p>
-        <p class="who-line studio-reveal">Built for <a href="/coaches">coaches</a>, <a href="/home-services">home services</a>, <a href="/financial-firms">financial firms</a>, <a href="/medspa">med spas</a>, <a href="/real-estate">real estate</a>, and plenty more.</p>
+        <div class="section-eyebrow-block studio-reveal">
+            <p class="studio-eyebrow">Who we build for</p>
+            <h2 class="studio-h2">A few of the businesses <span class="lf-accent">we build for</span>.</h2>
+        </div>
+        <ul class="who-list studio-reveal-stagger">
+            <li class="studio-reveal"><strong>Coaches and creators.</strong> Your CRM, your funnel, and your DMs stop working as separate tools and start working as one system, from the first message to the repeat client.</li>
+            <li class="studio-reveal"><strong>Home and field services.</strong> Your field software and your books stop needing someone to retype between them, and a missed call gets a text back before the caller hangs up.</li>
+            <li class="studio-reveal"><strong>Financial and professional firms.</strong> Invoicing, capital calls, and reconciliation run with the audit trail and the human approval the work requires.</li>
+            <li class="studio-reveal"><strong>Med spas and aesthetic practices.</strong> Reactivation, intake, and booking run inside the practice software you already use, so lapsed patients come back without your front desk chasing them.</li>
+            <li class="studio-reveal"><strong>Real estate agents.</strong> Every lead gets a text back in under a minute, and the follow up you don't have time for keeps running while you're out showing homes.</li>
+        </ul>
     </section>
 
     <!-- 6. ABOUT -->
@@ -1021,11 +1036,11 @@
                 <div class="studio-footer-col">
                     <h4>Who we build for</h4>
                     <ul>
-                        <li><a href="/coaches">Coaches and creators</a></li>
-                        <li><a href="/home-services">Home and field services</a></li>
-                        <li><a href="/financial-firms">Financial and professional firms</a></li>
-                        <li><a href="/medspa">Med spas and aesthetic practices</a></li>
-                        <li><a href="/real-estate">Real estate agents</a></li>
+                        <li><a href="/#who-we-build-for">Coaches and creators</a></li>
+                        <li><a href="/#who-we-build-for">Home and field services</a></li>
+                        <li><a href="/#who-we-build-for">Financial and professional firms</a></li>
+                        <li><a href="/#who-we-build-for">Med spas and aesthetic practices</a></li>
+                        <li><a href="/#who-we-build-for">Real estate agents</a></li>
                     </ul>
                 </div>
                 <div class="studio-footer-col">

@@ -901,17 +901,167 @@
   status = 301
   force = true
 
-# /ask retires 2026-08-25 per v2 ruling. The Ask Forte conversation runs
-# inline on the homepage now, so /ask jumps to the homepage anchor.
+# Ask Forte retired sitewide 2026-09-01. /ask/ was already retired; the
+# on-homepage section is now gone too. Point remaining traffic at Contact.
 [[redirects]]
   from = "/ask/"
-  to = "/#ask-forte"
+  to = "/contact.html"
   status = 301
   force = true
 
 [[redirects]]
   from = "/ask"
-  to = "/#ask-forte"
+  to = "/contact.html"
+  status = 301
+  force = true
+
+# Industry landing pages retired 2026-09-01 per rewrite. Homepage "Who we
+# build for" line now carries the story, one line per industry. No paid
+# traffic hits these, so retire cleanly rather than trim.
+[[redirects]]
+  from = "/coaches.html"
+  to = "/#who-we-build-for"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/coaches"
+  to = "/#who-we-build-for"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/home-services.html"
+  to = "/#who-we-build-for"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/home-services"
+  to = "/#who-we-build-for"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/financial-firms.html"
+  to = "/#who-we-build-for"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/financial-firms"
+  to = "/#who-we-build-for"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/real-estate.html"
+  to = "/#who-we-build-for"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/real-estate"
+  to = "/#who-we-build-for"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/medspa.html"
+  to = "/#who-we-build-for"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/medspa"
+  to = "/#who-we-build-for"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/medspa/reactivation.html"
+  to = "/#who-we-build-for"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/medspa/reactivation"
+  to = "/#who-we-build-for"
+  status = 301
+  force = true
+
+# What We Build category subpages retired 2026-09-01. Homepage "What We
+# Build" section now lists all seven shapes as scannable one-liners; the
+# consolidated /what-we-build.html still exists as the full explainer.
+[[redirects]]
+  from = "/what-we-build/ai-agents.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/what-we-build/ai-agents"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/what-we-build/custom-builds.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/what-we-build/custom-builds"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/what-we-build/engineering-reliability.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/what-we-build/engineering-reliability"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/what-we-build/inbound-paid-systems.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/what-we-build/inbound-paid-systems"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/what-we-build/reporting-dashboards.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/what-we-build/reporting-dashboards"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/what-we-build/revenue-infrastructure.html"
+  to = "/what-we-build.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/what-we-build/revenue-infrastructure"
+  to = "/what-we-build.html"
   status = 301
   force = true
 
