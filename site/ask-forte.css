@@ -55,6 +55,13 @@
         linear-gradient(#FFFDFA, #FFFDFA),
         repeating-linear-gradient(0deg, transparent 0 27px, rgba(0,0,0,0.04) 27px 28px);
 }
+/* The canvas pane keeps its cream #FFFDFA background in both themes so the
+   sketch SVGs (which have that same paper color baked in) blend seamlessly.
+   That means text inside the pane must stay dark in dark mode too. */
+[data-theme="dark"] .askf-canvas-pane { border-color: rgba(0,0,0,0.10); }
+[data-theme="dark"] .askf-canvas-head { color: #737373; }
+[data-theme="dark"] .askf-canvas-status { color: #737373; }
+[data-theme="dark"] .askf-canvas-pane svg text { fill: #0A0A0A; }
 .askf-canvas-mount {
     position: relative;
     width: 100%;
@@ -129,7 +136,7 @@
     color: var(--ink);
     transition: transform 0.2s ease, border-color 0.2s ease;
 }
-[data-theme="dark"] .askf-proof-inner { background: var(--n-900, #171717); }
+[data-theme="dark"] .askf-proof-inner { background: #171717; border-color: rgba(255,255,255,0.10); }
 .askf-proof-inner:hover { transform: translateY(-1px); border-color: var(--accent); }
 .askf-proof-img {
     width: 92px; height: 68px;
@@ -192,7 +199,8 @@
     font-weight: 500;
 }
 .askf-turn.bot .askf-bubble a { color: var(--accent); font-weight: 600; }
-[data-theme="dark"] .askf-turn.bot .askf-bubble { background: var(--n-800, #262626); color: var(--paper); }
+/* Raw hex; --n-800 flips to #F5F5F5 in dark, which would be white on dark. */
+[data-theme="dark"] .askf-turn.bot .askf-bubble { background: #262626; color: #FAFAFA; }
 
 /* Typing indicator */
 .askf-typing { display: inline-flex; gap: 4px; align-items: center; padding: 0.85rem 1rem; }
@@ -279,7 +287,19 @@
     background: var(--n-50, #fafafa);
     border-top: 1px solid var(--border);
 }
-[data-theme="dark"] .askf-composer-imsg { background: var(--n-900, #171717); }
+/* Dark: raw hex, NOT var(--n-900). The neutral scale flips in dark theme
+   (n-900 becomes #FAFAFA), so the token would render a bright white pill
+   on a dark page. Composer needs a dark surface + dark input pill + light text. */
+[data-theme="dark"] .askf-composer-imsg { background: #171717; border-top-color: rgba(255,255,255,0.10); }
+[data-theme="dark"] .askf-composer-imsg .askf-input {
+    background: #262626;
+    color: #FAFAFA;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+[data-theme="dark"] .askf-composer-imsg .askf-input:focus {
+    box-shadow: inset 0 0 0 1.5px var(--accent);
+}
+[data-theme="dark"] .askf-composer-imsg .askf-input::placeholder { color: rgba(255,255,255,0.45); }
 .askf-composer-imsg .askf-input-row {
     align-items: flex-end;
     gap: 0.5rem;
@@ -330,7 +350,9 @@
     padding: 1.1rem;
     background: var(--n-50, #fafafa);
 }
-[data-theme="dark"] .askf-gate { background: var(--n-900, #171717); }
+[data-theme="dark"] .askf-gate { background: #171717; border-top-color: rgba(255,255,255,0.10); }
+[data-theme="dark"] .askf-gate-input { background: #262626; color: #FAFAFA; border-color: rgba(255,255,255,0.10); }
+[data-theme="dark"] .askf-gate-input::placeholder { color: rgba(255,255,255,0.45); }
 .askf-gate.open { display: block; }
 .askf-gate-input {
     flex: 1; min-width: 0;
