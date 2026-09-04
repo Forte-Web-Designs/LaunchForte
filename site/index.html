@@ -95,7 +95,7 @@
       "areaServed": "US"
     }
     </script>
-    <!-- Schema: FAQPage — mirrors the four questions visible in the on-page FAQ.
+    <!-- Schema: FAQPage, mirrors the four questions visible in the on-page FAQ.
          Longer canonical FAQ lives at /faq.html with its own FAQPage schema. -->
     <script type="application/ld+json">
     {
@@ -173,7 +173,7 @@
         /* ============================================================
            SECTION 8: cinematic hero (dark zone, one on the whole site)
            ============================================================ */
-        /* Clean atmospheric hero — no video. Deep black with a subtle
+        /* Clean atmospheric hero, no video. Deep black with a subtle
            cyan glow from top-left, subtle vignette on the right side. */
         .hero-zone {
             position: relative;
@@ -229,7 +229,7 @@
         .hero-eyebrow-line .mark { color: #FFFFFF; }
         .hero-eyebrow-line .rule { display: inline-block; width: 40px; height: 1px; background: rgba(255,255,255,0.32); flex: none; }
 
-        /* H1: two lines. Line 1 is the ONE permitted gradient (ink to accent blue) — the hero's signature. */
+        /* H1: two lines. Line 1 is the ONE permitted gradient (ink to accent blue), the hero's signature. */
         /* Hero H1 per sethforte: title-case, single <br>, rotating gradient word.
            min-height gets pinned at boot by JS to the tallest variant so cycling
            never shifts the page. CSS floor here is the no-JS/first-paint fallback. */
@@ -254,7 +254,7 @@
             /* Only "Using The Right Data" needs a third line at narrow widths */
             .hero-h1 { min-height: calc(3 * 1.05em); }
         }
-        /* The ONE permitted gradient in the system — on the payoff phrase */
+        /* The ONE permitted gradient in the system, on the payoff phrase */
         .gradient-text {
             background: linear-gradient(120deg, var(--accent) 0%, #5BC0FF 100%);
             -webkit-background-clip: text;
@@ -265,7 +265,7 @@
             transition: opacity 0.3s ease;
         }
 
-        /* Hero sub — muted paragraph between H1 and CTAs */
+        /* Hero sub, muted paragraph between H1 and CTAs */
         .hero-sub {
             color: rgba(255,255,255,0.68);
             font-size: 1.0625rem;
@@ -274,7 +274,7 @@
             margin: 0 auto 2rem;
         }
 
-        /* Hero tools row — one quiet muted line under the stats.
+        /* Hero tools row, one quiet muted line under the stats.
            Dot-separated names, small type, centered. No logos. */
         .hero-tools-row {
             margin: 1.75rem auto 0;
@@ -290,7 +290,7 @@
             .hero-tools-row { font-size: 0.75rem; }
         }
 
-        /* Hero CTA row — one filled cyan-gradient primary, one ghost */
+        /* Hero CTA row, one filled cyan-gradient primary, one ghost */
         .hero-cta-row {
             display: flex;
             flex-wrap: wrap;
@@ -300,7 +300,7 @@
             margin: 0 auto 1rem;
         }
 
-        /* Tertiary hero link — quiet third option under the two buttons,
+        /* Tertiary hero link, quiet third option under the two buttons,
            for the person who isn't ready to click either. Smaller than the
            button labels, secondary text color, no button chrome. Sits in the
            space that used to be pure margin so mobile layout doesn't shift. */
@@ -366,12 +366,12 @@
         }
         .hero-btn:hover .hero-btn-arrow { transform: translateX(3px); }
 
-        /* WHO WE BUILD FOR — five industries, one line each with strong noun + specific detail. */
+        /* WHO WE BUILD FOR, five industries, one line each with strong noun + specific detail. */
         .who-list { list-style: none; margin: var(--sp-10) 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.85rem; max-width: 900px; }
         .who-list li { display: flex; align-items: baseline; gap: 0.8rem; padding: 1.15rem 1.25rem; background: var(--paper); border: 1px solid var(--border); border-radius: 12px; font-size: 1rem; line-height: 1.55; color: var(--n-700); }
         .who-list li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-tint, rgba(0,136,219,0.10)); flex: none; align-self: center; }
         .who-list strong { color: var(--ink); font-weight: 600; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); }
-        /* Legacy alias — kept in case old links remain */
+        /* Legacy alias, kept in case old links remain */
         .who-line { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.5rem, 3.2vw, 2rem); line-height: 1.25; letter-spacing: -0.02em; color: var(--ink); margin: 1rem 0 0; max-width: 900px; }
         .who-line a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 0.2em; transition: color var(--dur-hover); }
         .who-line a:hover { color: var(--accent); }
@@ -435,7 +435,7 @@
         .engine-copy .studio-eyebrow { color: var(--n-500); margin-bottom: 1rem; }
         .engine-copy .studio-h2 { margin-bottom: 1.5rem; }
         .engine-copy p.sub { color: var(--n-600); font-size: var(--text-lg); line-height: 1.6; margin: 0 0 1rem; }
-        /* Engine summary — smaller, muted, reads as a caption under the paragraph */
+        /* Engine summary, smaller, muted, reads as a caption under the paragraph */
         .engine-copy .engine-summary { color: var(--n-500); font-size: 0.9375rem; line-height: 1.55; margin: 0 0 var(--sp-6); font-style: normal; }
         .engine-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: var(--sp-8); }
         /* Engine SVGs (per Engine SVG Swap mini-runbook). Both inline; LF vars
@@ -552,7 +552,7 @@
         .faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.5rem 0; background: transparent; border: 0; text-align: left; cursor: pointer; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-lg); font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
         .faq-chev { width: 20px; height: 20px; color: var(--n-500); transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1), color var(--dur-hover); flex: none; }
         .faq-qa.open .faq-chev { transform: rotate(180deg); color: var(--accent); }
-        /* Section 14 accordion ease: 0.42s quart-out (cubic-bezier(0.16,1,0.3,1)) — silky height + opacity fade */
+        /* Section 14 accordion ease: 0.42s quart-out (cubic-bezier(0.16,1,0.3,1)), silky height + opacity fade */
         .faq-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1); }
         .faq-qa.open .faq-panel { grid-template-rows: 1fr; }
         .faq-panel-inner { overflow: hidden; opacity: 0; transition: opacity 0.28s ease-out; }
@@ -601,7 +601,7 @@
         }
 
         @media(max-width: 640px) {
-          /* Nav: two elements only — logo + hamburger. Contact + theme toggle move inside the menu. */
+          /* Nav: two elements only, logo + hamburger. Contact + theme toggle move inside the menu. */
           .hero-nav .studio-nav-cta { display: none; }
 
           /* Hero content: fits ~1.5 viewports with bar visible in first */
@@ -625,13 +625,26 @@
           .hero-stat-value { font-size: 1.25rem !important; }
 
         }
+
+        /* Services grid: four columns on desktop, stacks on mobile.
+           Column head sits on its own line above a plain bullet list.
+           Cards are lightly bordered so the four sit as peers. */
+        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; max-width: 1120px; margin: 0 auto; padding: 0 var(--sp-4, 1rem); }
+        .services-col { padding: 1.5rem 1.35rem; background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-2xl, 20px); display: flex; flex-direction: column; }
+        .services-col-head { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 1rem; }
+        .services-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.85rem; }
+        .services-col-list li { position: relative; padding-left: 1.15rem; font-size: 0.95rem; line-height: 1.5; color: var(--ink); }
+        .services-col-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+        [data-theme="dark"] .services-col { background: var(--n-900, #171717); }
+        @media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 620px) { .services-grid { grid-template-columns: 1fr; gap: 1rem; } }
     </style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT7NJCP7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ============================================================
-     PASS 8 SECTION 8 — CINEMATIC HERO (homepage only, one dark zone)
+     PASS 8 SECTION 8, CINEMATIC HERO (homepage only, one dark zone)
      Black nav bleeds into a full-bleed dark hero. Video plays ambient
      behind two overlays. White rounded-top pane begins below the hero.
      ============================================================ -->
@@ -656,7 +669,7 @@
 </header>
 
 <div class="hero-zone">
-    <!-- Clean atmospheric hero — no video. Background glow is in CSS.
+    <!-- Clean atmospheric hero, no video. Background glow is in CSS.
          Bottom fade dissolves the dark hero into the white pane below. -->
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
 
@@ -666,7 +679,7 @@
          explanation before booking. -->
     <div class="hero-content">
         <div class="hero-content-inner">
-            <!-- Hero H1 — sethforte pattern verbatim: title case, single <br>,
+            <!-- Hero H1, sethforte pattern verbatim: title case, single <br>,
                  the last word swaps on a timer via .gradient-text. The JS
                  rotator below measures every variant off-screen at boot and
                  pins .hero-h1 min-height to the tallest, so the page never
@@ -699,7 +712,7 @@
 <main class="studio-pane hero-follows">
 
 
-    <!-- 1. SERVICES — merges the old what-we-do intro + the what-we-build
+    <!-- 1. SERVICES, merges the old what-we-do intro + the what-we-build
          seven-item list into one text-only block with four plain lines.
          Engine SVG dropped per 2026-09-01 trim. Alias anchors for retired
          section ids kept so external links and 301s still resolve. -->
@@ -711,14 +724,42 @@
             <p class="studio-eyebrow">Services</p>
             <h2 class="studio-h2">We connect the systems your business already runs on.</h2>
         </div>
-        <div class="services-body studio-reveal" style="max-width:780px;margin:0 auto;">
+        <div class="services-body studio-reveal" style="max-width:820px;margin:0 auto var(--sp-12,3rem);">
             <p class="sub">Leads sit in an inbox nobody checks, invoices don't match what you billed, follow up goes out six hours late after the lead already booked somewhere else, and nobody can say if the week was actually good. We build the connections that fix it, then we run them.</p>
-            <ul class="services-list studio-reveal-stagger" style="list-style:none;padding:0;margin:var(--sp-8,2rem) 0 0;">
-                <li class="studio-reveal" style="padding:1rem 0;border-bottom:1px solid var(--border);font-size:var(--text-lg,1.125rem);font-weight:500;color:var(--ink);">Lead capture and follow up</li>
-                <li class="studio-reveal" style="padding:1rem 0;border-bottom:1px solid var(--border);font-size:var(--text-lg,1.125rem);font-weight:500;color:var(--ink);">Revenue and billing systems</li>
-                <li class="studio-reveal" style="padding:1rem 0;border-bottom:1px solid var(--border);font-size:var(--text-lg,1.125rem);font-weight:500;color:var(--ink);">Reporting you can read in a minute</li>
-                <li class="studio-reveal" style="padding:1rem 0;border-bottom:1px solid var(--border);font-size:var(--text-lg,1.125rem);font-weight:500;color:var(--ink);">Custom integrations between the tools you already run</li>
-            </ul>
+        </div>
+        <div class="services-grid studio-reveal-stagger">
+            <div class="services-col studio-reveal">
+                <h3 class="services-col-head">Marketing</h3>
+                <ul class="services-col-list">
+                    <li>Search and AI visibility so the buyers already looking can find you</li>
+                    <li>Landing pages, tracking, and pixels that turn ad spend into booked revenue</li>
+                </ul>
+            </div>
+            <div class="services-col studio-reveal">
+                <h3 class="services-col-head">Sales</h3>
+                <ul class="services-col-list">
+                    <li>CRM builds and pipeline automation so no lead sits waiting</li>
+                    <li>Instant response so you beat the competition to the callback</li>
+                    <li>Lead enrichment so the calls you take are the ones worth taking</li>
+                </ul>
+            </div>
+            <div class="services-col studio-reveal">
+                <h3 class="services-col-head">Operations &amp; Engineering</h3>
+                <ul class="services-col-list">
+                    <li>Custom builds and integrations for what off the shelf cannot fit</li>
+                    <li>Reliability setup: monitoring, alerting, and the runbook for when it breaks at 2am</li>
+                    <li>Revenue infrastructure: billing, collections, cash reconciled nightly</li>
+                    <li>Reporting you can read in a minute, not five dashboards that disagree</li>
+                </ul>
+            </div>
+            <div class="services-col studio-reveal">
+                <h3 class="services-col-head">AI</h3>
+                <ul class="services-col-list">
+                    <li>Internal and external AI agents that handle the work you would have hired for</li>
+                    <li>Voice AI for after hours calls, missed calls, and inbound intake</li>
+                    <li>Strategic AI consulting: what to automate, what to leave alone, what it actually costs</li>
+                </ul>
+            </div>
         </div>
     </section>
 
@@ -749,7 +790,7 @@
         </div>
     </section>
 
-    <!-- 3. TESTIMONIALS — moved above How We Work so proof lands before pricing.
+    <!-- 3. TESTIMONIALS, moved above How We Work so proof lands before pricing.
          Runbook: homepage-ripple-flow, 2026-08-27. -->
     <section class="studio-container studio-section">
         <div class="section-eyebrow-block studio-reveal">
@@ -786,7 +827,7 @@
         </div>
     </section>
 
-    <!-- 4. HOW WE WORK — three engagements. Prices removed sitewide 2026-08-06;
+    <!-- 4. HOW WE WORK, three engagements. Prices removed sitewide 2026-08-06;
          the /pricing page was retired at the same time and 301s to /contact.html.
          Now sits below proof (previously above it). -->
     <section class="studio-container studio-section" id="how-we-work" style="scroll-margin-top:80px">
@@ -813,7 +854,7 @@
         </div>
     </section>
 
-    <!-- 5. ABOUT — restored 2026-09-01 to the prior photo + paragraph shape. -->
+    <!-- 5. ABOUT, restored 2026-09-01 to the prior photo + paragraph shape. -->
     <section class="studio-container studio-section" id="about">
         <div class="section-eyebrow-block studio-reveal" style="text-align:left;margin-bottom:var(--sp-10);">
             <p class="studio-eyebrow">About</p>
@@ -896,7 +937,7 @@
     });
 })();
 
-// Section 14: hero stat count-up — animate .num spans from 0 to final on first reveal.
+// Section 14: hero stat count-up, animate .num spans from 0 to final on first reveal.
 // 900ms ease-out cubic. Reduced motion skips the animation and shows finals.
 (function(){
     var nums = document.querySelectorAll('.hero-stat-value .num');

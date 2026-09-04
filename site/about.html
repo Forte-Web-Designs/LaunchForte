@@ -76,7 +76,7 @@
     <link rel="stylesheet" href="/studio.css?v=q2j">
     <script src="/studio-theme.js?v=q2j"></script>
     <style>
-        /* Cinematic hero for About — same rotating video pattern as homepage.
+        /* Cinematic hero for About, same rotating video pattern as homepage.
            Runbook §8 declares one dark zone per site (the homepage) but the
            About page is the founder story, so it gets a matching dark zone
            to introduce Seth in the same visual language. */
@@ -95,7 +95,7 @@
         .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
         .hero-overlay-btm { background: linear-gradient(180deg, transparent 82%, rgba(10,10,10,0.55) 94%, #FFFFFF 100%); }
         [data-theme="dark"] .hero-overlay-btm { background: linear-gradient(180deg, transparent 82%, rgba(10,10,10,0.4) 94%, #0A0A0A 100%); }
-        /* Nav overrides for the dark hero — same as homepage .hero-nav */
+        /* Nav overrides for the dark hero, same as homepage .hero-nav */
         .hero-nav { position: sticky; top: 0; z-index: 40; padding: 1.15rem 0; background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-bottom: 1px solid transparent !important; transition: background 0.2s ease, border-color 0.2s ease; }
         .hero-nav.is-scrolled { background: rgba(10, 10, 10, 0.82) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; backdrop-filter: saturate(180%) blur(20px) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
         @media (max-width: 640px) { .hero-nav { padding: 0.7rem 0 !important; } .hero-nav .studio-nav-inner { padding: 0 1rem; gap: 0.75rem; } .hero-nav .studio-nav-cta { display: none; } .hero-nav .studio-nav-right { gap: 0.5rem; } }
@@ -105,7 +105,7 @@
         .hero-nav .studio-nav-cta:hover { background: #F5F5F5; color: #0A0A0A; }
         .hero-nav #hamburger { border-color: rgba(255,255,255,0.24); }
         .hero-nav #hamburger span { background: #FFFFFF; }
-        /* Hero content — About's H1 sits centered */
+        /* Hero content, About's H1 sits centered */
         .hero-content { position: relative; z-index: 20; padding: 5rem 0 3rem; }
         .hero-content-inner { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; text-align: center; }
         @media(min-width: 640px) { .hero-content-inner { padding: 0 2rem; } }
@@ -133,7 +133,7 @@
           .hero-h1 { max-width: 100% !important; }
         }
 
-        /* How I Work Differently — 2x2 grid of cards, studio grammar */
+        /* How I Work Differently, 2x2 grid of cards, studio grammar */
         .about-diff-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -186,7 +186,7 @@
     </div>
 </header>
 
-<!-- CINEMATIC HERO — same rotating video as homepage. Rotates through
+<!-- CINEMATIC HERO, same rotating video as homepage. Rotates through
      /media/hero-1.mp4?v=q2j and hero-2.mp4 via the JS at page bottom. -->
 <div class="hero-zone">
     <div class="hero-overlay hero-overlay-btm" aria-hidden="true"></div>
@@ -204,7 +204,7 @@
 
 <main class="studio-pane hero-follows">
 
-    <!-- ABOUT US VIDEO — autoplay muted b-roll -->
+    <!-- ABOUT US VIDEO, autoplay muted b-roll -->
     <div class="section reveal">
         <div class="about-us-video-wrap">
             <video src="/media/about-us.mp4?v=q2j" autoplay muted loop playsinline preload="metadata" controls></video>
