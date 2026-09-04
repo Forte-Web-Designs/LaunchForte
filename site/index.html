@@ -626,10 +626,10 @@
 
         }
 
-        /* Services grid: four columns on desktop, stacks on mobile.
+        /* Services grid: three columns on desktop, stacks on mobile.
            Column head sits on its own line above a plain bullet list.
-           Cards are lightly bordered so the four sit as peers. */
-        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; max-width: 1120px; margin: 0 auto; padding: 0 var(--sp-4, 1rem); }
+           Cards are lightly bordered so the three sit as peers. */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; max-width: 980px; margin: 0 auto; padding: 0 var(--sp-4, 1rem); }
         .services-col { padding: 1.5rem 1.35rem; background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-2xl, 20px); display: flex; flex-direction: column; }
         .services-col-head { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 1rem; }
         .services-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.85rem; }
@@ -731,7 +731,7 @@
             <div class="services-col studio-reveal">
                 <h3 class="services-col-head">Marketing</h3>
                 <ul class="services-col-list">
-                    <li>Search and AI visibility so the buyers already looking can find you</li>
+                    <li>Search visibility so the buyers already looking can find you</li>
                     <li>Landing pages, tracking, and pixels that turn ad spend into booked revenue</li>
                 </ul>
             </div>
@@ -747,17 +747,9 @@
                 <h3 class="services-col-head">Operations &amp; Engineering</h3>
                 <ul class="services-col-list">
                     <li>Custom builds and integrations for what off the shelf cannot fit</li>
-                    <li>Reliability setup: monitoring, alerting, and the runbook for when it breaks at 2am</li>
+                    <li>Reliability setup: monitoring, alerting</li>
                     <li>Revenue infrastructure: billing, collections, cash reconciled nightly</li>
-                    <li>Reporting you can read in a minute, not five dashboards that disagree</li>
-                </ul>
-            </div>
-            <div class="services-col studio-reveal">
-                <h3 class="services-col-head">AI</h3>
-                <ul class="services-col-list">
-                    <li>Internal and external AI agents that handle the work you would have hired for</li>
-                    <li>Voice AI for after hours calls, missed calls, and inbound intake</li>
-                    <li>Strategic AI consulting: what to automate, what to leave alone, what it actually costs</li>
+                    <li>Reporting you can read in a minute</li>
                 </ul>
             </div>
         </div>
