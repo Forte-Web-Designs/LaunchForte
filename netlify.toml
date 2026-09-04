@@ -831,7 +831,7 @@
 # Vanity short URL for cold email outreach. Carries UTM attribution to /medspa.
 [[redirects]]
   from = "/ms"
-  to = "/medspa?utm_source=email&utm_medium=cold"
+  to = "/#services?utm_source=email&utm_medium=cold"
   status = 301
   force = true
 
@@ -920,73 +920,73 @@
 # traffic hits these, so retire cleanly rather than trim.
 [[redirects]]
   from = "/coaches.html"
-  to = "/#who-we-build-for"
+  to = "/#services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/coaches"
-  to = "/#who-we-build-for"
+  to = "/#services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/home-services.html"
-  to = "/#who-we-build-for"
+  to = "/#services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/home-services"
-  to = "/#who-we-build-for"
+  to = "/#services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/financial-firms.html"
-  to = "/#who-we-build-for"
+  to = "/#services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/financial-firms"
-  to = "/#who-we-build-for"
+  to = "/#services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/real-estate.html"
-  to = "/#who-we-build-for"
+  to = "/#services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/real-estate"
-  to = "/#who-we-build-for"
+  to = "/#services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/medspa.html"
-  to = "/#who-we-build-for"
+  to = "/#services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/medspa"
-  to = "/#who-we-build-for"
+  to = "/#services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/medspa/reactivation.html"
-  to = "/#who-we-build-for"
+  to = "/#services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/medspa/reactivation"
-  to = "/#who-we-build-for"
+  to = "/#services"
   status = 301
   force = true
 

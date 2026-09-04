@@ -643,14 +643,14 @@
             <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
         </a>
         <div class="studio-nav-right">
-            <a href="/contact.html" class="studio-nav-cta">Contact</a>
+            <a href="https://calendly.com/seth-launchforte/30min" target="_blank" rel="noopener" class="studio-nav-cta">Book the Audit</a>
             <!-- header-nav is cloned into the hamburger overlay by hamburger.js; hidden on the header itself -->
             <nav class="header-nav" aria-label="Primary" style="display:none">
-                <a href="/index.html" class="active">Home</a>
-                <a href="/what-we-build.html">Services</a>
-                <a href="/#who-we-build-for">Who We Build For</a>
-                <a href="/about.html">About</a>
-                <a href="/contact.html">Contact</a>
+                <a href="/#services">Services</a>
+                <a href="/#proof-strip">Proof</a>
+                <a href="/#how-we-work">How We Work</a>
+                <a href="/#about">About</a>
+                <a href="/#faq">FAQ</a>
             </nav>
         </div>
     </div>
@@ -700,150 +700,32 @@
 <main class="studio-pane hero-follows">
 
 
-    <!-- 1. WHAT WE DO (previously "The whole engine"). Copy rewritten per the
-         clarity pass; the engine SVG stays because it illustrates exactly the
-         Found -> Captured -> Converted -> Paid flow this copy names. -->
-    <section class="studio-container studio-section" id="what-we-do">
-        <!-- Alias anchor kept: retired industry pages 301 to /#who-we-build-for now,
-             but external links or bookmarks pointing at /#the-engine still resolve. -->
+    <!-- 1. SERVICES — merges the old what-we-do intro + the what-we-build
+         seven-item list into one text-only block with four plain lines.
+         Engine SVG dropped per 2026-09-01 trim. Alias anchors for retired
+         section ids kept so external links and 301s still resolve. -->
+    <section class="studio-container studio-section" id="services">
+        <span id="what-we-do" style="position:relative;top:-80px" aria-hidden="true"></span>
+        <span id="what-we-build" style="position:relative;top:-80px" aria-hidden="true"></span>
         <span id="the-engine" style="position:relative;top:-80px" aria-hidden="true"></span>
-        <div class="engine-inner">
-            <div class="engine-copy studio-reveal">
-                <p class="studio-eyebrow">What we do</p>
-                <h2 class="studio-h2">We connect the systems your business already runs on.</h2>
-                <p class="sub">Leads sit in an inbox nobody checks, invoices don't match what you billed, follow up goes out six hours late after the lead already booked somewhere else, and nobody can say if the week was actually good. We build the connections that fix it, then we run them.</p>
-                <p class="engine-summary">Capture, CRM, follow up, reporting. One connected system, one number at month end.</p>
-                <div class="engine-ctas">
-                    <a href="/what-we-build.html" class="studio-btn studio-btn-primary">See everything we build</a>
-                </div>
-            </div>
-            <div class="homepage-engine studio-reveal">
-                <svg class="the-engine-svg" viewBox="0 0 1200 660" xmlns="http://www.w3.org/2000/svg" font-family="Mona Sans, ui-sans-serif, system-ui, sans-serif" role="img" aria-label="The engine your business runs on: sources flow into your system, your system produces booked jobs, revenue, and repeat clients, and retention feeds back into the sources.">
-                  <style>
-                    .the-engine-svg .ink{fill:var(--lf-ink,#141414)} .the-engine-svg .mut{fill:var(--lf-gray,#7a7a7a)}
-                    .the-engine-svg .card{fill:var(--lf-paper,#ffffff);stroke:var(--lf-line,#e4e4e4);stroke-width:1.5}
-                    .the-engine-svg .chip{fill:var(--lf-chipbg,#fafafa);stroke:var(--lf-line,#e4e4e4);stroke-width:1.25}
-                    .the-engine-svg .wire{fill:none;stroke:var(--lf-line,#dcdcdc);stroke-width:1.5}
-                    .the-engine-svg .loop{fill:none;stroke:var(--lf-gray,#9a9a9a);stroke-width:1.25;stroke-dasharray:2 7;stroke-linecap:round}
-                    .the-engine-svg .accent{fill:var(--lf-accent,#0088DB)} .the-engine-svg .accentline{stroke:var(--lf-accent,#0088DB)}
-                    .the-engine-svg .tick{stroke:var(--lf-accent,#0088DB);stroke-width:3;stroke-linecap:round}
-                    @media (prefers-reduced-motion: reduce){ .the-engine-svg .pulse,.the-engine-svg .corepulse{display:none} }
-                  </style>
-
-                  <text x="600" y="52" text-anchor="middle" font-size="21" font-weight="650" class="ink">The engine your business runs on</text>
-
-                  <g font-size="15" font-weight="500">
-                    <rect class="card" x="60" y="140" width="200" height="52" rx="12"/>
-                    <line class="tick" x1="80" y1="156" x2="80" y2="176"/>
-                    <text class="ink" x="96" y="171">Ads and search</text>
-                    <rect class="card" x="60" y="288" width="200" height="52" rx="12"/>
-                    <line class="tick" x1="80" y1="304" x2="80" y2="324"/>
-                    <text class="ink" x="96" y="319">Social and DMs</text>
-                    <rect class="card" x="60" y="436" width="200" height="52" rx="12"/>
-                    <line class="tick" x1="80" y1="452" x2="80" y2="472"/>
-                    <text class="ink" x="96" y="467">Referrals</text>
-                  </g>
-
-                  <rect x="470" y="128" width="260" height="392" rx="22" fill="var(--lf-paper,#ffffff)" stroke="var(--lf-accent,#0088DB)" stroke-width="2"/>
-                  <text x="600" y="168" text-anchor="middle" font-size="14" font-weight="700" letter-spacing="1.5" class="accent">YOUR SYSTEM</text>
-                  <g font-size="14" font-weight="500" text-anchor="middle">
-                    <rect class="chip" x="502" y="192" width="196" height="46" rx="10"/><text class="ink" x="600" y="221">Capture</text>
-                    <rect class="chip" x="502" y="256" width="196" height="46" rx="10"/><text class="ink" x="600" y="285">CRM</text>
-                    <rect class="chip" x="502" y="320" width="196" height="46" rx="10"/><text class="ink" x="600" y="349">Follow up</text>
-                    <rect class="chip" x="502" y="384" width="196" height="46" rx="10"/><text class="ink" x="600" y="413">Reporting</text>
-                  </g>
-                  <text x="600" y="482" text-anchor="middle" font-size="12.5" class="mut">one clean record on everyone</text>
-
-                  <path id="engine-w1" class="wire" d="M260,166 C360,166 380,220 470,232"/>
-                  <path id="engine-w2" class="wire" d="M260,314 C350,314 380,318 470,322"/>
-                  <path id="engine-w3" class="wire" d="M260,462 C360,462 380,412 470,406"/>
-                  <path id="engine-w4" class="wire" d="M730,232 C820,220 840,166 940,166"/>
-                  <path id="engine-w5" class="wire" d="M730,322 C820,318 850,314 940,314"/>
-                  <path id="engine-w6" class="wire" d="M730,406 C820,412 840,462 940,462"/>
-
-                  <g font-size="15" font-weight="500">
-                    <rect class="card" x="940" y="140" width="200" height="52" rx="12"/>
-                    <line class="tick" x1="960" y1="156" x2="960" y2="176"/>
-                    <text class="ink" x="976" y="171">Booked</text>
-                    <rect class="card" x="940" y="288" width="200" height="52" rx="12"/>
-                    <line class="tick" x1="960" y1="304" x2="960" y2="324"/>
-                    <text class="ink" x="976" y="319">Revenue</text>
-                    <rect class="card" x="940" y="436" width="200" height="52" rx="12"/>
-                    <line class="tick" x1="960" y1="452" x2="960" y2="472"/>
-                    <text class="ink" x="976" y="467">Repeat clients</text>
-                  </g>
-
-                  <path id="engine-loopback" class="loop" d="M1040,492 C1040,590 600,610 600,610 C600,610 160,590 160,492"/>
-                  <text x="600" y="640" text-anchor="middle" font-size="12.5" class="mut">retention and referrals feed the top</text>
-
-                  <g class="pulse">
-                    <circle r="4" class="accent"><animateMotion dur="3.6s" repeatCount="indefinite" begin="0s"><mpath href="#engine-w1"/></animateMotion></circle>
-                    <circle r="4" class="accent"><animateMotion dur="4.2s" repeatCount="indefinite" begin="1.1s"><mpath href="#engine-w2"/></animateMotion></circle>
-                    <circle r="4" class="accent"><animateMotion dur="3.9s" repeatCount="indefinite" begin="2s"><mpath href="#engine-w3"/></animateMotion></circle>
-                    <circle r="4" class="accent"><animateMotion dur="3.6s" repeatCount="indefinite" begin="0.6s"><mpath href="#engine-w4"/></animateMotion></circle>
-                    <circle r="4" class="accent"><animateMotion dur="4.2s" repeatCount="indefinite" begin="1.7s"><mpath href="#engine-w5"/></animateMotion></circle>
-                    <circle r="4" class="accent"><animateMotion dur="3.9s" repeatCount="indefinite" begin="2.6s"><mpath href="#engine-w6"/></animateMotion></circle>
-                    <circle r="3.5" class="accent" opacity="0.8"><animateMotion dur="7s" repeatCount="indefinite" begin="0.4s"><mpath href="#engine-loopback"/></animateMotion></circle>
-                  </g>
-                  <text x="1140" y="640" text-anchor="end" font-size="11" letter-spacing="1.2" class="mut">THE <tspan class="accent" font-weight="700">FORTE</tspan> METHOD</text>
-                </svg>
-
-                <svg class="the-compounding-svg" viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg" font-family="Mona Sans, ui-sans-serif, system-ui, sans-serif" role="img" aria-label="Every lesson from every build flows into one practice memory, and every new build ships from it smarter.">
-                  <style>
-                    .the-compounding-svg .ink{fill:var(--lf-ink,#141414)} .the-compounding-svg .mut{fill:var(--lf-gray,#7a7a7a)}
-                    .the-compounding-svg .card{fill:var(--lf-paper,#ffffff);stroke:var(--lf-line,#e4e4e4);stroke-width:1.5}
-                    .the-compounding-svg .wire{fill:none;stroke:var(--lf-line,#dcdcdc);stroke-width:1.5}
-                    .the-compounding-svg .accent{fill:var(--lf-accent,#0088DB)}
-                    @media (prefers-reduced-motion: reduce){ .the-compounding-svg .pulse,.the-compounding-svg .ring{display:none} }
-                  </style>
-                  <g font-size="13.5" font-weight="500">
-                    <rect class="card" x="40" y="40" width="150" height="40" rx="10"/><text class="ink" x="115" y="65" text-anchor="middle">every fix</text>
-                    <rect class="card" x="40" y="110" width="150" height="40" rx="10"/><text class="ink" x="115" y="135" text-anchor="middle">every gotcha</text>
-                    <rect class="card" x="40" y="180" width="150" height="40" rx="10"/><text class="ink" x="115" y="205" text-anchor="middle">every timing</text>
-                  </g>
-                  <path id="comp-c1" class="wire" d="M190,60 C300,60 330,110 415,124"/>
-                  <path id="comp-c2" class="wire" d="M190,130 C300,130 330,130 415,130"/>
-                  <path id="comp-c3" class="wire" d="M190,200 C300,200 330,150 415,136"/>
-                  <circle cx="470" cy="130" r="56" fill="var(--lf-paper,#ffffff)" stroke="var(--lf-accent,#0088DB)" stroke-width="2"/>
-                  <circle class="ring" cx="470" cy="130" r="56" fill="none" stroke="var(--lf-accent,#0088DB)" stroke-width="1" opacity="0.5">
-                    <animate attributeName="r" values="56;70" dur="2.8s" repeatCount="indefinite"/>
-                    <animate attributeName="opacity" values="0.5;0" dur="2.8s" repeatCount="indefinite"/>
-                  </circle>
-                  <text x="470" y="124" text-anchor="middle" font-size="13" font-weight="700" class="accent">RECORDED</text>
-                  <text x="470" y="142" text-anchor="middle" font-size="13" font-weight="700" class="accent">ONCE</text>
-                  <path id="comp-c4" class="wire" d="M526,130 C620,130 640,130 710,130"/>
-                  <rect class="card" x="710" y="106" width="160" height="48" rx="12"/>
-                  <text class="ink" x="790" y="126" text-anchor="middle" font-size="13.5" font-weight="600">your build ships</text>
-                  <text class="ink" x="790" y="143" text-anchor="middle" font-size="13.5" font-weight="600">with all of it</text>
-                  <g class="pulse">
-                    <circle r="3.5" class="accent"><animateMotion dur="3s" repeatCount="indefinite" begin="0s"><mpath href="#comp-c1"/></animateMotion></circle>
-                    <circle r="3.5" class="accent"><animateMotion dur="3.4s" repeatCount="indefinite" begin="0.9s"><mpath href="#comp-c2"/></animateMotion></circle>
-                    <circle r="3.5" class="accent"><animateMotion dur="3.2s" repeatCount="indefinite" begin="1.8s"><mpath href="#comp-c3"/></animateMotion></circle>
-                    <circle r="4" class="accent"><animateMotion dur="2.6s" repeatCount="indefinite" begin="0.5s"><mpath href="#comp-c4"/></animateMotion></circle>
-                  </g>
-                </svg>
-            </div>
-        </div>
-    </section>
-
-    <!-- 1.5 WHAT WE BUILD — the seven-item scannable list.
-         Replaces the deep per-shape subpages on the homepage; each shape
-         is one line, strong noun then short outcome. -->
-    <section class="studio-container studio-section" id="what-we-build">
         <div class="section-eyebrow-block studio-reveal">
-            <p class="studio-eyebrow">What we build</p>
-            <h2 class="studio-h2">The systems.</h2>
+            <p class="studio-eyebrow">Services</p>
+            <h2 class="studio-h2">We connect the systems your business already runs on.</h2>
         </div>
-        <ul class="wwb-list studio-reveal-stagger">
-            <li class="studio-reveal"><span><strong>Outbound and Lead Systems</strong></span></li>
-            <li class="studio-reveal"><span><strong>Revenue Infrastructure</strong></span></li>
-            <li class="studio-reveal"><span><strong>AI Agents and Orchestration</strong></span></li>
-            <li class="studio-reveal"><span><strong>Reporting and Dashboards</strong></span></li>
-            <li class="studio-reveal"><span><strong>Custom Builds and Integrations</strong></span></li>
-            <li class="studio-reveal"><span><strong>Engineering and Reliability</strong></span></li>
-            <li class="studio-reveal"><span><strong>Inbound and Paid Systems</strong></span></li>
-        </ul>
+        <div class="services-body studio-reveal" style="max-width:780px;margin:0 auto;">
+            <p class="sub">Leads sit in an inbox nobody checks, invoices don't match what you billed, follow up goes out six hours late after the lead already booked somewhere else, and nobody can say if the week was actually good. We build the connections that fix it, then we run them.</p>
+            <ul class="services-list studio-reveal-stagger" style="list-style:none;padding:0;margin:var(--sp-8,2rem) 0 0;">
+                <li class="studio-reveal" style="padding:1rem 0;border-bottom:1px solid var(--border);font-size:var(--text-lg,1.125rem);font-weight:500;color:var(--ink);">Lead capture and follow up</li>
+                <li class="studio-reveal" style="padding:1rem 0;border-bottom:1px solid var(--border);font-size:var(--text-lg,1.125rem);font-weight:500;color:var(--ink);">Revenue and billing systems</li>
+                <li class="studio-reveal" style="padding:1rem 0;border-bottom:1px solid var(--border);font-size:var(--text-lg,1.125rem);font-weight:500;color:var(--ink);">Reporting you can read in a minute</li>
+                <li class="studio-reveal" style="padding:1rem 0;border-bottom:1px solid var(--border);font-size:var(--text-lg,1.125rem);font-weight:500;color:var(--ink);">Custom integrations between the tools you already run</li>
+            </ul>
+        </div>
     </section>
+
+    <!-- Sections retired 2026-09-01: #what-we-do (engine SVG), #what-we-build
+         (seven-item list), #who-we-build-for (five audience segments). All
+         merged or dropped per the trim pass; alias anchors kept on Services. -->
 
     <!-- 2. PROOF STRIP: the hero's stats row lives here now.
          Reuses .hero-stats-* styles, with the container providing the
@@ -932,65 +814,32 @@
         </div>
     </section>
 
-    <!-- 5. WHO WE BUILD FOR — industry pages retired 2026-09-01; the sharpest
-         one-liner from each folds up onto this section. Copy, not links. -->
-    <section class="studio-container studio-section" id="who-we-build-for">
+    <!-- 5. ABOUT — trimmed 2026-09-01 to two sentences, no photo block. -->
+    <section class="studio-container studio-section" id="about">
         <div class="section-eyebrow-block studio-reveal">
-            <p class="studio-eyebrow">Who we build for</p>
-            <h2 class="studio-h2">A few of the businesses <span class="lf-accent">we build for</span>.</h2>
-        </div>
-        <ul class="who-list studio-reveal-stagger">
-            <li class="studio-reveal"><strong>Coaches and creators.</strong> First message to repeat client, one system.</li>
-            <li class="studio-reveal"><strong>Home and field services.</strong> Field software and books stop needing a middleman.</li>
-            <li class="studio-reveal"><strong>Financial and professional firms.</strong> Audit trails and approvals the work requires.</li>
-            <li class="studio-reveal"><strong>Med spas and aesthetic practices.</strong> Reactivation and booking inside the software you already use.</li>
-            <li class="studio-reveal"><strong>Real estate agents.</strong> Text-back under a minute, follow-up runs while you're out.</li>
-        </ul>
-    </section>
-
-    <!-- 6. ABOUT -->
-    <section class="studio-container studio-section">
-        <div class="section-eyebrow-block studio-reveal" style="text-align:left;margin-bottom:var(--sp-10);">
             <p class="studio-eyebrow">About</p>
         </div>
-        <div class="about-block studio-reveal">
-            <img src="/images/about/headshot-6.jpg" alt="Seth Forte, founder of Launch Forte, automation consultant in Dallas-Fort Worth Texas" class="about-avatar" loading="lazy" decoding="async">
-            <div>
-                <p class="about-name">Seth Forte, Founder</p>
-                <p>I spent years as a reliability engineer keeping critical systems standing at a national bank. Now I build that same reliability for growing businesses. Every engagement starts with what the problem is costing. If the math doesn't work, I'll tell you.</p>
-                <a href="/about.html" class="studio-btn studio-btn-ghost">More about Seth</a>
-            </div>
+        <div class="studio-reveal" style="max-width:780px;margin:0 auto;">
+            <p class="sub">Seth spent years as a reliability engineer keeping critical systems standing at a national bank. Every engagement starts with what the problem is costing, and if the math doesn't work, he'll say so.</p>
         </div>
     </section>
 
-    <!-- 7. FAQ -->
+    <!-- 6. FAQ — trimmed 2026-09-01 to two questions. -->
     <section class="studio-container studio-section" id="faq">
         <div class="section-eyebrow-block studio-reveal">
             <p class="studio-eyebrow">Common Questions</p>
-            <h2 class="studio-h2">What buyers usually ask before <span class="lf-accent">booking an audit</span>.</h2>
         </div>
         <div class="faq-shell studio-reveal">
             <div class="faq-group">
                 <div class="faq-qa">
-                    <button class="faq-q" aria-expanded="false"><span>What makes you different from any other automation shop?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                    <div class="faq-panel"><div class="faq-panel-inner"><p>Most shops build a workflow and leave. We run systems that keep records on themselves: every mistake becomes a written rule, every new build starts with it loaded. You're not hiring one engineer. You're hiring everything we've already learned.</p></div></div>
-                </div>
-                <div class="faq-qa">
                     <button class="faq-q" aria-expanded="false"><span>What changes once the system is in?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                     <div class="faq-panel"><div class="faq-panel-inner"><p>Leads stop slipping. You can see which marketing actually makes a customer. The day to day stops running through you.</p></div></div>
-                </div>
-                <div class="faq-qa">
-                    <button class="faq-q" aria-expanded="false"><span>Do I own what you build, or am I locked in?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                    <div class="faq-panel"><div class="faq-panel-inner"><p>All of it. Accounts, code, documentation, yours to keep. The Partnership exists because you want us running it, not because you're locked in.</p></div></div>
                 </div>
                 <div class="faq-qa">
                     <button class="faq-q" aria-expanded="false"><span>What if the math doesn't work?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                     <div class="faq-panel"><div class="faq-panel-inner"><p>Then we tell you. The audit prices the problem before you commit to a build. If fixing it costs more than it returns, you keep the diagnostic either way.</p></div></div>
                 </div>
             </div>
-        </div>
-        <div class="studio-reveal" style="margin-top:2.5rem;text-align:center;">
-            <a href="/faq.html" class="studio-btn studio-btn-ghost">See all questions</a>
         </div>
     </section>
 
