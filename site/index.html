@@ -369,6 +369,33 @@
         .hero-stats-rule { border: 0; border-top: 1px solid rgba(255,255,255,0.20); margin: 0 0 1.5rem; }
         .hero-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
         @media(max-width: 640px) { .hero-stats-row { grid-template-columns: 1fr; gap: 1.25rem; } }
+
+        /* Google 5-star line under the stats row. Subtle, one-line, links to the
+           Google Business profile. Colored star for recognition, plain type for
+           the number and platform name. */
+        .google-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            margin: 1.5rem auto 0;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            text-decoration: none;
+            color: var(--n-500);
+            font-family: var(--font-display);
+            font-variation-settings: var(--font-display-vars);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            transition: color 0.2s ease, background 0.2s ease;
+        }
+        .google-badge:hover { color: var(--ink); background: rgba(0,0,0,0.03); }
+        [data-theme="dark"] .google-badge:hover { background: rgba(255,255,255,0.06); }
+        .hero-stats > .google-badge { display: flex; justify-content: center; width: fit-content; margin-left: auto; margin-right: auto; }
+        .google-badge-stars { display: inline-flex; gap: 1px; align-items: center; }
+        .google-badge-stars svg { width: 14px; height: 14px; display: block; }
+        .google-badge-text { line-height: 1; }
+        .google-badge-word { color: var(--ink); font-weight: 600; }
+        [data-theme="dark"] .google-badge-word { color: #FAFAFA; }
         .hero-stat-label { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 0.35rem; }
         .hero-stat-value { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-2xl); font-weight: 700; letter-spacing: -0.015em; color: #FFFFFF; }
         .hero-stat-value .num { color: var(--accent); }
@@ -482,8 +509,120 @@
         .capability-desc { color: var(--n-600); font-size: var(--text-base); line-height: 1.55; margin: 0.5rem 0 0; }
         @media(min-width: 900px) { .capability-desc { margin: 0; } }
 
-        /* Testimonials */
+        /* Testimonials — horizontal snap-scroll carousel.
+           Two cards visible on desktop, one on mobile. Arrow buttons pin to
+           the sides and step by one card width (snap-scroll makes the browser
+           settle the next card into the viewport). Each vendor's player
+           renders inside a uniform card frame. */
         .testi-h2 { margin-bottom: 3rem; }
+        .vt-carousel { position: relative; max-width: 1120px; margin: 0 auto; padding: 0 var(--sp-8, 2rem); }
+        .vt-track {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: calc((100% - 1.5rem) / 2);
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 0.25rem 0.25rem 1rem;
+        }
+        .vt-track::-webkit-scrollbar { display: none; }
+        @media (max-width: 768px) {
+            .vt-carousel { padding: 0 var(--sp-4, 1rem); }
+            .vt-track { grid-auto-columns: 100%; gap: 1rem; }
+        }
+        .vt-card {
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .vt-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            border-radius: var(--radius-3xl, 24px);
+            overflow: hidden;
+            background: var(--ink);
+            margin-bottom: 1rem;
+        }
+        .vt-frame video,
+        .vt-frame iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 0;
+            display: block;
+        }
+        .vt-senja { background: var(--n-100); aspect-ratio: 3 / 4; }
+        [data-theme="dark"] .vt-senja { background: var(--n-800); }
+        .vt-senja .senja-embed {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            transform: translateY(-50%);
+        }
+        .vt-heygen { aspect-ratio: 16 / 9; }
+        .vt-quote { padding: 0 0.25rem; }
+        .vt-quote-text {
+            font-family: var(--font-display);
+            font-variation-settings: var(--font-display-vars);
+            font-size: var(--text-base, 1rem);
+            line-height: 1.5;
+            color: var(--ink);
+            font-weight: 500;
+            font-style: italic;
+            margin: 0 0 0.75rem;
+        }
+        .vt-author {
+            font-family: var(--font-display);
+            font-variation-settings: var(--font-display-vars);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 0.2rem;
+        }
+        .vt-project {
+            font-size: 0.75rem;
+            color: var(--n-500);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+        /* Arrow buttons sit half-outside the track on desktop for that
+           Ripple-style peek. On mobile they hug the edges. */
+        .vt-arrow {
+            position: absolute;
+            top: 40%;
+            transform: translateY(-50%);
+            z-index: 5;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--paper);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+            color: var(--ink);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+        }
+        .vt-arrow svg { width: 20px; height: 20px; }
+        .vt-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.05); }
+        .vt-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
+        .vt-arrow-prev { left: -0.5rem; }
+        .vt-arrow-next { right: -0.5rem; }
+        @media (max-width: 768px) {
+            .vt-arrow-prev { left: 0.25rem; }
+            .vt-arrow-next { right: 0.25rem; }
+        }
         /* Video testimonials. Danielle is a native <video> at 340px x auto.
            Matt is a senja widget in shadow DOM (same as sethforte.com uses).
            Since senja's shadow DOM prevents cross-boundary styling, wrap
@@ -618,12 +757,13 @@
            Column head sits on its own line above a plain bullet list.
            Cards are lightly bordered so the three sit as peers. */
         .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; max-width: 980px; margin: 0 auto; padding: 0 var(--sp-4, 1rem); }
-        .services-col { padding: 1.5rem 1.35rem; background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-2xl, 20px); display: flex; flex-direction: column; }
+        .services-col { padding: 1.5rem 1.35rem; background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius-2xl, 20px); display: flex; flex-direction: column; color: #0A0A0A; }
         .services-col-head { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 1rem; }
         .services-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.85rem; }
-        .services-col-list li { position: relative; padding-left: 1.15rem; font-size: 0.95rem; line-height: 1.5; color: var(--ink); }
+        .services-col-list li { position: relative; padding-left: 1.15rem; font-size: 0.95rem; line-height: 1.5; color: inherit; }
         .services-col-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
-        [data-theme="dark"] .services-col { background: var(--n-900, #171717); }
+        /* Dark mode: explicit values, not tokens, so nothing gets inherited wrong. */
+        [data-theme="dark"] .services-col { background: #171717; color: #FAFAFA; border-color: rgba(255,255,255,0.10); }
         @media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 620px) { .services-grid { grid-template-columns: 1fr; gap: 1rem; } }
     </style>
@@ -772,6 +912,16 @@
                     <div class="hero-stat-value"><span class="num">50</span>+</div>
                 </div>
             </div>
+            <a class="google-badge" href="https://share.google/rfxWcS3wgyv4M1N2u" target="_blank" rel="noopener" aria-label="5.0 stars on Google, opens Google Business profile in a new tab">
+                <span class="google-badge-stars" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                </span>
+                <span class="google-badge-text">5.0 on <span class="google-badge-word">Google</span></span>
+            </a>
         </div>
     </section>
 
@@ -783,27 +933,94 @@
             <h2 class="studio-h2 testi-h2">Straight from the <span class="lf-accent">clients</span>.</h2>
         </div>
 
-        <div class="video-testi-grid studio-reveal-stagger">
-            <div class="video-testi studio-reveal">
-                <div class="video-frame">
-                    <video controls playsinline preload="metadata" poster="/videos/danielle-poster.jpg" src="/videos/danielle-review.mp4"></video>
-                </div>
-                <div class="vt-quote">
-                    <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He's enabled me to keep running my business with a lean, efficient team."</p>
-                    <div style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-sm);font-weight:600;color:var(--ink);">Danielle Sandusky, Modern Bungalow</div>
-                    <div style="font-size:var(--text-xs);color:var(--n-500);margin-top:4px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">Order and pricing automation</div>
-                </div>
-            </div>
-            <div class="video-testi studio-reveal">
-                <div class="video-frame senja-frame">
-                    <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
-                    <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="false" style="display:block;width:100%"></div>
-                </div>
-                <div class="vt-quote">
-                    <p style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-lg);line-height:1.5;color:var(--ink);font-weight:500;margin-bottom:0.85rem;">"He stood out from the pack fast. We'll use him for any job we have."</p>
-                    <div style="font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-sm);font-weight:600;color:var(--ink);">Matt Juels, Six Months to Speech</div>
-                    <div style="font-size:var(--text-xs);color:var(--n-500);margin-top:4px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">CRM build and automation</div>
-                </div>
+        <!-- Video testimonial carousel: 2 visible on desktop, 1 on mobile,
+             snap-scroll with arrow buttons. Six videos total (3 Senja + 2
+             native mp4 + 1 HeyGen). Each vendor renders its own player inside
+             a uniform card frame. -->
+        <div class="vt-carousel studio-reveal" role="region" aria-label="Video testimonials, scroll horizontally">
+            <button class="vt-arrow vt-arrow-prev" type="button" aria-label="Previous testimonials" data-vt-dir="-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="vt-arrow vt-arrow-next" type="button" aria-label="Next testimonials" data-vt-dir="1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="vt-track" id="vt-track">
+
+                <!-- 1. Chelsea (Senja) -->
+                <article class="vt-card">
+                    <div class="vt-frame vt-senja">
+                        <script src="https://widget.senja.io/widget/f9608693-095f-4192-a41c-53d2c30b0fcd/platform.js" type="text/javascript" async></script>
+                        <div class="senja-embed" data-id="f9608693-095f-4192-a41c-53d2c30b0fcd" data-mode="shadow" data-lazyload="true" style="display:block;width:100%"></div>
+                    </div>
+                    <div class="vt-quote">
+                        <p class="vt-quote-text">"10 out of 10 experience. Absolutely recommend."</p>
+                        <div class="vt-author">Chelsea Juels, Six Months to Speech</div>
+                        <div class="vt-project">Full platform migration</div>
+                    </div>
+                </article>
+
+                <!-- 2. Matt Juels (Senja) -->
+                <article class="vt-card">
+                    <div class="vt-frame vt-senja">
+                        <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
+                        <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true" style="display:block;width:100%"></div>
+                    </div>
+                    <div class="vt-quote">
+                        <p class="vt-quote-text">"He stood out from the pack fast. We'll use him for any job we have."</p>
+                        <div class="vt-author">Matt Juels, Six Months to Speech</div>
+                        <div class="vt-project">CRM build and automation</div>
+                    </div>
+                </article>
+
+                <!-- 3. Danielle (native mp4) -->
+                <article class="vt-card">
+                    <div class="vt-frame vt-mp4">
+                        <video controls playsinline preload="metadata" poster="/videos/danielle-poster.jpg" src="/videos/danielle-review.mp4"></video>
+                    </div>
+                    <div class="vt-quote">
+                        <p class="vt-quote-text">"He's enabled me to keep running my business with a lean, efficient team."</p>
+                        <div class="vt-author">Danielle Sandusky, Modern Bungalow</div>
+                        <div class="vt-project">Order and pricing automation</div>
+                    </div>
+                </article>
+
+                <!-- 4. Steve Tirogene (Senja) -->
+                <article class="vt-card">
+                    <div class="vt-frame vt-senja">
+                        <script src="https://widget.senja.io/widget/1161d123-faf7-49e0-b44d-9e6b20136c66/platform.js" type="text/javascript" async></script>
+                        <div class="senja-embed" data-id="1161d123-faf7-49e0-b44d-9e6b20136c66" data-mode="shadow" data-lazyload="true" style="display:block;width:100%"></div>
+                    </div>
+                    <div class="vt-quote">
+                        <p class="vt-quote-text">"Sharp systems thinker who ships and follows up."</p>
+                        <div class="vt-author">Steve Tirogene, Itelle Media</div>
+                        <div class="vt-project">AI strategy and systems advisory</div>
+                    </div>
+                </article>
+
+                <!-- 5. Matt Juels portrait (native mp4) -->
+                <article class="vt-card">
+                    <div class="vt-frame vt-mp4">
+                        <video controls playsinline preload="metadata" poster="/videos/matt-poster.jpg" src="/videos/video-1.mp4"></video>
+                    </div>
+                    <div class="vt-quote">
+                        <p class="vt-quote-text">"He stood out from the pack fast. We'll use him for any job we have."</p>
+                        <div class="vt-author">Matt Juels, Six Months to Speech</div>
+                        <div class="vt-project">CRM build and automation</div>
+                    </div>
+                </article>
+
+                <!-- 6. Cordaryl (HeyGen iframe) -->
+                <article class="vt-card">
+                    <div class="vt-frame vt-heygen">
+                        <iframe src="https://app.heygen.com/embeds/8afdada80e4c4371978e3076986b4b7f" title="Cordaryl Cousar testimonial" loading="lazy" allow="encrypted-media; fullscreen; autoplay; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="vt-quote">
+                        <p class="vt-quote-text">"A pro who thinks beyond the ask and moves the business forward."</p>
+                        <div class="vt-author">Cordaryl Cousar, Electronics Surgeon</div>
+                        <div class="vt-project">Growth systems architecture and advisory</div>
+                    </div>
+                </article>
+
             </div>
         </div>
 
@@ -848,7 +1065,7 @@
             <img src="/images/about/headshot-6.jpg" alt="Seth Forte, founder of Launch Forte, automation consultant in Dallas-Fort Worth Texas" class="about-avatar" loading="lazy" decoding="async">
             <div>
                 <p class="about-name">Seth Forte, Founder</p>
-                <p>I spent years as a reliability engineer keeping critical systems standing at a national bank. Now I build that same reliability for growing businesses. Every engagement starts with what the problem is costing. If the math doesn't work, I'll tell you.</p>
+                <p>I spent years as a reliability engineer keeping critical systems standing at a national bank. Now I build that same reliability for growing businesses. Every engagement starts with what the problem is costing and where you're actually needed in the business. Everything else, we can take off your plate.</p>
                 <a href="/about.html" class="studio-btn studio-btn-ghost">More about Seth</a>
             </div>
         </div>
@@ -1071,5 +1288,38 @@
 <script src="/studio-motion.js?v=q3a" defer></script>
 <script src="/scroll-top.js?v=q3a" defer></script>
 <script src="/hamburger.js?v=q3a" defer></script>
+<script>
+/* Video testimonial carousel: arrow buttons scroll the track by one card
+   width at a time. Snap-scroll CSS on the track settles cards in place.
+   Buttons dim to indicate reaching either end. */
+(function () {
+    var track = document.getElementById('vt-track');
+    if (!track) return;
+    var prev = document.querySelector('.vt-arrow-prev');
+    var next = document.querySelector('.vt-arrow-next');
+    if (!prev || !next) return;
+
+    function cardStep() {
+        var card = track.querySelector('.vt-card');
+        if (!card) return track.clientWidth;
+        var style = getComputedStyle(track);
+        var gap = parseFloat(style.columnGap || style.gap || 0) || 0;
+        return card.getBoundingClientRect().width + gap;
+    }
+    function scrollBy(dir) {
+        track.scrollBy({ left: dir * cardStep(), behavior: 'smooth' });
+    }
+    function updateArrows() {
+        var maxScroll = track.scrollWidth - track.clientWidth;
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = track.scrollLeft >= maxScroll - 2;
+    }
+    prev.addEventListener('click', function () { scrollBy(-1); });
+    next.addEventListener('click', function () { scrollBy(1); });
+    track.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
+})();
+</script>
 </body>
 </html>
