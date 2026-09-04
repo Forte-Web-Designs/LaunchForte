@@ -276,24 +276,7 @@
 
         /* Hero tools row, one quiet muted line under the stats.
            Dot-separated names, small type, centered. No logos. */
-        .hero-tools-row {
-            margin: 1.75rem auto 0;
-            font-size: 0.8125rem;
-            line-height: 1.55;
-            color: rgba(255,255,255,0.5);
-            letter-spacing: 0.01em;
-            text-align: center;
-            max-width: 60ch;
-            padding: 0 1rem;
-        }
-        .hero-tools-row.hero-tools-more {
-            margin-top: 0.35rem;
-            color: rgba(255,255,255,0.35);
-            font-style: italic;
-        }
-        @media (max-width: 640px) {
-            .hero-tools-row { font-size: 0.75rem; }
-        }
+        /* .hero-tools-row removed 2026-09-01 (platform list retired from hero) */
 
         /* Hero CTA row, one filled cyan-gradient primary, one ghost */
         .hero-cta-row {
@@ -709,8 +692,6 @@
                  Names the platforms visitors already know so this hero reads as
                  "we build on the tools you already use." Stats row moved down under
                  What We Do so the hero itself stays quiet. -->
-            <p class="hero-tools-row">HubSpot &middot; GoHighLevel &middot; QuickBooks &middot; Xero &middot; Stripe &middot; Zapier</p>
-            <p class="hero-tools-row hero-tools-more">and many more</p>
         </div>
     </div>
 </div>
@@ -730,15 +711,18 @@
             <p class="studio-eyebrow">Services</p>
             <h2 class="studio-h2">We connect the systems your business already runs on.</h2>
         </div>
-        <div class="services-body studio-reveal" style="max-width:820px;margin:0 auto var(--sp-12,3rem);">
-            <p class="sub">We automate the parts of the business that never grow it. Proposals, invoices, follow ups, reports, moving information from one place to another, chasing what should have been chased on its own. The busywork that keeps you in the business, so you can get back to growing it.</p>
+        <div class="services-body studio-reveal" style="max-width:980px;margin:0 auto var(--sp-12,3rem);padding:0 var(--sp-4,1rem);text-align:center;">
+            <p class="sub" style="max-width:720px;margin:0 auto;">We automate the parts of the business that never grow it. Proposals, invoices, follow ups, reports, moving information from one place to another, chasing what should have been chased on its own. The busywork that keeps you in the business, so you can get back to growing it.</p>
         </div>
         <div class="services-grid studio-reveal-stagger">
             <div class="services-col studio-reveal">
                 <h3 class="services-col-head">Marketing</h3>
                 <ul class="services-col-list">
                     <li>Search visibility so the buyers already looking can find you</li>
+                    <li>Managed ads and funnels that turn spend into booked calls, not clicks</li>
+                    <li>Multi-channel cold outbound that fills the calendar on its own</li>
                     <li>Landing pages, tracking, and pixels that turn ad spend into booked revenue</li>
+                    <li>Email and SMS nurture that keeps the lead warm until they buy</li>
                 </ul>
             </div>
             <div class="services-col studio-reveal">
@@ -747,6 +731,8 @@
                     <li>CRM builds and pipeline automation so no lead sits waiting</li>
                     <li>Instant response so you beat the competition to the callback</li>
                     <li>Lead enrichment so the calls you take are the ones worth taking</li>
+                    <li>Proposals and contracts sent without you touching them</li>
+                    <li>Sales pipeline visibility so the deal actually gets worked</li>
                 </ul>
             </div>
             <div class="services-col studio-reveal">
@@ -756,6 +742,7 @@
                     <li>Reliability setup: monitoring, alerting</li>
                     <li>Revenue infrastructure: billing, collections, cash reconciled nightly</li>
                     <li>Reporting you can read in a minute</li>
+                    <li>Client intake and onboarding without the manual work</li>
                 </ul>
             </div>
         </div>
