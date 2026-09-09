@@ -774,15 +774,12 @@
         @media (max-width: 620px) { .services-grid { grid-template-columns: 1fr; gap: 1rem; } }
 
         /* ============================================================
-           FINAL CTA: two-column grid holding Calendly + quick-contact
-           form, side by side on desktop, stacked on mobile. Both cards
-           sit inside the dark .final-cta container on white surfaces.
+           FINAL CTA: Calendly on top, quick-contact form below.
+           Both cards sit inside the dark .final-cta container on
+           white surfaces, single column at any width.
            ============================================================ */
-        .final-cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2rem; align-items: stretch; }
-        @media (max-width: 900px) { .final-cta-grid { grid-template-columns: 1fr; gap: 1rem; } }
-        .final-cta-grid .calendly-wrap { margin-top: 0; display: flex; }
-        .final-cta-grid .calendly-wrap iframe { height: 100%; min-height: 620px; }
-        @media (max-width: 900px) { .final-cta-grid .calendly-wrap iframe { min-height: 700px; } }
+        .final-cta-grid { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+        .final-cta-grid .calendly-wrap { margin-top: 0; }
 
         /* Quick-contact form card. Sits on white/dark paper regardless of
            the surrounding dark section. Uses .qc-* classes for all fields,
