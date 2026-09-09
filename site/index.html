@@ -772,6 +772,77 @@
         [data-theme="dark"] .services-col { background: #171717; color: #FAFAFA; border-color: rgba(255,255,255,0.10); }
         @media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 620px) { .services-grid { grid-template-columns: 1fr; gap: 1rem; } }
+
+        /* ============================================================
+           QUICK-CONTACT FORM (homepage inline)
+           Five fields + attachments, submits to Netlify Forms which
+           emails seth@fortewebdesigns.com on submission. Uses
+           multipart/form-data so attachments are supported.
+           ============================================================ */
+        .qc-section { padding: var(--sp-16) 0 var(--sp-10); }
+        .qc-wrap { max-width: 720px; margin: 0 auto; padding: 0 var(--sp-4, 1rem); }
+        .qc-head { text-align: center; margin: 0 0 var(--sp-8); }
+        .qc-head .studio-eyebrow { margin: 0 0 0.5rem; }
+        .qc-head h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); margin: 0 0 0.75rem; }
+        .qc-head p { color: var(--n-600); font-size: 1rem; line-height: 1.55; margin: 0 auto; max-width: 52ch; }
+
+        .qc-card { background: var(--paper); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; }
+        [data-theme="dark"] .qc-card { background: #171717; border-color: rgba(255,255,255,0.10); }
+
+        .qc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin: 0 0 0.85rem; }
+        .qc-field { display: block; }
+        .qc-field.full { grid-column: 1 / -1; }
+        .qc-label { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--n-600); margin: 0 0 0.4rem; }
+        .qc-label .qc-opt { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--n-500); margin-left: 0.4rem; font-size: 0.75rem; }
+        .qc-input, .qc-textarea {
+            width: 100%; box-sizing: border-box;
+            font-family: inherit; font-size: 0.9375rem; line-height: 1.5;
+            color: var(--ink); background: var(--paper);
+            border: 1px solid var(--border); border-radius: 10px;
+            padding: 0.65rem 0.85rem;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        [data-theme="dark"] .qc-input,
+        [data-theme="dark"] .qc-textarea { background: #262626; color: #FAFAFA; border-color: rgba(255,255,255,0.10); }
+        .qc-input:focus, .qc-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,136,219,0.12); }
+        .qc-textarea { resize: vertical; min-height: 110px; }
+        .qc-textarea.tall { min-height: 140px; }
+        .qc-input::placeholder, .qc-textarea::placeholder { color: var(--n-500); }
+        [data-theme="dark"] .qc-input::placeholder,
+        [data-theme="dark"] .qc-textarea::placeholder { color: rgba(255,255,255,0.45); }
+
+        .qc-file-row { margin: 0.4rem 0 1rem; }
+        .qc-file-label { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.85rem; border: 1px dashed var(--border-strong, rgba(0,0,0,0.16)); border-radius: 10px; font-size: 0.8125rem; color: var(--n-600); cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease; }
+        .qc-file-label:hover { border-color: var(--accent); color: var(--accent); }
+        [data-theme="dark"] .qc-file-label { border-color: rgba(255,255,255,0.20); }
+        .qc-file-input { position: absolute; left: -9999px; opacity: 0; width: 1px; height: 1px; }
+        .qc-file-hint { display: inline-block; margin-left: 0.6rem; font-size: 0.75rem; color: var(--n-500); }
+        .qc-file-list { margin: 0.5rem 0 0; padding: 0; list-style: none; font-size: 0.8125rem; color: var(--n-600); }
+        .qc-file-list li { padding: 0.15rem 0; }
+
+        /* Honeypot: hidden from humans, visible to bots */
+        .qc-hp { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+
+        .qc-actions { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.5rem; }
+        .qc-submit { flex-shrink: 0; padding: 0.75rem 1.5rem; background: var(--accent); color: #fff; border: 0; border-radius: 10px; font-family: inherit; font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: transform 0.12s ease, background 0.15s ease; }
+        .qc-submit:hover:not(:disabled) { transform: translateY(-1px); background: var(--accent-warm, #4ab5ed); }
+        .qc-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+        .qc-note { font-size: 0.8125rem; color: var(--n-500); line-height: 1.4; }
+
+        .qc-msg { display: none; margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 10px; font-size: 0.875rem; line-height: 1.5; }
+        .qc-msg.is-visible { display: block; }
+        .qc-msg.ok { background: rgba(30,122,79,0.08); color: #1E7A4F; border: 1px solid rgba(30,122,79,0.24); }
+        .qc-msg.err { background: rgba(194,59,59,0.08); color: #C23B3B; border: 1px solid rgba(194,59,59,0.24); }
+        [data-theme="dark"] .qc-msg.ok { background: rgba(30,122,79,0.18); color: #7fd4a3; }
+        [data-theme="dark"] .qc-msg.err { background: rgba(194,59,59,0.18); color: #f28a8a; }
+
+        @media (max-width: 620px) {
+            .qc-row { grid-template-columns: 1fr; gap: 0.75rem; }
+            .qc-card { padding: 1.25rem; }
+            .qc-actions { flex-direction: column; align-items: stretch; gap: 0.5rem; }
+            .qc-note { text-align: center; }
+            .qc-submit { width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -844,6 +915,103 @@
 
 <main class="studio-pane hero-follows">
 
+    <!-- STATIC FORM DECLARATION for Netlify's build-time scanner.
+         Netlify scans HTML at deploy time for <form data-netlify="true">
+         and registers the fields it finds. This hidden clone declares all
+         the fields (including the file input) so the real form below,
+         which shares the same name, is recognized correctly. Hidden from
+         users; never rendered visually. -->
+    <form name="quick-contact" data-netlify="true" data-netlify-honeypot="qc-bot" enctype="multipart/form-data" hidden>
+        <input type="text" name="name">
+        <input type="email" name="email">
+        <input type="text" name="company">
+        <input type="url" name="website">
+        <textarea name="what"></textarea>
+        <textarea name="tools"></textarea>
+        <textarea name="anything-else"></textarea>
+        <input type="file" name="attachments" multiple>
+        <input type="text" name="qc-bot">
+    </form>
+
+    <!-- QUICK-CONTACT SECTION: five fields + attachments. Submits to
+         Netlify Forms; delivery goes to seth@fortewebdesigns.com (set in
+         Netlify site settings > Forms > Notifications). Placed above
+         Services so a visitor who scans the hero has a low-friction
+         send option before hitting the marketing content. -->
+    <section class="studio-container qc-section" id="quick-contact">
+        <div class="qc-wrap">
+            <div class="qc-head studio-reveal">
+                <p class="studio-eyebrow">Or just email us</p>
+                <h2>Tell us what you're dealing with.</h2>
+                <p>A few lines is enough. Screenshots and exports help. We'll write back with a real answer, not a scheduling link.</p>
+            </div>
+            <div class="qc-card studio-reveal">
+                <form name="quick-contact" method="POST" data-netlify="true" data-netlify-honeypot="qc-bot" enctype="multipart/form-data" id="qc-form">
+                    <input type="hidden" name="form-name" value="quick-contact">
+                    <div class="qc-hp" aria-hidden="true"><label>Leave this empty: <input tabindex="-1" autocomplete="off" name="qc-bot"></label></div>
+
+                    <div class="qc-row">
+                        <label class="qc-field">
+                            <span class="qc-label">Your name</span>
+                            <input class="qc-input" type="text" name="name" required autocomplete="name" placeholder="First and last">
+                        </label>
+                        <label class="qc-field">
+                            <span class="qc-label">Email</span>
+                            <input class="qc-input" type="email" name="email" required autocomplete="email" placeholder="you@company.com">
+                        </label>
+                    </div>
+
+                    <div class="qc-row">
+                        <label class="qc-field">
+                            <span class="qc-label">Company <span class="qc-opt">optional</span></span>
+                            <input class="qc-input" type="text" name="company" autocomplete="organization" placeholder="Company name">
+                        </label>
+                        <label class="qc-field">
+                            <span class="qc-label">Website <span class="qc-opt">optional</span></span>
+                            <input class="qc-input" type="url" name="website" autocomplete="url" placeholder="yourcompany.com">
+                        </label>
+                    </div>
+
+                    <label class="qc-field full" style="display:block;margin:0 0 0.85rem;">
+                        <span class="qc-label">What are you trying to build or fix?</span>
+                        <textarea class="qc-textarea" name="what" required placeholder="One or two sentences is fine."></textarea>
+                    </label>
+
+                    <label class="qc-field full" style="display:block;margin:0 0 0.85rem;">
+                        <span class="qc-label">What tools does your business run on today?</span>
+                        <textarea class="qc-textarea" name="tools" placeholder="HubSpot, QuickBooks, GoHighLevel, Zapier, Shopify, whatever's in the stack."></textarea>
+                    </label>
+
+                    <label class="qc-field full" style="display:block;margin:0 0 0.4rem;">
+                        <span class="qc-label">Anything else? <span class="qc-opt">screenshots, exports, context</span></span>
+                        <textarea class="qc-textarea tall" name="anything-else" placeholder="Whatever helps us understand the situation."></textarea>
+                    </label>
+
+                    <div class="qc-file-row">
+                        <label class="qc-file-label" for="qc-file-input">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                            <span>Attach files</span>
+                        </label>
+                        <input class="qc-file-input" type="file" id="qc-file-input" name="attachments" multiple>
+                        <span class="qc-file-hint">Screenshots, CSVs, PDFs, whatever. Up to 8MB each.</span>
+                        <ul class="qc-file-list" id="qc-file-list" hidden></ul>
+                    </div>
+
+                    <div class="qc-actions">
+                        <button class="qc-submit" type="submit" id="qc-submit">Send it over</button>
+                        <p class="qc-note">Goes straight to Seth. Usually a reply within a business day.</p>
+                    </div>
+
+                    <div class="qc-msg ok" id="qc-ok" role="status" aria-live="polite">
+                        <strong>Got it.</strong> Your message is in. Seth will read it and reply personally, usually within a business day.
+                    </div>
+                    <div class="qc-msg err" id="qc-err" role="alert">
+                        Something on our side didn't send. Try again in a moment, or email <a href="mailto:seth@launchforte.com">seth@launchforte.com</a> directly.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 
     <!-- 1. SERVICES, merges the old what-we-do intro + the what-we-build
          seven-item list into one text-only block with four plain lines.
@@ -1325,6 +1493,70 @@
     track.addEventListener('scroll', updateArrows, { passive: true });
     window.addEventListener('resize', updateArrows);
     updateArrows();
+})();
+</script>
+
+<script>
+/* Quick-contact form. Submits to Netlify Forms via multipart/form-data
+   so attachments upload. Success + error render inline; the form itself
+   is hidden after a successful send so the visitor knows it went. */
+(function(){
+    var form = document.getElementById('qc-form');
+    if (!form) return;
+    var submitBtn = document.getElementById('qc-submit');
+    var okMsg = document.getElementById('qc-ok');
+    var errMsg = document.getElementById('qc-err');
+    var fileInput = document.getElementById('qc-file-input');
+    var fileList = document.getElementById('qc-file-list');
+
+    // Show selected filenames so the visitor sees what will send
+    if (fileInput && fileList) {
+        fileInput.addEventListener('change', function(){
+            fileList.innerHTML = '';
+            var files = fileInput.files;
+            if (!files || !files.length) { fileList.hidden = true; return; }
+            for (var i = 0; i < files.length; i++) {
+                var li = document.createElement('li');
+                var sizeKB = Math.round(files[i].size / 1024);
+                li.textContent = files[i].name + ' (' + sizeKB + ' KB)';
+                fileList.appendChild(li);
+            }
+            fileList.hidden = false;
+        });
+    }
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        okMsg.classList.remove('is-visible');
+        errMsg.classList.remove('is-visible');
+        submitBtn.disabled = true;
+        var originalLabel = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+
+        var formData = new FormData(form);
+        // Netlify expects the form-name; already in the hidden input but reasserting is safe
+        if (!formData.get('form-name')) formData.append('form-name', 'quick-contact');
+
+        // POST to the page URL. Do NOT set Content-Type; the browser writes the
+        // multipart boundary automatically. Setting it manually breaks the upload.
+        fetch('/', {
+            method: 'POST',
+            body: formData
+        })
+        .then(function(response){
+            if (!response.ok) throw new Error('http ' + response.status);
+            // Hide form fields, show success
+            var toHide = form.querySelectorAll('.qc-row, .qc-field, .qc-file-row, .qc-actions');
+            toHide.forEach(function(el){ el.style.display = 'none'; });
+            okMsg.classList.add('is-visible');
+            if (window.dataLayer) window.dataLayer.push({ event: 'homepage_quick_contact_sent' });
+        })
+        .catch(function(){
+            errMsg.classList.add('is-visible');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalLabel;
+        });
+    });
 })();
 </script>
 </body>
