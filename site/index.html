@@ -774,71 +774,63 @@
         @media (max-width: 620px) { .services-grid { grid-template-columns: 1fr; gap: 1rem; } }
 
         /* ============================================================
-           FINAL CTA: Calendly on top, quick-contact form below.
-           Both cards sit inside the dark .final-cta container on
-           white surfaces, single column at any width.
+           FINAL CTA dark-mode fix: .final-cta uses var(--ink) which
+           flips to near-white in dark mode. Force it dark in both.
            ============================================================ */
-        .final-cta-grid { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
-        .final-cta-grid .calendly-wrap { margin-top: 0; }
+        [data-theme="dark"] .final-cta { background: #0A0A0A; color: #FAFAFA; }
+        [data-theme="dark"] .final-cta h2 { color: #FAFAFA; }
+        [data-theme="dark"] .final-cta p.sub { color: rgba(255,255,255,0.65); }
 
-        /* Quick-contact form card. Sits on white/dark paper regardless of
-           the surrounding dark section. Uses .qc-* classes for all fields,
-           labels, buttons, and status messages. Submits to Netlify Forms
-           via multipart/form-data so file attachments upload. */
-        .qc-card { background: var(--paper); color: var(--ink); border-radius: var(--radius-3xl); padding: 1.75rem; display: flex; flex-direction: column; text-align: left; }
-        [data-theme="dark"] .qc-card { background: #171717; color: #FAFAFA; }
+        /* Quick-contact form card. Always white paper regardless of theme
+           because it sits on the dark Final CTA container. Same shape as
+           .calendly-wrap so the two cards visually match, stacked. */
+        .qc-card { background: #FFFFFF; color: #14181f; border-radius: var(--radius-3xl); padding: 2rem; margin-top: 1.25rem; text-align: left; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06); }
         .qc-card-head { margin: 0 0 1.25rem; }
-        .qc-card-eyebrow { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.5rem; }
-        .qc-card-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: clamp(1.25rem, 2.4vw, 1.625rem); letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); margin: 0; }
-        [data-theme="dark"] .qc-card-title { color: #FAFAFA; }
-        .qc-card form { display: flex; flex-direction: column; }
+        .qc-card-eyebrow { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #0088DB; margin: 0 0 0.5rem; }
+        .qc-card-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: clamp(1.25rem, 2.4vw, 1.625rem); letter-spacing: -0.02em; line-height: 1.15; color: #14181f; margin: 0; }
 
         .qc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin: 0 0 0.85rem; }
         .qc-field { display: block; }
         .qc-field.full { grid-column: 1 / -1; }
-        .qc-label { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--n-600); margin: 0 0 0.4rem; }
-        .qc-label .qc-opt { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--n-500); margin-left: 0.4rem; font-size: 0.75rem; }
+        /* Labels and inline notes: always dark on a white card, both themes. */
+        .qc-label { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #525252; margin: 0 0 0.4rem; }
+        .qc-label .qc-opt { font-weight: 400; text-transform: none; letter-spacing: 0; color: #86868b; margin-left: 0.4rem; font-size: 0.75rem; }
+        /* Inputs live inside a white card in both themes, so no dark-mode flip. */
         .qc-input, .qc-textarea {
             width: 100%; box-sizing: border-box;
             font-family: inherit; font-size: 0.9375rem; line-height: 1.5;
-            color: var(--ink); background: var(--paper);
-            border: 1px solid var(--border); border-radius: 10px;
+            color: #14181f; background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.14); border-radius: 10px;
             padding: 0.65rem 0.85rem;
             transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
-        [data-theme="dark"] .qc-input,
-        [data-theme="dark"] .qc-textarea { background: #262626; color: #FAFAFA; border-color: rgba(255,255,255,0.10); }
-        .qc-input:focus, .qc-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,136,219,0.12); }
+        .qc-input:focus, .qc-textarea:focus { outline: none; border-color: #0088DB; box-shadow: 0 0 0 3px rgba(0,136,219,0.12); }
         .qc-textarea { resize: vertical; min-height: 110px; }
         .qc-textarea.tall { min-height: 140px; }
-        .qc-input::placeholder, .qc-textarea::placeholder { color: var(--n-500); }
-        [data-theme="dark"] .qc-input::placeholder,
-        [data-theme="dark"] .qc-textarea::placeholder { color: rgba(255,255,255,0.45); }
+        .qc-input::placeholder, .qc-textarea::placeholder { color: #86868b; }
 
         .qc-file-row { margin: 0.4rem 0 1rem; }
-        .qc-file-label { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.85rem; border: 1px dashed var(--border-strong, rgba(0,0,0,0.16)); border-radius: 10px; font-size: 0.8125rem; color: var(--n-600); cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease; }
-        .qc-file-label:hover { border-color: var(--accent); color: var(--accent); }
-        [data-theme="dark"] .qc-file-label { border-color: rgba(255,255,255,0.20); }
+        /* File attach controls: always on the white card, both themes. */
+        .qc-file-label { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.85rem; border: 1px dashed rgba(0,0,0,0.16); border-radius: 10px; font-size: 0.8125rem; color: #525252; cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease; }
+        .qc-file-label:hover { border-color: #0088DB; color: #0088DB; }
         .qc-file-input { position: absolute; left: -9999px; opacity: 0; width: 1px; height: 1px; }
-        .qc-file-hint { display: inline-block; margin-left: 0.6rem; font-size: 0.75rem; color: var(--n-500); }
-        .qc-file-list { margin: 0.5rem 0 0; padding: 0; list-style: none; font-size: 0.8125rem; color: var(--n-600); }
+        .qc-file-hint { display: inline-block; margin-left: 0.6rem; font-size: 0.75rem; color: #86868b; }
+        .qc-file-list { margin: 0.5rem 0 0; padding: 0; list-style: none; font-size: 0.8125rem; color: #525252; }
         .qc-file-list li { padding: 0.15rem 0; }
 
         /* Honeypot: hidden from humans, visible to bots */
         .qc-hp { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
 
         .qc-actions { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.5rem; }
-        .qc-submit { flex-shrink: 0; padding: 0.75rem 1.5rem; background: var(--accent); color: #fff; border: 0; border-radius: 10px; font-family: inherit; font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: transform 0.12s ease, background 0.15s ease; }
-        .qc-submit:hover:not(:disabled) { transform: translateY(-1px); background: var(--accent-warm, #4ab5ed); }
+        .qc-submit { flex-shrink: 0; padding: 0.75rem 1.5rem; background: #0088DB; color: #fff; border: 0; border-radius: 10px; font-family: inherit; font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: transform 0.12s ease, background 0.15s ease; }
+        .qc-submit:hover:not(:disabled) { transform: translateY(-1px); background: #4ab5ed; }
         .qc-submit:disabled { opacity: 0.55; cursor: not-allowed; }
-        .qc-note { font-size: 0.8125rem; color: var(--n-500); line-height: 1.4; }
+        .qc-note { font-size: 0.8125rem; color: #86868b; line-height: 1.4; margin-top: 0.5rem; }
 
         .qc-msg { display: none; margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 10px; font-size: 0.875rem; line-height: 1.5; }
         .qc-msg.is-visible { display: block; }
         .qc-msg.ok { background: rgba(30,122,79,0.08); color: #1E7A4F; border: 1px solid rgba(30,122,79,0.24); }
         .qc-msg.err { background: rgba(194,59,59,0.08); color: #C23B3B; border: 1px solid rgba(194,59,59,0.24); }
-        [data-theme="dark"] .qc-msg.ok { background: rgba(30,122,79,0.18); color: #7fd4a3; }
-        [data-theme="dark"] .qc-msg.err { background: rgba(194,59,59,0.18); color: #f28a8a; }
 
         @media (max-width: 620px) {
             .qc-row { grid-template-columns: 1fr; gap: 0.75rem; }
@@ -1174,11 +1166,10 @@
             <div class="final-cta-inner">
                 <h2>Start with the <span style="color:var(--accent)">audit</span>.</h2>
                 <p class="sub">A 30 minute call is usually enough to know what's broken and what it's worth fixing. Prefer to type it out? The form works too.</p>
-                <div class="final-cta-grid">
-                    <div class="calendly-wrap">
-                        <iframe src="https://calendly.com/seth-launchforte/30min" title="Book a call with Seth Forte" loading="lazy"></iframe>
-                    </div>
-                    <div class="qc-card">
+                <div class="calendly-wrap">
+                    <iframe src="https://calendly.com/seth-launchforte/30min" title="Book a call with Seth Forte" loading="lazy"></iframe>
+                </div>
+                <div class="qc-card">
                         <div class="qc-card-head">
                             <p class="qc-card-eyebrow">Or email us</p>
                             <h3 class="qc-card-title">Tell us what you're dealing with.</h3>
@@ -1246,7 +1237,6 @@
                                 Something on our side didn't send. Try again in a moment, or email <a href="mailto:seth@launchforte.com">seth@launchforte.com</a> directly.
                             </div>
                         </form>
-                    </div>
                 </div>
             </div>
         </div>
