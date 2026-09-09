@@ -774,20 +774,27 @@
         @media (max-width: 620px) { .services-grid { grid-template-columns: 1fr; gap: 1rem; } }
 
         /* ============================================================
-           QUICK-CONTACT FORM (homepage inline)
-           Five fields + attachments, submits to Netlify Forms which
-           emails seth@fortewebdesigns.com on submission. Uses
-           multipart/form-data so attachments are supported.
+           FINAL CTA: two-column grid holding Calendly + quick-contact
+           form, side by side on desktop, stacked on mobile. Both cards
+           sit inside the dark .final-cta container on white surfaces.
            ============================================================ */
-        .qc-section { padding: var(--sp-16) 0 var(--sp-10); }
-        .qc-wrap { max-width: 720px; margin: 0 auto; padding: 0 var(--sp-4, 1rem); }
-        .qc-head { text-align: center; margin: 0 0 var(--sp-8); }
-        .qc-head .studio-eyebrow { margin: 0 0 0.5rem; }
-        .qc-head h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); margin: 0 0 0.75rem; }
-        .qc-head p { color: var(--n-600); font-size: 1rem; line-height: 1.55; margin: 0 auto; max-width: 52ch; }
+        .final-cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2rem; align-items: stretch; }
+        @media (max-width: 900px) { .final-cta-grid { grid-template-columns: 1fr; gap: 1rem; } }
+        .final-cta-grid .calendly-wrap { margin-top: 0; display: flex; }
+        .final-cta-grid .calendly-wrap iframe { height: 100%; min-height: 620px; }
+        @media (max-width: 900px) { .final-cta-grid .calendly-wrap iframe { min-height: 700px; } }
 
-        .qc-card { background: var(--paper); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; }
-        [data-theme="dark"] .qc-card { background: #171717; border-color: rgba(255,255,255,0.10); }
+        /* Quick-contact form card. Sits on white/dark paper regardless of
+           the surrounding dark section. Uses .qc-* classes for all fields,
+           labels, buttons, and status messages. Submits to Netlify Forms
+           via multipart/form-data so file attachments upload. */
+        .qc-card { background: var(--paper); color: var(--ink); border-radius: var(--radius-3xl); padding: 1.75rem; display: flex; flex-direction: column; text-align: left; }
+        [data-theme="dark"] .qc-card { background: #171717; color: #FAFAFA; }
+        .qc-card-head { margin: 0 0 1.25rem; }
+        .qc-card-eyebrow { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.5rem; }
+        .qc-card-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: clamp(1.25rem, 2.4vw, 1.625rem); letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); margin: 0; }
+        [data-theme="dark"] .qc-card-title { color: #FAFAFA; }
+        .qc-card form { display: flex; flex-direction: column; }
 
         .qc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin: 0 0 0.85rem; }
         .qc-field { display: block; }
@@ -918,9 +925,8 @@
     <!-- STATIC FORM DECLARATION for Netlify's build-time scanner.
          Netlify scans HTML at deploy time for <form data-netlify="true">
          and registers the fields it finds. This hidden clone declares all
-         the fields (including the file input) so the real form below,
-         which shares the same name, is recognized correctly. Hidden from
-         users; never rendered visually. -->
+         the fields (including the file input) so the real form in the
+         Final CTA below, which shares the same name, is recognized. -->
     <form name="quick-contact" data-netlify="true" data-netlify-honeypot="qc-bot" enctype="multipart/form-data" hidden>
         <input type="text" name="name">
         <input type="email" name="email">
@@ -932,86 +938,6 @@
         <input type="file" name="attachments" multiple>
         <input type="text" name="qc-bot">
     </form>
-
-    <!-- QUICK-CONTACT SECTION: five fields + attachments. Submits to
-         Netlify Forms; delivery goes to seth@fortewebdesigns.com (set in
-         Netlify site settings > Forms > Notifications). Placed above
-         Services so a visitor who scans the hero has a low-friction
-         send option before hitting the marketing content. -->
-    <section class="studio-container qc-section" id="quick-contact">
-        <div class="qc-wrap">
-            <div class="qc-head studio-reveal">
-                <p class="studio-eyebrow">Or just email us</p>
-                <h2>Tell us what you're dealing with.</h2>
-                <p>A few lines is enough. Screenshots and exports help. We'll write back with a real answer, not a scheduling link.</p>
-            </div>
-            <div class="qc-card studio-reveal">
-                <form name="quick-contact" method="POST" data-netlify="true" data-netlify-honeypot="qc-bot" enctype="multipart/form-data" id="qc-form">
-                    <input type="hidden" name="form-name" value="quick-contact">
-                    <div class="qc-hp" aria-hidden="true"><label>Leave this empty: <input tabindex="-1" autocomplete="off" name="qc-bot"></label></div>
-
-                    <div class="qc-row">
-                        <label class="qc-field">
-                            <span class="qc-label">Your name</span>
-                            <input class="qc-input" type="text" name="name" required autocomplete="name" placeholder="First and last">
-                        </label>
-                        <label class="qc-field">
-                            <span class="qc-label">Email</span>
-                            <input class="qc-input" type="email" name="email" required autocomplete="email" placeholder="you@company.com">
-                        </label>
-                    </div>
-
-                    <div class="qc-row">
-                        <label class="qc-field">
-                            <span class="qc-label">Company <span class="qc-opt">optional</span></span>
-                            <input class="qc-input" type="text" name="company" autocomplete="organization" placeholder="Company name">
-                        </label>
-                        <label class="qc-field">
-                            <span class="qc-label">Website <span class="qc-opt">optional</span></span>
-                            <input class="qc-input" type="url" name="website" autocomplete="url" placeholder="yourcompany.com">
-                        </label>
-                    </div>
-
-                    <label class="qc-field full" style="display:block;margin:0 0 0.85rem;">
-                        <span class="qc-label">What are you trying to build or fix?</span>
-                        <textarea class="qc-textarea" name="what" required placeholder="One or two sentences is fine."></textarea>
-                    </label>
-
-                    <label class="qc-field full" style="display:block;margin:0 0 0.85rem;">
-                        <span class="qc-label">What tools does your business run on today?</span>
-                        <textarea class="qc-textarea" name="tools" placeholder="HubSpot, QuickBooks, GoHighLevel, Zapier, Shopify, whatever's in the stack."></textarea>
-                    </label>
-
-                    <label class="qc-field full" style="display:block;margin:0 0 0.4rem;">
-                        <span class="qc-label">Anything else? <span class="qc-opt">screenshots, exports, context</span></span>
-                        <textarea class="qc-textarea tall" name="anything-else" placeholder="Whatever helps us understand the situation."></textarea>
-                    </label>
-
-                    <div class="qc-file-row">
-                        <label class="qc-file-label" for="qc-file-input">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
-                            <span>Attach files</span>
-                        </label>
-                        <input class="qc-file-input" type="file" id="qc-file-input" name="attachments" multiple>
-                        <span class="qc-file-hint">Screenshots, CSVs, PDFs, whatever. Up to 8MB each.</span>
-                        <ul class="qc-file-list" id="qc-file-list" hidden></ul>
-                    </div>
-
-                    <div class="qc-actions">
-                        <button class="qc-submit" type="submit" id="qc-submit">Send it over</button>
-                        <p class="qc-note">Goes straight to Seth. Usually a reply within a business day.</p>
-                    </div>
-
-                    <div class="qc-msg ok" id="qc-ok" role="status" aria-live="polite">
-                        <strong>Got it.</strong> Your message is in. Seth will read it and reply personally, usually within a business day.
-                    </div>
-                    <div class="qc-msg err" id="qc-err" role="alert">
-                        Something on our side didn't send. Try again in a moment, or email <a href="mailto:seth@launchforte.com">seth@launchforte.com</a> directly.
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
 
     <!-- 1. SERVICES, merges the old what-we-do intro + the what-we-build
          seven-item list into one text-only block with four plain lines.
@@ -1245,14 +1171,85 @@
         </div>
     </section>
 
-    <!-- 8. FINAL CTA + CALENDLY -->
+    <!-- 8. FINAL CTA + CALENDLY + QUICK-CONTACT FORM (side by side, stacks on mobile) -->
     <section class="studio-container">
         <div class="final-cta studio-reveal">
             <div class="final-cta-inner">
                 <h2>Start with the <span style="color:var(--accent)">audit</span>.</h2>
-                <p class="sub">A 30 minute call is usually enough to know what's broken and what it's worth fixing.</p>
-                <div class="calendly-wrap">
-                    <iframe src="https://calendly.com/seth-launchforte/30min" title="Book a call with Seth Forte" loading="lazy"></iframe>
+                <p class="sub">A 30 minute call is usually enough to know what's broken and what it's worth fixing. Prefer to type it out? The form works too.</p>
+                <div class="final-cta-grid">
+                    <div class="calendly-wrap">
+                        <iframe src="https://calendly.com/seth-launchforte/30min" title="Book a call with Seth Forte" loading="lazy"></iframe>
+                    </div>
+                    <div class="qc-card">
+                        <div class="qc-card-head">
+                            <p class="qc-card-eyebrow">Or email us</p>
+                            <h3 class="qc-card-title">Tell us what you're dealing with.</h3>
+                        </div>
+                        <form name="quick-contact" method="POST" data-netlify="true" data-netlify-honeypot="qc-bot" enctype="multipart/form-data" id="qc-form">
+                            <input type="hidden" name="form-name" value="quick-contact">
+                            <div class="qc-hp" aria-hidden="true"><label>Leave this empty: <input tabindex="-1" autocomplete="off" name="qc-bot"></label></div>
+
+                            <div class="qc-row">
+                                <label class="qc-field">
+                                    <span class="qc-label">Your name</span>
+                                    <input class="qc-input" type="text" name="name" required autocomplete="name" placeholder="First and last">
+                                </label>
+                                <label class="qc-field">
+                                    <span class="qc-label">Email</span>
+                                    <input class="qc-input" type="email" name="email" required autocomplete="email" placeholder="you@company.com">
+                                </label>
+                            </div>
+
+                            <div class="qc-row">
+                                <label class="qc-field">
+                                    <span class="qc-label">Company <span class="qc-opt">optional</span></span>
+                                    <input class="qc-input" type="text" name="company" autocomplete="organization" placeholder="Company name">
+                                </label>
+                                <label class="qc-field">
+                                    <span class="qc-label">Website <span class="qc-opt">optional</span></span>
+                                    <input class="qc-input" type="url" name="website" autocomplete="url" placeholder="yourcompany.com">
+                                </label>
+                            </div>
+
+                            <label class="qc-field full" style="display:block;margin:0 0 0.75rem;">
+                                <span class="qc-label">What are you trying to build or fix?</span>
+                                <textarea class="qc-textarea" name="what" required placeholder="One or two sentences is fine."></textarea>
+                            </label>
+
+                            <label class="qc-field full" style="display:block;margin:0 0 0.75rem;">
+                                <span class="qc-label">What tools does your business run on today?</span>
+                                <textarea class="qc-textarea" name="tools" placeholder="HubSpot, QuickBooks, GHL, Zapier, Shopify, whatever's in the stack."></textarea>
+                            </label>
+
+                            <label class="qc-field full" style="display:block;margin:0 0 0.4rem;">
+                                <span class="qc-label">Anything else? <span class="qc-opt">screenshots, exports, context</span></span>
+                                <textarea class="qc-textarea" name="anything-else" placeholder="Whatever helps us understand the situation."></textarea>
+                            </label>
+
+                            <div class="qc-file-row">
+                                <label class="qc-file-label" for="qc-file-input">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                                    <span>Attach files</span>
+                                </label>
+                                <input class="qc-file-input" type="file" id="qc-file-input" name="attachments" multiple>
+                                <span class="qc-file-hint">Up to 8MB each.</span>
+                                <ul class="qc-file-list" id="qc-file-list" hidden></ul>
+                            </div>
+
+                            <div class="qc-actions">
+                                <button class="qc-submit" type="submit" id="qc-submit">Send it over</button>
+                            </div>
+                            <p class="qc-note">Goes straight to Seth. Usually a reply within a business day.</p>
+
+                            <div class="qc-msg ok" id="qc-ok" role="status" aria-live="polite">
+                                <strong>Got it.</strong> Your message is in. Seth will read it and reply personally, usually within a business day.
+                            </div>
+                            <div class="qc-msg err" id="qc-err" role="alert">
+                                Something on our side didn't send. Try again in a moment, or email <a href="mailto:seth@launchforte.com">seth@launchforte.com</a> directly.
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
