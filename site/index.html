@@ -700,7 +700,8 @@
         .final-cta-inner { max-width: 900px; margin: 0 auto; padding: 0 2rem; text-align: center; }
         .final-cta h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1.1; color: var(--paper); letter-spacing: -0.025em; margin: 0 0 1rem; }
         .final-cta p.sub { color: var(--n-400); font-size: var(--text-lg); margin: 0 0 2rem; }
-        .calendly-wrap { position: relative; margin-top: 2rem; background: var(--paper); border-radius: var(--radius-3xl); overflow: hidden; }
+        .calendly-wrap { position: relative; margin-top: 2rem; background: #FFFFFF; border-radius: var(--radius-3xl); overflow: hidden; }
+        [data-theme="dark"] .calendly-wrap { background: #0A0A0A; }
         .calendly-wrap iframe { width: 100%; height: 700px; border: 0; display: block; }
 
         /* Section helpers */
@@ -781,21 +782,28 @@
         [data-theme="dark"] .final-cta h2 { color: #FAFAFA; }
         [data-theme="dark"] .final-cta p.sub { color: rgba(255,255,255,0.65); }
 
-        /* Quick-contact form card. Always white paper regardless of theme
-           because it sits on the dark Final CTA container. Same shape as
-           .calendly-wrap so the two cards visually match, stacked. */
+        /* Quick-contact form card. Follows the site theme:
+           light mode -> white card with dark ink text
+           dark mode -> near-black card with light text
+           Raw hex per theme (never var(--paper) / var(--ink)) so no
+           token-flip surprises. */
         .qc-card { background: #FFFFFF; color: #14181f; border-radius: var(--radius-3xl); padding: 2rem; margin-top: 1.25rem; text-align: left; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06); }
+        [data-theme="dark"] .qc-card { background: #0A0A0A; color: #FAFAFA; box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.4); }
         .qc-card-head { margin: 0 0 1.25rem; }
         .qc-card-eyebrow { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #0088DB; margin: 0 0 0.5rem; }
+        [data-theme="dark"] .qc-card-eyebrow { color: #4ab5ed; }
         .qc-card-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: clamp(1.25rem, 2.4vw, 1.625rem); letter-spacing: -0.02em; line-height: 1.15; color: #14181f; margin: 0; }
+        [data-theme="dark"] .qc-card-title { color: #FAFAFA; }
 
         .qc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin: 0 0 0.85rem; }
         .qc-field { display: block; }
         .qc-field.full { grid-column: 1 / -1; }
-        /* Labels and inline notes: always dark on a white card, both themes. */
+        /* Labels: dark on white in light mode, light on near-black in dark mode. */
         .qc-label { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #525252; margin: 0 0 0.4rem; }
+        [data-theme="dark"] .qc-label { color: #a1a1a6; }
         .qc-label .qc-opt { font-weight: 400; text-transform: none; letter-spacing: 0; color: #86868b; margin-left: 0.4rem; font-size: 0.75rem; }
-        /* Inputs live inside a white card in both themes, so no dark-mode flip. */
+        [data-theme="dark"] .qc-label .qc-opt { color: #737373; }
+        /* Inputs follow the card theme. */
         .qc-input, .qc-textarea {
             width: 100%; box-sizing: border-box;
             font-family: inherit; font-size: 0.9375rem; line-height: 1.5;
@@ -804,18 +812,28 @@
             padding: 0.65rem 0.85rem;
             transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
+        [data-theme="dark"] .qc-input,
+        [data-theme="dark"] .qc-textarea { color: #FAFAFA; background: #171717; border-color: rgba(255,255,255,0.14); }
         .qc-input:focus, .qc-textarea:focus { outline: none; border-color: #0088DB; box-shadow: 0 0 0 3px rgba(0,136,219,0.12); }
+        [data-theme="dark"] .qc-input:focus,
+        [data-theme="dark"] .qc-textarea:focus { border-color: #4ab5ed; box-shadow: 0 0 0 3px rgba(74,181,237,0.18); }
         .qc-textarea { resize: vertical; min-height: 110px; }
         .qc-textarea.tall { min-height: 140px; }
         .qc-input::placeholder, .qc-textarea::placeholder { color: #86868b; }
+        [data-theme="dark"] .qc-input::placeholder,
+        [data-theme="dark"] .qc-textarea::placeholder { color: #737373; }
 
         .qc-file-row { margin: 0.4rem 0 1rem; }
-        /* File attach controls: always on the white card, both themes. */
+        /* File attach controls: follow the card theme. */
         .qc-file-label { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.85rem; border: 1px dashed rgba(0,0,0,0.16); border-radius: 10px; font-size: 0.8125rem; color: #525252; cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease; }
+        [data-theme="dark"] .qc-file-label { border-color: rgba(255,255,255,0.16); color: #a1a1a6; }
         .qc-file-label:hover { border-color: #0088DB; color: #0088DB; }
+        [data-theme="dark"] .qc-file-label:hover { border-color: #4ab5ed; color: #4ab5ed; }
         .qc-file-input { position: absolute; left: -9999px; opacity: 0; width: 1px; height: 1px; }
         .qc-file-hint { display: inline-block; margin-left: 0.6rem; font-size: 0.75rem; color: #86868b; }
+        [data-theme="dark"] .qc-file-hint { color: #737373; }
         .qc-file-list { margin: 0.5rem 0 0; padding: 0; list-style: none; font-size: 0.8125rem; color: #525252; }
+        [data-theme="dark"] .qc-file-list { color: #a1a1a6; }
         .qc-file-list li { padding: 0.15rem 0; }
 
         /* Honeypot: hidden from humans, visible to bots */
@@ -824,8 +842,11 @@
         .qc-actions { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.5rem; }
         .qc-submit { flex-shrink: 0; padding: 0.75rem 1.5rem; background: #0088DB; color: #fff; border: 0; border-radius: 10px; font-family: inherit; font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: transform 0.12s ease, background 0.15s ease; }
         .qc-submit:hover:not(:disabled) { transform: translateY(-1px); background: #4ab5ed; }
+        [data-theme="dark"] .qc-submit { background: #4ab5ed; color: #0b0b0c; }
+        [data-theme="dark"] .qc-submit:hover:not(:disabled) { background: #0088DB; color: #FFFFFF; }
         .qc-submit:disabled { opacity: 0.55; cursor: not-allowed; }
         .qc-note { font-size: 0.8125rem; color: #86868b; line-height: 1.4; margin-top: 0.5rem; }
+        [data-theme="dark"] .qc-note { color: #737373; }
 
         .qc-msg { display: none; margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 10px; font-size: 0.875rem; line-height: 1.5; }
         .qc-msg.is-visible { display: block; }
