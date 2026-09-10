@@ -186,7 +186,7 @@
             <h2 class="studio-h2">Tell us <span class="lf-accent">what's broken</span>.</h2>
         </div>
         <div class="contact-form-wrap">
-            <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
+            <form name="contact" method="POST" action="/.netlify/functions/contact" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
                 <input type="hidden" name="form-name" value="contact">
                 <p class="honeypot"><label>Don't fill this out: <input name="bot-field"></label></p>
                 <div class="form-row">
@@ -302,12 +302,21 @@
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         var data = new FormData(form);
-        fetch('/contact.html', {
+        // POST to the validating function instead of directly to Netlify Forms.
+        // The function checks name/email/message are actually filled before
+        // forwarding to Netlify Forms. Empty bot submissions get a 400 here.
+        // See netlify/functions/contact.js.
+        fetch('/.netlify/functions/contact', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: new URLSearchParams(data).toString()
+            body: new URLSearchParams(data).toString(),
+            redirect: 'manual'
         }).then(function(res) {
-            if (res.ok) {
+            // The function returns 303 on success (or an opaqueredirect if
+            // redirect:manual is honored). Anything 2xx or 3xx counts as
+            // accepted; 4xx and 5xx are surfaced to the visitor.
+            var ok = res.type === 'opaqueredirect' || (res.status >= 200 && res.status < 400);
+            if (ok) {
                 var fields = form.querySelectorAll('.form-row,.form-group,button[type="submit"],.form-error');
                 for (var i = 0; i < fields.length; i++) fields[i].style.display = 'none';
                 document.getElementById('form-success').style.display = 'block';

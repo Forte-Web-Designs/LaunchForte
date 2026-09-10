@@ -1,6 +1,7 @@
 [build]
   publish = "site"
   command = "echo 'Static site - no build needed'"
+  functions = "netlify/functions"
 
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
