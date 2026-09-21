@@ -69,6 +69,18 @@
 <div id="log-entries">
 <!-- LOG_ENTRIES_START -->
 <div class="log-entry">
+<span class="log-date">Sep 2026</span>
+<p class="log-text">A platform's admin session silently disables its own public checkout, so any automated test run from an authenticated browser hits a hard block before reaching the payment step. The fix is to drive the checkout flow from a separate, signed-out browser context — a headless Chromium instance running in the cloud container satisfies this and simultaneously produces clean, unauthenticated screenshots for verification. Four consecutive enrolments completed without error once the session boundary was respected.</p>
+</div>
+<div class="log-entry">
+<span class="log-date">Sep 2026</span>
+<p class="log-text">Headless Chromium routed through an agent proxy fails with net::ERR_CONNECTION_RESET on every HTTPS request while curl to the same host succeeds, which points to the TLS handshake rather than the proxy routing. The browser was negotiating Encrypted Client Hello and post-quantum key exchange extensions that the proxy's TLS termination layer refused mid-exchange, visible as a websocket close after 39 bytes received. Launching Chromium with those features disabled and a TLS 1.2 ceiling resolved the reset immediately.</p>
+</div>
+<div class="log-entry">
+<span class="log-date">Sep 2026</span>
+<p class="log-text">A rich-text field inside an offer configuration form ignores programmatic content injection: setting the value through the editor's API updates both the editor state and the underlying textarea, the save call returns success, but a page reload restores the original text. The same form's plain text inputs save correctly when driven with a native value setter and a synthetic input event, and lesson-level rich-text editors accept the API approach without issue — the offer form is the exception. Reliable persistence required simulating real keystrokes: select the existing content, type the replacement, then reapply the block format to repair any structure the selection destroyed.</p>
+</div>
+<div class="log-entry">
 <span class="log-date">Aug 2026</span>
 <p class="log-text">When an n8n data table is empty and alwaysOutputData is enabled, the workflow receives one item containing an empty string rather than zero items, which means any dedupe set built from that output will match every incoming record as already seen. The fix is to run the array through a filter that drops falsy values before constructing the key set, so an empty table produces an empty set instead of a poisoned one.</p>
 </div>
