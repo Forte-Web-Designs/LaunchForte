@@ -116,9 +116,11 @@
         .hero-h1 .hero-h1-line-2 { display: block; color: #FFFFFF; }
         .hero-sub-dark { color: rgba(255,255,255,0.75); font-size: 1.125rem; line-height: 1.55; margin: 0 auto; max-width: 52ch; }
 
-        /* About-us video wrap */
-        .about-us-video-wrap { max-width: 960px; margin: 0 auto 2rem; aspect-ratio: 16/9; border-radius: 24px; overflow: hidden; background: var(--ink); box-shadow: 0 12px 40px rgba(10,10,10,0.12); }
-        .about-us-video-wrap video { width: 100%; height: 100%; display: block; object-fit: cover; }
+        /* About-us video wrap — YouTube embed, autoplay muted with unmute button */
+        .about-us-video-wrap { position: relative; max-width: 960px; margin: 0 auto 2rem; aspect-ratio: 16/9; border-radius: 24px; overflow: hidden; background: var(--ink); box-shadow: 0 12px 40px rgba(10,10,10,0.12); }
+        .about-us-video-wrap #about-video-player { width: 100%; height: 100%; display: block; }
+        .about-video-unmute { position: absolute; right: 12px; bottom: 12px; z-index: 3; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(0,0,0,0.7); color: #fff; border: 0; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; backdrop-filter: blur(6px); }
+        .about-video-unmute.is-hidden { display: none; }
 
         /* Mobile hero: keep atmospheric glow bg, vertically center the stack */
         @media(max-width: 768px) {
@@ -207,7 +209,11 @@
     <!-- ABOUT US VIDEO, autoplay muted b-roll -->
     <div class="section reveal">
         <div class="about-us-video-wrap">
-            <video src="/media/about-us.mp4?v=q2j" autoplay muted loop playsinline preload="metadata" controls></video>
+            <div id="about-video-player"></div>
+            <button type="button" class="about-video-unmute" aria-label="Unmute video">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                <span>Tap to unmute</span>
+            </button>
         </div>
     </div>
 
@@ -409,6 +415,40 @@
     v.addEventListener('loadedmetadata', function(){ var s = sources[i]; if (s.startAt && v.duration && s.startAt < v.duration) { try { v.currentTime = s.startAt; } catch(_){} } }, { once: true });
     v.addEventListener('loadeddata', function(){ v.play().catch(function(){}); });
     v.play().catch(function(){});
+})();
+
+// About-us YouTube video: autoplay muted, prominent unmute button
+(function(){
+    var slot = document.getElementById('about-video-player');
+    var btn = document.querySelector('.about-video-unmute');
+    if (!slot || !btn) return;
+
+    if (!window.YT || !window.YT.Player) {
+        var tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(tag);
+    }
+
+    var player = null;
+    window.onYouTubeIframeAPIReady = function(){
+        player = new YT.Player('about-video-player', {
+            videoId: 'Gy_jhWUUaOU',
+            playerVars: {
+                autoplay: 1, mute: 1, controls: 1, modestbranding: 1,
+                rel: 0, playsinline: 1, loop: 1, playlist: 'Gy_jhWUUaOU'
+            },
+            events: {
+                onReady: function(e){ try { e.target.mute(); e.target.playVideo(); } catch(_){} }
+            }
+        });
+    };
+
+    btn.addEventListener('click', function(){
+        if (player && typeof player.unMute === 'function') {
+            try { player.unMute(); player.setVolume(100); player.playVideo(); } catch(_){}
+        }
+        btn.classList.add('is-hidden');
+    });
 })();
 </script>
 <script src="/studio-motion.js?v=q2j" defer></script>
