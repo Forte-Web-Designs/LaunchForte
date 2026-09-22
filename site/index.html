@@ -860,6 +860,52 @@
             .qc-note { text-align: center; }
             .qc-submit { width: 100%; }
         }
+
+        /* ============================================================
+           FORTE SIGNALS newsletter section (sits above the Final CTA).
+           Two-column card on desktop: copy left, form right. Stacks on
+           mobile. Follows the site theme (light/dark) via raw hex per
+           theme (never token-flip vulnerable). Iframe embed is gated by
+           the SIGNALS_LIVE flag on the section wrapper; while held, a
+           quiet "opening soon" placeholder renders in the form slot.
+           ============================================================ */
+        .signals-card { max-width: 1000px; margin: 0 auto; padding: 2.5rem; background: #FFFFFF; color: #14181f; border: 1px solid rgba(0,0,0,0.10); border-radius: var(--radius-3xl); }
+        [data-theme="dark"] .signals-card { background: #0A0A0A; color: #FAFAFA; border-color: rgba(255,255,255,0.10); }
+        .signals-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 2.5rem; align-items: start; }
+        @media (max-width: 820px) { .signals-grid { grid-template-columns: 1fr; gap: 1.75rem; } }
+
+        .signals-copy .signals-eyebrow { display: inline-block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #0088DB; margin: 0 0 0.85rem; }
+        [data-theme="dark"] .signals-copy .signals-eyebrow { color: #4ab5ed; }
+        .signals-copy h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: clamp(1.5rem, 3vw, 2.125rem); letter-spacing: -0.02em; line-height: 1.15; color: #14181f; margin: 0 0 1rem; }
+        [data-theme="dark"] .signals-copy h2 { color: #FAFAFA; }
+        .signals-copy p { font-size: 1rem; line-height: 1.65; color: #515154; margin: 0 0 1rem; }
+        [data-theme="dark"] .signals-copy p { color: #a1a1a6; }
+        .signals-copy p:last-child { margin-bottom: 0; }
+
+        /* Form slot: holds the GHL iframe when live, or the "opening soon"
+           placeholder when held. Same footprint either way. */
+        .signals-form-slot { min-height: 380px; }
+        .signals-iframe-wrap { position: relative; background: #f5f5f7; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; overflow: hidden; }
+        [data-theme="dark"] .signals-iframe-wrap { background: #171717; border-color: rgba(255,255,255,0.10); }
+        .signals-iframe-wrap iframe { display: block; width: 100%; height: 380px; border: 0; background: transparent; }
+
+        /* Held (placeholder) state — visible while the GHL live gate is
+           not yet green. Replaced by the iframe when SIGNALS_LIVE = true. */
+        .signals-hold { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 0.85rem; min-height: 380px; padding: 1.75rem; background: #f5f5f7; border: 1px dashed rgba(0,0,0,0.14); border-radius: 16px; }
+        [data-theme="dark"] .signals-hold { background: #171717; border-color: rgba(255,255,255,0.14); }
+        .signals-hold-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #86868b; }
+        .signals-hold-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: #86868b; }
+        .signals-hold-msg { font-size: 0.9375rem; color: #515154; line-height: 1.55; margin: 0; }
+        [data-theme="dark"] .signals-hold-msg { color: #a1a1a6; }
+        .signals-hold-mail { font-size: 0.875rem; color: #0088DB; text-decoration: none; font-weight: 500; }
+        [data-theme="dark"] .signals-hold-mail { color: #4ab5ed; }
+        .signals-hold-mail:hover { text-decoration: underline; }
+
+        @media (max-width: 620px) {
+            .signals-card { padding: 1.5rem; }
+            .signals-form-slot { min-height: 320px; }
+            .signals-iframe-wrap iframe, .signals-hold { min-height: 320px; height: 320px; }
+        }
     </style>
 </head>
 <body>
@@ -1177,6 +1223,52 @@
                 <p class="about-name">Seth Forte, Founder</p>
                 <p>I spent years as a reliability engineer keeping critical systems standing at a national bank. Now I build that same reliability for growing businesses. Every engagement starts with what the problem is costing and where you're actually needed in the business. Everything else, we can take off your plate.</p>
                 <a href="/about.html" class="studio-btn studio-btn-ghost">More about Seth</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7.5 FORTE SIGNALS newsletter signup (dedicated GHL form).
+         Form: Forte Signals | LaunchForte.com  (ID: VjQxOml8XO17lEU0wB4T)
+         GoHighLevel is the subscriber system of record. This section
+         embeds ONLY the LaunchForte form (never the SethForte one); the
+         GHL workflow records LF Newsletter Source = LaunchForte.com.
+
+         LIVE GATE: kept behind a manual flag until all six gate items
+         are green (mail.launchforte.com verified, workflow published,
+         welcome email approved, test submission received, welcome email
+         tested, unsubscribe tested).
+
+         TO GO LIVE: replace the "signals-hold" block below with the
+         "signals-iframe-wrap" block that sits right below it, commented
+         out. One block visible at a time. No other code changes needed. -->
+    <section class="studio-container studio-section" id="forte-signals">
+        <div class="signals-card studio-reveal">
+            <div class="signals-grid">
+                <div class="signals-copy">
+                    <span class="signals-eyebrow">Forte Signals</span>
+                    <h2>You can also keep up with what Seth is seeing.</h2>
+                    <p>Every other Friday I send something I'm seeing from the work.</p>
+                    <p>Business problems that keep showing up, changes in software or AI that are worth understanding, and ideas I think are useful if you're building or running a business.</p>
+                    <p>If I don't have something useful, I won't send one.</p>
+                </div>
+                <div class="signals-form-slot">
+                    <!-- HELD state (placeholder). Remove this <div class="signals-hold">
+                         block and uncomment the "signals-iframe-wrap" block below
+                         once the GHL live gate is green. -->
+                    <div class="signals-hold" role="status" aria-live="polite">
+                        <span class="signals-hold-tag"><span class="dot"></span>Opening soon</span>
+                        <p class="signals-hold-msg">The signup opens as soon as the email side is fully tested. If you want the first issue when it goes out, email <a class="signals-hold-mail" href="mailto:seth@launchforte.com?subject=Forte%20Signals%20—%20add%20me%20to%20issue%20one">seth@launchforte.com</a> and I'll add you by hand.</p>
+                    </div>
+                    <!-- LIVE state (embed). Uncomment when the live gate is green.
+                    <div class="signals-iframe-wrap">
+                        <iframe src="https://api.leadconnectorhq.com/widget/form/VjQxOml8XO17lEU0wB4T"
+                            title="Forte Signals newsletter signup"
+                            loading="lazy"
+                            allow="clipboard-write"
+                            aria-label="Sign up for the Forte Signals newsletter"></iframe>
+                    </div>
+                    -->
+                </div>
             </div>
         </div>
     </section>
