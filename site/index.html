@@ -1233,14 +1233,10 @@
          embeds ONLY the LaunchForte form (never the SethForte one); the
          GHL workflow records LF Newsletter Source = LaunchForte.com.
 
-         LIVE GATE: kept behind a manual flag until all six gate items
-         are green (mail.launchforte.com verified, workflow published,
-         welcome email approved, test submission received, welcome email
-         tested, unsubscribe tested).
-
-         TO GO LIVE: replace the "signals-hold" block below with the
-         "signals-iframe-wrap" block that sits right below it, commented
-         out. One block visible at a time. No other code changes needed. -->
+         LIVE 2026-09-23: all six GHL gate items confirmed green
+         (mail.launchforte.com verified, workflow published, welcome
+         email approved, test submission received, welcome email tested,
+         unsubscribe tested). -->
     <section class="studio-container studio-section" id="forte-signals">
         <div class="signals-card studio-reveal">
             <div class="signals-grid">
@@ -1252,14 +1248,11 @@
                     <p>If I don't have something useful, I won't send one.</p>
                 </div>
                 <div class="signals-form-slot">
-                    <!-- HELD state (placeholder). Remove this <div class="signals-hold">
-                         block and uncomment the "signals-iframe-wrap" block below
-                         once the GHL live gate is green. -->
-                    <div class="signals-hold" role="status" aria-live="polite">
-                        <span class="signals-hold-tag"><span class="dot"></span>Opening soon</span>
-                        <p class="signals-hold-msg">The signup opens as soon as the email side is fully tested. If you want the first issue when it goes out, email <a class="signals-hold-mail" href="mailto:seth@launchforte.com?subject=Forte%20Signals%20—%20add%20me%20to%20issue%20one">seth@launchforte.com</a> and I'll add you by hand.</p>
-                    </div>
-                    <!-- LIVE state (embed). Uncomment when the live gate is green.
+                    <!-- LIVE embed. GHL is the subscriber system of record;
+                         the form's own workflow tags LF Newsletter Source =
+                         LaunchForte.com. Never swap this iframe for the
+                         SethForte form ID; the two forms are intentionally
+                         separate for source tracking. -->
                     <div class="signals-iframe-wrap">
                         <iframe src="https://api.leadconnectorhq.com/widget/form/VjQxOml8XO17lEU0wB4T"
                             title="Forte Signals newsletter signup"
@@ -1267,7 +1260,6 @@
                             allow="clipboard-write"
                             aria-label="Sign up for the Forte Signals newsletter"></iframe>
                     </div>
-                    -->
                 </div>
             </div>
         </div>
