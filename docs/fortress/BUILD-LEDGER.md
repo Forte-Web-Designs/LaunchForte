@@ -44,6 +44,17 @@ fifteen minutes of signup, and between them they unlock the two largest shapes i
 | 7 | QuickBooks not signed in | books-reconciliation | Intuit developer sandbox | free |
 | 8 | No Zapier / Make | system-sync | free tiers | free |
 | 9 | No Airtable | data-collection | free tier | free |
+| 10 | **Forte Signals GHL email flow unverified** | exposing the newsletter signup on launchforte.com | verify the six gate items, then flip `SIGNALS_LIVE` in `site/signals-gate.js` | free, ~10 min |
+
+**#10 — Forte Signals (2026-09-22).** The signup section is built, tested and shipped on
+`/` and `/writing.html`, but held closed: the page renders an "opens shortly" notice and makes
+**zero** requests to GoHighLevel, so nobody can be collected into an unfinished flow. Opening it
+is one line — `var SIGNALS_LIVE = false` → `true` in `site/signals-gate.js`. Do not flip it until
+all six are true: (1) `mail.launchforte.com` VERIFIED in GHL, (2) the "Forte Signals |
+LaunchForte.com Newsletter Signup" workflow PUBLISHED, (3) welcome email carries final
+Seth-approved copy, (4) a test submission reached GHL, (5) welcome email tested,
+(6) unsubscribe tested. Form is `Forte Signals | LaunchForte.com`, id `VjQxOml8XO17lEU0wB4T`;
+GHL is the sole subscriber record and the site stores nothing.
 
 **Do #1 and #3 first.** #1 is two minutes and completes two half-built shapes. #3 opens the
 biggest shape in the entire demand catalogue, which we currently cannot demonstrate at all.
@@ -94,6 +105,15 @@ password. Nothing that transits text ever contains a credential.
 - The SMS editor has a **text-duplication bug** when overwriting — re-read the field before
   saving any screenshot of message copy.
 - Reading `localStorage` is blocked by the permission classifier; build through the UI.
+- **Embedding a GHL form on launchforte.com: a lazy iframe with no `src` will not navigate.**
+  The gated pattern parks the URL in `data-src` so a held page never contacts GHL at all, then
+  promotes it when the gate opens. Setting `src` via `setAttribute` on an iframe that was parsed
+  with `loading="lazy"` leaves the frame on `about:blank` and the load aborts — silently, with no
+  console error, so it reads as a GHL outage rather than a markup bug. Remove the `loading`
+  attribute first, then assign the `src` **property**. Proven on `site/signals-gate.js`.
+- **Form styling cannot be reached from our CSS.** The embed is a cross-origin iframe, so button
+  label and button colour are whatever the GHL form builder says — our `--accent` does not apply.
+  Change "Submit" and the blue inside GHL, not in the repo.
 
 ### HubSpot
 - **Free tier hard walls:** Workflows and Sequences redirect to a Sales Hub Professional upsell;
