@@ -70,6 +70,18 @@
 <!-- LOG_ENTRIES_START -->
 <div class="log-entry">
 <span class="log-date">Sep 2026</span>
+<p class="log-text">In Kajabi, module publish status and lesson publish status are tracked independently, so a course can contain eight fully published lessons that remain completely invisible because their parent modules are still set to Draft — and the platform surfaces no warning about this mismatch. The fix is to open each module's dropdown and confirm its badge reads Published separately from the lesson badges, and because that dropdown repositions itself above or below the row depending on screen position, taking a screenshot between opening it and clicking Publish is the only reliable audit trail.</p>
+</div>
+<div class="log-entry">
+<span class="log-date">Sep 2026</span>
+<p class="log-text">A Kajabi trial account silently suppresses all outbound member email: the post-purchase automation runs, the send event logs, and nothing is delivered, with no error surfaced anywhere in the flow. The platform discloses this only if you navigate to Settings then Email Templates, where a notice reads 'Editing email templates is not available during trial,' and the only way to confirm delivery behavior is to enrol a real external address and watch the inbox directly rather than trusting the automation log.</p>
+</div>
+<div class="log-entry">
+<span class="log-date">Sep 2026</span>
+<p class="log-text">In Kajabi, the 'Skip account creation page' toggle on an offer is greyed out unless the post-purchase destination is set to Existing Landing Page, and that picker enumerates funnel pages only, making any standalone site page ineligible — which means free buyers are always routed through a password-creation step when the thank-you page lives outside a funnel. The only structural fix is to rebuild the destination page inside a Kajabi funnel so it appears in the picker, or to document the account-creation step as an expected part of the flow before the client sees it in production.</p>
+</div>
+<div class="log-entry">
+<span class="log-date">Sep 2026</span>
 <p class="log-text">A platform's admin session silently disables its own public checkout, so any automated test run from an authenticated browser hits a hard block before reaching the payment step. The fix is to drive the checkout flow from a separate, signed-out browser context — a headless Chromium instance running in the cloud container satisfies this and simultaneously produces clean, unauthenticated screenshots for verification. Four consecutive enrolments completed without error once the session boundary was respected.</p>
 </div>
 <div class="log-entry">
