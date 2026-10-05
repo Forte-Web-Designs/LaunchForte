@@ -69,6 +69,18 @@
 <div id="log-entries">
 <!-- LOG_ENTRIES_START -->
 <div class="log-entry">
+<span class="log-date">Oct 2026</span>
+<p class="log-text">When an admin account is used to walk through a course on a platform that separates admin and learner roles, completion data never writes to the learner analytics tables — the admin session bypasses the tracking layer entirely, so the Learners tab, quiz attempt counters, and course dashboard all remain at zero regardless of how far through the material the admin progresses. Drip locks are also skipped for admin sessions, making every chapter appear unlocked from day one and masking any schedule misconfiguration. The reliable fix is to enrol a purpose-built test learner through the public signup flow from a signed-out browser and read all evidence from that session, using the admin account only to observe the numbers afterward.</p>
+</div>
+<div class="log-entry">
+<span class="log-date">Oct 2026</span>
+<p class="log-text">On platforms where a free course enrollment collects only a name and email, the learner is authenticated and enrolled immediately without a password, and the optional password-completion step that follows is not required to access course content. This means a fully signed-out browser can complete enrollment, reach the learner library, and progress through lessons and assessments without any credential ever being set, which is a valid and stable session state for building test evidence. Preserving that browser storage state after enrollment allows the same passwordless learner session to be reused across all subsequent verification steps.</p>
+</div>
+<div class="log-entry">
+<span class="log-date">Oct 2026</span>
+<p class="log-text">A drip schedule configured to release content on a staggered interval from enrollment date was observed reverting silently to the platform default within the same session, with no error surfaced and no visible indication the change had not persisted. The safe practice is to save the setting, fully reload the settings page, and reopen the schedule dialog to confirm the value before treating the configuration as stable or building any learner-facing evidence on top of it. Switching between schedule types also triggers a recalculation across all existing enrollments, so any learner already in progress should be checked after a schedule change to confirm their content access reflects the new logic.</p>
+</div>
+<div class="log-entry">
 <span class="log-date">Sep 2026</span>
 <p class="log-text">In Kajabi, module publish status and lesson publish status are tracked independently, so a course can contain eight fully published lessons that remain completely invisible because their parent modules are still set to Draft — and the platform surfaces no warning about this mismatch. The fix is to open each module's dropdown and confirm its badge reads Published separately from the lesson badges, and because that dropdown repositions itself above or below the row depending on screen position, taking a screenshot between opening it and clicking Publish is the only reliable audit trail.</p>
 </div>
