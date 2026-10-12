@@ -70,6 +70,18 @@
 <!-- LOG_ENTRIES_START -->
 <div class="log-entry">
 <span class="log-date">Oct 2026</span>
+<p class="log-text">A dripped course platform's enrollment dialog exposes a date picker for access-start overrides but enforces a hard floor of today's date, silently rejecting any past value — so backdating a learner to collapse all drip gates into the past is not possible through the UI. To demonstrate full course completion in a single session, the correct sequence is to switch the drip schedule to enrollment-date mode, run the learner through, then restore the original schedule, with before-and-after screenshots on the work card to document the temporary state change.</p>
+</div>
+<div class="log-entry">
+<span class="log-date">Oct 2026</span>
+<p class="log-text">A published course landing page on a major hosted LMS platform goes live the moment the course is published, carrying all unfilled template copy verbatim — including an invented testimonials section with fabricated names and quotes visible to any public visitor. Every template block must be rewritten before publication, the testimonials section deleted entirely via the section toolbar rather than filled with placeholder content, and the URL slug corrected manually because it freezes to the course name at creation time and does not update on rename.</p>
+</div>
+<div class="log-entry">
+<span class="log-date">Oct 2026</span>
+<p class="log-text">The file-upload path for a Trello card attachment rejects arbitrary local filesystem paths such as home-directory shortcuts but accepts screenshot output written to the process's own temp directory, making it possible to attach admin UI screenshots directly from their capture path without an intermediate copy step. After upload, the attachment display name can be normalized to card-naming conventions with a single PATCH-equivalent API call carrying the updated description field, which returned HTTP 200 across all three attachments in testing.</p>
+</div>
+<div class="log-entry">
+<span class="log-date">Oct 2026</span>
 <p class="log-text">When an admin account is used to walk through a course on a platform that separates admin and learner roles, completion data never writes to the learner analytics tables — the admin session bypasses the tracking layer entirely, so the Learners tab, quiz attempt counters, and course dashboard all remain at zero regardless of how far through the material the admin progresses. Drip locks are also skipped for admin sessions, making every chapter appear unlocked from day one and masking any schedule misconfiguration. The reliable fix is to enrol a purpose-built test learner through the public signup flow from a signed-out browser and read all evidence from that session, using the admin account only to observe the numbers afterward.</p>
 </div>
 <div class="log-entry">
