@@ -832,7 +832,7 @@
 # Vanity short URL for cold email outreach. Carries UTM attribution to /medspa.
 [[redirects]]
   from = "/ms"
-  to = "/#services?utm_source=email&utm_medium=cold"
+  to = "/?utm_source=email&utm_medium=cold#services"
   status = 301
   force = true
 
