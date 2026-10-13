@@ -320,6 +320,8 @@
                 var fields = form.querySelectorAll('.form-row,.form-group,button[type="submit"],.form-error');
                 for (var i = 0; i < fields.length; i++) fields[i].style.display = 'none';
                 document.getElementById('form-success').style.display = 'block';
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({event: 'contact_sent', form: 'contact'});
             } else {
                 console.error('Form submission failed:', res.status, res.statusText);
                 document.getElementById('form-error').style.display = 'block';
