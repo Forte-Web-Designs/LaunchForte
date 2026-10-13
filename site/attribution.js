@@ -6,7 +6,7 @@
  * 4. Pushes dataLayer events GTM can turn into GA4 key events:
  *      calendly_click   - a Calendly link was opened
  *      calendly_booked  - Calendly's embed reported a scheduled meeting
- *    (contact_sent is pushed by contact.html after the form is accepted.)
+ *    (contact_sent is pushed by contact.html and the homepage quick-contact form after the form is accepted.)
  *
  * No cookies, no third-party calls. Storage can be unavailable (private mode); everything degrades to "unknown".
  */
@@ -48,14 +48,16 @@
   }
   var attr = first || {};
 
-  // 2. Contact form hidden fields (declared in contact.html so Netlify Forms keeps them).
+  // 2. Lead form hidden fields (declared in each form's HTML so Netlify Forms keeps them): the contact page form and
+  //    the homepage quick-contact form.
   function fillForm() {
-    var form = document.getElementById("contact-form");
-    if (!form) return;
+    var forms = document.querySelectorAll("#contact-form, #qc-form");
     var names = FIELDS.concat(["landing", "referrer"]);
-    for (var j = 0; j < names.length; j++) {
-      var input = form.querySelector('input[name="' + names[j] + '"]');
-      if (input && !input.value) input.value = attr[names[j]] || "";
+    for (var f = 0; f < forms.length; f++) {
+      for (var j = 0; j < names.length; j++) {
+        var input = forms[f].querySelector('input[name="' + names[j] + '"]');
+        if (input && !input.value) input.value = attr[names[j]] || "";
+      }
     }
   }
 

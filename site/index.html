@@ -978,6 +978,7 @@
         <textarea name="anything-else"></textarea>
         <input type="file" name="attachments" multiple>
         <input type="text" name="qc-bot">
+        <input type="hidden" name="utm_source" value=""><input type="hidden" name="utm_medium" value=""><input type="hidden" name="utm_campaign" value=""><input type="hidden" name="utm_term" value=""><input type="hidden" name="utm_content" value=""><input type="hidden" name="gclid" value=""><input type="hidden" name="landing" value=""><input type="hidden" name="referrer" value="">
     </form>
 
     <!-- 1. SERVICES, merges the old what-we-do intro + the what-we-build
@@ -1266,6 +1267,8 @@
                         </div>
                         <form name="quick-contact" method="POST" data-netlify="true" data-netlify-honeypot="qc-bot" enctype="multipart/form-data" id="qc-form">
                             <input type="hidden" name="form-name" value="quick-contact">
+                            <!-- Attribution: filled by attribution.js so every submission says where the lead came from -->
+                            <input type="hidden" name="utm_source" value=""><input type="hidden" name="utm_medium" value=""><input type="hidden" name="utm_campaign" value=""><input type="hidden" name="utm_term" value=""><input type="hidden" name="utm_content" value=""><input type="hidden" name="gclid" value=""><input type="hidden" name="landing" value=""><input type="hidden" name="referrer" value="">
                             <div class="qc-hp" aria-hidden="true"><label>Leave this empty: <input tabindex="-1" autocomplete="off" name="qc-bot"></label></div>
 
                             <div class="qc-row">
@@ -1624,7 +1627,7 @@
             var toHide = form.querySelectorAll('.qc-row, .qc-field, .qc-file-row, .qc-actions');
             toHide.forEach(function(el){ el.style.display = 'none'; });
             okMsg.classList.add('is-visible');
-            if (window.dataLayer) window.dataLayer.push({ event: 'homepage_quick_contact_sent' });
+            if (window.dataLayer) { window.dataLayer.push({ event: 'homepage_quick_contact_sent' }); window.dataLayer.push({ event: 'contact_sent', form: 'quick-contact' }); }
         })
         .catch(function(){
             errMsg.classList.add('is-visible');
