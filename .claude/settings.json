@@ -4,7 +4,9 @@
       "Read(//Users/fortewebdesigns/Library/Mobile Documents/com~apple~CloudDocs/Workspace/LaunchForte/src/app/testimonials/**)",
       "Read(//Users/fortewebdesigns/Library/Mobile Documents/com~apple~CloudDocs/Workspace/LaunchForte/src/app/**)",
       "Read(//Users/fortewebdesigns/Library/Mobile Documents/com~apple~CloudDocs/Workspace/LaunchForte/src/components/layout/**)",
-      "Read(//Users/fortewebdesigns/Library/Mobile Documents/com~apple~CloudDocs/Workspace/LaunchForte/src/components/**)"
+      "Read(//Users/fortewebdesigns/Library/Mobile Documents/com~apple~CloudDocs/Workspace/LaunchForte/src/components/**)",
+      "WebFetch",
+      "WebSearch"
     ]
   }
 }
