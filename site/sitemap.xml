@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://launchforte.com/</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -25,19 +25,7 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://launchforte.com/free-resources</loc>
-    <lastmod>2026-10-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/free-tools</loc>
-    <lastmod>2026-10-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/grade</loc>
+    <loc>https://launchforte.com/grade/</loc>
     <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -73,12 +61,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://launchforte.com/resources</loc>
-    <lastmod>2026-10-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://launchforte.com/results</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -98,12 +80,6 @@
   </url>
   <url>
     <loc>https://launchforte.com/what-we-build</loc>
-    <lastmod>2026-10-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://launchforte.com/work</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -313,12 +289,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://launchforte.com/posts/the-dead-pixel.html</loc>
-    <lastmod>2026-10-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://launchforte.com/posts/the-failure-at-2am-that-nobody-finds-until-monday.html</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -357,6 +327,12 @@
   <url>
     <loc>https://launchforte.com/posts/your-crm-your-analytics-and-your-ad-platform-all-report-diff.html</loc>
     <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://launchforte.com/posts/the-dead-pixel.html</loc>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
