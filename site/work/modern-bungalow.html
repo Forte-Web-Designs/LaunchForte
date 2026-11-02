@@ -5,18 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Engineered Shopify to Xero Sync That Hasn't Required Intervention | Launch Forte</title>
-    <meta name="description" content="How we replaced a discontinued integration with an engineered Shopify to Xero sync that hasn't required intervention since launch. 60 hours per month of manual data entry eliminated.">
+    <meta name="description" content="How we replaced a discontinued integration with an engineered Shopify to Xero sync that hasn't required intervention since launch.">
     <link rel="canonical" href="https://launchforte.com/work/modern-bungalow">
     <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TT7NJCP7');</script>
     <meta property="og:title" content="Engineered Shopify to Xero Sync That Hasn't Required Intervention | Launch Forte">
-    <meta property="og:description" content="How we replaced a discontinued integration with an engineered Shopify to Xero sync that hasn't required intervention since launch. 60 hours per month of manual data entry eliminated.">
+    <meta property="og:description" content="How we replaced a discontinued integration with an engineered Shopify to Xero sync that hasn't required intervention since launch.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://launchforte.com/work/modern-bungalow.html">
     <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Engineered Shopify to Xero Sync That Hasn't Required Intervention | Launch Forte">
-    <meta name="twitter:description" content="How we replaced a discontinued integration with an engineered Shopify to Xero sync that hasn't required intervention since launch. 60 hours per month of manual data entry eliminated.">
+    <meta name="twitter:description" content="How we replaced a discontinued integration with an engineered Shopify to Xero sync that hasn't required intervention since launch.">
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
@@ -70,7 +70,6 @@
     <div class="post-meta"><span class="hero-cap">Custom Builds and Integrations</span><span class="hero-context">Furniture retail &middot; E-commerce</span></div>
 
     <div class="stat-row">
-        <div class="stat-item"><span class="stat-num">60 hours/month</span><span class="stat-label">Of manual data entry eliminated</span></div>
         <div class="stat-item"><span class="stat-num">157 to 2</span><span class="stat-label">API calls reduced through bulk fetch optimization</span></div>
         <div class="stat-item"><span class="stat-num">Zero interventions</span><span class="stat-label">Required since launch</span></div>
     </div>
@@ -82,15 +81,15 @@
 
         <span class="section-eye">02 / The Problem</span>
         <h2>Off the shelf integration was about to disappear.</h2>
-        <p>The platforms didn't talk to each other natively. The third party that handled the integration was sunsetting the product. Replacing it manually would have meant 60 hours per month of data entry, every month, indefinitely. The available off the shelf alternatives didn't fit the specific data shape the business needed. The fix had to be engineered, not bought.</p>
+        <p>The platforms didn't talk to each other natively. The third party that handled the integration was sunsetting the product. Replacing it manually would have meant data entry, every month, indefinitely. The available off the shelf alternatives didn't fit the specific data shape the business needed. The fix had to be engineered, not bought.</p>
 
         <span class="section-eye">03 / The Engineering</span>
         <h2>n8n workflow optimized for Xero's rate limits and Shopify's webhook reliability.</h2>
         <p>We engineered a custom n8n workflow that syncs Shopify draft products into Xero as inventory items. The naive implementation would have made 157 individual API calls per sync. We rebuilt it with bulk fetch optimization, reducing that to 2. Xero's rate limits required batched POSTs of 10 items every 5 seconds, which we architected into the system. SKU deduplication, character limit handling, and webhook race condition fixes all got built into the foundation. The architecture decision that mattered: handle the failure modes before they fail in production. APIs return errors. Webhooks fire twice. Rate limits hit. The system handles all of it without intervention.</p>
 
         <span class="section-eye">04 / Outcome</span>
-        <h2>60 hours per month returned. Zero intervention required since launch.</h2>
-        <p>The system runs on its own. Product data flows from Shopify to Xero without anyone touching it. The retailer saved 60 hours per month of manual data entry, which is what the discontinued integration would have cost to replace manually. The system has not required intervention since launch.</p>
+        <h2>Zero intervention required since launch.</h2>
+        <p>The system runs on its own. Product data flows from Shopify to Xero without anyone touching it. The system has not required intervention since launch.</p>
 
         <span class="section-eye">05 / The Pattern</span>
         <h2>Custom integration earns its keep when off the shelf disappears.</h2>
