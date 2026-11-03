@@ -61,9 +61,9 @@
     }
   }
 
-  // 3. Calendly links carry the source.
+  // 3. Booking links (GHL calendar, legacy Calendly) carry the source.
   function tagCalendly() {
-    var links = document.querySelectorAll('a[href*="calendly.com"]');
+    var links = document.querySelectorAll('a[href*="calendly.com"], a[href*="leadconnectorhq.com/widget/bookings"]');
     for (var j = 0; j < links.length; j++) {
       try {
         var u = new URL(links[j].href);
