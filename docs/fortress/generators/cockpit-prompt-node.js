@@ -38,7 +38,7 @@ const __PRICING_BRIEF = ['','=== PRICING, DERIVED. USE THESE PARTS, DO NOT INVEN
   'Class '+__p.k+'. '+__p.wf+' workflow(s) across '+__p.sn+' system(s).','Lines:',__p.lines,
   'Derived total: $'+__p.tot.toLocaleString('en-US')+'. Quote this exact figure. Never round it, never end it in 997, never discount it. Remove a line instead and the number drops with it.',
   (__p.ph||''),'Anchor you may cite: '+__p.anchor,
-  'Retainer: treat it as a conversation, not a fixed line. Say it scales with the work — the number of client accounts covered, the build volume week to week, and how much of the calls-and-oversight side they want. Two floors you may quote: monitoring-shaped retainers start at $750 a month; ongoing retainer work starts at $2,500 a month and scales with accounts and builds. Offer a more accurate number once they confirm how many client accounts you would be covering and the build volume they expect week to week. 43% of businesses using freelancers for automation hit at least one critical workflow failure from lack of ongoing support (Zapier, State of Business Automation).',
+  'Ongoing help: there is one plan, Launch Forte Technology Partner, $500 a month, month to month, cancel anytime, optional after launch. Quote that figure and no other monthly number. Never describe tiers, hourly quotas, request credits or a second retainer. Large new builds are quoted separately as fixed price projects. Offer the plan only when the buyer wants monitoring or support after the build. 43% of businesses using freelancers for automation hit at least one critical workflow failure from lack of ongoing support (Zapier, State of Business Automation).',
   'Why it costs this: what they pay for is the part invisible until it fails. Input validation with a refusal path so malformed data never becomes a half-record. Deduplication, because the same event arrives twice more often than anyone expects. Rate limiting so the vendor ceiling is respected rather than discovered in production. Retries with an error branch so a failed call alerts instead of failing silently. Logging on both paths. And a second scheduled trigger that keeps finding what nobody noticed. Those are the lines a cheaper quote skips, and the buyer does not learn which until something breaks quietly. They are visible node by node in the attached build.',
   'ABSOLUTE: no hourly rates, no hour counts, no time in hours anywhere. Never mention what other buyers have spent.',
   '=== END PRICING ===',''].join('\n');
@@ -415,7 +415,7 @@ const payload = {
   model: 'claude-fable-5',
   // 16,000 was not a budget for the answer, it was a budget for the answer AND
   // the thinking. On the hardest posting in the set — a four thousand character
-  // brief with a $400 ceiling against our $2,500 floor — the model spent all
+  // brief with a $400 ceiling against our fixed price floor — the model spent all
   // 16,000 on thinking and returned content of type thinking and nothing else.
   // stop_reason came back max_tokens, Parse Outputs threw "the model returned no
   // text", and the same posting failed the same way twice. That is not a flake,

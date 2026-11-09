@@ -25,7 +25,7 @@ const RATE = {
   docsLow: 250,
   docsHigh: 500,
   testPct: 0.15,          // 15-20% of the build subtotal
-  retainer: 750,
+  retainer: 500,   // Pricing Standard v2.5: Launch Forte Technology Partner, $500 a month
   upworkCeiling: 3500
 };
 
@@ -673,8 +673,8 @@ return [{ json: Object.assign({}, input, {
   quote_channel: channel,
   quote_note: note || null,
   retainer_floor: RATE.retainer,
-  retainer_line: 'Run retainer from ' + money(RATE.retainer) +
-    ' a month: drift maintenance, optimisation and the weekly report. Not availability.',
+  retainer_line: 'Launch Forte Technology Partner is ' + money(RATE.retainer) +
+    ' a month, month to month, cancel anytime. Optional after launch.',
   retainer_defense: '43% of businesses using freelancers for automation hit at least one critical ' +
     'workflow failure from lack of ongoing support (Zapier, State of Business Automation).',
   pricing_three_line: threeLine,
