@@ -85,6 +85,7 @@ class T2(unittest.TestCase):
         self.assertIn(p.returncode, (0, 3), p.stdout)
         rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
         self.assertEqual(rep["investment"], 2750); self.assertEqual(rep["milestones"], [1375, 1375])
+        self.assertEqual(rep["price_problems"], [])   # "$2,750" must not trip the retired $750 check
         self.assertEqual(rep["rules"]["voice_freshness"], "UNVERIFIED")
 
 if __name__ == "__main__":

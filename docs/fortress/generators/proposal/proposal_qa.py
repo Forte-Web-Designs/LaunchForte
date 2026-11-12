@@ -97,7 +97,7 @@ def price_audit(pages, amount, plan_price, offered, split):
                 prob.append("the plan price is on the cover")
             if first_amt is not None and plan_pages and min(plan_pages) < first_amt:
                 prob.append("the plan price appears before the project investment")
-            if "750" in full:
+            if re.search(r"(?<![\d,])\$750\b", full):
                 prob.append("retired 750 figure present")
     else:
         if tp_pages or re.search(r"Technology Partner", full):
