@@ -47,6 +47,7 @@ def main(argv=None):
     ap.add_argument("--rules", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--allow-fixture", action="store_true", help="tests only")
+    ap.add_argument("--allow-mirrored-voice", action="store_true", help="accept a Voice Rules readback that the connector reports UNVERIFIED (BRAIN mirror). Off by default; every use is written into the QA report for Seth to see.")
     a = ap.parse_args(argv)
 
     try:
@@ -56,7 +57,7 @@ def main(argv=None):
     if spec.get("financing") or spec.get("purchase_choice"):
         refuse("financing is disabled by default and is not part of this rollout.")
     try:
-        facts, rates = rules_input.build(rules, allow_fixture=a.allow_fixture)
+        facts, rates = rules_input.build(rules, allow_fixture=a.allow_fixture, allow_mirrored_voice=a.allow_mirrored_voice)
     except rules_input.RulesRefused as e:
         refuse(str(e))
 
@@ -66,8 +67,8 @@ def main(argv=None):
     if not offer_source.verified():
         refuse("the plan fee could not be verified from the rules.")
     blocks, total = compute_blocks(spec["blocks"], rates)
-    if total <= 0 or total % 100:
-        refuse("the computed investment %d cannot be split into two equal milestones" % total)
+    if total <= 0 or total % 2:
+        refuse("the computed investment %d cannot be split into two equal whole dollar milestones" % total)
     half = total // 2
 
     buyer = spec.get("buyer", {})
@@ -126,7 +127,8 @@ def main(argv=None):
               "plan_offered": offered, "offer_reason": g.OFFER["reason"], "plan_price": offer_source.price() if offered else None,
               "rules": {"pricing_sha12": facts["pricing_rule_sha12"], "technology_partner_offer_sha12": facts["offer_rule_sha12"],
                         "client_document_hard_rules_sha12": rules.get("client_document_hard_rules", {}).get("sha12"),
-                        "word_list_sha12": proposal_qa.WORDS_SHA12},
+                        "word_list_sha12": proposal_qa.WORDS_SHA12,
+                        "voice_freshness": rules.get("voice", {}).get("freshness"), "voice_sha12": rules.get("voice", {}).get("sha12")},
               "word_check": {"hard_hits": hard, "review_hits": review},
               "price_problems": price_problems, "footer_overflow": overflow, "unfilled_tokens": left,
               "page_images": imgs, "financing": "disabled",

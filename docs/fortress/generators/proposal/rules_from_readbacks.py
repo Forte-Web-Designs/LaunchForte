@@ -6,7 +6,7 @@ result, exactly as returned, into one text file per rule (pages of one rule appe
 
     python3 rules_from_readbacks.py --pricing pricing.txt --offer offer.txt --hard hard.txt --voice voice.txt --out rules.json
 
-Nothing is retyped. The freshness line and sha come from each readback header; the generator refuses anything that is not LIVE or VERIFIED.
+Pasting the whole body is not required: a saved file may hold the readback header lines (the RULE, source, sha256 and FRESHNESS lines) exactly as returned, then for pricing only section 2 and section 10 verbatim. Nothing else is retyped or invented. The freshness line and sha come from each readback header; the generator refuses anything that is not LIVE or VERIFIED.
 """
 import argparse, json, re, datetime, sys
 
