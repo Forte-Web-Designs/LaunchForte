@@ -63,7 +63,7 @@ def parse_plan_price(section_10):
     return price
 
 
-def build(rules, now=None, allow_fixture=False, allow_mirrored_voice=False):
+def build(rules, now=None, allow_fixture=False):
     """Returns (facts for offer_source, rates). Raises RulesRefused on anything unverified."""
     if not isinstance(rules, dict) or not rules:
         raise RulesRefused("No rules were supplied (rules.json is empty or missing), so nothing is priced.")
@@ -75,10 +75,7 @@ def build(rules, now=None, allow_fixture=False, allow_mirrored_voice=False):
         _fresh(rules.get("pricing"), "The Pricing Standard")
         _fresh(rules.get("technology_partner_offer"), "The Technology Partner offer rule")
         _fresh(rules.get("client_document_hard_rules"), "The Client Document Hard Rules")
-        if allow_mirrored_voice and str((rules.get("voice") or {}).get("freshness", "")).upper() == "UNVERIFIED":
-            pass   # Seth's ruling needed before this is ever the default: the voice text is not read by the generator, only recorded
-        else:
-            _fresh(rules.get("voice"), "The Voice Rules")
+        _fresh(rules.get("voice"), "The Voice Rules")
     p = rules["pricing"]
     for k in ("sha12", "section_2", "section_10"):
         if not p.get(k):

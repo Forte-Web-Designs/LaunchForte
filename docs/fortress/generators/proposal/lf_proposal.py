@@ -107,7 +107,6 @@ def main(argv=None):
     ap.add_argument("--rules", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--allow-fixture", action="store_true", help="tests only")
-    ap.add_argument("--allow-mirrored-voice", action="store_true", help="accept a Voice Rules readback that the connector reports UNVERIFIED (BRAIN mirror). Off by default; every use is written into the QA report for Seth to see.")
     a = ap.parse_args(argv)
 
     try:
@@ -117,7 +116,7 @@ def main(argv=None):
     if spec.get("financing") or spec.get("purchase_choice"):
         refuse("financing is disabled by default and is not part of this rollout.")
     try:
-        facts, rates = rules_input.build(rules, allow_fixture=a.allow_fixture, allow_mirrored_voice=a.allow_mirrored_voice)
+        facts, rates = rules_input.build(rules, allow_fixture=a.allow_fixture)
     except rules_input.RulesRefused as e:
         refuse(str(e))
 

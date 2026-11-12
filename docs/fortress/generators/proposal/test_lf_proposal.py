@@ -73,7 +73,7 @@ class T(unittest.TestCase):
         c, o, _ = self.go(s); self.assertEqual(c, 2); self.assertIn("SITUATION TITLE", o)
 
 class T2(unittest.TestCase):
-    def test_split_of_2750_works_and_unverified_voice_needs_flag(self):
+    def test_split_of_2750_and_unverified_voice_refuses_with_no_override(self):
         s = copy.deepcopy(SPEC); s["blocks"][1]["parts"][0] = {"label": "follow-up sequence", "kind": "config", "qty": 1}
         s["blocks"][1]["parts"].pop(1)   # 3 connections 1200 + config 250 + surface 600 = 2050? keep explicit below
         s["blocks"][1]["parts"].append({"label": "urgent rule", "kind": "judged", "qty": 1})   # 1200+250+700+600 = 2750
@@ -81,13 +81,16 @@ class T2(unittest.TestCase):
         rl = rules(); rl["voice"] = {"sha12": "e6110d3a755a", "freshness": "UNVERIFIED"}
         tmp = tempfile.mkdtemp(); c, o, _ = run(s, rl, tmp)
         self.assertEqual(c, 2); self.assertIn("Voice Rules is UNVERIFIED", o)
-        sp, rp, out = [os.path.join(tmp, n) for n in ("spec.json", "rules.json", "out2")]
-        p = subprocess.run([sys.executable, os.path.join(HERE, "lf_proposal.py"), "--spec", sp, "--rules", rp, "--out", out, "--allow-mirrored-voice"], capture_output=True, text=True)
-        self.assertIn(p.returncode, (0, 3), p.stdout)
+        self.assertFalse(os.path.exists(os.path.join(tmp, 'out')))
+
+class T4(unittest.TestCase):
+    def test_2750_total_splits_and_is_not_flagged_as_750(self):
+        s = copy.deepcopy(SPEC); s["blocks"][1]["parts"] = [{"label": "follow-up sequence", "kind": "config", "qty": 1}, {"label": "urgent rule", "kind": "judged", "qty": 1}]
+        s["systems"] = ["one", "two"]
+        c, o, out = run(s, rules(), tempfile.mkdtemp())
         rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
-        self.assertEqual(rep["investment"], 2750); self.assertEqual(rep["milestones"], [1375, 1375])
-        self.assertEqual(rep["price_problems"], [])   # "$2,750" must not trip the retired $750 check
-        self.assertEqual(rep["rules"]["voice_freshness"], "UNVERIFIED")
+        self.assertEqual((rep["investment"], rep["milestones"]), (2750, [1375, 1375]))
+        self.assertEqual(rep["price_problems"], [])
 
 class T3(unittest.TestCase):
     def go(self, spec):
