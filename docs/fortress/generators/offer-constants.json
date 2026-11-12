@@ -1,0 +1,12 @@
+{
+  "note": "Card 538. The ONLY typed copy of the Technology Partner price that generators may carry. It is pinned to the canonical rules and checked by offer-copies-check.py. The canonical text is lf_rules technology-partner-offer and Pricing Standard section 10. When the rule changes, change this file and the check tells you every copy that still disagrees.",
+  "plan_price_per_month": 500,
+  "pinned_rule_shas": { "technology-partner-offer": "6c16db65383079a7", "pricing": "bf40e201ea00127f" },
+  "copies": [
+    "docs/fortress/generators/pricing.py",
+    "docs/fortress/generators/cockpit-pricing-node.js",
+    "docs/fortress/generators/prompt-of-record.js",
+    "docs/fortress/generators/cockpit-prompt-node.js",
+    "docs/fortress/generators/promptgen.py"
+  ]
+}
