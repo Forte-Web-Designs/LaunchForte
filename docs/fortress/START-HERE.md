@@ -49,6 +49,7 @@ The bridge between them is a handoff paste — see section 3.
 
 | Layer | Where |
 |---|---|
+| Proposal PDF generator (the one approved process) | `docs/fortress/generators/proposal/README.md`, library playbook `playbooks/proposal-generator.md` (`lf_reference`). Never use fill_proposal_v12 or v11. |
 | Cockpit (proposal engine) | n8n `launchforte.app.n8n.cloud`, workflow `Hl5zah3PZcHaEkuo` |
 | Build queue / reports API | n8n workflow `nuNkZu0VqDVwtS9d` (`Ops: Build Queue API`) |
 | Upwork ingest | n8n workflow `7MY8Bqj42haaFbPF` (`Upwork: Job Engine`) |

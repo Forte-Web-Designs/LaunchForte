@@ -1,0 +1,126 @@
+{
+  "file_name": "Ridgeline Sample",
+  "buyer": {
+    "status": "prospect",
+    "platform": "direct",
+    "signed_agreement": false,
+    "seth_opt_out": false,
+    "scope_approved": true
+  },
+  "fill": {
+    "[REF]": "LF-SAMPLE-001",
+    "[SEND DATE]": "November 12, 2026",
+    "[PHASE LABEL]": "Phase One",
+    "[CLIENT NAME]": "Ridgeline Outfitters (fictional sample)",
+    "[ENGAGEMENT NAME]": "Order Alerts and Weekly Sales Report",
+    "[COVER SUBTITLE]": "Every new order reaches the right person in minutes, and Monday starts with one clear sales report.",
+    "[CONTACT NAME AND TITLE]": "Jordan Reyes, Owner",
+    "[ENGAGEMENT TYPE]": "Fixed Price, Milestone Funded",
+    "[DELIVERY WINDOW]": "4 Weeks",
+    "[SITUATION TITLE]": "Orders Wait For Someone To Notice",
+    "[SITUATION LEAD]": "Orders from the store and from two marketplaces arrive in three different inboxes, and the team finds out hours later.",
+    "[SITUATION DETAIL]": "Jordan builds the Monday sales numbers by hand from three exports. <b>Nothing tells the team a large order has arrived</b>, and the weekly numbers are usually a day late.",
+    "[STAGE 1 NAME]": "A customer orders",
+    "[STAGE 1 NOTE]": "Store or marketplace",
+    "[STAGE 2 NAME]": "The order lands",
+    "[STAGE 2 NOTE]": "In three separate inboxes",
+    "[STAGE 3 NAME]": "Nobody is told",
+    "[STAGE 3 NOTE]": "Found hours later",
+    "[STAGE 4 NAME]": "Numbers built by hand",
+    "[STAGE 4 NOTE]": "Every Monday morning",
+    "[STAGE 5 NAME]": "Decisions wait",
+    "[STAGE 5 NOTE]": "On a late report",
+    "[COST LINE 1]": "Large orders sit unnoticed for hours, and some ship late.",
+    "[COST LINE 2]": "About three hours every Monday go to copying numbers between exports.",
+    "[COST LINE 3]": "",
+    "[AFTER TITLE]": "Every order reaches the right person, and Monday is ready",
+    "[AFTER BODY]": "A new order from any of the three sources triggers an alert to the right person within minutes. The weekly sales report builds itself and arrives before the Monday meeting.",
+    "[SCOPE TITLE]": "What Gets Built",
+    "[SCOPE INTRO]": "Three order sources feed one place. <b>The alert rules come first</b>, then the weekly report reads from the same data.",
+    "[VALID THROUGH]": "November 26, 2026",
+    "[WEEK 1 SUMMARY]": "Store and marketplace orders flowing into one place.",
+    "[WEEK 2 SUMMARY]": "Alert rules built and tested on real orders.",
+    "[WEEK 3 SUMMARY]": "Alerts live for the team, weekly sales report built.",
+    "[SUPPORT DAYS]": "30",
+    "[WEEK 4 SUMMARY]": "Weekly report live, walkthrough recorded, support window opens."
+  },
+  "blocks": [
+    {
+      "name": "Three Sources, One Place",
+      "desc": "Orders from the store and both marketplaces land in one place the moment they arrive.",
+      "parts": [
+        {
+          "label": "store and two marketplace order feeds",
+          "kind": "connection",
+          "qty": 3
+        }
+      ]
+    },
+    {
+      "name": "Alerts That Reach The Right Person",
+      "desc": "Large and unusual orders alert the right person within minutes.",
+      "parts": [
+        {
+          "label": "alert rules for large and unusual orders",
+          "kind": "judged",
+          "qty": 1
+        },
+        {
+          "label": "alert delivery to the team channel",
+          "kind": "connection",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "name": "The Monday Sales Report",
+      "desc": "One page of last week's numbers, ready before the meeting.",
+      "parts": [
+        {
+          "label": "weekly sales report",
+          "kind": "surface",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "name": "Handover And Support Window",
+      "desc": "",
+      "parts": [
+        {
+          "label": "Testing against your real data rather than a sandbox",
+          "kind": "included"
+        },
+        {
+          "label": "Handover documentation, so you own what was built",
+          "kind": "included"
+        },
+        {
+          "label": "One recorded walkthrough call",
+          "kind": "included"
+        },
+        {
+          "label": "30 days of support after go live",
+          "kind": "included"
+        }
+      ]
+    }
+  ],
+  "word_check_allow": [
+    "we agree",
+    "we can talk",
+    "standard terms",
+    "forms our"
+  ],
+  "systems": [
+    "online store",
+    "marketplace one",
+    "marketplace two",
+    "team chat"
+  ],
+  "middleware": [],
+  "_notes": [
+    "testimonial: add {quote,name,title,source_ref} only from an approved source, otherwise the proof section is omitted",
+    "engagement_terms: add {net_days, standard_terms_attached: true, source_ref} only when the actual engagement terms exist, otherwise net days and Standard Terms wording is removed and the working agreement clauses are flagged"
+  ]
+}
