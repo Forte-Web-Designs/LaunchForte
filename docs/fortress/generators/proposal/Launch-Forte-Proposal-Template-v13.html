@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+LAUNCH FORTE PROPOSAL TEMPLATE v13, FIVE PAGES (SIX WHEN THE PURCHASE CHOICE PAGE IS ENABLED)
+================================================================================
+CHANGE FROM v11 (Seth, Nov 8 2026): the client PDF shows OUTCOME BLOCKS WITH ONE
+PRICE EACH. The per piece math (kind and unit price of each part) is an internal
+worksheet that lives on the Trello card as the dated PRICING ESTIMATE (INTERNAL,
+NOT A QUOTE) and is written by fill_proposal_v12.py to worksheet.txt. It never
+appears in this template, in the PDF, or in any client copy. The legal layer
+stays in Launch-Forte-Standard-Terms.html, sent alongside.
+
+CHANGE Nov 9 2026 (Pricing Standard v2.5, Seth): the ongoing plan is Launch Forte
+Technology Partner, $500 a month, month to month, cancel anytime. The prior
+monthly plan wording is retired. Only the [SUPPORT PLAN LINE] token below changed
+meaning; the template markup is unchanged.
+
+PAGE ORDER: 01 cover, 02 situation, 03 the build priced by outcome, 04 schedule
+and terms, 05 acceptance.
+
+TO GENERATE: edit fill_proposal_v12.py and run it, or replace every [TOKEN] by
+hand. [AMOUNT] and [SUPPORT DAYS] each appear twice and take the same value.
+
+WRITING RULES (client facing copy):
+  no em dashes or en dashes, use commas, periods or parentheses
+  no three item lists, use two items or four or more
+  write "ex:" not "e.g.", no hyphens between compound words
+  no hourly rates or hour counts anywhere
+  no piece kinds, unit rates or per piece arithmetic anywhere
+  delivery is four weeks, never two or three
+
+--- COVER -----------------------------------------------------------------
+[REF] [SEND DATE] [PHASE LABEL] [CLIENT NAME] [ENGAGEMENT NAME]
+[COVER SUBTITLE] [CONTACT NAME AND TITLE] [ENGAGEMENT TYPE]
+[DELIVERY WINDOW] [AMOUNT]
+
+--- 02 SITUATION ----------------------------------------------------------
+[SITUATION TITLE] [SITUATION LEAD] [SITUATION DETAIL]
+[STAGE 1-5 NAME] [STAGE 1-5 NOTE]   stage 3 renders as the failure point
+[COST LINE 1-3]   delete the whole line div if you only have two
+[AFTER TITLE] [AFTER BODY]
+
+--- 03 THE BUILD, PRICED BY OUTCOME ---------------------------------------
+[SCOPE TITLE]   ex: What Gets Built
+[SCOPE INTRO]   two sentences, the strategy, key insight in <b></b>
+
+[BUILD BLOCKS]  One block per outcome the client receives: a numbered header
+                row with ONE price, then a one or two line plain description
+                of what the client can do or see when it is done. Exact shape:
+
+  <div class="blk">
+    <div class="bh"><span class="num">01</span><span class="name">Four Platforms, One Repository</span><span class="bn">$2,200</span></div>
+    <div class="bd">Every order lands in one repository, tagged by channel the moment it arrives.</div>
+  </div>
+
+                Included items (testing, documentation, walkthrough, support
+                window) render as a block with the word Included and short
+                bullet lines (class "bi"). A credited audit renders as a block
+                with class "blk credit" and a minus price. fill_proposal_v12.py
+                refuses to write the PDF if the block prices plus credits do
+                not equal [AMOUNT], or if any piece kind or unit rate leaks
+                into the client text.
+
+[AMOUNT] [VALID THROUGH] [SPLIT TO START] [SPLIT ON DELIVERY]
+
+--- 04 SCHEDULE AND TERMS -------------------------------------------------
+[WEEK 1-4 SUMMARY] [SUPPORT DAYS] [SUPPORT PLAN LINE] [UPWORK NOTE]
+[SUPPORT PLAN LINE] is the Launch Forte Technology Partner sentence, $500 a
+month, month to month, cancel anytime. Required for every active client
+proposal and every delivery handoff. For a new prospect it is filled only when
+the client wants monitoring or support after the included days, and is left
+empty otherwise.
+
+--- 05 ACCEPTANCE ---------------------------------------------------------
+[TESTIMONIAL QUOTE] [TESTIMONIAL NAME] [TESTIMONIAL TITLE]
+On Upwork, the fill script's UPWORK flag swaps the reply channel strings
+
+AFTER FILLING: run check_pages.py against proposal-filled.html. Five pages
+in, five pages out. Send Launch-Forte-Standard-Terms.pdf in the same message;
+the proposal names it, so it has to actually be attached.
+================================================================================
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family:'Mona Sans'; src:url('Mona-Sans_var.woff2') format('woff2'); font-weight:200 900; font-style:normal; font-display:block; }
+@font-face { font-family:'Inter';     src:url('Inter_var.woff2')     format('woff2'); font-weight:100 900; font-style:normal; font-display:block; }
+
+@page { size: 612pt 792pt; margin: 0; }
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --ink:#0A0A0A; --paper:#FFFFFF; --paper-2:#FAFAFA;
+  --n900:#171717; --n800:#262626; --n700:#404040; --n600:#525252;
+  --n500:#737373; --n400:#A3A3A3; --n300:#D4D4D4; --n200:#E5E5E5;
+  --n100:#F5F5F5; --n50:#FAFAFA;
+  --accent:#0088DB; --accent-hover:#0077C4; --accent-light:#4AB5ED; --accent-lightest:#5BC0FF;
+  --accent-tint:rgba(0,136,219,.10);
+  --border:rgba(10,10,10,.08); --border-strong:rgba(10,10,10,.16);
+  --border-dk:rgba(255,255,255,.10); --border-dk-strong:rgba(255,255,255,.22);
+  --on-dark:#FAFAFA; --on-dark-body:#A3A3A3;
+  --grid:#EFEFEF; --grid-dark:rgba(255,255,255,.06);
+  --display:'Mona Sans',ui-sans-serif,system-ui,sans-serif;
+  --body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --r-sm:7.5pt; --r-lg:18pt;
+}
+
+body { font-family:var(--body); color:var(--n600); font-weight:400; }
+.page { width:612pt; height:792pt; position:relative; background:var(--paper); page-break-after:always; overflow:hidden; padding:52pt 52pt 42pt 52pt; }
+.page.last { page-break-after:auto; }
+
+.gridfield {
+  background-image:
+    repeating-linear-gradient(to right, var(--grid) 0, var(--grid) .5pt, transparent .5pt, transparent 36pt),
+    repeating-linear-gradient(to bottom, var(--grid) 0, var(--grid) .5pt, transparent .5pt, transparent 36pt);
+}
+.gridfield.on-dark {
+  background-image:
+    repeating-linear-gradient(to right, var(--grid-dark) 0, var(--grid-dark) .5pt, transparent .5pt, transparent 36pt),
+    repeating-linear-gradient(to bottom, var(--grid-dark) 0, var(--grid-dark) .5pt, transparent .5pt, transparent 36pt);
+}
+
+.hdr { position:absolute; top:24pt; left:52pt; right:52pt; height:16pt; }
+.hdr img { height:13pt; float:left; }
+.hdr .ix { float:right; font-size:7.5pt; color:var(--n500); padding-top:3pt; }
+.hdr .ix b { color:var(--ink); font-weight:600; }
+
+.ftr { position:absolute; bottom:24pt; left:52pt; right:52pt; border-top:1pt solid var(--border); padding-top:9pt; }
+.ftr:after { content:""; display:block; clear:both; }
+.ftr .l { float:left; font-size:7.2pt; color:var(--n500); }
+.ftr .r { float:right; font-size:7.2pt; color:var(--n500); }
+.ftr .c { position:absolute; left:0; right:0; top:9pt; text-align:center; font-size:7.2pt; color:var(--n500); }
+
+.eyebrow { position:relative; margin-bottom:13pt; height:9pt; }
+.eyebrow .dot { position:absolute; left:0; top:2.6pt; width:4.5pt; height:4.5pt; border-radius:2.25pt; background:var(--accent); }
+.eyebrow .t { position:absolute; left:10pt; top:0; font-family:var(--display); font-size:7.5pt; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--n500); }
+.eyebrow .t b { color:var(--ink); font-weight:600; }
+.eyebrow .rule { position:absolute; right:0; top:4.4pt; height:1pt; background:var(--border-strong); }
+
+h1.hero { font-family:var(--display); font-size:44pt; font-weight:500; letter-spacing:-.03em; line-height:1.05; color:var(--ink); }
+h2.sec  { font-family:var(--display); font-size:22pt; font-weight:500; letter-spacing:-.025em; line-height:1.12; color:var(--ink); margin-bottom:13pt; max-width:430pt; }
+h3.sub  { font-family:var(--display); font-size:15pt; font-weight:500; letter-spacing:-.015em; line-height:1.2;  color:var(--ink); margin-bottom:6pt; }
+.card-title { font-family:var(--display); font-size:12pt; font-weight:600; letter-spacing:-.015em; color:var(--ink); margin-bottom:4pt; }
+p.lead { font-size:11pt; line-height:1.62; color:var(--n600); margin-bottom:14pt; max-width:452pt; }
+p.body { font-size:9.5pt; line-height:1.66; color:var(--n600); }
+p.body b, p.body strong, .sb { font-weight:600; color:var(--ink); }
+.a { color:var(--accent); font-weight:500; }
+.label { font-family:var(--display); font-size:7.5pt; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--n500); margin-bottom:11pt; }
+
+.cover { background:
+   radial-gradient(ellipse 470pt 330pt at 15% 20%, rgba(74,181,237,.18), transparent 60%),
+   radial-gradient(ellipse 380pt 270pt at 90% 90%, rgba(0,136,219,.10), transparent 60%),
+   var(--ink); }
+.cover .field { position:absolute; top:0; left:0; right:0; height:252pt; }
+.cover .logo { position:absolute; top:52pt; left:52pt; width:142pt; }
+.cover .refline { position:absolute; top:52pt; right:52pt; text-align:right; font-size:7.8pt; line-height:1.5; color:var(--on-dark-body); }
+.cover .refline b { color:var(--on-dark); font-weight:600; }
+.cover .block { position:absolute; left:52pt; right:52pt; top:352pt; }
+.cover .eyebrow .t { color:var(--on-dark-body); }
+.cover .eyebrow .t b { color:var(--on-dark); }
+.cover .eyebrow .rule { height:1.5pt; background:linear-gradient(90deg,#0088DB 0%,#5BC0FF 55%,rgba(91,192,255,0) 100%); }
+.cover h1.hero { color:var(--on-dark); margin-bottom:14pt; }
+.cover .engagement { font-family:var(--display); font-size:17pt; font-weight:600; letter-spacing:-.02em; line-height:1.25; color:var(--accent-light); margin-bottom:11pt; }
+.cover .subtitle { font-size:10pt; line-height:1.65; color:var(--on-dark-body); max-width:392pt; }
+
+.cstrip { position:absolute; left:52pt; right:52pt; bottom:42pt; border-top:1pt solid var(--border-dk); padding-top:16pt; }
+.cstrip:after { content:""; display:block; clear:both; }
+.cstrip .cell { float:left; padding-right:14pt; }
+.cstrip .c1 { width:150pt; } .cstrip .c2 { width:152pt; } .cstrip .c3 { width:98pt; } .cstrip .c4 { width:88pt; padding-right:0; }
+.cstrip .lbl { font-family:var(--display); font-size:6.8pt; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--n500); margin-bottom:8pt; }
+.cstrip .val { font-family:var(--display); font-size:10.5pt; font-weight:500; letter-spacing:-.015em; color:var(--on-dark); line-height:1.35; }
+.cstrip .c4 .val { color:var(--accent-light); font-weight:700; }
+
+.glist .gi { border-top:1pt solid var(--border); padding:11pt 0 12pt 0; }
+.glist .gi:first-child { border-top:1pt solid var(--border-strong); }
+.glist .gi p { font-size:9.5pt; line-height:1.6; color:var(--n600); }
+.glist .gi .idx { font-family:var(--display); font-size:7pt; font-weight:600; letter-spacing:.14em; color:var(--accent); margin-bottom:6pt; }
+.glist.tight .gi { padding:8.5pt 0 9pt 0; }
+
+.map { margin:16pt 0 18pt 0; }
+.track:after { content:""; display:block; clear:both; }
+.mn { float:left; width:100pt; padding:12pt 12pt 0 0; border-top:1pt solid var(--n300); position:relative; }
+.mn .dot { position:absolute; top:-4.5pt; left:0; width:9pt; height:9pt; border-radius:4.5pt; border:1pt solid var(--n300); background:var(--paper); }
+.mn .mt { font-family:var(--display); font-size:9pt; font-weight:600; letter-spacing:-.01em; color:var(--n700); line-height:1.3; margin-bottom:3pt; }
+.mn .ms { font-size:7.8pt; line-height:1.45; color:var(--n500); }
+.mn.brk { border-top:1.6pt solid var(--accent); }
+.mn.brk .dot { background:var(--accent); border-color:var(--accent); }
+.mn.brk .mt { color:var(--accent); }
+.mn.brk .tag { font-family:var(--display); font-size:6.6pt; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-top:6pt; }
+
+.callout { background:var(--n50); border:1pt solid var(--border); border-radius:var(--r-lg); padding:18pt 20pt 19pt 20pt; margin-bottom:18pt; }
+.callout .line { font-size:9.5pt; line-height:1.58; color:var(--n600); padding:7pt 0; border-top:1pt solid var(--border); }
+.callout .line:first-of-type { border-top:none; padding-top:0; }
+.callout .line b { color:var(--ink); font-weight:600; }
+
+/* ---------- the priced build: one block per outcome, one price each ---------- */
+.blk { border-bottom:1pt solid var(--border); padding:11pt 0 13pt 0; }
+.blk .bh { display:table; width:100%; }
+.blk .num { display:table-cell; width:24pt; font-family:var(--display); font-size:8pt; font-weight:600; letter-spacing:.08em; color:var(--accent); padding-top:2pt; }
+.blk .name { display:table-cell; font-family:var(--display); font-size:11.5pt; font-weight:600; letter-spacing:-.012em; color:var(--ink); }
+.blk .bn { display:table-cell; width:72pt; text-align:right; font-family:var(--display); font-size:11.5pt; font-weight:600; color:var(--ink); }
+.blk .bd { font-size:8.8pt; line-height:1.5; color:var(--n600); margin:4pt 72pt 0 24pt; }
+.blk .bi { font-size:8.4pt; line-height:1.45; color:var(--n600); margin:2pt 72pt 0 24pt; }
+.blk.inc .bn, .blk.credit .bn { color:var(--accent); }
+.mband.sm { padding:12pt 20pt 13pt 20pt; margin-top:9pt; }
+.mband.sm .amount { font-size:26pt; margin-bottom:5pt; }
+.mband.sm .mlbl { margin-bottom:8pt; }
+.mband.sm .mcap { margin-top:9pt; padding-top:8pt; }
+
+.mband { margin-top:11pt; border-radius:var(--r-lg); padding:15pt 22pt 16pt 22pt; color:var(--on-dark); position:relative; overflow:hidden;
+  background:
+   radial-gradient(ellipse 300pt 150pt at 14% 12%, rgba(74,181,237,.20), transparent 62%),
+   radial-gradient(ellipse 240pt 140pt at 94% 92%, rgba(0,136,219,.12), transparent 62%),
+   var(--ink); }
+.mband:after { content:""; display:block; clear:both; }
+.mtot { float:left; width:228pt; }
+.mtot .mlbl { font-family:var(--display); font-size:6.8pt; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--on-dark-body); margin-bottom:10pt; }
+.mtot .amount { font-family:var(--display); font-size:32pt; font-weight:700; letter-spacing:-.03em; line-height:1; color:var(--accent-light); margin-bottom:7pt; }
+.mtot .valid { font-size:7.8pt; color:var(--on-dark-body); }
+.mterms { float:right; width:212pt; border-top:1pt solid var(--border-dk); }
+.mterms .row { padding:6.5pt 0; border-bottom:1pt solid var(--border-dk); }
+.mterms .row:after { content:""; display:block; clear:both; }
+.mterms .rl { float:left; font-size:8.5pt; color:var(--on-dark-body); }
+.mterms .rv { float:right; font-family:var(--display); font-size:8.5pt; font-weight:600; color:var(--on-dark); }
+.mcap { clear:both; margin-top:11pt; padding-top:10pt; border-top:1pt solid var(--border-dk); font-size:7.4pt; line-height:1.58; color:var(--on-dark-body); }
+
+.quote { border-top:1pt solid var(--border-strong); padding:18pt 40pt 0 0; margin-bottom:22pt; }
+.quote p { font-family:var(--display); font-size:16pt; font-weight:500; letter-spacing:-.02em; line-height:1.38; color:var(--ink); margin-bottom:12pt; }
+.quote .attr { font-size:8.5pt; color:var(--n600); }
+.quote .attr b { color:var(--ink); font-weight:600; }
+
+.cols:after { content:""; display:block; clear:both; }
+.cols .col { float:left; width:242pt; }
+.cols .col + .col { float:right; width:242pt; }
+.cols3:after { content:""; display:block; clear:both; }
+.cols3 .col { float:left; width:169pt; padding-right:14pt; }
+.cols3 .col.last { padding-right:0; }
+
+.approve { position:absolute; left:52pt; right:52pt; bottom:42pt; border-radius:var(--r-lg); padding:26pt 26pt 27pt 26pt; color:var(--on-dark); overflow:hidden;
+  background:
+   radial-gradient(ellipse 420pt 210pt at 12% 12%, rgba(74,181,237,.20), transparent 62%),
+   radial-gradient(ellipse 300pt 180pt at 92% 95%, rgba(0,136,219,.14), transparent 62%),
+   var(--ink); }
+.approve .agrid { position:absolute; top:0; left:0; right:0; bottom:0; }
+.approve .in { position:relative; }
+.approve .ae { font-family:var(--display); font-size:6.8pt; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--on-dark-body); margin-bottom:10pt; }
+.approve h2 { font-family:var(--display); font-size:21pt; font-weight:500; letter-spacing:-.025em; line-height:1.14; color:var(--on-dark); margin-bottom:10pt; }
+.approve .intro { font-size:8.8pt; line-height:1.66; color:var(--on-dark-body); margin-bottom:22pt; max-width:424pt; }
+.approve .intro b { color:var(--on-dark); font-weight:600; }
+.steps:after { content:""; display:block; clear:both; }
+.ap { float:left; width:114pt; padding:12pt 12pt 0 0; border-top:1pt solid var(--border-dk-strong); position:relative; }
+.ap.last { padding-right:0; }
+.ap .apn { position:absolute; top:-4.5pt; left:0; width:9pt; height:9pt; border-radius:4.5pt; background:var(--accent-light); }
+.ap .apt { font-family:var(--display); font-size:9pt; font-weight:600; letter-spacing:-.012em; color:var(--on-dark); line-height:1.32; margin-bottom:5pt; }
+.ap .aps { font-size:7.6pt; line-height:1.5; color:var(--on-dark-body); }
+.apfoot { position:relative; margin-top:20pt; padding-top:13pt; border-top:1pt solid var(--border-dk); font-size:8pt; line-height:1.6; color:var(--on-dark-body); }
+.apfoot b { color:var(--accent-light); font-weight:600; }
+
+.tplnote { font-size:7.8pt; font-weight:500; color:var(--n500); margin-bottom:9pt; }
+.mb18{margin-bottom:18pt}
+</style>
+</head>
+<body>
+
+<!-- ============ 01 COVER ============ -->
+<div class="page cover">
+  <div class="field gridfield on-dark"></div>
+  <img class="logo" src="launch-forte-white.png">
+  <div class="refline">Ref <b>[REF]</b><br>[SEND DATE]</div>
+
+  <div class="block">
+    <div class="eyebrow">
+      <div class="dot"></div>
+      <div class="t">Scope of Engagement <b>&middot; [PHASE LABEL]</b></div>
+      <div class="rule" style="width:250pt"></div>
+    </div>
+    <h1 class="hero">[CLIENT NAME]</h1>
+    <div class="engagement">[ENGAGEMENT NAME]</div>
+    <div class="subtitle">[COVER SUBTITLE]</div>
+  </div>
+
+  <div class="cstrip">
+    <div class="cell c1"><div class="lbl">Prepared for</div><div class="val">[CONTACT NAME AND TITLE]</div></div>
+    <div class="cell c2"><div class="lbl">Engagement</div><div class="val">[ENGAGEMENT TYPE]</div></div>
+    <div class="cell c3"><div class="lbl">Delivery</div><div class="val">[DELIVERY WINDOW]</div></div>
+    <div class="cell c4"><div class="lbl">Investment</div><div class="val">$[AMOUNT]</div></div>
+  </div>
+</div>
+
+<!-- ============ 02 SITUATION ============ -->
+<div class="page">
+  <div class="hdr"><img src="launch-forte-dark.png"><span class="ix"><b>02</b> / Situation</span></div>
+
+  <div class="eyebrow"><div class="dot"></div><div class="t">Where things stand</div><div class="rule" style="width:392pt"></div></div>
+  <h2 class="sec">[SITUATION TITLE]</h2>
+
+  <p class="lead">[SITUATION LEAD]</p>
+
+  <p class="body">[SITUATION DETAIL]</p>
+
+  <div class="map">
+    <div class="label">The path today</div>
+    <div class="track">
+      <div class="mn"><div class="dot"></div><div class="mt">[STAGE 1 NAME]</div><div class="ms">[STAGE 1 NOTE]</div></div>
+      <div class="mn"><div class="dot"></div><div class="mt">[STAGE 2 NAME]</div><div class="ms">[STAGE 2 NOTE]</div></div>
+      <div class="mn brk"><div class="dot"></div><div class="mt">[STAGE 3 NAME]</div><div class="ms">[STAGE 3 NOTE]</div><div class="tag">Failure point</div></div>
+      <div class="mn"><div class="dot"></div><div class="mt">[STAGE 4 NAME]</div><div class="ms">[STAGE 4 NOTE]</div></div>
+      <div class="mn"><div class="dot"></div><div class="mt">[STAGE 5 NAME]</div><div class="ms">[STAGE 5 NOTE]</div></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="label" style="margin-bottom:10pt">What this is costing now</div>
+    <div class="line">[COST LINE 1]</div>
+    <div class="line">[COST LINE 2]</div>
+    <div class="line">[COST LINE 3]</div>
+  </div>
+
+  <div class="eyebrow"><div class="dot"></div><div class="t">What changes</div><div class="rule" style="width:412pt"></div></div>
+  <h3 class="sub">[AFTER TITLE]</h3>
+  <p class="body">[AFTER BODY]</p>
+
+  <div class="ftr"><span class="l">Seth Forte / Launch Forte</span><span class="c">Accept by reply. First milestone initiates work.</span><span class="r">02 / 05</span></div>
+</div>
+
+<!-- ============ 03 THE BUILD, PRICED BY OUTCOME ============ -->
+<div class="page">
+  <div class="hdr"><img src="launch-forte-dark.png"><span class="ix"><b>03</b> / The build</span></div>
+
+  <div class="eyebrow"><div class="dot"></div><div class="t">What you get <b>&middot; One price per outcome</b></div><div class="rule" style="width:312pt"></div></div>
+  <h2 class="sec">[SCOPE TITLE]</h2>
+  <p class="lead" style="margin-bottom:9pt">[SCOPE INTRO] Each outcome below carries one price.</p>
+
+  <div class="tally" style="border-top:1pt solid var(--border-strong)">
+[BUILD BLOCKS]
+  </div>
+
+  <div class="mband sm">
+    <div class="mtot">
+      <div class="mlbl">Total investment</div>
+      <div class="amount">$[AMOUNT]</div>
+      <div class="valid">Valid through [VALID THROUGH]</div>
+    </div>
+    <div class="mterms">
+      <div class="row"><span class="rl">To start</span><span class="rv">[SPLIT TO START]</span></div>
+      <div class="row"><span class="rl">On delivery</span><span class="rv">[SPLIT ON DELIVERY]</span></div>
+    </div>
+    <div class="mcap">Fixed price, funded a milestone at a time, net-15 on acceptance. The number moves only if the scope moves, agreed in writing before any work happens.</div>
+  </div>
+
+  <div class="ftr"><span class="l">Seth Forte / Launch Forte</span><span class="c">Accept by reply. First milestone initiates work.</span><span class="r">03 / 05</span></div>
+</div>
+
+<!-- ============ 04 SCHEDULE AND TERMS ============ -->
+<div class="page">
+  <div class="hdr"><img src="launch-forte-dark.png"><span class="ix"><b>04</b> / Schedule</span></div>
+
+  <div class="eyebrow"><div class="dot"></div><div class="t">Schedule and terms</div><div class="rule" style="width:372pt"></div></div>
+  <h2 class="sec">When it lands, and what governs it</h2>
+  <p class="lead" style="margin-bottom:16pt">The clock starts the day funding and access both arrive. Each week closes on something you can open and use rather than a status update.</p>
+
+  <div class="glist tight mb18">
+    <div class="gi"><div class="card-title">Week one</div><p>[WEEK 1 SUMMARY]</p></div>
+    <div class="gi"><div class="card-title">Week two</div><p>[WEEK 2 SUMMARY]</p></div>
+    <div class="gi"><div class="card-title">Week three</div><p>[WEEK 3 SUMMARY]</p></div>
+    <div class="gi"><div class="card-title">Week four</div><p>[WEEK 4 SUMMARY]</p></div>
+  </div>
+
+  <div class="label">The working agreement, short version</div>
+  <div class="cols">
+    <div class="col">
+      <div class="glist tight">
+        <div class="gi"><p>Fixed price, funded a milestone at a time, net-15 on acceptance. The number moves only when the scope moves, agreed in writing first.</p></div>
+        <div class="gi"><p>Each milestone includes 2 revision rounds against the written spec, and an adjustment that adds no new outcome is absorbed at no charge.</p></div>
+        <div class="gi"><p>Each delivery has a 10 business day window for specific written objections, and then the next milestone begins.</p></div>
+        <div class="gi"><p>A blocking item on your side extends the timeline day for day, and at 7 business days idle the project pauses.</p></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="glist tight">
+        <div class="gi"><p>[SUPPORT DAYS] days of support follow go live, with anything missing the spec fixed there at no charge. [SUPPORT PLAN LINE]</p></div>
+        <div class="gi"><p>Everything delivered and paid for is yours. You stay owner and admin of every account, with named user access and no shared passwords.</p></div>
+        <div class="gi"><p>Either side can end with written notice. Delivered milestones are yours, unstarted milestones are never owed, and anything I cannot deliver is refunded.</p></div>
+        <div class="gi"><p>Third party tools stay subscribed in your name, with their costs and their terms staying yours.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="tplnote" style="margin-top:8pt">The one page Launch Forte Standard Terms travels with this proposal and governs anything not covered above. If the two ever conflict, this proposal wins. [UPWORK NOTE]</div>
+
+  <div class="ftr"><span class="l">Seth Forte / Launch Forte</span><span class="c">Accept by reply. First milestone initiates work.</span><span class="r">04 / 05</span></div>
+</div>
+
+<!-- ============ 05 ACCEPTANCE ============ -->
+<div class="page last">
+  <div class="hdr"><img src="launch-forte-dark.png"><span class="ix"><b>05</b> / Acceptance</span></div>
+
+  <div class="eyebrow"><div class="dot"></div><div class="t">Track record &middot; Before we start</div><div class="rule" style="width:330pt"></div></div>
+  <h2 class="sec">Who has handed me this before</h2>
+
+  <div class="quote" style="margin:14pt 0 16pt 0">
+    <p>[TESTIMONIAL QUOTE]</p>
+    <div class="attr"><b>[TESTIMONIAL NAME]</b>, [TESTIMONIAL TITLE]</div>
+  </div>
+
+  <div class="label">What I need to begin</div>
+
+  <div class="cols3">
+    <div class="col">
+      <div class="label">Access</div>
+      <div class="glist tight">
+        <div class="gi"><p>A named user for me on every tool the build touches</p></div>
+        <div class="gi"><p>Access details for any integrations, provided at kickoff</p></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="label">Information</div>
+      <div class="glist tight">
+        <div class="gi"><p>The decisions and assets that scope the build, in writing, in one pass</p></div>
+        <div class="gi"><p>One named decision maker confirmed</p></div>
+      </div>
+    </div>
+    <div class="col last">
+      <div class="label">Kickoff</div>
+      <div class="glist tight">
+        <div class="gi"><p>First milestone funded. This releases the build and starts the clock.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="approve">
+    <div class="agrid gridfield on-dark"></div>
+    <div class="in">
+      <div class="ae">Acceptance</div>
+      <h2>Approving this takes one email</h2>
+      <p class="intro">A written reply confirming this proposal, together with funding of the first milestone, forms our agreement under the attached Standard Terms. <b>Clause 01 makes email the accepted form</b>, so there is no portal to log into and nothing to print or sign.</p>
+
+      <div class="steps">
+        <div class="ap"><div class="apn"></div><div class="apt">You reply, approved</div><div class="aps">To seth@launchforte.com. That written reply is the signature.</div></div>
+        <div class="ap"><div class="apn"></div><div class="apt">Invoice comes back same day</div><div class="aps">One invoice, first milestone only.</div></div>
+        <div class="ap"><div class="apn"></div><div class="apt">You fund it and send access</div><div class="aps">The kickoff items above come over in the same pass.</div></div>
+        <div class="ap last"><div class="apn"></div><div class="apt">The clock starts</div><div class="aps">The timeline begins the day funding and access both land.</div></div>
+      </div>
+
+      <div class="apfoot">If a call would help before you approve, grab a time at <b>calendly.com/seth-launchforte</b>. Everything else, including questions on scope or terms, is handled over email.</div>
+    </div>
+  </div>
+
+  <div class="ftr"><span class="l">Seth Forte / Launch Forte</span><span class="r">05 / 05</span></div>
+</div>
+
+</body>
+</html>
