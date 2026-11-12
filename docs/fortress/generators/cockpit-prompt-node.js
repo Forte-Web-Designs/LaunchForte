@@ -4,7 +4,7 @@
 const __p = (function () {
   const j = $json || {};
   const hay = String((j.job_post||j.jobPost||j.text||'')+' '+(j.jobTitle||j.title||'')+' '+(j.notes||'')).toLowerCase();
-  const R={audit:650,simple:800,base:2500,surface:300,docs:250,testPct:0.15,retainer:750,ceiling:3500};
+  const R={audit:650,simple:800,base:2500,surface:300,docs:250,testPct:0.15,retainer:500,ceiling:3500};
   const aud=/(audit|review our|review the|assess|take over|inherit|undocumented|transcript)/.test(hay);
   const bot=/(chatbot|chat bot|conversation ai|ai agent|ai assistant|voice ai|receptionist)/.test(hay);
   const sys=/(crm|pipeline|dashboard|integrat|sync|migrat|onboard|full system|build out|end to end|ecosystem)/.test(hay);
