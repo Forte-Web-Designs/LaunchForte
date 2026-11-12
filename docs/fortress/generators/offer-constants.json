@@ -1,12 +1,11 @@
 {
-  "note": "Card 538. The ONLY typed copy of the Technology Partner price that generators may carry. It is pinned to the canonical rules and checked by offer-copies-check.py. The canonical text is lf_rules technology-partner-offer and Pricing Standard section 10. When the rule changes, change this file and the check tells you every copy that still disagrees.",
-  "plan_price_per_month": 500,
-  "pinned_rule_shas": { "technology-partner-offer": "6c16db65383079a7", "pricing": "bf40e201ea00127f" },
+  "note": "Card 538. Generators carry NO typed plan price. They read it from the canonical rule through GET /api/offer/rule (authenticated, read only; the n8n HTTP Request node uses the x-work-key header n8n already holds) and add no plan when the rule is unavailable, stale or shows the retired price. This file only lists the files offer-copies-check.py watches.",
   "copies": [
     "docs/fortress/generators/pricing.py",
     "docs/fortress/generators/cockpit-pricing-node.js",
     "docs/fortress/generators/prompt-of-record.js",
     "docs/fortress/generators/cockpit-prompt-node.js",
     "docs/fortress/generators/promptgen.py"
-  ]
+  ],
+  "endpoint": "https://dashboard.launchforte.com/api/offer/rule"
 }

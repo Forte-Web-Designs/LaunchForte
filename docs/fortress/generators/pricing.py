@@ -96,11 +96,13 @@ const RATE = {
   docsLow: 250,
   docsHigh: 500,
   testPct: 0.15,          // 15-20% of the build subtotal
-  retainer: 500,   // Pricing Standard v2.5: Launch Forte Technology Partner, $500 a month
   upworkCeiling: 3500
 };
 
 const input = $json || {};
+// Card 538: the plan price is read from the canonical rule by an upstream HTTP Request node (GET /api/offer/rule, header x-work-key,
+// continue on fail) and arrives as input.offer_rule. Nothing here types the price. A missing, failed, stale or retired-price rule means NO plan and NO price.
+const OFFER_RULE = (input.offer_rule && input.offer_rule.ok === true && input.offer_rule.stale !== true && Number(input.offer_rule.plan_price_per_month) > 0 && Number(input.offer_rule.plan_price_per_month) !== 750) ? input.offer_rule : null;
 let ev = null;
 try { ev = $('Pick the evidence to attach').first().json; } catch (e) { ev = null; }
 const shape = (ev && ev.evidence_shape) || input.evidence_shape || null;
@@ -302,9 +304,10 @@ return [{ json: Object.assign({}, input, {
   quote_phased: phased,
   quote_channel: channel,
   quote_note: note || null,
-  retainer_floor: RATE.retainer,
-  retainer_line: 'Launch Forte Technology Partner is ' + money(RATE.retainer) +
-    ' a month, month to month, cancel anytime. Optional after launch.',
+  offer_status: OFFER_RULE ? 'LIVE rule technology-partner-offer sha ' + OFFER_RULE.offer_rule_sha12 + ', pricing sha ' + OFFER_RULE.pricing_rule_sha12 : 'UNAVAILABLE: the canonical offer rule could not be read, so add no plan or price',
+  retainer_floor: OFFER_RULE ? OFFER_RULE.plan_price_per_month : null,
+  retainer_line: OFFER_RULE ? 'Launch Forte Technology Partner is ' + money(OFFER_RULE.plan_price_per_month) +
+    ' a month, month to month, cancel anytime. Optional after launch.' : null,
   retainer_defense: '43% of businesses using freelancers for automation hit at least one critical ' +
     'workflow failure from lack of ongoing support (Zapier, State of Business Automation).',
   pricing_three_line: threeLine,

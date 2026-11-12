@@ -4,7 +4,7 @@
 const __p = (function () {
   const j = $json || {};
   const hay = String((j.job_post||j.jobPost||j.text||'')+' '+(j.jobTitle||j.title||'')+' '+(j.notes||'')).toLowerCase();
-  const R={audit:650,simple:800,base:2500,surface:300,docs:250,testPct:0.15,retainer:500,ceiling:3500};
+  const R={audit:650,simple:800,base:2500,surface:300,docs:250,testPct:0.15,ceiling:3500};
   const aud=/(audit|review our|review the|assess|take over|inherit|undocumented|transcript)/.test(hay);
   const bot=/(chatbot|chat bot|conversation ai|ai agent|ai assistant|voice ai|receptionist)/.test(hay);
   const sys=/(crm|pipeline|dashboard|integrat|sync|migrat|onboard|full system|build out|end to end|ecosystem)/.test(hay);
@@ -34,11 +34,14 @@ const __p = (function () {
   const A={1:'Published 2026 freelancer bands put a single workflow at $1,000 to $6,000.',2:'Published 2026 benchmarks put a build this shape at $2,000 to $8,000 for three to ten workflows with APIs.',3:'Custom bots run $1,000 to $5,000 bare and $10,000 to $30,000 at an agency.',4:'Complex multi-system work runs $8,000 to $20,000+ at the top of published bands.'};
   return {k:k,wf:wf,sn:sn,tot:tot,lines:lines.join('\n'),ph:ph,anchor:A[k]};
 })();
+// Card 538: the plan price is read from the canonical rule by an upstream HTTP Request node (GET /api/offer/rule, header x-work-key,
+// continue on fail) and arrives as $json.offer_rule. Nothing here types the price. A missing, failed, stale or retired-price rule means NO plan text.
+const __OFFER = (function () { const o = ($json || {}).offer_rule; return (o && o.ok === true && o.stale !== true && Number(o.plan_price_per_month) > 0 && Number(o.plan_price_per_month) !== 750) ? o : null; })();
 const __PRICING_BRIEF = ['','=== PRICING, DERIVED. USE THESE PARTS, DO NOT INVENT A NUMBER ===',
   'Class '+__p.k+'. '+__p.wf+' workflow(s) across '+__p.sn+' system(s).','Lines:',__p.lines,
   'Derived total: $'+__p.tot.toLocaleString('en-US')+'. Quote this exact figure. Never round it, never end it in 997, never discount it. Remove a line instead and the number drops with it.',
   (__p.ph||''),'Anchor you may cite: '+__p.anchor,
-  'Ongoing help: there is one plan, Launch Forte Technology Partner, $500 a month, month to month, cancel anytime, optional after launch. Quote that figure and no other monthly number. Never describe tiers, hourly quotas, request credits or a second retainer. Large new builds are quoted separately as fixed price projects. Whether the plan is offered is decided by the Launch Forte offer rule (lf_rules technology-partner-offer), not by this prompt: never on Upwork, never to an active client or a buyer with a signed agreement, and otherwise as an optional close after the fixed price project, in the voice of the person sending it, with no hint that it is required. 43% of businesses using freelancers for automation hit at least one critical workflow failure from lack of ongoing support (Zapier, State of Business Automation).',
+  (__OFFER ? 'Ongoing help: there is one plan, Launch Forte Technology Partner, $'+__OFFER.plan_price_per_month+' a month, month to month, cancel anytime, optional after launch. Quote that figure and no other monthly number. Never describe tiers, hourly quotas, request credits or a second retainer. Large new builds are quoted separately as fixed price projects. Whether the plan is offered is decided by the Launch Forte offer rule (lf_rules technology-partner-offer), not by this prompt: never on Upwork, never to an active client or a buyer with a signed agreement, and otherwise as an optional close after the fixed price project, in the voice of the person sending it, with no hint that it is required. 43% of businesses using freelancers for automation hit at least one critical workflow failure from lack of ongoing support (Zapier, State of Business Automation).' : 'Ongoing help: the current plan terms could not be read from the canonical rule, so do not mention any monthly plan, price or retainer in this document.'),
   'Why it costs this: what they pay for is the part invisible until it fails. Input validation with a refusal path so malformed data never becomes a half-record. Deduplication, because the same event arrives twice more often than anyone expects. Rate limiting so the vendor ceiling is respected rather than discovered in production. Retries with an error branch so a failed call alerts instead of failing silently. Logging on both paths. And a second scheduled trigger that keeps finding what nobody noticed. Those are the lines a cheaper quote skips, and the buyer does not learn which until something breaks quietly. They are visible node by node in the attached build.',
   'ABSOLUTE: no hourly rates, no hour counts, no time in hours anywhere. Never mention what other buyers have spent.',
   '=== END PRICING ===',''].join('\n');
