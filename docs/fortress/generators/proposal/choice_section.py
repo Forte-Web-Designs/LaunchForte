@@ -59,7 +59,7 @@ def body(calc):
 </div>
 <div class="same"><b>Spreading the payments costs more.</b> The fixed price is {usd(o["project_cents"])}. Paying over {n} months adds {usd(b["premium_cents"])}, so the project totals {usd(b["project_total_cents"])}. You can pay the remaining balance early at no penalty.</div>
 <div class="same" style="margin-top:7pt"><b>If you also add the Technology Partner service</b> ({usd(b["service_monthly_cents"])} a month, month to month, cancel anytime), your monthly total during the {n} installments is {usd(b["combined_monthly_cents"])}: {usd(b["installment_cents"])} for the project plus {usd(b["service_monthly_cents"])} for the service. After the last installment the project is paid off and the service continues at {usd(b["service_monthly_cents"])} a month, or stops if you cancel it.</div>
-<div class="same" style="margin-top:7pt"><b>Identical in both:</b> every outcome in this proposal, the scope, testing, handover documentation, one walkthrough, 30 days of support, and ownership of everything delivered and paid for. Third party tool costs stay yours. No member discount applies to a financed project.</div>'''
+<div class="same" style="margin-top:7pt"><b>Identical in both:</b> every outcome in this proposal, the scope, testing, handover documentation, one walkthrough, 30 days of support, and your accounts staying under your control. Third party tool costs stay yours. No member discount applies to a financed project.</div>'''
 
 def render(calc, page_no, total_pages, project_label="the same scoped project"):
     return f'''

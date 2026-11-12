@@ -88,7 +88,7 @@ BLOCKS = [
      "",
      [
         ("Testing against your real data rather than a sandbox", "included", 0),
-        ("Handover documentation, so you own what was built", "included", 0),
+        ("Handover documentation, so you can run what was built", "included", 0),
         ("One recorded walkthrough call", "included", 0),
         ("30 days of support after go live", "included", 0),
      ]),

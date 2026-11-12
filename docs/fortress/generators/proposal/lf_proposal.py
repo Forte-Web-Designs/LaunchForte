@@ -86,7 +86,7 @@ def build_template(spec, src, dst):
     return True
 
 
-UNSUPPORTED_TERMS = ["revision round", "business day window", "business days idle", "standard terms", "net-", "forms our agreement", "that written reply is the signature", "clause 01"]
+UNSUPPORTED_TERMS = ["revision round", "business day window", "business days idle", "standard terms", "net-", "forms our agreement", "that written reply is the signature", "clause 01", "you own what", "is yours.", "everything delivered", "paid for stay"]
 
 
 def main(argv=None):
@@ -129,6 +129,11 @@ def main(argv=None):
     status = buyer.get("status", "unknown")
     platform = buyer.get("platform", "direct")
     fill = dict(spec["fill"])
+    if str(fill.get("[SUPPORT DAYS]", "30")).strip() != "30":
+        refuse("included post launch support is the canonical 30 days. A spec cannot change it. An exception needs an approved, documented agreement.")
+    for m in re.finditer(r"(\d+)\s+days of support", json.dumps(spec)):
+        if m.group(1) != "30":
+            refuse("included post launch support is the canonical 30 days. A spec cannot change it.")
     t = spec.get("testimonial") or {}
     fill["[TESTIMONIAL QUOTE]"] = t.get("quote", ""); fill["[TESTIMONIAL NAME]"] = t.get("name", ""); fill["[TESTIMONIAL TITLE]"] = t.get("title", "")
     missing = [k for k in g.FILL if k not in fill and k not in ("[AMOUNT]", "[SPLIT TO START]", "[SPLIT ON DELIVERY]", "[UPWORK NOTE]")]

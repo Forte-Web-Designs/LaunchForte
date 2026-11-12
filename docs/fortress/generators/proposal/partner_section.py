@@ -54,7 +54,7 @@ def page_a():
     rows = "".join(f'<div class="tp-row"><div class="k">{k}</div><div class="v">{v}</div></div>' for k, v in MONTHLY)
     return f'''<h2 class="sec" style="margin-bottom:10pt">Your Technology Partner</h2>
 <p class="tp-lead">After I build this, I would be happy to keep helping with the technology side of your business too. For {_price()} a month, I keep an eye on the systems we agree to cover, review what is working and what needs attention, and look through your software for improvements worth making. You get a monthly update even if you have not asked me for anything new.</p>
-<div class="tp-price"><div class="amt">{_price()}<span>a month</span></div><div class="txt"><b>Optional, and separate from the project.</b> It is month to month, you can cancel anytime, and your accounts and everything you paid for stay yours.</div></div>
+<div class="tp-price"><div class="amt">{_price()}<span>a month</span></div><div class="txt"><b>Optional, and separate from the project.</b> It is month to month, you can cancel anytime, and your accounts stay yours.</div></div>
 <p class="tp-p">Software tends to pile up. Accounts stay open after people leave, backups go unchecked, subscriptions renew unnoticed and small problems wait until they are expensive. With this plan, one person is accountable for all of it, and what I build in this project gets looked after instead of left alone.</p>
 <div class="tp-h3">What I take care of each month</div>
 <div class="tp-rows">{rows}</div>'''

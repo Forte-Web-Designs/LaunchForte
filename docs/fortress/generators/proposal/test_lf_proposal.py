@@ -132,6 +132,10 @@ class T3(unittest.TestCase):
         txt = subprocess.run(["pdftotext", pdf, "-"], capture_output=True, text=True).stdout
         self.assertIn("Fictional test quote.", txt)
 
+    def test_support_days_cannot_change(self):
+        s = copy.deepcopy(SPEC); s["fill"]["[SUPPORT DAYS]"] = "60"
+        c, o, _ = self.go(s); self.assertEqual(c, 2); self.assertIn("30 days", o)
+
     def test_engagement_terms_input_is_refused(self):
         s = copy.deepcopy(SPEC); s["engagement_terms"] = {"net_days": 10, "standard_terms_attached": True, "source_ref": "x"}
         c, o, _ = self.go(s); self.assertEqual(c, 2); self.assertIn("engagement_terms", o)
