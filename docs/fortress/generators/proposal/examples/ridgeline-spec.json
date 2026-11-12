@@ -42,9 +42,6 @@
     "[WEEK 2 SUMMARY]": "Alert rules built and tested on real orders.",
     "[WEEK 3 SUMMARY]": "Alerts live for the team, weekly sales report built.",
     "[SUPPORT DAYS]": "30",
-    "[TESTIMONIAL QUOTE]": "Smooth from start to finish. Already planning to come back for the next project.",
-    "[TESTIMONIAL NAME]": "Chelsea",
-    "[TESTIMONIAL TITLE]": "Founder, 6 Months to Speech",
     "[WEEK 4 SUMMARY]": "Weekly report live, walkthrough recorded, support window opens."
   },
   "blocks": [
@@ -114,5 +111,16 @@
     "we can talk",
     "standard terms",
     "forms our"
+  ],
+  "systems": [
+    "online store",
+    "marketplace one",
+    "marketplace two",
+    "team chat"
+  ],
+  "middleware": [],
+  "_notes": [
+    "testimonial: add {quote,name,title,source_ref} only from an approved source, otherwise the proof section is omitted",
+    "engagement_terms: add {net_days, standard_terms_attached: true, source_ref} only when the actual engagement terms exist, otherwise net days and Standard Terms wording is removed and the working agreement clauses are flagged"
   ]
 }

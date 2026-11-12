@@ -35,8 +35,8 @@ class T(unittest.TestCase):
         c, o, out = self.go()
         self.assertIn(c, (0, 3), o)
         rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
-        self.assertEqual(rep["investment"], 3 * 400 + 700 + 400 + 600)   # 2900
-        self.assertEqual(rep["milestones"], [1450, 1450])
+        self.assertEqual(rep["investment"], 3 * 400 + 700 + 400 + 600 + 2 * 300)   # 3500, four client systems means two extra
+        self.assertEqual(rep["milestones"], [1750, 1750])
         self.assertTrue(rep["plan_offered"]); self.assertEqual(rep["plan_price"], 500)
         self.assertEqual(rep["price_problems"], []); self.assertEqual(rep["word_check"]["hard_hits"], [])
         self.assertEqual(rep["financing"], "disabled")
@@ -45,7 +45,7 @@ class T(unittest.TestCase):
         for b in ({"status": "prospect", "platform": "upwork"}, {"status": "active_client", "platform": "direct"},
                   {"status": "prospect", "platform": "direct", "signed_agreement": True}, {"status": "opted_out", "platform": "direct"},
                   {"status": "unknown", "platform": "direct"}):
-            s = copy.deepcopy(SPEC); s["buyer"] = b
+            s = copy.deepcopy(SPEC); s["buyer"] = dict(b, scope_approved=True)
             c, o, out = self.go(s)
             rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
             self.assertFalse(rep["plan_offered"], b); self.assertEqual(rep["price_problems"], [], (b, rep["price_problems"]))
@@ -77,6 +77,7 @@ class T2(unittest.TestCase):
         s = copy.deepcopy(SPEC); s["blocks"][1]["parts"][0] = {"label": "follow-up sequence", "kind": "config", "qty": 1}
         s["blocks"][1]["parts"].pop(1)   # 3 connections 1200 + config 250 + surface 600 = 2050? keep explicit below
         s["blocks"][1]["parts"].append({"label": "urgent rule", "kind": "judged", "qty": 1})   # 1200+250+700+600 = 2750
+        s["systems"] = ["one", "two"]   # two systems, no extras
         rl = rules(); rl["voice"] = {"sha12": "e6110d3a755a", "freshness": "UNVERIFIED"}
         tmp = tempfile.mkdtemp(); c, o, _ = run(s, rl, tmp)
         self.assertEqual(c, 2); self.assertIn("Voice Rules is UNVERIFIED", o)
@@ -87,6 +88,54 @@ class T2(unittest.TestCase):
         self.assertEqual(rep["investment"], 2750); self.assertEqual(rep["milestones"], [1375, 1375])
         self.assertEqual(rep["price_problems"], [])   # "$2,750" must not trip the retired $750 check
         self.assertEqual(rep["rules"]["voice_freshness"], "UNVERIFIED")
+
+class T3(unittest.TestCase):
+    def go(self, spec):
+        return run(spec, rules(), tempfile.mkdtemp())
+
+    def test_missing_inventory_scope_or_typed_extra_refused(self):
+        s = copy.deepcopy(SPEC); del s["systems"]
+        c, o, _ = self.go(s); self.assertEqual(c, 2); self.assertIn("systems inventory", o)
+        s = copy.deepcopy(SPEC); del s["buyer"]["scope_approved"]
+        c, o, _ = self.go(s); self.assertEqual(c, 2); self.assertIn("scope_approved", o)
+        s = copy.deepcopy(SPEC); s["blocks"][0]["parts"].append({"label": "x", "kind": "extra system", "qty": 1})
+        c, o, _ = self.go(s); self.assertEqual(c, 2)
+        s = copy.deepcopy(SPEC); s["systems"] = ["a", "n8n", "b"]
+        c, o, _ = self.go(s); self.assertEqual(c, 2); self.assertIn("middleware", o)
+
+    def test_five_systems_charge_three_extras(self):
+        s = copy.deepcopy(SPEC); s["systems"] = ["a", "b", "c", "d", "e"]
+        c, o, out = self.go(s)
+        rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
+        self.assertEqual(rep["systems"], {"distinct_client_systems": 5, "extra_systems_charged": 3})
+        self.assertEqual(rep["investment"], 2900 + 900)
+
+    def test_no_sample_testimonial_or_net15_by_default(self):
+        c, o, out = self.go(copy.deepcopy(SPEC))
+        pdf = [os.path.join(out, f) for f in os.listdir(out) if f.endswith(".pdf")][0]
+        txt = subprocess.run(["pdftotext", pdf, "-"], capture_output=True, text=True).stdout
+        for bad in ("Chelsea", "6 Months to Speech", "net-15", "Standard Terms", "Who has handed me this before"):
+            self.assertNotIn(bad, txt)
+        self.assertIn("half to start and half on delivery", txt)
+        rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
+        self.assertTrue(rep["unverified_defaults_and_flags"])   # working agreement clauses not tied to an approved source
+
+    def test_approved_testimonial_and_terms_are_used(self):
+        s = copy.deepcopy(SPEC)
+        s["testimonial"] = {"quote": "Fictional test quote.", "name": "A Tester", "title": "Owner, Test Co", "source_ref": "test fixture"}
+        s["engagement_terms"] = {"net_days": 10, "standard_terms_attached": True, "source_ref": "test fixture"}
+        c, o, out = self.go(s)
+        pdf = [os.path.join(out, f) for f in os.listdir(out) if f.endswith(".pdf")][0]
+        txt = subprocess.run(["pdftotext", pdf, "-"], capture_output=True, text=True).stdout
+        self.assertIn("Fictional test quote.", txt); self.assertIn("net-10", txt); self.assertIn("Standard Terms", txt)
+        rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
+        self.assertEqual(rep["unverified_defaults_and_flags"], [])
+
+    def test_unapproved_scope_is_a_draft_without_plan(self):
+        s = copy.deepcopy(SPEC); s["buyer"]["scope_approved"] = False
+        c, o, out = self.go(s); self.assertEqual(c, 3)
+        rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
+        self.assertFalse(rep["plan_offered"]); self.assertTrue(any("DRAFT" in x for x in rep["unverified_defaults_and_flags"]))
 
 if __name__ == "__main__":
     unittest.main()

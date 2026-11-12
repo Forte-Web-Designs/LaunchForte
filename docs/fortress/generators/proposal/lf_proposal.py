@@ -29,6 +29,8 @@ def compute_blocks(spec_blocks, rates):
                 refuse("a part carries a typed price. Prices are computed from the rate card, never typed.")
             if kind == "included":
                 parts.append((p["label"], "included", 0)); continue
+            if kind == "extra system":
+                refuse("extra system pieces are computed from the systems inventory (spec.systems), never entered by hand.")
             if kind not in rates:
                 refuse("unknown piece kind %r" % kind)
             qty = int(p.get("qty", 1))
@@ -39,6 +41,64 @@ def compute_blocks(spec_blocks, rates):
             total += amt
         blocks.append((b["name"], b.get("desc", ""), parts))
     return blocks, total
+
+
+def systems_extra(spec):
+    """Pricing Standard section 2: each genuinely distinct client system used after the first two, if touched by the scoped build.
+    Middleware (n8n, Zapier, Make) does not count. The spec must list the distinct client systems the build touches."""
+    sy = spec.get("systems")
+    if not isinstance(sy, list) or not [s for s in sy if str(s).strip()]:
+        refuse("the spec has no systems inventory. List every distinct client system the build touches (spec.systems); middleware goes in spec.middleware and is not counted.")
+    names = [str(s).strip().lower() for s in sy if str(s).strip()]
+    if len(set(names)) != len(names):
+        refuse("spec.systems lists the same system twice.")
+    mw = {"n8n", "zapier", "make", "make.com"}
+    bad = [s for s in names if s in mw]
+    if bad:
+        refuse("middleware is not a client system and is not counted: %s. Move it to spec.middleware." % ", ".join(bad))
+    return max(0, len(names) - 2), len(names)
+
+
+def build_template(spec, src, dst):
+    """Writes the template with unsupported defaults removed. Terms and proof come from approved sources named in the spec, never from the sample."""
+    html = open(src, encoding="utf-8").read()
+    def sub(old, new):
+        nonlocal html
+        if html.count(old) != 1:
+            refuse("template changed: %r not found exactly once. Update lf_proposal.py before building." % old[:60])
+        html = html.replace(old, new)
+    terms = spec.get("engagement_terms") or {}
+    have_terms = bool(terms.get("source_ref")) and terms.get("net_days") and terms.get("standard_terms_attached") is True
+    n1 = "Fixed price, funded a milestone at a time, net-15 on acceptance. The number moves only if the scope moves, agreed in writing before any work happens."
+    n2 = "Fixed price, funded a milestone at a time, net-15 on acceptance. The number moves only when the scope moves, agreed in writing first."
+    t3 = "The one page Launch Forte Standard Terms travels with this proposal and governs anything not covered above. If the two ever conflict, this proposal wins. "
+    t4 = "forms our agreement under the attached Standard Terms. <b>Clause 01 makes email the accepted form</b>, so there is"
+    if have_terms:
+        d = int(terms["net_days"])
+        sub(n1, n1.replace("net-15", "net-%d" % d)); sub(n2, n2.replace("net-15", "net-%d" % d))
+    else:
+        sub(n1, "Fixed price, funded in two equal milestones, half to start and half on delivery. The number moves only if the scope moves, agreed in writing before any work happens.")
+        sub(n2, "Fixed price, funded in two equal milestones, half to start and half on delivery. The number moves only when the scope moves, agreed in writing first.")
+        sub(t3, "")
+        sub(t4, "forms our agreement. <b>Email is the accepted form</b>, so there is")
+    t = spec.get("testimonial")
+    if t and all(t.get(k) for k in ("quote", "name", "title", "source_ref")):
+        pass
+    else:
+        sub("Track record &middot; Before we start", "Before we start")
+        sub('<h2 class="sec">Who has handed me this before</h2>', '<h2 class="sec">What I need to begin</h2>')
+        sub("""  <div class="quote" style="margin:14pt 0 16pt 0">
+    <p>[TESTIMONIAL QUOTE]</p>
+    <div class="attr"><b>[TESTIMONIAL NAME]</b>, [TESTIMONIAL TITLE]</div>
+  </div>
+
+  <div class="label">What I need to begin</div>
+""", "")
+    open(dst, "w", encoding="utf-8").write(html)
+    return have_terms
+
+
+UNVERIFIED_DEFAULTS = ["revision rounds", "10 business day", "7 business days"]
 
 
 def main(argv=None):
@@ -67,14 +127,23 @@ def main(argv=None):
     if not offer_source.verified():
         refuse("the plan fee could not be verified from the rules.")
     blocks, total = compute_blocks(spec["blocks"], rates)
+    extra_n, n_sys = systems_extra(spec)
+    if extra_n:
+        first = blocks[0]
+        blocks[0] = (first[0], first[1], list(first[2]) + [("each client system past the first two", "%d x $%d extra system" % (extra_n, rates["extra system"]), extra_n * rates["extra system"])])
+        total += extra_n * rates["extra system"]
     if total <= 0 or total % 2:
         refuse("the computed investment %d cannot be split into two equal whole dollar milestones" % total)
     half = total // 2
 
     buyer = spec.get("buyer", {})
+    if "scope_approved" not in buyer:
+        refuse("buyer.scope_approved is missing. Unknown scope approval fails closed: no priced proposal is produced.")
     status = buyer.get("status", "unknown")
     platform = buyer.get("platform", "direct")
     fill = dict(spec["fill"])
+    t = spec.get("testimonial") or {}
+    fill["[TESTIMONIAL QUOTE]"] = t.get("quote", ""); fill["[TESTIMONIAL NAME]"] = t.get("name", ""); fill["[TESTIMONIAL TITLE]"] = t.get("title", "")
     missing = [k for k in g.FILL if k not in fill and k not in ("[AMOUNT]", "[SPLIT TO START]", "[SPLIT ON DELIVERY]", "[UPWORK NOTE]")]
     if missing:
         refuse("the spec does not supply: %s. Nothing from the sample is reused." % ", ".join(missing))
@@ -90,7 +159,7 @@ def main(argv=None):
     g.BUYER_STATUS = status
     g.SIGNED_AGREEMENT = bool(buyer.get("signed_agreement"))
     g.SETH_OPT_OUT = bool(buyer.get("seth_opt_out"))
-    g.SCOPE_APPROVED = bool(buyer.get("scope_approved", True))
+    g.SCOPE_APPROVED = buyer.get("scope_approved") is True
     g.WANTS_PLAN = False; g.ACTIVE_CLIENT = False; g.PURCHASE_CHOICE = None
     g.OFFER_PRESET = True
     g.SHOW_PARTNER = True
@@ -100,6 +169,9 @@ def main(argv=None):
     g.OUT_HTML = os.path.join(HERE, ".proposal-%s.html" % name)
     g.OUT_PDF = os.path.join(out, "Launch-Forte-Proposal-%s.pdf" % name)
     g.OUT_WORKSHEET = os.path.join(out, "worksheet-%s-INTERNAL.txt" % name)
+    tpl = os.path.join(HERE, ".tpl-%s.html" % name)
+    have_terms = build_template(spec, os.path.join(HERE, g.SRC), tpl)
+    g.SRC = os.path.basename(tpl)
     buf = io.StringIO()
     code = 0
     with contextlib.redirect_stdout(buf):
@@ -108,10 +180,11 @@ def main(argv=None):
         except SystemExit as e:
             code = e.code or 0
     log = buf.getvalue()
-    try:
-        os.remove(g.OUT_HTML)
-    except OSError:
-        pass
+    for tmp in (g.OUT_HTML, tpl):
+        try:
+            os.remove(tmp)
+        except OSError:
+            pass
     print(log.strip())
     if code or not os.path.exists(g.OUT_PDF):
         refuse("the generator stopped: see the lines above.")
@@ -133,14 +206,24 @@ def main(argv=None):
               "price_problems": price_problems, "footer_overflow": overflow, "unfilled_tokens": left,
               "page_images": imgs, "financing": "disabled",
               "needs_visual_review": "Open every page image before handing the PDF to Seth."}
-    ok = not (hard or review or price_problems or overflow or left)
+    flags = []
+    full_text = "\n".join(pages)
+    if not have_terms:
+        flags += ["working agreement clause not tied to an approved terms source: " + d for d in UNVERIFIED_DEFAULTS if d in full_text]
+    if buyer.get("scope_approved") is not True:
+        flags.append("DRAFT: scope is not approved, so the plan is omitted and this is not a final quote")
+    report["unverified_defaults_and_flags"] = flags
+    report["systems"] = {"distinct_client_systems": n_sys, "extra_systems_charged": extra_n}
+    report["testimonial_source"] = (spec.get("testimonial") or {}).get("source_ref")
+    report["engagement_terms_source"] = (spec.get("engagement_terms") or {}).get("source_ref")
+    ok = not (hard or review or price_problems or overflow or left or flags)
     report["result"] = "PASS" if ok else "NEEDS REVIEW"
     json.dump(report, open(os.path.join(out, "qa_report-%s.json" % name), "w"), indent=2)
     print("RESULT:", report["result"], "| pages", len(pages), "| investment $%s" % f"{total:,}", "| plan offered:", offered)
     for k in ("hard_hits", "review_hits"):
         for h in report["word_check"][k][:20]:
             print("  word check", k, h)
-    for p in price_problems + ["footer overflow page %d: %s" % o for o in overflow] + ["unfilled " + t for t in left]:
+    for p in flags + price_problems + ["footer overflow page %d: %s" % o for o in overflow] + ["unfilled " + t for t in left]:
         print("  problem:", p)
     sys.exit(0 if ok else 3)
 
