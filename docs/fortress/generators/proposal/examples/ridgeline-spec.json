@@ -108,9 +108,7 @@
   ],
   "word_check_allow": [
     "we agree",
-    "we can talk",
-    "standard terms",
-    "forms our"
+    "we can talk"
   ],
   "systems": [
     "online store",
@@ -120,7 +118,6 @@
   ],
   "middleware": [],
   "_notes": [
-    "testimonial: add {quote,name,title,source_ref} only from an approved source, otherwise the proof section is omitted",
-    "engagement_terms: add {net_days, standard_terms_attached: true, source_ref} only when the actual engagement terms exist, otherwise net days and Standard Terms wording is removed and the working agreement clauses are flagged"
+    "testimonial: add {quote,name,title,source_ref} only from an approved source, otherwise the proof section is omitted"
   ]
 }

@@ -17,7 +17,7 @@ Library: `lf_reference query="proposal PDF generator"` returns this playbook (pa
    - `fill`: every client token except the computed amounts, the testimonial and the terms.
    - `blocks`, `word_check_allow` (snippets of lines where "we" or "our" plainly means Seth and the client together).
    - `testimonial`: optional `{quote, name, title, source_ref}` from an approved source. Without it the track record section is omitted. No sample testimonial is ever inserted.
-   - `engagement_terms`: optional `{net_days, standard_terms_attached: true, source_ref}` from the actual engagement terms. Without it the net days and Standard Terms wording is removed (payment reads half to start, half on delivery, per Pricing Standard section 4) and the working agreement clauses (revision rounds, delivery windows) are listed as unverified in the QA report, so the result is NEEDS REVIEW until Seth confirms them.
+   - Contract terms are not generated. Payment reads half to start, half on delivery (Pricing Standard section 4), and acceptance says the applicable approved Launch Forte client agreement is confirmed before work begins. `engagement_terms` input is refused. No revision rounds, delivery windows, idle rules, termination or refund language is in the template.
 4. `python3 lf_proposal.py --spec spec.json --rules rules.json --out ./out`
 5. Exit 0 means the automated checks passed, 3 means they need a person, 2 means it failed closed. Then open every page image in `out/pages-*` and read it. A passing report is not a visual review.
 6. Hand the PDF, `qa_report-*.json` and the page images to Seth for review (card comment or PM review). Seth decides what is sent.

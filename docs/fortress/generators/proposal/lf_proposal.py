@@ -67,20 +67,8 @@ def build_template(spec, src, dst):
         if html.count(old) != 1:
             refuse("template changed: %r not found exactly once. Update lf_proposal.py before building." % old[:60])
         html = html.replace(old, new)
-    terms = spec.get("engagement_terms") or {}
-    have_terms = bool(terms.get("source_ref")) and terms.get("net_days") and terms.get("standard_terms_attached") is True
-    n1 = "Fixed price, funded a milestone at a time, net-15 on acceptance. The number moves only if the scope moves, agreed in writing before any work happens."
-    n2 = "Fixed price, funded a milestone at a time, net-15 on acceptance. The number moves only when the scope moves, agreed in writing first."
-    t3 = "The one page Launch Forte Standard Terms travels with this proposal and governs anything not covered above. If the two ever conflict, this proposal wins. "
-    t4 = "forms our agreement under the attached Standard Terms. <b>Clause 01 makes email the accepted form</b>, so there is"
-    if have_terms:
-        d = int(terms["net_days"])
-        sub(n1, n1.replace("net-15", "net-%d" % d)); sub(n2, n2.replace("net-15", "net-%d" % d))
-    else:
-        sub(n1, "Fixed price, funded in two equal milestones, half to start and half on delivery. The number moves only if the scope moves, agreed in writing before any work happens.")
-        sub(n2, "Fixed price, funded in two equal milestones, half to start and half on delivery. The number moves only when the scope moves, agreed in writing first.")
-        sub(t3, "")
-        sub(t4, "forms our agreement. <b>Email is the accepted form</b>, so there is")
+    if spec.get("engagement_terms"):
+        refuse("engagement_terms is not supported. Payment terms are fixed by Pricing Standard section 4 and the contract is the applicable approved client agreement, confirmed outside this generator.")
     t = spec.get("testimonial")
     if t and all(t.get(k) for k in ("quote", "name", "title", "source_ref")):
         pass
@@ -95,10 +83,10 @@ def build_template(spec, src, dst):
   <div class="label">What I need to begin</div>
 """, "")
     open(dst, "w", encoding="utf-8").write(html)
-    return have_terms
+    return True
 
 
-UNVERIFIED_DEFAULTS = ["revision rounds", "10 business day", "7 business days"]
+UNSUPPORTED_TERMS = ["revision round", "business day window", "business days idle", "standard terms", "net-", "forms our agreement", "that written reply is the signature", "clause 01"]
 
 
 def main(argv=None):
@@ -169,7 +157,7 @@ def main(argv=None):
     g.OUT_PDF = os.path.join(out, "Launch-Forte-Proposal-%s.pdf" % name)
     g.OUT_WORKSHEET = os.path.join(out, "worksheet-%s-INTERNAL.txt" % name)
     tpl = os.path.join(HERE, ".tpl-%s.html" % name)
-    have_terms = build_template(spec, os.path.join(HERE, g.SRC), tpl)
+    build_template(spec, os.path.join(HERE, g.SRC), tpl)
     g.SRC = os.path.basename(tpl)
     buf = io.StringIO()
     code = 0
@@ -207,14 +195,13 @@ def main(argv=None):
               "needs_visual_review": "Open every page image before handing the PDF to Seth."}
     flags = []
     full_text = "\n".join(pages)
-    if not have_terms:
-        flags += ["working agreement clause not tied to an approved terms source: " + d for d in UNVERIFIED_DEFAULTS if d in full_text]
+    low = full_text.lower()
+    flags += ["unsupported contract term present in the PDF: " + d for d in UNSUPPORTED_TERMS if d in low]
     if buyer.get("scope_approved") is not True:
         flags.append("DRAFT: scope is not approved, so the plan is omitted and this is not a final quote")
     report["unverified_defaults_and_flags"] = flags
     report["systems"] = {"distinct_client_systems": n_sys, "extra_systems_charged": extra_n}
     report["testimonial_source"] = (spec.get("testimonial") or {}).get("source_ref")
-    report["engagement_terms_source"] = (spec.get("engagement_terms") or {}).get("source_ref")
     ok = not (hard or review or price_problems or overflow or left or flags)
     report["result"] = "PASS" if ok else "NEEDS REVIEW"
     json.dump(report, open(os.path.join(out, "qa_report-%s.json" % name), "w"), indent=2)

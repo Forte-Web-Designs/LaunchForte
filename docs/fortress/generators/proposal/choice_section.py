@@ -67,6 +67,6 @@ def render(calc, page_no, total_pages, project_label="the same scoped project"):
   <div class="hdr"><img src="launch-forte-dark.png"><span class="ix"><b>{page_no}</b> / Payment choice</span></div>
   <div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Same project</b></div><div class="rule" style="width:292pt"></div></div>
   {body(calc)}
-  <div class="ftr"><span class="l">Seth Forte / Launch Forte</span><span class="c">Accept by reply. First milestone initiates work.</span><span class="r">{page_no} / {total_pages}</span></div>
+  <div class="ftr"><span class="l">Seth Forte / Launch Forte</span><span class="c">Reply to confirm. First milestone initiates work.</span><span class="r">{page_no} / {total_pages}</span></div>
 </div>
 '''

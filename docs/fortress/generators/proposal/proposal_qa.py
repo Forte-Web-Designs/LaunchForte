@@ -61,7 +61,7 @@ def footer_overflow(pdf, page_h_margin=40):
             top = min(y[0] for y in foot)
             for y in ys:
                 if "Launch Forte" in y[2] and "Seth Forte" in y[2]: continue
-                if y[1] > top - 2 and y[0] < top + 1 and not re.search(r"Accept by reply|^\d\d / \d\d", y[2]):
+                if y[1] > top - 2 and y[0] < top + 1 and not re.search(r"Reply to confirm|^\d\d / \d\d", y[2]):
                     problems.append((len(problems) + 1, y[2][:60]))
     return problems
 

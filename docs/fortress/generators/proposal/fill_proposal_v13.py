@@ -159,9 +159,9 @@ FILL = {
 }
 
 UPWORK_SWAPS = [
-    ("Approving this takes one email", "Approving this takes one reply"),
-    ("To seth@launchforte.com. That written reply is the signature.",
-     "Reply here on Upwork. That written reply is the signature."),
+    ("Confirming takes one email", "Confirming takes one reply"),
+    ("To seth@launchforte.com.",
+     "Reply here on Upwork."),
     ("grab a time at <b>calendly.com/seth-launchforte</b>. Everything else, including questions on scope or terms, is handled over email.",
      "send a message here and a time gets set up. Everything else, including questions on scope or terms, is handled in this thread."),
 ]
@@ -387,7 +387,7 @@ def main():
                 inner = '<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Every month</b></div><div class="rule" style="width:292pt"></div></div>' + partner_section.page_b().replace("{SHOT}", "portal-sample-top.png")
             else:
                 inner = '<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Same project</b></div><div class="rule" style="width:292pt"></div></div>' + choice_section.body(CHOICE_RESULT)
-            seg = '<div class="page"><div class="hdr"><img src="launch-forte-dark.png"><span class="ix"><b>%02d</b> / %s</span></div>%s<div class="ftr"><span class="l">Seth Forte / Launch Forte</span><span class="c">Accept by reply. First milestone initiates work.</span><span class="r">%02d / %02d</span></div></div>\n' % (no, lab, inner, no, total)
+            seg = '<div class="page"><div class="hdr"><img src="launch-forte-dark.png"><span class="ix"><b>%02d</b> / %s</span></div>%s<div class="ftr"><span class="l">Seth Forte / Launch Forte</span><span class="c">Reply to confirm. First milestone initiates work.</span><span class="r">%02d / %02d</span></div></div>\n' % (no, lab, inner, no, total)
             tag = "TP" if kind in ("tpa", "tpb") else "PC"
             pages += "<!--%s-->%s<!--/%s-->\n" % (tag, seg, tag)
             no += 1

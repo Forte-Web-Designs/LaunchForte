@@ -113,26 +113,28 @@ class T3(unittest.TestCase):
         self.assertEqual(rep["systems"], {"distinct_client_systems": 5, "extra_systems_charged": 3})
         self.assertEqual(rep["investment"], 2900 + 900)
 
-    def test_no_sample_testimonial_or_net15_by_default(self):
+    def test_no_unsupported_terms_in_default_pdf(self):
         c, o, out = self.go(copy.deepcopy(SPEC))
         pdf = [os.path.join(out, f) for f in os.listdir(out) if f.endswith(".pdf")][0]
         txt = subprocess.run(["pdftotext", pdf, "-"], capture_output=True, text=True).stdout
-        for bad in ("Chelsea", "6 Months to Speech", "net-15", "Standard Terms", "Who has handed me this before"):
+        for bad in ("Chelsea", "6 Months to Speech", "net-15", "Standard Terms", "revision round", "10 business day", "7 business days", "is the signature", "Clause 01", "Who has handed me this before"):
             self.assertNotIn(bad, txt)
         self.assertIn("half to start and half on delivery", txt)
+        self.assertIn("applicable Launch Forte client", " ".join(txt.split()))
         rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
-        self.assertTrue(rep["unverified_defaults_and_flags"])   # working agreement clauses not tied to an approved source
+        self.assertEqual(rep["unverified_defaults_and_flags"], [])
 
-    def test_approved_testimonial_and_terms_are_used(self):
+    def test_approved_testimonial_is_used(self):
         s = copy.deepcopy(SPEC)
         s["testimonial"] = {"quote": "Fictional test quote.", "name": "A Tester", "title": "Owner, Test Co", "source_ref": "test fixture"}
-        s["engagement_terms"] = {"net_days": 10, "standard_terms_attached": True, "source_ref": "test fixture"}
         c, o, out = self.go(s)
         pdf = [os.path.join(out, f) for f in os.listdir(out) if f.endswith(".pdf")][0]
         txt = subprocess.run(["pdftotext", pdf, "-"], capture_output=True, text=True).stdout
-        self.assertIn("Fictional test quote.", txt); self.assertIn("net-10", txt); self.assertIn("Standard Terms", txt)
-        rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
-        self.assertEqual(rep["unverified_defaults_and_flags"], [])
+        self.assertIn("Fictional test quote.", txt)
+
+    def test_engagement_terms_input_is_refused(self):
+        s = copy.deepcopy(SPEC); s["engagement_terms"] = {"net_days": 10, "standard_terms_attached": True, "source_ref": "x"}
+        c, o, _ = self.go(s); self.assertEqual(c, 2); self.assertIn("engagement_terms", o)
 
     def test_unapproved_scope_is_a_draft_without_plan(self):
         s = copy.deepcopy(SPEC); s["buyer"]["scope_approved"] = False
