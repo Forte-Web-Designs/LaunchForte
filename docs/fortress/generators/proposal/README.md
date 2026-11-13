@@ -42,3 +42,6 @@ Library: `lf_reference query="proposal PDF generator"` returns this playbook (pa
 
 ## Changing it
 Changes to prices, plan fee or eligibility belong in the canonical rules, never here. Changes to this process go through a card and Lead review.
+
+### Sample previews on the plan pages
+`make_previews.py` renders the two labeled sample previews (`preview-both.png`) from the stylesheets of any approved Technology Review and Forte Intelligence issue, using a fictional company and made up figures. No client's data is used, and the banner on each image says so. Rerun it when the approved designs change.

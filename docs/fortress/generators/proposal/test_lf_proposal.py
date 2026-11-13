@@ -1,5 +1,5 @@
 """Tests for the spec-driven proposal entry (card 535). Synthetic rule text with FIXTURE-style values: these prove behavior, they are not a source of prices."""
-import json, os, subprocess, sys, tempfile, unittest, copy, datetime
+import subprocess, re, os, json, os, subprocess, sys, tempfile, unittest, copy, datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 HERE = os.path.dirname(os.path.abspath(__file__))
 SPEC = json.load(open(os.path.join(HERE, "examples", "ridgeline-spec.json")))
@@ -249,6 +249,34 @@ class T6(unittest.TestCase):
         import proposal_qa as Q
         self.assertIsNone(Q.page_count_problem(["a\n04 / 07", "b\n07 / 07"] + ["x"] * 5 if False else ["p%d\n%02d / 03" % (i, i + 1) for i in range(3)]))
         self.assertIn("overflowed", Q.page_count_problem(["p\n01 / 03", "p\n02 / 03", "p\n03 / 03", "spill"]))
+
+class T7(unittest.TestCase):
+    """Final corrections (Seth, Nov 13 2026)."""
+    def test_final_corrections_in_the_pdf(self):
+        c, o, out = run(SPEC, rules(), tempfile.mkdtemp())
+        self.assertEqual(c, 0, o)
+        pdf = [f for f in os.listdir(out) if f.endswith(".pdf")][0]
+        txt = subprocess.run(["pdftotext", "-layout", os.path.join(out, pdf), "-"], capture_output=True, text=True).stdout
+        flat = re.sub(r"\s+", " ", txt)
+        for must in ("30 days of support included with the project", "unless we agree on an earlier start in writing",
+                     "detailed written review", "substantial illustrated magazine", "30% off a later qualifying larger project",
+                     "not this one, a financed project or the plan fee", "proactive ownership", "once access is authorized and verified",
+                     "Sample layouts of both, with a fictional company and made up figures", "Fixed Price, Two Milestones"):
+            self.assertIn(must, flat)
+        for banned in ("ignore it", "same day", "Milestone Funded", "accountable for all of it", "keep watching", "keep them working", "short written review", "short illustrated magazine"):
+            self.assertNotIn(banned, flat)
+
+    def test_preview_images_are_generic_and_hold_no_client_data(self):
+        import partner_section as P
+        self.assertIn("{SHOT_BOTH}", P.page_b())
+        src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "make_previews.py")).read()
+        for client in ("FaithWorks", "Debttrakker", "GoHighLevel"):
+            self.assertNotIn(client, src)
+
+    def test_member_benefit_is_not_a_discount_on_this_quote(self):
+        import partner_section as P
+        b = P._benefit()
+        self.assertIn("later", b); self.assertIn("not this one", b); self.assertIn("financed project", b)
 
 if __name__ == "__main__":
     unittest.main()
