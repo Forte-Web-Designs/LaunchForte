@@ -52,6 +52,8 @@ SCOPE_APPROVED = True
 DOC_TYPE = "proposal"
 OFFER_PRESET = False   # True only in tests that configure offer_source themselves. Otherwise main() reads the canonical rule through offer_source.load() (needs LF_WORK_KEY); no verified rule means no plan.
 OFFER = None       # filled in by main() from the resolver
+PARTNER_CONTEXT = None   # buyer specific systems and sourced observations for the partner pages, from the approved spec
+POINTER = "I would also be glad to be your ongoing Technology Partner after launch. It is optional and separate from this project, and the next pages explain how it works."
 WANTS_PLAN = False      # New prospect: True only when the client wants monitoring or support after the 30 days
 
 # ---------------------------------------------------------------------------
@@ -110,7 +112,7 @@ FILL = {
     "[ENGAGEMENT NAME]": "CAC Tracking, Content Engine, and Soft Conversion Retargeting",
     "[COVER SUBTITLE]": "Every sale tagged to its channel, and proven content retargeted to the people closest to buying.",
     "[CONTACT NAME AND TITLE]": "Shelby Adams, Founder",
-    "[ENGAGEMENT TYPE]": "Fixed Price, Milestone Funded",
+    "[ENGAGEMENT TYPE]": "Fixed Price, Two Milestones",
     "[DELIVERY WINDOW]": "4 Weeks",
     "[AMOUNT]": "5,200",
 
@@ -321,7 +323,7 @@ def main():
     global SUPPORT_PLAN_ACTIVE, SUPPORT_PLAN_PROSPECT
     if not OFFER_PRESET:
         offer_source.load()
-    partner_section.configure()
+    partner_section.configure(dict(PARTNER_CONTEXT or {}, support_days=FILL.get("[SUPPORT DAYS]")))
     SUPPORT_PLAN_ACTIVE = SUPPORT_PLAN_ACTIVE_T.replace("{P}", offer_source.price_text()) if offer_source.verified() else ""
     SUPPORT_PLAN_PROSPECT = SUPPORT_PLAN_PROSPECT_T.replace("{P}", offer_source.price_text()) if offer_source.verified() else ""
     mapping = dict(FILL)
@@ -370,6 +372,9 @@ def main():
         CHOICE_RESULT = None  # financing is shown only when the resolver allows it
     if show_partner:
         html = html.replace(SUPPORT_PLAN_PROSPECT, "")  # the partner pages carry the $500 line exactly once
+        anchor = 'agreed in writing before any work happens.</div>\n  </div>'
+        assert html.count(anchor) == 1, "investment box anchor changed"
+        html = html.replace(anchor, anchor + '\n  <div class="tp-notice">' + POINTER + "</div>")  # no price here, only the notice that the option exists
     extra = []
     if show_partner:
         extra.append("tpa"); extra.append("tpb")
@@ -384,7 +389,7 @@ def main():
             if kind == "tpa":
                 inner = '<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; After the project</b></div><div class="rule" style="width:292pt"></div></div>' + partner_section.page_a()
             elif kind == "tpb":
-                inner = '<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Every month</b></div><div class="rule" style="width:292pt"></div></div>' + partner_section.page_b().replace("{SHOT}", "portal-sample-top.png")
+                inner = '<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Every month</b></div><div class="rule" style="width:292pt"></div></div>' + partner_section.page_b().replace("{SHOT_BOTH}", "preview-both.png")
             else:
                 inner = '<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Same project</b></div><div class="rule" style="width:292pt"></div></div>' + choice_section.body(CHOICE_RESULT)
             seg = '<div class="page"><div class="hdr"><img src="launch-forte-dark.png"><span class="ix"><b>%02d</b> / %s</span></div>%s<div class="ftr"><span class="l">Seth Forte / Launch Forte</span><span class="c">Reply to confirm. First milestone initiates work.</span><span class="r">%02d / %02d</span></div></div>\n' % (no, lab, inner, no, total)

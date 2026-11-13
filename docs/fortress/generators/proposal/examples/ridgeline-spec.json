@@ -15,7 +15,7 @@
     "[ENGAGEMENT NAME]": "Order Alerts and Weekly Sales Report",
     "[COVER SUBTITLE]": "Every new order reaches the right person in minutes, and Monday starts with one clear sales report.",
     "[CONTACT NAME AND TITLE]": "Jordan Reyes, Owner",
-    "[ENGAGEMENT TYPE]": "Fixed Price, Milestone Funded",
+    "[ENGAGEMENT TYPE]": "Fixed Price, Two Milestones",
     "[DELIVERY WINDOW]": "4 Weeks",
     "[SITUATION TITLE]": "Orders Wait For Someone To Notice",
     "[SITUATION LEAD]": "Orders from the store and from two marketplaces arrive in three different inboxes, and the team finds out hours later.",
@@ -111,13 +111,21 @@
     "we can talk"
   ],
   "systems": [
-    "online store",
-    "marketplace one",
-    "marketplace two",
-    "team chat"
+    "Shopify store",
+    "Amazon Seller Central",
+    "Slack",
+    "QuickBooks"
   ],
   "middleware": [],
   "_notes": [
     "testimonial: add {quote,name,title,source_ref} only from an approved source, otherwise the proof section is omitted"
-  ]
+  ],
+  "partner": {
+    "observations": [
+      {
+        "text": "Your orders come from three places today, so keeping those feeds working is the first thing I would look after.",
+        "source_ref": "situation section of this proposal (client stated)"
+      }
+    ]
+  }
 }

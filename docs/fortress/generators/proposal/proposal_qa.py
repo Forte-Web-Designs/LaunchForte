@@ -111,3 +111,34 @@ def price_audit(pages, amount, plan_price, offered, split):
         if re.search(r"Build (&|and) Partner", full):
             prob.append("financing wording present; financing is off by default")
     return prob
+
+
+PRESENCE = ["Your Technology Partner", "Unlimited everyday engineering requests", "Monthly Technology Review", "Forte Intelligence",
+            "month to month", "cancel anytime", "ongoing Technology Partner after launch"]
+
+
+def offer_presence(pages, expected, plan_price):
+    """Preflight (Seth, Nov 13 2026): an eligible proposal without a visible Technology Partner option fails. Independent of the generator:
+    `expected` comes from the buyer facts in the spec through the resolver, `pages` from the finished PDF."""
+    if not expected:
+        return []
+    full = " ".join(" ".join(pages).split())
+    prob = ["eligible proposal is missing the Technology Partner option: %r not found in the PDF" % s for s in PRESENCE if s.lower() not in full.lower()]
+    if plan_price and ("$%d a month" % plan_price) not in full:
+        prob.append("eligible proposal does not show the plan price from the canonical rule")
+    n_tp = sum(1 for p in pages if "Technology Partner" in p)
+    if n_tp < 3:
+        prob.append("the Technology Partner option must be visible on the investment page and on its own pages, found on %d pages" % n_tp)
+    return prob
+
+
+def page_count_problem(pages):
+    """A page that spills over leaves the footer counter ('04 / 07') disagreeing with the real page count."""
+    totals = set()
+    for p in pages:
+        m = re.findall(r"\b(\d\d) / (\d\d)\s*$", p.strip(), re.M)
+        if m:
+            totals.add(int(m[-1][1]))
+    if totals and totals != {len(pages)}:
+        return "page count %d does not match the footer total %s: a page has overflowed" % (len(pages), sorted(totals))
+    return None
