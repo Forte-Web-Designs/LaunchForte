@@ -71,10 +71,10 @@ CSS = """
 
 MONTHLY = [
  ("Checking your systems", "I check that the systems we agree to cover are working, such as your website, forms and automations, and I write down what I find."),
- ("Who has access", "I go through who can get into what, and point out former staff or old accounts that still have a way in, with what I would change."),
+ ("Who has access", "Where I have the access to see it, I go through who can get into what, and point out former staff or old accounts that still have a way in, with what I would change."),
  ("Backups", "Where a system supports it, I check that it is being backed up and that a restore would work. Where it does not, I tell you."),
  ("Software and subscriptions", "I look through what you are paying for, point out overlaps and things nobody uses, and tell you what I would change. I do not guess at savings."),
- ("Business and technology review", "I look at how the business runs and the systems around it, and tell you what I see: risks, manual work that could go away and the next improvements worth making. What I observed and what I think stay separate, and I put no dollar figure on anything I cannot show."),
+ ("Business and technology review", "I look at how the business runs and the systems around it, and tell you what I see: the risks, and the improvements worth making next, including manual work that could go away. What I observed and what I think stay separate, and I put no dollar figure on anything I cannot show."),
  ("Routine improvements", "I keep a short list of things worth improving. You decide which ones I go ahead with, and I handle the changes we agree on."),
 ]
 
@@ -91,14 +91,14 @@ def _start():
 
 def _benefit():
     """Pricing Standard 10.4, stated as a benefit for a later project. Never a discount on the quote in front of the buyer."""
-    return " Members who have completed three paid months receive 30% off a later qualifying larger project, but not this one, a financed project or the plan fee."
+    return " Members who have completed three paid months receive 30% off a later qualifying larger project, but not this one, nor a financed project or the plan fee."
 
 def page_a():
     rows = "".join(f'<div class="tp-row"><div class="k">{k}</div><div class="v">{v}</div></div>' for k, v in MONTHLY)
     return f'''<h2 class="sec" style="margin-bottom:10pt">Your Technology Partner</h2>
 <p class="tp-lead">After I build this, I would be happy to keep helping with the technology side of your business too. For {_price()} a month, I build new automations and integrations when you ask, give you advice on your software and what is worth adopting, check the systems we agree to cover once access is authorized and verified, and bring you what I find along the way. You get a monthly Technology Review and a copy of Forte Intelligence even if you have not asked me for anything new.</p>
 <div class="tp-price"><div class="amt">{_price()}<span>a month</span></div><div class="txt"><b>Optional, and separate from the project.</b> It is month to month, you can cancel anytime, and your accounts stay yours.</div></div>
-<p class="tp-p">Software tends to pile up. Accounts stay open after people leave, backups go unchecked, subscriptions renew unnoticed and small problems wait until they are expensive. With this plan I take proactive ownership of the technology environment we agree on, so what I build in this project gets looked after instead of left alone and problems reach you before they reach your customers.</p>
+<p class="tp-p">Software tends to pile up. Accounts stay open after people leave, backups go unchecked, subscriptions renew unnoticed and small problems wait until they are expensive. With this plan I take proactive ownership of the technology environment we agree on, so what I build in this project gets looked after instead of left alone.</p>
 {tailored()}
 <div class="tp-h3">What I take care of each month</div>
 <div class="tp-rows">{rows}</div>'''
@@ -107,7 +107,7 @@ def page_b(next_html=""):
     return f'''<h2 class="sec" style="margin-bottom:10pt">Unlimited everyday engineering requests</h2>
 <p class="tp-lead">Whenever you need an automation, an integration, a report, a fix or help figuring something out, send it my way. There is no limit on how many you send. I work on one active request at a time, so I can finish it properly before moving on. A larger standalone project, like the one in this proposal, is quoted separately.</p>
 <div class="tp-h3" style="margin-top:10pt">What I take responsibility for</div>
-<p class="tp-p">I would be your person for the technology side of the business, from everyday IT questions to the software you use. I answer for the changes I make and for what I report, I tell you plainly when something is outside what I cover, and I bring in a specialist when the work calls for one. How much runs from the first month depends on the access and tools your accounts allow. I tell you which systems are covered and which are not yet, and I will not call anything healthy that I have not checked.</p>
+<p class="tp-p">I would be your person for the technology side of the business, from everyday IT questions to the software you use. I answer for the changes I make and for what I report, and I tell you plainly when something is outside what I cover or needs a specialist. How much runs from the first month depends on the access and tools your accounts allow. I tell you which systems are covered and which are not yet, and I will not call anything healthy that I have not checked.</p>
 <div class="tp-h3" style="margin-top:10pt">What arrives every month</div>
 <div class="tp-rows">{"".join(f'<div class="tp-row"><div class="k">{k}</div><div class="v">{v}</div></div>' for k, v in ARRIVES)}</div>
 <div class="tp-shot" style="margin:6pt 0 3pt 0;width:85%"><img src="{{SHOT_BOTH}}"></div>

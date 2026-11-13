@@ -260,7 +260,7 @@ class T7(unittest.TestCase):
         flat = re.sub(r"\s+", " ", txt)
         for must in ("30 days of support included with the project", "unless we agree on an earlier start in writing",
                      "detailed written review", "substantial illustrated magazine", "30% off a later qualifying larger project",
-                     "not this one, a financed project or the plan fee", "proactive ownership", "once access is authorized and verified",
+                     "not this one, nor a financed project or the plan fee", "proactive ownership", "once access is authorized and verified",
                      "Sample layouts of both, with a fictional company and made up figures", "Fixed Price, Two Milestones"):
             self.assertIn(must, flat)
         for banned in ("ignore it", "same day", "Milestone Funded", "accountable for all of it", "keep watching", "keep them working", "short written review", "short illustrated magazine"):
