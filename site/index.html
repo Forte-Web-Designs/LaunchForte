@@ -763,6 +763,17 @@
         [data-theme="dark"] .qc-card-eyebrow { color: #4ab5ed; }
         .qc-card-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: clamp(1.25rem, 2.4vw, 1.625rem); letter-spacing: -0.02em; line-height: 1.15; color: #14181f; margin: 0; }
         [data-theme="dark"] .qc-card-title { color: #FAFAFA; }
+        /* Trust lines under the form heading: who reads it, how fast, privacy. */
+        .qc-trust { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.45rem; }
+        .qc-trust li { position: relative; padding-left: 1.6rem; font-size: 0.9375rem; line-height: 1.45; color: #3a424e; }
+        .qc-trust li::before { content: ""; position: absolute; left: 0.1rem; top: 0.32em; width: 0.9rem; height: 0.9rem; border-radius: 50%; background: #0088DB url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 0.6rem no-repeat; }
+        [data-theme="dark"] .qc-trust li { color: #c7c7cc; }
+        [data-theme="dark"] .qc-trust li::before { background-color: #4ab5ed; }
+        .qc-card .qc-submit { width: 100%; padding: 1rem 1.5rem; font-size: 1rem; }
+        /* Booking calendar, secondary to the form. */
+        .qc-book { margin-top: 2.5rem; }
+        .qc-book-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1.125rem; font-weight: 600; color: #FAFAFA; margin: 0; }
+        .qc-book .calendly-wrap { margin-top: 1rem; }
 
         .qc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin: 0 0 0.85rem; }
         .qc-field { display: block; }
@@ -830,36 +841,6 @@
             .qc-submit { width: 100%; }
         }
 
-        /* ============================================================
-           FORTE SIGNALS newsletter section (sits above the Final CTA).
-           Compact single-column: eyebrow + copy, then the GHL embed
-           immediately below, then a one-line fineprint. Card follows
-           the site theme with raw hex per light/dark (never token-flip
-           vulnerable). Form ID VjQxOml8XO17lEU0wB4T — LaunchForte.
-           ============================================================ */
-        .signals-card { max-width: 640px; margin: 0 auto; padding: 2.5rem; background: #FFFFFF; color: #14181f; border: 1px solid rgba(0,0,0,0.10); border-radius: var(--radius-3xl); text-align: center; }
-        [data-theme="dark"] .signals-card { background: #0A0A0A; color: #FAFAFA; border-color: rgba(255,255,255,0.10); }
-        .signals-stack { display: flex; flex-direction: column; gap: 1.5rem; align-items: stretch; }
-
-        .signals-copy { text-align: left; }
-        .signals-copy .signals-eyebrow { display: inline-block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #0088DB; margin: 0 0 0.85rem; }
-        [data-theme="dark"] .signals-copy .signals-eyebrow { color: #4ab5ed; }
-        .signals-copy p { font-size: 1rem; line-height: 1.65; color: #515154; margin: 0 0 0.85rem; }
-        [data-theme="dark"] .signals-copy p { color: #a1a1a6; }
-        .signals-copy p:last-child { margin-bottom: 0; }
-
-        /* Form slot: holds the GHL iframe. */
-        .signals-iframe-wrap { position: relative; background: transparent; border: 0; border-radius: 16px; overflow: hidden; }
-        [data-theme="dark"] .signals-iframe-wrap { background: transparent; border-color: transparent; }
-        .signals-iframe-wrap iframe { display: block; width: 100%; height: 380px; border: 0; background: transparent; }
-
-        .signals-fineprint { text-align: center; font-size: 0.8125rem; color: #86868b; margin: 0.85rem 0 0; }
-        [data-theme="dark"] .signals-fineprint { color: #737373; }
-
-        @media (max-width: 620px) {
-            .signals-card { padding: 1.5rem; }
-            .signals-iframe-wrap iframe { height: 420px; }
-        }
     </style>
 </head>
 <body>
@@ -941,13 +922,12 @@
         <input type="text" name="name">
         <input type="email" name="email">
         <input type="text" name="company">
-        <input type="text" name="website">
-        <textarea name="what"></textarea>
-        <textarea name="tools"></textarea>
-        <textarea name="anything-else"></textarea>
+        <input type="tel" name="phone">
+        <textarea name="message"></textarea>
         <input type="file" name="attachments" multiple>
+        <input type="hidden" name="came_from">
+        <input type="hidden" name="subject" data-remove-prefix>
         <input type="text" name="qc-bot">
-        <input type="hidden" name="utm_source" value=""><input type="hidden" name="utm_medium" value=""><input type="hidden" name="utm_campaign" value=""><input type="hidden" name="utm_term" value=""><input type="hidden" name="utm_content" value=""><input type="hidden" name="gclid" value=""><input type="hidden" name="landing" value=""><input type="hidden" name="referrer" value="">
     </form>
 
     <!-- 1. SERVICES, merges the old what-we-do intro + the what-we-build
@@ -1169,62 +1149,29 @@
         </div>
     </section>
 
-    <!-- 7.5 FORTE SIGNALS newsletter signup (dedicated GHL form).
-         Form: Forte Signals | LaunchForte.com  (ID: VjQxOml8XO17lEU0wB4T)
-         GoHighLevel is the subscriber system of record. This section
-         embeds ONLY the LaunchForte form (never the SethForte one); the
-         GHL workflow records LF Newsletter Source = LaunchForte.com.
-
-         LIVE 2026-09-23: all six GHL gate items confirmed green
-         (mail.launchforte.com verified, workflow published, welcome
-         email approved, test submission received, welcome email tested,
-         unsubscribe tested). -->
-    <section class="studio-container studio-section" id="forte-signals">
-        <div class="signals-card studio-reveal">
-            <div class="signals-stack">
-                <div class="signals-copy">
-                    <span class="signals-eyebrow">Forte Signals</span>
-                    <p>Every other Friday I send something I'm seeing from the work.</p>
-                    <p>Business problems that keep showing up, changes in software or AI that are worth understanding, and ideas I think are useful if you're building or running a business.</p>
-                    <p>If I don't have something useful, I won't send one.</p>
-                </div>
-                <div class="signals-form-slot">
-                    <!-- LIVE embed. GHL is the subscriber system of record;
-                         the form's own workflow tags LF Newsletter Source =
-                         LaunchForte.com. Never swap this iframe for the
-                         SethForte form ID; the two forms are intentionally
-                         separate for source tracking. -->
-                    <div class="signals-iframe-wrap">
-                        <iframe src="https://api.leadconnectorhq.com/widget/form/VjQxOml8XO17lEU0wB4T"
-                            title="Forte Signals newsletter signup"
-                            loading="lazy"
-                            allow="clipboard-write"
-                            aria-label="Sign up for the Forte Signals newsletter"></iframe>
-                    </div>
-                    <p class="signals-fineprint">No spam. One click unsubscribes you.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 8. FINAL CTA + CALENDLY + QUICK-CONTACT FORM (side by side, stacks on mobile) -->
-    <section class="studio-container">
+    <!-- 8. GET A QUOTE. The quote form is the primary action here; the
+         booking calendar sits under it for people who would rather talk.
+         Email layout: field order below is the order Netlify prints in the
+         notification. Tracking lands in one "came_from" line at the end and
+         the subject line is set on submit, see the qc-form script. -->
+    <section class="studio-container" id="get-a-quote" style="scroll-margin-top:80px">
+        <span id="contact" style="position:relative;top:-80px" aria-hidden="true"></span>
         <div class="final-cta studio-reveal">
             <div class="final-cta-inner">
                 <h2>Let's make your <span style="color:var(--accent)">systems</span> work.</h2>
                 <p class="sub">Tell us what's slowing your business down. We'll help you figure out what needs to change.</p>
-                <div class="calendly-wrap">
-                    <iframe src="https://api.leadconnectorhq.com/widget/bookings/launchforte-call" title="Book a call with Seth Forte" loading="lazy"></iframe>
-                </div>
                 <div class="qc-card">
                         <div class="qc-card-head">
-                            <p class="qc-card-eyebrow">Or email us</p>
-                            <h3 class="qc-card-title">Tell us what you're dealing with.</h3>
+                            <p class="qc-card-eyebrow">Get a quote</p>
+                            <h3 class="qc-card-title">Tell us what you need. Seth will reply within one business day.</h3>
+                            <ul class="qc-trust">
+                                <li>Your message goes to Seth Forte, the engineer who does the work</li>
+                                <li>A written reply within one business day, not an auto-responder</li>
+                                <li>Your details stay with us and are never shared</li>
+                            </ul>
                         </div>
                         <form name="quick-contact" method="POST" data-netlify="true" data-netlify-honeypot="qc-bot" enctype="multipart/form-data" id="qc-form">
                             <input type="hidden" name="form-name" value="quick-contact">
-                            <!-- Attribution: filled by attribution.js so every submission says where the lead came from -->
-                            <input type="hidden" name="utm_source" value=""><input type="hidden" name="utm_medium" value=""><input type="hidden" name="utm_campaign" value=""><input type="hidden" name="utm_term" value=""><input type="hidden" name="utm_content" value=""><input type="hidden" name="gclid" value=""><input type="hidden" name="landing" value=""><input type="hidden" name="referrer" value="">
                             <div class="qc-hp" aria-hidden="true"><label>Leave this empty: <input tabindex="-1" autocomplete="off" name="qc-bot"></label></div>
 
                             <div class="qc-row">
@@ -1244,24 +1191,14 @@
                                     <input class="qc-input" type="text" name="company" autocomplete="organization" placeholder="Company name">
                                 </label>
                                 <label class="qc-field">
-                                    <span class="qc-label">Website <span class="qc-opt">optional</span></span>
-                                    <input class="qc-input" type="text" name="website" autocomplete="url" inputmode="url" placeholder="yourcompany.com">
+                                    <span class="qc-label">Phone <span class="qc-opt">optional</span></span>
+                                    <input class="qc-input" type="tel" name="phone" autocomplete="tel" placeholder="(555) 555-5555">
                                 </label>
                             </div>
 
-                            <label class="qc-field full" style="display:block;margin:0 0 0.75rem;">
-                                <span class="qc-label">What are you trying to build or fix?</span>
-                                <textarea class="qc-textarea" name="what" required placeholder="One or two sentences is fine."></textarea>
-                            </label>
-
-                            <label class="qc-field full" style="display:block;margin:0 0 0.75rem;">
-                                <span class="qc-label">What tools does your business run on today?</span>
-                                <textarea class="qc-textarea" name="tools" placeholder="HubSpot, QuickBooks, GHL, Zapier, Shopify, whatever's in the stack."></textarea>
-                            </label>
-
                             <label class="qc-field full" style="display:block;margin:0 0 0.4rem;">
-                                <span class="qc-label">Anything else? <span class="qc-opt">screenshots, exports, context</span></span>
-                                <textarea class="qc-textarea" name="anything-else" placeholder="Whatever helps us understand the situation."></textarea>
+                                <span class="qc-label">What do you need?</span>
+                                <textarea class="qc-textarea tall" name="message" required placeholder="What's the problem, which tools are involved (QuickBooks, HubSpot, Microsoft 365, anything), and what would fixed look like? A few sentences is plenty."></textarea>
                             </label>
 
                             <div class="qc-file-row">
@@ -1270,22 +1207,32 @@
                                     <span>Attach files</span>
                                 </label>
                                 <input class="qc-file-input" type="file" id="qc-file-input" name="attachments" multiple>
-                                <span class="qc-file-hint">Up to 8MB each.</span>
+                                <span class="qc-file-hint">Optional. Screenshots, exports, a spec. Up to 8MB each.</span>
                                 <ul class="qc-file-list" id="qc-file-list" hidden></ul>
                             </div>
 
+                            <!-- Filled on submit: tracking in one readable line, and the email subject. -->
+                            <input type="hidden" name="came_from" value="">
+                            <input type="hidden" name="subject" data-remove-prefix value="New quote request from launchforte.com">
+
                             <div class="qc-actions">
-                                <button class="qc-submit" type="submit" id="qc-submit">Send it over</button>
+                                <button class="qc-submit" type="submit" id="qc-submit">Send my request</button>
                             </div>
-                            <p class="qc-note">Goes straight to Seth. Usually a reply within a business day.</p>
 
                             <div class="qc-msg ok" id="qc-ok" role="status" aria-live="polite">
-                                <strong>Got it.</strong> Your message is in. Seth will read it and reply personally, usually within a business day.
+                                <strong>Got it, thank you.</strong> Seth will read it and reply personally within one business day. If it's urgent, email <a href="mailto:seth@launchforte.com">seth@launchforte.com</a>.
                             </div>
                             <div class="qc-msg err" id="qc-err" role="alert">
-                                Something on our side didn't send. Try again in a moment, or email <a href="mailto:seth@launchforte.com">seth@launchforte.com</a> directly.
+                                That didn't send. Please try again, or email <a href="mailto:seth@launchforte.com">seth@launchforte.com</a> directly.
                             </div>
                         </form>
+                </div>
+
+                <div class="qc-book">
+                    <p class="qc-book-title">Rather talk it through? Book a 30 minute call.</p>
+                    <div class="calendly-wrap">
+                        <iframe src="https://api.leadconnectorhq.com/widget/bookings/launchforte-call" title="Book a call with Seth Forte" loading="lazy"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1495,7 +1442,6 @@
 <script src="/studio-motion.js?v=q3a" defer></script>
 <script src="/scroll-top.js?v=q3a" defer></script>
 <script src="/hamburger.js?v=q3a" defer></script>
-<script src="/signals-gate.js?v=q3a" defer></script>
 <script>
 /* Video testimonial carousel: arrow buttons scroll the track by one card
    width at a time. Snap-scroll CSS on the track settles cards in place.
@@ -1571,6 +1517,20 @@
         // Netlify expects the form-name; already in the hidden input but reasserting is safe
         if (!formData.get('form-name')) formData.append('form-name', 'quick-contact');
 
+        // Shape the notification email: drop blank optional fields so they
+        // don't print as empty rows, write tracking as one readable line, and
+        // put the person's name in the subject line.
+        ['company', 'phone'].forEach(function(k){
+            if (!String(formData.get(k) || '').trim()) formData.delete(k);
+        });
+        var files = formData.getAll('attachments').filter(function(f){ return f && f.size > 0; });
+        if (!files.length) formData.delete('attachments');
+        var cameFrom = (window.lfCameFrom && window.lfCameFrom()) || String(formData.get('came_from') || '') || 'Direct visit';
+        formData.set('came_from', cameFrom);
+        var who = String(formData.get('name') || '').trim();
+        var co = String(formData.get('company') || '').trim();
+        formData.set('subject', 'New quote request: ' + who + (co ? ' (' + co + ')' : ''));
+
         // POST to the page URL. Do NOT set Content-Type; the browser writes the
         // multipart boundary automatically. Setting it manually breaks the upload.
         fetch('/', {
@@ -1581,6 +1541,7 @@
             if (!response.ok) throw new Error('http ' + response.status);
             // Hide form fields, show success
             var toHide = form.querySelectorAll('.qc-row, .qc-field, .qc-file-row, .qc-actions');
+            var head = document.querySelector('.qc-card-head'); if (head) head.style.display = 'none';
             toHide.forEach(function(el){ el.style.display = 'none'; });
             okMsg.classList.add('is-visible');
             if (window.dataLayer) { window.dataLayer.push({ event: 'homepage_quick_contact_sent' }); window.dataLayer.push({ event: 'contact_sent', form: 'quick-contact' }); }

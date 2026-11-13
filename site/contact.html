@@ -188,7 +188,6 @@
         <div class="contact-form-wrap">
             <form name="contact" method="POST" action="/.netlify/functions/contact" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
                 <input type="hidden" name="form-name" value="contact">
-                <input type="hidden" name="utm_source" value=""><input type="hidden" name="utm_medium" value=""><input type="hidden" name="utm_campaign" value=""><input type="hidden" name="utm_term" value=""><input type="hidden" name="utm_content" value=""><input type="hidden" name="gclid" value=""><input type="hidden" name="landing" value=""><input type="hidden" name="referrer" value="">
                 <p class="honeypot"><label>Don't fill this out: <input name="bot-field"></label></p>
                 <div class="form-row">
                     <div class="form-group">
@@ -202,33 +201,37 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label" for="company">Company (optional)</label>
-                        <input class="form-input" type="text" id="company" name="company" placeholder="Your company">
+                        <label class="form-label" for="company">Company</label>
+                        <input class="form-input" type="text" id="company" name="company" placeholder="Optional">
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="phone">Phone (optional)</label>
-                        <input class="form-input" type="tel" id="phone" name="phone" placeholder="(555) 555-5555">
+                        <label class="form-label" for="phone">Phone</label>
+                        <input class="form-input" type="tel" id="phone" name="phone" placeholder="Optional">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="subject">What do you need help with?</label>
-                    <select class="form-select" id="subject" name="subject">
-                        <option value="">Select one...</option>
-                        <option value="audit">Growth Systems Audit</option>
-                        <option value="revenue-infrastructure">Revenue Infrastructure</option>
-                        <option value="lead-systems">Lead and Customer Systems</option>
-                        <option value="ai-orchestration">AI Agents and Orchestration</option>
-                        <option value="reporting">Reporting and Dashboards</option>
-                        <option value="custom-builds">Custom Builds and Integrations</option>
-                        <option value="engineering-reliability">Engineering and Reliability</option>
-                        <option value="partnership">Embedded Partnership engagement</option>
-                        <option value="other">Something else</option>
+                    <label class="form-label" for="topic">What do you need help with?</label>
+                    <select class="form-select" id="topic" name="topic">
+                        <option value="">Select one (optional)</option>
+                        <option>An audit of our current systems</option>
+                        <option>Software and API integrations</option>
+                        <option>CRM, pipeline, and lead systems</option>
+                        <option>Billing, accounting, and reconciliation</option>
+                        <option>Reporting and dashboards</option>
+                        <option>AI agents and automation</option>
+                        <option>A custom business system</option>
+                        <option>Ongoing support for systems we already have</option>
+                        <option>Something else</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="message">Message</label>
-                    <textarea class="form-textarea" id="message" name="message" placeholder="Tell us about your project or problem. The more context the better." required></textarea>
+                    <textarea class="form-textarea" id="message" name="message" placeholder="What's the problem, which tools are involved, and what would fixed look like? The more context the better." required></textarea>
                 </div>
+                <!-- Filled automatically: tracking as one readable line, and the
+                     notification subject (set server side in netlify/functions/contact.js). -->
+                <input type="hidden" name="came_from" value="">
+                <input type="hidden" name="subject" data-remove-prefix value="New quote request from launchforte.com">
                 <button type="submit" class="btn-primary">Send Message &rarr;</button>
                 <div class="form-success" id="form-success">
                     <span class="form-success-icon">&#10003;</span>
