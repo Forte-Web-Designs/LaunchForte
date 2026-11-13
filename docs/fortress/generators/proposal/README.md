@@ -22,6 +22,13 @@ Library: `lf_reference query="proposal PDF generator"` returns this playbook (pa
 5. Exit 0 means the automated checks passed, 3 means they need a person, 2 means it failed closed. Then open every page image in `out/pages-*` and read it. A passing report is not a visual review.
 6. Hand the PDF, `qa_report-*.json` and the page images to Seth for review (card comment or PM review). Seth decides what is sent.
 
+## Technology Partner option on every eligible proposal (Seth, Nov 13 2026, card 535)
+- Eligible means a direct prospect or eligible buyer with approved scope, no signed agreement, no opt out and not unsuitable. The proposal then shows the optional plan three ways: a one sentence notice under the fixed price (no price there), the plan page after the investment, and the everyday engineering page. Build & Own stays complete on its own. Financing stays off and never hides the plan.
+- Buyer specific: the plan page names this buyer's own systems from `spec.systems` (never more than two names) and up to two `partner.observations`, each with text and a `source_ref`. Nothing else is invented.
+- Preflight: `proposal_qa.offer_presence` checks the finished PDF against an eligibility decision made from the spec buyer facts. An eligible proposal without the option fails (exit 2) and no PDF is kept.
+- Exceptions are recorded in the QA report as `plan_exception`: UPWORK_PLATFORM, SIGNED_OR_ACTIVE_CLIENT, OPT_OUT, UNSUITABLE_OR_SERVICE_UNSUPPORTED, UNKNOWN_ELIGIBILITY, SCOPE_NOT_APPROVED. An unrecognised buyer status or platform is refused.
+- The Technology Partner copy lists a monthly Technology Review and Forte Intelligence at Seth's direction (Nov 13). The Nov 9 service status table in the offer rule still marks the dated monthly review NOT BUILT, so the Architect should update that table.
+
 ## What the checks do
 - Rules: read time under 24 hours, each rule LIVE or VERIFIED, rate card and plan fee parsed from the text, the retired $750 plan refused, shas carried into the report.
 - Eligibility: the resolver decides whether the optional Technology Partner pages appear (direct prospects with approved scope only). Upwork, signed or active clients, opted out and unknown buyers get a proposal with no plan and no plan price.

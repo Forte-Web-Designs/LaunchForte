@@ -52,6 +52,8 @@ SCOPE_APPROVED = True
 DOC_TYPE = "proposal"
 OFFER_PRESET = False   # True only in tests that configure offer_source themselves. Otherwise main() reads the canonical rule through offer_source.load() (needs LF_WORK_KEY); no verified rule means no plan.
 OFFER = None       # filled in by main() from the resolver
+PARTNER_CONTEXT = None   # buyer specific systems and sourced observations for the partner pages, from the approved spec
+POINTER = "I would also be glad to be your ongoing Technology Partner after launch. It is optional and separate from this project, and the next pages explain how it works."
 WANTS_PLAN = False      # New prospect: True only when the client wants monitoring or support after the 30 days
 
 # ---------------------------------------------------------------------------
@@ -321,7 +323,7 @@ def main():
     global SUPPORT_PLAN_ACTIVE, SUPPORT_PLAN_PROSPECT
     if not OFFER_PRESET:
         offer_source.load()
-    partner_section.configure()
+    partner_section.configure(PARTNER_CONTEXT)
     SUPPORT_PLAN_ACTIVE = SUPPORT_PLAN_ACTIVE_T.replace("{P}", offer_source.price_text()) if offer_source.verified() else ""
     SUPPORT_PLAN_PROSPECT = SUPPORT_PLAN_PROSPECT_T.replace("{P}", offer_source.price_text()) if offer_source.verified() else ""
     mapping = dict(FILL)
@@ -370,6 +372,9 @@ def main():
         CHOICE_RESULT = None  # financing is shown only when the resolver allows it
     if show_partner:
         html = html.replace(SUPPORT_PLAN_PROSPECT, "")  # the partner pages carry the $500 line exactly once
+        anchor = 'agreed in writing before any work happens.</div>\n  </div>'
+        assert html.count(anchor) == 1, "investment box anchor changed"
+        html = html.replace(anchor, anchor + '\n  <div class="tp-notice">' + POINTER + "</div>")  # no price here, only the notice that the option exists
     extra = []
     if show_partner:
         extra.append("tpa"); extra.append("tpb")

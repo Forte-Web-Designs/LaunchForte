@@ -11,7 +11,7 @@ Exit codes: 0 built and every check passed; 2 refused or failed closed; 3 built 
 import argparse, json, os, shutil, sys, io, contextlib, re
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-import rules_input, proposal_qa
+import rules_input, proposal_qa, offer_resolver
 
 
 def refuse(msg, code=2):
@@ -128,6 +128,25 @@ def main(argv=None):
         refuse("buyer.scope_approved is missing. Unknown scope approval fails closed: no priced proposal is produced.")
     status = buyer.get("status", "unknown")
     platform = buyer.get("platform", "direct")
+    # Fail closed on anything not recognised, then decide eligibility independently of the generator.
+    if status not in ("prospect", "eligible", "active_client", "opted_out", "unknown", "unsuitable"):
+        refuse("buyer.status %r is not recognised. Unknown eligibility fails closed; use prospect, eligible, active_client, opted_out, unknown or unsuitable." % status)
+    if platform not in ("direct", "upwork"):
+        refuse("buyer.platform %r is not recognised (direct or upwork). Unknown platform fails closed." % platform)
+    unsuitable = status == "unsuitable" or bool(buyer.get("service_unsupported"))
+    gen_status = "unknown" if unsuitable else status
+    expected = offer_resolver.resolve_offer({"doc_type": "proposal", "buyer_status": gen_status, "platform": platform,
+        "signed_agreement": bool(buyer.get("signed_agreement")), "seth_opt_out": bool(buyer.get("seth_opt_out")),
+        "scope_approved": buyer.get("scope_approved") is True, "financing_enabled": False, "rules_verified": True})
+    expected_offer = bool(expected["offer_plan"] and expected["variant"] == "proposal_full")
+    if expected_offer:
+        exc = None
+    elif platform == "upwork": exc = "UPWORK_PLATFORM"
+    elif buyer.get("signed_agreement") or status == "active_client": exc = "SIGNED_OR_ACTIVE_CLIENT"
+    elif buyer.get("seth_opt_out") or status == "opted_out": exc = "OPT_OUT"
+    elif unsuitable: exc = "UNSUITABLE_OR_SERVICE_UNSUPPORTED"
+    elif status == "unknown": exc = "UNKNOWN_ELIGIBILITY"
+    else: exc = "SCOPE_NOT_APPROVED"
     fill = dict(spec["fill"])
     if str(fill.get("[SUPPORT DAYS]", "30")).strip() != "30":
         refuse("included post launch support is the canonical 30 days. A spec cannot change it. An exception needs an approved, documented agreement.")
@@ -152,6 +171,12 @@ def main(argv=None):
     g.SIGNED_AGREEMENT = bool(buyer.get("signed_agreement"))
     g.SETH_OPT_OUT = bool(buyer.get("seth_opt_out"))
     g.SCOPE_APPROVED = buyer.get("scope_approved") is True
+    pc = spec.get("partner") or {}
+    obs = pc.get("observations") or []
+    if len(obs) > 2 or any(not (o.get("text") and o.get("source_ref")) for o in obs):
+        refuse("partner.observations: at most two, each with text and a source_ref. Nothing is invented for the plan pages.")
+    g.PARTNER_CONTEXT = {"systems": spec.get("systems", []), "observations": obs}
+    g.BUYER_STATUS = gen_status
     g.WANTS_PLAN = False; g.ACTIVE_CLIENT = False; g.PURCHASE_CHOICE = None
     g.OFFER_PRESET = True
     g.SHOW_PARTNER = True
@@ -185,11 +210,20 @@ def main(argv=None):
     offered = bool(g.OFFER and g.OFFER["offer_plan"] and g.OFFER["variant"] == "proposal_full")
     hard, review = proposal_qa.word_check(pages, spec.get("word_check_allow", []))
     price_problems = proposal_qa.price_audit(pages, total, offer_source.price(), offered, half)
+    presence = proposal_qa.offer_presence(pages, expected_offer, offer_source.price())
+    if presence:
+        report0 = {"result": "FAILED PREFLIGHT", "plan_expected": True, "problems": presence}
+        for f in (g.OUT_PDF, g.OUT_WORKSHEET):
+            try: os.remove(f)
+            except OSError: pass
+        json.dump(report0, open(os.path.join(out, "qa_report-%s.json" % name), "w"), indent=2)
+        for p in presence: print("  preflight:", p)
+        refuse("document preflight failed: this buyer is eligible for the Technology Partner option and the finished proposal does not show it. No PDF was kept.")
     overflow = proposal_qa.footer_overflow(g.OUT_PDF)
     left = re.findall(r"\[[A-Z][A-Z0-9 ]{1,28}\]", "\n".join(pages))
     imgs = proposal_qa.render(g.OUT_PDF, os.path.join(out, "pages-" + name))
     report = {"pdf": os.path.basename(g.OUT_PDF), "pages": len(pages), "investment": total, "milestones": [half, half],
-              "plan_offered": offered, "offer_reason": g.OFFER["reason"], "plan_price": offer_source.price() if offered else None,
+              "plan_offered": offered, "plan_expected": expected_offer, "plan_exception": exc, "offer_reason": g.OFFER["reason"], "plan_price": offer_source.price() if offered else None,
               "rules": {"pricing_sha12": facts["pricing_rule_sha12"], "technology_partner_offer_sha12": facts["offer_rule_sha12"],
                         "client_document_hard_rules_sha12": rules.get("client_document_hard_rules", {}).get("sha12"),
                         "word_list_sha12": proposal_qa.WORDS_SHA12,

@@ -146,5 +146,76 @@ class T3(unittest.TestCase):
         rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
         self.assertFalse(rep["plan_offered"]); self.assertTrue(any("DRAFT" in x for x in rep["unverified_defaults_and_flags"]))
 
+
+class T5(unittest.TestCase):
+    """Universal Technology Partner option (Seth, Nov 13 2026): eligible proposals always show it, exceptions are explicit, preflight fails closed."""
+    def go(self, spec, rl=None):
+        return run(spec, rl or rules(), tempfile.mkdtemp())
+
+    def rep(self, out):
+        return json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
+
+    def text(self, out):
+        pdf = [os.path.join(out, f) for f in os.listdir(out) if f.endswith(".pdf")][0]
+        return " ".join(subprocess.run(["pdftotext", pdf, "-"], capture_output=True, text=True).stdout.split())
+
+    def test_fresh_prospect_shows_option_notice_pages_and_value(self):
+        for status in ("prospect", "eligible"):
+            s = copy.deepcopy(SPEC); s["buyer"]["status"] = status
+            c, o, out = self.go(s); self.assertIn(c, (0, 3), o)
+            r = self.rep(out); self.assertTrue(r["plan_expected"] and r["plan_offered"]); self.assertIsNone(r["plan_exception"])
+            t = self.text(out)
+            for need in ("ongoing Technology Partner after launch", "$500 a month", "Unlimited everyday engineering requests", "Monthly Technology Review", "Forte Intelligence", "new automations and integrations", "month to month", "cancel anytime"):
+                self.assertIn(need.lower(), t.lower(), need)
+            self.assertLess(t.index("$3,500"), t.index("$500 a month"))   # project price first
+
+    def test_option_is_tailored_to_the_buyers_own_systems_only(self):
+        s = copy.deepcopy(SPEC); s["systems"] = ["Shopify", "QuickBooks", "Slack", "Gmail"]
+        c, o, out = self.go(s); t = self.text(out)
+        self.assertIn("beginning with Shopify and QuickBooks", t)
+        self.assertNotIn("Slack and Gmail and", t)
+        s = copy.deepcopy(SPEC); s["partner"] = {"observations": [{"text": "An invented claim.", "source_ref": ""}]}
+        self.assertEqual(self.go(s)[0], 2)
+        s = copy.deepcopy(SPEC); s["partner"] = {"observations": [{"text": "a", "source_ref": "x"}] * 3}
+        self.assertEqual(self.go(s)[0], 2)
+
+    def test_exceptions_are_explicit_and_show_nothing(self):
+        cases = [({"status": "prospect", "platform": "upwork"}, "UPWORK_PLATFORM"), ({"status": "active_client", "platform": "direct"}, "SIGNED_OR_ACTIVE_CLIENT"),
+                 ({"status": "prospect", "platform": "direct", "signed_agreement": True}, "SIGNED_OR_ACTIVE_CLIENT"),
+                 ({"status": "opted_out", "platform": "direct"}, "OPT_OUT"), ({"status": "prospect", "platform": "direct", "seth_opt_out": True}, "OPT_OUT"),
+                 ({"status": "unsuitable", "platform": "direct"}, "UNSUITABLE_OR_SERVICE_UNSUPPORTED"),
+                 ({"status": "prospect", "platform": "direct", "service_unsupported": True}, "UNSUITABLE_OR_SERVICE_UNSUPPORTED"),
+                 ({"status": "unknown", "platform": "direct"}, "UNKNOWN_ELIGIBILITY")]
+        for b, exc in cases:
+            s = copy.deepcopy(SPEC); s["buyer"] = dict(b, scope_approved=True)
+            c, o, out = self.go(s); r = self.rep(out)
+            self.assertFalse(r["plan_expected"], b); self.assertFalse(r["plan_offered"], b); self.assertEqual(r["plan_exception"], exc, b)
+            t = self.text(out)
+            for bad in ("Technology Partner", "$500", "Forte Intelligence"):
+                self.assertNotIn(bad, t, (b, bad))
+
+    def test_unrecognised_status_or_platform_fails_closed(self):
+        for b in ({"status": "maybe", "platform": "direct"}, {"status": "prospect", "platform": "carrier pigeon"}):
+            s = copy.deepcopy(SPEC); s["buyer"] = dict(b, scope_approved=True)
+            c, o, _ = self.go(s); self.assertEqual(c, 2, b); self.assertIn("fails closed", o)
+
+    def test_financing_disabled_still_shows_the_standalone_option(self):
+        s = copy.deepcopy(SPEC)
+        c, o, out = self.go(s); r = self.rep(out)
+        self.assertEqual(r["financing"], "disabled"); self.assertTrue(r["plan_offered"])
+        t = self.text(out); self.assertNotIn("Build & Partner", t); self.assertNotRegex(t, r"(?i)installment")
+        s["financing"] = True
+        self.assertEqual(self.go(s)[0], 2)   # financing stays refused, and nothing hides the option in the default run
+
+    def test_preflight_fails_when_an_eligible_proposal_loses_the_option(self):
+        """A regression that drops the plan pages (here: the page body is emptied) must fail preflight and keep no PDF."""
+        tmp = tempfile.mkdtemp(); sp, rp, out = [os.path.join(tmp, n) for n in ("spec.json", "rules.json", "out")]
+        json.dump(copy.deepcopy(SPEC), open(sp, "w")); json.dump(rules(), open(rp, "w"))
+        code = ("import sys; sys.path.insert(0, %r); import partner_section as P; P.page_a = lambda: '<p>x</p>'; P.page_b = lambda next_html='': '<p>y</p>'; "
+                "import lf_proposal; lf_proposal.main(['--spec', %r, '--rules', %r, '--out', %r])" % (HERE, sp, rp, out))
+        p = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
+        self.assertIn(p.returncode, (1, 2), p.stdout + p.stderr)
+        self.assertEqual([f for f in (os.listdir(out) if os.path.exists(out) else []) if f.endswith(".pdf")], [])
+
 if __name__ == "__main__":
     unittest.main()
