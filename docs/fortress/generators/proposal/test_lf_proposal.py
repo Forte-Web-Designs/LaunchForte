@@ -1,5 +1,6 @@
 """Tests for the spec-driven proposal entry (card 535). Synthetic rule text with FIXTURE-style values: these prove behavior, they are not a source of prices."""
 import json, os, subprocess, sys, tempfile, unittest, copy, datetime
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 HERE = os.path.dirname(os.path.abspath(__file__))
 SPEC = json.load(open(os.path.join(HERE, "examples", "ridgeline-spec.json")))
 
@@ -216,6 +217,38 @@ class T5(unittest.TestCase):
         p = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
         self.assertIn(p.returncode, (1, 2), p.stdout + p.stderr)
         self.assertEqual([f for f in (os.listdir(out) if os.path.exists(out) else []) if f.endswith(".pdf")], [])
+
+
+class T6(unittest.TestCase):
+    """Independent review defects D1 to D5 (Nov 13 2026)."""
+    def go(self, spec): return run(spec, rules(), tempfile.mkdtemp())
+
+    def test_text_flags_and_missing_platform_fail_closed(self):
+        for flag in ("signed_agreement", "seth_opt_out", "service_unsupported"):
+            for val in ("false", "no", "true", 0, None):
+                s = copy.deepcopy(SPEC); s["buyer"][flag] = val
+                c, o, _ = self.go(s); self.assertEqual(c, 2, (flag, val, o)); self.assertIn("true or false", o)
+        s = copy.deepcopy(SPEC); del s["buyer"]["platform"]
+        c, o, _ = self.go(s); self.assertEqual(c, 2); self.assertIn("platform is missing", o)
+
+    def test_observation_limits_and_claims(self):
+        long = "word " * 60
+        bad = ["You will save $5,000 a year.", "This cuts costs 40 percent.", "This keeps you secure and prevents any breach.", "It never fails.", long]
+        for text in bad:
+            s = copy.deepcopy(SPEC); s["partner"] = {"observations": [{"text": text, "source_ref": "x"}]}
+            self.assertEqual(self.go(s)[0], 2, text)
+        s = copy.deepcopy(SPEC); s["partner"] = {"observations": [{"text": "ok", "source_ref": "   "}]}
+        self.assertEqual(self.go(s)[0], 2)
+
+    def test_malformed_partner_is_refused_not_a_crash(self):
+        for p in ("x", {"observations": [None]}, {"observations": "x"}, {"observations": [{"text": 1, "source_ref": 2}]}):
+            s = copy.deepcopy(SPEC); s["partner"] = p
+            self.assertEqual(self.go(s)[0], 2, p)
+
+    def test_page_count_check_catches_an_overflow(self):
+        import proposal_qa as Q
+        self.assertIsNone(Q.page_count_problem(["a\n04 / 07", "b\n07 / 07"] + ["x"] * 5 if False else ["p%d\n%02d / 03" % (i, i + 1) for i in range(3)]))
+        self.assertIn("overflowed", Q.page_count_problem(["p\n01 / 03", "p\n02 / 03", "p\n03 / 03", "spill"]))
 
 if __name__ == "__main__":
     unittest.main()

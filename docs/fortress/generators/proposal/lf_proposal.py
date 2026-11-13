@@ -86,6 +86,8 @@ def build_template(spec, src, dst):
     return True
 
 
+OBS_BLOCK = re.compile(r"\$\s?\d|\d\s?(%|percent)|\b(sav(e|es|ing|ings)|cut costs?|secure|secures|security|prevent|prevents|breach|breaches|never|always|guarantee\w*|safe|protect\w*)\b", re.I)
+
 UNSUPPORTED_TERMS = ["revision round", "business day window", "business days idle", "standard terms", "net-", "forms our agreement", "that written reply is the signature", "clause 01", "you own what", "is yours.", "everything delivered", "paid for stay"]
 
 
@@ -127,7 +129,12 @@ def main(argv=None):
     if "scope_approved" not in buyer:
         refuse("buyer.scope_approved is missing. Unknown scope approval fails closed: no priced proposal is produced.")
     status = buyer.get("status", "unknown")
-    platform = buyer.get("platform", "direct")
+    if "platform" not in buyer:
+        refuse("buyer.platform is missing (direct or upwork). Unknown platform fails closed: an Upwork buyer must never be treated as direct.")
+    platform = buyer["platform"]
+    for flag in ("signed_agreement", "seth_opt_out", "service_unsupported"):
+        if flag in buyer and not isinstance(buyer[flag], bool):
+            refuse("buyer.%s must be true or false, not %r. A text value is ambiguous and fails closed." % (flag, buyer[flag]))
     # Fail closed on anything not recognised, then decide eligibility independently of the generator.
     if status not in ("prospect", "eligible", "active_client", "opted_out", "unknown", "unsuitable"):
         refuse("buyer.status %r is not recognised. Unknown eligibility fails closed; use prospect, eligible, active_client, opted_out, unknown or unsuitable." % status)
@@ -172,9 +179,19 @@ def main(argv=None):
     g.SETH_OPT_OUT = bool(buyer.get("seth_opt_out"))
     g.SCOPE_APPROVED = buyer.get("scope_approved") is True
     pc = spec.get("partner") or {}
+    if not isinstance(pc, dict) or not isinstance(pc.get("observations", []), list):
+        refuse("partner must be an object whose observations is a list.")
     obs = pc.get("observations") or []
-    if len(obs) > 2 or any(not (o.get("text") and o.get("source_ref")) for o in obs):
-        refuse("partner.observations: at most two, each with text and a source_ref. Nothing is invented for the plan pages.")
+    if len(obs) > 2 or any(not isinstance(o, dict) or not isinstance(o.get("text"), str) or not isinstance(o.get("source_ref"), str)
+                           or not o["text"].strip() or not o["source_ref"].strip() for o in obs):
+        refuse("partner.observations: at most two, each with text and a source_ref (not blank). Nothing is invented for the plan pages.")
+    for o in obs:
+        if len(o["text"]) > 220:
+            refuse("a partner observation is limited to 220 characters so the plan page keeps its layout.")
+        bad = OBS_BLOCK.search(o["text"])
+        if bad:
+            refuse("a partner observation may not carry savings, percentages, dollar figures or security promises (%r). Those need their own approved source." % bad.group(0))
+    obs = [{"text": o["text"].strip(), "source_ref": o["source_ref"].strip()} for o in obs]
     g.PARTNER_CONTEXT = {"systems": spec.get("systems", []), "observations": obs}
     g.BUYER_STATUS = gen_status
     g.WANTS_PLAN = False; g.ACTIVE_CLIENT = False; g.PURCHASE_CHOICE = None
@@ -220,6 +237,9 @@ def main(argv=None):
         for p in presence: print("  preflight:", p)
         refuse("document preflight failed: this buyer is eligible for the Technology Partner option and the finished proposal does not show it. No PDF was kept.")
     overflow = proposal_qa.footer_overflow(g.OUT_PDF)
+    pages_problem = proposal_qa.page_count_problem(pages)
+    if pages_problem:
+        price_problems = price_problems + [pages_problem]
     left = re.findall(r"\[[A-Z][A-Z0-9 ]{1,28}\]", "\n".join(pages))
     imgs = proposal_qa.render(g.OUT_PDF, os.path.join(out, "pages-" + name))
     report = {"pdf": os.path.basename(g.OUT_PDF), "pages": len(pages), "investment": total, "milestones": [half, half],
