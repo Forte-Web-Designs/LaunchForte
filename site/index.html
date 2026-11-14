@@ -665,10 +665,11 @@
         }
 
         /* Final CTA (dark) */
-        .final-cta { padding: var(--sp-24) 0; background: var(--ink); color: var(--paper); border-radius: var(--radius-4xl); margin-top: var(--sp-24); }
+        /* Light mode: soft off-white section so the white quote card pops. Dark mode override below keeps it near-black. */
+        .final-cta { padding: var(--sp-24) 0; background: #F3F4F6; color: #14181f; border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-4xl); margin-top: var(--sp-24); }
         .final-cta-inner { max-width: 900px; margin: 0 auto; padding: 0 2rem; text-align: center; }
-        .final-cta h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1.1; color: var(--paper); letter-spacing: -0.025em; margin: 0 0 1rem; }
-        .final-cta p.sub { color: var(--n-400); font-size: var(--text-lg); margin: 0 0 2rem; }
+        .final-cta h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 500; font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1.1; color: #14181f; letter-spacing: -0.025em; margin: 0 0 1rem; }
+        .final-cta p.sub { color: #515154; font-size: var(--text-lg); margin: 0 0 2rem; }
         .calendly-wrap { position: relative; margin-top: 2rem; background: #FFFFFF; border-radius: var(--radius-3xl); overflow: hidden; }
         [data-theme="dark"] .calendly-wrap { background: #0A0A0A; }
         .calendly-wrap iframe { width: 100%; height: 700px; border: 0; display: block; }
@@ -747,7 +748,7 @@
            FINAL CTA dark-mode fix: .final-cta uses var(--ink) which
            flips to near-white in dark mode. Force it dark in both.
            ============================================================ */
-        [data-theme="dark"] .final-cta { background: #0A0A0A; color: #FAFAFA; }
+        [data-theme="dark"] .final-cta { background: #0A0A0A; color: #FAFAFA; border-color: transparent; }
         [data-theme="dark"] .final-cta h2 { color: #FAFAFA; }
         [data-theme="dark"] .final-cta p.sub { color: rgba(255,255,255,0.65); }
 
@@ -756,8 +757,8 @@
            dark mode -> near-black card with light text
            Raw hex per theme (never var(--paper) / var(--ink)) so no
            token-flip surprises. */
-        .qc-card { background: #FFFFFF; color: #14181f; border-radius: var(--radius-3xl); padding: 2rem; margin-top: 1.25rem; text-align: left; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06); }
-        [data-theme="dark"] .qc-card { background: #0A0A0A; color: #FAFAFA; box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.4); }
+        .qc-card { background: #FFFFFF; color: #14181f; border: 1px solid rgba(0,0,0,0.08); border-top: 4px solid #0088DB; border-radius: var(--radius-3xl); padding: 2rem; margin-top: 1.25rem; text-align: left; box-shadow: 0 2px 4px rgba(16,24,40,0.04), 0 16px 40px rgba(16,24,40,0.10); }
+        [data-theme="dark"] .qc-card { background: #0A0A0A; color: #FAFAFA; border-color: rgba(255,255,255,0.12); border-top-color: #4ab5ed; box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.4); }
         .qc-card-head { margin: 0 0 1.25rem; }
         .qc-card-eyebrow { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #0088DB; margin: 0 0 0.5rem; }
         [data-theme="dark"] .qc-card-eyebrow { color: #4ab5ed; }
@@ -772,7 +773,8 @@
         .qc-card .qc-submit { width: 100%; padding: 1rem 1.5rem; font-size: 1rem; }
         /* Booking calendar, secondary to the form. */
         .qc-book { margin-top: 2.5rem; }
-        .qc-book-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1.125rem; font-weight: 600; color: #FAFAFA; margin: 0; }
+        .qc-book-title { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 1.125rem; font-weight: 600; color: #14181f; margin: 0; }
+        [data-theme="dark"] .qc-book-title { color: #FAFAFA; }
         .qc-book .calendly-wrap { margin-top: 1rem; }
 
         .qc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin: 0 0 0.85rem; }
