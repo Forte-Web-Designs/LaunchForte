@@ -42,22 +42,6 @@
             "@type": "Answer",
             "text": "Software engineering and SRE in financial services, where downtime costs six figures per hour. That work taught reliability, monitoring, documentation, and failure handling at a level most automation work never sees. It shows up in cleaner architecture and systems that don't break when volume increases."
           }
-        },
-        {
-          "@type": "Question",
-          "name": "Why solo instead of an agency?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The engineering work doesn't scale through headcount. Senior engineers don't replicate cleanly into junior implementers. We'd rather take fewer engagements at full depth than more at agency depth."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do we get started?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Book a Growth Systems Audit on the homepage. Fixed price, written diagnostic with prioritized recommendations. Credit applies to your first build. If a build or partnership comes after, the work moves into scope. If not, you still own the diagnostic."
-          }
         }
       ]
     }
@@ -302,10 +286,6 @@
                     <button class="faq-q" aria-expanded="false"><span>What's the background?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                     <div class="faq-panel"><div class="faq-panel-inner"><p>Software engineering and reliability work in financial services, where downtime costs six figures an hour. That is where the discipline around monitoring and failure handling comes from.</p></div></div>
                 </div>
-                <div class="faq-qa">
-                    <button class="faq-q" aria-expanded="false"><span>Why solo instead of an agency?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                    <div class="faq-panel"><div class="faq-panel-inner"><p>Engineering work does not scale through headcount. I would rather run fewer engagements at full depth than more at agency depth.</p></div></div>
-                </div>
             </div>
         </div>
     </section>
@@ -444,6 +424,18 @@
             try { player.unMute(); player.setVolume(100); player.playVideo(); } catch(_){}
         }
         btn.classList.add('is-hidden');
+    });
+})();
+</script>
+<script>
+// FAQ accordion: toggle open, aria-expanded; all closed by default
+(function(){
+    document.querySelectorAll('.faq-q').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            var qa = btn.closest('.faq-qa');
+            var open = qa.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
     });
 })();
 </script>
