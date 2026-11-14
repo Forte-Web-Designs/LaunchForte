@@ -758,7 +758,7 @@
            Raw hex per theme (never var(--paper) / var(--ink)) so no
            token-flip surprises. */
         .qc-card { background: #FFFFFF; color: #14181f; border: 1px solid rgba(0,0,0,0.08); border-top: 4px solid #0088DB; border-radius: var(--radius-3xl); padding: 2rem; margin-top: 1.25rem; text-align: left; box-shadow: 0 2px 4px rgba(16,24,40,0.04), 0 16px 40px rgba(16,24,40,0.10); }
-        [data-theme="dark"] .qc-card { background: #0A0A0A; color: #FAFAFA; border-color: rgba(255,255,255,0.12); border-top-color: #4ab5ed; box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.4); }
+        [data-theme="dark"] .qc-card { background: #15191f; color: #FAFAFA; border: 2px solid rgba(74,181,237,0.55); border-top: 4px solid #4ab5ed; box-shadow: 0 0 0 1px rgba(74,181,237,0.08), 0 16px 48px rgba(74,181,237,0.12); }
         .qc-card-head { margin: 0 0 1.25rem; }
         .qc-card-eyebrow { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #0088DB; margin: 0 0 0.5rem; }
         [data-theme="dark"] .qc-card-eyebrow { color: #4ab5ed; }
@@ -768,7 +768,7 @@
         .qc-trust { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.45rem; }
         .qc-trust li { position: relative; padding-left: 1.6rem; font-size: 0.9375rem; line-height: 1.45; color: #3a424e; }
         .qc-trust li::before { content: ""; position: absolute; left: 0.1rem; top: 0.32em; width: 0.9rem; height: 0.9rem; border-radius: 50%; background: #0088DB url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 0.6rem no-repeat; }
-        [data-theme="dark"] .qc-trust li { color: #c7c7cc; }
+        [data-theme="dark"] .qc-trust li { color: #E5E7EB; }
         [data-theme="dark"] .qc-trust li::before { background-color: #4ab5ed; }
         .qc-card .qc-submit { width: 100%; padding: 1rem 1.5rem; font-size: 1rem; }
         /* Booking calendar, secondary to the form. */
@@ -782,9 +782,9 @@
         .qc-field.full { grid-column: 1 / -1; }
         /* Labels: dark on white in light mode, light on near-black in dark mode. */
         .qc-label { display: block; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #525252; margin: 0 0 0.4rem; }
-        [data-theme="dark"] .qc-label { color: #a1a1a6; }
+        [data-theme="dark"] .qc-label { color: #F3F4F6; }
         .qc-label .qc-opt { font-weight: 400; text-transform: none; letter-spacing: 0; color: #86868b; margin-left: 0.4rem; font-size: 0.75rem; }
-        [data-theme="dark"] .qc-label .qc-opt { color: #737373; }
+        [data-theme="dark"] .qc-label .qc-opt { color: #9CA3AF; }
         /* Inputs follow the card theme. */
         .qc-input, .qc-textarea {
             width: 100%; box-sizing: border-box;
@@ -795,7 +795,7 @@
             transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
         [data-theme="dark"] .qc-input,
-        [data-theme="dark"] .qc-textarea { color: #FAFAFA; background: #171717; border-color: rgba(255,255,255,0.14); }
+        [data-theme="dark"] .qc-textarea { color: #FFFFFF; background: #20252d; border-color: rgba(255,255,255,0.24); }
         .qc-input:focus, .qc-textarea:focus { outline: none; border-color: #0088DB; box-shadow: 0 0 0 3px rgba(0,136,219,0.12); }
         [data-theme="dark"] .qc-input:focus,
         [data-theme="dark"] .qc-textarea:focus { border-color: #4ab5ed; box-shadow: 0 0 0 3px rgba(74,181,237,0.18); }
@@ -803,19 +803,19 @@
         .qc-textarea.tall { min-height: 140px; }
         .qc-input::placeholder, .qc-textarea::placeholder { color: #86868b; }
         [data-theme="dark"] .qc-input::placeholder,
-        [data-theme="dark"] .qc-textarea::placeholder { color: #737373; }
+        [data-theme="dark"] .qc-textarea::placeholder { color: #D1D5DB; opacity: 1; }
 
         .qc-file-row { margin: 0.4rem 0 1rem; }
         /* File attach controls: follow the card theme. */
         .qc-file-label { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.85rem; border: 1px dashed rgba(0,0,0,0.16); border-radius: 10px; font-size: 0.8125rem; color: #525252; cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease; }
-        [data-theme="dark"] .qc-file-label { border-color: rgba(255,255,255,0.16); color: #a1a1a6; }
+        [data-theme="dark"] .qc-file-label { border-color: rgba(255,255,255,0.32); color: #E5E7EB; }
         .qc-file-label:hover { border-color: #0088DB; color: #0088DB; }
         [data-theme="dark"] .qc-file-label:hover { border-color: #4ab5ed; color: #4ab5ed; }
         .qc-file-input { position: absolute; left: -9999px; opacity: 0; width: 1px; height: 1px; }
         .qc-file-hint { display: inline-block; margin-left: 0.6rem; font-size: 0.75rem; color: #86868b; }
-        [data-theme="dark"] .qc-file-hint { color: #737373; }
+        [data-theme="dark"] .qc-file-hint { color: #9CA3AF; }
         .qc-file-list { margin: 0.5rem 0 0; padding: 0; list-style: none; font-size: 0.8125rem; color: #525252; }
-        [data-theme="dark"] .qc-file-list { color: #a1a1a6; }
+        [data-theme="dark"] .qc-file-list { color: #E5E7EB; }
         .qc-file-list li { padding: 0.15rem 0; }
 
         /* Honeypot: hidden from humans, visible to bots */
