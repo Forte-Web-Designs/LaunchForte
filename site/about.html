@@ -21,6 +21,39 @@
       ]
     }
     </script>
+    <!-- Schema: Organization and founder Person -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://launchforte.com/#organization",
+          "name": "Launch Forte",
+          "url": "https://launchforte.com/",
+          "address": {"@type": "PostalAddress", "addressLocality": "Grapevine", "addressRegion": "TX", "addressCountry": "US"},
+          "founder": {"@id": "https://launchforte.com/about#seth-forte"},
+          "sameAs": [
+            "https://www.linkedin.com/company/launchforte/",
+            "https://www.upwork.com/freelancers/sethforte"
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://launchforte.com/about#seth-forte",
+          "name": "Seth Forte",
+          "jobTitle": "Founder",
+          "worksFor": {"@id": "https://launchforte.com/#organization"},
+          "url": "https://sethforte.com/",
+          "sameAs": [
+            "https://sethforte.com/",
+            "https://www.linkedin.com/in/seth-forte/",
+            "https://www.upwork.com/freelancers/sethforte"
+          ]
+        }
+      ]
+    }
+    </script>
     <!-- Schema: FAQPage -->
     <script type="application/ld+json">
     {
