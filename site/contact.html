@@ -42,9 +42,10 @@
         [data-theme="dark"] .hero-overlay-btm { background: linear-gradient(180deg, transparent 82%, rgba(10,10,10,0.4) 94%, #0A0A0A 100%); }
         .hero-nav { position: sticky; top: 0; z-index: 40; padding: 1.15rem 0; background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-bottom: 1px solid transparent !important; transition: background 0.2s ease, border-color 0.2s ease; }
         .hero-nav.is-scrolled { background: rgba(10, 10, 10, 0.82) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; backdrop-filter: saturate(180%) blur(20px) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
-        @media (max-width: 640px) { .hero-nav { padding: 0.7rem 0 !important; } .hero-nav .studio-nav-inner { padding: 0 1rem; gap: 0.75rem; } .hero-nav .studio-nav-cta { display: none; } .hero-nav .studio-nav-right { gap: 0.5rem; } }
+        @media (max-width: 640px) { .hero-nav { padding: 0.7rem 0 !important; } .hero-nav .studio-nav-inner { padding: 0 1rem; gap: 0.75rem; } .hero-nav .studio-nav-right { gap: 0.5rem; } }
         .hero-nav .studio-nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
         .hero-nav .studio-logo img { filter: brightness(0) invert(1); height: 28px; width: auto; display: block; }
+        @media (max-width: 640px) { .hero-nav .studio-nav-inner { padding: 0 1rem; gap: 0.75rem; } .hero-nav .studio-nav-right { gap: 0.4rem; } .hero-nav .studio-nav-cta { padding: 0.4rem 0.7rem; font-size: 0.75rem; min-height: 36px; white-space: nowrap; } .hero-nav .studio-logo img { height: 24px; } }
         .hero-nav .studio-nav-cta { background: #FFFFFF; color: #0A0A0A; }
         .hero-nav .studio-nav-cta:hover { background: #F5F5F5; color: #0A0A0A; }
         .hero-nav #hamburger { border-color: rgba(255,255,255,0.24); }
@@ -113,6 +114,28 @@
         .honeypot { position: absolute !important; left: -9999px !important; }
         .btn-primary { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.75rem 1.35rem; background: var(--accent); color: #FFFFFF; border: 0; border-radius: 8px; font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: 0.9375rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background var(--dur-hover), transform var(--dur-hover); }
         .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+        /* Quote card on /contact. Raw hex per theme (never var(--paper) / var(--ink))
+           so nothing flips to invisible text. Matches the homepage card. */
+        .contact-form-wrap { background: #FFFFFF; color: #14181f; border: 1px solid rgba(0,0,0,0.08); border-top: 4px solid #0088DB; box-shadow: 0 2px 4px rgba(16,24,40,0.04), 0 16px 40px rgba(16,24,40,0.10); }
+        .contact-form-wrap .form-label { color: #14181f; }
+        .contact-form-wrap .form-input, .contact-form-wrap .form-select, .contact-form-wrap .form-textarea { color: #14181f; background: #FFFFFF; border: 1px solid rgba(0,0,0,0.14); }
+        .contact-form-wrap .form-input::placeholder, .contact-form-wrap .form-textarea::placeholder { color: #6b7280; opacity: 1; }
+        .contact-form-wrap .form-input:focus, .contact-form-wrap .form-select:focus, .contact-form-wrap .form-textarea:focus { border-color: #0088DB; box-shadow: 0 0 0 3px rgba(0,136,219,0.12); }
+        .cf-trust { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; gap: 0.45rem; }
+        .cf-trust li { position: relative; padding-left: 1.6rem; font-size: 0.9375rem; line-height: 1.45; color: #3a424e; }
+        .cf-trust li::before { content: ""; position: absolute; left: 0.1rem; top: 0.32em; width: 0.9rem; height: 0.9rem; border-radius: 50%; background: #0088DB url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 0.6rem no-repeat; }
+        .contact-form-wrap .cf-submit { width: 100%; justify-content: center; padding: 1.05rem 1.5rem; font-size: 1.0625rem; font-weight: 700; background: #0088DB; color: #FFFFFF; }
+        .contact-form-wrap .cf-submit:hover { background: #4ab5ed; }
+        [data-theme="dark"] .contact-form-wrap { background: #15191f; color: #FAFAFA; border: 2px solid #4ab5ed; border-top: 4px solid #4ab5ed; box-shadow: 0 0 0 1px rgba(74,181,237,0.25), 0 0 36px rgba(74,181,237,0.22), 0 18px 48px rgba(0,0,0,0.55); }
+        [data-theme="dark"] .contact-form-wrap .form-label { color: #e5e7eb; }
+        [data-theme="dark"] .contact-form-wrap .form-input, [data-theme="dark"] .contact-form-wrap .form-select, [data-theme="dark"] .contact-form-wrap .form-textarea { color: #FFFFFF; background: #0d1014; border-color: rgba(255,255,255,0.22); }
+        [data-theme="dark"] .contact-form-wrap .form-input::placeholder, [data-theme="dark"] .contact-form-wrap .form-textarea::placeholder { color: #8b93a0; opacity: 1; }
+        [data-theme="dark"] .contact-form-wrap .form-input:focus, [data-theme="dark"] .contact-form-wrap .form-select:focus, [data-theme="dark"] .contact-form-wrap .form-textarea:focus { border-color: #4ab5ed; box-shadow: 0 0 0 3px rgba(74,181,237,0.18); }
+        [data-theme="dark"] .cf-trust li { color: #d1d5db; }
+        [data-theme="dark"] .cf-trust li::before { background-color: #4ab5ed; }
+        [data-theme="dark"] .contact-form-wrap .cf-submit { background: #4ab5ed; color: #0b0b0c; }
+        [data-theme="dark"] .contact-form-wrap .cf-submit:hover { background: #0088DB; color: #FFFFFF; }
     </style>
 </head>
 <body>
@@ -124,7 +147,7 @@
             <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
         </a>
         <div class="studio-nav-right">
-            <a href="/contact" class="studio-nav-cta">Contact</a>
+            <a href="/contact" class="studio-nav-cta">Get a quote</a>
             <nav class="header-nav" aria-label="Primary" style="display:none">
                 <a href="/">Home</a>
                 <a href="/what-we-build">What We Build</a>
@@ -182,10 +205,15 @@
     <!-- CONTACT FORM -->
     <section class="studio-container studio-section reveal">
         <div class="section-eyebrow-block left">
-            <p class="studio-eyebrow">Send a Message</p>
-            <h2 class="studio-h2">Tell us <span class="lf-accent">what's broken</span>.</h2>
+            <p class="studio-eyebrow">Get a quote</p>
+            <h2 class="studio-h2">Tell us what you need. <span class="lf-accent">We'll reply within one business day.</span></h2>
         </div>
         <div class="contact-form-wrap">
+            <ul class="cf-trust">
+                <li>Goes to a real person</li>
+                <li>Written reply within one business day</li>
+                <li>Your details stay with us, never shared</li>
+            </ul>
             <form name="contact" method="POST" action="/.netlify/functions/contact" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
                 <input type="hidden" name="form-name" value="contact">
                 <p class="honeypot"><label>Don't fill this out: <input name="bot-field"></label></p>
@@ -232,7 +260,7 @@
                      notification subject (set server side in netlify/functions/contact.js). -->
                 <input type="hidden" name="came_from" value="">
                 <input type="hidden" name="subject" data-remove-prefix value="New quote request from launchforte.com">
-                <button type="submit" class="btn-primary">Send Message &rarr;</button>
+                <button type="submit" class="btn-primary cf-submit">Send my request</button>
                 <div class="form-success" id="form-success">
                     <span class="form-success-icon">&#10003;</span>
                     <div class="form-success-heading">Message sent</div>
