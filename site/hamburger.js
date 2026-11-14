@@ -128,7 +128,7 @@
     var foot = document.createElement('div');
     foot.className = 'mn-foot';
     foot.innerHTML =
-        '<div><a href="mailto:seth@launchforte.com">seth@launchforte.com</a></div>' +
+        '<div><a href="mailto:hello@launchforte.com">hello@launchforte.com</a></div>' +
         '<div><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></div>' +
         '<div><button type="button" id="mn-theme-toggle" style="background:transparent;border:1px solid rgba(255,255,255,0.24);color:#fff;border-radius:8px;padding:0.5rem 0.9rem;font:inherit;font-size:0.8125rem;font-weight:600;cursor:pointer">Toggle dark mode</button></div>';
     overlay.appendChild(foot);
