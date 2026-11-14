@@ -865,7 +865,7 @@
             <!-- header-nav is cloned into the hamburger overlay by hamburger.js; hidden on the header itself -->
             <nav class="header-nav" aria-label="Primary" style="display:none">
                 <a href="/#services">Services</a>
-                <a href="/#proof-strip">Proof</a>
+                <a href="/#testimonials">Proof</a>
                 <a href="/#how-we-work">How We Work</a>
                 <a href="/#about">About</a>
             </nav>
@@ -982,32 +982,10 @@
          (seven-item list), #who-we-build-for (five audience segments). All
          merged or dropped per the trim pass; alias anchors kept on Services. -->
 
-    <!-- 2. PROOF STRIP: the hero's stats row lives here now.
-         Reuses .hero-stats-* styles, with the container providing the
-         light-pane background so contrast stays right. -->
-    <section class="studio-container studio-section" id="proof-strip" style="padding-top:0;">
-        <div class="hero-stats studio-reveal" style="max-width:820px;margin:0 auto;">
-            <hr class="hero-stats-rule">
-            <div class="hero-stats-row">
-                <div class="hero-stat">
-                    <div class="hero-stat-label">Contracts completed on Upwork</div>
-                    <div class="hero-stat-value"><span class="num">80</span>+</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-label">Upwork status</div>
-                    <div class="hero-stat-value">Top Rated</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-label">Client feedback entries</div>
-                    <div class="hero-stat-value"><span class="num">30</span>+</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- 3. TESTIMONIALS, moved above How We Work so proof lands before pricing.
          Runbook: homepage-ripple-flow, 2026-08-27. -->
-    <section class="studio-container studio-section">
+    <section class="studio-container studio-section" id="testimonials" style="scroll-margin-top:80px">
+        <span id="proof-strip" style="position:relative;top:-80px" aria-hidden="true"></span>
         <div class="section-eyebrow-block studio-reveal">
             <p class="studio-eyebrow">Testimonials</p>
             <h2 class="studio-h2 testi-h2">Straight from the <span class="lf-accent">clients</span>.</h2>
