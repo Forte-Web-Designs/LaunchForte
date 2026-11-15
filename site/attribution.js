@@ -111,6 +111,43 @@
     }
   });
 
+  // 5. The GHL booking widget (iframe from api.leadconnectorhq.com) reports through postMessage:
+  //      ["set-sticky-contacts", "_ud", "<contact json with id>"]   when the visitor submits the form
+  //      ["msgsndr-booking-complete", {fingerprint, calendarId}]    when the booking is confirmed
+  //    GHL itself records only "Direct traffic" for these bookings because the widget cannot see this page's URL.
+  //    So the first touch kept above is sent with the GHL contact ID as one dataLayer event, ghl_booking_complete.
+  //    GTM turns it into a GA4 event; the server side booking_confirmed event carries the same contact_id, which is the join.
+  var ghlContactId = "";
+  window.addEventListener("message", function (e) {
+    if (!e || e.origin !== "https://api.leadconnectorhq.com") return;
+    var d = e.data;
+    if (typeof d === "string") { try { d = JSON.parse(d); } catch (x) { return; } }
+    if (!d || !d.length) return;
+    if (d[0] === "set-sticky-contacts" && d[1] === "_ud" && d[2]) {
+      try { var c = typeof d[2] === "string" ? JSON.parse(d[2]) : d[2]; ghlContactId = String((c && (c.id || c.customer_id)) || ""); } catch (x) {}
+      return;
+    }
+    if (d[0] !== "msgsndr-booking-complete") return;
+    try {
+      var sentKey = "lf_ghl_booked_" + (ghlContactId || (d[1] && d[1].fingerprint) || "x");
+      if (window.sessionStorage.getItem(sentKey)) return; // one event per booking, even if the widget repeats the message
+      window.sessionStorage.setItem(sentKey, "1");
+    } catch (x) {}
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "ghl_booking_complete",
+      contact_id: ghlContactId || "UNKNOWN",
+      page: window.location.pathname,
+      booking_site: window.location.hostname.replace(/^www\./, ""),
+      first_source: attr.utm_source || "direct",
+      first_medium: attr.utm_medium || "none",
+      first_campaign: attr.utm_campaign || "none",
+      first_term: attr.utm_term || "none",
+      first_landing: attr.landing || "unknown",
+      first_gclid: attr.gclid ? "yes" : "no"
+    });
+  });
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () { fillForm(); tagCalendly(); });
   } else { fillForm(); tagCalendly(); }
