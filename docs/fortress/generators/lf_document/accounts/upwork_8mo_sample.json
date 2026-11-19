@@ -1,0 +1,51 @@
+{
+ "client_name": "Sample Upwork Buyer (synthetic)",
+ "contact_first_name": "Sam",
+ "resolver_inputs": {
+  "buyer_status": "client",
+  "platform": "upwork",
+  "upwork_first_contact_months": 8,
+  "signed_agreement": false,
+  "kept_project_based": false,
+  "seth_opt_out": false,
+  "scope_approved": true
+ },
+ "card_comments": [],
+ "client_stated": [],
+ "closed": [],
+ "open_items": [],
+ "changed_anything": false,
+ "paths_tested_expected": false,
+ "figures": {
+  "tiles": [
+   {
+    "label": "Sample",
+    "value": "1",
+    "source": "sample fixture",
+    "read_at": "2026-11-19"
+   }
+  ],
+  "figures": {
+   "sample": {
+    "kind": "table",
+    "shows": "Sample figure",
+    "source": "sample fixture",
+    "read_at": "2026-11-19",
+    "tables": [
+     {
+      "columns": [
+       "What",
+       "Value"
+      ],
+      "rows": [
+       [
+        "Sample",
+        "1"
+       ]
+      ]
+     }
+    ]
+   }
+  }
+ }
+}

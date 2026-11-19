@@ -1,0 +1,50 @@
+{
+ "client_name": "Signed Retainer Client (synthetic sample)",
+ "contact_first_name": "Sam",
+ "signed_terms": "$650 a month retainer, as signed (sample of a signed client)",
+ "resolver_inputs": {
+  "buyer_status": "client",
+  "platform": "direct",
+  "signed_agreement": true,
+  "kept_project_based": false,
+  "seth_opt_out": false,
+  "scope_approved": true
+ },
+ "client_stated": [],
+ "closed": [],
+ "open_items": [],
+ "changed_anything": false,
+ "paths_tested_expected": false,
+ "figures": {
+  "tiles": [
+   {
+    "label": "Systems reviewed",
+    "value": "SAMPLE",
+    "source": "sample fixture",
+    "read_at": "2026-11-19"
+   }
+  ],
+  "figures": {
+   "sample": {
+    "kind": "table",
+    "shows": "Sample figure",
+    "source": "sample fixture",
+    "read_at": "2026-11-19",
+    "tables": [
+     {
+      "columns": [
+       "What",
+       "Value"
+      ],
+      "rows": [
+       [
+        "Sample",
+        "1"
+       ]
+      ]
+     }
+    ]
+   }
+  }
+ }
+}
