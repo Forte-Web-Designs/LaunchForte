@@ -1,0 +1,98 @@
+{
+ "client_name": "Northline Heating and Air (synthetic sample)",
+ "contact_first_name": "Dana",
+ "sample": true,
+ "resolver_inputs": {
+  "buyer_status": "prospect",
+  "platform": "direct",
+  "signed_agreement": false,
+  "kept_project_based": false,
+  "seth_opt_out": false,
+  "scope_approved": true,
+  "financing_enabled": false
+ },
+ "project": {
+  "name": "Missed call follow up and booking",
+  "fixed_price": 2400,
+  "price_ref": "synthetic fixture (stands in for the approved quote on the card)",
+  "lines": [
+   {
+    "text": "Every missed call gets a text back within a minute, with a booking link",
+    "price": 1200
+   },
+   {
+    "text": "Booked jobs land on the dispatch calendar with the caller's notes",
+    "price": 800
+   },
+   {
+    "text": "A weekly count of missed, answered and booked calls",
+    "price": 400
+   }
+  ],
+  "payment": "Half to start, half on delivery. Delivery in 4 weeks."
+ },
+ "price_set_at": "2026-11-19",
+ "figures": {
+  "tiles": [
+   {
+    "label": "Fixed price",
+    "value": "$2,400",
+    "source": "approved quote",
+    "read_at": "2026-11-19"
+   },
+   {
+    "label": "Delivery",
+    "value": "4 weeks",
+    "source": "approved quote",
+    "read_at": "2026-11-19"
+   }
+  ],
+  "baseline": [],
+  "week_one_measurements": [
+   "Missed calls per week, by hour of day",
+   "How many missed callers call back on their own",
+   "Booked jobs per week from inbound calls",
+   "Time from a missed call to the first reply"
+  ]
+ },
+ "client_short": "Northline",
+ "where": "your phones and booking",
+ "accounts_phrase": "your phone system and booking calendar",
+ "covered_systems": "Your missed call text back, the booking link and the dispatch calendar handoff",
+ "client_quotes": [
+  {
+   "text": "We miss calls when the techs are out, and those people just call the next guy.",
+   "who": "Dana",
+   "ref": "synthetic discovery note",
+   "full_sentence": true
+  }
+ ],
+ "goals_intro": "On our first call you told me where the business leaks, in your own words. This project closes the first one.",
+ "goals_columns": [
+  "What you told me",
+  "Where it stands after this project"
+ ],
+ "business_goals": [
+  {
+   "goal": "Calls missed while the techs are out",
+   "status": "Closed by this project",
+   "open": false,
+   "ref": "synthetic discovery note"
+  },
+  {
+   "goal": "After hours calls that wait until morning",
+   "status": "Open",
+   "open": true,
+   "ref": "synthetic discovery note"
+  },
+  {
+   "goal": "Knowing which jobs came from which ad",
+   "status": "Open",
+   "open": true,
+   "ref": "synthetic discovery note"
+  }
+ ],
+ "also_open": [],
+ "next_phase": null,
+ "next_layer": "after hours replies that book the job instead of waiting for morning, and tying each booked job back to the ad that brought it in"
+}
