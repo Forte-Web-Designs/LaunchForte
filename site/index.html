@@ -490,21 +490,19 @@
         .tp-phone { position: absolute; right: -1.5rem; bottom: 0; width: 22%; min-width: 120px; padding: 6px; background: #0A0A0A; border-radius: 26px; box-shadow: 0 20px 50px rgba(10,10,10,0.28); }
         .tp-phone img { display: block; width: 100%; height: auto; border-radius: 20px; }
         .tp-caption { margin: 1rem 0 0; text-align: center; font-size: var(--text-sm); color: var(--n-500); }
-        .tp-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; max-width: 1120px; margin: var(--sp-12) auto 0; }
-        .tp-tile { padding: 1.5rem; background: var(--paper); border-radius: var(--radius-3xl); box-shadow: inset 0 0 0 1px var(--border); }
-        .tp-icon { width: 28px; height: 28px; color: var(--accent); margin-bottom: 1rem; }
-        .tp-tile h3 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: var(--text-lg); color: var(--ink); margin: 0 0 0.5rem; letter-spacing: -0.01em; }
-        .tp-tile p { color: var(--n-600); font-size: 0.9375rem; line-height: 1.55; margin: 0; }
+        .tp-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem; max-width: 1080px; margin: var(--sp-12) auto 0; }
+        .tp-tile { padding: 1.1rem 1.15rem; background: transparent; border: 1px solid var(--border); border-radius: 16px; }
+        .tp-icon { width: 22px; height: 22px; color: var(--accent); margin-bottom: 0.65rem; }
+        .tp-tile h3 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: 1rem; color: var(--ink); margin: 0 0 0.35rem; letter-spacing: -0.01em; }
+        .tp-tile p { color: var(--n-600); font-size: 0.875rem; line-height: 1.5; margin: 0; }
         .tp-terms { text-align: center; margin: var(--sp-10) 0 0; font-weight: 600; color: var(--ink); }
         .tp-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: var(--sp-6); }
         .tp-reply { text-align: center; margin: 0.85rem 0 0; font-size: var(--text-sm); color: var(--n-500); }
         @media (max-width: 1024px) { .tp-phone { right: 0.5rem; } }
         @media (max-width: 760px) {
-            .tp-tiles { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-            .tp-tile { padding: 1.15rem; }
-            .tp-icon { width: 24px; height: 24px; margin-bottom: 0.75rem; }
-            .tp-tile h3 { font-size: 1rem; }
-            .tp-tile p { font-size: 0.875rem; }
+            .tp-tiles { grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+            .tp-tile { padding: 0.95rem; }
+            .tp-tile p { font-size: 0.8125rem; }
             .tp-phone { width: 30%; padding: 4px; border-radius: 18px; }
             .tp-phone img { border-radius: 14px; }
             .tp-stage { padding-bottom: 2.5rem; }
@@ -1042,27 +1040,27 @@
         <div class="tp-tiles studio-reveal-stagger">
             <div class="tp-tile studio-reveal">
                 <svg class="tp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-                <h3>Just email us</h3>
-                <p>No portal to learn. Every request goes in your queue and you can see exactly where it stands.</p>
+                <h3>Everyday requests, included</h3>
+                <p>Email us whenever something comes up. Changes, fixes and small automations are handled one at a time, with no hourly bill.</p>
             </div>
             <div class="tp-tile studio-reveal">
-                <svg class="tp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4M16 3v4M4 10h16M9 15l2 2 4-4"/></svg>
-                <h3>Your monthly review</h3>
-                <p>What we checked, what we fixed and anything that needs you, on one screen.</p>
+                <svg class="tp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                <h3>Your systems, looked after</h3>
+                <p>We check the tools we look after every month, fix what we find and send you one short review of what changed.</p>
             </div>
             <div class="tp-tile studio-reveal">
                 <svg class="tp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
                 <h3>Forte Intelligence</h3>
-                <p>What moved in your industry this month, and what it means for your business.</p>
+                <p>What moved in your industry and your tools this month, and what it means for your business.</p>
             </div>
             <div class="tp-tile studio-reveal">
-                <svg class="tp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                <h3>Everything in one place</h3>
-                <p>Every guide, review and document we have sent you, organized and ready to download.</p>
+                <svg class="tp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>
+                <h3>Your own client page</h3>
+                <p>Every request, review and document in one private page. One click from any email, nothing new to learn.</p>
             </div>
         </div>
 
-        <p class="tp-terms studio-reveal">Month to month. Cancel anytime. You keep everything we build.</p>
+        <p class="tp-terms studio-reveal">Month to month. Cancel anytime. Bigger projects are quoted separately, and you keep everything we build.</p>
 
         <div class="tp-ctas studio-reveal">
             <a href="https://my.launchforte.com/demo" class="studio-btn studio-btn-primary" data-gtm-event="homepage_tp_sample_page">See a sample client page</a>
