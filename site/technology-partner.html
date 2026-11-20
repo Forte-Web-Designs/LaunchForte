@@ -390,6 +390,8 @@
         .tp-hp-grid.no-asset .tp-hp-line { margin-left: auto; margin-right: auto; }
         .tp-hp-grid.no-asset .tp-hp-ctas { justify-content: center; }
         .tp-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem; max-width: 1080px; margin: var(--sp-12) auto 0; }
+        .tp-tiles:has(> .tp-tile:nth-child(5)) { grid-template-columns: repeat(5, 1fr); }
+        @media (max-width: 1000px) { .tp-tiles:has(> .tp-tile:nth-child(5)) { grid-template-columns: repeat(6, 1fr); } .tp-tiles:has(> .tp-tile:nth-child(5)) > .tp-tile { grid-column: span 2; } .tp-tiles:has(> .tp-tile:nth-child(5)) > .tp-tile:nth-child(4) { grid-column: 2 / span 2; } }
         .tp-tile { padding: 1.1rem 1.15rem; background: transparent; border: 1px solid var(--border); border-radius: 16px; }
         .tp-icon { width: 22px; height: 22px; color: var(--accent); margin-bottom: 0.65rem; }
         .tp-tile h3 { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-weight: 600; font-size: 1rem; color: var(--ink); margin: 0 0 0.35rem; letter-spacing: -0.01em; }
@@ -399,7 +401,9 @@
         .tp-textlink { font-size: 0.9375rem; font-weight: 600; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--border-strong); }
         .tp-textlink:hover { color: var(--accent); text-decoration-color: currentColor; }
         @media (max-width: 760px) {
-            .tp-tiles { grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+            .tp-tiles, .tp-tiles:has(> .tp-tile:nth-child(5)) { grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+            .tp-tiles:has(> .tp-tile:nth-child(5)) > .tp-tile, .tp-tiles:has(> .tp-tile:nth-child(5)) > .tp-tile:nth-child(4) { grid-column: auto; }
+            .tp-tiles > .tp-tile:nth-child(5):last-child { grid-column: 1 / -1; }
             .tp-tile { padding: 0.95rem; }
             .tp-tile p { font-size: 0.8125rem; }
         }
@@ -857,6 +861,7 @@
         {"@type": "Question", "name": "What counts as an everyday request?", "acceptedAnswer": {"@type": "Answer", "text": "Anything we can finish in one sitting, like a change, a fix, a new report or a small automation. Bigger work gets a separate quote before anything starts."}},
         {"@type": "Question", "name": "How fast do you reply?", "acceptedAnswer": {"@type": "Answer", "text": "Within one business day, Monday through Friday."}},
         {"@type": "Question", "name": "Is this 24/7 support?", "acceptedAnswer": {"@type": "Answer", "text": "No. We look after the tools we agree on, during business days, and tell you plainly what's covered and what isn't yet."}},
+        {"@type": "Question", "name": "Do you handle security?", "acceptedAnswer": {"@type": "Answer", "text": "We run regular security checks on the tools we look after: sharing links, user access, old accounts and exposed keys, and show every result on your page. We don't sell a monitoring service or make guarantees."}},
         {"@type": "Question", "name": "What if I need a bigger project?", "acceptedAnswer": {"@type": "Answer", "text": "We quote it separately. After three paid months, members get a discount on larger projects."}},
         {"@type": "Question", "name": "Can I cancel?", "acceptedAnswer": {"@type": "Answer", "text": "Anytime. It's month to month, and you keep everything we build."}},
         {"@type": "Question", "name": "Do I need a project with you first?", "acceptedAnswer": {"@type": "Answer", "text": "Most clients start with an Audit or a Build. If you haven't, book a call and we'll see if it fits."}}
@@ -976,6 +981,11 @@
                 <h3>Fixes wait for spare time</h3>
                 <p>Small issues pile up because nobody owns them.</p>
             </div>
+            <div class="tp-tile studio-reveal">
+                <svg class="tp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L20 3M17 6l3 3M15 8l2 2"/></svg>
+                <h3>Access piles up</h3>
+                <p>Old accounts, open sharing links and stray keys build up quietly as tools and people change.</p>
+            </div>
         </div>
         <p class="tp-closing studio-reveal">We bring it all into one view, keep it working, and a person reviews every update.</p>
     </section>
@@ -1037,6 +1047,11 @@
                 <h3>Client page</h3>
                 <p>Every request, review and document, in one private page.</p>
             </div>
+            <div class="tp-tile studio-reveal">
+                <svg class="tp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/><path d="M12 15v2"/></svg>
+                <h3>Security checks</h3>
+                <p>Sharing links, user access, old accounts and exposed keys, checked regularly with the results on your page.</p>
+            </div>
         </div>
     </section>
 
@@ -1093,6 +1108,23 @@
                         <picture>
                             <source srcset="/public/technology-partner/review-desktop.webp" type="image/webp">
                             <img src="/public/technology-partner/review-desktop.png" alt="Sample client page showing the monthly review" width="2880" height="1800" loading="lazy" decoding="async">
+                        </picture>
+                    </a>
+                    <figcaption class="tp-caption">Sample client page for a fictional business.</figcaption>
+                </figure>
+            </div>
+            <div class="tp-row studio-reveal" data-asset-row>
+                <div class="tp-row-copy">
+                    <p class="tp-row-kicker">Security</p>
+                    <h3>Are we all green? One look.</h3>
+                    <p>Every security check we run on your tools, what it found and what we fixed.</p>
+                </div>
+                <figure class="tp-shot" data-asset>
+                    <a href="https://my.launchforte.com/demo?r=site-tp-shots&amp;view=security" data-demo-link="site-tp-shots" data-demo-view="security" target="_blank" rel="noopener" class="tp-frame" aria-label="Open the live sample client page in a new tab">
+                        <span class="tp-frame-bar" aria-hidden="true"><span></span><span></span><span></span></span>
+                        <picture>
+                            <source srcset="/public/technology-partner/security-desktop.webp" type="image/webp">
+                            <img src="/public/technology-partner/security-desktop.png" alt="Sample client page showing the security checks" width="2880" height="1800" loading="lazy" decoding="async">
                         </picture>
                     </a>
                     <figcaption class="tp-caption">Sample client page for a fictional business.</figcaption>
@@ -1247,6 +1279,10 @@
                 <div class="faq-qa">
                     <button class="faq-q" aria-expanded="false"><span>Is this 24/7 support?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                     <div class="faq-panel"><div class="faq-panel-inner"><p>No. We look after the tools we agree on, during business days, and tell you plainly what's covered and what isn't yet.</p></div></div>
+                </div>
+                <div class="faq-qa">
+                    <button class="faq-q" aria-expanded="false"><span>Do you handle security?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                    <div class="faq-panel"><div class="faq-panel-inner"><p>We run regular security checks on the tools we look after: sharing links, user access, old accounts and exposed keys, and show every result on your page. We don't sell a monitoring service or make guarantees.</p></div></div>
                 </div>
                 <div class="faq-qa">
                     <button class="faq-q" aria-expanded="false"><span>What if I need a bigger project?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
