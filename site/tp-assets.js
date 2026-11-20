@@ -1,5 +1,4 @@
-/* Technology Partner screenshots and video come from Fortress as real files
-   under /public/technology-partner/. Any slot marked [data-asset] whose image or
+/* Technology Partner screenshots and video come from the Fortress product library (docs/product-assets.md). Any slot marked [data-asset] whose image or
    video fails to load is removed, so a missing file never shows as a
    placeholder or a broken image; the surrounding layout falls back to text. */
 (function () {
