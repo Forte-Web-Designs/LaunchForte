@@ -909,8 +909,10 @@ a:hover { color: var(--accent-hover); }
 
 /* Client sign in (staged Nov 20 2026, goes live with my.launchforte.com, Seth's approval first).
    A quiet text link left of the primary CTA. On phones it lives in the menu and the footer instead. */
-.studio-nav-signin { font-size: 0.875rem; font-weight: 600; color: var(--ink); text-decoration: none; padding: 0.5rem 0.35rem; opacity: 0.78; transition: opacity 0.2s ease, color 0.2s ease; white-space: nowrap; }
-.studio-nav-signin:hover { opacity: 1; color: var(--accent); }
-[data-theme="dark"] .studio-nav-signin { color: #FAFAFA; }
-.hero-nav .studio-nav-signin { color: #FFFFFF; }
+.studio-nav-signin { display: inline-flex; align-items: center; font-size: 0.875rem; font-weight: 600; color: var(--ink); text-decoration: none; padding: 0.5rem 1.05rem; border: 1px solid var(--border-strong); border-radius: 999px; background: transparent; transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease; white-space: nowrap; }
+.studio-nav-signin:hover { border-color: var(--accent); color: var(--accent); }
+[data-theme="dark"] .studio-nav-signin { color: #FAFAFA; border-color: rgba(255,255,255,0.28); }
+[data-theme="dark"] .studio-nav-signin:hover { border-color: #4AB5ED; color: #4AB5ED; }
+.hero-nav .studio-nav-signin { color: #FFFFFF; border-color: rgba(255,255,255,0.32); }
+.hero-nav .studio-nav-signin:hover { color: #FFFFFF; border-color: #4AB5ED; background: rgba(74,181,237,0.12); }
 @media (max-width: 640px) { .studio-nav-signin { display: none; } }
