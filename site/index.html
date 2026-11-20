@@ -483,6 +483,10 @@
         .tp-hp-line { color: var(--n-600); font-size: var(--text-lg); line-height: 1.6; margin: 1rem 0 0; max-width: 34rem; }
         .tp-hp-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: var(--sp-8); }
         .tp-shot { margin: 0; }
+        .tp-hp-shot video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; background: var(--paper); }
+        .tp-hp-shot .tp-poster { display: none; }
+        .tp-hp-shot .tp-frame:not(:has(video)) .tp-poster { display: block; }
+        @media (prefers-reduced-motion: reduce) { .tp-hp-shot video { display: none; } .tp-hp-shot .tp-poster { display: block; } }
         .tp-frame { display: block; background: var(--paper); border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px var(--border), 0 24px 60px rgba(10,10,10,0.12); transition: transform 0.2s ease, box-shadow 0.2s ease; }
         a.tp-frame:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px var(--border-strong), 0 28px 70px rgba(10,10,10,0.16); }
         .tp-frame-bar { display: flex; gap: 6px; padding: 11px 13px; background: var(--n-50); border-bottom: 1px solid var(--border); }
@@ -1169,7 +1173,13 @@
             <figure class="tp-shot tp-hp-shot studio-reveal" data-asset>
                 <a href="https://my.launchforte.com/demo?r=site-home" data-demo-link="site-home" target="_blank" rel="noopener" class="tp-frame" aria-label="Open the live sample client page in a new tab">
                     <span class="tp-frame-bar" aria-hidden="true"><span></span><span></span><span></span></span>
-                    <picture>
+                    <!-- Walkthrough loop from the product library. It only downloads once the
+                         section scrolls near the screen; reduced motion keeps the still. -->
+                    <video class="tp-hp-loop" muted loop playsinline preload="none" width="1280" height="800" poster="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/month-desktop.webp" aria-label="A walk through the sample client page">
+                        <source data-src="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/technology-partner-loop.webm" type="video/webm">
+                        <source data-src="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/technology-partner-loop.mp4" type="video/mp4">
+                    </video>
+                    <picture class="tp-poster">
                         <source srcset="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/month-desktop.webp" type="image/webp">
                         <img src="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/month-desktop.png" alt="Sample client page showing this month's review" width="1440" height="900" loading="lazy" decoding="async">
                     </picture>
@@ -1508,6 +1518,19 @@
 </script>
 <script src="/studio-motion.js?v=q3a" defer></script>
 <script src="/scroll-top.js?v=q3a" defer></script>
+<script>
+/* Homepage walkthrough loop: load and play only when near the screen, pause when it leaves. */
+(function () {
+    var v = document.querySelector('.tp-hp-loop');
+    if (!v || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    function load() { if (v.dataset.loaded) return; v.dataset.loaded = '1';
+        v.querySelectorAll('source[data-src]').forEach(function (s) { s.src = s.dataset.src; }); v.load(); }
+    if (!('IntersectionObserver' in window)) { load(); v.play().catch(function () {}); return; }
+    new IntersectionObserver(function (es) { es.forEach(function (e) {
+        if (e.isIntersecting) { load(); v.play().catch(function () {}); } else if (v.dataset.loaded) { v.pause(); }
+    }); }, { rootMargin: '300px 0px' }).observe(v);
+})();
+</script>
 <script src="/demo-config.js" defer></script>
 <script src="/tp-assets.js" defer></script>
 <script src="/hamburger.js?v=q3a" defer></script>
