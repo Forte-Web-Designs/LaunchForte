@@ -122,6 +122,9 @@
         a.addEventListener('click', closeMenu);
         grid.appendChild(a);
     });
+    /* Client sign in always sits last in the menu (staged Nov 20 2026, live with my.launchforte.com). */
+    var signin = grid.querySelector('a[href^="https://my.launchforte.com"]');
+    if (signin) grid.appendChild(signin);
     overlay.appendChild(grid);
 
     /* Footer: email + social + theme toggle */
