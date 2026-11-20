@@ -209,6 +209,17 @@
             background: rgba(255,255,255,0.04);
             transform: translateY(-2px);
         }
+        /* Gold, like Client sign in: the interactive sample stands out. */
+        .hero-btn-gold {
+            background: linear-gradient(135deg, #F6D47E 0%, #D9A93A 100%);
+            color: #2A1E05;
+            border: 1px solid #D9A93A;
+            box-shadow: 0 4px 20px rgba(217,169,58,0.25);
+        }
+        .hero-btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(217,169,58,0.4);
+        }
         .hero-btn-arrow {
             display: inline-block;
             transition: transform 180ms var(--ease-out);
@@ -904,10 +915,10 @@
             <p class="hero-sub">One partner who knows your tools, your industry and your numbers. Email us whenever something comes up, and every month you get a clear picture of what we checked, what we fixed and what's worth doing next.</p>
             <div class="hero-cta-row">
                 <a href="https://api.leadconnectorhq.com/widget/bookings/launchforte-call" target="_blank" rel="noopener" class="hero-btn hero-btn-primary" data-gtm-event="tp_hero_book_call">Book a call</a>
-                <a href="https://my.launchforte.com/demo?r=site-tp" data-demo-link="site-tp" target="_blank" rel="noopener" class="hero-btn hero-btn-ghost" data-gtm-event="tp_hero_sample_page">See a sample client page</a>
+                <a href="https://my.launchforte.com/demo?r=site-tp" data-demo-link="site-tp" target="_blank" rel="noopener" class="hero-btn hero-btn-gold" data-gtm-event="tp_hero_sample_page">See a sample client page</a>
             </div>
             <div class="hero-tertiary-row">
-                <a href="https://my.launchforte.com/demo?r=site-tp" data-demo-link="site-tp" target="_blank" rel="noopener" class="hero-tertiary-link" data-gtm-event="tp_hero_live_sample">Try the live sample</a>
+                <a href="https://my.launchforte.com/demo?r=site-tp" data-demo-link="site-tp" target="_blank" rel="noopener" class="studio-btn-gold" data-gtm-event="tp_hero_live_sample">Try the live sample</a>
                 <p class="hero-live-note">Click around a sample client page. Nothing you do there is saved.</p>
                 <p class="hero-terms">Month to month. Cancel anytime.</p>
             </div>
