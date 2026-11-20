@@ -909,8 +909,8 @@ a:hover { color: var(--accent-hover); }
 
 /* Client sign in (staged Nov 20 2026, goes live with my.launchforte.com, Seth's approval first).
    A quiet text link left of the primary CTA. On phones it lives in the menu and the footer instead. */
-.studio-nav-signin { font-size: 0.875rem; font-weight: 600; color: var(--ink); text-decoration: none; padding: 0.5rem 0.35rem; opacity: 0.78; transition: opacity 0.2s ease, color 0.2s ease; white-space: nowrap; }
-.studio-nav-signin:hover { opacity: 1; color: var(--accent); }
+.studio-nav-signin { font-size: 0.8125rem; font-weight: 500; color: var(--ink); text-decoration: none; padding: 0.5rem 0.35rem; margin-right: 0.85rem; opacity: 0.55; transition: opacity 0.2s ease, color 0.2s ease; white-space: nowrap; }
+.studio-nav-signin:hover { opacity: 1; }
 [data-theme="dark"] .studio-nav-signin { color: #FAFAFA; }
 .hero-nav .studio-nav-signin { color: #FFFFFF; }
 @media (max-width: 640px) { .studio-nav-signin { display: none; } }
