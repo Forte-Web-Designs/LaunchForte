@@ -1151,7 +1151,7 @@
 
     <!-- TECHNOLOGY PARTNER, compact two-column. Sits right after How We Work ("Three ways in")
          and expands its third card.
-         The screenshot slot loads /technology-partner/this-month-desktop.(webp|png)
+         The screenshot slot loads /public/technology-partner/month-desktop.(webp|png)
          from Fortress; if the file is missing the slot removes itself (tp-assets.js),
          so the section never shows a placeholder or a broken image. -->
     <section class="studio-container studio-section" id="technology-partner" style="scroll-margin-top:80px">
@@ -1162,15 +1162,15 @@
                 <p class="tp-hp-line">Email us whenever something comes up. Every month you get a clear picture of what we checked, what we fixed and what's worth doing next.</p>
                 <div class="tp-hp-ctas">
                     <a href="/technology-partner" class="studio-btn studio-btn-primary" data-gtm-event="homepage_tp_learn_more">Learn more</a>
-                    <a href="https://my.launchforte.com/demo" target="_blank" rel="noopener" class="tp-textlink" data-gtm-event="homepage_tp_live_sample">Try the live sample</a>
+                    <a href="https://my.launchforte.com/demo?r=site-home" data-demo-link="site-home" target="_blank" rel="noopener" class="tp-textlink" data-gtm-event="homepage_tp_live_sample">Try the live sample</a>
                 </div>
             </div>
             <figure class="tp-shot tp-hp-shot studio-reveal" data-asset>
-                <a href="https://my.launchforte.com/demo" target="_blank" rel="noopener" class="tp-frame" aria-label="Open the live sample client page in a new tab">
+                <a href="https://my.launchforte.com/demo?r=site-home" data-demo-link="site-home" target="_blank" rel="noopener" class="tp-frame" aria-label="Open the live sample client page in a new tab">
                     <span class="tp-frame-bar" aria-hidden="true"><span></span><span></span><span></span></span>
                     <picture>
-                        <source srcset="/technology-partner/this-month-desktop.webp" type="image/webp">
-                        <img src="/technology-partner/this-month-desktop.png" alt="Sample client page showing this month's review" width="1600" height="1000" loading="lazy" decoding="async">
+                        <source srcset="/public/technology-partner/month-desktop.webp" type="image/webp">
+                        <img src="/public/technology-partner/month-desktop.png" alt="Sample client page showing this month's review" width="2880" height="1800" loading="lazy" decoding="async">
                     </picture>
                 </a>
                 <figcaption class="tp-caption">Sample client page for a fictional business.</figcaption>
@@ -1507,6 +1507,7 @@
 </script>
 <script src="/studio-motion.js?v=q3a" defer></script>
 <script src="/scroll-top.js?v=q3a" defer></script>
+<script src="/demo-config.js" defer></script>
 <script src="/tp-assets.js" defer></script>
 <script src="/hamburger.js?v=q3a" defer></script>
 <script>

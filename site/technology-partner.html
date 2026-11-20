@@ -613,6 +613,11 @@
           }
           .hero-content { width: 100%; padding: 2rem 0; }
           .hero-content-inner { padding: 0 1.25rem; }
+          /* This page's hero also holds the media figure: stack it under the copy. */
+          .hero-zone { flex-direction: column; align-items: stretch; }
+          .tp-hero-media { width: 100%; margin-top: 1rem; padding: 0 1.25rem 5rem; box-sizing: border-box; }
+          .tp-hero-media .tp-hero-phone { width: 22%; bottom: 6.5rem; right: 0.5rem; }
+          .tp-hero-media .tp-caption { text-align: left; }
           .hero-overlay-btm { background: linear-gradient(180deg, transparent 82%, rgba(10,10,10,0.55) 94%, #FFFFFF 100%); }
           /* CTAs stack vertically on small screens */
           .hero-cta-row { flex-direction: column; align-items: stretch; }
@@ -899,10 +904,10 @@
             <p class="hero-sub">One partner who knows your tools, your industry and your numbers. Email us whenever something comes up, and every month you get a clear picture of what we checked, what we fixed and what's worth doing next.</p>
             <div class="hero-cta-row">
                 <a href="https://api.leadconnectorhq.com/widget/bookings/launchforte-call" target="_blank" rel="noopener" class="hero-btn hero-btn-primary" data-gtm-event="tp_hero_book_call">Book a call</a>
-                <a href="https://my.launchforte.com/demo" target="_blank" rel="noopener" class="hero-btn hero-btn-ghost" data-gtm-event="tp_hero_sample_page">See a sample client page</a>
+                <a href="https://my.launchforte.com/demo?r=site-tp" data-demo-link="site-tp" target="_blank" rel="noopener" class="hero-btn hero-btn-ghost" data-gtm-event="tp_hero_sample_page">See a sample client page</a>
             </div>
             <div class="hero-tertiary-row">
-                <a href="https://my.launchforte.com/demo" target="_blank" rel="noopener" class="hero-tertiary-link" data-gtm-event="tp_hero_live_sample">Try the live sample</a>
+                <a href="https://my.launchforte.com/demo?r=site-tp" data-demo-link="site-tp" target="_blank" rel="noopener" class="hero-tertiary-link" data-gtm-event="tp_hero_live_sample">Try the live sample</a>
                 <p class="hero-live-note">Click around a sample client page. Nothing you do there is saved.</p>
                 <p class="hero-terms">Month to month. Cancel anytime.</p>
             </div>
@@ -911,22 +916,23 @@
     <!-- Hero media: silent loop of the sample page. Poster and phone shot are
          the This month PNGs from Fortress. Missing files remove their slot. -->
     <figure class="tp-shot tp-hero-media" data-asset>
-        <div class="tp-frame">
+        <a href="https://my.launchforte.com/demo?r=site-tp" data-demo-link="site-tp" target="_blank" rel="noopener" class="tp-frame" aria-label="Open the live sample client page in a new tab">
             <span class="tp-frame-bar" aria-hidden="true"><span></span><span></span><span></span></span>
-            <video autoplay muted loop playsinline preload="metadata" width="1600" height="1000" poster="/technology-partner/this-month-desktop.png" aria-label="A walk through the sample client page">
-                <source src="/technology-partner/loop.mp4" type="video/mp4">
+            <video autoplay muted loop playsinline preload="metadata" width="1280" height="800" poster="/public/technology-partner/month-desktop.png" aria-label="A walk through the sample client page">
+                <source src="/public/technology-partner/technology-partner-loop.webm" type="video/webm">
+                <source src="/public/technology-partner/technology-partner-loop.mp4" type="video/mp4">
             </video>
             <picture class="tp-poster">
-                <source srcset="/technology-partner/this-month-desktop.webp" type="image/webp">
-                <img src="/technology-partner/this-month-desktop.png" alt="Sample client page showing this month's review" width="1600" height="1000" decoding="async">
+                <source srcset="/public/technology-partner/month-desktop.webp" type="image/webp">
+                <img src="/public/technology-partner/month-desktop.png" alt="Sample client page showing this month's review" width="2880" height="1800" decoding="async">
             </picture>
-        </div>
-        <div class="tp-hero-phone" data-asset>
+        </a>
+        <a href="https://my.launchforte.com/demo?r=site-tp" data-demo-link="site-tp" target="_blank" rel="noopener" class="tp-hero-phone" data-asset aria-label="Open the live sample client page on a phone-sized screen in a new tab">
             <picture>
-                <source srcset="/technology-partner/this-month-phone.webp" type="image/webp">
-                <img src="/technology-partner/this-month-phone.png" alt="Sample client page on a phone" width="390" height="844" decoding="async">
+                <source srcset="/public/technology-partner/month-phone.webp" type="image/webp">
+                <img src="/public/technology-partner/month-phone.png" alt="Sample client page on a phone" width="780" height="1688" decoding="async">
             </picture>
-        </div>
+        </a>
         <figcaption class="tp-caption">Sample client page for a fictional business.</figcaption>
     </figure>
 </div>
@@ -977,13 +983,13 @@
                     <p>Every request lands in your queue. One is worked on at a time, in your order, and you can move anything to the top.</p>
                 </div>
                 <figure class="tp-shot" data-asset>
-                    <div class="tp-frame">
+                    <a href="https://my.launchforte.com/demo?r=site-tp-shots" data-demo-link="site-tp-shots" target="_blank" rel="noopener" class="tp-frame" aria-label="Open the live sample client page in a new tab">
                         <span class="tp-frame-bar" aria-hidden="true"><span></span><span></span><span></span></span>
                         <picture>
-                            <source srcset="/technology-partner/requests.webp" type="image/webp">
-                            <img src="/technology-partner/requests.png" alt="Sample client page showing the request queue" width="1600" height="1000" loading="lazy" decoding="async">
+                            <source srcset="/public/technology-partner/requests-desktop.webp" type="image/webp">
+                            <img src="/public/technology-partner/requests-desktop.png" alt="Sample client page showing the request queue" width="2880" height="1800" loading="lazy" decoding="async">
                         </picture>
-                    </div>
+                    </a>
                     <figcaption class="tp-caption">Sample client page for a fictional business.</figcaption>
                 </figure>
             </div>
@@ -994,13 +1000,13 @@
                     <p>What we checked, what we handled, what we found worth a look and anything that needs you. Every number shows where it came from and when.</p>
                 </div>
                 <figure class="tp-shot" data-asset>
-                    <div class="tp-frame">
+                    <a href="https://my.launchforte.com/demo?r=site-tp-shots" data-demo-link="site-tp-shots" target="_blank" rel="noopener" class="tp-frame" aria-label="Open the live sample client page in a new tab">
                         <span class="tp-frame-bar" aria-hidden="true"><span></span><span></span><span></span></span>
                         <picture>
-                            <source srcset="/technology-partner/review.webp" type="image/webp">
-                            <img src="/technology-partner/review.png" alt="Sample client page showing the monthly review" width="1600" height="1000" loading="lazy" decoding="async">
+                            <source srcset="/public/technology-partner/review-desktop.webp" type="image/webp">
+                            <img src="/public/technology-partner/review-desktop.png" alt="Sample client page showing the monthly review" width="2880" height="1800" loading="lazy" decoding="async">
                         </picture>
-                    </div>
+                    </a>
                     <figcaption class="tp-caption">Sample client page for a fictional business.</figcaption>
                 </figure>
             </div>
@@ -1011,13 +1017,13 @@
                     <p>A few verified stories each month about your industry and your tools, each with one line on what it means for your business.</p>
                 </div>
                 <figure class="tp-shot" data-asset>
-                    <div class="tp-frame">
+                    <a href="https://my.launchforte.com/demo?r=site-tp-shots" data-demo-link="site-tp-shots" target="_blank" rel="noopener" class="tp-frame" aria-label="Open the live sample client page in a new tab">
                         <span class="tp-frame-bar" aria-hidden="true"><span></span><span></span><span></span></span>
                         <picture>
-                            <source srcset="/technology-partner/intelligence.webp" type="image/webp">
-                            <img src="/technology-partner/intelligence.png" alt="Sample client page showing Forte Intelligence" width="1600" height="1000" loading="lazy" decoding="async">
+                            <source srcset="/public/technology-partner/forte-intelligence-desktop.webp" type="image/webp">
+                            <img src="/public/technology-partner/forte-intelligence-desktop.png" alt="Sample client page showing Forte Intelligence" width="2880" height="1800" loading="lazy" decoding="async">
                         </picture>
-                    </div>
+                    </a>
                     <figcaption class="tp-caption">Sample client page for a fictional business.</figcaption>
                 </figure>
             </div>
@@ -1028,13 +1034,13 @@
                     <p>Guides, reviews, proposals and handoffs, organized and ready to download. One click sign in from any email.</p>
                 </div>
                 <figure class="tp-shot" data-asset>
-                    <div class="tp-frame">
+                    <a href="https://my.launchforte.com/demo?r=site-tp-shots" data-demo-link="site-tp-shots" target="_blank" rel="noopener" class="tp-frame" aria-label="Open the live sample client page in a new tab">
                         <span class="tp-frame-bar" aria-hidden="true"><span></span><span></span><span></span></span>
                         <picture>
-                            <source srcset="/technology-partner/documents.webp" type="image/webp">
-                            <img src="/technology-partner/documents.png" alt="Sample client page showing the document library" width="1600" height="1000" loading="lazy" decoding="async">
+                            <source srcset="/public/technology-partner/documents-desktop.webp" type="image/webp">
+                            <img src="/public/technology-partner/documents-desktop.png" alt="Sample client page showing the document library" width="2880" height="1800" loading="lazy" decoding="async">
                         </picture>
-                    </div>
+                    </a>
                     <figcaption class="tp-caption">Sample client page for a fictional business.</figcaption>
                 </figure>
             </div>
@@ -1428,6 +1434,7 @@
 </script>
 <script src="/studio-motion.js?v=q3a" defer></script>
 <script src="/scroll-top.js?v=q3a" defer></script>
+<script src="/demo-config.js" defer></script>
 <script src="/tp-assets.js" defer></script>
 <script src="/hamburger.js?v=q3a" defer></script>
 <script>
