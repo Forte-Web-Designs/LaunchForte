@@ -483,6 +483,11 @@
         .tp-hp-line { color: var(--n-600); font-size: var(--text-lg); line-height: 1.6; margin: 1rem 0 0; max-width: 34rem; }
         .tp-hp-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: var(--sp-8); }
         .tp-shot { margin: 0; }
+        .tp-hp-shot { position: relative; }
+        .tp-hp-phone { position: absolute; right: -1.25rem; bottom: 2.4rem; width: 21%; min-width: 92px; padding: 4px; background: #0A0A0A; border-radius: 20px; box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 18px 44px rgba(10,10,10,0.35); transition: transform 0.2s ease; }
+        .tp-hp-phone:hover { transform: translateY(-2px); }
+        .tp-hp-phone img { display: block; width: 100%; height: auto; border-radius: 16px; }
+        @media (max-width: 900px) { .tp-hp-phone { right: 0.5rem; width: 24%; border-radius: 16px; padding: 3px; } .tp-hp-phone img { border-radius: 13px; } }
         .tp-hp-shot video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; background: var(--paper); }
         .tp-hp-shot .tp-poster { display: none; }
         .tp-hp-shot .tp-frame:not(:has(video)) .tp-poster { display: block; }
@@ -1182,6 +1187,12 @@
                     <picture class="tp-poster">
                         <source srcset="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/month-desktop.webp" type="image/webp">
                         <img src="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/month-desktop.png" alt="Sample client page showing this month's review" width="1440" height="900" loading="lazy" decoding="async">
+                    </picture>
+                </a>
+                <a href="https://my.launchforte.com/demo?r=site-home" data-demo-link="site-home" target="_blank" rel="noopener" class="tp-hp-phone" data-asset aria-label="Open the live sample client page on a phone-sized screen in a new tab">
+                    <picture>
+                        <source srcset="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/month-phone.webp" type="image/webp">
+                        <img src="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/month-phone.png" alt="Sample client page on a phone" width="390" height="844" loading="lazy" decoding="async">
                     </picture>
                 </a>
                 <figcaption class="tp-caption">Sample client page for a fictional business.</figcaption>
