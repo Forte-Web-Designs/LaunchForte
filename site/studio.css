@@ -914,4 +914,14 @@ a:hover { color: var(--accent-hover); }
   display: inline-flex; align-items: center; font-size: 0.875rem; font-weight: 600; color: var(--gold-ink); text-decoration: none; padding: 0.5rem 1.05rem; border: 1px solid var(--gold-2); border-radius: 999px; background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset; transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease; white-space: nowrap; }
 .studio-nav-signin:hover, .studio-btn-gold:hover { color: var(--gold-ink); transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset, 0 6px 18px var(--gold-glow); }
 .studio-nav-signin:focus-visible, .studio-btn-gold:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 3px; }
-@media (max-width: 640px) { .studio-nav-signin { display: none; } }
+/* Phones: the bar is logo, gold Client sign in, menu. Contact and the dark mode
+   toggle are both inside the menu, so they leave the bar to make room. The toggle
+   still floats bottom right once the page scrolls. */
+@media (max-width: 640px) {
+  .studio-nav-signin { padding: 0.45rem 0.85rem; font-size: 0.8125rem; min-height: 38px; }
+  .studio-nav-right .studio-nav-cta, .studio-nav-right #studio-theme-toggle { display: none; }
+}
+@media (max-width: 360px) {
+  header.studio-nav .studio-logo img { height: 22px; }
+  .studio-nav-signin { padding: 0.4rem 0.7rem; font-size: 0.75rem; }
+}
