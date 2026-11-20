@@ -1034,6 +1034,19 @@
                     </div>
                 </article>
 
+                <!-- 2. Matt Juels (Senja) -->
+                <article class="vt-card">
+                    <div class="vt-frame vt-senja">
+                        <script src="https://widget.senja.io/widget/1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f/platform.js" type="text/javascript" async></script>
+                        <div class="senja-embed" data-id="1a12d66c-8fdc-4fb7-96b1-ce09071cdf7f" data-mode="shadow" data-lazyload="true" style="display:block;width:100%"></div>
+                    </div>
+                    <div class="vt-quote">
+                        <p class="vt-quote-text">"He stood out from the pack fast. We'll use him for any job we have."</p>
+                        <div class="vt-author">Matt Juels, Six Months to Speech</div>
+                        <div class="vt-project">CRM build and automation</div>
+                    </div>
+                </article>
+
                 <!-- 3. Danielle (native mp4) -->
                 <article class="vt-card">
                     <div class="vt-frame vt-mp4">
@@ -1463,31 +1476,6 @@
 <script src="/studio-motion.js?v=q3a" defer></script>
 <script src="/scroll-top.js?v=q3a" defer></script>
 <script src="/hamburger.js?v=q3a" defer></script>
-<script>
-/* Hide Senja's "Collect testimonials with Senja" badge. It renders inside each
-   widget's open shadow root, which page CSS cannot reach, so inject one rule
-   per widget as each one loads (they lazy-load on scroll). */
-(function () {
-    var CSS = '.sj-powered-by{display:none!important}';
-    function patch() {
-        var pending = 0;
-        document.querySelectorAll('.senja-embed').forEach(function (el) {
-            var sr = el.shadowRoot;
-            if (!sr) { pending++; return; }
-            if (sr.querySelector('style[data-lf-hide]')) return;
-            var s = document.createElement('style');
-            s.setAttribute('data-lf-hide', '');
-            s.textContent = CSS;
-            sr.appendChild(s);
-        });
-        return pending;
-    }
-    var tries = 0;
-    var t = setInterval(function () {
-        if (patch() === 0 || ++tries > 600) clearInterval(t);
-    }, 500);
-})();
-</script>
 <script>
 /* Video testimonial carousel: arrow buttons scroll the track by one card
    width at a time. Snap-scroll CSS on the track settles cards in place.
