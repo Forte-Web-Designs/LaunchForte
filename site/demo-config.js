@@ -1,5 +1,5 @@
 /* One place for the live sample link (Seth, Nov 20 2026).
-   Every "Try the live sample" link and every clickable screenshot carries
+   Every "See the demo" link and every clickable screenshot carries
    data-demo-link="<source code>" and is pointed at DEMO_URL?r=<source code>.
    A screenshot can add data-demo-view="<page>" to open that page of the demo.
    The hrefs in the HTML already hold the production value, so links work
