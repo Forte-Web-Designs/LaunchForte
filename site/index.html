@@ -496,6 +496,10 @@
         a.tp-frame:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px var(--border-strong), 0 28px 70px rgba(10,10,10,0.16); }
         .tp-frame-bar { display: flex; gap: 6px; padding: 11px 13px; background: var(--n-50); border-bottom: 1px solid var(--border); }
         .tp-frame-bar span { width: 9px; height: 9px; border-radius: 50%; background: var(--n-300, #d4d4d4); }
+        /* Mac style window dots */
+        .tp-frame .tp-frame-bar span:nth-child(1) { background: #FF5F57; }
+        .tp-frame .tp-frame-bar span:nth-child(2) { background: #FEBC2E; }
+        .tp-frame .tp-frame-bar span:nth-child(3) { background: #28C840; }
         .tp-frame img, .tp-frame video { display: block; width: 100%; height: auto; }
         .tp-caption { margin: 0.85rem 0 0; text-align: center; font-size: var(--text-sm); color: var(--n-500); }
         #technology-partner .tp-tiles { margin-top: var(--sp-16); }
@@ -1172,7 +1176,7 @@
                 <p class="tp-hp-line">Email us whenever something comes up. Every month you get a clear picture of what we checked, what we fixed and what's worth doing next.</p>
                 <div class="tp-hp-ctas">
                     <a href="/technology-partner" class="studio-btn studio-btn-primary" data-gtm-event="homepage_tp_learn_more">Learn more</a>
-                    <a href="https://my.launchforte.com/demo?r=site-home" data-demo-link="site-home" target="_blank" rel="noopener" class="studio-btn-gold" data-gtm-event="homepage_tp_live_sample">Try the live sample</a>
+                    <a href="https://my.launchforte.com/demo?r=site-home" data-demo-link="site-home" target="_blank" rel="noopener" class="studio-btn-gold" data-gtm-event="homepage_tp_live_sample">See the demo</a>
                 </div>
             </div>
             <figure class="tp-shot tp-hp-shot studio-reveal" data-asset>
@@ -1181,8 +1185,8 @@
                     <!-- Walkthrough loop from the product library. It only downloads once the
                          section scrolls near the screen; reduced motion keeps the still. -->
                     <video class="tp-hp-loop" muted loop playsinline preload="none" width="1280" height="800" poster="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/month-desktop.webp" aria-label="A walk through the sample client page">
-                        <source data-src="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/technology-partner-loop.webm" type="video/webm">
-                        <source data-src="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/technology-partner-loop.mp4" type="video/mp4">
+                        <source src="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/technology-partner-loop.webm" type="video/webm">
+                        <source src="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/technology-partner-loop.mp4" type="video/mp4">
                     </video>
                     <picture class="tp-poster">
                         <source srcset="https://xndccqxgqobezzfuadni.supabase.co/storage/v1/object/public/product-assets/demo/month-desktop.webp" type="image/webp">
@@ -1530,16 +1534,17 @@
 <script src="/studio-motion.js?v=q3a" defer></script>
 <script src="/scroll-top.js?v=q3a" defer></script>
 <script>
-/* Homepage walkthrough loop: load and play only when near the screen, pause when it leaves. */
+/* Homepage walkthrough loop: preload="none" keeps it from downloading until it plays.
+   It plays when the section is near the screen and pauses when it leaves. */
 (function () {
     var v = document.querySelector('.tp-hp-loop');
     if (!v || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-    function load() { if (v.dataset.loaded) return; v.dataset.loaded = '1';
-        v.querySelectorAll('source[data-src]').forEach(function (s) { s.src = s.dataset.src; }); v.load(); }
-    if (!('IntersectionObserver' in window)) { load(); v.play().catch(function () {}); return; }
+    v.muted = true;
+    function play() { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    if (!('IntersectionObserver' in window)) { play(); return; }
     new IntersectionObserver(function (es) { es.forEach(function (e) {
-        if (e.isIntersecting) { load(); v.play().catch(function () {}); } else if (v.dataset.loaded) { v.pause(); }
-    }); }, { rootMargin: '300px 0px' }).observe(v);
+        if (e.isIntersecting) play(); else v.pause();
+    }); }, { rootMargin: '200px 0px' }).observe(v);
 })();
 </script>
 <script src="/demo-config.js" defer></script>
