@@ -909,7 +909,7 @@ a:hover { color: var(--accent-hover); }
 
 /* Client sign in (staged Nov 20 2026, goes live with my.launchforte.com, Seth's approval first).
    A quiet text link left of the primary CTA. On phones it lives in the menu and the footer instead. */
-/* Gold pill: Client sign in and Try the live sample (Seth, Nov 20 2026). */
+/* Gold pill: Client sign in and See the demo (Seth, Nov 20 2026). */
 .studio-nav-signin, .studio-btn-gold { --gold-1: #F6D47E; --gold-2: #D9A93A; --gold-ink: #2A1E05; --gold-glow: rgba(217,169,58,0.38);
   display: inline-flex; align-items: center; font-size: 0.875rem; font-weight: 600; color: var(--gold-ink); text-decoration: none; padding: 0.5rem 1.05rem; border: 1px solid var(--gold-2); border-radius: 999px; background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset; transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease; white-space: nowrap; }
 .studio-nav-signin:hover, .studio-btn-gold:hover { color: var(--gold-ink); transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset, 0 6px 18px var(--gold-glow); }
