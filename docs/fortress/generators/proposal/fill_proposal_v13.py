@@ -117,7 +117,7 @@ FILL = {
     "[ENGAGEMENT NAME]": "CAC Tracking, Content Engine, and Soft Conversion Retargeting",
     "[COVER SUBTITLE]": "Every sale tagged to its channel, and proven content retargeted to the people closest to buying.",
     "[CONTACT NAME AND TITLE]": "Shelby Adams, Founder",
-    "[ENGAGEMENT TYPE]": "Fixed Price, Milestone Funded",
+    "[ENGAGEMENT TYPE]": "Fixed Price",
     "[DELIVERY WINDOW]": "4 Weeks",
     "[AMOUNT]": "5,200",
 

@@ -142,7 +142,7 @@ def page_html(shots, demo_link=DEMO_LINK, rel=os.path.basename):
         '<p class="tpw-lead">Every client on the plan signs in to a private portal like this one. It shows what I checked, what I handled and what needs you, each with a date, and it is where you send me requests.</p>'
         '<div class="tpw-row">'
         '<div class="tpw-desk"><img src="%s" alt="Overview on a computer">%s</div>'
-        '<div class="tpw-phone"><img src="%s" alt="Overview on a phone"><div class="tpw-cap">The same page on your phone</div></div>'
+        '<div class="tpw-phone"><img src="%s" alt="Overview on a phone"></div>'
         '</div>'
         '<div class="tpw-row tpw-small">'
         '<div class="tpw-half"><img src="%s" alt="Your systems">%s</div>'

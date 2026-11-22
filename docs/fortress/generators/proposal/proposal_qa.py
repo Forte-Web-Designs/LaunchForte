@@ -82,6 +82,9 @@ def price_audit(pages, amount, plan_price, offered, split):
     full = "\n".join(pages)
     if full.count("$%s" % f"{amount:,}") < 1:
         prob.append("the project investment is not printed")
+    # Seth, Nov 22 2026 hard rule: the engagement reads "Fixed Price" only, never "Milestone Funded".
+    if re.search(r"milestone\s+funded", re.sub(r"\s+", " ", pages[0] if pages else ""), re.I):
+        prob.append("the cover engagement must read Fixed Price only, not Milestone Funded")
     # order: cover has no monthly plan price, plan price only after the investment page
     first_amt = next((i for i, p in enumerate(pages) if "$%s" % f"{amount:,}" in p and "Investment" in p.title() or ("$%s" % f"{amount:,}" in p and i > 0)), None)
     tp_pages = [i for i, p in enumerate(pages) if "Technology Partner" in p and "a month" in p]
