@@ -278,8 +278,8 @@ def check_plan(client_html, active=None, wants=None):
     if tp_segs:
         tp = " ".join(tp_segs)
         tptext = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", tp))
-        for need in (re.escape(offer_source.plan_text()), r"month to month", r"cancel anytime", r"one active request at a time", r"Unlimited everyday engineering requests",
-                     r"quoted separately", r"stay yours", r"will not call anything healthy that I have not checked", r"depends on the access and tools"):
+        for need in (re.escape(offer_source.plan_text()), r"month to month", r"cancel anytime", r"one active request at a time", r"Unlimited everyday requests",
+                     r"quoted separately", r"stay yours", re.escape(partner_section.ACCOUNTABILITY), r"Every month, Launch Forte"):   # two page standard, Seth Nov 22 2026 2:45 PM CT
             if not re.search(need, tptext, flags=re.I):
                 problems.append("technology partner pages missing required wording: %s" % need)
         banned = (r"24/7", r"around the clock", r"guarantee", r"\bSOC\b", r"\btiers?\b", r"valued at", r"\bsaves? you\b", r"\bhourly\b",
@@ -395,10 +395,9 @@ def main():
         TP_PAGE = shots
         tp_inner = [
             ('<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; After the project</b></div><div class="rule" style="width:292pt"></div></div>' + partner_section.page_a()),
-            ('<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Every month</b></div><div class="rule" style="width:292pt"></div></div>' + partner_section.page_b()),
-            ('<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Your portal</b></div><div class="rule" style="width:292pt"></div></div>' + tp_page.page_html(shots, rel=lambda p: ".tp-page/" + os.path.basename(p))),
+            ('<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Your page</b></div><div class="rule" style="width:292pt"></div></div>' + tp_page.page_html(shots, rel=lambda p: ".tp-page/" + os.path.basename(p)) + partner_section.page_b_close()),
         ]
-        problems = tp_page.lint(partner_section.page_a() + partner_section.page_b())
+        problems = tp_page.lint(partner_section.page_a() + partner_section.page_b_close())
         if problems:
             print("STOPPED, the Technology Partner copy fails the wording check:")
             for x in problems:

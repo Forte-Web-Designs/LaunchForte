@@ -1,5 +1,5 @@
 """Technology Partner pages for proposals (template v13, editorial layout, v8).
-Voice: Seth, first person singular, plain sentences (Voice Rules, Client Document Hard Rules, MCP reference 1960).
+Voice: Launch Forte as the subject (BRAIN rule:voice DOCUMENT VOICE), plain sentences (Voice Rules, Client Document Hard Rules, MCP reference 1960).
 Honesty: only what the Nov 9 service status table supports. How much runs from month one depends on access and tools, and the page says so.
 No pills, bars, icons, boxed feature cards, 'tier', 'real' as an intensifier, or 'AI' wording."""
 
@@ -42,39 +42,44 @@ CSS = """
 .tp-cap{font-size:7.8pt;line-height:1.5;color:var(--n500);margin-bottom:12pt;width:330pt}
 .tp-terms{font-size:9.4pt;line-height:1.6;color:var(--n700);border-top:1pt solid var(--border-strong);padding-top:9pt;margin-top:6pt}
 .tp-terms b{color:var(--ink);font-weight:600}
+.tp-list{margin:4pt 0 12pt 14pt;padding:0}
+.tp-list li{font-size:9.6pt;line-height:1.55;color:var(--n600);margin-bottom:5pt}
+.tp-list li b{color:var(--ink);font-weight:600}
 .tp-next{margin-top:14pt}
 .tp-next ol{margin:3pt 0 0 14pt;font-size:9pt;line-height:1.55;color:var(--n600)}
 """
 
-MONTHLY = [
- ("Checking your systems", "Launch Forte checks that the systems on the plan are working, such as your website, forms and automations, and writes down what it finds."),
- ("Who has access", "Launch Forte goes through who can get into what, and points out former staff or old accounts that still have a way in, with what it would change."),
- ("Backups", "Where a system supports it, Launch Forte checks that it is being backed up and that a restore would work. Where it does not, Launch Forte tells you."),
- ("Software and subscriptions", "Launch Forte looks through what you are paying for, points out overlaps and things nobody uses, and tells you what it would change. It does not guess at savings."),
- ("Business and technology review", "Launch Forte looks at how the business runs and the systems around it, and tells you what it sees: risks, manual work that could go away and the next improvements worth making. What was observed and what is opinion stay separate, and no dollar figure goes on anything that cannot be shown."),
- ("Routine improvements", "Launch Forte keeps a short list of things worth improving. You decide which ones go ahead, and Launch Forte handles the changes you approve."),
- ("The monthly update", "Each month Launch Forte sends a short written update covering what was checked, what was handled, what needs a decision from you and what it recommends next. A call to talk it through is there if you would like one."),
-]
+SYSTEMS_PHRASE = "the systems built in this project"   # set by the generator from spec["tp_systems_phrase"], ex: "the QuickBooks setup from this project"
+
+# Seth, Nov 22 2026 2:45 PM CT: the Technology Partner section is two scannable pages in every proposal. Page A is the plan,
+# page B the private client page with the demo screenshots. Launch Forte is the subject except the opening paragraph and the
+# accountability line. Removed for good: "Software tends to pile up", the business review row, the coverage disclaimer
+# paragraph, the specialist line and any dollar savings claim. Backups only "confirms they are running", never that restores work.
+def monthly():
+    return [
+        ("Checks your systems.", "The website, forms, automations and %s are checked, and each result is recorded with a date." % SYSTEMS_PHRASE),
+        ("Reviews access.", "You get a list of who can get into what, with former staff and old accounts marked."),
+        ("Checks backups.", "Where a system supports backups, Launch Forte confirms they are running. Where it doesn't, the update says so."),
+        ("Reviews subscriptions.", "You get a list of what you pay for, with overlaps and unused tools marked."),
+        ("Keeps an improvement list.", "You approve an item and Launch Forte makes the change."),
+        ("Sends the monthly update.", "It covers what was checked, what was handled and what needs your decision."),
+    ]
+
+ACCOUNTABILITY = "I answer for the changes I make and for what I report, and I tell you plainly when something is outside what the plan covers."
 
 def page_a():
-    rows = "".join(f'<div class="tp-row"><div class="k">{k}</div><div class="v">{v}</div></div>' for k, v in MONTHLY)
+    items = "".join('<li><b>%s</b> %s</li>' % (k, v) for k, v in monthly())
     return f'''<h2 class="sec" style="margin-bottom:10pt">Your Technology Partner</h2>
 <p class="tp-lead">After I build this, I would be happy to keep helping with the technology side of your business too. For {_price()} a month, I check the systems we agree to cover, review what is working and what needs attention, and look through your software for improvements worth making. You get a monthly update even if you have not asked me for anything new.</p>
-<div class="tp-price"><div class="amt">{_price()}<span>a month</span></div><div class="txt"><b>Optional, and separate from the project.</b> It is month to month, you can cancel anytime, and your accounts stay yours.</div></div>
-<p class="tp-p">Software tends to pile up. Accounts stay open after people leave, backups go unchecked, subscriptions renew unnoticed and small problems wait until they are expensive. With this plan, one person is accountable for all of it, and what Launch Forte builds in this project gets looked after instead of left alone.</p>
-<div class="tp-h3">What Launch Forte takes care of each month</div>
-<div class="tp-rows">{rows}</div>'''
+<div class="tp-price"><div class="amt">{_price()}<span>a month</span></div><div class="txt">Month to month. Cancel anytime. Your accounts stay yours.</div></div>
+<div class="tp-h3">Every month, Launch Forte:</div>
+<ul class="tp-list">{items}</ul>
+<p class="tp-p"><b>Unlimited everyday requests.</b> Send any automation, integration, report, fix or question, with no limit on how many. Launch Forte works one active request at a time and finishes each before the next. New standalone projects like this one are quoted separately.</p>
+<p class="tp-p"><b>Accountability.</b> {ACCOUNTABILITY}</p>'''
 
-def page_b(next_html=""):
-    return f'''<h2 class="sec" style="margin-bottom:10pt">Unlimited everyday engineering requests</h2>
-<p class="tp-lead">Whenever you need an automation, an integration, a report, a fix or help figuring something out, send it to Launch Forte. There is no limit on how many you send.</p>
-<p class="tp-p">Launch Forte works on one active request at a time, so each one is finished properly before the next begins. A larger standalone project, like the one in this proposal, is quoted separately.</p>
-<div class="tp-h3" style="margin-top:14pt">What Launch Forte takes responsibility for</div>
-<p class="tp-p">Launch Forte would be your partner for the technology side of the business: the software you use, everyday IT questions, integrations, troubleshooting and the decisions that come with all of it. You can send a question directly and Launch Forte works out what needs doing. I answer for the changes I make and for what I report, and I tell you plainly when something is outside what the plan covers. Launch Forte's monthly checks cover the systems we agree on and connect.</p>
-<p class="tp-p">How much of this runs from the first month depends on the access and tools your accounts allow. Launch Forte tells you which systems are covered and which are not yet. I will not call anything healthy that I have not checked.</p>
-<p class="tp-p">Each month you get a short written update, and your private portal shows what Launch Forte checked, what was handled and what needs your decision, each with a date. The next page shows that portal.</p>
-<div class="tp-terms"><b>{_price()} a month.</b> Month to month, cancel anytime.{_billing_note()} If you only want the project, that is completely fine too.</div>
-{next_html}'''
+def page_b_close():
+    """Closes page B, under the screenshots. No billing line (Seth, Nov 22 2026 2:40 PM CT)."""
+    return f'<div class="tp-terms"><b>{_price()} a month.</b>{_billing_note()} If you only want the project, that\'s completely fine too.</div>'
 
 def next_steps(items):
     return '<div class="tp-next"><div class="label" style="margin-bottom:2pt">Next steps</div><ol>'+"".join(f"<li>{i}</li>" for i in items)+'</ol></div>'

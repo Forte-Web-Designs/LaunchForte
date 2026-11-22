@@ -10,7 +10,7 @@ Fail closed: if the set is missing, incomplete, altered, or older than the desig
 
     import tp_page
     shots = tp_page.load("/tmp/build")          # downloads and checks the set, returns local paths
-    html = tp_page.page_html(shots)             # "Your private client portal"
+    html = tp_page.page_html(shots)             # "Your private client page"
     problems = tp_page.lint(text)               # captions and plan copy against the BRAIN wording rules
 """
 import hashlib
@@ -129,7 +129,7 @@ def lint(text):
 
 
 def page_html(shots, demo_link=DEMO_LINK, rel=os.path.basename):
-    """One page, "Your private client portal" (Seth Nov 22 2026 2:25 PM CT named it): desktop Overview large with the phone Overview beside it, then Your systems and
+    """One page, "Your private client page" (Seth Nov 22 2026 2:45 PM CT two page standard): desktop Overview large with the phone Overview beside it, then Your systems and
     the edition small, each with a one line caption. The sample label is inside every shot. rel maps a local path to the src
     the renderer uses (the file name by default, for documents rendered from the same folder)."""
     p = shots["path"]
@@ -139,8 +139,8 @@ def page_html(shots, demo_link=DEMO_LINK, rel=os.path.basename):
             raise TpPageUnavailable("Caption fails the wording check: " + "; ".join(problems))
     cap = lambda k: '<div class="tpw-cap">%s</div>' % CAPTIONS[k]
     return (
-        '<h2 class="sec" style="margin-bottom:6pt">Your private client portal</h2>'
-        '<p class="tpw-lead">One place to see where your technology stands. Open it any time, from your desk or your phone, to see what is happening with your systems and what needs your attention. Send Launch Forte a request from the same page and watch it move until it is done.</p>'
+        '<h2 class="sec" style="margin-bottom:6pt">Your private client page</h2>'
+        '<p class="tpw-lead">One page, on your desk or your phone, that shows where your technology stands. Send a request from it and watch it move until it\'s done.</p>'
         '<div class="tpw-row">'
         '<div class="tpw-desk"><img src="%s" alt="Overview on a computer">%s</div>'
         '<div class="tpw-phone"><img src="%s" alt="Overview on a phone"></div>'
@@ -149,7 +149,7 @@ def page_html(shots, demo_link=DEMO_LINK, rel=os.path.basename):
         '<div class="tpw-half"><img src="%s" alt="Your systems">%s</div>'
         '<div class="tpw-half"><img src="%s" alt="Forte Intelligence edition">%s</div>'
         '</div>'
-        '<p class="tpw-note">Open the sample yourself at <a href="%s">%s</a>.</p>'
+        '<p class="tpw-note">See the sample at <a href="%s">%s</a>.</p>'
     ) % (rel(p["overview"]["desktop"]), cap("overview"), rel(p["overview"]["phone"]),
          rel(p["systems"]["desktop"]), cap("systems"), rel(p["edition"]["desktop"]), cap("edition"),
          demo_link + "?r=document", demo_link.replace("https://", ""))

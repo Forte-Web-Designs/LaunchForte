@@ -62,8 +62,8 @@ def test_portal_page_closes_an_eligible_document():
     """Seth Nov 22 2026: the Technology Partner section ends every document that offers the plan, with real portal screenshots."""
     text, doc = build_html(PSPEC, PROS, SNAP)
     if doc["whats_next"]:
-        assert "Your private client portal" in text
-        assert text.index("Your private client portal") > text.index("<h2>" + __import__("render").esc(doc["whats_next"]["title"]))
+        assert "Your private client page" in text
+        assert text.index("Your private client page") > text.index("<h2>" + __import__("render").esc(doc["whats_next"]["title"]))
         assert "portal-sample-top" not in text and doc["tp_page"]["checked_against"].startswith("FIXTURE")
     else:
-        assert "Your private client portal" not in text
+        assert "Your private client page" not in text

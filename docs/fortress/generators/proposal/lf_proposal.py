@@ -173,6 +173,8 @@ def main(argv=None):
     g.SETH_OVERRIDE_ON_CARD = override_valid(buyer.get("seth_override"), fill.get("[CLIENT NAME]", "") + " " + fill.get("[CONTACT NAME AND TITLE]", ""))
     import partner_section
     partner_section.UPWORK_BILLING = (platform == "upwork")
+    if spec.get("tp_systems_phrase"):
+        partner_section.SYSTEMS_PHRASE = spec["tp_systems_phrase"]   # the systems this proposal builds, named in "Checks your systems"
     g.WANTS_PLAN = False; g.ACTIVE_CLIENT = False; g.PURCHASE_CHOICE = None
     g.OFFER_PRESET = True
     g.SHOW_PARTNER = True

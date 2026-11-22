@@ -55,10 +55,10 @@ class T(unittest.TestCase):
         os.environ["LF_TP_PAGE_FIXTURE"] = FIX; os.environ["LF_TEST"] = "1"
         s = tp_page.load(tempfile.mkdtemp())
         h = tp_page.page_html(s)
-        self.assertIn("Your private client portal", h)
+        self.assertIn("Your private client page", h)
         for k in ("overview", "systems", "edition"):
             self.assertIn(tp_page.CAPTIONS[k], h)
-        self.assertIn("Open the sample yourself", h)
+        self.assertIn("See the sample at", h)
         self.assertIn("my.launchforte.com/demo", h)
         self.assertNotIn("portal-sample-top", h)
 

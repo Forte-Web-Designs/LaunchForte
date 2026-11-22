@@ -12,6 +12,7 @@ ALLOWED = [
     r"If you want me around afterwards.*?cancel anytime\.",                                  # audit TP opening paragraph
     r"I answer for the changes I make and for what I report, and I tell you plainly when something is outside what the plan covers\. Launch Forte.s monthly checks cover the systems we agree on and connect\.",   # Seth Nov 22 2026 2:42 PM CT, verbatim
     r"After I build this, I would be happy to keep helping with the technology side of your business too\.",
+    r"I answer for the changes I make and for what I report, and I tell you plainly when something is outside what the plan covers\.",   # Seth Nov 22 2026 2:45 PM CT two page standard
     r"I will not call anything healthy that I have not checked\.",
     r"I only report something as checked once I have checked it[^.]*\.",
 ]
