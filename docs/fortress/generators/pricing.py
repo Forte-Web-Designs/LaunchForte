@@ -237,12 +237,12 @@ const threeLine = [
 const whatItTakes =
   'What you are paying for is the part that is invisible until it fails. ' +
   SKIPPED.slice(0, 4).map(function (s) { return s[0].toLowerCase() + ' — ' + s[1]; }).join('; ') + '. ' +
-  'Those are lines a cheaper quote skips, and you will not find out which ones until something breaks quietly. ' +
+  'Those are lines a cheaper quote skips, and you will not find out which ones until something breaks. ' +
   'They are in the attached build, node by node, so you can check rather than take my word for it.';
 
 // ---- MANDATORY BLOCK 1: the phase split, stated either way -----------------
 // This used to be emitted only when a split happened, which meant the prompt
-// had nothing to say in the ordinary case and quietly said nothing in the
+// had nothing to say in the ordinary case and said nothing in the
 // exceptional one too when a field came back null. It is now always a sentence.
 // A quote that exceeds the ceiling and does not visibly split reads as a
 // number somebody pulled out of the air.

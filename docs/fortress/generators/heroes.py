@@ -20,7 +20,7 @@ LIB = "/home/claude/evidence-library"
 SHAPES = {
 "stalled-deal-escalation": dict(
   product="The Rescue",
-  open="Your stalled-proposal problem is the one I'd fix first, because it's the one quietly costing you deals.",
+  open="Your stalled-proposal problem is the one I'd fix first, because it's the one costing you deals.",
   beats=["Here's the system that watches for a deal that hasn't moved and escalates before it goes cold.",
          "This is the gate underneath it — it checks whether anyone actually touched the deal, not just whether time passed.",
          "The same pattern inside the CRM itself — the escalation branch, with the owner and the manager step both wired.",
@@ -63,7 +63,7 @@ SHAPES = {
          "And the same layer on a second stack — the numbers move, the structure does not."]),
 "system-sync": dict(
   product="The Sync Build",
-  open="Two systems disagreeing about the same customer is how a CRM quietly stops being trusted.",
+  open="Two systems disagreeing about the same customer is how a CRM stops being trusted.",
   beats=["Here's the two-way sync, with the echo gate that stops it looping at 3am.",
          "This is the node that checks whether the change coming back is our own write. Most builds are missing it.",
          "The integration layer in place on a live stack.",
@@ -84,7 +84,7 @@ SHAPES = {
          "And the records it produces, clean and deduplicated."]),
 "quote-follow-up": dict(
   product="The Follow Up",
-  open="Following up on a quote is nobody's actual job, so it quietly becomes nobody's.",
+  open="Following up on a quote is nobody's actual job, so it becomes nobody's.",
   beats=["Here's the cadence — day 2, day 5, day 9, then nurture.",
          "Every touch checks for a reply first and stops dead the moment they answer. That gate is what separates follow-up from nagging.",
          "The same cadence inside the CRM, with the real message copy.",
@@ -112,7 +112,7 @@ SHAPES = {
          "And the precision check: how many alerts were actually real."]),
 "platform-migration": dict(
   product="The Migration Build",
-  open="Migrations lose records quietly. Nobody finds out until the customer who was lost calls.",
+  open="Migrations lose records. Nobody finds out until the customer who was lost calls.",
   beats=["Here's the migration: reversible batches, counts reconciled before anything commits.",
          "If the counts don't match, the batch rolls back and reports the delta instead of half-writing.",
          "A real import with the field mapping resolved.",
@@ -157,7 +157,7 @@ SHAPES = {
           "The standardised subitem structure, so every launch starts the same way instead of from scratch.",
           "And the workload view, which is the answer to 'we can't see who's overloaded'."]),
  "messaging-compliance": dict(product="The Deliverability Build",
-   open="Messaging that isn't registered and authenticated doesn't get delivered, and nobody tells you — it just quietly stops arriving.",
+   open="Messaging that isn't registered and authenticated doesn't get delivered, and nobody tells you — it just stops arriving.",
    beats=["Here's the system — nothing leaves until the sending identity has been checked against the registry.",
           "This is the gate: registered, and throughput left on the number. 10DLC filtering is silent, so if you don't check here you find out from the reply rate weeks later rather than from an error.",
           "Here's the A2P 10DLC registration path, including the status screen where rejections actually surface.",

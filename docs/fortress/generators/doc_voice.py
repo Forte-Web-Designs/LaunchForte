@@ -22,7 +22,7 @@ ME = re.compile(r"\b(I|I'm|I'll|I've|I'd|me|Me|my|My|mine)\b")
 
 # Seth, Nov 22 2026 2:42 PM CT, hard rule for all client facing copy: Seth handles the work himself. Never bring in, refer to,
 # hand off to or partner with a specialist, contractor, agency or anyone else.
-OUTSIDE_HELP = re.compile(r"\b(specialists?|bring(?:s|ing)? in|refer(?:s|red|ring)? you|hand(?:s|ed|ing)? (?:it |this |them )?off|subcontract\w*)\b", re.I)
+OUTSIDE_HELP = re.compile(r"\b(quietly|specialists?|bring(?:s|ing)? in|refer(?:s|red|ring)? you|hand(?:s|ed|ing)? (?:it |this |them )?off|subcontract\w*)\b", re.I)
 
 
 def outside_help(text):

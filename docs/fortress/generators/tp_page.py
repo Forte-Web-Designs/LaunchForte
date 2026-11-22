@@ -40,7 +40,7 @@ CAPTIONS = {
 # Captions and plan copy are checked like any client claim (Seth Nov 22 2026 item 6, BRAIN client-page-truth and the Client
 # Document Hard Rules): no monitoring, protection or guarantee wording, no security status, nothing AI related.
 BANNED = [
-    (r"\b(specialists?|bring(s|ing)? in|refer(s|red|ring)? you|hand(s|ed|ing)? off|subcontract\w*)\b", "outside help wording (Seth handles the work himself)"),
+    (r"\b(quietly|specialists?|bring(s|ing)? in|refer(s|red|ring)? you|hand(s|ed|ing)? off|subcontract\w*)\b", "outside help wording (Seth handles the work himself)"),
     (r"\bmonitor(s|ed|ing)?\b", "monitoring wording"),
     (r"\bprotect(s|ed|ing|ion)?\b", "protection wording"),
     (r"\bguarantee(s|d)?\b", "guarantee wording"),

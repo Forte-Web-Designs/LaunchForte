@@ -58,11 +58,11 @@ CSS = """
 VALUE_HEADING = "Know what's happening, and that it's working."
 VALUE_PARA = ("New tools and automations get added faster than ever, and each one makes sense on its own. Together they make it easy to lose track "
               "of what actually needs to happen and whether it is happening. Meanwhile accounts stay open after people leave, backups go unchecked, "
-              "subscriptions renew quietly, and small problems wait until they show up on the bottom line. This plan gives you one person accountable "
+              "subscriptions renew unnoticed, and small problems wait until they show up on the bottom line. This plan gives you one person accountable "
               "for all of it, and a page that shows, with dates, what was checked, what was handled and what needs your decision.")
 
 SYSTEMS_ROW = ("Everything your business runs on, including your website, forms, automations and the software connected to them, is checked against a set "
-               "list every month, and each result is recorded with a date. Anything that has quietly stopped working gets caught early, before it reaches a customer.")
+               "list every month, and each result is recorded with a date. Anything that has stopped working gets caught early, before it reaches a customer.")
 ACCESS_ROW = ("Former staff, shared logins, admin roles, old API keys, and the apps and AI tools connected to your accounts are reviewed. "
               "Anything that no longer needs a way in is flagged, with what should change.")
 PERSON_LINE = ("One person who knows your systems end to end and answers for every change made and every result reported. "
