@@ -9,6 +9,9 @@ from core import lf_document
 from figures import caption
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, ".."))
+import tp_page  # the shared Technology Partner closing section (Seth Nov 22 2026)
+TPW_CSS = ":root{--n500:#86868b;--n600:#515154;--accent:#0088DB;--border-strong:rgba(0,0,0,0.12)} .tpw h2.sec{margin-top:0}" + tp_page.CSS
 CSS = """
 @page { size: Letter; margin: 0.6in 0.7in 0.75in; }
 @page :first { margin: 0; }
@@ -142,7 +145,7 @@ def _whats_next(wn, num):
 def build_html(spec: dict, record: dict, snapshot: dict | None) -> tuple[str, dict]:
     d = Doc(record, snapshot, spec)
     c = spec["cover"]
-    h = ["<html><head><meta charset='utf-8'><style>%s</style></head><body>" % CSS]
+    h = ["<html><head><meta charset='utf-8'><style>%s%s</style></head><body>" % (CSS, TPW_CSS)]
     h.append("<div class='cover'><div class='brand'>Launch <span>Forte</span></div><div class='meta'>%s<br>%s<br>%s</div>"
              "<div class='kicker'>%s</div><h1>%s<br>%s</h1><div class='sub'>%s</div><div class='intro'>%s</div><div class='strip'>%s</div></div>"
              % (esc(spec["doc_label"]), esc(spec["doc_date"]), esc(spec["doc_where"]), esc(c["kicker"]), esc(c["client"]), esc(c["title"]),
@@ -196,6 +199,14 @@ def build_html(spec: dict, record: dict, snapshot: dict | None) -> tuple[str, di
     if d.doc["whats_next"]:
         num += 1
         h.append(_whats_next(d.doc["whats_next"], num) + support + "</div>")
+        # Seth, Nov 22 2026 hard rule: every document that offers the Technology Partner plan closes with real screenshots of
+        # the sample client portal from product-assets/tp-page. tp_page.load fails closed, so no document goes out with a
+        # missing or out of date set.
+        shots = tp_page.load(os.path.join(HERE, ".tp-page"), dashboard_checkout=os.environ.get("LF_DASHBOARD_CHECKOUT"))
+        num += 1
+        h.append("<div class='page tpw'><div class='kick'>Section %02d</div>%s</div>" % (num, tp_page.page_html(shots, rel=_img)))
+        tm = shots["manifest"]
+        d.doc["tp_page"] = {"design_version": tm.get("design_version"), "captured_at": tm.get("captured_at"), "checked_against": shots["version_source"]}
     elif support:
         h.append(support)
     ap = spec.get("appendix")

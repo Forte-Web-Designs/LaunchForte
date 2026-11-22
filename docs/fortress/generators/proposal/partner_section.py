@@ -58,7 +58,7 @@ MONTHLY = [
 def page_a():
     rows = "".join(f'<div class="tp-row"><div class="k">{k}</div><div class="v">{v}</div></div>' for k, v in MONTHLY)
     return f'''<h2 class="sec" style="margin-bottom:10pt">Your Technology Partner</h2>
-<p class="tp-lead">After I build this, I would be happy to keep helping with the technology side of your business too. For {_price()} a month, I keep an eye on the systems we agree to cover, review what is working and what needs attention, and look through your software for improvements worth making. You get a monthly update even if you have not asked me for anything new.</p>
+<p class="tp-lead">After I build this, I would be happy to keep helping with the technology side of your business too. For {_price()} a month, I check the systems we agree to cover, review what is working and what needs attention, and look through your software for improvements worth making. You get a monthly update even if you have not asked me for anything new.</p>
 <div class="tp-price"><div class="amt">{_price()}<span>a month</span></div><div class="txt"><b>Optional, and separate from the project.</b> It is month to month, you can cancel anytime, and your accounts stay yours.</div></div>
 <p class="tp-p">Software tends to pile up. Accounts stay open after people leave, backups go unchecked, subscriptions renew unnoticed and small problems wait until they are expensive. With this plan, one person is accountable for all of it, and what I build in this project gets looked after instead of left alone.</p>
 <div class="tp-h3">What I take care of each month</div>
@@ -69,11 +69,9 @@ def page_b(next_html=""):
 <p class="tp-lead">Whenever you need an automation, an integration, a report, a fix or help figuring something out, send it my way. There is no limit on how many you send.</p>
 <p class="tp-p">I work on one active request at a time, so I can finish it properly before moving on. A larger standalone project, like the one in this proposal, is quoted separately.</p>
 <div class="tp-h3" style="margin-top:14pt">What I take responsibility for</div>
-<p class="tp-p">I would be your person for the technology side of the business: the software you use, everyday IT questions, integrations, troubleshooting and the decisions that come with all of it. You can reach me directly with a question and I work out what needs doing. I answer for the changes I make and for what I reported, I tell you plainly when something is outside what I cover, and I bring in a specialist when the work calls for one. Monitoring covers the systems we agree on and set up for it.</p>
+<p class="tp-p">I would be your person for the technology side of the business: the software you use, everyday IT questions, integrations, troubleshooting and the decisions that come with all of it. You can reach me directly with a question and I work out what needs doing. I answer for the changes I make and for what I reported, I tell you plainly when something is outside what I cover, and I bring in a specialist when the work calls for one. My checks cover the systems we agree on and set up for it.</p>
 <p class="tp-p">How much of this runs from the first month depends on the access and tools your accounts allow. I tell you which systems are covered and which are not yet, and I will not call anything healthy that I have not checked.</p>
-<div class="tp-h3" style="margin-top:14pt">What the monthly update looks like</div>
-<div class="tp-shot"><img src="{{SHOT}}"></div>
-<div class="tp-cap">A sample, with made up information for a fictional business. The update lists what I checked, what I handled and what needs your decision, each with a date.</div>
+<p class="tp-p">Each month you get a short written update, and your private portal shows what I checked, what I handled and what needs your decision, each with a date. The next page shows that portal.</p>
 <div class="tp-terms"><b>{_price()} a month.</b> Month to month, cancel anytime.{_billing_note()} If you only want the project, that is completely fine too.</div>
 {next_html}'''
 
@@ -86,7 +84,7 @@ def audit_closing(findings_ref="the findings above"):
     return (
         '<h3 class="tpc-h">If you want me around afterwards</h3>'
         '<p class="tpc-p">Everything in this audit stands on its own, and you can take it to any builder you like. '
-        'If you would rather have one person keep an eye on these systems and fix things as they come up, I offer that for %s a month. '
+        'If you would rather have one person check these systems and fix things as they come up, I offer that for %s a month. '
         'It is optional, month to month, and you can cancel anytime.</p>'
         '<p class="tpc-p">Each month I check the systems we agreed to cover, review who has access, look at what you are spending on software, '
         'and send you a short note on what I found and what I would change. Everyday engineering requests are included on top, '

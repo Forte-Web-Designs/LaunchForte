@@ -29,6 +29,10 @@ import re
 import sys
 from purchase_choice import Quote, calculate, refusal_reason
 import choice_section, partner_section
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+import tp_page  # the shared Technology Partner closing section (Seth Nov 22 2026)
+TP_PAGE = None
 from offer_resolver import resolve_offer, rules_verified
 import offer_source
 from weasyprint import HTML
@@ -375,35 +379,52 @@ def main():
         CHOICE_RESULT = None  # financing is shown only when the resolver allows it
     if show_partner:
         html = html.replace(SUPPORT_PLAN_PROSPECT, "")  # the partner pages carry the $500 line exactly once
-    extra = []
-    if show_partner:
-        extra.append("tpa"); extra.append("tpb")
+    # Seth, Nov 22 2026 hard rule: the Technology Partner section closes the document, and it shows real screenshots of the
+    # Northline sample page from product-assets/tp-page (tp_page.load fails closed when the set is missing or out of date).
+    # The payment choice, when enabled, stays before the schedule.
+    pc_pages = ""
     if CHOICE_RESULT and CHOICE_RESULT["offer_both"]:
-        extra.append("pc")
-    k = len(extra)
-    if k:
-        total = 5 + k
-        pages, no = "", 4
-        for kind in extra:
-            lab = {"tpa": "Technology Partner", "tpb": "Technology Partner", "pc": "Payment choice"}[kind]
-            if kind == "tpa":
-                inner = '<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; After the project</b></div><div class="rule" style="width:292pt"></div></div>' + partner_section.page_a()
-            elif kind == "tpb":
-                inner = '<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Every month</b></div><div class="rule" style="width:292pt"></div></div>' + partner_section.page_b().replace("{SHOT}", "portal-sample-top.png")
-            else:
-                inner = '<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Same project</b></div><div class="rule" style="width:292pt"></div></div>' + choice_section.body(CHOICE_RESULT)
-            seg = '<div class="page"><div class="hdr"><img src="launch-forte-dark.png"><span class="ix"><b>%02d</b> / %s</span></div>%s<div class="ftr"><span class="l">Seth Forte / Launch Forte</span><span class="c">Reply to confirm. First milestone initiates work.</span><span class="r">%02d / %02d</span></div></div>\n' % (no, lab, inner, no, total)
-            tag = "TP" if kind in ("tpa", "tpb") else "PC"
-            pages += "<!--%s-->%s<!--/%s-->\n" % (tag, seg, tag)
-            no += 1
+        inner = '<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Same project</b></div><div class="rule" style="width:292pt"></div></div>' + choice_section.body(CHOICE_RESULT)
+        pc_pages = '<!--PC--><div class="page"><div class="hdr"><img src="launch-forte-dark.png"><span class="ix"><b>00</b> / Payment choice</span></div>%s<div class="ftr"><span class="l">Seth Forte / Launch Forte</span><span class="c">Reply to confirm. First milestone initiates work.</span><span class="r">00 / 00</span></div></div><!--/PC-->\n' % inner
         marker = "<!-- ============ 04 SCHEDULE AND TERMS ============ -->"
         assert html.count(marker) == 1
-        html = html.replace(marker, pages + marker)
-        html = html.replace('<b>04</b> / Schedule', '<b>%02d</b> / Schedule' % (4 + k)).replace('<b>05</b> / Acceptance', '<b>%02d</b> / Acceptance' % (5 + k))
-        for old, new_ in (("04 / 05</span>", "%02d / %02d</span>" % (4 + k, total)), ("05 / 05</span>", "%02d / %02d</span>" % (5 + k, total)),
-                          ("01 / 05</span>", "01 / %02d</span>" % total), ("02 / 05</span>", "02 / %02d</span>" % total), ("03 / 05</span>", "03 / %02d</span>" % total)):
-            html = html.replace(old, new_, 1) if old.startswith(("04", "05")) else html.replace(old, new_)
-        html = html.replace('</style>', partner_section.CSS + choice_section.CSS + '</style>', 1)
+        html = html.replace(marker, pc_pages + marker)
+    if show_partner:
+        shots = tp_page.load(os.path.join(os.getcwd(), ".tp-page"), dashboard_checkout=os.environ.get("LF_DASHBOARD_CHECKOUT"))
+        global TP_PAGE
+        TP_PAGE = shots
+        tp_inner = [
+            ('<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; After the project</b></div><div class="rule" style="width:292pt"></div></div>' + partner_section.page_a()),
+            ('<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Every month</b></div><div class="rule" style="width:292pt"></div></div>' + partner_section.page_b()),
+            ('<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Your portal</b></div><div class="rule" style="width:292pt"></div></div>' + tp_page.page_html(shots, rel=lambda p: ".tp-page/" + os.path.basename(p))),
+        ]
+        problems = tp_page.lint(partner_section.page_a() + partner_section.page_b())
+        if problems:
+            print("STOPPED, the Technology Partner copy fails the wording check:")
+            for x in problems:
+                print("   -", x)
+            sys.exit(1)
+        tp_pages = "".join('<!--TP--><div class="page"><div class="hdr"><img src="launch-forte-dark.png"><span class="ix"><b>00</b> / Technology Partner</span></div>%s<div class="ftr"><span class="l">Seth Forte / Launch Forte</span><span class="r">00 / 00</span></div></div><!--/TP-->\n' % i for i in tp_inner)
+        html = html.replace('<div class="page last">', '<div class="page">', 1)
+        last = html.rindex("</body>")
+        html = html[:last] + tp_pages + html[last:]
+        # the final page carries the "last" class so no blank page follows it
+        k_last = html.rindex('<!--TP--><div class="page">')
+        html = html[:k_last] + html[k_last:].replace('<div class="page">', '<div class="page last">', 1)
+    if pc_pages or show_partner:
+        # renumber every page header and footer in document order
+        n_pages = html.count('<div class="page')
+        counter = {"n": 1}  # the cover is page 01 and carries no header or footer number
+        def _hdr(m):
+            counter["n"] += 1
+            return '<span class="ix"><b>%02d</b>' % counter["n"]
+        html = re.sub(r'<span class="ix"><b>\d\d</b>', _hdr, html)
+        counter["n"] = 1
+        def _ftr(m):
+            counter["n"] += 1
+            return '<span class="r">%02d / %02d</span>' % (counter["n"], n_pages)
+        html = re.sub(r'<span class="r">\d\d / \d\d</span>', _ftr, html)
+        html = html.replace('</style>', partner_section.CSS + choice_section.CSS + tp_page.CSS + '</style>', 1)
 
     plan_problems = check_plan(html)
     if plan_problems:

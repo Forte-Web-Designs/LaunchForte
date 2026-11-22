@@ -1,0 +1,133 @@
+{
+ "file_name": "GREENTECH Irrigation and Lawn Care",
+ "buyer": {
+  "status": "prospect",
+  "platform": "upwork",
+  "upwork_first_contact_months": 0,
+  "signed_agreement": false,
+  "seth_opt_out": false,
+  "scope_approved": true,
+  "seth_override": {
+   "client": "Marco Goncalves",
+   "date": "2026-11-22",
+   "source_ref": "account_thesis_event#9518",
+   "scope": "this client only, billed on Upwork"
+  }
+ },
+ "fill": {
+  "[REF]": "LF-GREENTECH-001",
+  "[SEND DATE]": "November 22, 2026",
+  "[PHASE LABEL]": "Bookkeeping Automation",
+  "[CLIENT NAME]": "GREENTECH Irrigation &amp; Lawn Care",
+  "[ENGAGEMENT NAME]": "Receipts, Invoices And Monthly Reconciliation in QuickBooks",
+  "[COVER SUBTITLE]": "Card receipts and the nightly vendor invoices land in QuickBooks already coded, and each month you see only what does not match.",
+  "[CONTACT NAME AND TITLE]": "Marco Goncalves",
+  "[ENGAGEMENT TYPE]": "Fixed Price, Milestone Funded",
+  "[DELIVERY WINDOW]": "4 Weeks",
+  "[SITUATION TITLE]": "The Bookkeeping Still Runs By Hand",
+  "[SITUATION LEAD]": "Arborgold already sends your invoices and payments into QuickBooks Desktop. Bills, card charges and reconciling are still done by hand in the office.",
+  "[SITUATION DETAIL]": "You buy a lot online on the Chase card and forward each receipt to the office with a note for the account and memo. One main vendor emails a PDF invoice each night there are purchases. <b>Each month the card is reconciled and anything not already in QuickBooks is highlighted for your review.</b>",
+  "[STAGE 1 NAME]": "A purchase is made",
+  "[STAGE 1 NOTE]": "On the Chase card",
+  "[STAGE 2 NAME]": "The receipt is forwarded",
+  "[STAGE 2 NOTE]": "With a note for the office",
+  "[STAGE 3 NAME]": "Entered by hand",
+  "[STAGE 3 NOTE]": "Account and memo typed in",
+  "[STAGE 4 NAME]": "Vendor invoices arrive",
+  "[STAGE 4 NOTE]": "A PDF each night",
+  "[STAGE 5 NAME]": "Month end reconciling",
+  "[STAGE 5 NOTE]": "Bank and card by hand",
+  "[COST LINE 1]": "Every receipt and every nightly vendor invoice is typed into QuickBooks by hand.",
+  "[COST LINE 2]": "A charge that should not have been made is only caught when the card is reconciled.",
+  "[COST LINE 3]": "",
+  "[AFTER TITLE]": "Bills and charges arrive coded, and month end shows only what needs you",
+  "[AFTER BODY]": "Card receipts and the nightly vendor invoices land in QuickBooks with the account and memo filled in, and anything unsure waits for your review. Each month the bank accounts and the Chase card are matched, and you see only what does not match.",
+  "[SCOPE TITLE]": "What Gets Built",
+  "[SCOPE INTRO]": "Two pieces, in order. <b>Receipts and invoices come first</b>, then the monthly reconciliation works from the same QuickBooks records.",
+  "[VALID THROUGH]": "December 6, 2026",
+  "[WEEK 1 SUMMARY]": "Receipt and invoice intake set up on the office inbox.",
+  "[WEEK 2 SUMMARY]": "Coding rules built and tested on your past bills and charges.",
+  "[WEEK 3 SUMMARY]": "Bills and charges posting into QuickBooks, with unsure items held for you.",
+  "[SUPPORT DAYS]": "30",
+  "[WEEK 4 SUMMARY]": "Monthly reconciliation live, walkthrough recorded, support window opens."
+ },
+ "blocks": [
+  {
+   "name": "Receipts And Invoices Entered For You",
+   "desc": "Card receipts and the nightly vendor invoices land in QuickBooks with the right account and memo, and anything unsure waits for your review.",
+   "parts": [
+    {
+     "label": "intake of forwarded receipts and nightly invoice emails",
+     "kind": "connection",
+     "qty": 1
+    },
+    {
+     "label": "coding and review rules, with unsure items held",
+     "kind": "judged",
+     "qty": 1
+    },
+    {
+     "label": "entry into QuickBooks",
+     "kind": "connection",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "name": "A Monthly Reconciliation That Shows Only Exceptions",
+   "desc": "The bank accounts and the Chase card are matched each month, and you see only what does not match. This assumes your Chase transactions already download into QuickBooks.",
+   "parts": [
+    {
+     "label": "reading QuickBooks for the match",
+     "kind": "connection",
+     "qty": 1
+    },
+    {
+     "label": "matching rules",
+     "kind": "judged",
+     "qty": 1
+    },
+    {
+     "label": "monthly exceptions report",
+     "kind": "surface",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "name": "Handover And Support Window",
+   "desc": "",
+   "parts": [
+    {
+     "label": "Testing against your real data rather than a sandbox",
+     "kind": "included"
+    },
+    {
+     "label": "Handover documentation, so you can run what was built",
+     "kind": "included"
+    },
+    {
+     "label": "One recorded walkthrough call",
+     "kind": "included"
+    },
+    {
+     "label": "30 days of support after go live",
+     "kind": "included"
+    }
+   ]
+  }
+ ],
+ "word_check_allow": [
+  "we agree",
+  "we can talk"
+ ],
+ "systems": [
+  "office email inbox",
+  "QuickBooks Desktop"
+ ],
+ "middleware": [],
+ "_notes": [
+  "Approved facts: account_thesis_event#9519 (3,200, blocks 1,500 and 1,700, 50/50 on Upwork), #9518 (plan override), #9520 (one time freshness relaxation for sha bf40e201ea00), client words #9510 and #9515.",
+  "Copy written from the client's own words on record. Nothing invented."
+ ]
+}

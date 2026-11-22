@@ -1,5 +1,8 @@
 """Tests for the spec-driven proposal entry (card 535). Synthetic rule text with FIXTURE-style values: these prove behavior, they are not a source of prices."""
 import json, os, subprocess, sys, tempfile, unittest, copy, datetime
+# The Technology Partner page screenshots come from a blank test fixture here, never the live set (tp_page.load).
+os.environ.setdefault("LF_TEST", "1")
+os.environ.setdefault("LF_TP_PAGE_FIXTURE", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tp_page_fixture"))
 HERE = os.path.dirname(os.path.abspath(__file__))
 SPEC = json.load(open(os.path.join(HERE, "examples", "ridgeline-spec.json")))
 

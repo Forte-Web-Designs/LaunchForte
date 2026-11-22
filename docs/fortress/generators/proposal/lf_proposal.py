@@ -226,6 +226,12 @@ def main(argv=None):
     report["unverified_defaults_and_flags"] = flags
     report["systems"] = {"distinct_client_systems": n_sys, "extra_systems_charged": extra_n}
     report["testimonial_source"] = (spec.get("testimonial") or {}).get("source_ref")
+    # Seth Nov 22 2026 hard rule: the page screenshots in the Technology Partner section, with where they came from.
+    if getattr(g, "TP_PAGE", None):
+        tm = g.TP_PAGE["manifest"]
+        report["tp_page"] = {"design_version": tm.get("design_version"), "captured_at": tm.get("captured_at"), "commit": tm.get("commit"),
+                             "checked_against": g.TP_PAGE.get("version_source"), "source": "product-assets/tp-page/current",
+                             "files": {f["file"]: f["sha256"][:12] for f in tm.get("files", [])}}
     ok = not (hard or review or price_problems or overflow or left or flags)
     report["result"] = "PASS" if ok else "NEEDS REVIEW"
     json.dump(report, open(os.path.join(out, "qa_report-%s.json" % name), "w"), indent=2)

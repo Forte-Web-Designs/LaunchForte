@@ -1,6 +1,9 @@
 """lf_document sample tests (synthetic data only, per repo rule). The client fixture tests live in the
 Fortress 2 project folder lf_document/tests. Run from this folder: python3 -m pytest -q tests"""
 import copy, json, os, sys
+# The client portal screenshots come from a blank test fixture here, never the live set (tp_page.load).
+os.environ.setdefault("LF_TEST", "1")
+os.environ.setdefault("LF_TP_PAGE_FIXTURE", os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "tp_page_fixture"))
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HERE)
 from core import lf_document, plan_price, CLIENT_WORDS
@@ -53,3 +56,14 @@ def test_gate_failures():
     p = copy.deepcopy(PROS); p["figures"]["week_one_measurements"] = []
     assert lf_document(p, "proposal", SNAP)["figures_manifest"]["status"] == "FAIL"
     assert word_check("We used an AI agent — tier one.")
+
+
+def test_portal_page_closes_an_eligible_document():
+    """Seth Nov 22 2026: the Technology Partner section ends every document that offers the plan, with real portal screenshots."""
+    text, doc = build_html(PSPEC, PROS, SNAP)
+    if doc["whats_next"]:
+        assert "Your private client portal" in text
+        assert text.index("Your private client portal") > text.index("<h2>" + __import__("render").esc(doc["whats_next"]["title"]))
+        assert "portal-sample-top" not in text and doc["tp_page"]["checked_against"].startswith("FIXTURE")
+    else:
+        assert "Your private client portal" not in text
