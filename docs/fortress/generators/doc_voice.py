@@ -31,6 +31,11 @@ def outside_help(text):
             % (m.group(0), t[max(0, m.start() - 40):m.end() + 40].strip()) for m in OUTSIDE_HELP.finditer(t)]
 
 
+# Seth, Nov 22 2026 3:06 PM CT: no documentation names Upwork (proposals, audits, handoff guides, architecture documents,
+# the Technology Partner PDF, evidence packs). Only the Launch Forte intro deck may.
+UPWORK = re.compile(r"\bup\s?work\b", re.I)
+
+
 def problems(text):
     t = re.sub(r"\s+", " ", text or "")
     t = re.sub(r"(?:\b[A-Z]{1,3} ){2,}[A-Z]{1,3}\b", " ", t)   # letter spaced eyebrow labels (W H AT T H I S I S)
@@ -39,6 +44,7 @@ def problems(text):
     for a in ALLOWED:
         t = re.sub(a, " ", t, flags=re.S)
     out = outside_help(text)
+    out += ['wording: "%s" (no documentation names Upwork, only the intro deck)' % m.group(0) for m in UPWORK.finditer(re.sub(r"\s+", " ", text or ""))]
     for m in WE.finditer(t):
         out.append('voice: "%s" in "...%s..." (Launch Forte is the subject, never we, us or our)' % (m.group(0), t[max(0, m.start() - 40):m.end() + 40].strip()))
     for m in ME.finditer(t):

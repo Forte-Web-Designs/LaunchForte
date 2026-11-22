@@ -158,7 +158,7 @@ FILL = {
     "[WEEK 3 SUMMARY]": "Content variation system posting on schedule, soft conversion capture and the retargeting pool live on TikTok and Shopify.",
     "[WEEK 4 SUMMARY]": "Reporting layer live, handover walkthrough recorded, support window opens.",
     "[SUPPORT DAYS]": "30",
-    "[UPWORK NOTE]": "Accepted and funded through Upwork.",
+    "[UPWORK NOTE]": "Accepted and funded one milestone at a time.",   # Seth Nov 22 2026 3:06 PM CT: never name Upwork in a proposal
 
     "[TESTIMONIAL QUOTE]": "Smooth from start to finish. Already planning to come back for the next project.",
     "[TESTIMONIAL NAME]": "Chelsea",
@@ -168,7 +168,7 @@ FILL = {
 UPWORK_SWAPS = [
     ("Confirming takes one email", "Confirming takes one reply"),
     ("To seth@launchforte.com.",
-     "Reply here on Upwork."),
+     "Reply to this message."),
     ("grab a time at <b>calendly.com/seth-launchforte</b>. Everything else, including questions on scope or terms, is handled over email.",
      "send a message here and a time gets set up. Everything else, including questions on scope or terms, is handled in this thread."),
 ]

@@ -159,7 +159,7 @@ def main(argv=None):
             refuse("%s is computed, not supplied." % k)
     fill["[AMOUNT]"] = f"{total:,}"
     fill["[SPLIT TO START]"] = fill["[SPLIT ON DELIVERY]"] = "$" + f"{half:,}"
-    fill.setdefault("[UPWORK NOTE]", "Accepted and funded through Upwork." if platform == "upwork" else "")
+    fill.setdefault("[UPWORK NOTE]", "Accepted and funded one milestone at a time." if platform == "upwork" else "")   # Seth Nov 22 2026 3:06 PM CT: never name Upwork in a proposal
 
     g.FILL = fill; g.BLOCKS = blocks
     g.UPWORK = (platform == "upwork")
