@@ -65,15 +65,35 @@ exports.handler = async (event) => {
     if (!EMAIL_PATTERN.test(email))         return bad("Email is required.");
     if (message.length < MIN_MESSAGE_LEN)   return bad("Message is required.");
 
-    // Rebuild the payload for Netlify Forms. form-name is the trigger that
-    // tells Netlify Forms this POST is a submission for the "contact" form.
-    // Everything else is forwarded as-is so the dashboard shows every field.
+    // Rebuild the payload for Netlify Forms in the order the notification
+    // email should read: who, how to reach them, what they need, then one
+    // tracking line. Blank optional fields are left out so the email has no
+    // empty rows. "subject" becomes the email's subject line (the form's
+    // hidden subject input carries data-remove-prefix).
+    const val = (k) => String(fields[k] || "").trim();
+    const company = val("company");
+    let cameFrom = val("came_from");
+    if (!cameFrom) {
+        // Visitors with an older cached attribution.js still send utm_* fields.
+        const bits = [];
+        if (val("gclid")) bits.push("Google Ads click");
+        else if (val("utm_source")) bits.push(val("utm_source"));
+        if (val("utm_campaign")) bits.push("campaign " + val("utm_campaign"));
+        if (val("landing")) bits.push("first page " + val("landing"));
+        cameFrom = bits.join(" \u00b7 ") || "Direct visit";
+    }
+    const topic = val("topic") || val("subject_topic");
+
     const forwarded = new URLSearchParams();
     forwarded.set("form-name", "contact");
-    for (const [k, v] of Object.entries(fields)) {
-        if (k === "bot-field") continue;   // do not forward the honeypot
-        forwarded.set(k, v);
-    }
+    forwarded.set("subject", "New quote request: " + name + (company ? " (" + company + ")" : ""));
+    forwarded.set("name", name);
+    forwarded.set("email", email);
+    if (company)        forwarded.set("company", company);
+    if (val("phone"))   forwarded.set("phone", val("phone"));
+    if (topic)          forwarded.set("topic", topic);
+    forwarded.set("message", message);
+    forwarded.set("came_from", cameFrom);
 
     try {
         const clientIp = event.headers["x-nf-client-connection-ip"]

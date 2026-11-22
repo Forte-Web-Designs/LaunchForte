@@ -1,7 +1,7 @@
 /* First-party attribution for launchforte.com.
  *
  * 1. Remembers how a visitor first arrived (utm_*, gclid, referrer, landing page) for 90 days.
- * 2. Copies it into hidden fields on the contact form, so every Netlify Forms submission says where the lead came from.
+ * 2. Writes it as one readable "came_from" line on the lead forms, so every submission says where the lead came from.
  * 3. Adds the same utm_* values to every Calendly link, so Calendly records the source on the booking.
  * 4. Pushes dataLayer events GTM can turn into GA4 key events:
  *      calendly_click   - a Calendly link was opened
@@ -48,12 +48,31 @@
   }
   var attr = first || {};
 
-  // 2. Lead form hidden fields (declared in each form's HTML so Netlify Forms keeps them): the contact page form and
-  //    the homepage quick-contact form.
+  // 2. Lead form tracking. Forms carry one hidden "came_from" field so the notification email shows a single
+  //    readable line ("chatgpt.com · first page /accounting-system-integrations") instead of eight utm rows.
+  //    Older forms that still declare the individual utm_* inputs get those filled too.
+  function describe() {
+    var host = "";
+    try { host = attr.referrer ? new URL(attr.referrer).hostname.replace(/^www\./, "") : ""; } catch (e) {}
+    var parts = [];
+    if (attr.gclid) parts.push("Google Ads click");
+    else if (attr.utm_source) parts.push(attr.utm_source + (attr.utm_medium && attr.utm_medium !== "referral" ? " (" + attr.utm_medium + ")" : ""));
+    else if (host) parts.push(host);
+    else parts.push("Direct visit (typed the address or a bookmark)");
+    if (attr.utm_campaign) parts.push("campaign " + attr.utm_campaign);
+    if (attr.utm_term) parts.push("searched \"" + attr.utm_term + "\"");
+    if (attr.landing) parts.push("first page " + attr.landing);
+    if (window.location.pathname !== attr.landing) parts.push("sent from " + window.location.pathname);
+    return parts.join(" \u00b7 ");
+  }
+  window.lfCameFrom = describe;
+
   function fillForm() {
     var forms = document.querySelectorAll("#contact-form, #qc-form");
     var names = FIELDS.concat(["landing", "referrer"]);
     for (var f = 0; f < forms.length; f++) {
+      var cf = forms[f].querySelector('input[name="came_from"]');
+      if (cf && !cf.value) cf.value = describe();
       for (var j = 0; j < names.length; j++) {
         var input = forms[f].querySelector('input[name="' + names[j] + '"]');
         if (input && !input.value) input.value = attr[names[j]] || "";
@@ -90,6 +109,43 @@
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: "calendly_booked", page: window.location.pathname, source: attr.utm_source || "direct" });
     }
+  });
+
+  // 5. The GHL booking widget (iframe from api.leadconnectorhq.com) reports through postMessage:
+  //      ["set-sticky-contacts", "_ud", "<contact json with id>"]   when the visitor submits the form
+  //      ["msgsndr-booking-complete", {fingerprint, calendarId}]    when the booking is confirmed
+  //    GHL itself records only "Direct traffic" for these bookings because the widget cannot see this page's URL.
+  //    So the first touch kept above is sent with the GHL contact ID as one dataLayer event, ghl_booking_complete.
+  //    GTM turns it into a GA4 event; the server side booking_confirmed event carries the same contact_id, which is the join.
+  var ghlContactId = "";
+  window.addEventListener("message", function (e) {
+    if (!e || e.origin !== "https://api.leadconnectorhq.com") return;
+    var d = e.data;
+    if (typeof d === "string") { try { d = JSON.parse(d); } catch (x) { return; } }
+    if (!d || !d.length) return;
+    if (d[0] === "set-sticky-contacts" && d[1] === "_ud" && d[2]) {
+      try { var c = typeof d[2] === "string" ? JSON.parse(d[2]) : d[2]; ghlContactId = String((c && (c.id || c.customer_id)) || ""); } catch (x) {}
+      return;
+    }
+    if (d[0] !== "msgsndr-booking-complete") return;
+    try {
+      var sentKey = "lf_ghl_booked_" + (ghlContactId || (d[1] && d[1].fingerprint) || "x");
+      if (window.sessionStorage.getItem(sentKey)) return; // one event per booking, even if the widget repeats the message
+      window.sessionStorage.setItem(sentKey, "1");
+    } catch (x) {}
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "ghl_booking_complete",
+      contact_id: ghlContactId || "UNKNOWN",
+      page: window.location.pathname,
+      booking_site: window.location.hostname.replace(/^www\./, ""),
+      first_source: attr.utm_source || "direct",
+      first_medium: attr.utm_medium || "none",
+      first_campaign: attr.utm_campaign || "none",
+      first_term: attr.utm_term || "none",
+      first_landing: attr.landing || "unknown",
+      first_gclid: attr.gclid ? "yes" : "no"
+    });
   });
 
   if (document.readyState === "loading") {

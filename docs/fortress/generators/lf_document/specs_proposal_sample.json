@@ -1,0 +1,75 @@
+{
+ "doc_type": "proposal",
+ "doc_label": "Proposal",
+ "doc_date": "Nov 19 2026",
+ "doc_where": "SAMPLE, synthetic prospect",
+ "cover": {
+  "kicker": "Sample proposal \u00b7 Fixed price \u00b7 Delivery in 4 weeks",
+  "client": "Northline Heating and Air",
+  "title": "Missed Call Follow Up",
+  "subtitle": "Every missed call gets a fast text back and a way to book",
+  "intro": "Prepared for Dana. A synthetic sample used to test the document path. Not a real business.",
+  "strip": [
+   [
+    "Prepared for",
+    [
+     "Dana",
+     "Northline (sample)"
+    ]
+   ],
+   [
+    "Price",
+    [
+     "Fixed"
+    ]
+   ],
+   [
+    "Delivery",
+    [
+     "4 weeks"
+    ]
+   ],
+   [
+    "Start",
+    [
+     "On first payment"
+    ]
+   ]
+  ]
+ },
+ "summary": {
+  "intro": "Every missed call gets a text back within a minute with your booking link, booked jobs land on the dispatch calendar, and you get a weekly count of what was missed and what was saved.",
+  "bottom_line": [
+   [
+    "What changes.",
+    "A missed call stops being a lost job. The caller gets a text and a way to book right away."
+   ],
+   [
+    "What your team does.",
+    "Nothing new. Booked jobs show up on the calendar they already use."
+   ]
+  ]
+ },
+ "sections": [
+  {
+   "title": "How it works",
+   "paras": [
+    "A missed call triggers a text with your booking link. Booked jobs go straight onto the dispatch calendar with the caller's notes."
+   ]
+  }
+ ],
+ "support": "Thirty days of support after delivery. If anything doesn't behave the way this proposal says, I fix it at no charge.",
+ "appendix": {
+  "title": "Terms",
+  "rows": [
+   [
+    "Payment",
+    "Half to start, half on delivery."
+   ],
+   [
+    "Third party costs",
+    "Phone and texting costs stay on your own accounts."
+   ]
+  ]
+ }
+}

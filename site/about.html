@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Launch Forte | Business Systems Engineering</title>
-    <meta name="description" content="Solo engineering practice run by Seth Forte. SRE background, financial services origin, growth systems built to survive volume. Based in Grapevine, Texas, working with DFW businesses remotely. Clients nationwide.">
+    <meta name="description" content="Launch Forte designs and builds the systems that bring in customers, close deals, and keep operations moving, with optional ongoing Technology Partner support. Based in Grapevine, Texas. Clients nationwide.">
     <link rel="canonical" href="https://launchforte.com/about">
     <link rel="icon" href="/images/home/launch-forte-icon.png" type="image/png">
     <!-- GTM -->
@@ -18,6 +18,39 @@
       "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://launchforte.com/"},
         {"@type": "ListItem", "position": 2, "name": "About", "item": "https://launchforte.com/about.html"}
+      ]
+    }
+    </script>
+    <!-- Schema: Organization and founder Person -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://launchforte.com/#organization",
+          "name": "Launch Forte",
+          "url": "https://launchforte.com/",
+          "address": {"@type": "PostalAddress", "addressLocality": "Grapevine", "addressRegion": "TX", "addressCountry": "US"},
+          "founder": {"@id": "https://launchforte.com/about#seth-forte"},
+          "sameAs": [
+            "https://www.linkedin.com/company/launchforte/",
+            "https://www.upwork.com/freelancers/sethforte"
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://launchforte.com/about#seth-forte",
+          "name": "Seth Forte",
+          "jobTitle": "Founder",
+          "worksFor": {"@id": "https://launchforte.com/#organization"},
+          "url": "https://sethforte.com/",
+          "sameAs": [
+            "https://sethforte.com/",
+            "https://www.linkedin.com/in/seth-forte/",
+            "https://www.upwork.com/freelancers/sethforte"
+          ]
+        }
       ]
     }
     </script>
@@ -42,34 +75,18 @@
             "@type": "Answer",
             "text": "Software engineering and SRE in financial services, where downtime costs six figures per hour. That work taught reliability, monitoring, documentation, and failure handling at a level most automation work never sees. It shows up in cleaner architecture and systems that don't break when volume increases."
           }
-        },
-        {
-          "@type": "Question",
-          "name": "Why solo instead of an agency?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The engineering work doesn't scale through headcount. Senior engineers don't replicate cleanly into junior implementers. We'd rather take fewer engagements at full depth than more at agency depth."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do we get started?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Book a Growth Systems Audit on the homepage. Fixed price, written diagnostic with prioritized recommendations. Credit applies to your first build. If a build or partnership comes after, the work moves into scope. If not, you still own the diagnostic."
-          }
         }
       ]
     }
     </script>
     <meta property="og:title" content="About Launch Forte | Business Systems Engineering">
-    <meta property="og:description" content="Solo engineering practice run by Seth Forte. SRE background, financial services origin, growth systems built to survive volume. Based in Grapevine, Texas, working with DFW businesses remotely. Clients nationwide.">
+    <meta property="og:description" content="Launch Forte designs and builds the systems that bring in customers, close deals, and keep operations moving, with optional ongoing Technology Partner support. Based in Grapevine, Texas. Clients nationwide.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://launchforte.com/about.html">
     <meta property="og:image" content="https://launchforte.com/images/home/launch-forte.png">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="About Launch Forte | Business Systems Engineering">
-    <meta name="twitter:description" content="Solo engineering practice run by Seth Forte. SRE background, financial services origin, growth systems built to survive volume. Based in Grapevine, Texas, working with DFW businesses remotely. Clients nationwide.">
+    <meta name="twitter:description" content="Launch Forte designs and builds the systems that bring in customers, close deals, and keep operations moving, with optional ongoing Technology Partner support. Based in Grapevine, Texas. Clients nationwide.">
     <meta name="twitter:image" content="https://launchforte.com/images/home/launch-forte.png">
 
     <link rel="preload" as="font" href="/fonts/Mona-Sans.var.woff2" type="font/woff2" crossorigin>
@@ -135,6 +152,13 @@
           .hero-h1 { max-width: 100% !important; }
         }
 
+        /* Company sections (What we do, Technology Partner, Philosophy): short prose at a readable measure */
+        .about-copy { max-width: 720px; }
+        .about-copy p { color: var(--n-700); font-size: var(--text-lg); line-height: 1.7; margin: 0 0 1.1rem; }
+        .about-copy p:last-child { margin-bottom: 0; }
+        .about-philosophy-lead { color: var(--n-700); font-size: var(--text-lg); line-height: 1.7; margin: 0 0 1.75rem; max-width: 720px; }
+        .about-philosophy-close { font-family: var(--font-display); font-variation-settings: var(--font-display-vars); font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.015em; color: var(--ink); margin: 2rem 0 0; }
+
         /* How I Work Differently, 2x2 grid of cards, studio grammar */
         .about-diff-grid {
             display: grid;
@@ -175,6 +199,7 @@
             <img src="/images/home/launch-forte.png" class="logo-img" alt="Launch Forte, revenue and operations systems for growing businesses" width="160" height="28" fetchpriority="high">
         </a>
         <div class="studio-nav-right">
+            <a href="https://my.launchforte.com" class="studio-nav-signin">Client sign in</a>
             <a href="/contact" class="studio-nav-cta">Contact</a>
             <nav class="header-nav" aria-label="Primary" style="display:none">
                 <a href="/">Home</a>
@@ -183,6 +208,7 @@
                 <a href="/tools">Free Tools</a>
                 <a href="/about" class="active">About</a>
                 <a href="/contact">Contact</a>
+                <a href="https://my.launchforte.com">Client sign in</a>
             </nav>
         </div>
     </div>
@@ -217,6 +243,32 @@
         </div>
     </div>
 
+    <!-- WHAT WE DO -->
+    <section class="studio-container studio-section" id="what-we-do">
+        <div class="section-eyebrow-block studio-reveal" style="text-align:left;margin-bottom:var(--sp-8);">
+            <p class="studio-eyebrow">What we do</p>
+            <h2 class="studio-h2">We build the systems behind growth.</h2>
+        </div>
+        <div class="about-copy studio-reveal">
+            <p>Launch Forte designs and builds the systems that bring in customers, close deals, and keep operations moving. That includes lead capture and follow up, CRM and pipelines, integrations and automation, and reporting you can trust.</p>
+            <p>Most work starts with an audit. Some clients stay on afterward as a partner.</p>
+        </div>
+    </section>
+
+    <!-- TECHNOLOGY PARTNER -->
+    <section class="studio-container studio-section" id="technology-partner">
+        <div class="section-eyebrow-block studio-reveal" style="text-align:left;margin-bottom:var(--sp-8);">
+            <p class="studio-eyebrow">Technology Partner</p>
+            <h2 class="studio-h2">Your business technology, handled.</h2>
+        </div>
+        <div class="about-copy studio-reveal">
+            <p>After a build, most businesses still need someone who knows how everything fits together. Technology Partner is optional ongoing help, month to month, cancel anytime.</p>
+            <p>Each month we keep an eye on the systems we agree to cover and send a dated update showing what we checked and what we recommend next.</p>
+            <p>In between, you can send everyday requests like fixes, automations, reports, integrations, or questions. We work one active request at a time, and larger projects are quoted separately. You keep ownership of your accounts and everything we build.</p>
+            <p>How much runs from the first month depends on the systems and access we have. We tell you plainly what&rsquo;s covered and what isn&rsquo;t yet.</p>
+        </div>
+    </section>
+
     <!-- PROFILE -->
     <div class="section reveal">
         <span class="section-label">Who We Are</span>
@@ -239,10 +291,6 @@
 
     <!-- PROOF STRIP (shared from homepage) -->
     <section class="trusted-strip reveal">
-        <div class="proof-badges">
-            <span class="proof-badge">Top Rated on Upwork across 80+ completed contracts</span>
-            <!-- REPEAT_RATE_STAT: compute from Twenty (clients with a second engagement / total clients). Render nothing until Seth supplies a real number, never estimate. -->
-        </div>
         <p class="trusted-label">Trusted by</p>
         <div class="marquee-wrap">
             <div class="marquee-track">
@@ -264,30 +312,32 @@
         </div>
     </section>
 
-    <!-- DIFFERENTIATORS -->
-    <section class="studio-container studio-section">
-        <div class="section-eyebrow-block studio-reveal" style="text-align:left;margin-bottom:var(--sp-10);">
-            <p class="studio-eyebrow">How I work differently</p>
-            <h2 class="studio-h2">Four things you can hold me to, <span class="lf-accent">from day one</span>.</h2>
+    <!-- OUR PHILOSOPHY -->
+    <section class="studio-container studio-section" id="philosophy">
+        <div class="section-eyebrow-block studio-reveal" style="text-align:left;margin-bottom:var(--sp-8);">
+            <p class="studio-eyebrow">Our philosophy</p>
+            <h2 class="studio-h2">What you can hold us to.</h2>
         </div>
+        <p class="about-philosophy-lead studio-reveal">Eventually, everything we build will break, so we build it to be easy to understand and easy to fix.</p>
         <div class="about-diff-grid studio-reveal">
             <div class="about-diff-card">
-                <h3 class="about-diff-title">I start with the math</h3>
-                <p class="about-diff-body">Every project starts with what the problem is costing. If the return doesn't work, I don't build it.</p>
+                <h3 class="about-diff-title">We start with the math</h3>
+                <p class="about-diff-body">Every project starts with what the problem is costing. If the return doesn&rsquo;t work, we don&rsquo;t build it.</p>
             </div>
             <div class="about-diff-card">
-                <h3 class="about-diff-title">You own everything I build</h3>
-                <p class="about-diff-body">Every system is documented and handed over. No retainer required to keep it running.</p>
+                <h3 class="about-diff-title">You own what we build</h3>
+                <p class="about-diff-body">Every system is documented and handed over. No retainer is required to keep it running.</p>
             </div>
             <div class="about-diff-card">
                 <h3 class="about-diff-title">Clear scope, no surprises</h3>
-                <p class="about-diff-body">I define what's being built and why before I write a line of code.</p>
+                <p class="about-diff-body">We define what&rsquo;s being built and why before we write a line of code.</p>
             </div>
             <div class="about-diff-card">
-                <h3 class="about-diff-title">I solve the real problem</h3>
-                <p class="about-diff-body">Most clients ask for a specific tool. I ask what problem it solves, and sometimes the answer changes what I build.</p>
+                <h3 class="about-diff-title">We solve the problem behind the request</h3>
+                <p class="about-diff-body">Most clients ask for a specific tool. We ask what problem it solves, and sometimes the answer changes what we build.</p>
             </div>
         </div>
+        <p class="about-philosophy-close studio-reveal">Simple is underrated.</p>
     </section>
 
     <!-- FAQ -->
@@ -306,10 +356,6 @@
                     <button class="faq-q" aria-expanded="false"><span>What's the background?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                     <div class="faq-panel"><div class="faq-panel-inner"><p>Software engineering and reliability work in financial services, where downtime costs six figures an hour. That is where the discipline around monitoring and failure handling comes from.</p></div></div>
                 </div>
-                <div class="faq-qa">
-                    <button class="faq-q" aria-expanded="false"><span>Why solo instead of an agency?</span><svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                    <div class="faq-panel"><div class="faq-panel-inner"><p>Engineering work does not scale through headcount. I would rather run fewer engagements at full depth than more at agency depth.</p></div></div>
-                </div>
             </div>
         </div>
     </section>
@@ -318,7 +364,7 @@
     <div class="section reveal">
         <div class="cta-block">
             <h2>Start with the <span style="color:var(--accent)">audit</span>.</h2>
-            <p class="body-text">A 30 minute call is usually enough to know what's broken and whether I'm the right fit to fix it.</p>
+            <p class="body-text">A 15 minute call is usually enough to know what's broken and whether we're the right fit to fix it.</p>
             <div class="cta-buttons">
                 <a href="https://api.leadconnectorhq.com/widget/bookings/launchforte-call" target="_blank" rel="noopener" class="btn-primary">Book a Call &rarr;</a>
                 <a href="/results" class="btn-secondary">See Our Results</a>
@@ -338,14 +384,14 @@
     <!-- FOOTER -->
     <footer class="studio-footer">
         <div class="studio-footer-inner">
-            <a href="mailto:seth@launchforte.com" class="footer-email-main" style="display:block;text-align:center;font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-2xl);font-weight:600;color:var(--ink);margin-bottom:var(--sp-16);text-decoration:none;letter-spacing:-0.015em;">seth@launchforte.com</a>
+            <a href="mailto:hello@launchforte.com" class="footer-email-main" style="display:block;text-align:center;font-family:var(--font-display);font-variation-settings:var(--font-display-vars);font-size:var(--text-2xl);font-weight:600;color:var(--ink);margin-bottom:var(--sp-16);text-decoration:none;letter-spacing:-0.015em;">hello@launchforte.com</a>
             <div class="studio-footer-cols">
                 <div class="studio-footer-col">
                     <h4>Services</h4>
                     <ul>
                             <li><a href="/#audit">Audit</a></li>
                         <li><a href="/#core-systems-build">Build</a></li>
-                        <li><a href="/partnership">Partnership</a></li>
+                        <li><a href="/technology-partner">Technology Partner</a></li>
                         <li><a href="/what-we-build">What We Build</a></li>
                     </ul>
                 </div>
@@ -364,7 +410,8 @@
                     <ul>
                         <li><a href="https://www.linkedin.com/company/forte-web-designs" target="_blank" rel="noopener">LinkedIn</a></li>
                         <li><a href="https://sethforte.com/about" target="_blank" rel="noopener">About the founder</a></li>
-                        <li><a href="mailto:seth@launchforte.com">Email</a></li>
+                        <li><a href="mailto:hello@launchforte.com">Email</a></li>
+                        <li><a href="https://my.launchforte.com">Client sign in</a></li>
                     </ul>
                 </div>
             </div>
@@ -448,6 +495,18 @@
             try { player.unMute(); player.setVolume(100); player.playVideo(); } catch(_){}
         }
         btn.classList.add('is-hidden');
+    });
+})();
+</script>
+<script>
+// FAQ accordion: toggle open, aria-expanded; all closed by default
+(function(){
+    document.querySelectorAll('.faq-q').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            var qa = btn.closest('.faq-qa');
+            var open = qa.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
     });
 })();
 </script>

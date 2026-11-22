@@ -1,6 +1,9 @@
 [build]
   publish = "site"
-  command = "echo 'Static site - no build needed'"
+  # Fails the deploy if any page still says PLACEHOLDER (Seth, Nov 20 2026).
+  # If a DEMO_URL env var is set in Netlify, it replaces the live sample link
+  # in site/demo-config.js for that deploy only (the repo keeps production).
+  command = '''! grep -rIl --include='*.html' PLACEHOLDER site && { [ -z "$DEMO_URL" ] || perl -pi -e 's/^window\.LF_DEMO_URL = .*/window.LF_DEMO_URL = "$ENV{DEMO_URL}";/' site/demo-config.js; } && echo "Static site - no build needed"'''
   functions = "netlify/functions"
 
 [build.environment]
