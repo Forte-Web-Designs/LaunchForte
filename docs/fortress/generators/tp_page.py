@@ -29,17 +29,18 @@ DEVICES = ["desktop", "phone"]
 
 # One line each, plain words (Seth Nov 22 2026 item 3).
 CAPTIONS = {
-    "overview": "Everything I checked this month",
-    "handled": "What I handled, each with the day it was done",
-    "systems": "Each of your systems and when I last looked at it",
+    "overview": "Everything Launch Forte checked this month",
+    "handled": "What Launch Forte handled, each with the day it was done",
+    "systems": "Each of your systems and when it was last checked",
     "edition": "News from your industry and what it means for you",
-    "documents": "Every document I have sent you, in one place",
+    "documents": "Every document Launch Forte has sent you, in one place",
     "requests": "What you asked for and where each one stands",
 }
 
 # Captions and plan copy are checked like any client claim (Seth Nov 22 2026 item 6, BRAIN client-page-truth and the Client
 # Document Hard Rules): no monitoring, protection or guarantee wording, no security status, nothing AI related.
 BANNED = [
+    (r"\b(specialists?|bring(s|ing)? in|refer(s|red|ring)? you|hand(s|ed|ing)? off|subcontract\w*)\b", "outside help wording (Seth handles the work himself)"),
     (r"\bmonitor(s|ed|ing)?\b", "monitoring wording"),
     (r"\bprotect(s|ed|ing|ion)?\b", "protection wording"),
     (r"\bguarantee(s|d)?\b", "guarantee wording"),
@@ -139,7 +140,7 @@ def page_html(shots, demo_link=DEMO_LINK, rel=os.path.basename):
     cap = lambda k: '<div class="tpw-cap">%s</div>' % CAPTIONS[k]
     return (
         '<h2 class="sec" style="margin-bottom:6pt">Your private client portal</h2>'
-        '<p class="tpw-lead">One place to see where your technology stands. Open it any time, from your desk or your phone, to see what is happening with your systems and what needs your attention. Send me a request from the same page and watch it move until it is done.</p>'
+        '<p class="tpw-lead">One place to see where your technology stands. Open it any time, from your desk or your phone, to see what is happening with your systems and what needs your attention. Send Launch Forte a request from the same page and watch it move until it is done.</p>'
         '<div class="tpw-row">'
         '<div class="tpw-desk"><img src="%s" alt="Overview on a computer">%s</div>'
         '<div class="tpw-phone"><img src="%s" alt="Overview on a phone"></div>'

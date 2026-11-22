@@ -45,7 +45,7 @@ def test_proposal_shape_and_gate():
     t = to_text(html)
     assert t.find("fixed price") < t.find("What's next") < t.find("Terms")
     assert '"We miss calls when the techs are out, and those people just call the next guy."' in t
-    assert "What I measure in week one" in t and "Technology Partner" in t
+    assert "What Launch Forte measures in week one" in t and "Technology Partner" in t
     assert check(html, d, SNAP)["verdict"] == "PASS"
 
 def test_gate_failures():

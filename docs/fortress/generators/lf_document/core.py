@@ -29,17 +29,17 @@ MONTHLY_ORDER = [9, "private_page", "industry_briefing", 5, 8, 6, 3, 7, 4, 2]
 # Each item: a bold title and one concrete sentence. {covered} and {where} come from the record.
 CLIENT_WORDS = {
     9: ("Your monthly Technology and Opportunities Review.",
-        "A short report: what I checked across {where}, what I fixed, how your numbers moved against last month, and the one or two improvements worth making next."),
-    "private_page": ("Your own secure page.",
-                     "A private page that shows what I've taken care of this month: checks done, issues fixed, improvements shipped, and anything waiting on your decision."),
+        "A short report: what Launch Forte checked across {where}, what was fixed, how your numbers moved against last month, and the one or two improvements worth making next."),
+    "private_page": ("Your client portal.",
+                     "One place to see what Launch Forte took care of this month: checks done, issues fixed, improvements shipped and anything waiting on your decision."),
     "industry_briefing": ("What's changing that matters to you.",
                           "Anything changing in your tools or your industry that affects you, in plain words."),
-    5: ("I keep watch on what I built for you.",
-        "{covered}. If something breaks, I fix it."),
+    5: ("Launch Forte checks what it built for you.",
+        "{covered}. If something breaks, Launch Forte fixes it."),
     8: ("The next worthwhile improvement.",
-        "I look across {where} for what's worth fixing or building next, and tell you what I found and where it came from."),
+        "Launch Forte looks across {where} for what's worth fixing or building next, and tells you what it found and where it came from."),
     6: ("A second look at anything new.",
-        "If you or your team build or change something, I review it before it causes trouble."),
+        "If you or your team build or change something, Launch Forte reviews it before it causes trouble."),
     3: ("Logins and access.",
         "A regular look at who has access to your accounts, so old logins get closed."),
     7: ("The software you pay for.",
@@ -148,7 +148,7 @@ def status_map(rows):
 
 def monthly_items(status_rows: list[dict], record: dict) -> list[dict]:
     st = status_map(status_rows)
-    fill = {"covered": record.get("covered_systems", "The systems you and I agree to cover"),
+    fill = {"covered": record.get("covered_systems", "The systems on the plan"),
             "where": record.get("where", "your accounts")}
     out = []
     for key in MONTHLY_ORDER:
@@ -184,7 +184,7 @@ def draft_whats_next(record: dict, sec10: str, status_rows: list[dict]) -> dict:
         blocks.append({"kind": "goals", "intro": None, "columns": record.get("goals_columns", ["What you named", "Where it stands"]),
                        "rows": [[g["goal"], g["status"]] for g in goals], "refs": [g["ref"] for g in goals]})
     if also:
-        blocks.append({"kind": "para", "text": "Also open from our first call: %s." % _join([a["text"] for a in also]),
+        blocks.append({"kind": "para", "text": "Also open from the first call: %s." % _join([a["text"] for a in also]),
                        "refs": [a["ref"] for a in also]})
 
     # 2. Next fixed price phase first, only if on record
@@ -195,32 +195,32 @@ def draft_whats_next(record: dict, sec10: str, status_rows: list[dict]) -> dict:
 
     # 3. The recommendation
     items = monthly_items(status_rows, record)
-    rec = {"kind": "recommend", "kicker": "What I'd recommend for you",
+    rec = {"kind": "recommend", "kicker": "What Launch Forte recommends for you",
            "title": "Technology Partner" + (": " + pos.replace("your business technology", "your technology") if pos else ""),
            "price": "$%s a month" % f"{price:,}",
-           "intro": ["Month to month, cancel anytime, and you keep everything I build.",
-                     "The idea is simple: instead of you noticing a problem and hiring me for a project, I'm already in your accounts every month, keeping what I built for you working and building the next thing."],
-           "list_intro": "Every month, even if you never send me a request:" if items else None,
+           "intro": ["After I build this, I would be happy to keep helping with the technology side of your business too.",
+                     "Month to month, cancel anytime, and you keep everything Launch Forte builds. Instead of you noticing a problem and hiring Launch Forte for a project, Launch Forte is already in your accounts every month, keeping what it built working and building the next thing."],
+           "list_intro": "Every month, even if you never send a request:" if items else None,
            "items": items, "requests": None, "fit": None, "honesty": None,
            "refs": ["pricing section 10", "service status table"]}
     if st.get(1) in SHOWABLE:
-        direct = " one at a time, and you can reach me directly" if st.get(10) in SHOWABLE else " one at a time"
+        direct = " one at a time, and you can ask directly" if st.get(10) in SHOWABLE else " one at a time"
         bigger = "Bigger builds are still quoted separately"
         if disc:
             bigger += ", and after three paid months they come with %d%% off" % disc
         rec["requests"] = ("And on top of that, as many everyday requests as you want.",
-                           "New automations, fixes, reports, integrations, a new staff member who needs set up, or a quick question. I work through them%s. %s." % (direct, bigger))
+                           "New automations, fixes, reports, integrations, a new staff member who needs set up, or a quick question. Launch Forte works through them%s. %s." % (direct, bigger))
     # 4. Why it fits: the open business goals, never chores
     layer = record.get("next_layer")
     if layer:
         rec["fit"] = ("Why it fits %s." % record.get("client_short", record["client_name"]),
-                      "Your next layer is exactly this kind of work: %s. I already know %s inside and out, so there's no ramp up and nothing to explain twice."
+                      "Your next layer is exactly this kind of work: %s. Launch Forte already knows %s inside and out, so there's no ramp up and nothing to explain twice."
                       % (layer.rstrip("."), record.get("accounts_phrase", "your accounts")))
     # 5. Honesty line
-    rec["honesty"] = "What runs from the first month depends on the access your accounts give me, and I'll tell you plainly what's covered and what isn't yet."
+    rec["honesty"] = "What runs from the first month depends on the access your accounts allow. I answer for the changes I make and for what I report, and I tell you plainly when something is outside what the plan covers. Launch Forte's monthly checks cover the systems we agree on and connect."
     blocks.append(rec)
     # 6. Close
-    blocks.append({"kind": "para", "text": "If %s sounds good, reply to my email or we can grab 15 minutes to set it up." % ("either" if nxt else "it")})
+    blocks.append({"kind": "para", "text": "If %s sounds good, reply to the email or book 15 minutes to set it up." % ("either" if nxt else "it")})
     return {"title": "What's next", "blocks": blocks, "price": price, "discount": disc,
             "monthly_keys": [i["key"] for i in items]}
 

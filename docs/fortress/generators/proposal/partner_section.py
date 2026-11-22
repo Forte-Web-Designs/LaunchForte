@@ -15,7 +15,8 @@ def _price():
 UPWORK_BILLING = False   # set by the generator when the plan is offered to an Upwork buyer under Seth's written per client override
 
 def _billing_note():
-    return " It is billed as a separate Upwork contract." if UPWORK_BILLING else ""
+    # Seth, Nov 22 2026 2:40 PM CT: the plan pages never mention how the plan is billed (no "separate Upwork contract" line).
+    return ""
 
 def configure():
     pass   # kept for callers; the price is read at render time and rendering raises when the rule is not verified
@@ -46,13 +47,13 @@ CSS = """
 """
 
 MONTHLY = [
- ("Checking your systems", "I check that the systems we agree to cover are working, such as your website, forms and automations, and I write down what I find."),
- ("Who has access", "I go through who can get into what, and point out former staff or old accounts that still have a way in, with what I would change."),
- ("Backups", "Where a system supports it, I check that it is being backed up and that a restore would work. Where it does not, I tell you."),
- ("Software and subscriptions", "I look through what you are paying for, point out overlaps and things nobody uses, and tell you what I would change. I do not guess at savings."),
- ("Business and technology review", "I look at how the business runs and the systems around it, and tell you what I see: risks, manual work that could go away and the next improvements worth making. What I observed and what I think stay separate, and I put no dollar figure on anything I cannot show."),
- ("Routine improvements", "I keep a short list of things worth improving. You decide which ones I go ahead with, and I handle the changes we agree on."),
- ("The monthly update", "Each month I send a short written update covering what I checked, what I handled, what needs a decision from you and what I would recommend next. We can talk it through on a call if you would like."),
+ ("Checking your systems", "Launch Forte checks that the systems on the plan are working, such as your website, forms and automations, and writes down what it finds."),
+ ("Who has access", "Launch Forte goes through who can get into what, and points out former staff or old accounts that still have a way in, with what it would change."),
+ ("Backups", "Where a system supports it, Launch Forte checks that it is being backed up and that a restore would work. Where it does not, Launch Forte tells you."),
+ ("Software and subscriptions", "Launch Forte looks through what you are paying for, points out overlaps and things nobody uses, and tells you what it would change. It does not guess at savings."),
+ ("Business and technology review", "Launch Forte looks at how the business runs and the systems around it, and tells you what it sees: risks, manual work that could go away and the next improvements worth making. What was observed and what is opinion stay separate, and no dollar figure goes on anything that cannot be shown."),
+ ("Routine improvements", "Launch Forte keeps a short list of things worth improving. You decide which ones go ahead, and Launch Forte handles the changes you approve."),
+ ("The monthly update", "Each month Launch Forte sends a short written update covering what was checked, what was handled, what needs a decision from you and what it recommends next. A call to talk it through is there if you would like one."),
 ]
 
 def page_a():
@@ -60,18 +61,18 @@ def page_a():
     return f'''<h2 class="sec" style="margin-bottom:10pt">Your Technology Partner</h2>
 <p class="tp-lead">After I build this, I would be happy to keep helping with the technology side of your business too. For {_price()} a month, I check the systems we agree to cover, review what is working and what needs attention, and look through your software for improvements worth making. You get a monthly update even if you have not asked me for anything new.</p>
 <div class="tp-price"><div class="amt">{_price()}<span>a month</span></div><div class="txt"><b>Optional, and separate from the project.</b> It is month to month, you can cancel anytime, and your accounts stay yours.</div></div>
-<p class="tp-p">Software tends to pile up. Accounts stay open after people leave, backups go unchecked, subscriptions renew unnoticed and small problems wait until they are expensive. With this plan, one person is accountable for all of it, and what I build in this project gets looked after instead of left alone.</p>
-<div class="tp-h3">What I take care of each month</div>
+<p class="tp-p">Software tends to pile up. Accounts stay open after people leave, backups go unchecked, subscriptions renew unnoticed and small problems wait until they are expensive. With this plan, one person is accountable for all of it, and what Launch Forte builds in this project gets looked after instead of left alone.</p>
+<div class="tp-h3">What Launch Forte takes care of each month</div>
 <div class="tp-rows">{rows}</div>'''
 
 def page_b(next_html=""):
     return f'''<h2 class="sec" style="margin-bottom:10pt">Unlimited everyday engineering requests</h2>
-<p class="tp-lead">Whenever you need an automation, an integration, a report, a fix or help figuring something out, send it my way. There is no limit on how many you send.</p>
-<p class="tp-p">I work on one active request at a time, so I can finish it properly before moving on. A larger standalone project, like the one in this proposal, is quoted separately.</p>
-<div class="tp-h3" style="margin-top:14pt">What I take responsibility for</div>
-<p class="tp-p">I would be your person for the technology side of the business: the software you use, everyday IT questions, integrations, troubleshooting and the decisions that come with all of it. You can reach me directly with a question and I work out what needs doing. I answer for the changes I make and for what I reported, I tell you plainly when something is outside what I cover, and I bring in a specialist when the work calls for one. My checks cover the systems we agree on and set up for it.</p>
-<p class="tp-p">How much of this runs from the first month depends on the access and tools your accounts allow. I tell you which systems are covered and which are not yet, and I will not call anything healthy that I have not checked.</p>
-<p class="tp-p">Each month you get a short written update, and your private portal shows what I checked, what I handled and what needs your decision, each with a date. The next page shows that portal.</p>
+<p class="tp-lead">Whenever you need an automation, an integration, a report, a fix or help figuring something out, send it to Launch Forte. There is no limit on how many you send.</p>
+<p class="tp-p">Launch Forte works on one active request at a time, so each one is finished properly before the next begins. A larger standalone project, like the one in this proposal, is quoted separately.</p>
+<div class="tp-h3" style="margin-top:14pt">What Launch Forte takes responsibility for</div>
+<p class="tp-p">Launch Forte would be your partner for the technology side of the business: the software you use, everyday IT questions, integrations, troubleshooting and the decisions that come with all of it. You can send a question directly and Launch Forte works out what needs doing. I answer for the changes I make and for what I report, and I tell you plainly when something is outside what the plan covers. Launch Forte's monthly checks cover the systems we agree on and connect.</p>
+<p class="tp-p">How much of this runs from the first month depends on the access and tools your accounts allow. Launch Forte tells you which systems are covered and which are not yet. I will not call anything healthy that I have not checked.</p>
+<p class="tp-p">Each month you get a short written update, and your private portal shows what Launch Forte checked, what was handled and what needs your decision, each with a date. The next page shows that portal.</p>
 <div class="tp-terms"><b>{_price()} a month.</b> Month to month, cancel anytime.{_billing_note()} If you only want the project, that is completely fine too.</div>
 {next_html}'''
 
@@ -86,8 +87,8 @@ def audit_closing(findings_ref="the findings above"):
         '<p class="tpc-p">Everything in this audit stands on its own, and you can take it to any builder you like. '
         'If you would rather have one person check these systems and fix things as they come up, I offer that for %s a month. '
         'It is optional, month to month, and you can cancel anytime.</p>'
-        '<p class="tpc-p">Each month I check the systems we agreed to cover, review who has access, look at what you are spending on software, '
-        'and send you a short note on what I found and what I would change. Everyday engineering requests are included on top, '
+        '<p class="tpc-p">Each month Launch Forte checks the systems agreed in writing, reviews who has access, looks at what you are spending on software, '
+        'and sends you a short note on what it found and what it would change. Everyday engineering requests are included on top, '
         'one active request at a time. Larger projects are quoted separately, like the ones recommended in %s.</p>'
         '<p class="tpc-p">I only report something as checked once I have checked it, and what I can cover depends on the access and tools your team gives me.</p>'
     ) % (offer_source.price_text(), findings_ref)

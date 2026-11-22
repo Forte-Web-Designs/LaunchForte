@@ -117,7 +117,7 @@ def _whats_next(wn, num):
     for b in wn["blocks"]:
         k = b["kind"]
         if k == "quote":
-            h.append("<div class='quote'>\"%s\"<br><span style='font-style:normal;color:#6e6e73'>%s, on our first call</span></div>" % (esc(b["text"]), esc(b["who"])))
+            h.append("<div class='quote'>\"%s\"<br><span style='font-style:normal;color:#6e6e73'>%s, on the first call</span></div>" % (esc(b["text"]), esc(b["who"])))
         elif k == "goals":
             if b.get("intro"):
                 h.append("<p>%s</p>" % esc(b["intro"]))
@@ -169,7 +169,7 @@ def build_html(spec: dict, record: dict, snapshot: dict | None) -> tuple[str, di
         if d.m["baseline"]:
             h.append("<h3>Where things stand today</h3>" + _table({"columns": ["What", "Today", "Read from"], "rows": [[b["label"], b["value"], "%s, %s" % (b["source"], b["read_at"])] for b in d.m["baseline"]]}))
         elif d.m["week_one_measurements"]:
-            h.append("<h3>What I measure in week one</h3><p>I don't have access to your accounts yet, so I measure these in the first week and report them before anything changes:</p><ul>%s</ul>" % "".join("<li>%s</li>" % esc(x) for x in d.m["week_one_measurements"]))
+            h.append("<h3>What Launch Forte measures in week one</h3><p>Launch Forte does not have access to your accounts yet, so these are measured in the first week and reported before anything changes:</p><ul>%s</ul>" % "".join("<li>%s</li>" % esc(x) for x in d.m["week_one_measurements"]))
         h.append("</div>")
     for sec in spec.get("sections", []):
         num += 1

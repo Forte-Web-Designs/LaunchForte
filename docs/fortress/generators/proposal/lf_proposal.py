@@ -12,6 +12,8 @@ import datetime, argparse, json, os, shutil, sys, io, contextlib, re
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import rules_input, proposal_qa
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+import doc_voice  # noqa: E402
 
 
 def refuse(msg, code=2):
@@ -73,14 +75,14 @@ def build_template(spec, src, dst):
     if t and all(t.get(k) for k in ("quote", "name", "title", "source_ref")):
         pass
     else:
-        sub("Track record &middot; Before we start", "Before we start")
-        sub('<h2 class="sec">Who has handed me this before</h2>', '<h2 class="sec">What I need to begin</h2>')
+        sub("Track record &middot; Before work starts", "Before work starts")
+        sub('<h2 class="sec">Who has handed Launch Forte this before</h2>', '<h2 class="sec">What Launch Forte needs to begin</h2>')
         sub("""  <div class="quote" style="margin:14pt 0 16pt 0">
     <p>[TESTIMONIAL QUOTE]</p>
     <div class="attr"><b>[TESTIMONIAL NAME]</b>, [TESTIMONIAL TITLE]</div>
   </div>
 
-  <div class="label">What I need to begin</div>
+  <div class="label">What Launch Forte needs to begin</div>
 """, "")
     open(dst, "w", encoding="utf-8").write(html)
     return True
@@ -202,8 +204,10 @@ def main(argv=None):
 
     pages = proposal_qa.pages_text(g.OUT_PDF)
     offered = bool(g.OFFER and g.OFFER["offer_plan"] and g.OFFER["variant"] == "whats_next")
-    hard, review = proposal_qa.word_check(pages, spec.get("word_check_allow", []))
+    # "we agree to cover" sits in the Technology Partner opening paragraph, which Seth keeps as written (Nov 22 2026 2:38 PM CT).
+    hard, review = proposal_qa.word_check(pages, spec.get("word_check_allow", []) + ["we agree to cover", "we agree on and connect"])
     price_problems = proposal_qa.price_audit(pages, total, offer_source.price(), offered, half)
+    price_problems += doc_voice.problems("\n".join(pages))  # Seth Nov 22 2026: document voice, Launch Forte is the subject
     overflow = proposal_qa.footer_overflow(g.OUT_PDF)
     left = re.findall(r"\[[A-Z][A-Z0-9 ]{1,28}\]", "\n".join(pages))
     imgs = proposal_qa.render(g.OUT_PDF, os.path.join(out, "pages-" + name))
