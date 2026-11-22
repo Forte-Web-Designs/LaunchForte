@@ -12,7 +12,7 @@ Library: `lf_reference query="proposal PDF generator"` returns this playbook (pa
 2. `python3 rules_from_readbacks.py --pricing pricing.txt --offer offer.txt --hard hard.txt --voice voice.txt --out rules.json`
    The helper refuses anything that is not LIVE or VERIFIED. If the connector reports the Voice Rules UNVERIFIED, nothing is built and there is no override. It takes the rate card and the monthly plan fee from the saved text.
 3. Write the client spec JSON (copy `examples/ridgeline-spec.json`, a fictional sample). You supply approved client facts, outcome blocks and part kinds with quantities (config, connection, judged, surface, risk, included). You never type a price, a total, a milestone or the plan fee: all are computed. Spec fields:
-   - `buyer`: status (prospect, eligible, active_client, unknown, opted_out), platform (direct or upwork), signed_agreement, seth_opt_out, and `scope_approved`, which is required: a missing value refuses the run, an explicit false builds a marked draft with no plan.
+   - `buyer`: status (prospect, eligible, active_client, unknown, opted_out), platform (direct or upwork), `upwork_first_contact_months`, `seth_override` (dict with client, date, source_ref, scope), kept_project_based, signed_agreement, seth_opt_out, and `scope_approved`, which is required: a missing value refuses the run, an explicit false builds a marked draft with no plan.
    - `systems`: required. Every distinct client system the build touches. The generator charges each system past the first two from the rate card and adds it to the first block, so it cannot be left out. `extra system` parts cannot be entered by hand. Middleware (n8n, Zapier, Make) is not a client system and is refused in this list.
    - `fill`: every client token except the computed amounts, the testimonial and the terms.
    - `blocks`, `word_check_allow` (snippets of lines where "we" or "our" plainly means Seth and the client together).
@@ -24,7 +24,7 @@ Library: `lf_reference query="proposal PDF generator"` returns this playbook (pa
 
 ## What the checks do
 - Rules: read time under 24 hours, each rule LIVE or VERIFIED, rate card and plan fee parsed from the text, the retired $750 plan refused, shas carried into the report.
-- Eligibility: the resolver decides whether the optional Technology Partner pages appear (direct prospects with approved scope only). Upwork, signed or active clients, opted out and unknown buyers get a proposal with no plan and no plan price.
+- Eligibility (rule technology-partner-offer v2, sha fe21a96233cf): the resolver decides whether the Technology Partner pages appear. Direct prospects with approved scope get the plan. Upwork buyers get it only with a dated per client override from Seth that names the client and cites a source (the plan is then billed as a separate Upwork contract), or with a first contact over 24 months ago. Signed or active clients, opted out, kept project based and unknown buyers get no plan and no plan price. The variant is `whats_next`, `mention_only` or `none`.
 - Order: problem and outcomes, solution, scope, fixed investment, then the optional plan. The plan price is never on the cover or before the investment.
 - Pricing: every block total is the sum of rate card parts, the two milestones are exactly half (any even whole dollar total), no typed price accepted, no internal piece math in client copy.
 - Wording: the Client Document Hard Rules word list over the final PDF text (list stamped with rule sha `ee99703ddff9`), unfilled tokens, footer overflow, page images.
