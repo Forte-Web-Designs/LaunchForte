@@ -67,9 +67,9 @@
    "full_sentence": true
   }
  ],
- "goals_intro": "On our first call you told me where the business leaks, in your own words. This project closes the first one.",
+ "goals_intro": "On the first call you named where the business leaks, in your own words. This project closes the first one.",
  "goals_columns": [
-  "What you told me",
+  "What you said",
   "Where it stands after this project"
  ],
  "business_goals": [

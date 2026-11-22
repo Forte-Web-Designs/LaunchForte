@@ -121,7 +121,7 @@ SCENARIOS = [
      "Sweep: approvals with no answer inside the SLA"),
 
     ("alerting-watchtower", "Alerting when something goes quiet", "alerting", "wholesale",
-     "Every 15 minutes", "Has this integration stopped writing, quietly?",
+     "Every 15 minutes", "Has this integration stopped writing?",
      "Sweep: every watched surface, every quarter hour"),
 
     ("reporting-rollup", "Reporting rollup the office can trust", "reporting", "restoration",
@@ -280,7 +280,7 @@ def build(key, title, shape, biz, trigger, decision, sweep):
 
     N.append(node("Tell somebody", "n8n-nodes-base.httpRequest", 1180, y0 + 140,
                   {"method": "POST", "url": "https://hooks.example.com/alert", "options": {}},
-                  {"typeVersion": 4, "notes": "Failure alerts, it does not fail quietly",
+                  {"typeVersion": 4, "notes": "Failure alerts, so a failure is always reported",
                    "notesInFlow": True}))
 
     N.append(code("Park the refusal", 240, y0 + 160,

@@ -1,0 +1,253 @@
+#!/usr/bin/env python3
+"""Launch Forte proposal generator, the one approved entry point (card 535).
+
+    python3 lf_proposal.py --spec spec.json --rules rules.json --out ./out
+
+Fail closed. No price, rate, discount or plan fee is typed anywhere in a spec: every dollar figure is computed from the canonical
+Pricing Standard text that the session read through the Launch Forte connector (rules.json, see rules_input.py).
+Stops before anything is sent. Financing is refused (Pricing Standard section 11: off by default, not part of this rollout).
+Exit codes: 0 built and every check passed; 2 refused or failed closed; 3 built but QA needs a person.
+"""
+import datetime, argparse, json, os, shutil, sys, io, contextlib, re
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import rules_input, proposal_qa
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+import doc_voice  # noqa: E402
+
+
+def refuse(msg, code=2):
+    print("REFUSED:", msg)
+    sys.exit(code)
+
+
+def compute_blocks(spec_blocks, rates):
+    blocks, total = [], 0
+    for b in spec_blocks:
+        parts = []
+        for p in b["parts"]:
+            kind = str(p["kind"]).lower()
+            if "price" in p or "amount" in p:
+                refuse("a part carries a typed price. Prices are computed from the rate card, never typed.")
+            if kind == "included":
+                parts.append((p["label"], "included", 0)); continue
+            if kind == "extra system":
+                refuse("extra system pieces are computed from the systems inventory (spec.systems), never entered by hand.")
+            if kind not in rates:
+                refuse("unknown piece kind %r" % kind)
+            qty = int(p.get("qty", 1))
+            if qty < 1:
+                refuse("quantity must be at least 1")
+            amt = rates[kind] * qty
+            parts.append((p["label"], "%d x $%d %s" % (qty, rates[kind], kind), amt))
+            total += amt
+        blocks.append((b["name"], b.get("desc", ""), parts))
+    return blocks, total
+
+
+def systems_extra(spec):
+    """Pricing Standard section 2: each genuinely distinct client system used after the first two, if touched by the scoped build.
+    Middleware (n8n, Zapier, Make) does not count. The spec must list the distinct client systems the build touches."""
+    sy = spec.get("systems")
+    if not isinstance(sy, list) or not [s for s in sy if str(s).strip()]:
+        refuse("the spec has no systems inventory. List every distinct client system the build touches (spec.systems); middleware goes in spec.middleware and is not counted.")
+    names = [str(s).strip().lower() for s in sy if str(s).strip()]
+    if len(set(names)) != len(names):
+        refuse("spec.systems lists the same system twice.")
+    mw = {"n8n", "zapier", "make", "make.com"}
+    bad = [s for s in names if s in mw]
+    if bad:
+        refuse("middleware is not a client system and is not counted: %s. Move it to spec.middleware." % ", ".join(bad))
+    return max(0, len(names) - 2), len(names)
+
+
+def build_template(spec, src, dst):
+    """Writes the template with unsupported defaults removed. Terms and proof come from approved sources named in the spec, never from the sample."""
+    html = open(src, encoding="utf-8").read()
+    def sub(old, new):
+        nonlocal html
+        if html.count(old) != 1:
+            refuse("template changed: %r not found exactly once. Update lf_proposal.py before building." % old[:60])
+        html = html.replace(old, new)
+    if spec.get("engagement_terms"):
+        refuse("engagement_terms is not supported. Payment terms are fixed by Pricing Standard section 4 and the contract is the applicable approved client agreement, confirmed outside this generator.")
+    t = spec.get("testimonial")
+    if t and all(t.get(k) for k in ("quote", "name", "title", "source_ref")):
+        pass
+    else:
+        sub("Track record &middot; Before work starts", "Before work starts")
+        sub('<h2 class="sec">Who has handed Launch Forte this before</h2>', '<h2 class="sec">What Launch Forte needs to begin</h2>')
+        sub("""  <div class="quote" style="margin:14pt 0 16pt 0">
+    <p>[TESTIMONIAL QUOTE]</p>
+    <div class="attr"><b>[TESTIMONIAL NAME]</b>, [TESTIMONIAL TITLE]</div>
+  </div>
+
+  <div class="label">What Launch Forte needs to begin</div>
+""", "")
+    open(dst, "w", encoding="utf-8").write(html)
+    return True
+
+
+UNSUPPORTED_TERMS = ["revision round", "business day window", "business days idle", "standard terms", "net-", "forms our agreement", "that written reply is the signature", "clause 01", "you own what", "is yours.", "everything delivered", "paid for stay"]
+
+
+def override_valid(o, client_name):
+    """Seth's written per client override (rule technology-partner-offer, section 4 line 3): names the client, carries a date and a source
+    reference, and covers that client only. Anything less is not an override."""
+    if not isinstance(o, dict):
+        return False
+    try:
+        datetime.date.fromisoformat(str(o.get("date", "")))
+    except ValueError:
+        return False
+    named = str(o.get("client", "")).strip().lower()
+    return bool(named and o.get("source_ref") and named in str(client_name).lower())
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--spec", required=True)
+    ap.add_argument("--rules", required=True)
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--allow-fixture", action="store_true", help="tests only")
+    a = ap.parse_args(argv)
+
+    try:
+        spec = json.load(open(a.spec)); rules = json.load(open(a.rules))
+    except Exception as e:
+        refuse("could not read spec or rules: %s" % e)
+    if spec.get("financing") or spec.get("purchase_choice"):
+        refuse("financing is disabled by default and is not part of this rollout.")
+    try:
+        facts, rates = rules_input.build(rules, allow_fixture=a.allow_fixture)
+    except rules_input.RulesRefused as e:
+        refuse(str(e))
+
+    import fill_proposal_v13 as g, offer_source
+    os.chdir(HERE)
+    offer_source.configure(facts)
+    if not offer_source.verified():
+        refuse("the plan fee could not be verified from the rules.")
+    blocks, total = compute_blocks(spec["blocks"], rates)
+    extra_n, n_sys = systems_extra(spec)
+    if extra_n:
+        first = blocks[0]
+        blocks[0] = (first[0], first[1], list(first[2]) + [("each client system past the first two", "%d x $%d extra system" % (extra_n, rates["extra system"]), extra_n * rates["extra system"])])
+        total += extra_n * rates["extra system"]
+    if total <= 0 or total % 2:
+        refuse("the computed investment %d cannot be split into two equal whole dollar milestones" % total)
+    half = total // 2
+
+    buyer = spec.get("buyer", {})
+    if "scope_approved" not in buyer:
+        refuse("buyer.scope_approved is missing. Unknown scope approval fails closed: no priced proposal is produced.")
+    status = buyer.get("status", "unknown")
+    platform = buyer.get("platform", "direct")
+    fill = dict(spec["fill"])
+    if str(fill.get("[SUPPORT DAYS]", "30")).strip() != "30":
+        refuse("included post launch support is the canonical 30 days. A spec cannot change it. An exception needs an approved, documented agreement.")
+    for m in re.finditer(r"(\d+)\s+days of support", json.dumps(spec)):
+        if m.group(1) != "30":
+            refuse("included post launch support is the canonical 30 days. A spec cannot change it.")
+    t = spec.get("testimonial") or {}
+    fill["[TESTIMONIAL QUOTE]"] = t.get("quote", ""); fill["[TESTIMONIAL NAME]"] = t.get("name", ""); fill["[TESTIMONIAL TITLE]"] = t.get("title", "")
+    missing = [k for k in g.FILL if k not in fill and k not in ("[AMOUNT]", "[SPLIT TO START]", "[SPLIT ON DELIVERY]", "[UPWORK NOTE]")]
+    if missing:
+        refuse("the spec does not supply: %s. Nothing from the sample is reused." % ", ".join(missing))
+    for k in ("[AMOUNT]", "[SPLIT TO START]", "[SPLIT ON DELIVERY]"):
+        if k in fill:
+            refuse("%s is computed, not supplied." % k)
+    fill["[AMOUNT]"] = f"{total:,}"
+    fill["[SPLIT TO START]"] = fill["[SPLIT ON DELIVERY]"] = "$" + f"{half:,}"
+    fill.setdefault("[UPWORK NOTE]", "Accepted and funded one milestone at a time." if platform == "upwork" else "")   # Seth Nov 22 2026 3:06 PM CT: never name Upwork in a proposal
+
+    g.FILL = fill; g.BLOCKS = blocks
+    g.UPWORK = (platform == "upwork")
+    g.BUYER_STATUS = status
+    g.SIGNED_AGREEMENT = bool(buyer.get("signed_agreement"))
+    g.SETH_OPT_OUT = bool(buyer.get("seth_opt_out"))
+    g.SCOPE_APPROVED = buyer.get("scope_approved") is True
+    g.KEPT_PROJECT_BASED = bool(buyer.get("kept_project_based"))
+    months = buyer.get("upwork_first_contact_months")
+    g.UPWORK_FIRST_CONTACT_MONTHS = months if isinstance(months, (int, float)) and not isinstance(months, bool) else None
+    g.SETH_OVERRIDE_ON_CARD = override_valid(buyer.get("seth_override"), fill.get("[CLIENT NAME]", "") + " " + fill.get("[CONTACT NAME AND TITLE]", ""))
+    import partner_section
+    partner_section.UPWORK_BILLING = (platform == "upwork")
+    g.WANTS_PLAN = False; g.ACTIVE_CLIENT = False; g.PURCHASE_CHOICE = None
+    g.OFFER_PRESET = True
+    g.SHOW_PARTNER = True
+    os.makedirs(a.out, exist_ok=True)
+    out = os.path.abspath(a.out)
+    name = re.sub(r"[^A-Za-z0-9]+", "-", spec.get("file_name") or fill["[CLIENT NAME]"]).strip("-")
+    g.OUT_HTML = os.path.join(HERE, ".proposal-%s.html" % name)
+    g.OUT_PDF = os.path.join(out, "Launch-Forte-Proposal-%s.pdf" % name)
+    g.OUT_WORKSHEET = os.path.join(out, "worksheet-%s-INTERNAL.txt" % name)
+    tpl = os.path.join(HERE, ".tpl-%s.html" % name)
+    build_template(spec, os.path.join(HERE, g.SRC), tpl)
+    g.SRC = os.path.basename(tpl)
+    buf = io.StringIO()
+    code = 0
+    with contextlib.redirect_stdout(buf):
+        try:
+            g.main()
+        except SystemExit as e:
+            code = e.code or 0
+    log = buf.getvalue()
+    for tmp in (g.OUT_HTML, tpl):
+        try:
+            os.remove(tmp)
+        except OSError:
+            pass
+    print(log.strip())
+    if code or not os.path.exists(g.OUT_PDF):
+        refuse("the generator stopped: see the lines above.")
+
+    pages = proposal_qa.pages_text(g.OUT_PDF)
+    offered = bool(g.OFFER and g.OFFER["offer_plan"] and g.OFFER["variant"] == "whats_next")
+    # "we agree to cover" sits in the Technology Partner opening paragraph, which Seth keeps as written (Nov 22 2026 2:38 PM CT).
+    hard, review = proposal_qa.word_check(pages, spec.get("word_check_allow", []) + ["we agree to cover", "we agree on and connect"],
+                                          verbatim_pages=[("Who and what has", ["API keys", "AI tools"])])
+    price_problems = proposal_qa.price_audit(pages, total, offer_source.price(), offered, half)
+    price_problems += doc_voice.problems("\n".join(pages))  # Seth Nov 22 2026: document voice, Launch Forte is the subject
+    overflow = proposal_qa.footer_overflow(g.OUT_PDF)
+    left = re.findall(r"\[[A-Z][A-Z0-9 ]{1,28}\]", "\n".join(pages))
+    imgs = proposal_qa.render(g.OUT_PDF, os.path.join(out, "pages-" + name))
+    report = {"pdf": os.path.basename(g.OUT_PDF), "pages": len(pages), "investment": total, "milestones": [half, half],
+              "plan_offered": offered, "offer_reason": g.OFFER["reason"], "plan_price": offer_source.price() if offered else None,
+              "rules": {"pricing_sha12": facts["pricing_rule_sha12"], "technology_partner_offer_sha12": facts["offer_rule_sha12"],
+                        "client_document_hard_rules_sha12": rules.get("client_document_hard_rules", {}).get("sha12"),
+                        "word_list_sha12": proposal_qa.WORDS_SHA12,
+                        "voice_freshness": rules.get("voice", {}).get("freshness"), "voice_sha12": rules.get("voice", {}).get("sha12")},
+              "word_check": {"hard_hits": hard, "review_hits": review},
+              "price_problems": price_problems, "footer_overflow": overflow, "unfilled_tokens": left,
+              "page_images": imgs, "financing": "disabled",
+              "needs_visual_review": "Open every page image before handing the PDF to Seth."}
+    flags = []
+    full_text = "\n".join(pages)
+    low = full_text.lower()
+    flags += ["unsupported contract term present in the PDF: " + d for d in UNSUPPORTED_TERMS if d in low]
+    if buyer.get("scope_approved") is not True:
+        flags.append("DRAFT: scope is not approved, so the plan is omitted and this is not a final quote")
+    report["unverified_defaults_and_flags"] = flags
+    report["systems"] = {"distinct_client_systems": n_sys, "extra_systems_charged": extra_n}
+    report["testimonial_source"] = (spec.get("testimonial") or {}).get("source_ref")
+    # Seth Nov 22 2026 hard rule: the page screenshots in the Technology Partner section, with where they came from.
+    if getattr(g, "TP_PAGE", None):
+        tm = g.TP_PAGE["manifest"]
+        report["tp_page"] = {"design_version": tm.get("design_version"), "captured_at": tm.get("captured_at"), "commit": tm.get("commit"),
+                             "checked_against": g.TP_PAGE.get("version_source"), "source": "product-assets/tp-page/current",
+                             "files": {f["file"]: f["sha256"][:12] for f in tm.get("files", [])}}
+    ok = not (hard or review or price_problems or overflow or left or flags)
+    report["result"] = "PASS" if ok else "NEEDS REVIEW"
+    json.dump(report, open(os.path.join(out, "qa_report-%s.json" % name), "w"), indent=2)
+    print("RESULT:", report["result"], "| pages", len(pages), "| investment $%s" % f"{total:,}", "| plan offered:", offered)
+    for k in ("hard_hits", "review_hits"):
+        for h in report["word_check"][k][:20]:
+            print("  word check", k, h)
+    for p in flags + price_problems + ["footer overflow page %d: %s" % o for o in overflow] + ["unfilled " + t for t in left]:
+        print("  problem:", p)
+    sys.exit(0 if ok else 3)
+
+
+if __name__ == "__main__":
+    main()

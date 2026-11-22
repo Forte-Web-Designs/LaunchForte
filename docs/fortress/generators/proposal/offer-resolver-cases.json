@@ -1,0 +1,587 @@
+[
+ {
+  "name": "new project proposal to a direct prospect, financing off",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": true,
+   "variant": "whats_next",
+   "financing": false
+  }
+ },
+ {
+  "name": "same proposal with financing on keeps the plan beside it",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": true,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": true,
+   "variant": "whats_next",
+   "financing": true
+  }
+ },
+ {
+  "name": "quote for an eligible buyer",
+  "in": {
+   "doc_type": "quote",
+   "buyer_status": "eligible",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": true,
+   "variant": "whats_next",
+   "financing": false
+  }
+ },
+ {
+  "name": "proposal with unapproved scope adds no plan",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": false,
+   "financing_enabled": false,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "new audit for an eligible buyer gets the What's next section",
+  "in": {
+   "doc_type": "audit",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": true,
+   "variant": "whats_next",
+   "financing": false
+  }
+ },
+ {
+  "name": "audit never carries financing even if the flag is on, and still gets What's next",
+  "in": {
+   "doc_type": "audit",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": true,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": true,
+   "variant": "whats_next",
+   "financing": false
+  }
+ },
+ {
+  "name": "handoff for an eligible buyer gets the What's next section",
+  "in": {
+   "doc_type": "handoff",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": true,
+   "variant": "whats_next",
+   "financing": false
+  }
+ },
+ {
+  "name": "prospect with no account (unknown) adds no plan",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "unknown",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "active client with a signed agreement is not offered the plan",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "active_client",
+   "platform": "direct",
+   "signed_agreement": true,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": true,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "signed agreement alone blocks the plan",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": true,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "Upwork buyer with no recorded first contact and no override gets no plan or financing",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "upwork",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": true,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "buyer Seth opted out",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": true,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "opted out status",
+  "in": {
+   "doc_type": "audit",
+   "buyer_status": "opted_out",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "rules unavailable fails closed",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": true,
+   "rules_verified": false
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "rules unavailable fails closed for an audit too",
+  "in": {
+   "doc_type": "audit",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": false
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "Upwork buyer with a dated Seth override on the card gets the plan",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "upwork",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": true,
+   "upwork_first_contact_months": 0
+  },
+  "out": {
+   "offer_plan": true,
+   "variant": "whats_next",
+   "financing": false
+  }
+ },
+ {
+  "name": "Upwork buyer with an override and no recorded first contact still gets the plan",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "upwork",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": true,
+   "upwork_first_contact_months": null
+  },
+  "out": {
+   "offer_plan": true,
+   "variant": "whats_next",
+   "financing": false
+  }
+ },
+ {
+  "name": "Upwork buyer 8 months in with no override gets no plan",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "upwork",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": false,
+   "upwork_first_contact_months": 8
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "Upwork buyer with no recorded first contact and no override gets no plan",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "upwork",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": false,
+   "upwork_first_contact_months": null
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "Upwork buyer exactly 24 months in with no override gets no plan",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "upwork",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": false,
+   "upwork_first_contact_months": 24
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "Upwork buyer first contact over 24 months ago is treated as direct",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "upwork",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": false,
+   "upwork_first_contact_months": 30
+  },
+  "out": {
+   "offer_plan": true,
+   "variant": "whats_next",
+   "financing": false
+  }
+ },
+ {
+  "name": "Upwork buyer over 24 months in but scope not approved gets no plan",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "upwork",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": false,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": false,
+   "upwork_first_contact_months": 30
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "override never beats a Seth opt out",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "upwork",
+   "signed_agreement": false,
+   "seth_opt_out": true,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": true,
+   "upwork_first_contact_months": 8
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "override never beats a signed agreement",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "upwork",
+   "signed_agreement": true,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": true,
+   "upwork_first_contact_months": 8
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "override never beats unapproved scope",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "upwork",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": false,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": true,
+   "upwork_first_contact_months": 8
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "override never beats unverified rules",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "upwork",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": false,
+   "kept_project_based": false,
+   "seth_override_on_card": true,
+   "upwork_first_contact_months": 8
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "client kept project based gets no plan",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": true,
+   "seth_override_on_card": false,
+   "upwork_first_contact_months": 8
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "unsuitable buyer gets no plan",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "unsuitable",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": false,
+   "upwork_first_contact_months": 8
+  },
+  "out": {
+   "offer_plan": false,
+   "variant": "none",
+   "financing": false
+  }
+ },
+ {
+  "name": "direct buyer over the Upwork window rules is unaffected by the months input",
+  "in": {
+   "doc_type": "proposal",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": false,
+   "upwork_first_contact_months": null
+  },
+  "out": {
+   "offer_plan": true,
+   "variant": "whats_next",
+   "financing": false
+  }
+ },
+ {
+  "name": "client update only mentions the plan when triggered",
+  "in": {
+   "doc_type": "update",
+   "buyer_status": "prospect",
+   "platform": "direct",
+   "signed_agreement": false,
+   "seth_opt_out": false,
+   "scope_approved": true,
+   "financing_enabled": false,
+   "rules_verified": true,
+   "kept_project_based": false,
+   "seth_override_on_card": false,
+   "upwork_first_contact_months": 8
+  },
+  "out": {
+   "offer_plan": true,
+   "variant": "mention_only",
+   "financing": false
+  }
+ }
+]

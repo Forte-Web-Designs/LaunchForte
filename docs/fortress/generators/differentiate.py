@@ -84,7 +84,7 @@ return [{ json: {
   sourcesTracked: Object.keys(seen).length,
   stale,
   note: stale.length
-    ? `${stale.join(', ')} sent nothing for 7 days. The report is quietly smaller, not smaller.`
+    ? `${stale.join(', ')} sent nothing for 7 days. The report shows those sources as missing.`
     : 'Every source reported in the last 7 days.',
 } }];""",
   decide="={{ $json.n >= 30 && $json.sourcesRead === $json.sourcesExpected }}"),

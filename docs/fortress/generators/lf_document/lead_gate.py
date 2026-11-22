@@ -3,14 +3,16 @@ FAIL when: an eligible document is missing What's next; What's next appears wher
 no; a plan item the service status table does not support; a figure without source and date; or a
 client document word check hit (rule client-document-hard-rules) outside the allowed cases."""
 from __future__ import annotations
-import html, re
+import html, os, re, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+import doc_voice  # noqa: E402
 from core import CLIENT_WORDS, SHOWABLE, ITEM_TITLES
 
 WORDS = ["Pricing Standard", "standard", "v2", "Config", "Judged", "Surface", "Risk", "Extra system", "ledger", "tier",
          "proven", "library", "lf_", "rate", "qty", "browser", "session", "endpoint", "401", "API", "Fortress", "Claude",
          "agent", "AI", "retainer", "package"]
 PRONOUNS = ["we", "our", "us"]
-ALLOWED_WE = ["when we first talked", "we can grab 15 minutes", "you and i", "our first call"]
+ALLOWED_WE = ["systems we agree on and connect"]  # Seth Nov 22 2026: documentation never says we, except his verbatim accountability line
 PUNCT = {"—": "em dash", "–": "en dash", "--": "double hyphen", "~": "tilde", "→": "arrow", "e.g.": "e.g."}
 CAPTION = re.compile(r"Figure (\d+)\. .+?, read from your accounts on [A-Z][a-z]+ \d{1,2}, \d{4}\. No contact details\.", re.S)
 
@@ -72,7 +74,7 @@ def check(text: str, doc: dict, snapshot: dict | None) -> dict:
                 fails.append("Plan item not supported by the service status table: %s" % i["title"])
             elif _norm(i["title"]) not in _norm(text):
                 fails.append("Plan item missing from the rendered document: %s" % i["title"])
-        if "Technology Partner" not in text or "What I'd recommend for you".upper().replace(" ", "") not in _norm(text).upper().replace(" ", ""):
+        if "Technology Partner" not in text or "What Launch Forte recommends for you".upper().replace(" ", "") not in _norm(text).upper().replace(" ", ""):
             fails.append("What's next does not name and recommend Technology Partner.")
         wn_at = text.find("What's next")
         for later in ("Appendix", "APPENDIX"):
@@ -96,6 +98,7 @@ def check(text: str, doc: dict, snapshot: dict | None) -> dict:
             fails.append("Proposal does not show the project and its fixed price before What's next.")
     words = word_check(text)
     fails += ["Word check: " + w for w in words]
+    fails += doc_voice.problems(text)  # Seth Nov 22 2026: document voice, Launch Forte is the subject
     return {"verdict": "PASS" if not fails else "FAIL", "failures": fails, "word_check": "CLEAN" if not words else "%d hits" % len(words)}
 
 

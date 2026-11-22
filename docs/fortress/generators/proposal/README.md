@@ -1,0 +1,37 @@
+# Launch Forte proposal generator (the one approved process)
+
+Card 535. Pricing Standard 6A.3 names this generator (`fill_proposal_v13.py`), the template (`Launch-Forte-Proposal-Template-v13.html`) and the calculator (`purchase_choice.py`). v12 and v11 are retired. Anything else that builds a client proposal PDF is not approved.
+
+Stops before any send. Never publishes, activates or emails. Financing is off by default and refused by this entry point.
+
+## Find it
+Library: `lf_reference query="proposal PDF generator"` returns this playbook (path `playbooks/proposal-generator.md`). The full bundle, including binary assets, lives in the repo `Forte-Web-Designs/LaunchForte` at `docs/fortress/generators/proposal`. Clone it, never copy files by hand.
+
+## Run it (any Front Desk, Architect or Fortress session)
+1. Read the rules through the connector, every time. Call `lf_rules` for `pricing` (all pages), `technology-partner-offer`, `client-document-hard-rules`, `voice`. Save each result as returned, one text file per rule (pages appended in order). If a result is too long to save whole, the file may hold the readback header lines exactly as returned (RULE, source, sha256, FRESHNESS) and, for pricing, section 2 and section 10 verbatim. Never retype or invent anything else.
+2. `python3 rules_from_readbacks.py --pricing pricing.txt --offer offer.txt --hard hard.txt --voice voice.txt --out rules.json`
+   The helper refuses anything that is not LIVE or VERIFIED. If the connector reports the Voice Rules UNVERIFIED, nothing is built and there is no override. It takes the rate card and the monthly plan fee from the saved text.
+3. Write the client spec JSON (copy `examples/ridgeline-spec.json`, a fictional sample). You supply approved client facts, outcome blocks and part kinds with quantities (config, connection, judged, surface, risk, included). You never type a price, a total, a milestone or the plan fee: all are computed. Spec fields:
+   - `buyer`: status (prospect, eligible, active_client, unknown, opted_out), platform (direct or upwork), `upwork_first_contact_months`, `seth_override` (dict with client, date, source_ref, scope), kept_project_based, signed_agreement, seth_opt_out, and `scope_approved`, which is required: a missing value refuses the run, an explicit false builds a marked draft with no plan.
+   - `systems`: required. Every distinct client system the build touches. The generator charges each system past the first two from the rate card and adds it to the first block, so it cannot be left out. `extra system` parts cannot be entered by hand. Middleware (n8n, Zapier, Make) is not a client system and is refused in this list.
+   - `fill`: every client token except the computed amounts, the testimonial and the terms.
+   - `blocks`, `word_check_allow` (snippets of lines where "we" or "our" plainly means Seth and the client together).
+   - `testimonial`: optional `{quote, name, title, source_ref}` from an approved source. Without it the track record section is omitted. No sample testimonial is ever inserted.
+   - Contract terms are not generated. Payment reads half to start, half on delivery (Pricing Standard section 4), and acceptance says the applicable approved Launch Forte client agreement is confirmed before work begins. `engagement_terms` input is refused. Support is fixed at the canonical 30 days and a spec that says otherwise is refused. Ownership wording is limited to accounts staying under the client's control. Rights in delivered work are left to the client agreement. No revision rounds, delivery windows, idle rules, termination or refund language is in the template.
+4. `python3 lf_proposal.py --spec spec.json --rules rules.json --out ./out`
+5. Exit 0 means the automated checks passed, 3 means they need a person, 2 means it failed closed. Then open every page image in `out/pages-*` and read it. A passing report is not a visual review.
+6. Hand the PDF, `qa_report-*.json` and the page images to Seth for review (card comment or PM review). Seth decides what is sent.
+
+## What the checks do
+- Rules: read time under 24 hours, each rule LIVE or VERIFIED, rate card and plan fee parsed from the text, the retired $750 plan refused, shas carried into the report.
+- Eligibility (rule technology-partner-offer v2, sha fe21a96233cf): the resolver decides whether the Technology Partner pages appear. Direct prospects with approved scope get the plan. Upwork buyers get it only with a dated per client override from Seth that names the client and cites a source (the plan is then billed as a separate Upwork contract), or with a first contact over 24 months ago. Signed or active clients, opted out, kept project based and unknown buyers get no plan and no plan price. The variant is `whats_next`, `mention_only` or `none`.
+- Order: problem and outcomes, solution, scope, fixed investment, then the optional plan. The plan price is never on the cover or before the investment.
+- Pricing: every block total is the sum of rate card parts, the two milestones are exactly half (any even whole dollar total), no typed price accepted, no internal piece math in client copy.
+- Wording: the Client Document Hard Rules word list over the final PDF text (list stamped with rule sha `ee99703ddff9`), unfilled tokens, footer overflow, page images.
+- Technology Partner copy is limited to what the offer rule lists as operating today. Monitoring, backups, IT help and security are promised only as "the systems we agree to cover" and "depends on the access and tools your accounts allow".
+
+## Tests
+`python3 test_lf_proposal.py`, `python3 test_offer_source.py`, `python3 test_resolver_conformance.py`.
+
+## Changing it
+Changes to prices, plan fee or eligibility belong in the canonical rules, never here. Changes to this process go through a card and Lead review.

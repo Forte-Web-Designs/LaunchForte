@@ -34,7 +34,7 @@ JOBS = [
          post="Deals go into our Pipedrive proposal pipeline and just sit there. Nobody "
               "notices a deal has not progressed in three weeks. We want stage-entry rules, "
               "an escalation when something is overdue, and an on hold reason captured so a "
-              "stalled deal is visible instead of quietly rotting."),
+              "stalled deal is visible instead of rotting."),
     dict(id="airtable-model", expect="data-model-architecture", tool="airtable",
          title="Airtable base restructure — our schema is a mess",
          post="Our Airtable base grew organically and the data model is now a problem. "

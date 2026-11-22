@@ -9,6 +9,9 @@ from core import lf_document
 from figures import caption
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, ".."))
+import tp_page  # the shared Technology Partner closing section (Seth Nov 22 2026)
+TPW_CSS = ":root{--n500:#86868b;--n600:#515154;--accent:#0088DB;--border-strong:rgba(0,0,0,0.12)} .tpw h2.sec{margin-top:0}" + tp_page.CSS
 CSS = """
 @page { size: Letter; margin: 0.6in 0.7in 0.75in; }
 @page :first { margin: 0; }
@@ -114,7 +117,7 @@ def _whats_next(wn, num):
     for b in wn["blocks"]:
         k = b["kind"]
         if k == "quote":
-            h.append("<div class='quote'>\"%s\"<br><span style='font-style:normal;color:#6e6e73'>%s, on our first call</span></div>" % (esc(b["text"]), esc(b["who"])))
+            h.append("<div class='quote'>\"%s\"<br><span style='font-style:normal;color:#6e6e73'>%s, on the first call</span></div>" % (esc(b["text"]), esc(b["who"])))
         elif k == "goals":
             if b.get("intro"):
                 h.append("<p>%s</p>" % esc(b["intro"]))
@@ -142,7 +145,7 @@ def _whats_next(wn, num):
 def build_html(spec: dict, record: dict, snapshot: dict | None) -> tuple[str, dict]:
     d = Doc(record, snapshot, spec)
     c = spec["cover"]
-    h = ["<html><head><meta charset='utf-8'><style>%s</style></head><body>" % CSS]
+    h = ["<html><head><meta charset='utf-8'><style>%s%s</style></head><body>" % (CSS, TPW_CSS)]
     h.append("<div class='cover'><div class='brand'>Launch <span>Forte</span></div><div class='meta'>%s<br>%s<br>%s</div>"
              "<div class='kicker'>%s</div><h1>%s<br>%s</h1><div class='sub'>%s</div><div class='intro'>%s</div><div class='strip'>%s</div></div>"
              % (esc(spec["doc_label"]), esc(spec["doc_date"]), esc(spec["doc_where"]), esc(c["kicker"]), esc(c["client"]), esc(c["title"]),
@@ -166,7 +169,7 @@ def build_html(spec: dict, record: dict, snapshot: dict | None) -> tuple[str, di
         if d.m["baseline"]:
             h.append("<h3>Where things stand today</h3>" + _table({"columns": ["What", "Today", "Read from"], "rows": [[b["label"], b["value"], "%s, %s" % (b["source"], b["read_at"])] for b in d.m["baseline"]]}))
         elif d.m["week_one_measurements"]:
-            h.append("<h3>What I measure in week one</h3><p>I don't have access to your accounts yet, so I measure these in the first week and report them before anything changes:</p><ul>%s</ul>" % "".join("<li>%s</li>" % esc(x) for x in d.m["week_one_measurements"]))
+            h.append("<h3>What Launch Forte measures in week one</h3><p>Launch Forte does not have access to your accounts yet, so these are measured in the first week and reported before anything changes:</p><ul>%s</ul>" % "".join("<li>%s</li>" % esc(x) for x in d.m["week_one_measurements"]))
         h.append("</div>")
     for sec in spec.get("sections", []):
         num += 1
@@ -196,6 +199,14 @@ def build_html(spec: dict, record: dict, snapshot: dict | None) -> tuple[str, di
     if d.doc["whats_next"]:
         num += 1
         h.append(_whats_next(d.doc["whats_next"], num) + support + "</div>")
+        # Seth, Nov 22 2026 hard rule: every document that offers the Technology Partner plan closes with real screenshots of
+        # the sample client portal from product-assets/tp-page. tp_page.load fails closed, so no document goes out with a
+        # missing or out of date set.
+        shots = tp_page.load(os.path.join(HERE, ".tp-page"), dashboard_checkout=os.environ.get("LF_DASHBOARD_CHECKOUT"))
+        num += 1
+        h.append("<div class='page tpw'><div class='kick'>Section %02d</div>%s</div>" % (num, tp_page.page_html(shots, rel=_img)))
+        tm = shots["manifest"]
+        d.doc["tp_page"] = {"design_version": tm.get("design_version"), "captured_at": tm.get("captured_at"), "checked_against": shots["version_source"]}
     elif support:
         h.append(support)
     ap = spec.get("appendix")

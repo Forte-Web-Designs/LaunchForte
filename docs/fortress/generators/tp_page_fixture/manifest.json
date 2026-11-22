@@ -1,0 +1,119 @@
+{
+ "kind": "tp-page-canonical-shots",
+ "design_version": "000000000000",
+ "commit": "fixture",
+ "captured_at": "2026-11-22T00:00:00+00:00",
+ "demo_link": "https://my.launchforte.com/demo",
+ "sample_label": "Sample page for a fictional business.",
+ "files": [
+  {
+   "view": "overview",
+   "label": "overview",
+   "device": "desktop",
+   "file": "overview-desktop.png",
+   "width": 144,
+   "height": 90,
+   "sha256": "0c4a402b9038adac661b5485fb8844d599ab8f33c29f43e165de88c4e84322a5"
+  },
+  {
+   "view": "overview",
+   "label": "overview",
+   "device": "phone",
+   "file": "overview-phone.png",
+   "width": 39,
+   "height": 84,
+   "sha256": "15aad0de48e1924a220859294e64ded5ce437944de54a0622f34c00a22791b55"
+  },
+  {
+   "view": "handled",
+   "label": "handled",
+   "device": "desktop",
+   "file": "handled-desktop.png",
+   "width": 144,
+   "height": 90,
+   "sha256": "0c4a402b9038adac661b5485fb8844d599ab8f33c29f43e165de88c4e84322a5"
+  },
+  {
+   "view": "handled",
+   "label": "handled",
+   "device": "phone",
+   "file": "handled-phone.png",
+   "width": 39,
+   "height": 84,
+   "sha256": "15aad0de48e1924a220859294e64ded5ce437944de54a0622f34c00a22791b55"
+  },
+  {
+   "view": "systems",
+   "label": "systems",
+   "device": "desktop",
+   "file": "systems-desktop.png",
+   "width": 144,
+   "height": 90,
+   "sha256": "0c4a402b9038adac661b5485fb8844d599ab8f33c29f43e165de88c4e84322a5"
+  },
+  {
+   "view": "systems",
+   "label": "systems",
+   "device": "phone",
+   "file": "systems-phone.png",
+   "width": 39,
+   "height": 84,
+   "sha256": "15aad0de48e1924a220859294e64ded5ce437944de54a0622f34c00a22791b55"
+  },
+  {
+   "view": "edition",
+   "label": "edition",
+   "device": "desktop",
+   "file": "edition-desktop.png",
+   "width": 144,
+   "height": 90,
+   "sha256": "0c4a402b9038adac661b5485fb8844d599ab8f33c29f43e165de88c4e84322a5"
+  },
+  {
+   "view": "edition",
+   "label": "edition",
+   "device": "phone",
+   "file": "edition-phone.png",
+   "width": 39,
+   "height": 84,
+   "sha256": "15aad0de48e1924a220859294e64ded5ce437944de54a0622f34c00a22791b55"
+  },
+  {
+   "view": "documents",
+   "label": "documents",
+   "device": "desktop",
+   "file": "documents-desktop.png",
+   "width": 144,
+   "height": 90,
+   "sha256": "0c4a402b9038adac661b5485fb8844d599ab8f33c29f43e165de88c4e84322a5"
+  },
+  {
+   "view": "documents",
+   "label": "documents",
+   "device": "phone",
+   "file": "documents-phone.png",
+   "width": 39,
+   "height": 84,
+   "sha256": "15aad0de48e1924a220859294e64ded5ce437944de54a0622f34c00a22791b55"
+  },
+  {
+   "view": "requests",
+   "label": "requests",
+   "device": "desktop",
+   "file": "requests-desktop.png",
+   "width": 144,
+   "height": 90,
+   "sha256": "0c4a402b9038adac661b5485fb8844d599ab8f33c29f43e165de88c4e84322a5"
+  },
+  {
+   "view": "requests",
+   "label": "requests",
+   "device": "phone",
+   "file": "requests-phone.png",
+   "width": 39,
+   "height": 84,
+   "sha256": "15aad0de48e1924a220859294e64ded5ce437944de54a0622f34c00a22791b55"
+  }
+ ],
+ "_note": "TEST FIXTURE ONLY. Blank images. tp_page.load reads this only when LF_TEST=1 and LF_TP_PAGE_FIXTURE point here."
+}

@@ -519,7 +519,7 @@ KITS = {
 
     "data-model-architecture": dict(
         title="LF DEMO: The record that fits the schema", demand=88,
-        story="Normalises an inbound record to the agreed data model and stops the field nobody mapped from quietly inventing a new one.",
+        story="Normalises an inbound record to the agreed data model and stops the field nobody mapped from inventing a new one.",
         trigger="A record arrives from a source", required=["record_id", "object_type", "source"],
         dedupe_key="record_id",
         lookup="Read the schema this object is supposed to match",

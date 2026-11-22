@@ -1,0 +1,132 @@
+{
+ "file_name": "GREENTECH Irrigation and Lawn Care",
+ "buyer": {
+  "status": "prospect",
+  "platform": "upwork",
+  "upwork_first_contact_months": 0,
+  "signed_agreement": false,
+  "seth_opt_out": false,
+  "scope_approved": true,
+  "seth_override": {
+   "client": "Marco Goncalves",
+   "date": "2026-11-22",
+   "source_ref": "account_thesis_event#9518",
+   "scope": "this client only, billed on Upwork"
+  }
+ },
+ "fill": {
+  "[REF]": "LF-GREENTECH-001",
+  "[SEND DATE]": "November 22, 2026",
+  "[PHASE LABEL]": "Bookkeeping Automation",
+  "[CLIENT NAME]": "GREENTECH Irrigation &amp; Lawn Care",
+  "[ENGAGEMENT NAME]": "Receipts, Invoices And Monthly Reconciliation in QuickBooks",
+  "[COVER SUBTITLE]": "Every new order reaches the right person in minutes, and Monday starts with one clear sales report.",
+  "[CONTACT NAME AND TITLE]": "Marco Goncalves",
+  "[ENGAGEMENT TYPE]": "Fixed Price",
+  "[DELIVERY WINDOW]": "4 Weeks",
+  "[SITUATION TITLE]": "Orders Wait For Someone To Notice",
+  "[SITUATION LEAD]": "Orders from the store and from two marketplaces arrive in three different inboxes, and the team finds out hours later.",
+  "[SITUATION DETAIL]": "Jordan builds the Monday sales numbers by hand from three exports. <b>Nothing tells the team a large order has arrived</b>, and the weekly numbers are usually a day late.",
+  "[STAGE 1 NAME]": "A customer orders",
+  "[STAGE 1 NOTE]": "Store or marketplace",
+  "[STAGE 2 NAME]": "The order lands",
+  "[STAGE 2 NOTE]": "In three separate inboxes",
+  "[STAGE 3 NAME]": "Nobody is told",
+  "[STAGE 3 NOTE]": "Found hours later",
+  "[STAGE 4 NAME]": "Numbers built by hand",
+  "[STAGE 4 NOTE]": "Every Monday morning",
+  "[STAGE 5 NAME]": "Decisions wait",
+  "[STAGE 5 NOTE]": "On a late report",
+  "[COST LINE 1]": "Large orders sit unnoticed for hours, and some ship late.",
+  "[COST LINE 2]": "About three hours every Monday go to copying numbers between exports.",
+  "[COST LINE 3]": "",
+  "[AFTER TITLE]": "Every order reaches the right person, and Monday is ready",
+  "[AFTER BODY]": "A new order from any of the three sources triggers an alert to the right person within minutes. The weekly sales report builds itself and arrives before the Monday meeting.",
+  "[SCOPE TITLE]": "What Gets Built",
+  "[SCOPE INTRO]": "Three order sources feed one place. <b>The alert rules come first</b>, then the weekly report reads from the same data.",
+  "[VALID THROUGH]": "December 6, 2026",
+  "[WEEK 1 SUMMARY]": "Store and marketplace orders flowing into one place.",
+  "[WEEK 2 SUMMARY]": "Alert rules built and tested on real orders.",
+  "[WEEK 3 SUMMARY]": "Alerts live for the team, weekly sales report built.",
+  "[SUPPORT DAYS]": "30",
+  "[WEEK 4 SUMMARY]": "Weekly report live, walkthrough recorded, support window opens."
+ },
+ "blocks": [
+  {
+   "name": "Receipts And Invoices Entered For You",
+   "desc": "Card receipts and the nightly vendor invoices land in QuickBooks with the right account and memo, and anything unsure waits for your review.",
+   "parts": [
+    {
+     "label": "intake of forwarded receipts and nightly invoice emails",
+     "kind": "connection",
+     "qty": 1
+    },
+    {
+     "label": "coding and review rules, with unsure items held",
+     "kind": "judged",
+     "qty": 1
+    },
+    {
+     "label": "entry into QuickBooks",
+     "kind": "connection",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "name": "A Monthly Reconciliation That Shows Only Exceptions",
+   "desc": "The bank accounts and the Chase card are matched each month, and you see only what does not match.",
+   "parts": [
+    {
+     "label": "reading QuickBooks for the match",
+     "kind": "connection",
+     "qty": 1
+    },
+    {
+     "label": "matching rules",
+     "kind": "judged",
+     "qty": 1
+    },
+    {
+     "label": "monthly exceptions report",
+     "kind": "surface",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "name": "Handover And Support Window",
+   "desc": "",
+   "parts": [
+    {
+     "label": "Testing against your real data rather than a sandbox",
+     "kind": "included"
+    },
+    {
+     "label": "Handover documentation, so you can run what was built",
+     "kind": "included"
+    },
+    {
+     "label": "One recorded walkthrough call",
+     "kind": "included"
+    },
+    {
+     "label": "30 days of support after go live",
+     "kind": "included"
+    }
+   ]
+  }
+ ],
+ "word_check_allow": [
+  "we agree",
+  "we can talk"
+ ],
+ "systems": [
+  "office email inbox",
+  "QuickBooks Desktop"
+ ],
+ "middleware": [],
+ "_notes": [
+  "testimonial: add {quote,name,title,source_ref} only from an approved source, otherwise the proof section is omitted"
+ ]
+}
