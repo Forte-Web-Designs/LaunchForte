@@ -29,7 +29,7 @@ DEVICES = ["desktop", "phone"]
 
 # One line each, plain words (Seth Nov 22 2026 item 3).
 CAPTIONS = {
-    "overview": "Everything I checked this month, with dates",
+    "overview": "Everything I checked this month",
     "handled": "What I handled, each with the day it was done",
     "systems": "Each of your systems and when I last looked at it",
     "edition": "News from your industry and what it means for you",
