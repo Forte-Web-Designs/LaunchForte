@@ -25,7 +25,7 @@ def _hit(pat, line):
     return re.search(pat, line, 0 if pat in CASE_SENSITIVE else re.I)
 
 
-def word_check(pages, allow=()):
+def word_check(pages, allow=(), verbatim_pages=()):
     """HARD hits always fail. REVIEW hits fail unless the line contains an allowed snippet the spec lists
     (for example 'once we agree'); the running footer Seth Forte / Launch Forte is allowed."""
     hard, review = [], []
@@ -33,6 +33,11 @@ def word_check(pages, allow=()):
     for n, p in enumerate(pages, 1):
         for line in p.splitlines():
             line = line.replace("Seth Forte / Launch Forte", "")
+            # Seth's verbatim access row (Nov 22 2026 2:53 PM CT) names the client's API keys and AI tools. Only on the page that carries it.
+            for marker, phrases in verbatim_pages:
+                if marker in p:
+                    for ph in phrases:
+                        line = line.replace(ph, " ")
             for pat in HARD:
                 if _hit(pat, line):
                     hard.append((n, pat, line.strip()))

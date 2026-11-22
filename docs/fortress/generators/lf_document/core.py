@@ -217,7 +217,7 @@ def draft_whats_next(record: dict, sec10: str, status_rows: list[dict]) -> dict:
                       "Your next layer is exactly this kind of work: %s. Launch Forte already knows %s inside and out, so there's no ramp up and nothing to explain twice."
                       % (layer.rstrip("."), record.get("accounts_phrase", "your accounts")))
     # 5. Honesty line
-    rec["honesty"] = "What runs from the first month depends on the access your accounts allow. I answer for the changes I make and for what I report, and I tell you plainly when something is outside what the plan covers. Launch Forte's monthly checks cover the systems we agree on and connect."
+    rec["honesty"] = "One person who knows your systems end to end and answers for every change made and every result reported. Questions, fixes and decisions all go to the same place, so nothing falls between vendors."  # Seth Nov 22 2026 2:53 PM CT, no limitation wording in the TP section
     blocks.append(rec)
     # 6. Close
     blocks.append({"kind": "para", "text": "If %s sounds good, reply to the email or book 15 minutes to set it up." % ("either" if nxt else "it")})

@@ -173,8 +173,6 @@ def main(argv=None):
     g.SETH_OVERRIDE_ON_CARD = override_valid(buyer.get("seth_override"), fill.get("[CLIENT NAME]", "") + " " + fill.get("[CONTACT NAME AND TITLE]", ""))
     import partner_section
     partner_section.UPWORK_BILLING = (platform == "upwork")
-    if spec.get("tp_systems_phrase"):
-        partner_section.SYSTEMS_PHRASE = spec["tp_systems_phrase"]   # the systems this proposal builds, named in "Checks your systems"
     g.WANTS_PLAN = False; g.ACTIVE_CLIENT = False; g.PURCHASE_CHOICE = None
     g.OFFER_PRESET = True
     g.SHOW_PARTNER = True
@@ -207,7 +205,8 @@ def main(argv=None):
     pages = proposal_qa.pages_text(g.OUT_PDF)
     offered = bool(g.OFFER and g.OFFER["offer_plan"] and g.OFFER["variant"] == "whats_next")
     # "we agree to cover" sits in the Technology Partner opening paragraph, which Seth keeps as written (Nov 22 2026 2:38 PM CT).
-    hard, review = proposal_qa.word_check(pages, spec.get("word_check_allow", []) + ["we agree to cover", "we agree on and connect"])
+    hard, review = proposal_qa.word_check(pages, spec.get("word_check_allow", []) + ["we agree to cover", "we agree on and connect"],
+                                          verbatim_pages=[("Who and what has", ["API keys", "AI tools"])])
     price_problems = proposal_qa.price_audit(pages, total, offer_source.price(), offered, half)
     price_problems += doc_voice.problems("\n".join(pages))  # Seth Nov 22 2026: document voice, Launch Forte is the subject
     overflow = proposal_qa.footer_overflow(g.OUT_PDF)

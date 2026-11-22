@@ -279,7 +279,7 @@ def check_plan(client_html, active=None, wants=None):
         tp = " ".join(tp_segs)
         tptext = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", tp))
         for need in (re.escape(offer_source.plan_text()), r"month to month", r"cancel anytime", r"one request at a time", r"Unlimited everyday requests",
-                     r"quoted separately", r"stay yours", re.escape(partner_section.ACCOUNTABILITY), re.escape(partner_section.VALUE_HEADING), r"What Launch Forte takes care of each month"):   # two page standard, Seth Nov 22 2026 2:45 PM CT
+                     r"quoted separately", r"stay yours", re.escape(partner_section.PERSON_LINE), re.escape(partner_section.VALUE_HEADING), r"What Launch Forte takes care of each month"):   # two page standard, Seth Nov 22 2026 2:45 PM CT
             if not re.search(need, tptext, flags=re.I):
                 problems.append("technology partner pages missing required wording: %s" % need)
         banned = (r"24/7", r"around the clock", r"guarantee", r"\bSOC\b", r"\btiers?\b", r"valued at", r"\bsaves? you\b", r"\bhourly\b",
@@ -287,7 +287,8 @@ def check_plan(client_html, active=None, wants=None):
                   r"[\u2013\u2014]|--|->|\u2192|~", r"\breal\b", r"\bflag(s|ging)?\b", r"\bour\b", r"\bus\b", r"\bAI\b", r"\b(ledger|proven|browser|session|endpoint|agent|Fortress|Claude)\b",
                   r"\bPricing Standard\b", r"\bdelivered now\b", r"\bset up in your first month\b", r"\bon my own\b", r"\bnothing waits\b", r"\bqueue\b", r"e\.g\.")
         # Seth's value paragraph is his own words, kept word for word (Nov 22 2026 2:50 PM CT), so the AI word list skips it.
-        scan = tptext.replace(partner_section.VALUE_PARA, " ")
+        scan = partner_section.strip_verbatim(tptext)
+        problems += partner_section.section_problems(tp)
         for pat in banned:
             for m in re.finditer(pat, scan, flags=re.I if pat not in (r"\bAI\b", r"\bSOC\b") else 0):
                 problems.append("wording not allowed on partner pages: %r" % m.group(0))
@@ -399,7 +400,7 @@ def main():
             ('<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; After the project</b></div><div class="rule" style="width:292pt"></div></div>' + partner_section.page_a()),
             ('<div class="eyebrow"><div class="dot"></div><div class="t">Optional <b>&middot; Your page</b></div><div class="rule" style="width:292pt"></div></div>' + tp_page.page_html(shots, rel=lambda p: ".tp-page/" + os.path.basename(p)) + partner_section.page_b_close()),
         ]
-        problems = tp_page.lint(partner_section.page_a() + partner_section.page_b_close())
+        problems = tp_page.lint(partner_section.strip_verbatim(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", partner_section.page_a() + partner_section.page_b_close()))))
         if problems:
             print("STOPPED, the Technology Partner copy fails the wording check:")
             for x in problems:

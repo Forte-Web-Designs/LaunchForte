@@ -3,6 +3,7 @@ Voice: Launch Forte as the subject (BRAIN rule:voice DOCUMENT VOICE), plain sent
 Honesty: only what the Nov 9 service status table supports. How much runs from month one depends on access and tools, and the page says so.
 No pills, bars, icons, boxed feature cards, 'tier', 'real' as an intensifier, or 'AI' wording."""
 
+import re
 import offer_source
 
 def _price():
@@ -24,12 +25,12 @@ def configure():
 CSS = """
 .tp-lead{font-size:11pt;line-height:1.55;color:var(--n700);margin-bottom:8pt}
 .tp-lead b,.tp-p b{color:var(--ink);font-weight:600}
-.tp-p{font-size:9.8pt;line-height:1.6;color:var(--n600);margin-bottom:9pt}
-.tp-price{border-top:1pt solid var(--ink);border-bottom:1pt solid var(--border-strong);padding:7pt 0 6pt 0;margin:2pt 0 10pt 0}
+.tp-p{font-size:9.8pt;line-height:1.55;color:var(--n600);margin-bottom:7pt}
+.tp-price{border-top:1pt solid var(--ink);border-bottom:1pt solid var(--border-strong);padding:5pt 0 4pt 0;margin:2pt 0 8pt 0}
 .tp-price:after{content:"";display:block;clear:both}
-.tp-price .amt{float:left;width:150pt;font-family:var(--display);font-size:28pt;font-weight:500;letter-spacing:-.03em;line-height:1;color:var(--accent)}
-.tp-price .amt span{display:block;font-size:8.6pt;letter-spacing:0;font-weight:400;color:var(--n500);margin-top:3pt}
-.tp-price .txt{float:right;width:330pt;font-size:9.6pt;line-height:1.55;color:var(--n600)}
+.tp-price .amt{float:left;width:150pt;font-family:var(--display);font-size:22pt;font-weight:500;letter-spacing:-.03em;line-height:1;color:var(--accent)}
+.tp-price .amt span{display:inline;margin-left:4pt;font-size:8.6pt;letter-spacing:0;font-weight:400;color:var(--n500);margin-top:3pt}
+.tp-price .txt{float:right;width:330pt;padding-top:6pt;font-size:9.6pt;line-height:1.55;color:var(--n600)}
 .tp-price .txt b{color:var(--ink);font-weight:600}
 .tp-h3{font-family:var(--display);font-size:13pt;font-weight:500;letter-spacing:-.015em;color:var(--ink);margin:2pt 0 5pt 0}
 .tp-rows{margin:2pt 0 9pt 0}
@@ -49,7 +50,6 @@ CSS = """
 .tp-next ol{margin:3pt 0 0 14pt;font-size:9pt;line-height:1.55;color:var(--n600)}
 """
 
-SYSTEMS_PHRASE = "the systems built in this project"   # set by the generator from spec["tp_systems_phrase"], ex: "the QuickBooks setup from this project"
 
 # Seth, Nov 22 2026 2:45 and 2:50 PM CT: the Technology Partner section is two pages in every proposal. Page A is the plan, page B
 # the private client page with the demo screenshots. Page A keeps the value copy: the value heading and paragraph (word for word),
@@ -61,18 +61,40 @@ VALUE_PARA = ("New tools and automations get added faster than ever, and each on
               "subscriptions renew quietly, and small problems wait until they show up on the bottom line. This plan gives you one person accountable "
               "for all of it, and a page that shows, with dates, what was checked, what was handled and what needs your decision.")
 
+SYSTEMS_ROW = ("Everything your business runs on, including your website, forms, automations and the software connected to them, is checked against a set "
+               "list every month, and each result is recorded with a date. Anything that has quietly stopped working gets caught early, before it reaches a customer.")
+ACCESS_ROW = ("Former staff, shared logins, admin roles, old API keys, and the apps and AI tools connected to your accounts are reviewed. "
+              "Anything that no longer needs a way in is flagged, with what should change.")
+PERSON_LINE = ("One person who knows your systems end to end and answers for every change made and every result reported. "
+               "Questions, fixes and decisions all go to the same place, so nothing falls between vendors.")
+# Seth's own words, kept verbatim. The generic AI word list and the AI or API ban skip only these exact strings (Seth, Nov 22 2026 2:50 and 2:53 PM CT).
+# The access row is backed by catalog checkpoints gen.access_users, gen.access_api_keys, gen.access_connected_apps and gen.access_ai_tools.
+SETH_VERBATIM = [VALUE_PARA, SYSTEMS_ROW, ACCESS_ROW, PERSON_LINE]
+
+# Seth, Nov 22 2026 2:53 PM CT: no out of scope or limitation wording anywhere in the Technology Partner section, and the access
+# review stays a review with results (no threat detection, protection, bad actors or guarantee wording).
+SECTION_BANNED = [r"out of scope", r"outside what the plan covers", r"outside the plan", r"not covered", r"\blimitations?\b",
+                  r"bad actors?", r"\bthreats?\b", r"\battackers?\b", r"\bdetect(s|ion|ed)?\b"]
+
+def section_problems(html_text):
+    t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html_text))
+    return ["wording not allowed in the Technology Partner section: %r" % m.group(0) for pat in SECTION_BANNED for m in re.finditer(pat, t, flags=re.I)]
+
+def strip_verbatim(text):
+    for v in SETH_VERBATIM:
+        text = text.replace(v, " ")
+    return text
+
 def monthly():
     return [
-        ("Your systems", "Your website, forms, automations and %s are checked and each result is written down with a date." % SYSTEMS_PHRASE),
-        ("Who has access", "Former staff and old accounts that still have a way in are flagged, with what should change."),
+        ("Your systems", SYSTEMS_ROW),
+        ("Who and what has access", ACCESS_ROW),
         ("Backups", "Where a system supports it, Launch Forte confirms backups are running. Where it doesn't, you hear about it."),
         ("Subscriptions", "Overlaps and tools nobody uses are pointed out. No guessed savings."),
         ("Business review", "Risks, manual work that could go away and the next improvements worth making, with facts kept separate from opinions."),
         ("Improvements", "A short list you choose from. Launch Forte makes the changes you approve."),
         ("Monthly update", "What was checked, what was handled and what needs your decision. Happy to talk it through on a call."),
     ]
-
-ACCOUNTABILITY = "I answer for the changes I make and for what I report, and I tell you plainly when something is outside what the plan covers."
 
 def page_a():
     rows = "".join(f'<div class="tp-row"><div class="k">{k}</div><div class="v">{v}</div></div>' for k, v in monthly())
@@ -84,7 +106,7 @@ def page_a():
 <div class="tp-h3">What Launch Forte takes care of each month</div>
 <div class="tp-rows">{rows}</div>
 <p class="tp-p"><b>Unlimited everyday requests.</b> Whenever you need an automation, an integration, a report, a fix or help figuring something out, send it over, as often as you like. Launch Forte works one request at a time so each one gets finished properly. New standalone projects like this one are quoted separately.</p>
-<p class="tp-p"><b>Your person for technology.</b> {ACCOUNTABILITY}</p>'''
+<p class="tp-p"><b>Your person for technology.</b> {PERSON_LINE}</p>'''
 
 def page_b_close():
     """Closes page B, under the screenshots. No billing line (Seth, Nov 22 2026 2:40 PM CT)."""
