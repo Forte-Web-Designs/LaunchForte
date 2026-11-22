@@ -3,16 +3,16 @@
 This is the "Hi, I'm Seth Forte" page every Cockpit email attaches (public-assets/Launch-Forte-Intro.pdf) and the only
 document that may name Upwork. Pages:
   01 Cover                 kept exactly from the Nov 2026 deck (kept-pages.pdf page 1)
-  02 About Seth            rebuilt here: no employer, no "full time" claim, Seth's reliability paragraph
+  02 About Seth            kept exactly from the Nov 2026 deck (Seth, Nov 22 2026 3:25 PM CT: "keep the old version of page 2"), page count restamped
   03 How I work            rebuilt here: Launch Forte replaces "we", point 04 "Built to stay up"
-  04 Past work             kept exactly (kept-pages.pdf page 2), only its page count is restamped
+  04 Past work             kept exactly (kept-pages.pdf page 3), only its page count is restamped
   05 Your Technology Partner  value heading and paragraph, seven condensed rows, one real client page screenshot
   06 Next step             testimonials kept, Audit, Build, Technology Partner and Reply here
 
 Rules: the plan price comes only from the verified rule (offer_source, fail closed). The client page screenshot comes
 only from product-assets/tp-page (tp_page.load, fail closed). The wording check fails we, us, our, an employer,
-outside help, quietly, limitation and security protection wording. Page 2 stays in Seth's own "I" (it is his personal
-introduction), and "we" is never used.
+outside help, quietly, limitation and security protection wording on the generated pages (3, 5 and 6). Pages 1, 2 and 4
+are Seth's own approved pages and are kept byte for byte.
 
 Run: python3 intro_deck.py --rules rules.json --out ./out   (rules.json is the same rule readback the proposal uses)
 """
@@ -116,24 +116,6 @@ def eyebrow(t, w):
     return '<div class="eyebrow"><div class="dot"></div><div class="t">%s</div><div class="rule" style="width:%dpt"></div></div>' % (t, w)
 
 
-def page_about():
-    return ('<div class="page">' + hdr(2, "About Seth") + eyebrow("Who I am", 420)
-            + '<div class="lead2">Every system I build is checked on a schedule, written down and simple to explain.</div>'
-            '<div class="about"><div class="ph"><img src="photo-portrait.jpg"></div><div class="tx">'
-            '<p>I build every system the way critical systems get built: checked on a schedule, written down so the next person can run it, '
-            'and simple enough to explain in one sentence. <b>Those habits are why the systems I build keep running after launch.</b></p>'
-            '<p>I started Launch Forte because I kept meeting owners who had bought good tools and were still doing the work by hand. '
-            'Proposals, invoices, follow ups, reports, moving information from one place to another. The busywork that keeps you in the '
-            'business instead of growing it. <b>That is what I take off your plate.</b></p>'
-            "<p>I don't outsource the work, and I keep the client list short on purpose. <b>The person who scopes your build is the one who builds it.</b></p>"
-            '</div></div>'
-            '<div class="pair"><div><img src="photo-family.jpg"></div><div><img src="photo-kitchen.jpg"></div></div>'
-            '<div class="lbl">Off the clock</div>'
-            '<div class="prose"><p>I work from a small office in Dallas Fort Worth, Texas, with my wife and our daughter close enough to interrupt me at lunch. '
-            'Off the clock it is the gym, whipping up meals, video games, board games, time with family, and <b>a standing effort not to completely roast in the Texas heat!</b></p></div>'
-            + ftr(2, "Who I am.") + '</div>')
-
-
 def page_work():
     pts = [
         ("01", "The bigger picture before the build", "Every engagement opens with a read of the whole operation and a number on what the problem is costing. The build is whatever that number points to, and it is scoped to fit the next one."),
@@ -195,14 +177,14 @@ def page_next(price_text):
             + ftr(6, "Thanks for reading.") + '</div>')
 
 
-def restamp_page4(page):
-    """Page 4 is kept exactly; only its footer count changes from 04 / 05 to 04 / 06."""
+def restamp(page, n):
+    """Kept pages stay exactly as they are; only the footer count changes from NN / 05 to NN / 06."""
     from weasyprint import HTML
     import pypdf
     html = ("<html><head><style>@page{size:612pt 792pt;margin:0} body{margin:0}"
             ".m{position:absolute;left:532pt;top:757pt;width:31pt;height:13pt;background:#fff}"
             ".t{position:absolute;right:52pt;top:759.3pt;font-family:Inter;font-size:7.2pt;color:#737373;line-height:1}</style></head>"
-            "<body><div class='m'></div><div class='t'>04 / %02d</div></body></html>" % TOTAL)
+            "<body><div class='m'></div><div class='t'>%02d / %02d</div></body></html>" % (n, TOTAL))
     stamp = pypdf.PdfReader(io.BytesIO(HTML(string=html).write_pdf())).pages[0]
     page.merge_page(stamp)
     return page
@@ -216,7 +198,7 @@ def build(rules_path, out_dir, dashboard_checkout=None):
         raise SystemExit("REFUSED: the Technology Partner price could not be verified from the rules.")
     shots = tp_page.load(os.path.join(HERE, ".tp-page"), dashboard_checkout=dashboard_checkout)
     rel = lambda p: os.path.relpath(p, HERE)
-    body = page_about() + page_work() + page_tp(shots, rel) + page_next(offer_source.price_text())
+    body = page_work() + page_tp(shots, rel) + page_next(offer_source.price_text())
     problems = wording_problems(body.replace("this Upwork thread", "").replace("Reply here on Upwork", ""))
     if problems:
         raise SystemExit("REFUSED, wording check:\n  " + "\n  ".join(problems))
@@ -227,11 +209,11 @@ def build(rules_path, out_dir, dashboard_checkout=None):
     kept = pypdf.PdfReader(os.path.join(HERE, "kept-pages.pdf"))
     w = pypdf.PdfWriter()
     w.add_page(kept.pages[0])                 # 01 cover
-    w.add_page(new.pages[0])                  # 02
-    w.add_page(new.pages[1])                  # 03
-    w.add_page(restamp_page4(kept.pages[1]))  # 04 past work
-    w.add_page(new.pages[2])                  # 05
-    w.add_page(new.pages[3])                  # 06
+    w.add_page(restamp(kept.pages[1], 2))     # 02 about Seth, kept exactly
+    w.add_page(new.pages[0])                  # 03 how I work
+    w.add_page(restamp(kept.pages[2], 4))     # 04 past work, kept exactly
+    w.add_page(new.pages[1])                  # 05 Technology Partner
+    w.add_page(new.pages[2])                  # 06 next step
     w.add_metadata({"/Title": "Launch Forte - Seth Forte Intro", "/Author": "Seth Forte / Launch Forte"})
     os.makedirs(out_dir, exist_ok=True)
     out = os.path.join(out_dir, OUT_NAME)
@@ -239,7 +221,7 @@ def build(rules_path, out_dir, dashboard_checkout=None):
     m = shots["manifest"]
     report = {"pdf": OUT_NAME, "pages": len(w.pages), "plan_price": offer_source.price_text(), "rule_shas": offer_source.shas(),
               "tp_page": {"design_version": m.get("design_version"), "captured_at": m.get("captured_at"), "checked_against": shots["version_source"]},
-              "wording_check": "CLEAN", "kept_exactly": ["01 cover", "04 past work (page count restamped)"]}
+              "wording_check": "CLEAN", "kept_exactly": ["01 cover", "02 about Seth (page count restamped)", "04 past work (page count restamped)"]}
     json.dump(report, open(os.path.join(out_dir, "intro_qa_report.json"), "w"), indent=1)
     print("RESULT: PASS | pages %d | plan %s | screenshots %s" % (len(w.pages), offer_source.price_text(), m.get("design_version")))
     return out
