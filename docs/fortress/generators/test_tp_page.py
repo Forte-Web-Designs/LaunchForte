@@ -58,7 +58,7 @@ class T(unittest.TestCase):
         self.assertIn("Your private client portal", h)
         for k in ("overview", "systems", "edition"):
             self.assertIn(tp_page.CAPTIONS[k], h)
-        self.assertIn("sample page for a fictional business", h)
+        self.assertIn("Open the sample yourself", h)
         self.assertIn("my.launchforte.com/demo", h)
         self.assertNotIn("portal-sample-top", h)
 

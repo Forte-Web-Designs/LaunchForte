@@ -148,8 +148,7 @@ def page_html(shots, demo_link=DEMO_LINK, rel=os.path.basename):
         '<div class="tpw-half"><img src="%s" alt="Your systems">%s</div>'
         '<div class="tpw-half"><img src="%s" alt="Forte Intelligence edition">%s</div>'
         '</div>'
-        '<p class="tpw-note">These are screenshots of a sample page for a fictional business, labelled as one in every picture. '
-        'Open the sample yourself at <a href="%s">%s</a>.</p>'
+        '<p class="tpw-note">Open the sample yourself at <a href="%s">%s</a>.</p>'
     ) % (rel(p["overview"]["desktop"]), cap("overview"), rel(p["overview"]["phone"]),
          rel(p["systems"]["desktop"]), cap("systems"), rel(p["edition"]["desktop"]), cap("edition"),
          demo_link + "?r=document", demo_link.replace("https://", ""))
