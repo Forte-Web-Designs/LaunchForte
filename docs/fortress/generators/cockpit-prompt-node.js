@@ -118,10 +118,7 @@ const UPWORK_RULES = [
   'So never promise a link on any earlier trigger. Never write once you reply, once we are in chat, over chat, in the messages, when we connect, on the call, or anything with the same shape, attached to a link, a demo, a store, a walkthrough or a login.',
   'IF THE LINK RULE NEEDS SAYING AT ALL, SAY IT PLAINLY AND STOP. The whole sentence is: Upwork does not allow sharing links before we are under contract. Do not build a clause around it, do not turn it into a promise about what happens later, and never write anything of the shape anything carrying a URL is something I share once we are working together. State the rule, move on.',
   'What may be offered BEFORE a contract: the attachments already in this email, and answers to anything they ask. Nothing else needs offering.',
-  'PRICING DISCIPLINE: the platform ceiling is separate from the value ceiling. A number that reads as gig-platform agency price gets discounted or skipped before the pitch is even read, regardless of how well justified it is.',
-  'STANDING UPWORK CEILING, until real data says otherwise: land at or under roughly $3,000 to $3,500 for a first engagement, even when the honestly scoped value or hourly math would support more.',
-  'IF TRUE SCOPE EXCEEDS THE CEILING, SPLIT, DO NOT INFLATE: propose a smaller first phase that fits under the ceiling, with Phase 2 and Phase 3 named as a non-binding roadmap. Never quote the full number and hope.',
-  'CITE BOTH CEILINGS IN YOUR REASONING: ground the number in the pricing repository value-based figure AND the Upwork platform ceiling. When they conflict, propose the phase split rather than silently picking one.'
+  'PRICING: the number comes only from the Launch Forte calculator (lf_price_scope) for the counted scope. Never change it for the posted budget, the platform, a request for a deal or a feeling about what reads as cheap. A posted budget never splits the scope into phases.'
 ].join(NL);
 const DIRECT_RULES = [
   'CHANNEL RULES, DIRECT CLIENT. These override anything that conflicts.',
