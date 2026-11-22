@@ -278,16 +278,18 @@ def check_plan(client_html, active=None, wants=None):
     if tp_segs:
         tp = " ".join(tp_segs)
         tptext = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", tp))
-        for need in (re.escape(offer_source.plan_text()), r"month to month", r"cancel anytime", r"one active request at a time", r"Unlimited everyday requests",
-                     r"quoted separately", r"stay yours", re.escape(partner_section.ACCOUNTABILITY), r"Every month, Launch Forte"):   # two page standard, Seth Nov 22 2026 2:45 PM CT
+        for need in (re.escape(offer_source.plan_text()), r"month to month", r"cancel anytime", r"one request at a time", r"Unlimited everyday requests",
+                     r"quoted separately", r"stay yours", re.escape(partner_section.ACCOUNTABILITY), re.escape(partner_section.VALUE_HEADING), r"What Launch Forte takes care of each month"):   # two page standard, Seth Nov 22 2026 2:45 PM CT
             if not re.search(need, tptext, flags=re.I):
                 problems.append("technology partner pages missing required wording: %s" % need)
         banned = (r"24/7", r"around the clock", r"guarantee", r"\bSOC\b", r"\btiers?\b", r"valued at", r"\bsaves? you\b", r"\bhourly\b",
                   r"\b(leverage|streamline|robust|seamless|transformative|compelling|crucial|innovative|foster|cultivate|delve|elevate|harness|navigate|unlock|catalyst|cornerstone|paradigm|synergy|quietly|silently)\b",
                   r"[\u2013\u2014]|--|->|\u2192|~", r"\breal\b", r"\bflag(s|ging)?\b", r"\bour\b", r"\bus\b", r"\bAI\b", r"\b(ledger|proven|browser|session|endpoint|agent|Fortress|Claude)\b",
                   r"\bPricing Standard\b", r"\bdelivered now\b", r"\bset up in your first month\b", r"\bon my own\b", r"\bnothing waits\b", r"\bqueue\b", r"e\.g\.")
+        # Seth's value paragraph is his own words, kept word for word (Nov 22 2026 2:50 PM CT), so the AI word list skips it.
+        scan = tptext.replace(partner_section.VALUE_PARA, " ")
         for pat in banned:
-            for m in re.finditer(pat, tptext, flags=re.I if pat not in (r"\bAI\b", r"\bSOC\b") else 0):
+            for m in re.finditer(pat, scan, flags=re.I if pat not in (r"\bAI\b", r"\bSOC\b") else 0):
                 problems.append("wording not allowed on partner pages: %r" % m.group(0))
         for pat in RETIRED_PLAN_PATTERNS:
             for m in re.finditer(pat, tptext, flags=re.I):

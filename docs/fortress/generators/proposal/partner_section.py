@@ -22,20 +22,20 @@ def configure():
     pass   # kept for callers; the price is read at render time and rendering raises when the rule is not verified
 
 CSS = """
-.tp-lead{font-size:11pt;line-height:1.6;color:var(--n700);margin-bottom:12pt}
+.tp-lead{font-size:11pt;line-height:1.55;color:var(--n700);margin-bottom:8pt}
 .tp-lead b,.tp-p b{color:var(--ink);font-weight:600}
 .tp-p{font-size:9.8pt;line-height:1.6;color:var(--n600);margin-bottom:9pt}
-.tp-price{border-top:1pt solid var(--ink);border-bottom:1pt solid var(--border-strong);padding:11pt 0 10pt 0;margin:4pt 0 16pt 0}
+.tp-price{border-top:1pt solid var(--ink);border-bottom:1pt solid var(--border-strong);padding:7pt 0 6pt 0;margin:2pt 0 10pt 0}
 .tp-price:after{content:"";display:block;clear:both}
-.tp-price .amt{float:left;width:150pt;font-family:var(--display);font-size:34pt;font-weight:500;letter-spacing:-.03em;line-height:1;color:var(--accent)}
+.tp-price .amt{float:left;width:150pt;font-family:var(--display);font-size:28pt;font-weight:500;letter-spacing:-.03em;line-height:1;color:var(--accent)}
 .tp-price .amt span{display:block;font-size:8.6pt;letter-spacing:0;font-weight:400;color:var(--n500);margin-top:3pt}
 .tp-price .txt{float:right;width:330pt;font-size:9.6pt;line-height:1.55;color:var(--n600)}
 .tp-price .txt b{color:var(--ink);font-weight:600}
 .tp-h3{font-family:var(--display);font-size:13pt;font-weight:500;letter-spacing:-.015em;color:var(--ink);margin:2pt 0 5pt 0}
-.tp-rows{margin:2pt 0 12pt 0}
+.tp-rows{margin:2pt 0 9pt 0}
 .tp-row{display:table;width:100%;border-top:1pt solid var(--border);padding:0}
-.tp-row .k{display:table-cell;width:132pt;padding:8pt 12pt 8pt 0;font-family:var(--display);font-size:9.6pt;font-weight:600;color:var(--ink);vertical-align:top}
-.tp-row .v{display:table-cell;padding:8pt 0;font-size:9.2pt;line-height:1.55;color:var(--n600);vertical-align:top}
+.tp-row .k{display:table-cell;width:132pt;padding:5pt 12pt 5pt 0;font-family:var(--display);font-size:9.6pt;font-weight:600;color:var(--ink);vertical-align:top}
+.tp-row .v{display:table-cell;padding:5pt 0;font-size:9.2pt;line-height:1.55;color:var(--n600);vertical-align:top}
 .tp-rows .tp-row:last-child{border-bottom:1pt solid var(--border)}
 .tp-shot{border:1pt solid var(--border-strong);margin:6pt 0 4pt 0;width:330pt}
 .tp-shot img{width:100%;display:block}
@@ -51,31 +51,40 @@ CSS = """
 
 SYSTEMS_PHRASE = "the systems built in this project"   # set by the generator from spec["tp_systems_phrase"], ex: "the QuickBooks setup from this project"
 
-# Seth, Nov 22 2026 2:45 PM CT: the Technology Partner section is two scannable pages in every proposal. Page A is the plan,
-# page B the private client page with the demo screenshots. Launch Forte is the subject except the opening paragraph and the
-# accountability line. Removed for good: "Software tends to pile up", the business review row, the coverage disclaimer
-# paragraph, the specialist line and any dollar savings claim. Backups only "confirms they are running", never that restores work.
+# Seth, Nov 22 2026 2:45 and 2:50 PM CT: the Technology Partner section is two pages in every proposal. Page A is the plan, page B
+# the private client page with the demo screenshots. Page A keeps the value copy: the value heading and paragraph (word for word),
+# the seven row monthly table, unlimited requests and "Your person for technology". Launch Forte is the subject except the
+# opening paragraph and the accountability line. Backups say "running" only, never that restores work. No guessed savings.
+VALUE_HEADING = "Know what's happening, and that it's working."
+VALUE_PARA = ("New tools and automations get added faster than ever, and each one makes sense on its own. Together they make it easy to lose track "
+              "of what actually needs to happen and whether it is happening. Meanwhile accounts stay open after people leave, backups go unchecked, "
+              "subscriptions renew quietly, and small problems wait until they show up on the bottom line. This plan gives you one person accountable "
+              "for all of it, and a page that shows, with dates, what was checked, what was handled and what needs your decision.")
+
 def monthly():
     return [
-        ("Checks your systems.", "The website, forms, automations and %s are checked, and each result is recorded with a date." % SYSTEMS_PHRASE),
-        ("Reviews access.", "You get a list of who can get into what, with former staff and old accounts marked."),
-        ("Checks backups.", "Where a system supports backups, Launch Forte confirms they are running. Where it doesn't, the update says so."),
-        ("Reviews subscriptions.", "You get a list of what you pay for, with overlaps and unused tools marked."),
-        ("Keeps an improvement list.", "You approve an item and Launch Forte makes the change."),
-        ("Sends the monthly update.", "It covers what was checked, what was handled and what needs your decision."),
+        ("Your systems", "Your website, forms, automations and %s are checked and each result is written down with a date." % SYSTEMS_PHRASE),
+        ("Who has access", "Former staff and old accounts that still have a way in are flagged, with what should change."),
+        ("Backups", "Where a system supports it, Launch Forte confirms backups are running. Where it doesn't, you hear about it."),
+        ("Subscriptions", "Overlaps and tools nobody uses are pointed out. No guessed savings."),
+        ("Business review", "Risks, manual work that could go away and the next improvements worth making, with facts kept separate from opinions."),
+        ("Improvements", "A short list you choose from. Launch Forte makes the changes you approve."),
+        ("Monthly update", "What was checked, what was handled and what needs your decision. Happy to talk it through on a call."),
     ]
 
 ACCOUNTABILITY = "I answer for the changes I make and for what I report, and I tell you plainly when something is outside what the plan covers."
 
 def page_a():
-    items = "".join('<li><b>%s</b> %s</li>' % (k, v) for k, v in monthly())
-    return f'''<h2 class="sec" style="margin-bottom:10pt">Your Technology Partner</h2>
+    rows = "".join(f'<div class="tp-row"><div class="k">{k}</div><div class="v">{v}</div></div>' for k, v in monthly())
+    return f'''<h2 class="sec" style="margin-bottom:8pt">Your Technology Partner</h2>
 <p class="tp-lead">After I build this, I would be happy to keep helping with the technology side of your business too. For {_price()} a month, I check the systems we agree to cover, review what is working and what needs attention, and look through your software for improvements worth making. You get a monthly update even if you have not asked me for anything new.</p>
-<div class="tp-price"><div class="amt">{_price()}<span>a month</span></div><div class="txt">Month to month. Cancel anytime. Your accounts stay yours.</div></div>
-<div class="tp-h3">Every month, Launch Forte:</div>
-<ul class="tp-list">{items}</ul>
-<p class="tp-p"><b>Unlimited everyday requests.</b> Send any automation, integration, report, fix or question, with no limit on how many. Launch Forte works one active request at a time and finishes each before the next. New standalone projects like this one are quoted separately.</p>
-<p class="tp-p"><b>Accountability.</b> {ACCOUNTABILITY}</p>'''
+<div class="tp-price"><div class="amt">{_price()}<span>a month</span></div><div class="txt">Month to month, cancel anytime, and your accounts stay yours.</div></div>
+<div class="tp-h3">{VALUE_HEADING}</div>
+<p class="tp-p">{VALUE_PARA}</p>
+<div class="tp-h3">What Launch Forte takes care of each month</div>
+<div class="tp-rows">{rows}</div>
+<p class="tp-p"><b>Unlimited everyday requests.</b> Whenever you need an automation, an integration, a report, a fix or help figuring something out, send it over, as often as you like. Launch Forte works one request at a time so each one gets finished properly. New standalone projects like this one are quoted separately.</p>
+<p class="tp-p"><b>Your person for technology.</b> {ACCOUNTABILITY}</p>'''
 
 def page_b_close():
     """Closes page B, under the screenshots. No billing line (Seth, Nov 22 2026 2:40 PM CT)."""
