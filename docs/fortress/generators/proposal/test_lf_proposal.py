@@ -16,7 +16,7 @@ S10 = "## 10. Technology Partner\n**Plan.** One plan, **$500 a month**, month to
 def rules(**over):
     r = {"read_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
          "pricing": {"sha12": "bf40e201ea00", "freshness": "VERIFIED", "section_2": S2, "section_10": S10},
-         "technology_partner_offer": {"sha12": "6c16db653830", "freshness": "LIVE"},
+         "technology_partner_offer": {"sha12": "fe21a96233cf", "freshness": "LIVE"},
          "client_document_hard_rules": {"sha12": "ee99703ddff9", "freshness": "LIVE"}, "voice": {"freshness": "LIVE"}}
     r.update(over); return r
 
@@ -91,6 +91,32 @@ class T4(unittest.TestCase):
         rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
         self.assertEqual((rep["investment"], rep["milestones"]), (2750, [1375, 1375]))
         self.assertEqual(rep["price_problems"], [])
+
+class T5(unittest.TestCase):
+    """Rule technology-partner-offer v2, section 4 line 3: an Upwork buyer gets the plan only under a dated per client override from Seth."""
+    def build(self, **buyer):
+        s = copy.deepcopy(SPEC); s["buyer"] = dict({"status": "prospect", "platform": "upwork", "scope_approved": True, "upwork_first_contact_months": 0}, **buyer)
+        c, o, out = run(s, rules(), tempfile.mkdtemp())
+        rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
+        return c, o, rep
+
+    def test_dated_override_for_this_client_offers_the_plan_billed_on_upwork(self):
+        ov = {"client": "Ridgeline Outfitters", "date": "2026-11-22", "source_ref": "account_thesis_event#0000", "scope": "this client only, billed on Upwork"}
+        c, o, rep = self.build(seth_override=ov)
+        self.assertIn(c, (0, 3), o)
+        self.assertTrue(rep["plan_offered"]); self.assertEqual(rep["plan_price"], 500)
+        self.assertEqual(rep["price_problems"], [])
+
+    def test_missing_wrong_or_undated_override_offers_no_plan(self):
+        good = {"client": "Ridgeline Outfitters", "date": "2026-11-22", "source_ref": "account_thesis_event#0000"}
+        for ov in (None, dict(good, client="Someone Else"), {k: v for k, v in good.items() if k != "date"}, dict(good, date="Nov 22"),
+                   {k: v for k, v in good.items() if k != "source_ref"}):
+            c, o, rep = self.build(seth_override=ov)
+            self.assertFalse(rep["plan_offered"], ov)
+
+    def test_upwork_buyer_over_24_months_is_treated_as_direct(self):
+        c, o, rep = self.build(upwork_first_contact_months=30)
+        self.assertTrue(rep["plan_offered"])
 
 class T3(unittest.TestCase):
     def go(self, spec):

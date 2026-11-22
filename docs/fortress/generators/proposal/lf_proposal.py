@@ -8,7 +8,7 @@ Pricing Standard text that the session read through the Launch Forte connector (
 Stops before anything is sent. Financing is refused (Pricing Standard section 11: off by default, not part of this rollout).
 Exit codes: 0 built and every check passed; 2 refused or failed closed; 3 built but QA needs a person.
 """
-import argparse, json, os, shutil, sys, io, contextlib, re
+import datetime, argparse, json, os, shutil, sys, io, contextlib, re
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import rules_input, proposal_qa
@@ -89,6 +89,19 @@ def build_template(spec, src, dst):
 UNSUPPORTED_TERMS = ["revision round", "business day window", "business days idle", "standard terms", "net-", "forms our agreement", "that written reply is the signature", "clause 01", "you own what", "is yours.", "everything delivered", "paid for stay"]
 
 
+def override_valid(o, client_name):
+    """Seth's written per client override (rule technology-partner-offer, section 4 line 3): names the client, carries a date and a source
+    reference, and covers that client only. Anything less is not an override."""
+    if not isinstance(o, dict):
+        return False
+    try:
+        datetime.date.fromisoformat(str(o.get("date", "")))
+    except ValueError:
+        return False
+    named = str(o.get("client", "")).strip().lower()
+    return bool(named and o.get("source_ref") and named in str(client_name).lower())
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--spec", required=True)
@@ -152,6 +165,12 @@ def main(argv=None):
     g.SIGNED_AGREEMENT = bool(buyer.get("signed_agreement"))
     g.SETH_OPT_OUT = bool(buyer.get("seth_opt_out"))
     g.SCOPE_APPROVED = buyer.get("scope_approved") is True
+    g.KEPT_PROJECT_BASED = bool(buyer.get("kept_project_based"))
+    months = buyer.get("upwork_first_contact_months")
+    g.UPWORK_FIRST_CONTACT_MONTHS = months if isinstance(months, (int, float)) and not isinstance(months, bool) else None
+    g.SETH_OVERRIDE_ON_CARD = override_valid(buyer.get("seth_override"), fill.get("[CLIENT NAME]", "") + " " + fill.get("[CONTACT NAME AND TITLE]", ""))
+    import partner_section
+    partner_section.UPWORK_BILLING = (platform == "upwork")
     g.WANTS_PLAN = False; g.ACTIVE_CLIENT = False; g.PURCHASE_CHOICE = None
     g.OFFER_PRESET = True
     g.SHOW_PARTNER = True
@@ -182,7 +201,7 @@ def main(argv=None):
         refuse("the generator stopped: see the lines above.")
 
     pages = proposal_qa.pages_text(g.OUT_PDF)
-    offered = bool(g.OFFER and g.OFFER["offer_plan"] and g.OFFER["variant"] == "proposal_full")
+    offered = bool(g.OFFER and g.OFFER["offer_plan"] and g.OFFER["variant"] == "whats_next")
     hard, review = proposal_qa.word_check(pages, spec.get("word_check_allow", []))
     price_problems = proposal_qa.price_audit(pages, total, offer_source.price(), offered, half)
     overflow = proposal_qa.footer_overflow(g.OUT_PDF)

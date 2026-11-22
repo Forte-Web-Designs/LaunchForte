@@ -48,6 +48,9 @@ ACTIVE_CLIENT = False   # True: the Technology Partner plan line is required (ev
 BUYER_STATUS = "prospect"    # prospect | eligible | active_client | unknown | opted_out
 SIGNED_AGREEMENT = False
 SETH_OPT_OUT = False
+UPWORK_FIRST_CONTACT_MONTHS = None   # months since first Upwork contact, None when not recorded (rule technology-partner-offer v2, section 8)
+SETH_OVERRIDE_ON_CARD = False        # True only when a dated, per client written override from Seth exists (rule section 4, line 3)
+KEPT_PROJECT_BASED = False
 SCOPE_APPROVED = True
 DOC_TYPE = "proposal"
 OFFER_PRESET = False   # True only in tests that configure offer_source themselves. Otherwise main() reads the canonical rule through offer_source.load() (needs LF_WORK_KEY); no verified rule means no plan.
@@ -361,8 +364,10 @@ def main():
     OFFER = resolve_offer({"doc_type": DOC_TYPE, "buyer_status": "active_client" if ACTIVE_CLIENT else BUYER_STATUS,
                            "platform": "upwork" if UPWORK else "direct", "signed_agreement": SIGNED_AGREEMENT,
                            "seth_opt_out": SETH_OPT_OUT, "scope_approved": SCOPE_APPROVED,
+                           "upwork_first_contact_months": UPWORK_FIRST_CONTACT_MONTHS, "seth_override_on_card": SETH_OVERRIDE_ON_CARD,
+                           "kept_project_based": KEPT_PROJECT_BASED,
                            "financing_enabled": PURCHASE_CHOICE is not None, "rules_verified": offer_source.verified()})
-    show_partner = SHOW_PARTNER and OFFER["offer_plan"] and OFFER["variant"] == "proposal_full"
+    show_partner = SHOW_PARTNER and OFFER["offer_plan"] and OFFER["variant"] == "whats_next"
     print("OFFER RESOLVER:", OFFER["variant"], "| financing:", OFFER["financing"], "|", OFFER["reason"])
     if not offer_source.verified():
         print("FAIL CLOSED: the offer rules were not verified. The document is written without the Technology Partner plan.")

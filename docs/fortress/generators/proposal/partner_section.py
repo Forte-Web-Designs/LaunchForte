@@ -12,6 +12,11 @@ def _price():
         raise RuntimeError("The Technology Partner plan could not be read from the canonical rule, so the plan pages are not produced.")
     return p
 
+UPWORK_BILLING = False   # set by the generator when the plan is offered to an Upwork buyer under Seth's written per client override
+
+def _billing_note():
+    return " It is billed as a separate Upwork contract." if UPWORK_BILLING else ""
+
 def configure():
     pass   # kept for callers; the price is read at render time and rendering raises when the rule is not verified
 
@@ -69,7 +74,7 @@ def page_b(next_html=""):
 <div class="tp-h3" style="margin-top:14pt">What the monthly update looks like</div>
 <div class="tp-shot"><img src="{{SHOT}}"></div>
 <div class="tp-cap">A sample, with made up information for a fictional business. The update lists what I checked, what I handled and what needs your decision, each with a date.</div>
-<div class="tp-terms"><b>{_price()} a month.</b> Month to month, cancel anytime. If you only want the project, that is completely fine too.</div>
+<div class="tp-terms"><b>{_price()} a month.</b> Month to month, cancel anytime.{_billing_note()} If you only want the project, that is completely fine too.</div>
 {next_html}'''
 
 def next_steps(items):

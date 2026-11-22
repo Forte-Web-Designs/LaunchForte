@@ -16,4 +16,9 @@ checks = [("live facts", rules_verified(good), True), ("none", rules_verified(No
 for n, got, want in checks:
     ok = got == want; bad += (not ok); print(("PASS " if ok else "FAIL ") + "rules_verified " + n)
 print(len(cases), "shared cases +", len(checks), "fact checks;", "FAILURES:", bad)
+from offer_resolver import normalize_variant
+for old in ("proposal_full", "audit_closing"):
+    got = normalize_variant(old); ok = got == "whats_next"; bad += (not ok); print(("PASS " if ok else "FAIL ") + "retired variant %s is read as whats_next" % old)
+retired = [c["name"] for c in cases if resolve_offer(c["in"])["variant"] in ("proposal_full", "audit_closing")]
+bad += len(retired); print(("PASS " if not retired else "FAIL ") + "resolver never returns a retired variant")
 sys.exit(1 if bad else 0)
