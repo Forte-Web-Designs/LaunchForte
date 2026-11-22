@@ -139,7 +139,7 @@ def page_html(shots, demo_link=DEMO_LINK, rel=os.path.basename):
     cap = lambda k: '<div class="tpw-cap">%s</div>' % CAPTIONS[k]
     return (
         '<h2 class="sec" style="margin-bottom:6pt">Your private client portal</h2>'
-        '<p class="tpw-lead">Every client on the plan signs in to a private portal like this one. It shows what I checked, what I handled and what needs you, each with a date, and it is where you send me requests.</p>'
+        '<p class="tpw-lead">One place to see where your technology stands. Open it any time, from your desk or your phone, to see what is happening with your systems and what needs your attention. Send me a request from the same page and watch it move until it is done.</p>'
         '<div class="tpw-row">'
         '<div class="tpw-desk"><img src="%s" alt="Overview on a computer">%s</div>'
         '<div class="tpw-phone"><img src="%s" alt="Overview on a phone"></div>'
