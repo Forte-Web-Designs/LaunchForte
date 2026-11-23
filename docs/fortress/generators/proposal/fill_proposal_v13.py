@@ -178,7 +178,7 @@ LEAK_PATTERNS = [
     r"\bconnections?\b\s*(&middot;|x|×|\$)",
     r"\b(config|judged|surface|extra systems?|added systems?)\b\s*(&middot;|x|×|\$)",
     r"\$(250|300|400|700|800)\b",      # unit rates (a block price may equal one of these, so see check_leaks)
-    r"\bper piece\b", r"\bunit (price|rate)\b", r"\brate card\b",
+    r"\bper piece\b", r"\bunit (price|rate)\b", r"\brate card\b", r"\bmigration_[a-z_]+\b",
 ]
 
 # Pricing Standard v2.5: retired plan wording, second plans, quotas and credits are never client copy.
@@ -212,7 +212,9 @@ def build_blocks(blocks):
                    % (i, name, bn))
         if desc:
             out.append('      <div class="bd">%s</div>' % desc)
-        if total == 0:
+        # Pricing Standard Addendum: Migrations section 7: a block that moves existing work shows its volume in plain
+        # counts (the part labels, never a rate or kind), so the client sees how much is moving.
+        if total == 0 or any("migration_" in str(k) for _, k, _ in parts):
             for label, _, _ in parts:
                 out.append('      <div class="bi">%s</div>' % label)
         out.append('    </div>')
