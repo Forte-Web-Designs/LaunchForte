@@ -1,5 +1,8 @@
 # Launch Forte proposal generator (the one approved process)
 
+## Canonical path (Seth, Nov 23 2026, card hIUtgvap)
+This generator (`lf_proposal.py` with `fill_proposal_v13.py` and template v13) produced the reviewed GREENTECH proposal and is the ONE canonical proposal generator. Sessions no longer run it by hand. They call the Launch Forte MCP tool `lf_proposal` (dashboard repo, `lib/gateway/proposal.ts`), which prices with `lf_price`, starts the workflow `proposal-render.yml` that runs this generator server side, checks the QA report against the calculator ledger and files the PDF. The Proposal Builder template path (n8n Ops: Proposal Builder) and every other proposal path are retired on the record; the n8n workflow itself is switched off by Seth, not by this change. Proposal text that is not produced by this generator is refused.
+
 Card 535. Pricing Standard 6A.3 names this generator (`fill_proposal_v13.py`), the template (`Launch-Forte-Proposal-Template-v13.html`) and the calculator (`purchase_choice.py`). v12 and v11 are retired. Anything else that builds a client proposal PDF is not approved.
 
 Stops before any send. Never publishes, activates or emails. Financing is off by default and refused by this entry point.
