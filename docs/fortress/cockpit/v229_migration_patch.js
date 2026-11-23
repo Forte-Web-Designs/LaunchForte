@@ -66,7 +66,9 @@ function patchCockpit(w, mode) {
     "  }\n" +
     "  const used = D.filter(function (d) { return d.status === 'BUILD' && !/^migration_/.test(d.piece_type); }).map(function (d) { return String(d.title).toLowerCase(); }).join(' | ');\n" +
     "  const core = function (n) { return String(n).toLowerCase().replace(/\\(.*?\\)|white label|account/g, '').trim().split(/\\s+/)[0]; };\n" +
-    "  const kept = (systems || []).filter(function (n, i) { return i === 0 || used.indexOf(core(n)) >= 0; });\n" +
+    "  const srcT = D.filter(function (d) { return d.status === 'BUILD' && /^migration_/.test(d.piece_type); }).map(function (d) { return String(d.title).toLowerCase(); }).join(' | ');\n" +
+    "  const feedT = D.filter(function (d) { return d.status === 'BUILD' && d.piece_type === 'connection'; }).map(function (d) { return String(d.title).toLowerCase(); }).join(' | ');\n" +
+    "  const kept = (systems || []).filter(function (n, i) { if (i === 0) return true; const c = core(n); if (srcT.indexOf(c) >= 0 && feedT.indexOf(c) < 0) return false; return used.indexOf(c) >= 0; });\n" +
     "  if (kept.length !== (systems || []).length) notes.push('systems only exported from and switched off are not counted: ' + (systems || []).filter(function (n) { return kept.indexOf(n) < 0; }).join(', '));\n" +
     "  return { D: D, systems: kept, notes: notes };\n" +
     "};\n";
