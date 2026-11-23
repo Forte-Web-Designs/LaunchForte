@@ -15,7 +15,7 @@ Nothing here types a price, discount or plan item that could drift:
 from __future__ import annotations
 import re
 
-BUILT_FROM = {"technology-partner-offer": "9f3961f5b8bf", "pricing": "bf40e201ea00"}
+BUILT_FROM = {"technology-partner-offer": "9f3961f5b8bf", "pricing": "0cc8ebec16a3"}
 DOC_TYPES = ("handoff", "audit", "architecture", "proposal", "quote")
 MENTION_ONLY = ("client_update", "sop", "email", "reply", "upwork_reply", "status")
 RETIRED_PRICES = {750}
