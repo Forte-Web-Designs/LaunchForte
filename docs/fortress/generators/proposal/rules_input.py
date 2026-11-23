@@ -7,7 +7,7 @@ Pricing Standard text the session read, and the run fails closed when that text,
 rules.json shape (all strings come from the lf_rules readback, verbatim):
 {
   "read_at": "2026-11-12T18:40:00Z",                       # when the session read the rules (must be under 24 hours old)
-  "pricing":  {"sha12": "bf40e201ea00", "freshness": "VERIFIED", "version": "v2.6",
+  "pricing":  {"sha12": "0cc8ebec16a3", "freshness": "VERIFIED", "version": "v2.7",
                "section_2":  "<the rate card table rows, verbatim>",
                "section_10": "<section 10 text from '## 10.' through the Plan paragraph, verbatim>"},
   "technology_partner_offer": {"sha12": "9f3961f5b8bf", "freshness": "LIVE"},
