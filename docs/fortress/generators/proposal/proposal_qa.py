@@ -112,7 +112,7 @@ def price_audit(pages, amount, plan_price, offered, split):
             prob.append("partner offer present although the buyer is not eligible")
         if plan_price and ("$%d a month" % plan_price) in full:
             prob.append("plan price present although not offered")
-    half = f"${split:,}"
+    half = split if isinstance(split, str) else f"${split:,}"
     if full.count(half) < 2:
         prob.append("the two milestone amounts %s are not both printed" % half)
     if re.search(r"financ|payment plan|installment|buy now", full, re.I) and not offered is None:

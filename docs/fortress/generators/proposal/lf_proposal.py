@@ -34,6 +34,8 @@ def compute_blocks(spec_blocks, rates):
             if kind == "extra system":
                 refuse("extra system pieces are computed from the systems inventory (spec.systems), never entered by hand.")
             if kind not in rates:
+                if kind.startswith("migration_"):
+                    refuse("migration piece %r needs the migration rates (rules.json pricing_migrations, rule pricing-migrations)" % kind)
                 refuse("unknown piece kind %r" % kind)
             qty = int(p.get("qty", 1))
             if qty < 1:
@@ -134,9 +136,12 @@ def main(argv=None):
         first = blocks[0]
         blocks[0] = (first[0], first[1], list(first[2]) + [("each client system past the first two", "%d x $%d extra system" % (extra_n, rates["extra system"]), extra_n * rates["extra system"])])
         total += extra_n * rates["extra system"]
-    if total <= 0 or total % 2:
-        refuse("the computed investment %d cannot be split into two equal whole dollar milestones" % total)
-    half = total // 2
+    if total <= 0:
+        refuse("the computed investment %d is not a price" % total)
+    # Two equal milestones, exactly as the calculator's payment terms state them (half to start, half on delivery). An odd
+    # total (migration items at $15 and $25 can make one) splits into two equal halves with cents, never an uneven split.
+    half = total // 2 if total % 2 == 0 else total / 2
+    half_txt = "$" + (f"{half:,}" if total % 2 == 0 else f"{half:,.2f}")
 
     buyer = spec.get("buyer", {})
     if "scope_approved" not in buyer:
@@ -158,7 +163,7 @@ def main(argv=None):
         if k in fill:
             refuse("%s is computed, not supplied." % k)
     fill["[AMOUNT]"] = f"{total:,}"
-    fill["[SPLIT TO START]"] = fill["[SPLIT ON DELIVERY]"] = "$" + f"{half:,}"
+    fill["[SPLIT TO START]"] = fill["[SPLIT ON DELIVERY]"] = half_txt
     fill.setdefault("[UPWORK NOTE]", "Accepted and funded one milestone at a time." if platform == "upwork" else "")   # Seth Nov 22 2026 3:06 PM CT: never name Upwork in a proposal
 
     g.FILL = fill; g.BLOCKS = blocks
@@ -207,7 +212,7 @@ def main(argv=None):
     # "we agree to cover" sits in the Technology Partner opening paragraph, which Seth keeps as written (Nov 22 2026 2:38 PM CT).
     hard, review = proposal_qa.word_check(pages, spec.get("word_check_allow", []) + ["we agree to cover", "we agree on and connect"],
                                           verbatim_pages=[("Who and what has", ["API keys", "AI tools"])])
-    price_problems = proposal_qa.price_audit(pages, total, offer_source.price(), offered, half)
+    price_problems = proposal_qa.price_audit(pages, total, offer_source.price(), offered, half_txt)
     price_problems += doc_voice.problems("\n".join(pages))  # Seth Nov 22 2026: document voice, Launch Forte is the subject
     overflow = proposal_qa.footer_overflow(g.OUT_PDF)
     left = re.findall(r"\[[A-Z][A-Z0-9 ]{1,28}\]", "\n".join(pages))

@@ -16,6 +16,15 @@ S2 = """## 2. The only rate card
 ## 3. next"""
 S10 = "## 10. Technology Partner\n**Plan.** One plan, **$500 a month**, month to month.\n## 11. next"
 
+M2 = """## 2. One rate table for every client and every channel
+| Flow migrated | migration_flow | $25 |
+| Page layout rebuilt | migration_page_layout | $100 |
+| Page on an existing layout | migration_page | $25 |
+| Form migrated | migration_form | $15 |
+| Calendar migrated | migration_calendar | $25 |
+## 3. next"""
+MIG = {"sha12": "e73ce119f70e", "freshness": "LIVE", "section_2": M2}
+
 def rules(**over):
     r = {"read_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
          "pricing": {"sha12": "bf40e201ea00", "freshness": "VERIFIED", "section_2": S2, "section_10": S10},
@@ -121,8 +130,8 @@ class T5(unittest.TestCase):
         self.assertTrue(rep["plan_offered"])
 
 class T3(unittest.TestCase):
-    def go(self, spec):
-        return run(spec, rules(), tempfile.mkdtemp())
+    def go(self, spec, rl=None):
+        return run(spec, rl if rl is not None else rules(), tempfile.mkdtemp())
 
     def test_missing_inventory_scope_or_typed_extra_refused(self):
         s = copy.deepcopy(SPEC); del s["systems"]
@@ -140,6 +149,21 @@ class T3(unittest.TestCase):
         rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
         self.assertEqual(rep["systems"], {"distinct_client_systems": 5, "extra_systems_charged": 3})
         self.assertEqual(rep["investment"], 2900 + 900)
+
+    def test_migration_pieces_price_from_the_migration_rule(self):
+        s = copy.deepcopy(SPEC); s["systems"] = ["a", "b"]
+        s["blocks"] = [{"name": "Your Emails Moved", "desc": "x", "parts": [{"label": "57 automations moved", "kind": "migration_flow", "qty": 57},
+                       {"label": "4 forms", "kind": "migration_form", "qty": 4}]},
+                       {"name": "Your Pages Moved", "desc": "y", "parts": [{"label": "5 designs", "kind": "migration_page_layout", "qty": 5},
+                       {"label": "20 pages", "kind": "migration_page", "qty": 20}, {"label": "4 calendars", "kind": "migration_calendar", "qty": 4}]}]
+        c, o, out = self.go(s, rules(pricing_migrations=MIG))
+        rep = json.load(open([os.path.join(out, f) for f in os.listdir(out) if f.startswith("qa_report")][0]))
+        self.assertEqual(rep["investment"], 57 * 25 + 4 * 15 + 5 * 100 + 20 * 25 + 4 * 25, o)
+
+    def test_migration_piece_without_the_migration_rule_is_refused(self):
+        s = copy.deepcopy(SPEC); s["blocks"][0]["parts"].append({"label": "flows", "kind": "migration_flow", "qty": 3})
+        c, o, out = self.go(s)
+        self.assertEqual(c, 2); self.assertIn("pricing_migrations", o)
 
     def test_no_unsupported_terms_in_default_pdf(self):
         c, o, out = self.go(copy.deepcopy(SPEC))

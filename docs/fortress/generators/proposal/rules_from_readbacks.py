@@ -30,6 +30,7 @@ def main():
     ap = argparse.ArgumentParser()
     for k in ("pricing", "offer", "hard", "voice", "out"):
         ap.add_argument("--" + k, required=True)
+    ap.add_argument("--migrations", help="optional: the lf_rules pricing-migrations readback, for migration pieces")
     a = ap.parse_args()
     t = {k: open(getattr(a, k), encoding="utf-8").read() for k in ("pricing", "offer", "hard", "voice")}
     out = {"read_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")}
@@ -38,6 +39,10 @@ def main():
     for key, src in (("technology_partner_offer", "offer"), ("client_document_hard_rules", "hard"), ("voice", "voice")):
         fr, sha = header(t[src], src)
         out[key] = {"sha12": sha, "freshness": fr}
+    if a.migrations:
+        mt = open(a.migrations, encoding="utf-8").read()
+        fr, sha = header(mt, "pricing-migrations")
+        out["pricing_migrations"] = {"sha12": sha, "freshness": fr, "section_2": section(mt, "2", "3")}
     json.dump(out, open(a.out, "w"), indent=2)
     print("wrote", a.out, {k: (v.get("sha12"), v.get("freshness")) for k, v in out.items() if isinstance(v, dict)})
 

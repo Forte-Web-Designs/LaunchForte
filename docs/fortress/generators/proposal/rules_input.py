@@ -12,7 +12,8 @@ rules.json shape (all strings come from the lf_rules readback, verbatim):
                "section_10": "<section 10 text from '## 10.' through the Plan paragraph, verbatim>"},
   "technology_partner_offer": {"sha12": "9f3961f5b8bf", "freshness": "LIVE"},
   "client_document_hard_rules": {"sha12": "ee99703ddff9", "freshness": "LIVE"},
-  "voice": {"freshness": "LIVE"}
+  "voice": {"freshness": "LIVE"},
+  "pricing_migrations": {"sha12": "e73ce119f70e", "freshness": "LIVE", "section_2": "<addendum section 2, verbatim>"}   # optional
 }
 """
 import re, datetime
@@ -53,6 +54,22 @@ def parse_rates(section_2):
     return rates
 
 
+MIGRATION_KINDS = ("migration_flow", "migration_page_layout", "migration_page", "migration_form", "migration_calendar")
+
+
+def parse_migration_rates(section_2):
+    """Pricing Standard Addendum: Migrations (rule pricing-migrations) section 2 table rows: | item | migration_kind | $N |."""
+    rates = {}
+    for line in (section_2 or "").splitlines():
+        m = re.match(r"\|[^|]*\|\s*(migration_[a-z_]+)\s*\|\s*\$(\d[\d,]*)\s*\|", line.strip())
+        if m:
+            rates[m.group(1)] = int(m.group(2).replace(",", ""))
+    missing = [k for k in MIGRATION_KINDS if k not in rates]
+    if missing:
+        raise RulesRefused("The migration rate table is missing: %s." % ", ".join(missing))
+    return rates
+
+
 def parse_plan_price(section_10):
     m = re.search(r"\*\*Plan\.\*\*[^\n]*?\*\*\$(\d[\d,]*) a month\*\*", section_10 or "")
     if not m:
@@ -84,6 +101,13 @@ def build(rules, now=None, allow_fixture=False):
     if not offer_sha:
         raise RulesRefused("rules.json technology_partner_offer.sha12 is missing.")
     rates = parse_rates(p["section_2"])
+    mig = rules.get("pricing_migrations")
+    if mig:
+        if str(mig.get("freshness", "")).upper() != "FIXTURE":
+            _fresh(mig, "The Pricing Standard Addendum: Migrations")
+        if not mig.get("sha12") or not mig.get("section_2"):
+            raise RulesRefused("rules.json pricing_migrations needs sha12 and section_2.")
+        rates.update(parse_migration_rates(mig["section_2"]))
     price = parse_plan_price(p["section_10"])
     facts = {"ok": True, "stale": False, "plan_price_per_month": price, "offer_rule_sha12": offer_sha, "pricing_rule_sha12": p["sha12"],
              "pricing_section_10": p["section_10"]}
