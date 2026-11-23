@@ -1,0 +1,71 @@
+# lf_proposal (card 665 hIUtgvap, Seth Nov 23 2026): the one approved proposal generator, run server side. The dashboard tool
+# lf_proposal prices the scope through lf_price, builds rules.json from the live BRAIN rules and asks n8n ("Ops: lf_proposal
+# runner") to start this workflow. It runs docs/fortress/generators/proposal/lf_proposal.py exactly as the README says, keeps the
+# PDF, the QA report and the page images as a run artifact, then names the run to n8n, which files the PDF in the client's
+# ProposalPacks folder and records the job. Nothing here sends anything to a client. No secrets live in this file.
+name: lf_proposal render
+on:
+  workflow_dispatch:
+    inputs:
+      job_id:
+        description: "lf_proposal_job id"
+        required: true
+      payload:
+        description: "base64 of gzip JSON: {spec | fixture, rules}"
+        required: true
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Renderer
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils libpango-1.0-0 libpangoft2-1.0-0 > /dev/null
+          pip install -q weasyprint==62.3 pypdf
+      - name: Unpack the job
+        env:
+          PAYLOAD: ${{ inputs.payload }}
+        run: |
+          mkdir -p /tmp/job
+          python3 - <<'PY'
+          import base64, gzip, json, os, sys
+          p = json.loads(gzip.decompress(base64.b64decode(os.environ["PAYLOAD"])).decode("utf-8"))
+          json.dump(p["rules"], open("/tmp/job/rules.json", "w"))
+          if p.get("fixture") == "greentech":
+              spec = json.load(open("docs/fortress/generators/proposal/examples/greentech-spec.json"))
+          elif isinstance(p.get("spec"), dict):
+              spec = p["spec"]
+          else:
+              sys.exit("payload has neither a spec nor a known fixture")
+          json.dump(spec, open("/tmp/job/spec.json", "w"))
+          PY
+      - name: Generate
+        id: gen
+        working-directory: docs/fortress/generators/proposal
+        run: |
+          set +e
+          python3 lf_proposal.py --spec /tmp/job/spec.json --rules /tmp/job/rules.json --out /tmp/out > /tmp/out.log 2>&1
+          code=$?
+          set -e
+          mkdir -p /tmp/out && cp /tmp/out.log /tmp/out/generator.log
+          echo "$code" > /tmp/out/exit_code.txt
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          tail -30 /tmp/out.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lf-proposal-${{ inputs.job_id }}
+          path: /tmp/out
+          retention-days: 7
+      - name: Hand the run to n8n
+        if: always()
+        run: |
+          curl -fsS -X POST -H 'content-type: application/json' \
+            -d "{\"run_id\":\"${{ github.run_id }}\",\"job_id\":\"${{ inputs.job_id }}\",\"exit_code\":\"${{ steps.gen.outputs.code }}\",\"repo\":\"${{ github.repository }}\"}" \
+            https://launchforte.app.n8n.cloud/webhook/lf-proposal-built-7c41e2
