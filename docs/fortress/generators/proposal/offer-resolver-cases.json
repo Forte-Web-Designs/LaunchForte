@@ -180,7 +180,7 @@
   }
  },
  {
-  "name": "Upwork buyer with no recorded first contact and no override gets no plan or financing",
+  "name": "Upwork buyer with no recorded first contact and no override is evaluated like a direct buyer (v3, Seth Nov 23 2026)",
   "in": {
    "doc_type": "proposal",
    "buyer_status": "prospect",
@@ -192,8 +192,8 @@
    "rules_verified": true
   },
   "out": {
-   "offer_plan": false,
-   "variant": "none",
+   "offer_plan": true,
+   "variant": "whats_next",
    "financing": false
   }
  },
@@ -312,7 +312,7 @@
   }
  },
  {
-  "name": "Upwork buyer 8 months in with no override gets no plan",
+  "name": "Upwork buyer 8 months in with no override is evaluated like a direct buyer (v3, Seth Nov 23 2026)",
   "in": {
    "doc_type": "proposal",
    "buyer_status": "prospect",
@@ -327,13 +327,13 @@
    "upwork_first_contact_months": 8
   },
   "out": {
-   "offer_plan": false,
-   "variant": "none",
+   "offer_plan": true,
+   "variant": "whats_next",
    "financing": false
   }
  },
  {
-  "name": "Upwork buyer with no recorded first contact and no override gets no plan",
+  "name": "Upwork buyer with no recorded first contact and no override is evaluated like a direct buyer (v3, Seth Nov 23 2026)",
   "in": {
    "doc_type": "proposal",
    "buyer_status": "prospect",
@@ -348,13 +348,13 @@
    "upwork_first_contact_months": null
   },
   "out": {
-   "offer_plan": false,
-   "variant": "none",
+   "offer_plan": true,
+   "variant": "whats_next",
    "financing": false
   }
  },
  {
-  "name": "Upwork buyer exactly 24 months in with no override gets no plan",
+  "name": "Upwork buyer exactly 24 months in with no override is evaluated like a direct buyer (v3, Seth Nov 23 2026)",
   "in": {
    "doc_type": "proposal",
    "buyer_status": "prospect",
@@ -369,8 +369,8 @@
    "upwork_first_contact_months": 24
   },
   "out": {
-   "offer_plan": false,
-   "variant": "none",
+   "offer_plan": true,
+   "variant": "whats_next",
    "financing": false
   }
  },

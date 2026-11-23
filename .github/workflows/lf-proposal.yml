@@ -27,7 +27,7 @@ jobs:
       - name: Renderer
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils libpango-1.0-0 libpangoft2-1.0-0 > /dev/null
-          pip install -q weasyprint==62.3 pypdf
+          pip install -q weasyprint==70.0 pypdf
       - name: Unpack the job
         env:
           PAYLOAD: ${{ inputs.payload }}

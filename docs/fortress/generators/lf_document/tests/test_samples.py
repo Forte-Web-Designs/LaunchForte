@@ -16,11 +16,12 @@ SIGNED, UP8, PROS = J("accounts/signed_retainer_sample.json"), J("accounts/upwor
 PSPEC = J("specs_proposal_sample.json")
 def rec(r, s=SNAP): return next(b for b in lf_document(r, "proposal", s)["whats_next"]["blocks"] if b["kind"] == "recommend")
 
-def test_signed_and_upwork_no_plan():
+def test_signed_no_plan_and_upwork_gets_plan():
     assert lf_document(SIGNED, "handoff", SNAP)["resolver"]["verdict"] == "NO PLAN"
-    assert lf_document(UP8, "handoff", SNAP)["resolver"]["verdict"] == "NO PLAN"
+    # technology-partner-offer v3 (Seth Nov 23 2026): the Upwork exclusion is removed
+    assert lf_document(UP8, "handoff", SNAP)["resolver"]["verdict"] == "OFFER"
     u = copy.deepcopy(UP8); u["resolver_inputs"]["upwork_first_contact_months"] = None
-    assert lf_document(u, "handoff", SNAP)["resolver"]["verdict"] == "NO PLAN"
+    assert lf_document(u, "handoff", SNAP)["resolver"]["verdict"] == "OFFER"
 
 def test_rules_unavailable_still_renders():
     for snap in (None, dict(SNAP, offer_rule={"sha12": "old"})):
@@ -50,7 +51,7 @@ def test_proposal_shape_and_gate():
 
 def test_gate_failures():
     html, d = build_html(PSPEC, PROS, SNAP)
-    assert any("resolver said no" in f for f in check(html, lf_document(UP8, "proposal", SNAP), SNAP)["failures"])
+    assert any("resolver said no" in f for f in check(html, lf_document(SIGNED, "proposal", SNAP), SNAP)["failures"])
     bad = html.replace("</ul>", "<li><b>%s</b> %s</li></ul>" % CLIENT_WORDS[9], 1)
     assert any("not supported" in f for f in check(bad, d, SNAP)["failures"])
     p = copy.deepcopy(PROS); p["figures"]["week_one_measurements"] = []

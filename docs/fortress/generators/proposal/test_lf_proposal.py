@@ -19,7 +19,7 @@ S10 = "## 10. Technology Partner\n**Plan.** One plan, **$500 a month**, month to
 def rules(**over):
     r = {"read_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
          "pricing": {"sha12": "bf40e201ea00", "freshness": "VERIFIED", "section_2": S2, "section_10": S10},
-         "technology_partner_offer": {"sha12": "fe21a96233cf", "freshness": "LIVE"},
+         "technology_partner_offer": {"sha12": "9f3961f5b8bf", "freshness": "LIVE"},
          "client_document_hard_rules": {"sha12": "ee99703ddff9", "freshness": "LIVE"}, "voice": {"freshness": "LIVE"}}
     r.update(over); return r
 
@@ -45,7 +45,7 @@ class T(unittest.TestCase):
         self.assertEqual(rep["financing"], "disabled")
 
     def test_ineligible_buyers_get_no_plan(self):
-        for b in ({"status": "prospect", "platform": "upwork"}, {"status": "active_client", "platform": "direct"},
+        for b in ({"status": "active_client", "platform": "direct"},
                   {"status": "prospect", "platform": "direct", "signed_agreement": True}, {"status": "opted_out", "platform": "direct"},
                   {"status": "unknown", "platform": "direct"}):
             s = copy.deepcopy(SPEC); s["buyer"] = dict(b, scope_approved=True)
@@ -96,7 +96,7 @@ class T4(unittest.TestCase):
         self.assertEqual(rep["price_problems"], [])
 
 class T5(unittest.TestCase):
-    """Rule technology-partner-offer v2, section 4 line 3: an Upwork buyer gets the plan only under a dated per client override from Seth."""
+    """Rule technology-partner-offer v3 (Seth Nov 23 2026): the Upwork exclusion is removed, so an Upwork buyer gets the plan like any eligible buyer."""
     def build(self, **buyer):
         s = copy.deepcopy(SPEC); s["buyer"] = dict({"status": "prospect", "platform": "upwork", "scope_approved": True, "upwork_first_contact_months": 0}, **buyer)
         c, o, out = run(s, rules(), tempfile.mkdtemp())
@@ -110,12 +110,11 @@ class T5(unittest.TestCase):
         self.assertTrue(rep["plan_offered"]); self.assertEqual(rep["plan_price"], 500)
         self.assertEqual(rep["price_problems"], [])
 
-    def test_missing_wrong_or_undated_override_offers_no_plan(self):
+    def test_upwork_buyer_without_any_override_gets_the_plan(self):
         good = {"client": "Ridgeline Outfitters", "date": "2026-11-22", "source_ref": "account_thesis_event#0000"}
-        for ov in (None, dict(good, client="Someone Else"), {k: v for k, v in good.items() if k != "date"}, dict(good, date="Nov 22"),
-                   {k: v for k, v in good.items() if k != "source_ref"}):
+        for ov in (None, dict(good, client="Someone Else"), {k: v for k, v in good.items() if k != "date"}):
             c, o, rep = self.build(seth_override=ov)
-            self.assertFalse(rep["plan_offered"], ov)
+            self.assertTrue(rep["plan_offered"], ov); self.assertEqual(rep["plan_price"], 500)
 
     def test_upwork_buyer_over_24_months_is_treated_as_direct(self):
         c, o, rep = self.build(upwork_first_contact_months=30)

@@ -15,7 +15,7 @@ Nothing here types a price, discount or plan item that could drift:
 from __future__ import annotations
 import re
 
-BUILT_FROM = {"technology-partner-offer": "fe21a96233cf", "pricing": "bf40e201ea00"}
+BUILT_FROM = {"technology-partner-offer": "9f3961f5b8bf", "pricing": "bf40e201ea00"}
 DOC_TYPES = ("handoff", "audit", "architecture", "proposal", "quote")
 MENTION_ONLY = ("client_update", "sop", "email", "reply", "upwork_reply", "status")
 RETIRED_PRICES = {750}
@@ -115,12 +115,7 @@ def resolve(i: dict) -> dict:
         return _no("The offer text could not be verified, so the plan is not added. The rest of the document is written without it.")
     if i.get("seth_opt_out") or i.get("buyer_status") == "opted_out":
         return _no("Seth opted this buyer out, so the plan is not offered.")
-    if i.get("platform") == "upwork":
-        months = i.get("upwork_first_contact_months")
-        if months is None:
-            return _no("Upwork buyer with no recorded first contact date, so it fails closed and the plan is not offered.")
-        if months < 24 and not i.get("seth_override_on_card"):
-            return _no("Upwork buyer within 24 months of first contact and no written override from Seth on the card, so no off platform plan or price is offered.")
+    # v3 (Seth Nov 23 2026): the Upwork exclusion is removed; the platform no longer decides the plan.
     if i.get("signed_agreement"):
         return _no("A signed agreement or current retainer is in force, so terms are not changed and the plan is a Seth decision.")
     if i.get("kept_project_based"):
@@ -134,9 +129,9 @@ def resolve(i: dict) -> dict:
         return _no("Unknown document type, so it fails closed.")
     if dt in ("proposal", "quote") and not i.get("scope_approved"):
         return _no("The scope is not approved yet, so the plan is not added.")
-    why = "Seth's written override on the card covers this Upwork buyer. " if i.get("platform") == "upwork" else ""
+    why = ""
     return {"offer_plan": True, "variant": "whats_next", "verdict": "OFFER",
-            "financing": bool(i.get("financing_enabled")) and dt in ("proposal", "quote"),
+            "financing": bool(i.get("financing_enabled")) and dt in ("proposal", "quote") and i.get("platform") != "upwork",  # Pricing Standard 11.3(b)
             "reason": why + "Eligible %s, so it ends with a tailored What's next section, last before support and the appendix." % dt}
 
 

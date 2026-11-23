@@ -1,4 +1,4 @@
-"""Card 538 / 629: Python mirror of lib/gateway/offer-resolver.ts (rule technology-partner-offer v2, sha fe21a96233cf, sections 4 and 8).
+"""Card 538 / 629: Python mirror of lib/gateway/offer-resolver.ts (rule technology-partner-offer v3, sha 9f3961f5b8bf, sections 4 and 8; Seth Nov 23 2026 removed the Upwork exclusion).
 Held to the same cases in offer-resolver-cases.json. Never returns a price or wording.
 
 Inputs (section 8): doc_type, buyer_status, platform, upwork_first_contact_months, seth_override_on_card, signed_agreement,
@@ -20,12 +20,7 @@ def resolve_offer(i):
         return _none("The offer text could not be verified, so the plan is not added. The rest of the document is written without it.")
     if i.get("seth_opt_out") or i.get("buyer_status") == "opted_out":
         return _none("Seth opted this buyer out, so the plan is not offered.")
-    override = False
-    if i.get("platform") == "upwork":
-        months = i.get("upwork_first_contact_months")
-        override = bool(i.get("seth_override_on_card"))
-        if not override and not (isinstance(months, (int, float)) and months > 24):
-            return _none("This buyer came through Upwork within 24 months of first contact, or the first contact date is not recorded, and Seth has no written override on the client's card, so no off platform plan or price is offered.")
+    # v3 (Seth Nov 23 2026): the platform the buyer came through no longer decides the plan.
     if i.get("signed_agreement") or i.get("buyer_status") == "active_client":
         return _none("A signed agreement or current retainer is in force, so terms are not changed and the plan is a Seth decision.")
     if i.get("kept_project_based"):
@@ -36,9 +31,9 @@ def resolve_offer(i):
     if dt in ("proposal", "quote") and not i.get("scope_approved"):
         return _none("The scope is not approved yet, so the plan is not added.")
     if dt in WHATS_NEXT_DOCS:
-        why = "Seth's written override on the client's card covers this Upwork buyer. " if override else ""
+        why = ""
         return {"offer_plan": True, "variant": "whats_next",
-                "financing": bool(i.get("financing_enabled")) and dt in ("proposal", "quote"),
+                "financing": bool(i.get("financing_enabled")) and dt in ("proposal", "quote") and i.get("platform") != "upwork",  # Pricing Standard 11.3(b)
                 "reason": why + "Eligible, so the document ends with a tailored What's next section, last before any appendix."}
     return {"offer_plan": True, "variant": "mention_only", "financing": False, "reason": "Know the plan. Mention it only when the client, an outcome or Seth triggers it."}
 
