@@ -43,6 +43,8 @@ function patchCockpit(w, mode) {
     "  const notes = [];\n" +
     "  const SUPPORT = /\\b(import\\w*|contacts?|tags?|smart lists?|lists?|segments?|custom (fields?|properties)|templates?|brand styling|redirect\\w*|sending domain|warm ?up|dkim|spf|dmarc|a2p|10dlc|text(ing)? registration|account (structure|setup)|test\\w*|walkthrough|workflow map|documentation|handover|zoom|google calendar|calendar connections?)\\b/i;\n" +
     "  D.forEach(function (d) { if (d.status === 'BUILD' && (d.piece_type === 'config' || d.piece_type === 'risk') && SUPPORT.test(d.title) && !/\\b(no[- ]?show|cancel\\w*|booking tracking|track\\w*)\\b/i.test(d.title)) { d.status = 'INCLUDED'; notes.push('included in the migration, not a line: ' + d.title); } });\n" +
+    "  const CAL = /\\b(zoom|google calendars?|outlook calendars?|calendar (sync|connections?|integrations?)|video (call|conferenc\\w*) (links?|connections?))\\b/i;\n" +
+    "  D.forEach(function (d) { if (d.status === 'BUILD' && (d.piece_type === 'connection' || d.piece_type === 'config') && CAL.test(d.title) && !/\\b(no[- ]?show|cancel\\w*|tracking)\\b/i.test(d.title) && D.some(function (x) { return x.piece_type === 'migration_calendar' && x.status === 'BUILD'; })) { d.status = 'INCLUDED'; notes.push('part of migrating the calendars, not a line: ' + d.title); } });\n" +
     "  const W = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 };\n" +
     "  const UN = { flow: 'migration_flow', form: 'migration_form', page: 'migration_page', calendar: 'migration_calendar' };\n" +
     "  String(post || '').replace(/\\b(one|two|three|four|five|six|seven|eight|nine|ten|\\d+)\\s+unnamed\\s+(flow|form|page|calendar)s?\\b/gi, function (m, n, k) {\n" +
