@@ -10,7 +10,7 @@ rules.json shape (all strings come from the lf_rules readback, verbatim):
   "pricing":  {"sha12": "bf40e201ea00", "freshness": "VERIFIED", "version": "v2.6",
                "section_2":  "<the rate card table rows, verbatim>",
                "section_10": "<section 10 text from '## 10.' through the Plan paragraph, verbatim>"},
-  "technology_partner_offer": {"sha12": "fe21a96233cf", "freshness": "LIVE"},
+  "technology_partner_offer": {"sha12": "9f3961f5b8bf", "freshness": "LIVE"},
   "client_document_hard_rules": {"sha12": "ee99703ddff9", "freshness": "LIVE"},
   "voice": {"freshness": "LIVE"}
 }

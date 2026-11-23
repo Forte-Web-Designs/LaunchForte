@@ -7,7 +7,7 @@ const inSrc = fs.readFileSync(path.join(__dirname, 'cockpit-offer-inputs-node.js
 const decSrc = fs.readFileSync(path.join(__dirname, 'cockpit-offer-decision-node.js'), 'utf8');
 const casesPath = process.argv[2] || process.env.OFFER_CASES || '/home/claude/launchforte-dashboard/lib/gateway/offer-resolver-cases.json';
 const cases = JSON.parse(fs.readFileSync(casesPath, 'utf8'));
-const good = { ok: true, stale: false, plan_price_per_month: 500, member_discount_pct: 30, offer_rule_sha12: 'fe21a96233cf', pricing_rule_sha12: 'bf40e201ea00' };
+const good = { ok: true, stale: false, plan_price_per_month: 500, member_discount_pct: 30, offer_rule_sha12: '9f3961f5b8bf', pricing_rule_sha12: 'bf40e201ea00' };
 const mk = (m) => ({ first: () => ({ json: m }) });
 function run(src, json, nodes) { return new Function('$json', '$', src)(json, (n) => mk(nodes[n]))[0].json; }
 function pipe(rule, make, gate, resp) {
