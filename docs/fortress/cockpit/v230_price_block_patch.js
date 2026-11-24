@@ -181,6 +181,8 @@ function patchCockpit(w, mode) {
   { const x = cut(GATE, 'let blockSum = 0; const shownUnits = [];', "fails.push('SCOPE/PRICE MISMATCH: priced but not shown: ' + p.piece_description); });\n}");
     x.n.parameters.jsCode = x.c.slice(0, x.s) + __body(__v230GateBlock) + x.c.slice(x.e); }
   rep(GATE, 'const loomMoney = loom.match(', __body(__v230GateWords) + '\nconst loomMoney = loom.match(', 1);
+  rep(GATE, "(cov.map || []).filter(e => e.status === 'PRICED').forEach(e => { if (block.indexOf(e.piece) < 0) sfails.push('SCOPE: \"' + e.deliverable + '\" is priced as \"' + e.piece + '\" but not shown'); });",
+    "(cov.map || []).filter(e => e.status === 'PRICED').forEach(e => { if (!(po.pieces || []).some(p => p.piece_description === e.piece)) sfails.push('SCOPE: \"' + e.deliverable + '\" is priced as \"' + e.piece + '\" but that piece is not in the price'); }); /* V2.30: shown is checked by the block check, every priced piece sits in exactly one outcome block */", 1);
   rep(GATE, "if (x.status === 'PRICED') byDel[t].priced++;", "if (x.status === 'PRICED') byDel[t].priced += Math.max(1, parseInt(x.units, 10) || 1); /* V2.30: a moved item line counts its units */", 1);
 
   // 3. Price Gate Engine: coverage entries for moved items carry their count
